@@ -29,6 +29,9 @@ class CreatePaymentsTable extends Migration
             $table->string('payment_note')->nullable();
             $table->timestamps();
 
+            $table->foreign('payment_tenant_id')->references('tenant_id')
+            ->on('tenants')->onDelete('cascade');
+
         });
     }
 
@@ -40,5 +43,6 @@ class CreatePaymentsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('payments');
+         $table->dropForeign('payment_tenant_id');
     }
 }

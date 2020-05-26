@@ -23,6 +23,9 @@ class CreateBillingsTable extends Migration
             $table->string('billing_status')->default('unpaid');
             $table->string('details');
             $table->timestamps();
+
+            $table->foreign('billing_tenant_id')->references('tenant_id')
+            ->on('tenants')->onDelete('cascade');
           
         });
     }
@@ -35,5 +38,6 @@ class CreateBillingsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('billings');
+        $table->dropForeign('billing_tenant_id');
     }
 }

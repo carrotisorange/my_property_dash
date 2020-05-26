@@ -27,6 +27,9 @@ class CreateUnitsTable extends Migration
             $table->string('unit_property');
             $table->string('building')->nullable();
             $table->timestamps();
+
+            $table->foreign('unit_unit_owner_id')->references('unit_owner')
+            ->on('unit_owners')->onDelete('cascade');
           
         });
     }
@@ -38,5 +41,6 @@ class CreateUnitsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('units');
+        $table->dropForeign('unit_unit_owner_id');
     }
 }

@@ -68,7 +68,8 @@ class CreateTenantsTable extends Migration
 
             $table->timestamps();
 
-
+            $table->foreign('unit_tenant_id')->references('unit_id')
+                ->on('units')->onDelete('cascade');
         });
     }
 
@@ -80,5 +81,6 @@ class CreateTenantsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('tenants');
+        $table->dropForeign('tenant_unit_id');
     }
 }
