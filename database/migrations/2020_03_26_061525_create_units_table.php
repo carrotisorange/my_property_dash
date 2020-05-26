@@ -16,7 +16,7 @@ class CreateUnitsTable extends Migration
         Schema::create('units', function (Blueprint $table) {
             $table->bigIncrements('unit_id');
             $table->string('unit_no',10);
-            $table->bigIncrements('unit_unit_owner_id');
+            $table->unsignedBigInteger('unit_unit_owner_id');
             $table->integer('floor_no');
             $table->integer('beds');
             $table->float('monthly_rent', 8,2);
@@ -27,7 +27,7 @@ class CreateUnitsTable extends Migration
             $table->string('unit_property');
             $table->string('building')->nullable();
             $table->timestamps();
-            $table->foreign('unit_unit_owner_id')->references('unit_owner_id')->on('unit_owners');
+          
         });
     }
     /**

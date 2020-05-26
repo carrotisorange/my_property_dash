@@ -15,7 +15,7 @@ class CreatePaymentsTable extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->bigIncrements('payment_id');
-            $table->bigIncrements('payment_tenant_id');   
+            $table->unsignedBigInteger('payment_tenant_id');
             $table->date('payment_created');
             $table->double('amt_paid', 8, 2);
             $table->string('form_of_payment')->nullable();
@@ -29,7 +29,6 @@ class CreatePaymentsTable extends Migration
             $table->string('payment_note')->nullable();
             $table->timestamps();
 
-            $table->foreign('payment_tenant_id')->references('tenant_id')->on('tenants');
         });
     }
 
