@@ -26,7 +26,7 @@ class CreateUnitsTable extends Migration
             $table->string('type_of_units');
             $table->float('discount', 8, 2);
             $table->string('unit_property');
-            $table->string("building")->nullable();
+            $table->string('building')->nullable();
             $table->timestamps();
         });
     }
