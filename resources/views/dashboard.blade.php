@@ -42,7 +42,7 @@
                                         Occupancy Rate
                                     </div>
                                     <div class="card-body">
-                                    <h1 class="text-center">{{ number_format($occupied_units->count()/$units->count() * 100,2) }}%
+                                    <h1 class="text-center">{{ number_format($units->count() == 0 ? 0 :$occupied_units->count()/$units->count() * 100,2) }}%
                                             <span class="text-right"><p><i class="fas fa-chart-line"></i></p></span>
                                         </h1>
                                     </div>

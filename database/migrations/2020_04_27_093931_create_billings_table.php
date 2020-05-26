@@ -20,6 +20,8 @@ class CreateBillingsTable extends Migration
             $table->date('billing_date');
             $table->string('billing_desc');
             $table->double('billing_amt', 8, 2);
+            $table->string('billing_status')->default('unpaid');
+            $table->string('details');
             $table->timestamps();
         });
     }

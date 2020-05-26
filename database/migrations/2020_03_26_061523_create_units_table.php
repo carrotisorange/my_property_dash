@@ -23,10 +23,13 @@ class CreateUnitsTable extends Migration
             $table->float('monthly_rent', 8,2);
             $table->float('egr', 8,2);
             $table->string('status')->default('vacant');
+            $table->string('type_of_units');
+            $table->float('discount', 8, 2);
+            $table->string('unit_property');
+            $table->string("building")->nullable();
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      *

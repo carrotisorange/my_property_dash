@@ -21,6 +21,9 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->string('status')->default('unregistered');
+            $table->string('property')->nullable();
+            $table->string("user_type")->nullable();
         });
     }
 

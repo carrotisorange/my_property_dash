@@ -61,6 +61,12 @@ class CreateTenantsTable extends Migration
             $table->string('years_of_employment')->nullable();
             $table->string('employer_contact_no')->nullable();
 
+            $table->string('tenants_note')->nullable();
+            $table->string('has_extended')->nullable();
+
+            $table->date('actual_move_out_date')->nullable();
+            $table->string('reason_for_moving_out')->nullable();
+
             $table->timestamps();
         });
     }

@@ -28,6 +28,7 @@ class CreateUnitOwnersTable extends Migration
             $table->float('investment_price', 8, 2)->nullable();
             $table->string('investment_type')->nullable();
             $table->float('discount', 8, 2)->nullable();
+            $table->string('account_name')->nullable();
         });
     }
 
