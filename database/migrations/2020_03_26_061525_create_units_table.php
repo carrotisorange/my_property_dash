@@ -14,7 +14,7 @@ class CreateUnitsTable extends Migration
     public function up()
     {
         Schema::create('units', function (Blueprint $table) {
-            $table->id('unit_id');
+            $table->id();
             $table->string('unit_no',10);
             $table->unsignedBigInteger('unit_unit_owner_id');
             $table->integer('floor_no');
