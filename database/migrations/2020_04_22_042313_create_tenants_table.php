@@ -15,8 +15,7 @@ class CreateTenantsTable extends Migration
     {
         Schema::create('tenants', function (Blueprint $table) {
             $table->bigIncrements('tenant_id');
-            $table->integer('unit_tenant_id')->unsigned()->nullable();
-            $table->foreign('unit_tenant_id')->references('unit_id')->on('units');
+            $table->unsignedInteger('unit_tenant_id');           
             $table->string('tenant_unique_id');
             $table->string('first_name');
             $table->string('middle_name')->nullable();
@@ -68,6 +67,8 @@ class CreateTenantsTable extends Migration
             $table->string('reason_for_moving_out')->nullable();
 
             $table->timestamps();
+
+            $table->foreign('unit_tenant_id')->references('unit_id')->on('units');
         });
     }
 

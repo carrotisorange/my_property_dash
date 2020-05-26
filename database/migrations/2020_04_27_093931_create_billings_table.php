@@ -15,14 +15,15 @@ class CreateBillingsTable extends Migration
     {
         Schema::create('billings', function (Blueprint $table) {
             $table->bigIncrements('billing_id');
-            $table->integer('billing_tenant_id')->unsigned()->nullable();
-            $table->foreign('billing_tenant_id')->references('tenant_id')->on('tenants');
+            $table->unsignedInteger('billing_tenant_id');   
+            
             $table->date('billing_date');
             $table->string('billing_desc');
             $table->double('billing_amt', 8, 2);
             $table->string('billing_status')->default('unpaid');
             $table->string('details');
             $table->timestamps();
+            $table->foreign('billing_tenant_id')->references('tenant_id')->on('tenants');
         });
     }
 
