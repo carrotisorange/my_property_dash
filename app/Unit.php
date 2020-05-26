@@ -28,7 +28,7 @@ class Unit extends Model
 
     public function unit_owner()
     {
-        return $this->belongsTo('App\Unit_Owner', 'unit_unit_owner_id');
+        return $this->belongsTo('App\UnitOwner', 'unit_unit_owner_id');
     }
 
     
