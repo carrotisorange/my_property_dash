@@ -839,7 +839,7 @@
 
                 <div class="form-group">
                     <label for="recipient-name" class="col-form-label">Property</label>
-                    <input form="addUnitForm" type="text" class="form-control" name="unit_property">
+                    <input form="addUnitForm" type="text" class="form-control" name="unit_property" value="{{ Auth::user()->property }}" readonly>
                 </div>
                
             </div>
