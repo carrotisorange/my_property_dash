@@ -11,17 +11,17 @@ class UnitsTableSeeder extends Seeder
      */
     public function run()
     {
-        for($i = 1; $i<=13; $i++ ) {
+        
         DB::table('units')->insert([
-            'unit_no' => 'GL    '.''.$i,
-            'floor_no' => 'G',
+            'unit_no' => '204',
+            'floor_no' => '2',
             'type_of_units' => 'residential',
-            'unit_property' => 'North Cambridge',
-            'building' => 'Harvard',
-            'beds' => '2',
-            'monthly_rent' => '6800',
+            'unit_property' => 'The Courtyards',
+            'building' => 'Loft',
+            'beds' => '1',
+            'monthly_rent' => '13000',
             'status' => 'vacant',
         ]);
-        }
+       
     }
 }
