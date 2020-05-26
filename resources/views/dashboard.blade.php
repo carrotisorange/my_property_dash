@@ -33,12 +33,14 @@
                 <div class="card">
                     <div class="card-body">
                         <h4>Dashboard</h4>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addUnit" data-whatever="@mdo"><i class="fas fa-plus"></i> room</button> 
-                        <h5>
+
+                        <p class="text-right"> <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addUnit" data-whatever="@mdo"><i class="fas fa-plus"></i> room</button> </p>
+                       
+                        {{-- <h5>
                             
                             <p class="text-right">{{ Carbon\Carbon::today()->format('M d Y') }}</p>
-                        </h5>
-                        <br>
+                        </h5> --}}
+                    
                         <div class="row text-center">
                             <div class="col-md-3">
                                 <div class="card bg-primary">
