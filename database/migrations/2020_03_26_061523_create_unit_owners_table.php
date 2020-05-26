@@ -14,7 +14,7 @@ class CreateUnitOwnersTable extends Migration
     public function up()
     {
         Schema::create('unit_owners', function (Blueprint $table) {
-            $table->bigIncrements('unit_owner_id');
+            $table->id('unit_owner_id');
             $table->date('date_invested')->nullable();
             $table->string('unit_owner');
             $table->string('investor_email_address')->nullable();
