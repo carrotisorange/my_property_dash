@@ -25,7 +25,7 @@ class CreateBillingsTable extends Migration
             $table->timestamps();
 
             $table->foreign('billing_tenant_id')->references('tenant_id')
-            ->on('tenants')->onDelete('cascade');
+            ->on('tenants');
           
         });
     }

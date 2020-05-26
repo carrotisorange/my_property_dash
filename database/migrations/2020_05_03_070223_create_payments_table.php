@@ -14,7 +14,7 @@ class CreatePaymentsTable extends Migration
     public function up()
     {
         Schema::create('payments', function (Blueprint $table) {
-            $table->bigIncrements('payment_id')->unsigned();
+            $table->bigIncrements('payment_id');
             $table->unsignedBigInteger('payment_tenant_id');
             $table->date('payment_created');
             $table->double('amt_paid', 8, 2);
@@ -30,7 +30,7 @@ class CreatePaymentsTable extends Migration
             $table->timestamps();
 
             $table->foreign('payment_tenant_id')->references('tenant_id')
-            ->on('tenants')->onDelete('cascade');
+            ->on('tenants');
 
         });
     }

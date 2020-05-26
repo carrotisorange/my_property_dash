@@ -14,7 +14,7 @@ class CreateUnitsTable extends Migration
     public function up()
     {
         Schema::create('units', function (Blueprint $table) {
-            $table->bigIncrements('unit_id')->unsigned();
+            $table->bigIncrements('unit_id');
             $table->string('unit_no',10);
             $table->unsignedBigInteger('unit_unit_owner_id');
             $table->integer('floor_no');
@@ -28,8 +28,8 @@ class CreateUnitsTable extends Migration
             $table->string('building')->nullable();
             $table->timestamps();
 
-            $table->foreign('unit_unit_owner_id')->references('unit_owner')
-            ->on('unit_owners')->onDelete('cascade');
+            $table->foreign('unit_unit_owner_id')->references('unit_owner_id')
+            ->on('unit_owners');
           
         });
     }

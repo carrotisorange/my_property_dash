@@ -14,7 +14,7 @@ class CreateTenantsTable extends Migration
     public function up()
     {
         Schema::create('tenants', function (Blueprint $table) {
-            $table->bigIncrements('tenant_id')->unsigned();
+            $table->bigIncrements('tenant_id');
             $table->unsignedBigInteger('unit_tenant_id');
             $table->string('tenant_unique_id');
             $table->string('first_name');
@@ -69,7 +69,7 @@ class CreateTenantsTable extends Migration
             $table->timestamps();
 
             $table->foreign('unit_tenant_id')->references('unit_id')
-                ->on('units')->onDelete('cascade');
+                ->on('units');
         });
     }
 
