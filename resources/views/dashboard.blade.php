@@ -33,7 +33,11 @@
                 <div class="card">
                     <div class="card-body">
                         <h4>Dashboard</h4>
-                        <h5><p class="text-right">{{ Carbon\Carbon::today()->format('M d Y') }}</p></h5>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addUnit" data-whatever="@mdo"><i class="fas fa-plus"></i> room</button> 
+                        <h5>
+                            
+                            <p class="text-right">{{ Carbon\Carbon::today()->format('M d Y') }}</p>
+                        </h5>
                         <br>
                         <div class="row text-center">
                             <div class="col-md-3">
@@ -788,6 +792,61 @@
           </div>
         </div>
       </div>
+
+
+      <div class="modal fade" id="addUnit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Add Unit</h5>
+            
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+                <form id="addUnitForm" action="/units/add" method="POST">
+                    {{ csrf_field() }}
+                </form>
+
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Unit No:</label>
+                    <input form="addUnitForm" type="text" class="form-control" name="unit_no">
+                </div>
+
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Floor No:</label>
+                    <input form="addUnitForm" type="text" class="form-control" name="floor_no">
+                </div>
+
+                
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">building:</label>
+                    <input form="addUnitForm" type="text" class="form-control" name="building">
+                </div>
+                
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Beds:</label>
+                    <input form="addUnitForm" type="text" class="form-control" name="beds">
+                </div>
+                
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Monthly Rent:</label>
+                    <input form="addUnitForm" type="number" class="form-control" name="monthly_rent">
+                </div>
+
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Property</label>
+                    <input form="addUnitForm" type="text" class="form-control" name="unit_property">
+                </div>
+               
+            </div>
+            <div class="modal-footer">
+                <button form="addUnitForm" type="submit" class="btn btn-primary"><i class="fas fa-check"></i> Save</button>
+                </div>
+        </div>
+        </div>
+    </div>
 </div>
 <script>
     $(document).ready(() => {

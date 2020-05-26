@@ -16,7 +16,7 @@ class CreateUnitsTable extends Migration
         Schema::create('units', function (Blueprint $table) {
             $table->bigIncrements('unit_id');
             $table->string('unit_no',10);
-            $table->unsignedBigInteger('unit_unit_owner_id');
+            $table->unsignedBigInteger('unit_unit_owner_id')->nullable();
             $table->integer('floor_no');
             $table->integer('beds');
             $table->float('monthly_rent', 8,2);

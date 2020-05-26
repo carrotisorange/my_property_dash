@@ -122,6 +122,22 @@ class UnitsController extends Controller
         
     }
 
+    public function add_unit(Request $request){
+        
+        DB::table('units')->insert([
+            'unit_no' => $request->unit_no,
+            'floor_no' => $request->floor_no,
+            'building' => $request->building,
+            'beds' => $request->beds,
+            'monthly_rent' => $request->monthly_rent,
+            'status' => 'vacant',
+            'unit_property' => $request->unit_property,
+            'type_of_units' => 'residential',
+        ]);
+
+        return back()->with('success', 'Unit has been successfully created!');
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

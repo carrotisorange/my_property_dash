@@ -355,6 +355,7 @@ Route::get('/', function(Request $request){
 //routes for units
 Route::get('units/{unit_id}', 'UnitsController@show')->middleware('auth');
 Route::put('units/{unit_id}', 'UnitsController@update')->middleware('auth');
+Route::post('units/add', 'UnitsController@add_unit')->middleware('auth');
 
 //routes for payments
 Route::get('units/{unit_id}/tenants/{tenant_id}/payments/{payment_id}', 'PaymentController@show')->name('show-payment')->middleware('auth');
