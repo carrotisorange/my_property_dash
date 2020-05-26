@@ -76,7 +76,7 @@ class UnitsController extends Controller
             ->where('unit_id', $request->unit_id)
             ->update(
                         [
-                            'unit_unit_owner_id' => $id
+                            'unit_unit_owner_id' => $id,
                         ]
                     );
 

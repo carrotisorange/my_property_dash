@@ -54,7 +54,7 @@ Route::get('/', function(Request $request){
     ->orderBy('movein_date', 'desc')
     ->get();
 
-    
+
 
 
     $renewed_contracts = DB::table('tenants')
@@ -403,7 +403,7 @@ Route::get('/tenants/search', 'TenantController@search')->middleware('auth');
 
 //routes for investors
 Route::get('/units/{unit_id}/unit_owners/{unit_owner_id}', 'UnitOwnersController@show')->name('show-investor')->middleware('auth');
-Route::post('/investors', 'UnitOwnersController@store')->middleware('auth');
+Route::post('/units', 'UnitsController@store')->middleware('auth');
 
 //route for searching investors
 Route::get('/unit_owners/{unit_owner_id}', 'UnitOwnersController@search')->middleware('auth');
