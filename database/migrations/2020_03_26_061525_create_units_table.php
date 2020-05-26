@@ -29,7 +29,7 @@ class CreateUnitsTable extends Migration
             $table->timestamps();
 
             $table->foreign('unit_unit_owner_id')->references('unit_owner_id')
-            ->on('unit_owners')->onDelete('set null');
+            ->on('unit_owners')->onDelete('cascade');
           
         });
     }

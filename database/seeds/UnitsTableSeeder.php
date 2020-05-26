@@ -21,7 +21,6 @@ class UnitsTableSeeder extends Seeder
             'beds' => '1',
             'monthly_rent' => '13000',
             'status' => 'vacant',
-            'unit_unit_owner_id' => ' ',
         ]);
        
     }
