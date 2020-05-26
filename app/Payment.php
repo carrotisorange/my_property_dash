@@ -21,4 +21,9 @@ class Payment extends Model
             
                             'payment_status'
     ];
+
+    public function tenant()
+    {
+        return $this->belongsTo('App\Tenant', 'billing_tenant_id');
+    }
 }

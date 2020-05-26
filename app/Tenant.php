@@ -50,4 +50,9 @@ class Tenant extends Model
                                 'has_extended',
                                 'tenants_note',
                             ];
+
+    public function units()
+    {
+        return $this->hasMany('App\Tenant', 'unit_tenant_id');
+    }
 }

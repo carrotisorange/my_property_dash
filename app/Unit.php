@@ -26,5 +26,10 @@ class Unit extends Model
                             'building',
     ];
 
+    public function unit_owner()
+    {
+        return $this->belongsTo('App\Unit_Owner', 'unit_unit_owner_id');
+    }
+
     
 }
