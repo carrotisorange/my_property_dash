@@ -83,7 +83,7 @@
                                         Active Tenants
                                     </div>
                                     <div class="card-body">
-                                        <h1 class="text-center">{{ $tenants->count() }}
+                                        <h1 class="text-center">{{ $tenants->count('active') }}
                                             <span class="text-right"><p><i class="fas fa-user"></i></p></span>
                                         </h1>
                                     </div>

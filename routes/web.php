@@ -54,6 +54,8 @@ Route::get('/', function(Request $request){
     ->orderBy('movein_date', 'desc')
     ->get();
 
+    
+
 
     $renewed_contracts = DB::table('tenants')
     ->join('units', 'unit_id', 'unit_tenant_id')
