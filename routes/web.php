@@ -1,0 +1,410 @@
+<?php
+
+use App\Unit, App\UnitOwner, App\Tenant, App\User;
+use Carbon\Carbon;
+use App\Charts\DashboardChart;
+use Illuminate\Http\Request;
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+Auth::routes();
+
+Route::get('/', function(Request $request){
+
+    if(Auth::guest()){
+        return view('auth.login');
+    }
+    
+
+    if(auth()->user()->status === 'unregistered'){
+        return view('unregistered');
+    }
+
+    $units = DB::table('units')
+    ->where('unit_property', Auth::user()->property)
+    ->orderBy('building')
+    ->orderBy('unit_no')
+    ->get();
+
+    $occupied_units = DB::table('units')
+    ->where('unit_property', Auth::user()->property)
+    ->orderBy('building')
+    ->orderBy('unit_no')
+    ->where('status','occupied')
+    ->get();
+
+
+    $investors = DB::table('units')
+    ->join('unit_owners', 'unit_unit_owner_id', 'unit_owner_id')
+    ->where('unit_property', Auth::user()->property)
+    ->get();
+    
+    $tenants = DB::table('tenants')
+    ->join('units', 'unit_id', 'unit_tenant_id')
+    ->where('unit_property', Auth::user()->property)
+    ->orderBy('movein_date', 'desc')
+    ->get();
+
+
+    $renewed_contracts = DB::table('tenants')
+    ->join('units', 'unit_id', 'unit_tenant_id')
+    ->where('unit_property', Auth::user()->property)
+    ->orderBy('movein_date', 'desc')
+    ->where('has_extended', 'renewed')
+    ->where('tenant_status', '!=', 'inactive')
+    ->get();
+
+    $terminated_contracts = DB::table('tenants')
+    ->join('units', 'unit_id', 'unit_tenant_id')
+    ->where('unit_property', Auth::user()->property)
+    ->orderBy('movein_date', 'desc')
+    ->where('tenant_status', 'inactive')
+    ->get();
+
+    $overall_contract_termination = $renewed_contracts->count() + $terminated_contracts->count();
+
+    $renewed_chart = new DashboardChart;
+    $renewed_chart->title('Retention Rate');
+    $renewed_chart->displayAxes(false);
+    $renewed_chart->labels([ 'Renewal'.' ('.$renewed_contracts->count(). ')', 'Terminate'.' ('.$terminated_contracts->count(). ')', 'Total'.' ('.$overall_contract_termination. ')']);
+    $renewed_chart->dataset('', 'pie', [number_format(($overall_contract_termination == 0 ? 0 : $renewed_contracts->count()/$overall_contract_termination) * 100,1),number_format(($overall_contract_termination == 0 ? 0 :$terminated_contracts->count()/$overall_contract_termination) * 100,1)  ])
+    ->backgroundColor(['#008000', '#FF0000']);
+
+    $movein_rate_1 = DB::table('tenants')
+    ->join('units', 'unit_id', 'unit_tenant_id')
+    ->where('movein_date', '>=', Carbon::now()->subMonths(5)->firstOfMonth())
+    ->where('movein_date', '<=', Carbon::now()->subMonths(5)->endOfMonth())
+    ->where('unit_property', Auth::user()->property)
+    ->where('tenant_status','active')
+    ->count();
+
+    $movein_rate_2 = DB::table('tenants')
+    ->join('units', 'unit_id', 'unit_tenant_id')
+    ->where('movein_date', '>=', Carbon::now()->subMonths(4)->firstOfMonth())
+    ->where('movein_date', '<=', Carbon::now()->subMonths(4)->endOfMonth())
+    ->where('unit_property', Auth::user()->property)
+    ->where('tenant_status','active')
+    ->count();
+
+    $movein_rate_3 = DB::table('tenants')
+    ->join('units', 'unit_id', 'unit_tenant_id')
+    ->where('movein_date', '>=', Carbon::now()->subMonths(3)->firstOfMonth())
+    ->where('movein_date', '<=', Carbon::now()->subMonths(3)->endOfMonth())
+    ->where('unit_property', Auth::user()->property)
+    ->where('tenant_status','active')
+    ->count();
+
+    $movein_rate_4 = DB::table('tenants')
+    ->join('units', 'unit_id', 'unit_tenant_id')
+    ->where('movein_date', '>=', Carbon::now()->subMonths(2)->firstOfMonth())
+    ->where('movein_date', '<=', Carbon::now()->subMonths(2)->endOfMonth())
+    ->where('unit_property', Auth::user()->property)
+    ->where('tenant_status','active')
+    ->count();
+
+     $movein_rate_5 = DB::table('tenants')
+    ->join('units', 'unit_id', 'unit_tenant_id')
+    ->where('movein_date', '>=', Carbon::now()->subMonth()->firstOfMonth())
+    ->where('movein_date', '<=', Carbon::now()->subMonth()->endOfMonth())
+    ->where('unit_property', Auth::user()->property)
+    ->where('tenant_status','active')
+    ->count();
+
+     $movein_rate_6 = DB::table('tenants')
+    ->join('units', 'unit_id', 'unit_tenant_id')
+    ->where('movein_date', '>=', Carbon::now()->firstOfMonth())
+    ->where('movein_date', '<=', Carbon::now()->endOfMonth())
+    ->where('unit_property', Auth::user()->property)
+    ->where('tenant_status','active')
+    ->count();
+
+    $movein_rate_increase = ($movein_rate_5 == 0 ? 0 :($movein_rate_6-$movein_rate_5)/$movein_rate_5)*100;
+
+    $movein_rate = new DashboardChart;
+    $movein_rate->title('Move-in Rate'.' ('.$movein_rate_increase.'%)');
+    $movein_rate->barwidth(0.0);
+    $movein_rate->displaylegend(false);
+    $movein_rate->labels([Carbon::now()->subMonth(5)->format('M Y'),Carbon::now()->subMonth(4)->format('M Y'),Carbon::now()->subMonth(3)->format('M Y'),Carbon::now()->subMonths(2)->format('M Y'),Carbon::now()->subMonth()->format('M Y'),Carbon::now()->format('M Y')]);
+    $movein_rate->dataset('number of new tenants', 'line', [$movein_rate_1,$movein_rate_2,$movein_rate_3,$movein_rate_4,$movein_rate_5,$movein_rate_6])
+    ->color("rgb(0, 0, 0)")
+    ->backgroundcolor("rgb(169, 169, 169)")
+    ->fill(false)
+    ->linetension(0.1)
+    ->dashed([5]);
+
+    $moveout_rate_1 = DB::table('tenants')
+    ->join('units', 'unit_id', 'unit_tenant_id')
+    ->where('moveout_date', '>=', Carbon::now()->subMonths(5)->firstOfMonth())
+    ->where('moveout_date', '<=', Carbon::now()->subMonths(5)->endOfMonth())
+    ->where('unit_property', Auth::user()->property)
+    ->where('tenant_status','inactive')
+    ->count();
+
+    $moveout_rate_2 = DB::table('tenants')
+    ->join('units', 'unit_id', 'unit_tenant_id')
+    ->where('moveout_date', '>=', Carbon::now()->subMonths(4)->firstOfMonth())
+    ->where('moveout_date', '<=', Carbon::now()->subMonths(4)->endOfMonth())
+    ->where('unit_property', Auth::user()->property)
+    ->where('tenant_status','inactive')
+    ->count();
+
+    $moveout_rate_3 = DB::table('tenants')
+    ->join('units', 'unit_id', 'unit_tenant_id')
+    ->where('moveout_date', '>=', Carbon::now()->subMonths(3)->firstOfMonth())
+    ->where('moveout_date', '<=', Carbon::now()->subMonths(3)->endOfMonth())
+    ->where('unit_property', Auth::user()->property)
+    ->where('tenant_status','inactive')
+    ->count();
+
+    $moveout_rate_4 = DB::table('tenants')
+    ->join('units', 'unit_id', 'unit_tenant_id')
+    ->where('moveout_date', '>=', Carbon::now()->subMonths(2)->firstOfMonth())
+    ->where('moveout_date', '<=', Carbon::now()->subMonths(2)->endOfMonth())
+    ->where('unit_property', Auth::user()->property)
+    ->where('tenant_status','inactive')
+    ->count();
+
+    $moveout_rate_5 = DB::table('tenants')
+    ->join('units', 'unit_id', 'unit_tenant_id')
+    ->where('moveout_date', '>=', Carbon::now()->subMonth()->firstOfMonth())
+    ->where('moveout_date', '<=', Carbon::now()->subMonth()->endOfMonth())
+    ->where('unit_property', Auth::user()->property)
+    ->where('tenant_status','inactive')
+    ->count();
+
+    $moveout_rate_6 = DB::table('tenants')
+    ->join('units', 'unit_id', 'unit_tenant_id')
+    ->where('moveout_date', '>=', Carbon::now()->firstOfMonth())
+    ->where('moveout_date', '<=', Carbon::now()->endOfMonth())
+    ->where('unit_property', Auth::user()->property)
+    ->where('tenant_status','inactive')
+    ->count();
+
+    $moveout_rate_increase = ($moveout_rate_5 == 0 ? 0 :($moveout_rate_6-$moveout_rate_5)/$moveout_rate_5)*100;
+
+    $moveout_rate = new DashboardChart;
+    $moveout_rate->title('Move-out Rate'.' ('.$moveout_rate_increase.'%)');
+    $moveout_rate->barwidth(0.0);
+    $moveout_rate->displaylegend(false);
+    $moveout_rate->labels([Carbon::now()->subMonth(5)->format('M Y'),Carbon::now()->subMonth(4)->format('M Y'),Carbon::now()->subMonth(3)->format('M Y'),Carbon::now()->subMonths(2)->format('M Y'),Carbon::now()->subMonth()->format('M Y'),Carbon::now()->format('M Y')]);
+    $moveout_rate->dataset('number of new tenants', 'line', [$moveout_rate_1,$moveout_rate_2,$moveout_rate_3,$moveout_rate_4,$moveout_rate_5,$moveout_rate_6])
+    ->color("rgb(0, 0, 0)")
+    ->backgroundcolor("rgb(169, 169, 169)")
+    ->fill(false)
+    ->linetension(0.1)
+    ->dashed([5]);
+
+    $recent_movein = DB::table('tenants')
+    ->join('units', 'unit_id', 'unit_tenant_id')
+    ->where('unit_property', Auth::user()->property)
+    ->orderBy('movein_date', 'desc')
+    ->limit(5)
+    ->get();
+
+    $units_per_status = DB::table('units')
+    ->select('status',DB::raw('count(*) as count'))
+    ->where('unit_property', Auth::user()->property)
+    ->groupBy('status')
+    ->get('status', 'count');
+
+    $units_per_building = DB::table('units')
+    ->select('building',DB::raw('count(*) as count'))
+    ->where('unit_property', Auth::user()->property)
+    ->groupBy('building')
+    ->get('building', 'count');
+
+    //billings
+    $expected_collection = DB::table('units')
+    ->join('tenants', 'unit_id', 'unit_tenant_id')
+    ->join('billings', 'tenant_id', 'billing_tenant_id')
+    ->whereMonth('billing_date', Carbon::today()->month)
+    ->whereYear('billing_date', Carbon::today()->year)
+    ->where('unit_property', Auth::user()->property)
+    ->sum('billing_amt');
+
+    $actual_collection = DB::table('units')
+    ->join('tenants', 'unit_id', 'unit_tenant_id')
+    ->join('payments', 'tenant_id', 'payment_tenant_id')
+    ->whereMonth('payment_created', Carbon::today()->month)
+    ->whereYear('payment_created', Carbon::today()->year)
+    ->where('unit_property', Auth::user()->property)
+    ->sum('amt_paid');
+
+    $total_billings = DB::table('units')
+    ->join('tenants', 'unit_id', 'unit_tenant_id')
+    ->join('billings', 'tenant_id', 'billing_tenant_id')
+    ->where('unit_property', Auth::user()->property)
+    ->sum('billing_amt');
+
+    $total_payments = DB::table('units')
+    ->join('tenants', 'unit_id', 'unit_tenant_id')
+    ->join('payments', 'tenant_id', 'payment_tenant_id')
+    ->where('unit_property', Auth::user()->property)
+    ->sum('amt_paid');
+
+    $uncollected_amount = $total_billings-$total_payments;
+
+     $delinquent_accounts = DB::table('units')
+    ->selectRaw('*,sum(billing_amt) as total_bills')
+    ->join('tenants', 'unit_id', 'unit_tenant_id')
+    ->join('billings', 'tenant_id', 'billing_tenant_id')
+    ->where('unit_property', Auth::user()->property)
+    ->whereIn('billing_desc', ['Monthly Rent', 'Surcharge Fee'])
+    ->where('billing_status', 'unpaid')
+    ->where('billing_date', '<', Carbon::now()->subMonth())
+    ->groupBy('tenant_id')
+    ->orderBy('total_bills')
+    ->get();
+
+    $recent_payments = DB::table('units')
+    ->join('tenants', 'unit_id', 'unit_tenant_id')
+    ->join('payments', 'tenant_id', 'payment_tenant_id')
+    ->where('unit_property', Auth::user()->property)
+    ->orderBy('payment_created', 'desc')
+    ->get();
+
+    $collection_rate_1 = DB::table('units')
+    ->join('tenants', 'unit_id', 'unit_tenant_id')
+    ->join('payments', 'tenant_id', 'payment_tenant_id')
+    ->where('payment_created', '>=', Carbon::now()->subMonths(5)->firstOfMonth())
+    ->where('payment_created', '<=', Carbon::now()->subMonths(5)->endOfMonth())
+    ->where('unit_property', Auth::user()->property)
+   
+    ->sum('amt_paid');
+
+    $collection_rate_2 = DB::table('units')
+    ->join('tenants', 'unit_id', 'unit_tenant_id')
+    ->join('payments', 'tenant_id', 'payment_tenant_id')
+    ->where('payment_created', '>=', Carbon::now()->subMonths(4)->firstOfMonth())
+    ->where('payment_created', '<=', Carbon::now()->subMonths(4)->endOfMonth())
+    ->where('unit_property', Auth::user()->property)
+    ->whereRaw("payment_note like '%Rent%' ")
+    ->sum('amt_paid');
+
+    $collection_rate_3 = DB::table('units')
+    ->join('tenants', 'unit_id', 'unit_tenant_id')
+    ->join('payments', 'tenant_id', 'payment_tenant_id')
+    ->where('payment_created', '>=', Carbon::now()->subMonths(3)->firstOfMonth())
+    ->where('payment_created', '<=', Carbon::now()->subMonths(3)->endOfMonth())
+    ->where('unit_property', Auth::user()->property)
+    
+    ->sum('amt_paid');
+
+     $collection_rate_4 = DB::table('units')
+    ->join('tenants', 'unit_id', 'unit_tenant_id')
+    ->join('payments', 'tenant_id', 'payment_tenant_id')
+    ->where('payment_created', '>=', Carbon::now()->subMonths(2)->firstOfMonth())
+    ->where('payment_created', '<=', Carbon::now()->subMonths(2)->endOfMonth())
+    ->where('unit_property', Auth::user()->property)
+    ->sum('amt_paid');
+
+     $collection_rate_5 = DB::table('units')
+    ->join('tenants', 'unit_id', 'unit_tenant_id')
+    ->join('payments', 'tenant_id', 'payment_tenant_id')
+    ->where('payment_created', '>=', Carbon::now()->subMonth()->firstOfMonth())
+    ->where('payment_created', '<=', Carbon::now()->subMonth()->firstOfMonth())
+    ->where('unit_property', Auth::user()->property)
+    ->sum('amt_paid');
+
+     $collection_rate_6 = DB::table('units')
+    ->join('tenants', 'unit_id', 'unit_tenant_id')
+    ->join('payments', 'tenant_id', 'payment_tenant_id')
+    ->where('payment_created', '>=', Carbon::now()->firstOfMonth())
+    ->where('payment_created', '<=', Carbon::now()->endOfMonth())
+    ->where('unit_property', Auth::user()->property)
+    
+    ->sum('amt_paid');
+
+    $collection_rate_increase = ($collection_rate_5 == 0 ? 0 :($collection_rate_6-$collection_rate_5)/$collection_rate_5)*100;
+
+    $collection_rate = new DashboardChart;
+    $collection_rate->title('Collection Rate'.' ('.$collection_rate_increase.'%)');
+    $collection_rate->barwidth(0.0);
+    $collection_rate->displaylegend(false);
+    $collection_rate->labels([Carbon::now()->subMonth(5)->format('M Y'),Carbon::now()->subMonth(4)->format('M Y'),Carbon::now()->subMonth(3)->format('M Y'),Carbon::now()->subMonths(2)->format('M Y'),Carbon::now()->subMonth()->format('M Y'),Carbon::now()->format('M Y')]);
+    $collection_rate->dataset('number of payments made', 'line', [$collection_rate_1,$collection_rate_2,$collection_rate_3,$collection_rate_4,$collection_rate_5,$collection_rate_6])
+    ->color("rgb(0, 0, 0)")
+    ->backgroundcolor("rgb(169, 169, 169)")
+    ->fill(false)
+    ->linetension(0.1)
+    ->dashed([5]);
+
+    //for treasury
+    $payments = DB::table('units')
+    ->join('tenants', 'unit_id', 'unit_tenant_id')
+    ->join('payments', 'tenant_id', 'payment_tenant_id')
+    ->groupBy('tenant_id')
+    ->where('unit_property', Auth::user()->property)
+    ->where('payment_created', Carbon::today()->format('Y-m-d'))
+    ->get();
+    
+    return view('dashboard', compact('occupied_units','units', 'investors', 'tenants', 'movein_rate','moveout_rate','recent_movein', 'units_per_status', 'units_per_building','expected_collection', 'actual_collection', 'uncollected_amount', 'delinquent_accounts', 'collection_rate', 'payments', 'recent_payments', 'renewed_contracts', 'renewed_chart', 'terminated_contracts'));
+ 
+});
+
+
+//routes for units
+Route::get('units/{unit_id}', 'UnitsController@show')->middleware('auth');
+Route::put('units/{unit_id}', 'UnitsController@update')->middleware('auth');
+
+//routes for payments
+Route::get('units/{unit_id}/tenants/{tenant_id}/payments/{payment_id}', 'PaymentController@show')->name('show-payment')->middleware('auth');
+Route::post('/payments', 'PaymentController@store')->middleware('auth');
+Route::get('/payments/all', 'PaymentController@index')->name('show-all-payments')->middleware('auth');
+Route::get('/payments/search', 'PaymentController@index')->middleware('auth');
+
+//routes for tenants
+Route::get('/units/{unit_id}/tenants/{tenant_id}', 'TenantController@show')->name('show-tenant')->middleware('auth');
+Route::post('/tenants', 'TenantController@store')->middleware('auth');
+Route::get('/units/{unit_id}/tenants/{tenant_id}/edit', 'TenantController@edit')->middleware('auth');
+Route::put('/units/{unit_id}/tenants/{tenant_id}/', 'TenantController@update')->middleware('auth');
+Route::post('/units/{unit_id}/tenants/{tenant_id}', 'TenantController@moveout')->middleware('auth');
+Route::post('/units/{unit_id}/tenants/{tenant_id}/renew', 'TenantController@renew')->middleware('auth');
+
+
+//step1
+Route::get('/units/{unit_id}/tenant-step1', 'TenantController@createTenantStep1')->middleware('auth');
+Route::post('/units/{unit_id}/tenant-step1', 'TenantController@postTenantStep1')->middleware('auth');
+
+//step2
+Route::get('/units/{unit_id}/tenant-step2', 'TenantController@createTenantStep2')->middleware('auth');
+Route::post('/units/{unit_id}/tenant-step2', 'TenantController@postTenantStep2')->middleware('auth');
+
+//step3
+Route::get('/units/{unit_id}/tenant-step3', 'TenantController@createTenantStep3')->middleware('auth');
+Route::post('/units/{unit_id}/tenant-step3', 'TenantController@postTenantStep3')->middleware('auth');
+
+Route::get('/units/{unit_id}/tenant-step4', 'TenantController@createTenantStep4')->middleware('auth');
+Route::post('/units/{unit_id}/tenant-step4', 'TenantController@postTenantStep4')->middleware('auth');
+
+//routes for billings
+Route::get('/units/{unit_id}/tenants/{tenant_id}/billings', 'TenantController@show_billings')->name('show-billings')->middleware('auth');
+Route::post('/tenants/billings', 'TenantController@add_billings')->name("add-billings")->middleware('auth');
+Route::post('/tenants/billings-post', 'TenantController@post_billings')->middleware('auth');
+Route::get('/tenants/posted-bills', 'TenantController@show_posted_bills')->name('show-posted-bills')->middleware('auth');
+
+
+Route::get('/units/{unit_id}/tenants/{tenant_id}/payments', 'TenantController@show_payments')->name('show-payments')->middleware('auth');
+
+//route for searching tenant
+Route::get('/tenants/search', 'TenantController@search')->middleware('auth');
+
+//routes for investors
+Route::get('/units/{unit_id}/unit_owners/{unit_owner_id}', 'UnitOwnersController@show')->name('show-investor')->middleware('auth');
+Route::post('/investors', 'UnitOwnersController@store')->middleware('auth');
+
+//route for searching investors
+Route::get('/unit_owners/{unit_owner_id}', 'UnitOwnersController@search')->middleware('auth');
+
+Route::get('/faq', function(){
+    return view('faq');
+});

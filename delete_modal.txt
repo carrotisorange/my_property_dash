@@ -1,0 +1,30 @@
+<td>
+                        <a title="delete this tenant." href="javascript:;" data-toggle="modal" onclick="deleteData({{$item->tenant_id}})" 
+                            data-target="#DeleteModal" class="btn btn-xs btn-danger"><i class="fas fa-times"></i>
+                        </a>
+                        </td>
+
+
+<div id="DeleteModal" class="modal fade " role="dialog">
+    <div class="modal-dialog ">
+      <!-- Modal content-->
+          <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title text-center">Are you sure you want to delete this tenant?</h5>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              <div class="modal-footer">
+                <form action="" id="deleteForm" method="post">
+                    {{ csrf_field() }}
+                      {{ method_field('DELETE') }}
+                    </form>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No, Cancel</button>
+                    <button form="deleteForm" type="submit" name="" class="btn btn-danger" data-dismiss="modal" onclick="formSubmit()">Yes, Delete</button>
+              </div>
+          </div>
+    </div>
+   </div>
+
+<script>
+    $('select').children('option(:first)').remove();
+</script>
