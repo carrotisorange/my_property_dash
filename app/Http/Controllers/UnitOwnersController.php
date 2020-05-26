@@ -1,0 +1,130 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use DB;
+use App\UnitOwner;
+use Illuminate\Support\Facades\Auth;
+
+class UnitOwnersController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $request)
+    {
+       if(Auth::user()->status === 'registered'){
+        $searchKeyInput = $request->searchKeyInput; 
+        
+        $investors = DB::table('units')
+        ->join('unit_owners', 'unit_owner_id', 'unit_unit_owner_id')
+        ->where('unit_property', Auth::user()->property)
+        ->where('unit_owner', 'like', '%'.$searchKeyInput.'%')
+        ->get();
+
+        return view('investors', compact('investors'));
+       }else{
+           return view('unregistered');
+       }
+    }
+
+    public function search(Request $request){
+
+        $search = $request->search;
+
+        //creating session for searching unit owner.
+        $request->session()->put('search_unit_owner', $search);
+
+        $investors = DB::table('units')
+        ->join('unit_owners', 'unit_owner_id', 'unit_unit_owner_id')
+        ->where('unit_property', Auth::user()->property)
+        ->whereRaw("unit_owner like '%$search%' ")
+        ->get();
+
+        return view('investors', compact('investors'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($unit_id, $unit_owner_id)
+    {
+        $investor = UnitOwner::findOrFail($unit_owner_id);
+
+         $investor_billings = DB::table('units')
+        ->join('unit_owners', 'unit_id', 'unit_unit_owner_id')
+        ->join('billings', 'unit_owner_id', 'billing_tenant_id')
+        ->get();
+    
+
+        if(Auth::user()->user_type === 'admin'){
+
+            return view('show-investor', compact('investor'));
+          
+        }elseif(Auth::user()->user_type === 'treasury'){
+
+            return view('treasury.accept-payment-investor', compact('investor'));
+        }
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
+    }
+}
