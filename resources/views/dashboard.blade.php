@@ -824,7 +824,7 @@
                 
                 <div class="form-group">
                     <label for="recipient-name" class="col-form-label">building:</label>
-                    <input form="addUnitForm" type="text" class="form-control" name="building">
+                    <input form="addUnitForm" type="text" class="form-control" name="building" value="Harvard">
                 </div>
                 
                 <div class="form-group">
@@ -834,7 +834,7 @@
                 
                 <div class="form-group">
                     <label for="recipient-name" class="col-form-label">Monthly Rent:</label>
-                    <input form="addUnitForm" type="number" class="form-control" name="monthly_rent">
+                    <input form="addUnitForm" type="number" class="form-control" name="monthly_rent" value="6800">
                 </div>
 
                 <div class="form-group">
