@@ -124,7 +124,7 @@ class UnitsController extends Controller
 
     public function add_unit(Request $request){
         
-        DB::table('units')->insert([
+       $id = DB::table('units')->insertGetId([
             'unit_no' => $request->unit_no,
             'floor_no' => $request->floor_no,
             'building' => $request->building,
@@ -135,7 +135,7 @@ class UnitsController extends Controller
             'type_of_units' => 'residential',
         ]);
 
-        return back()->with('success', 'Unit has been successfully created!');
+        return redirect('/units/'.$id)->with('success', 'Unit has been successfully created!');
     }
 
     /**
