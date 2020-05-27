@@ -222,6 +222,15 @@
                     </select>
                     </div>
                     <div class="form-group">
+                        <label for="message-text" class="col-form-label">Building:</label>
+                        <select form="editUnitForm" id="building" name="building" class="form-control">
+                            <option value="{{ $unit->building }}" readonly selected class="bg-primary">{{ $unit->building }}</option>
+                            @foreach ($units_per_building as $item)
+                            <option value="{{ $item->building }}">{{ $item->building }}</option>
+                           @endforeach
+                        </select>
+                        </div>
+                    <div class="form-group">
                     <label for="message-text" class="col-form-label">Type of Unit:</label>
                     <select form="editUnitForm" id="type_of_units" name="type_of_units" class="form-control">
                         <option value="{{ $unit->type_of_units }}" readonly selected class="bg-primary">{{ $unit->type_of_units }}</option>

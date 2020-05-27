@@ -117,8 +117,14 @@ class UnitsController extends Controller
             ->where('unit_tenant_id', $unit_id)
             ->where('tenant_status', 'inactive')
             ->get();
+
+            $units_per_building = DB::table('units')
+            ->select('building',DB::raw('count(*) as count'))
+            ->where('unit_property', Auth::user()->property)
+            ->groupBy('building')
+            ->get('building', 'count');
                 
-                return view('show-unit',compact('unit', 'unit_owner', 'tenant_active', 'tenant_inactive'));
+                return view('show-unit',compact('unit', 'unit_owner', 'tenant_active', 'tenant_inactive', 'units_per_building'));
         
     }
 
@@ -164,6 +170,7 @@ class UnitsController extends Controller
                 'floor_no' => $request->floor_no,
                 'beds' => $request->beds,
                 'status' => $request->status,
+                'building' => $request->building,
                 'type_of_units' => $request->type_of_units
             ]);
         
