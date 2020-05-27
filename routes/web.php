@@ -32,6 +32,7 @@ Route::get('/', function(Request $request){
     $units = DB::table('units')
     ->where('unit_property', Auth::user()->property)
     ->orderBy('building')
+    ->orderBy('floor_no')
     ->orderBy('unit_no')
     ->get();
 
