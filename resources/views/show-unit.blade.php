@@ -18,7 +18,7 @@
             @endif
             {{-- if unit owner does not exist in this unit, then show the add investor button, otherwise, hide. --}}
             @if ($unit_owner->count() < 1)
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addInvestor" data-whatever="@mdo">  add investor</button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addInvestor" data-whatever="@mdo"><i class="fas fa-user-plus"></i> add investor</button>
             @endif
             <br> <br>
                 <?php 
