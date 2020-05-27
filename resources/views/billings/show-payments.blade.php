@@ -10,10 +10,9 @@
             <th>amount</th>
             <th>form of payment</th>
             <th>description</th>
+            
         </tr>
-        <?php
-            $ctr = 1;
-        ?> 
+        <?php $ctr = 1; ?> 
         @foreach ($payments as $item)
         <tr>
             <th class="text-center">{{ $ctr++ }}</th>
@@ -21,6 +20,13 @@
             <td><a href="/units/{{ $item->unit_tenant_id }}/tenants/{{ $item->tenant_id }}/payments/{{ $item->payment_id }}">{{ number_format($item->amt_paid,2) }}</a></td>
             <td>{{ $item->form_of_payment }}</td>
             <td>{{ $item->payment_note }}</td>
+            <td>
+                <form action="/payments/{{ $item->payment_id }}" method="POST">
+                    @method('delete')
+                    @csrf
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </td>
         </tr>
         @endforeach
     </table>

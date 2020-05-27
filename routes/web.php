@@ -364,6 +364,7 @@ Route::get('units/{unit_id}/tenants/{tenant_id}/payments/{payment_id}', 'Payment
 Route::post('/payments', 'PaymentController@store')->middleware('auth');
 Route::get('/payments/all', 'PaymentController@index')->name('show-all-payments')->middleware('auth');
 Route::get('/payments/search', 'PaymentController@index')->middleware('auth');
+Route::delete('/payments/{payment_id}', 'PaymentController@destroy')->middleware('auth');
 
 //routes for tenants
 Route::get('/units/{unit_id}/tenants/{tenant_id}', 'TenantController@show')->name('show-tenant')->middleware('auth');
