@@ -720,7 +720,7 @@
                         <h4>payments </h4>
                         <p class="text-right">
                             <a class="btn btn-primary" href="/tenants/search"><i class="fas fa-plus"></i> payment</a>
-                            <a class="btn btn-primary" href="/payments/all"><i class="fas fa-search-dollar"></i> show more payments</a>
+                            <a class="btn btn-primary" href="/payments/all"><i class="fas fa-search-dollar"></i> see more payments</a>
                         </p>
                         
                        <div class="row">
