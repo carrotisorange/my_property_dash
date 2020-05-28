@@ -271,7 +271,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i> cancel</button>
-            <button form="extendTenantForm" type="submit" class="btn btn-primary"><i class="fas fa-check"></i> renew</button>
+            <button form="extendTenantForm" type="submit" class="btn btn-primary"><i class="fas fa-check"></i> extend</button>
         </div>
     </div>
     </div>

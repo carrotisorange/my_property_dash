@@ -30,10 +30,9 @@
             </div>
             <div class="col">
                 <label for="recipient-name" class="col-form-label">Gender:</label>
-                <select form="addTenantForm1"  id="gender" name="gender" class="form-control" required >
-                    
+                <select form="addTenantForm1"  id="gender" name="gender" class="form-control" required >        
                     <option value="{{ session(Auth::user()->property.'gender') }}" selected>{{ session(Auth::user()->property.'gender') }}</option>
-                    <option value="male" selected>male</option>
+                    <option value="male">male</option>
                     <option value="female">female</option>
                 </select>
             </div>

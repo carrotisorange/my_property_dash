@@ -94,7 +94,7 @@ class PaymentController extends Controller
             return redirect('/units/'.$request->unit_tenant_id.'/tenants/'.$request->payment_tenant_id.'/billings')->with('error','Payment has been rejected. Insufficient amount!');
         }
        }else{
-                DB::table('payments')->insert([
+              $payment_id = DB::table('payments')->insertGetId([
                     'payment_tenant_id' => $request->payment_tenant_id,
                     'payment_created' => $request->payment_created,
                     'amt_paid' => $request->amt_paid,
@@ -127,7 +127,7 @@ class PaymentController extends Controller
                
        }
 
-       return redirect('/units/'.$request->unit_tenant_id.'/tenants/'.$request->payment_tenant_id.'/billings')->with('success','Payment has been successfully added!');
+       return redirect('/units/'.$request->unit_tenant_id.'/tenants/'.$request->payment_tenant_id.'/payments')->with('success','Payment has been successfully added!');
     }
 
     /**

@@ -334,8 +334,8 @@
 
                 </div>
                 <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button form="addInvestorForm" type="submit" class="btn btn-primary"><i class="fas fa-check"></i> Save</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i> close</button>
+                <button form="addInvestorForm" type="submit" class="btn btn-primary"><i class="fas fa-check"></i> save</button>
                 </div>
             </div>
             </div>

@@ -14,6 +14,11 @@
         </tr>
         <?php $ctr = 1; ?> 
         @foreach ($payments as $item)
+         @if($payments->count() <= 0)
+        <tr>
+            <td colspan="6" class="text-center">No payments found!</td>
+        </tr>
+        @else
         <tr>
             <th class="text-center">{{ $ctr++ }}</th>
             <td>{{ Carbon\Carbon::parse($item->payment_created)->format('M d Y') }}</td>
@@ -28,6 +33,7 @@
                 </form>
             </td> --}}
         </tr>
+        @endif
         @endforeach
     </table>
 </div>
