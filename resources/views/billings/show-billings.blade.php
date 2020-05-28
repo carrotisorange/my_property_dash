@@ -52,7 +52,7 @@
     
         @foreach ($other_charges as $item)
         <tr>
-            <th>{{ $item->billing_desc }}:</th>
+            <th>{{ $item->billing_desc }}</th>
             <td>{{ $item->billing_desc.' '.$item->details }}</td>
             <th class="text-right" colspan="3">{{ number_format($item->billing_amt,2) }}</th>
         </tr>
