@@ -2,7 +2,7 @@
 @section('title', $tenant->first_name.' '.$tenant->last_name)
 @section('content')
 <div class="container">
-    <h4>payment history ({{ $payments->count() }})</h4>
+    <p><a href="/tenants/search" class="btn btn-primary"><i class="fas fa-arrow-left"></i> go back to tenants</a>
     <table class="table table-bordered table-striped">
         <tr>
             <th class="text-center">#</th>

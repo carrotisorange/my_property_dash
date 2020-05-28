@@ -2,9 +2,8 @@
 @section('title', $tenant->first_name.' '.$tenant->last_name)
 @section('content')
 <div class="container">
-
     @if(Auth::user()->user_type === 'treasury')
-    <p><a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/payments" class="btn btn-primary"><i class="fas fa-dollar-sign"></i>see payment history</a>
+    <p><a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/payments" class="btn btn-primary"><i class="fas fa-dollar-sign"></i> see payment history</a>
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#acceptPayment"><i class="fas fa-plus"></i> payment</button>
     @endif
     </p>
@@ -29,21 +28,18 @@
                     @endforeach
                 </b>
             </td>
-            
             <td colspan="2" class="text-right text-danger">Due Date: <b>{{ Carbon\Carbon::now()->firstOfMonth()->addDays(6)->format('M d Y') }}</b></td>
         </tr>
         <tr>
             <th class="text-center" colspan="3">STATEMENT OF ACCOUNT</th>
         </tr>
- 
         <tr>
-            
             <th class="text-right" colspan="3">Amount</th>
         </tr>
        
         @foreach ($monthly_rent as $item)
         <tr>
-            <th>{{ $item->billing_desc }}:</th>
+            <th>{{ $item->billing_desc }}</th>
             <td>{{ $item->billing_desc.' '.$item->details }}</td>
             <th class="text-right" colspan="3">{{ number_format($item->billing_amt,2) }}</th>
         </tr>
