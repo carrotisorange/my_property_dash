@@ -91,9 +91,13 @@ class UnitsController extends Controller
      */
     public function show(Request $request, $unit_id)
     {
+        if(!Auth::check()){
+            
+            $unit = Unit::whereIn('status', ['vacant', 'reserved'])->findOrFail($unit_id);
 
-
-        if(Auth::user()->status === 'unregistered')
+            return view('reservation-forms.reservation', compact('unit'));
+        }else{
+            if(Auth::user()->status === 'unregistered')
             return view('unregistered'); 
         else
             if(Auth::user()->user_type !== 'admin')
@@ -125,6 +129,7 @@ class UnitsController extends Controller
             ->get('building', 'count');
                 
                 return view('show-unit',compact('unit', 'unit_owner', 'tenant_active', 'tenant_inactive', 'units_per_building'));
+        }
         
     }
 
@@ -171,11 +176,48 @@ class UnitsController extends Controller
                 'beds' => $request->beds,
                 'status' => $request->status,
                 'building' => $request->building,
-                'type_of_units' => $request->type_of_units
+                'type_of_units' => $request->type_of_units,
+                'monthly_rent' => $request->monthly_rent
             ]);
         
         return back()->with('success', 'Unit information has been successfully updated!');
     }
+
+    public function show_vacant_units(Request $request){
+
+        if(Auth::check()){
+            return abort(404);
+        }
+        else
+        $request->session()->put('property', $request->property);
+
+        $units = DB::table('units')
+        ->whereIn('status', ['vacant','reserved'])
+        ->where('unit_property', $request->property)
+        ->get();
+
+        $properties = DB::table('units')
+        ->select('unit_property',DB::raw('count(*) as count'))
+        
+        ->groupBy('unit_property')        
+        ->get('unit_property', 'count');
+
+        $buildings = DB::table('units')
+        ->select('building',DB::raw('count(*) as count'))
+        
+        ->groupBy('building')
+        ->get('building', 'count');
+
+        $floor_nos = DB::table('units')
+        ->select('floor_no',DB::raw('count(*) as count'))
+
+        ->groupBy('floor_no')
+        ->get('floor_no', 'count');
+      
+        return view('reservation-forms.show-vacant-units', compact('units','floor_nos', 'buildings', 'properties'));
+    }
+
+    
 
     /**
      * Remove the specified resource from storage.

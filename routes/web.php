@@ -29,6 +29,8 @@ Route::get('/', function(Request $request){
         return view('unregistered');
     }
 
+
+
     $units = DB::table('units')
     ->where('unit_property', Auth::user()->property)
     ->orderBy('building')
@@ -55,7 +57,12 @@ Route::get('/', function(Request $request){
     ->orderBy('movein_date', 'desc')
     ->get();
 
-
+    $reservations = DB::table('tenants')
+    ->join('units', 'unit_id', 'unit_tenant_id')
+    ->where('unit_property', Auth::user()->property)
+    ->where('tenant_status', 'pending')
+    ->orderBy('movein_date', 'desc')
+    ->get();
 
 
     $renewed_contracts = DB::table('tenants')
@@ -350,13 +357,13 @@ Route::get('/', function(Request $request){
     ->where('payment_created', Carbon::today()->format('Y-m-d'))
     ->get();
     
-    return view('dashboard', compact('occupied_units','units', 'investors', 'tenants', 'movein_rate','moveout_rate','recent_movein', 'units_per_status', 'units_per_building','expected_collection', 'actual_collection', 'uncollected_amount', 'delinquent_accounts', 'collection_rate', 'payments', 'recent_payments', 'renewed_contracts', 'renewed_chart', 'terminated_contracts'));
+    return view('dashboard', compact('reservations','occupied_units','units', 'investors', 'tenants', 'movein_rate','moveout_rate','recent_movein', 'units_per_status', 'units_per_building','expected_collection', 'actual_collection', 'uncollected_amount', 'delinquent_accounts', 'collection_rate', 'payments', 'recent_payments', 'renewed_contracts', 'renewed_chart', 'terminated_contracts'));
  
 });
 
 
 //routes for units
-Route::get('units/{unit_id}', 'UnitsController@show')->middleware('auth');
+Route::get('units/{unit_id}', 'UnitsController@show');
 Route::put('units/{unit_id}', 'UnitsController@update')->middleware('auth');
 Route::post('units/add', 'UnitsController@add_unit')->middleware('auth');
 
@@ -388,6 +395,7 @@ Route::post('/units/{unit_id}/tenant-step2', 'TenantController@postTenantStep2')
 Route::get('/units/{unit_id}/tenant-step3', 'TenantController@createTenantStep3')->middleware('auth');
 Route::post('/units/{unit_id}/tenant-step3', 'TenantController@postTenantStep3')->middleware('auth');
 
+//step-4
 Route::get('/units/{unit_id}/tenant-step4', 'TenantController@createTenantStep4')->middleware('auth');
 Route::post('/units/{unit_id}/tenant-step4', 'TenantController@postTenantStep4')->middleware('auth');
 
@@ -413,3 +421,26 @@ Route::get('/unit_owners/{unit_owner_id}', 'UnitOwnersController@search')->middl
 Route::get('/faq', function(){
     return view('faq');
 });
+
+//tenant's online reservation
+Route::get('/reservation','TenantController@create_reservation');
+Route::post('/reservation','TenantController@post_reservation');
+
+//step1
+Route::get('/units/{unit_id}/tenant-step1', 'TenantController@createTenantStep1')->middleware('auth');
+Route::post('/units/{unit_id}/tenant-step1', 'TenantController@postTenantStep1')->middleware('auth');
+
+//step2
+Route::get('/units/{unit_id}/tenant-step2', 'TenantController@createTenantStep2')->middleware('auth');
+Route::post('/units/{unit_id}/tenant-step2', 'TenantController@postTenantStep2')->middleware('auth');
+
+//step3
+Route::get('/units/{unit_id}/tenant-step3', 'TenantController@createTenantStep3')->middleware('auth');
+Route::post('/units/{unit_id}/tenant-step3', 'TenantController@postTenantStep3')->middleware('auth');
+
+//step-4
+Route::get('/units/{unit_id}/tenant-step4', 'TenantController@createTenantStep4')->middleware('auth');
+Route::post('/units/{unit_id}/tenant-step4', 'TenantController@postTenantStep4')->middleware('auth');
+
+Route::get('/units','UnitsController@show_vacant_units');
+Route::get('/units/{unit_id}/tenants/{tenant_id}/reserved', 'TenantController@get_reservation');

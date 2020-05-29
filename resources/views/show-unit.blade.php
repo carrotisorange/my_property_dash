@@ -241,7 +241,7 @@
                     </div>
                     <div class="form-group">
                     <label for="message-text" class="col-form-label">Beds:</label>
-                    <input form="editUnitForm" min="1" max="4" type="number" value="{{ $unit->beds }}" name="beds" class="form-control" id="beds">
+                    <input form="editUnitForm" min="1" max="4" type="number" value="{{ $unit->beds }}" name="beds" class="form-control">
                     </div>
                     <div class="form-group">
                     <label for="message-text" class="col-form-label">Status:</label>
@@ -252,6 +252,10 @@
                         <option value="reserved">reserved</option>
                     </select>
                     </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">Monthly Rent:</label>
+                        <input form="editUnitForm" min="1" type="number" value="{{ $unit->monthly_rent }}" name="monthly_rent" class="form-control">
+                        </div>
                 </form>
                 </div>
                 <div class="modal-footer">

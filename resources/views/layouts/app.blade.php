@@ -57,8 +57,12 @@
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
-                                <h5><a class="nav-link" href="/faq">FAQ <i class="fas fa-question-circle"></i></a></h5>
+                                <h5><a class="nav-link  btn" href="/units">Make a reservation <i class="far fa-calendar-check"></i></a></h5>
                             </li>
+                            <li class="nav-item">
+                                <h5><a class="nav-link btn " href="/faq">FAQ <i class="fas fa-question-circle"></i></a></h5>
+                            </li>
+                           
                             {{-- @if (Route::has('register'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">Register</a>

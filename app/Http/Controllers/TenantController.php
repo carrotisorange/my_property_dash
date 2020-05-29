@@ -566,4 +566,105 @@ class TenantController extends Controller
 
         return back()->with('success', 'Tenant has been successfully deleted!');
     }
+
+    //functions for tenant's reservation
+
+    public function create_reservation(){
+        return view('reservation-forms.reservation');
+    }
+
+    public function post_reservation(Request $request){
+        
+        $tenant_id = DB::table('tenants')->insertGetId(
+            [
+                'unit_tenant_id' => $request->unit_id,
+                'tenant_unique_id' => '',
+                'first_name' => $request->first_name,
+                'middle_name' => $request->middle_name,
+                'last_name'=> $request->last_name,
+                'birthdate'=> $request->birthdate,
+                'gender' => $request->gender,
+                'civil_status'=> $request->civil_status,
+                'id_number' => $request->id_number,
+
+                'country' => $request->country,
+                'province' => $request->province,
+                'city' => $request->city,
+                'barangay' => $request->barangay,
+                'zip_code' => $request->zip_code,
+
+                //contact number
+                'contact_no' => $request->contact_no,
+                'email_address' => $request->email_address,
+
+                //guardian information
+                'guardian' => $request->guardian,
+                'guardian_relationship' => $request->guardian_relationship,
+                'guardian_contact_no' => $request->guardian_contact_no,
+
+                //rent information
+                'tenant_monthly_rent' => $request->tenant_monthly_rent,
+                'type_of_tenant' => 'student',
+                'tenant_status' => 'pending',
+                'movein_date'=> $request->movein_date,
+                'moveout_date'=> $request->moveout_date,
+                
+                //information for student
+                'high_school' => $request->high_school,
+                'high_school_address' => $request->high_school_address,
+                'college_school' => $request->college_school,
+                'college_school_address' => $request->college_school_address,
+                'course' => $request->course,
+                'year_level' => $request->year_level,
+             
+                     //information for working
+                'employer' => $request->employer,
+                'employer_address' => $request->employer_address,
+                'job' => $request->job,
+                'employer_contact_no' => $request->employer_contact_no,
+                'years_of_employment' => $request->years_of_employment,
+
+                'created_at' => Carbon::now(),
+
+                'tenants_note' => 'One of our employee will contact you within the day to confirm your reservation. 
+                                    Your reservation will expire after 1 week without payment.'
+            
+        ]);
+            
+        //insert billing information of tenant.
+        
+       $no_of_items = (int) $request->no_of_items; 
+        
+        for($i = 0; $i<$no_of_items; $i++){
+            DB::table('billings')->insert(
+                [
+                    'billing_tenant_id' => $tenant_id,
+                    'billing_date' => $request->movein_date,
+                    'billing_desc' =>  $request->input('desc'.$i),
+                    'billing_amt' =>  $request->input('amt'.$i)
+                ]);
+        }
+
+        //web unit status to occupied.
+         DB::table('units')->where('unit_id', $request->unit_id)
+             ->update(['status'=> 'reserved']);
+
+        return redirect('/units/'.$request->unit_id.'/tenants/'.$tenant_id.'/reserved')->with('success', 'Unit has been successfully reserved!');
+    }
+
+    public function get_reservation($unit_id, $tenant_id){
+        
+        $tenant = Tenant::findOrFail($tenant_id);
+
+        $unit = Unit::findOrFail($unit_id);
+
+        $billings = DB::table('billings')->where('billing_tenant_id', $tenant_id)->get();
+
+        return view('reservation-forms.get-reservation', compact('tenant', 'unit', 'billings'));
+    }
+
+   
+
 }
+
+

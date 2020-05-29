@@ -142,7 +142,32 @@
                                 </table>
                             </div>
                         </div>
-                        <br>   
+                        <br>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4>Reservations </h4>
+                                <table class="table table-bordered">
+                                    <tr>
+                                        <th class="text-center">#</th>
+                                        <th>name</th>
+                                        <th>unit no</th>   
+                                        <th>contact no</th>
+                                        <th>reservation date</th>       
+                                    </tr>
+                                   <?php $ctr = 1; ?>   
+                                   @foreach($reservations as $item)
+                                    <tr>
+                                        <th class="text-center">{{ $ctr++ }}</th>
+                                        <td><a href="{{ route('show-tenant',['unit_id' => $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a></td>
+                                        <td>{{ $item->building.' '.$item->unit_no }}</td>
+                                        <td>{{ $item->contact_no }}</td>
+                                        <td>{{ Carbon\Carbon::parse($item->created_at)->format('M d Y') }}</td>
+                                    </tr>
+                                   @endforeach
+                                </table>
+                            </div>
+                        </div>  
+                        <br> 
                         <div class="row">
                             <div class="col-md-6"></div>
                         </div>
@@ -164,9 +189,7 @@
                                                 <th>unit no</th>   
                                                 <th></th>          
                                             </tr>
-                                           <?php
-                                             $ctr = 1;
-                                           ?>   
+                                           <?php $ctr = 1; ?>   
                                            @foreach($renewed_contracts->take(3) as $item)
                                             <tr>
                                                 <th class="text-center">{{ $ctr++ }}</th>
