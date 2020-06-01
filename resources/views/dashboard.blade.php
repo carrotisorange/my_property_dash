@@ -33,14 +33,9 @@
                 <div class="card">
                     <div class="card-body">
                         <h4>Dashboard</h4>
-
-                        <p class="text-right"> <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addUnit" data-whatever="@mdo"><i class="fas fa-plus"></i> room</button> </p>
-                       
-                        {{-- <h5>
-                            
-                            <p class="text-right">{{ Carbon\Carbon::today()->format('M d Y') }}</p>
-                        </h5> --}}
-                    
+                        @if(Auth::user()->user_type === 'admin')
+                            <p class="text-right"> <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addUnit" data-whatever="@mdo"><i class="fas fa-plus"></i> room</button> </p>
+                        @endif  
                         <div class="row text-center">
                             <div class="col-md-3">
                                 <div class="card bg-primary">
@@ -85,7 +80,7 @@
                                         Active Tenants
                                     </div>
                                     <div class="card-body">
-                                        <h1 class="text-center">{{ $tenants->count('active') }}
+                                        <h1 class="text-center">{{ $active_tenants->count() }}
                                             <span class="text-right"><p><i class="fas fa-user"></i></p></span>
                                         </h1>
                                     </div>
@@ -145,7 +140,7 @@
                         <br>
                         <div class="row">
                             <div class="col-md-12">
-                                <h4>Reservations </h4>
+                                <h4>reservations ({{ $reservations->count() }}) </h4>
                                 <table class="table table-bordered">
                                     <tr>
                                         <th class="text-center">#</th>
@@ -158,7 +153,15 @@
                                    @foreach($reservations as $item)
                                     <tr>
                                         <th class="text-center">{{ $ctr++ }}</th>
-                                        <td><a href="{{ route('show-tenant',['unit_id' => $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a></td>
+                                         <td>
+                                            @if (Auth::user()->user_type === 'admin')
+                                            <a href="{{ route('show-tenant',['unit_id' => $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a>
+                                            @elseif(Auth::user()->user_type === 'treasury')
+                                            <a href="/units/{{ $item->unit_tenant_id }}/tenants/{{ $item->tenant_id }}/payments">{{ $item->first_name.' '.$item->last_name }}</a>
+                                            @else
+                                            {{ $item->first_name.' '.$item->last_name }}
+                                            @endif      
+                                        </td>
                                         <td>{{ $item->building.' '.$item->unit_no }}</td>
                                         <td>{{ $item->contact_no }}</td>
                                         <td>{{ Carbon\Carbon::parse($item->created_at)->format('M d Y') }}</td>

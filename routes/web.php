@@ -57,10 +57,18 @@ Route::get('/', function(Request $request){
     ->orderBy('movein_date', 'desc')
     ->get();
 
+    $active_tenants = DB::table('tenants')
+    ->join('units', 'unit_id', 'unit_tenant_id')
+    ->where('unit_property', Auth::user()->property)
+    ->where('tenant_status', 'active')
+    ->orderBy('movein_date', 'desc')
+    ->get();
+
     $reservations = DB::table('tenants')
     ->join('units', 'unit_id', 'unit_tenant_id')
     ->where('unit_property', Auth::user()->property)
     ->where('tenant_status', 'pending')
+    ->where('type_of_tenant', 'online')
     ->orderBy('movein_date', 'desc')
     ->get();
 
@@ -140,7 +148,7 @@ Route::get('/', function(Request $request){
     $movein_rate_increase = ($movein_rate_5 == 0 ? 0 :($movein_rate_6-$movein_rate_5)/$movein_rate_5)*100;
 
     $movein_rate = new DashboardChart;
-    $movein_rate->title('Move-in Rate'.' ('.$movein_rate_increase.'%)');
+    $movein_rate->title('Move-in Rate'.' ('.number_format($movein_rate_increase,2).'%)');
     $movein_rate->barwidth(0.0);
     $movein_rate->displaylegend(false);
     $movein_rate->labels([Carbon::now()->subMonth(5)->format('M Y'),Carbon::now()->subMonth(4)->format('M Y'),Carbon::now()->subMonth(3)->format('M Y'),Carbon::now()->subMonths(2)->format('M Y'),Carbon::now()->subMonth()->format('M Y'),Carbon::now()->format('M Y')]);
@@ -202,7 +210,7 @@ Route::get('/', function(Request $request){
     $moveout_rate_increase = ($moveout_rate_5 == 0 ? 0 :($moveout_rate_6-$moveout_rate_5)/$moveout_rate_5)*100;
 
     $moveout_rate = new DashboardChart;
-    $moveout_rate->title('Move-out Rate'.' ('.$moveout_rate_increase.'%)');
+    $moveout_rate->title('Move-out Rate'.' ('.numeber_format($moveout_rate_increase,2).'%)');
     $moveout_rate->barwidth(0.0);
     $moveout_rate->displaylegend(false);
     $moveout_rate->labels([Carbon::now()->subMonth(5)->format('M Y'),Carbon::now()->subMonth(4)->format('M Y'),Carbon::now()->subMonth(3)->format('M Y'),Carbon::now()->subMonths(2)->format('M Y'),Carbon::now()->subMonth()->format('M Y'),Carbon::now()->format('M Y')]);
@@ -217,6 +225,7 @@ Route::get('/', function(Request $request){
     ->join('units', 'unit_id', 'unit_tenant_id')
     ->where('unit_property', Auth::user()->property)
     ->orderBy('movein_date', 'desc')
+    ->where('tenant_status', 'active')
     ->limit(5)
     ->get();
 
@@ -357,7 +366,7 @@ Route::get('/', function(Request $request){
     ->where('payment_created', Carbon::today()->format('Y-m-d'))
     ->get();
     
-    return view('dashboard', compact('reservations','occupied_units','units', 'investors', 'tenants', 'movein_rate','moveout_rate','recent_movein', 'units_per_status', 'units_per_building','expected_collection', 'actual_collection', 'uncollected_amount', 'delinquent_accounts', 'collection_rate', 'payments', 'recent_payments', 'renewed_contracts', 'renewed_chart', 'terminated_contracts'));
+    return view('dashboard', compact('active_tenants','reservations','occupied_units','units', 'investors', 'tenants', 'movein_rate','moveout_rate','recent_movein', 'units_per_status', 'units_per_building','expected_collection', 'actual_collection', 'uncollected_amount', 'delinquent_accounts', 'collection_rate', 'payments', 'recent_payments', 'renewed_contracts', 'renewed_chart', 'terminated_contracts'));
  
 });
 
