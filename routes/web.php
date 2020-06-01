@@ -210,7 +210,7 @@ Route::get('/', function(Request $request){
     $moveout_rate_increase = ($moveout_rate_5 == 0 ? 0 :($moveout_rate_6-$moveout_rate_5)/$moveout_rate_5)*100;
 
     $moveout_rate = new DashboardChart;
-    $moveout_rate->title('Move-out Rate'.' ('.numeber_format($moveout_rate_increase,2).'%)');
+    $moveout_rate->title('Move-out Rate'.' ('.number_format($moveout_rate_increase,2).'%)');
     $moveout_rate->barwidth(0.0);
     $moveout_rate->displaylegend(false);
     $moveout_rate->labels([Carbon::now()->subMonth(5)->format('M Y'),Carbon::now()->subMonth(4)->format('M Y'),Carbon::now()->subMonth(3)->format('M Y'),Carbon::now()->subMonths(2)->format('M Y'),Carbon::now()->subMonth()->format('M Y'),Carbon::now()->format('M Y')]);
