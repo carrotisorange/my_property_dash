@@ -68,7 +68,7 @@ Route::get('/', function(Request $request){
     ->join('units', 'unit_id', 'unit_tenant_id')
     ->where('unit_property', Auth::user()->property)
     ->where('tenant_status', 'pending')
-    ->where('type_of_tenant', 'online')
+    ->whereIn('type_of_tenant', ['online', 'student'])
     ->orderBy('movein_date', 'desc')
     ->get();
 
