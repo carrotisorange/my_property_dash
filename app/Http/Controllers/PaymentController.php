@@ -22,13 +22,26 @@ class PaymentController extends Controller
 
         $request->session()->put(Auth::user()->property.'search_payment', $search);
 
-        $payments = DB::table('units')
-        ->join('tenants', 'unit_id', 'unit_tenant_id')
-        ->join('payments', 'tenant_id', 'payment_tenant_id')
-        ->groupBy('tenant_id')
-        ->where('unit_property', Auth::user()->property)
-        ->where('payment_created', $search)
-        ->get();
+        $property = explode(",", Auth::user()->property);
+
+         if(count($property) > 1){
+            $payments = DB::table('units')
+            ->join('tenants', 'unit_id', 'unit_tenant_id')
+            ->join('payments', 'tenant_id', 'payment_tenant_id')
+            ->groupBy('tenant_id')
+            ->whereIn('unit_property', [$property[0],$property[1]])
+            ->where('payment_created', $search)
+            ->get();
+         }else{
+            $payments = DB::table('units')
+            ->join('tenants', 'unit_id', 'unit_tenant_id')
+            ->join('payments', 'tenant_id', 'payment_tenant_id')
+            ->groupBy('tenant_id')
+            ->where('unit_property', $property[0])
+            ->where('payment_created', $search)
+            ->get();
+         }
+        
 
        return view('treasury.show-all-payments', compact('payments'));
     }

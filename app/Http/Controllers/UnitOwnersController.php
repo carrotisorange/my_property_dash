@@ -16,15 +16,24 @@ class UnitOwnersController extends Controller
      */
     public function index(Request $request)
     {
+        $property = explode(",", Auth::user()->property);
+        
        if(Auth::user()->status === 'registered'){
         $searchKeyInput = $request->searchKeyInput; 
         
-        $investors = DB::table('units')
-        ->join('unit_owners', 'unit_owner_id', 'unit_unit_owner_id')
-        ->where('unit_property', Auth::user()->property)
-        ->where('unit_owner', 'like', '%'.$searchKeyInput.'%')
-        ->get();
-
+        if(count($property) > 1){
+            $investors = DB::table('units')
+            ->join('unit_owners', 'unit_owner_id', 'unit_unit_owner_id')
+            ->whereIn('unit_property', [$property[0],$property[1]])
+            ->where('unit_owner', 'like', '%'.$searchKeyInput.'%')
+            ->get();
+         }else{
+            $investors = DB::table('units')
+            ->join('unit_owners', 'unit_owner_id', 'unit_unit_owner_id')
+            ->where('unit_property', $property[0])
+            ->where('unit_owner', 'like', '%'.$searchKeyInput.'%')
+            ->get();
+         }
         return view('investors', compact('investors'));
        }else{
            return view('unregistered');
@@ -33,16 +42,28 @@ class UnitOwnersController extends Controller
 
     public function search(Request $request){
 
+        $property = explode(",", Auth::user()->property);
+
         $search = $request->search;
 
         //creating session for searching unit owner.
         $request->session()->put('search_unit_owner', $search);
 
-        $investors = DB::table('units')
-        ->join('unit_owners', 'unit_owner_id', 'unit_unit_owner_id')
-        ->where('unit_property', Auth::user()->property)
-        ->whereRaw("unit_owner like '%$search%' ")
-        ->get();
+        if(count($property) > 1){
+            $investors = DB::table('units')
+            ->join('unit_owners', 'unit_owner_id', 'unit_unit_owner_id')
+            ->whereIn('unit_property', [$property[0],$property[1]])
+            ->where('unit_owner', 'like', '%'.$searchKeyInput.'%')
+            ->get();
+         }else{
+            $investors = DB::table('units')
+            ->join('unit_owners', 'unit_owner_id', 'unit_unit_owner_id')
+            ->where('unit_property', $property[0])
+            ->where('unit_owner', 'like', '%'.$searchKeyInput.'%')
+            ->get();
+         }
+        
+        
 
         return view('investors', compact('investors'));
     }
