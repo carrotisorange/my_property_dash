@@ -11,23 +11,25 @@
             <a class="nav-link" id="v-pills-investors-tab" data-toggle="pill" href="#investors" role="tab" aria-controls="v-pills-investors" aria-selected="false"><i class="fas fa-user-tie"></i>&nbsp&nbspInvestors</a>
             <a class="nav-link" id="v-pills-tenants-tab" data-toggle="pill" href="#tenants" role="tab" aria-controls="v-pills-tenants" aria-selected="false"><i class="fas fa-user"></i>&nbsp&nbspTenants</a>
             @else
-            <a href="/" onclick="return false;" class="nav-link" id="v-pills-units-tab" data-toggle="pill" href="#units" role="tab" aria-controls="v-pills-units" aria-selected="false"> <i class="fas fa-door-closed"></i>&nbsp&nbspUnits</a>
-            <a href="/" onclick="return false;" class="nav-link" id="v-pills-investors-tab" data-toggle="pill" href="#investors" role="tab" aria-controls="v-pills-investors" aria-selected="false"><i class="fas fa-user-tie"></i>&nbsp&nbspInvestors</a>
-            <a href="/" onclick="return false;" class="nav-link" id="v-pills-tenants-tab" data-toggle="pill" href="#tenants" role="tab" aria-controls="v-pills-tenants" aria-selected="false"><i class="fas fa-user"></i>&nbsp&nbspTenants</a>
+            <a href="#" onclick="return false;" class="nav-link" id="v-pills-units-tab" data-toggle="pill" href="#units" role="tab" aria-controls="v-pills-units" aria-selected="false"> <i class="fas fa-door-closed"></i>&nbsp&nbspUnits</a>
+            <a href="#" onclick="return false;" class="nav-link" id="v-pills-investors-tab" data-toggle="pill" href="#investors" role="tab" aria-controls="v-pills-investors" aria-selected="false"><i class="fas fa-user-tie"></i>&nbsp&nbspInvestors</a>
+            <a href="#" onclick="return false;" class="nav-link" id="v-pills-tenants-tab" data-toggle="pill" href="#tenants" role="tab" aria-controls="v-pills-tenants" aria-selected="false"><i class="fas fa-user"></i>&nbsp&nbspTenants</a>
             @endif
             @if(Auth::user()->user_type === 'billing')
             <a class="nav-link" id="v-pills-billings-tab" data-toggle="pill" href="#billings" role="tab" aria-controls="v-pills-billings" aria-selected="false"><i class="fas fa-file-invoice-dollar"></i>&nbsp&nbspBillings</a>
             @else
-            <a href="/" onclick="return false;"  class="nav-link" id="v-pills-billings-tab" data-toggle="pill" href="#billings" role="tab" aria-controls="v-pills-billings" aria-selected="false"><i class="fas fa-file-invoice-dollar"></i>&nbsp&nbspBillings</a>
+            <a href="#" onclick="return false;"  class="nav-link" id="v-pills-billings-tab" data-toggle="pill" href="#billings" role="tab" aria-controls="v-pills-billings" aria-selected="false"><i class="fas fa-file-invoice-dollar"></i>&nbsp&nbspBillings</a>
             @endif
             @if(Auth::user()->user_type === 'treasury')
             <a class="nav-link" id="v-pills-payments-tab" data-toggle="pill" href="#payments" role="tab" aria-controls="v-pills-payments" aria-selected="false"><i class="fas fa-dollar-sign"></i>&nbsp&nbspPayments</a>
             @else
-            <a href="/" onclick="return false;" class="nav-link" id="v-pills-payments-tab" data-toggle="pill" href="#payments" role="tab" aria-controls="v-pills-payments" aria-selected="false"><i class="fas fa-dollar-sign"></i>&nbsp&nbspPayments</a>
+            <a href="#" onclick="return false;" class="nav-link" id="v-pills-payments-tab" data-toggle="pill" href="#payments" role="tab" aria-controls="v-pills-payments" aria-selected="false"><i class="fas fa-dollar-sign"></i>&nbsp&nbspPayments</a>
             @endif
-            
+            @if(Auth::user()->user_type === 'root')
             <a class="nav-link" id="v-pills-users-tab" data-toggle="pill" href="#users" role="tab" aria-controls="v-pills-users" aria-selected="false"><i class="fas fa-user-secret"></i>&nbsp&nbspUsers</a>
-        
+            @else
+            <a class="nav-link" id="v-pills-users-tab" data-toggle="pill" href="#" role="tab" aria-controls="v-pills-users" aria-selected="false"><i class="fas fa-user-secret"></i>&nbsp&nbspUsers</a>
+            @endif
           </div>
         </div>
         <div class="col-10">
