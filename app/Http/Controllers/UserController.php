@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use DB, App\User;
+use DB, App\User, Carbon\Carbon;
 
 class UserController extends Controller
 {

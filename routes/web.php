@@ -39,81 +39,43 @@ Route::get('/', function(Request $request){
     ->orderBy('floor_no')
     ->orderBy('unit_no')
     ->get();
-   }else{
-     $units = DB::table('units')
-    ->where('unit_property', $property[0])
-    ->orderBy('building')
-    ->orderBy('floor_no')
-    ->orderBy('unit_no')
-    ->get();
-   }
 
-   //get all the occupied units
-   if(count($property) > 1){
     $occupied_units = DB::table('units')
     ->whereIn('unit_property', [$property[0],$property[1]])
     ->orderBy('building')
     ->orderBy('unit_no')
     ->where('status','occupied')
     ->get();
-  }else{
-    $occupied_units = DB::table('units')
-    ->where('unit_property', $property[0])
-    ->orderBy('building')
-    ->orderBy('unit_no')
-    ->where('status','occupied')
-    ->get();
-  }
 
-   //get all the investors
-   if(count($property) > 1){
     $investors = DB::table('units')
     ->join('unit_owners', 'unit_unit_owner_id', 'unit_owner_id')
     ->whereIn('unit_property', [$property[0],$property[1]])
     ->get();
-  }else{
-    $investors = DB::table('units')
-    ->join('unit_owners', 'unit_unit_owner_id', 'unit_owner_id')
-    ->where('unit_property', $property[0])
-    ->get();
-  }
 
-   //get all the tenants
-   if(count($property) > 1){
     $tenants = DB::table('tenants')
     ->join('units', 'unit_id', 'unit_tenant_id')
     ->whereIn('unit_property', [$property[0],$property[1]])
     ->orderBy('movein_date', 'desc')
     ->get();
-  }else{
-    $tenants = DB::table('tenants')
-    ->join('units', 'unit_id', 'unit_tenant_id')
-    ->where('unit_property', $property[0])
-    ->orderBy('movein_date', 'desc')
-    ->get();
-  }
-
 
     $active_tenants = DB::table('tenants')
     ->join('units', 'unit_id', 'unit_tenant_id')
-    ->where('unit_property', Auth::user()->property)
+    ->whereIn('unit_property', [$property[0],$property[1]])
     ->where('tenant_status', 'active')
     ->orderBy('movein_date', 'desc')
     ->get();
 
     $reservations = DB::table('tenants')
     ->join('units', 'unit_id', 'unit_tenant_id')
-    ->where('unit_property', Auth::user()->property)
+    ->whereIn('unit_property', [$property[0],$property[1]])
     ->where('tenant_status', 'pending')
     ->where('type_of_tenant', 'online')
     ->orderBy('movein_date', 'desc')
     ->get();
 
-
     $renewed_contracts = DB::table('tenants')
     ->join('units', 'unit_id', 'unit_tenant_id')
-    ->where('unit_property', Auth::user()->property)
-
+    ->whereIn('unit_property', [$property[0],$property[1]])
     ->orderBy('movein_date', 'desc')
     ->where('has_extended', 'renewed')
     ->where('tenant_status', '!=', 'inactive')
@@ -121,11 +83,74 @@ Route::get('/', function(Request $request){
 
     $terminated_contracts = DB::table('tenants')
     ->join('units', 'unit_id', 'unit_tenant_id')
-    ->where('unit_property', Auth::user()->property)
+    ->whereIn('unit_property', [$property[0],$property[1]])
     ->orderBy('movein_date', 'desc')
     ->where('tenant_status', 'inactive')
     ->get();
 
+   }else{
+     $units = DB::table('units')
+    ->where('unit_property', $property[0])
+    ->orderBy('building')
+    ->orderBy('floor_no')
+    ->orderBy('unit_no')
+    ->get();
+
+    $occupied_units = DB::table('units')
+    ->where('unit_property', $property[0])
+    ->orderBy('building')
+    ->orderBy('unit_no')
+    ->where('status','occupied')
+    ->get();
+
+    $investors = DB::table('units')
+    ->join('unit_owners', 'unit_unit_owner_id', 'unit_owner_id')
+    ->where('unit_property', $property[0])
+    ->get();
+
+    $tenants = DB::table('tenants')
+    ->join('units', 'unit_id', 'unit_tenant_id')
+    ->where('unit_property', $property[0])
+    ->orderBy('movein_date', 'desc')
+    ->get();
+
+    $active_tenants = DB::table('tenants')
+    ->join('units', 'unit_id', 'unit_tenant_id')
+    ->where('unit_property', $property[0])
+    ->where('tenant_status', 'active')
+    ->orderBy('movein_date', 'desc')
+    ->get();
+
+    $reservations = DB::table('tenants')
+    ->join('units', 'unit_id', 'unit_tenant_id')
+    ->where('unit_property', $property[0])
+    ->where('tenant_status', 'pending')
+    ->where('type_of_tenant', 'online')
+    ->orderBy('movein_date', 'desc')
+    ->get();
+
+    $renewed_contracts = DB::table('tenants')
+    ->join('units', 'unit_id', 'unit_tenant_id')
+    ->where('unit_property', $property[0])
+    ->orderBy('movein_date', 'desc')
+    ->where('has_extended', 'renewed')
+    ->where('tenant_status', '!=', 'inactive')
+    ->get();
+
+    $terminated_contracts = DB::table('tenants')
+    ->join('units', 'unit_id', 'unit_tenant_id')
+    ->where('unit_property', $property[0])
+    ->orderBy('movein_date', 'desc')
+    ->where('tenant_status', 'inactive')
+    ->get();
+
+   }
+  
+
+
+    
+
+  
     $overall_contract_termination = $renewed_contracts->count() + $terminated_contracts->count();
 
     $renewed_chart = new DashboardChart;
