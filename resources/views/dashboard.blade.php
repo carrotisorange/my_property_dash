@@ -844,7 +844,11 @@
                         <div class="row">
                             <div class="col">
                                 <p>
+                                    @if($users->count() > 3)
+                                    <a href="#" title="Reach the limit for creating users. You can only add 4 users per property. " class="btn btn-primary"> <i class="fas fa-user-plus"></i> user</a>
+                                    @else
                                     <a class="btn btn-primary" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1"> <i class="fas fa-user-plus"></i> user</a>
+                                    @endif
                                   </p>
                                   <div class="row">
                                     <div class="col">
