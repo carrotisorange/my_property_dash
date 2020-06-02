@@ -314,6 +314,12 @@ Route::get('/', function(Request $request){
         ->where('payment_created', Carbon::today()->format('Y-m-d'))
         ->get();
 
+        //for admin
+       $users = DB::table('users')
+       ->whereIn('unit_property', [$property[0],$property[1]])
+       ->orderBy('created_at')
+       ->get();
+
    }else{
      $units = DB::table('units')
     ->where('unit_property', $property[0])
@@ -596,12 +602,15 @@ Route::get('/', function(Request $request){
         ->where('payment_created', Carbon::today()->format('Y-m-d'))
         ->get();
 
-   }
-
-       //for admin
+        //for admin
        $users = DB::table('users')
+       ->where('unit_property', $property[0])
        ->orderBy('created_at')
        ->get();
+
+   }
+
+       
 
        
     $overall_contract_termination = $renewed_contracts->count() + $terminated_contracts->count();
