@@ -996,7 +996,7 @@
                 
                 <div class="form-group">
                     <label for="recipient-name" class="col-form-label">name of the building:</label>
-                    <input form="addUnitForm" type="text" class="form-control" name="building">
+                    <input form="addUnitForm" type="text" class="form-control" name="building" placeholder="Building-A">
                     <small class="text-danger">please put hyphen(-) between spaces</small>
                 </div>
 
@@ -1054,7 +1054,7 @@
 
                 <div class="form-group">
                     <label for="recipient-name" class="col-form-label">name of the building:</label>
-                    <input form="addUMultipleUnitForm" type="text" class="form-control" name="building" >
+                    <input form="addUMultipleUnitForm" type="text" class="form-control" name="building" placeholder="Building-A">
                     <small class="text-danger">please put hyphen(-) between spaces</small>
                 </div>
 
