@@ -25,7 +25,7 @@
             @else
             <a href="#" onclick="return false;" class="nav-link" id="v-pills-payments-tab" data-toggle="pill" href="#payments" role="tab" aria-controls="v-pills-payments" aria-selected="false"><i class="fas fa-dollar-sign"></i>&nbsp&nbspPayments</a>
             @endif
-            @if(Auth::user()->user_type === 'admin')
+            @if(Auth::user()->user_type === 'root')
             <a class="nav-link" id="v-pills-users-tab" data-toggle="pill" href="#users" role="tab" aria-controls="v-pills-users" aria-selected="false"><i class="fas fa-user-secret"></i>&nbsp&nbspUsers</a>
             @else
             <a class="nav-link" id="v-pills-users-tab" data-toggle="pill" href="#" role="tab" aria-controls="v-pills-users" aria-selected="false"><i class="fas fa-user-secret"></i>&nbsp&nbspUsers</a>
