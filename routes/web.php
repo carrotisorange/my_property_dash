@@ -390,6 +390,7 @@ Route::get('/units/{unit_id}/tenants/{tenant_id}/edit', 'TenantController@edit')
 Route::put('/units/{unit_id}/tenants/{tenant_id}/', 'TenantController@update')->middleware('auth');
 Route::post('/units/{unit_id}/tenants/{tenant_id}', 'TenantController@moveout')->middleware('auth');
 Route::post('/units/{unit_id}/tenants/{tenant_id}/renew', 'TenantController@renew')->middleware('auth');
+Route::delete('/tenants/{tenant_id}', 'TenantController@destroy')->middleware('auth');
 
 
 //step1
