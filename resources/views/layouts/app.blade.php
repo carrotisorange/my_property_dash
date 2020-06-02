@@ -24,7 +24,6 @@
 
     {{-- ChartStyle --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script>
-
 </head>
 <body>
     <div id="app">
@@ -56,6 +55,9 @@
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest
+                            <li class="nav-item">
+                                <h5><a class="nav-link  btn" href="/units">Register your property <i class="fas fa-user-circle"></i></a></h5>
+                            </li>
                             <li class="nav-item">
                                 <h5><a class="nav-link  btn" href="/units">Make a reservation <i class="far fa-calendar-check"></i></a></h5>
                             </li>
@@ -97,8 +99,18 @@
             @yield('content')
         </main>
     </div>
-  
+    <footer class="page-footer font-small blue-grey lighten-5">
+        <!-- Footer Links -->
+        <div class="container text-center text-md-left mt-5">
+      
+        <!-- Footer Links -->
+      
+        <!-- Copyright -->
+        <div class="footer-copyright text-center text-black-50 py-3">© 2020 Copyright:
+          <a class="dark-grey-text" href="#">DormRun.com</a>
+        </div>
+        <!-- Copyright -->
+      
+      </footer>
 </body>
 </html>
-
-
