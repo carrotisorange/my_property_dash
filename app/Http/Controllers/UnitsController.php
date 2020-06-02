@@ -113,7 +113,7 @@ class UnitsController extends Controller
             $tenant_active = DB::table('tenants')
             ->join('units', 'unit_id', 'unit_tenant_id')
             ->where('unit_tenant_id', $unit_id)
-            ->whereIn('tenant_status', ['active', 'pending'])
+            ->where('tenant_status', 'active')
             ->get();
     
             $tenant_inactive = DB::table('tenants')
@@ -122,13 +122,19 @@ class UnitsController extends Controller
             ->where('tenant_status', 'inactive')
             ->get();
 
+            $tenant_reservations = DB::table('tenants')
+            ->join('units', 'unit_id', 'unit_tenant_id')
+            ->where('unit_tenant_id', $unit_id)
+            ->where('tenant_status', 'pending')
+            ->get();
+
             $units_per_building = DB::table('units')
             ->select('building',DB::raw('count(*) as count'))
             ->where('unit_property', Auth::user()->property)
             ->groupBy('building')
             ->get('building', 'count');
                 
-                return view('show-unit',compact('unit', 'unit_owner', 'tenant_active', 'tenant_inactive', 'units_per_building'));
+                return view('show-unit',compact('unit', 'unit_owner', 'tenant_active', 'tenant_inactive', 'tenant_reservations','units_per_building'));
         }
         
     }
