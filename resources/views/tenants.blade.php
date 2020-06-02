@@ -10,7 +10,7 @@
             </div>
         </form>
         <br>
-        <p class="text-center"><small ><b>{{ $tenants->count() }}</b> units found.</small></p>
+        <p class="text-center"><small ><b>{{ $tenants->count() }}</b> tenants found.</small></p>
             <table class="table table-striped">
                 <thead>
                  <tr>
@@ -44,11 +44,10 @@
                         <a class="badge badge-warning">{{ $item->tenant_status }}</a>
                         @endif
                     </td>
-                    <td>{{ $item->unit_no }}</td>
+                    <td>{{ $item->building.' '.$item->unit_no }}</td>
                     <td>{{ $item->contact_no }}</td>
                     <td>{{ number_format($item->tenant_monthly_rent,2) }}</td>
                     <td title="months before move-out">{{ number_format(Carbon\Carbon::now()->diffInDays(Carbon\Carbon::parse($item->moveout_date), false)/30,1) }} mon</td>
-                    
                 </tr>
                 @endforeach
                 </tbody>

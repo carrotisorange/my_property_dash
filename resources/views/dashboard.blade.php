@@ -751,11 +751,13 @@
                    
                     <div class="card-body">
                         <h4>payments </h4>
-                        <p class="text-right">
+                        <div class="row">
+                          <div class="col">
                             <a class="btn btn-primary" href="/tenants/search"><i class="fas fa-plus"></i> payment</a>
                             <a class="btn btn-primary" href="/payments/all"><i class="fas fa-search-dollar"></i> see more payments</a>
-                        </p>
-                        
+                          </div>
+                        </div>
+                        <br>
                        <div class="row">
                            <div class="col-md-12">
                             <table class="table table-striped table-bordered">
