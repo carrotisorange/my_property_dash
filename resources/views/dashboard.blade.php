@@ -883,7 +883,7 @@
                                                 </div>
                                                 <div class="col">
                                                     <label for="recipient-name" class="col-form-label"><b>property</b></label>
-                                                    <input form="addUserForm" type="text" class="form-control" name="property" required>
+                                                    <input form="addUserForm" type="text" class="form-control" name="property" value="{{ Auth::user()->property }}" required>
                                                 </div>
                                             </div>
                                             <br>
@@ -926,19 +926,22 @@
                                     @foreach ($users as $item)
                                     <tr>
                                         <th class="text-center">{{ $ctr++ }}</th>
-                                        <td><a href="/users/{{ $item->id }}">{{ $item->name }}</a></td>
+                                        <td>{{ $item->name }}</td>
                                         <td>{{ $item->email }}</td>
                                         <td>{{ $item->user_type }}</td>
                                         <td>{{ $item->status }}</td>
                                         <td>{{ $item->property }}</td>
                                         <td>
+                                            @if($item->user_type === 'admin')
+
+                                            @else
                                             <form action="/users/{{ $item->id }}" method="POST">
-                                              {{ csrf_field() }}
-                                              @method('delete')
-                                              <button class="btn btn-sm btn-danger" type="submit"><i class="far fa-trash-alt"></i></button>
-                                              </form>
+                                                {{ csrf_field() }}
+                                                @method('delete')
+                                                <button class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this user?');" type="submit"><i class="far fa-trash-alt"></i></button>
+                                                </form>
+                                            @endif
                                       </td>
-                                        
                                     </tr>
                                     @endforeach
                                     
