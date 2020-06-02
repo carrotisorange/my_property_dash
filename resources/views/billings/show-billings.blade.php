@@ -159,8 +159,11 @@
             <div class="form-group row">
                 <div class="col">
                     <label for="">Payment description</label>
+                    @if($tenant->tenant_status === 'pending')
+                    <textarea form="acceptPaymentForm" class="form-control" name="payment_note" value="movein charges" required>
+                    @else
                     <textarea form="acceptPaymentForm" class="form-control" name="payment_note" required>
-
+                    @endif
                     </textarea>
                     
                 </div>
