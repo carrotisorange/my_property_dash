@@ -325,52 +325,52 @@
                     </div> --}}
 
                     <div class="form-group">
-                    <label for="message-text" class="col-form-label">Name:</label>
+                    <label for="message-text" class="col-form-label">name</label>
                     <input form="addInvestorForm" type="text"  value="{{ $unit->unit_owner }}" class="form-control" name="unit_owner" id="unit_owner" required>
                     </div>
                     <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Email Address:</label>
+                        <label for="recipient-name" class="col-form-label">email address:</label>
                         <input form="addInvestorForm" type="email" class="form-control" name="investor_email_address" id="investor_email_address">
                     </div>
                     <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Contact No:</label>
+                        <label for="recipient-name" class="col-form-label">contact no:</label>
                         <input form="addInvestorForm" type="text" class="form-control" name="contact_no" id="contact_no">
                     </div>
                     <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Address:</label>
+                        <label for="recipient-name" class="col-form-label">address:</label>
                         <input form="addInvestorForm" type="text" class="form-control" name="investor_address" id="investor_address"    >
                     </div>
                     <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Representative:</label>
+                        <label for="recipient-name" class="col-form-label">representative:</label>
                         <input form="addInvestorForm" type="text" class="form-control" name="investor_representative" id="investor_representative">
                     </div>
                     <div class="form-group">
-                        <label for="recipient-name" class="col-form-label"><b>Contract Period</b></label>
+                        <label for="recipient-name" class="col-form-label"><b>contract duration</b></label>
                     </div>
                     <div class="row">
                         <div class="col">
-                            <label for="recipient-name" class="col-form-label">Start:</label>
+                            <label for="recipient-name" class="col-form-label">start</label>
                             <input form="addInvestorForm" type="date" class="form-control" name="contract_start" id="contract_start">
                         </div>
                         <div class="col">
-                            <label for="recipient-name" class="col-form-label">End:</label>
+                            <label for="recipient-name" class="col-form-label">end</label>
                             <input form="addInvestorForm" type="date" class="form-control" name="contract_end" id="contract_end">
                         </div>
                     </div>
                  <br>
                     <div class="form-group">
-                        <label for="recipient-name" class="col-form-label"><b>Bank Details</b></label>
+                        <label for="recipient-name" class="col-form-label"><b>bank details</b></label>
                     </div>
                     <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Bank Name:</label>
+                        <label for="recipient-name" class="col-form-label">bank name</label>
                         <input form="addInvestorForm" type="text" class="form-control" name="bank_name" id="bank_name">
                     </div>
                     <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Account Name:</label>
+                        <label for="recipient-name" class="col-form-label">account name</label>
                         <input form="addInvestorForm" type="text" class="form-control" name="account_name" id="account_name">
                     </div>
                     <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Account Number:</label>
+                        <label for="recipient-name" class="col-form-label">account number</label>
                         <input form="addInvestorForm" type="text" class="form-control" name="account_number" id="account_number">
                     </div>
 

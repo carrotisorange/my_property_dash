@@ -668,6 +668,7 @@ Route::get('/', function(Request $request){
 Route::get('units/{unit_id}', 'UnitsController@show');
 Route::put('units/{unit_id}', 'UnitsController@update')->middleware('auth');
 Route::post('units/add', 'UnitsController@add_unit')->middleware('auth');
+Route::post('units/add-multiple', 'UnitsController@add_multiple_rooms')->middleware('auth');
 
 //routes for payments
 Route::get('units/{unit_id}/tenants/{tenant_id}/payments/{payment_id}', 'PaymentController@show')->name('show-payment')->middleware('auth');
@@ -753,3 +754,4 @@ Route::post('/units/{unit_id}/tenant-step4', 'TenantController@postTenantStep4')
 
 Route::get('/units','UnitsController@show_vacant_units');
 Route::get('/units/{unit_id}/tenants/{tenant_id}/reserved', 'TenantController@get_reservation');
+

@@ -161,12 +161,33 @@ class UnitsController extends Controller
             'beds' => $request->beds,
             'monthly_rent' => $request->monthly_rent,
             'status' => 'vacant',
-            'unit_property' => $request->unit_property,
-            'type_of_units' => 'residential',
+            'unit_property' => Auth::user()->property,
+            'type_of_units' => $request->type_of_units,
         ]);
 
         return redirect('/units/'.$id)->with('success', 'Unit has been successfully created!');
     }
+
+    public function add_multiple_rooms(Request $request){
+        
+        for($i = 1; $i<=$request->no_of_rooms; $i++ ) {
+        $id = DB::table('units')->insertGetId([
+             'unit_no' => $request->unit_no.$i,
+             'floor_no' => $request->floor_no,
+             'building' => $request->building,
+             'beds' => $request->beds,
+             'monthly_rent' => $request->monthly_rent,
+             'status' => 'vacant',
+             'type_of_units' => 'residential',
+             'unit_property' => Auth::user()->property,
+             'type_of_units' => $request->type_of_units,
+         ]);
+        }
+ 
+         return redirect('/#units')->with('success', 'Multiple units have been successfully created!');
+     }
+
+
 
     /**
      * Show the form for editing the specified resource.

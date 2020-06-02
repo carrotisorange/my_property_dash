@@ -38,9 +38,17 @@
                 <div class="card">
                     <div class="card-body">
                         <h4>Dashboard</h4>
-                        @if(Auth::user()->user_type === 'admin')
-                            <p class="text-right"> <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addUnit" data-whatever="@mdo"><i class="fas fa-plus"></i> room</button> </p>
-                        @endif  
+                        <div class="row">
+                            <div class="col">
+                            @if(Auth::user()->user_type === 'admin')
+                               <p class="text-right">
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addUnit" data-whatever="@mdo"><i class="fas fa-plus"></i> room</button> 
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addMultipleUnits" data-whatever="@mdo"><i class="fas fa-plus"></i> multiple rooms</button>
+                               </p>
+                            @endif  
+                            </div>
+                        </div>
+                    
                         <div class="row text-center">
                             <div class="col-md-3">
                                 <div class="card bg-primary">
@@ -948,7 +956,7 @@
         <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">
             <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Add Unit</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Add Rooms</h5>
             
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -960,39 +968,107 @@
                 </form>
 
                 <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">Unit No:</label>
-                    <input form="addUnitForm" type="text" class="form-control" name="unit_no">
+                    <label for="recipient-name" class="col-form-label">unit no:</label>
+                    <input form="addUnitForm" type="text" class="form-control" name="unit_no" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">Floor No:</label>
-                    <input form="addUnitForm" type="text" class="form-control" name="floor_no">
+                    <label for="recipient-name" class="col-form-label">type of room</label>
+                    <select form="addUnitForm" class="form-control" name="type_of_units" required>
+                        <option value="" selected>Please select one</option>
+                        <option value="commercial">commercial</option>
+                        <option value="residential">residential</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">floor no:</label>
+                    <input form="addUnitForm" type="text" class="form-control" name="floor_no" required>
                 </div>
 
                 
                 <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">building:</label>
-                    <input form="addUnitForm" type="text" class="form-control" name="building" value="Harvard">
-                </div>
-                
-                <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">Beds:</label>
-                    <input form="addUnitForm" type="text" class="form-control" name="beds">
-                </div>
-                
-                <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">Monthly Rent:</label>
-                    <input form="addUnitForm" type="number" class="form-control" name="monthly_rent" value="6800">
+                    <label for="recipient-name" class="col-form-label">name of the building:</label>
+                    <input form="addUnitForm" type="text" class="form-control" name="building">
+                    <small class="text-danger">please put hyphen(-) between spaces</small>
                 </div>
 
                 <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">Property</label>
-                    <input form="addUnitForm" type="text" class="form-control" name="unit_property" value="{{ Auth::user()->property }}" readonly>
+                    <label for="recipient-name" class="col-form-label">no of beds:</label>
+                    <input form="addUnitForm" type="text" class="form-control" name="beds" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">monthly rent:</label>
+                    <input form="addUnitForm" type="number" class="form-control" name="monthly_rent" required>
                 </div>
                
             </div>
             <div class="modal-footer">
                 <button form="addUnitForm" type="submit" class="btn btn-primary"><i class="fas fa-check"></i> Save</button>
+                </div>
+        </div>
+        </div>
+    </div>
+
+    
+    <div class="modal fade" id="addMultipleUnits" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Add Multiple Rooms</h5>
+            
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+                <form id="addUMultipleUnitForm" action="/units/add-multiple" method="POST">
+                    {{ csrf_field() }}
+                </form>
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">no of rooms you want to create</label>
+                    <input form="addUMultipleUnitForm" type="number" class="form-control" name="no_of_rooms"required>
+                </div>
+
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">type of room</label>
+                    <select form="addUMultipleUnitForm" class="form-control" name="type_of_units" required>
+                        <option value="" selected>Please select one</option>
+                        <option value="commercial">commercial</option>
+                        <option value="residential">residential</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">initial name for the room</label>
+                    <input form="addUMultipleUnitForm" type="text" class="form-control" name="unit_no" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">name of the building:</label>
+                    <input form="addUMultipleUnitForm" type="text" class="form-control" name="building" >
+                    <small class="text-danger">please put hyphen(-) between spaces</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">floor no:</label>
+                    <input form="addUMultipleUnitForm" type="text" class="form-control" name="floor_no" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">no of beds:</label>
+                    <input form="addUMultipleUnitForm" type="number" class="form-control" name="beds" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">monthly Rent:</label>
+                    <input form="addUMultipleUnitForm" type="number" class="form-control" name="monthly_rent" required>
+                </div>
+    
+            </div>
+            <div class="modal-footer">
+                <button form="addUMultipleUnitForm" type="submit" class="btn btn-primary"><i class="fas fa-check"></i> Save</button>
                 </div>
         </div>
         </div>
