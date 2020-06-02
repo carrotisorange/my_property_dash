@@ -6,7 +6,7 @@
         <form action="/tenants/search" method="GET" >
             @csrf
             <div class="input-group">
-                <input type="text" class="form-control" name="search" placeholder="Search tenants" value="{{ session(Auth::user()->property.'search_tenant') }}">
+                <input type="text" class="form-control" name="search" placeholder="enter tenant name" value="{{ session(Auth::user()->property.'search_tenant') }}">
             </div>
         </form>
         <br>

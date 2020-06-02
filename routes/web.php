@@ -29,33 +29,70 @@ Route::get('/', function(Request $request){
         return view('unregistered');
     }
 
+    $property = explode(",", Auth::user()->property);
 
-
-    $units = DB::table('units')
-    ->where('unit_property', Auth::user()->property)
+    //get all the units
+   if(count($property) > 1){
+     $units = DB::table('units')
+    ->whereIn('unit_property', [$property[0],$property[1]])
     ->orderBy('building')
     ->orderBy('floor_no')
     ->orderBy('unit_no')
     ->get();
+   }else{
+     $units = DB::table('units')
+    ->where('unit_property', $property[0])
+    ->orderBy('building')
+    ->orderBy('floor_no')
+    ->orderBy('unit_no')
+    ->get();
+   }
 
+   //get all the occupied units
+   if(count($property) > 1){
     $occupied_units = DB::table('units')
-    ->where('unit_property', Auth::user()->property)
+    ->whereIn('unit_property', [$property[0],$property[1]])
     ->orderBy('building')
     ->orderBy('unit_no')
     ->where('status','occupied')
     ->get();
+  }else{
+    $occupied_units = DB::table('units')
+    ->where('unit_property', $property[0])
+    ->orderBy('building')
+    ->orderBy('unit_no')
+    ->where('status','occupied')
+    ->get();
+  }
 
-
+   //get all the investors
+   if(count($property) > 1){
     $investors = DB::table('units')
     ->join('unit_owners', 'unit_unit_owner_id', 'unit_owner_id')
-    ->where('unit_property', Auth::user()->property)
+    ->whereIn('unit_property', [$property[0],$property[1]])
     ->get();
-    
+  }else{
+    $investors = DB::table('units')
+    ->join('unit_owners', 'unit_unit_owner_id', 'unit_owner_id')
+    ->where('unit_property', $property[0])
+    ->get();
+  }
+
+   //get all the tenants
+   if(count($property) > 1){
     $tenants = DB::table('tenants')
     ->join('units', 'unit_id', 'unit_tenant_id')
-    ->where('unit_property', Auth::user()->property)
+    ->whereIn('unit_property', [$property[0],$property[1]])
     ->orderBy('movein_date', 'desc')
     ->get();
+  }else{
+    $tenants = DB::table('tenants')
+    ->join('units', 'unit_id', 'unit_tenant_id')
+    ->where('unit_property', $property[0])
+    ->orderBy('movein_date', 'desc')
+    ->get();
+  }
+
 
     $active_tenants = DB::table('tenants')
     ->join('units', 'unit_id', 'unit_tenant_id')
@@ -76,6 +113,7 @@ Route::get('/', function(Request $request){
     $renewed_contracts = DB::table('tenants')
     ->join('units', 'unit_id', 'unit_tenant_id')
     ->where('unit_property', Auth::user()->property)
+
     ->orderBy('movein_date', 'desc')
     ->where('has_extended', 'renewed')
     ->where('tenant_status', '!=', 'inactive')
@@ -365,8 +403,16 @@ Route::get('/', function(Request $request){
     ->where('unit_property', Auth::user()->property)
     ->where('payment_created', Carbon::today()->format('Y-m-d'))
     ->get();
-    
-    return view('dashboard', compact('active_tenants','reservations','occupied_units','units', 'investors', 'tenants', 'movein_rate','moveout_rate','recent_movein', 'units_per_status', 'units_per_building','expected_collection', 'actual_collection', 'uncollected_amount', 'delinquent_accounts', 'collection_rate', 'payments', 'recent_payments', 'renewed_contracts', 'renewed_chart', 'terminated_contracts'));
+
+    //for admin
+    $users = DB::table('users')
+    ->orderBy('created_at')
+    ->get();
+
+
+    return view('dashboard', compact('active_tenants','reservations','occupied_units','units', 'investors', 'tenants', 'movein_rate','moveout_rate','recent_movein', 'units_per_status', 'units_per_building',
+    'expected_collection', 'actual_collection', 'uncollected_amount', 'delinquent_accounts', 'collection_rate', 'payments', 'recent_payments', 'renewed_contracts', 'renewed_chart', 'terminated_contracts',
+    'users'));
  
 });
 
@@ -427,6 +473,12 @@ Route::post('/units', 'UnitsController@store')->middleware('auth');
 
 //route for searching investors
 Route::get('/unit_owners/{unit_owner_id}', 'UnitOwnersController@search')->middleware('auth');
+
+//route for users
+Route::get('/users/search', 'UserController@search')->middleware('auth');
+Route::get('/users/{user_id}', 'UserController@show')->middleware('auth');
+Route::post('/users', 'UserController@store')->middleware('auth');
+Route::delete('/users/{user_id}', 'UserController@destroy')->middleware('auth');
 
 Route::get('/faq', function(){
     return view('faq');

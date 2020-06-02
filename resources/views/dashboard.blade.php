@@ -7,7 +7,7 @@
           <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
             <a class="nav-link active" id="v-pills-dashboard-tab" data-toggle="pill" href="#dashboard" role="tab" aria-controls="v-pills-dashboard" aria-selected="true"><i class="fas fa-tachometer-alt"></i>&nbsp&nbspDashboard</a>
             @if(Auth::user()->user_type === 'admin')
-            <a class="nav-link" id="v-pills-units-tab" data-toggle="pill" href="#units" role="tab" aria-controls="v-pills-units" aria-selected="false"> <i class="fas fa-door-closed"></i>&nbsp&nbspUnits</a>
+            <a class="nav-link" id="v-pills-units-tab" data-toggle="pill" href="#units" role="tab" aria-controls="v-pills-units" aria-selected="false"><i class="fas fa-home"></i>&nbsp&nbspUnits</a>
             <a class="nav-link" id="v-pills-investors-tab" data-toggle="pill" href="#investors" role="tab" aria-controls="v-pills-investors" aria-selected="false"><i class="fas fa-user-tie"></i>&nbsp&nbspInvestors</a>
             <a class="nav-link" id="v-pills-tenants-tab" data-toggle="pill" href="#tenants" role="tab" aria-controls="v-pills-tenants" aria-selected="false"><i class="fas fa-user"></i>&nbsp&nbspTenants</a>
             @else
@@ -25,6 +25,9 @@
             @else
             <a href="/" onclick="return false;" class="nav-link" id="v-pills-payments-tab" data-toggle="pill" href="#payments" role="tab" aria-controls="v-pills-payments" aria-selected="false"><i class="fas fa-dollar-sign"></i>&nbsp&nbspPayments</a>
             @endif
+            
+            <a class="nav-link" id="v-pills-users-tab" data-toggle="pill" href="#users" role="tab" aria-controls="v-pills-users" aria-selected="false"><i class="fas fa-user-secret"></i>&nbsp&nbspUsers</a>
+        
           </div>
         </div>
         <div class="col-10">
@@ -164,11 +167,7 @@
                                             @endif      
                                         </td>
                                         <td>{{ $item->building.' '.$item->unit_no }}</td>
-                                        @if($item->type_of_tenant === 'online')
-                                        <td><a class="badge badge-success">{{ $item->type_of_tenant }}</td>
-                                        @else
-                                        <td><a class="badge badge-warning">{{ $item->type_of_tenant }}</td>
-                                        @endif
+                                       
                                         <td>{{ $item->contact_no }}</td>
                                         <td>{{ Carbon\Carbon::parse($item->created_at)->format('M d Y') }}</td>
                                     </tr>
@@ -252,7 +251,7 @@
                                 <h4>recent tenants</h4>
                                         <table class="table table-bordered">
                                             <tr>
-                                                <th>#</th>
+                                                <th class="text-center">#</th>
                                                 <th>name</th>
                                                 <th>status</th>
                                                 <th>unit no</th>   
@@ -263,7 +262,7 @@
                                            ?>   
                                            @foreach($recent_movein as $item)
                                             <tr>
-                                                <th>{{ $ctr++ }}</th>
+                                                <th class="text-center">{{ $ctr++ }}</th>
                                                 <td>
                                                     @if(Auth::user()->user_type === 'admin')
                                                     <a href="{{ route('show-tenant',['unit_id' => $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a> <a class="badge badge-success">{{ $item->has_extended }}</a>
@@ -300,7 +299,7 @@
                                 <h4>terminated contracts</h4>
                                         <table class="table table-bordered">
                                             <tr>
-                                                <th>#</th>
+                                                <th class="text-center">#</th>
                                                 <th>name</th>
                                                 <th>unit no</th> 
                                                 <th>reason</th>  
@@ -311,7 +310,7 @@
                                            ?>   
                                            @foreach($terminated_contracts as $item)
                                             <tr>
-                                                <th>{{ $ctr++ }}</th>
+                                                <th class="text-center">{{ $ctr++ }}</th>
                                                 <td>
                                                     @if(Auth::user()->user_type === 'admin')
                                                     <a href="{{ route('show-tenant',['unit_id' => $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a> <a class="badge badge-success">{{ $item->has_extended }}</a>
@@ -345,7 +344,7 @@
                                   
                                         <table class="table table-bordered">
                                             <tr>
-                                                <th>#</th>
+                                                <th class="text-center">#</th>
                                                 <th>name</th>
                                                 <th>unit no</th>
                                                 <th>balance</th>
@@ -356,7 +355,7 @@
                                             @foreach ($delinquent_accounts as $item)
                                             
                                             <tr>
-                                                <th>{{ $ctr++ }}</th>
+                                                <th class="text-center">{{ $ctr++ }}</th>
                                                 <td>
                                                     @if(Auth::user()->user_type === 'admin')
                                                     <a href="{{ route('show-tenant',['unit_id' => $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a>
@@ -532,7 +531,7 @@
                            
                                 <table class="table table-striped">
                                      <tr>
-                                        <th>#</th>
+                                        <th class="text-center">#</th>
                                         <th>name</th>
                                         <th>unit no</th>
                                         <th>contact no</th>
@@ -543,7 +542,7 @@
                                     
                                     @foreach ($tenants as $item)
                                     <tr>
-                                        <th>{{ $ctr++ }}</th>
+                                        <th class="text-center">{{ $ctr++ }}</th>
                                         <td><a href="{{ route('show-tenant',['unit_id'=> $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a> 
                                             @if($item->tenant_status === 'active')
                                             <a class="badge badge-primary">{{ $item->tenant_status }}</a>
@@ -583,7 +582,7 @@
                                 <table class="table table-striped">
                                     <thead>
                                     <tr>
-                                        <th>#</th>
+                                        <th class="text-center">#</th>
                                         <th>name</th>
                                         <th>unit no</th>
                                         <th>contact no</th>
@@ -596,7 +595,7 @@
                                     <tbody>
                                     @foreach ($investors as $item)
                                     <tr>
-                                        <th>{{ $ctr++ }}</th>
+                                        <th class="text-center">{{ $ctr++ }}</th>
                                         <td><a href="{{ route('show-investor',['unit_id'=> $item->unit_id, 'unit_owner_id'=>$item->unit_owner_id]) }}">{{ $item->unit_owner }} </a></td>
                                         <td>{{ $item->building.' '.$item->unit_no }}</td>
                                         <td>{{ $item->investor_contact_no }}</td>
@@ -679,7 +678,7 @@
                                     <h4>Delinquent Accounts</h4>
                                         <table class="table table-bordered table-striped">
                                             <tr>
-                                                <th>#</th>
+                                                <th class="text-center">#</th>
                                                 <th>name</th>
                                                 <th>contact no</th>
                                                 <th>unit no</th>
@@ -691,7 +690,7 @@
                                             @foreach ($delinquent_accounts as $item)
                                            
                                             <tr>
-                                                <th>{{ $ctr++ }}</th>
+                                                <th class="text-center">{{ $ctr++ }}</th>
                                                 <td><a href="{{ route('show-billings',['unit_id' => $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a></td>
                                                 <td>{{ $item->contact_no }}</td>
                                                 <td>{{ $item->building.' '.$item->unit_no }}</td>
@@ -708,7 +707,7 @@
                            <h4>Recent Payments </h4>
                         <table class="table table-bordered table-striped">
                             <tr>
-                                <th>#</th>
+                                <th class="text-center">#</th>
                                 <th>date paid</th>
                                 <th>name</>
                                 <th>status</th>
@@ -722,7 +721,7 @@
                            ?>   
                            @foreach ($recent_payments as $tenant)
                             <tr>
-                                <th>{{ $ctr++ }}</th>
+                                <th class="text-center">{{ $ctr++ }}</th>
                                 <td>{{ Carbon\Carbon::parse($tenant->payment_created)->format('M d Y') }}</td>
                                 <td>{{ $tenant->first_name.' '.$tenant->last_name }}</>
                                 <td>{{ $tenant->tenant_status }}</td>
@@ -823,10 +822,123 @@
                     </div>
                 </div>
             </div>
+
+             {{-- display users --}}
+             <div class="tab-pane fade" id="users" role="tabpanel" aria-labelledby="v-pills-users-tab">
+                <div class="card">
+                    <div class="card-body">
+                        <h4>Users</h4>
+                        <br>
+                        <div class="row">
+                            <div class="col">
+                                <p>
+                                    <a class="btn btn-primary" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1"> <i class="fas fa-user-plus"></i> user</a>
+                                  </p>
+                                  <div class="row">
+                                    <div class="col">
+                                      <div class="collapse multi-collapse" id="multiCollapseExample1">
+                                        <div class="card card-body">
+                                            <form id="addUserForm" action="/users" method="POST">
+                                                {{ csrf_field() }}
+                                            </form>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <label for="recipient-name" class="col-form-label"><b>name</b></label>
+                                                    <input form="addUserForm" type="text" class="form-control" name="name" required>
+                                                </div>
+                                                <div class="col">
+                                                    <label for="recipient-name" class="col-form-label"><b>email</b></label>
+                                                    <input form="addUserForm" type="email" class="form-control" name="email" required>
+                                                </div>
+                                                <div class="col">
+                                                    <label for="recipient-name" class="col-form-label"><b>user type</b></label>
+                                                    <select class="form-control" form="addUserForm" name="user_type" required>
+                                                        <option value="">Please select one</option>
+                                                        <option value="admin">admin</option>
+                                                        <option value="billing">billing</option>
+                                                        <option value="manager">manager</option>
+                                                        <option value="treasury">treasury</option>
+                                                        <option value="root">root</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col">
+                                                    <label for="recipient-name" class="col-form-label"><b>status</b></label>
+                                                    <select class="form-control" form="addUserForm" name="status" required>
+                                                        <option value="">Please select one</option>
+                                                        <option value="registered">registered</option>
+                                                        <option value="unregistered">unregistered</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col">
+                                                    <label for="recipient-name" class="col-form-label"><b>property</b></label>
+                                                    <input form="addUserForm" type="text" class="form-control" name="property" required>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="">
+                                                <p class="text-right">   
+                                                    <button type="submit" form="addUserForm" class="btn btn-primary"><i class="fas fa-check"></i> save</button>
+                                                </p>
+                                                
+                                            </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                   
+                                  </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                           <div class="col">
+                            <form action="users/search" method="GET" >
+                                @csrf
+                                <div class="input-group">
+                                    <input type="text" class="form-control col-md-3" name="search" placeholder="enter user name" value="{{ session('search_user') }}">
+                                    &nbsp&nbsp<button type="submit" class="btn btn-primary"><i class="fas fa-search"></i> search</button>
+                                </div>
+                            </form>
+                            <br>
+                           
+                                <table class="table table-striped">
+                                     <tr>
+                                        <th class="text-center">#</th>
+                                        <th>name</th>
+                                        <th>email</th>
+                                        <th>user type</th>
+                                        <th>status</th>
+                                        <th>property</th>
+                                        <th></th>
+                                        </tr>
+                                    <?php $ctr = 1;?>   
+                                    @foreach ($users as $item)
+                                    <tr>
+                                        <th class="text-center">{{ $ctr++ }}</th>
+                                        <td><a href="/users/{{ $item->id }}">{{ $item->name }}</a></td>
+                                        <td>{{ $item->email }}</td>
+                                        <td>{{ $item->user_type }}</td>
+                                        <td>{{ $item->status }}</td>
+                                        <td>{{ $item->property }}</td>
+                                        <td>
+                                            <form action="/users/{{ $item->id }}" method="POST">
+                                              {{ csrf_field() }}
+                                              @method('delete')
+                                              <button class="btn btn-sm btn-danger" type="submit"><i class="far fa-trash-alt"></i></button>
+                                              </form>
+                                      </td>
+                                        
+                                    </tr>
+                                    @endforeach
+                                    
+                                 </table>
+                           </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
           </div>
         </div>
       </div>
-
 
       <div class="modal fade" id="addUnit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-md" role="document">
