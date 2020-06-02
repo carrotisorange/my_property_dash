@@ -576,7 +576,6 @@ class TenantController extends Controller
      */
     public function destroy($tenant_id)
     {
-        
         DB::table('payments')->where('payment_tenant_id', $tenant_id)->delete();
         DB::table('billings')->where('billing_tenant_id', $tenant_id)->delete();
         DB::table('tenants')->where('tenant_id', $tenant_id)->delete();
