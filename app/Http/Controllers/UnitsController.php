@@ -91,7 +91,7 @@ class UnitsController extends Controller
      */
     public function show(Request $request, $unit_id)
     {
-        $property = explode(",", Auth::user()->property);
+       
 
         if(!Auth::check()){
             
@@ -105,7 +105,7 @@ class UnitsController extends Controller
             if(Auth::user()->user_type !== 'admin')
             return abort('404');
             else
-            
+            $property = explode(",", Auth::user()->property);
             if(count($property) > 1){
                 $unit = Unit::whereIn('unit_property', [$property[0],$property[1]])->findOrFail($unit_id);
              }else{
