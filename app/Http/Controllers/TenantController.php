@@ -190,9 +190,7 @@ class TenantController extends Controller
                     'billing_amt' =>  $request->input('amt'.$i),
                     'billing_status' => 'paid'
                 ]);
-        }
-
-        
+        }        
 
         DB::table('payments')->insert([
             'payment_tenant_id' => $tenant_id,
