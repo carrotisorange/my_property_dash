@@ -316,7 +316,7 @@ Route::get('/', function(Request $request){
 
         //for admin
        $users = DB::table('users')
-       ->whereIn('unit_property', [$property[0],$property[1]])
+       ->whereIn('property', [$property[0],$property[1]])
        ->orderBy('created_at')
        ->get();
 
@@ -604,7 +604,7 @@ Route::get('/', function(Request $request){
 
         //for admin
        $users = DB::table('users')
-       ->where('unit_property', $property[0])
+       ->where('property', $property[0])
        ->orderBy('created_at')
        ->get();
 
