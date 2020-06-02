@@ -145,7 +145,8 @@
                                     <tr>
                                         <th class="text-center">#</th>
                                         <th>name</th>
-                                        <th>unit no</th>   
+                                        <th>unit no</th>
+                                        <th>reserved via</th>   
                                         <th>contact no</th>
                                         <th>reservation date</th>       
                                     </tr>
@@ -163,6 +164,11 @@
                                             @endif      
                                         </td>
                                         <td>{{ $item->building.' '.$item->unit_no }}</td>
+                                        @if($item->type_of_tenant === 'online')
+                                        <td><a class="badge badge-success">{{ $item->type_of_tenant }}</td>
+                                        @else
+                                        <td><a class="badge badge-warning">{{ $item->type_of_tenant }}</td>
+                                        @endif
                                         <td>{{ $item->contact_no }}</td>
                                         <td>{{ Carbon\Carbon::parse($item->created_at)->format('M d Y') }}</td>
                                     </tr>

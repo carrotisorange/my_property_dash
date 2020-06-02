@@ -600,8 +600,8 @@ class TenantController extends Controller
                 'last_name'=> $request->last_name,
                 'birthdate'=> $request->birthdate,
                 'gender' => $request->gender,
-                'civil_status'=> $request->civil_status,
-                'id_number' => $request->id_number,
+                // 'civil_status'=> $request->civil_status,
+                // 'id_number' => $request->id_number,
 
                 'country' => $request->country,
                 'province' => $request->province,
@@ -614,9 +614,9 @@ class TenantController extends Controller
                 'email_address' => $request->email_address,
 
                 //guardian information
-                'guardian' => $request->guardian,
-                'guardian_relationship' => $request->guardian_relationship,
-                'guardian_contact_no' => $request->guardian_contact_no,
+                // 'guardian' => $request->guardian,
+                // 'guardian_relationship' => $request->guardian_relationship,
+                // 'guardian_contact_no' => $request->guardian_contact_no,
 
                 //rent information
                 'tenant_monthly_rent' => $request->tenant_monthly_rent,

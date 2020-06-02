@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Units')
+@section('title', 'My Property Dash')
 @section('content')
 <div class="container">
     <form action="/units/" method="GET" >
@@ -50,7 +50,7 @@
             <tr>
                 <td>
                     @foreach ($units as $item)
-                            <a title="{{ number_format($item->monthly_rent,2) }}" href="/units/{{$item->unit_id}}" class="btn btn-secondary">
+                            <a title="{{ number_format($item->monthly_rent,2) }}/month" href="/units/{{$item->unit_id}}" class="btn btn-secondary">
                                 <i class="fas fa-home fa-2x"></i>
                                 <br>
                                 <font size="-3" >{{ $item->unit_no }} </font>

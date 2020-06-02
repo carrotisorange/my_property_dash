@@ -10,7 +10,7 @@
             </div>
         </form>
         <br>
-        <p class="text-center"><b>{{ $tenants->count() }}</b> tenant/s found.</p>
+        <p class="text-center"><small ><b>{{ $tenants->count() }}</b> units found.</small></p>
             <table class="table table-striped">
                 <thead>
                  <tr>

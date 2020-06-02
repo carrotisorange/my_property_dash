@@ -197,7 +197,7 @@
                         <tr>
                             <th>#</th>
                             <th>name</th>
-                            <th>via</th>
+                            <th>reserved via</th>
                             <th>reservation date</th>   
                                      
                             <th></th>
@@ -209,9 +209,13 @@
                         <tr>
                             <th>{{ $ctr++ }}</th>
                             <td><a href="{{ route('show-tenant',['unit_id'=> $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }} </a></td>
-                            <td>{{ $item->type_of_tenant }}</td>
+                            @if($item->type_of_tenant === 'online')
+                            <td><a class="badge badge-success">{{ $item->type_of_tenant }}</td>
+                            @else
+                            <td><a class="badge badge-warning">{{ $item->type_of_tenant }}</td>
+                            @endif
                             <td>{{ Carbon\Carbon::parse($item->created_at)->format('M d Y') }}</td>
-                            <th>{{ Carbon\Carbon::now()->diffInDays(Carbon\Carbon::parse($item->created_at), false) }} days left</th>
+                            <th>{{ Carbon\Carbon::now()->diffInDays(Carbon\Carbon::parse($item->created_at)->addDays(7), false) }} days before exp</th>
                         </tr>
                     @endforeach
                         @endif                        
