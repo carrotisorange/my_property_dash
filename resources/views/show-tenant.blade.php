@@ -24,7 +24,6 @@
         @endif
         </span>
     </h5>
-
     <table class="table table-bordered table-striped">
         <tr>
                 <th colspan="2">Personal Information</th>
@@ -62,8 +61,7 @@
                 <td>{{ $tenant->barangay.', '.$tenant->city.', '.$tenant->province.', '.$tenant->country.', '.$tenant->zip_code }}</td>
             </tr>
             <tr>
-                <th colspan="2">Contact Information</th>
-
+                <th colspan="2">Contact Information</th
             </tr>
             <tr>
                 <td>Contact No</td>
@@ -201,20 +199,20 @@
                     </p>
                     <br>
                     <table class = "table table-hover " id="tab_logic">
-                        <tr class="text-center">
-                            <th>#</th>
-                            <th>Description</th>
-                            <th>Amount</th>
+                        <tr>
+                            <th class="text-center">#</th>
+                            <th>description</th>
+                            <th>amount</th>
                         </tr>
                             <input form="moveoutTenantForm" type="hidden" id="no_of_items" name="no_of_items" >
-                        <tr id='addr1'></tr>tenantcon
+                        <tr id='addr1'></tr>
                     </table>
                 </div>
               </div>
 
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i> cancel</button>
-            <button form="moveoutTenantForm" type="submit" class="btn btn-danger"><i class="fas fa-check"></i> proceed</button>
+            <button form="moveoutTenantForm" type="submit" class="btn btn-danger"><i class="fas fa-check"></i> moveout</button>
         </div>
     </div>
     </div>
@@ -236,24 +234,36 @@
             <form id="extendTenantForm" action="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/renew" method="POST">
                 {{ csrf_field() }}
             </form>
+
             <div class="row">
                 <div class="col">
-                    <label for="moveout_date">move in date</label>
-                    <input type="date" form="extendTenantForm" class="form-control" name="movein_date" id="actual_moveout_date" value={{ $tenant->moveout_date }} required readonly>
+                    <label for="movein_date">new move in date</label>
+                    <input type="hidden" form="extendTenantForm" class="form-control" name="movein_date" value={{ $tenant->moveout_date }} required readonly>
+                    <input type="text" form="" class="form-control" name="" value="{{ Carbon\Carbon::parse($tenant->moveout_date)->format('M d Y') }}" required readonly>
+                    
                 </div>
             </div>
             <br>
             <div class="row">
                 <div class="col">
-                    <label for="moveout_date">move out date</label>
-                    <input type="date" form="extendTenantForm" class="form-control" name="moveout_date" id="moveout_date" required>
+                    <label for="moveout_date">extend contract to </label>
+                    <input type="number" form="extendTenantForm" class="form-control" name="no_of_months" min="1" placeholder="enter no of months" required >
                 </div>
             </div>
+             <br>
+            {{-- <br>
+            <div class="row">
+                <div class="col">
+                    <label for="moveout_date">move out date</label>
+                    <input type="date" form="extendTenantForm" class="form-control" name="moveout_date" required>
+                </div>
+            </div>  --}}
             <br>
             <div class="row">
                 <div class="col">
                     <p>
                         additional charges
+                        <small class="text-danger">(optional)</small>
                         <span style="float:right">
                             <a id="add_charges" class="btn btn-primary"><i class="fas fa-plus"></i></a>
                             <a id='remove_charges' class="btn btn-danger"><i class="fas fa-minus"></i></a>
@@ -261,10 +271,10 @@
                     </p>
                     <br>
                         <table class = "table table-hover " id="extend_table">
-                            <tr class="text-center">
-                                <th>#</th>
-                                <th>Description</th>
-                                <th>Amount</th>
+                            <tr>
+                                <th class="text-center">#</th>
+                                <th>description</th>
+                                <th>amount</th>
                             </tr>
                                 <input form="extendTenantForm" type="hidden" id="no_of_row" name="no_of_row" >
                                 <input form="extendTenantForm" type="hidden" id="current_date" name="current_date" value="{{ date('Y-m-d') }}">
@@ -325,7 +335,7 @@
 
         var j=1;
     $("#add_charges").click(function(){
-        $('#row'+j).html("<th>"+ (j) +"</th><td><select form='extendTenantForm' name='desc"+j+"' name='desc"+j+"' class='form-control'><option value='Security Deposit (Rent)'>Security Deposit (Rent)</option><option value='Security Deposit (Utilities)'>Security Deposit (Utilities)</option><option value='Advance Rent'>Advance Rent</option></select></td><td><input form='extendTenantForm' name='amt"+j+"' type='number' min='1' class='form-control input-md'></td>");
+        $('#row'+j).html("<th class='text-center'>"+ (j) +"</th><td><select form='extendTenantForm' name='desc"+j+"' name='desc"+j+"' class='form-control'><option value='Security Deposit (Rent)'>Security Deposit (Rent)</option><option value='Security Deposit (Utilities)'>Security Deposit (Utilities)</option><option value='Advance Rent'>Advance Rent</option></select></td><td><input form='extendTenantForm' name='amt"+j+"' type='number' min='1' class='form-control input-md'></td>");
 
      $('#extend_table').append('<tr id="row'+(j+1)+'"></tr>');
      j++;

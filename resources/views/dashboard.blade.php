@@ -943,7 +943,6 @@
                                         <td>{{ $item->property }}</td>
                                         <td>
                                             @if($item->user_type === 'admin')
-
                                             @else
                                             <form action="/users/{{ $item->id }}" method="POST">
                                                 {{ csrf_field() }}

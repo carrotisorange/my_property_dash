@@ -440,10 +440,6 @@ class TenantController extends Controller
 
     public function renew(Request $request, $unit_id, $tenant_id){
 
-        if($request->moveout_date <= $request->movein_date){
-            return back()->with('error', 'Invalid input. Make sure the moveout date is later than the movein date. ');
-        } 
-        
         //retrieve the number of dynamically created.
        $no_of_row = (int) $request->no_of_row; 
         
@@ -452,12 +448,12 @@ class TenantController extends Controller
             DB::table('tenants')
             ->where('tenant_id', $tenant_id)
             ->update([
-                'movein_date' => $request->movein_date,
-                'moveout_date' => $request->moveout_date,
+                'movein_date' => $request->movein_date, 
+                'moveout_date' => Carbon::parse($request->movein_date)->addMonths($request->no_of_months),
                 'has_extended' => 'renewed'
             ]);
 
-            return back()->with('success', 'Tenant contract has been successfully renewed!');
+            return back()->with('success', 'Tenant contract has been extended to '. $request->no_of_months.' months.');
 
         }else{
             //insert all the additional charges
@@ -475,8 +471,8 @@ class TenantController extends Controller
             DB::table('tenants')
             ->where('tenant_id', $tenant_id)
             ->update([
-                'movein_date' => $request->movein_date,
-                'moveout_date' => $request->moveout_date,
+                'movein_date' => $request->movein_date, 
+                'moveout_date' => Carbon::parse($request->movein_date)->addMonths($request->no_of_months),
                 'tenant_status' => 'pending',
                 'has_extended' => 'renewed'
             ]);
@@ -487,7 +483,7 @@ class TenantController extends Controller
                 'status' => 'reserved'
             ]);
 
-            return back()->with('success', 'Tenant has been successfully renewed!');
+            return back()->with('success', 'Tenant contract has been extended to '. $request->no_of_months.' months.');
             
         }
     }
