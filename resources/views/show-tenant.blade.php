@@ -144,8 +144,17 @@
             </tr>
             
             <tr>
-                <td>Renewal History</td>
-                <td>{{ $renewal_history[0] }}</td>
+                <td>Contract Renewal History</td>
+                <?php $numberFormatter = new NumberFormatter('en_US', NumberFormatter::ORDINAL) ?>
+                <td>
+                    @for ($i = 0; $i < count($renewal_history); $i++)
+                         {{ $numberFormatter->format($i) .' renewal: '.$renewal_history[$i] }}<br>
+                    @endfor
+                     
+                   
+                        
+                     
+                </td>
             </tr>
             <tr>
                 <td>Note</td>

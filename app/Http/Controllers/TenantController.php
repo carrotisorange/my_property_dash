@@ -452,7 +452,7 @@ class TenantController extends Controller
                 'movein_date' => $request->movein_date, 
                 'moveout_date' => Carbon::parse($request->movein_date)->addMonths($request->no_of_months),
                 'has_extended' => 'renewed',
-                'renewal_history' => $renewal_history->renewal_history.','.$request->old_movein_date.'-'.$request->movein_date
+                'renewal_history' => $renewal_history->renewal_history.', from '.Carbon::parse($request->old_movein_date)->format('M d Y').' to -'.Carbon::parse($request->movein_date)->format('M d Y')
             ]);
 
             return back()->with('success', 'Tenant contract has been extended to '. $request->no_of_months.' months.');
@@ -476,7 +476,8 @@ class TenantController extends Controller
                 'movein_date' => $request->movein_date, 
                 'moveout_date' => Carbon::parse($request->movein_date)->addMonths($request->no_of_months),
                 'tenant_status' => 'pending',
-                'has_extended' => 'renewed'
+                'has_extended' => 'renewed',
+                'renewal_history' => $renewal_history->renewal_history.', from '.Carbon::parse($request->old_movein_date)->format('M d Y').' to '.Carbon::parse($request->movein_date)->format('M d Y')
             ]);
     
             DB::table('units')
