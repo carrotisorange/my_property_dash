@@ -4,10 +4,10 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-6">
-            <button type="button" title="edit this unit information." class="btn btn-primary" data-toggle="modal" data-target="#editUnit" data-whatever="@mdo"><i class="fas fa-edit"></i>edit</button> 
+            <button type="button" title="edit room information." class="btn btn-primary" data-toggle="modal" data-target="#editUnit" data-whatever="@mdo"><i class="fas fa-edit"></i>edit</button> 
             @if ($tenant_active->count() < $unit->beds)
             <button title="{{ $unit->beds - $tenant_active->count() }} remaining tenant/s to be fully occupied." type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                <i class="fas fa-user-plus"></i> add tenant <span class="badge badge-light">{{  $tenant_active->count() }}/{{ $unit->beds }} 
+                <i class="fas fa-user-plus"></i> tenant <span class="badge badge-light">{{  $tenant_active->count() }}/{{ $unit->beds }} 
               </button>
               <div class="dropdown-menu">
                   <a href="/units/{{ $unit->unit_id }}/tenant-step1" class="dropdown-item" >Student</a>
@@ -18,42 +18,40 @@
             @endif
             {{-- if unit owner does not exist in this unit, then show the add investor button, otherwise, hide. --}}
             @if ($unit_owner->count() < 1)
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addInvestor" data-whatever="@mdo"><i class="fas fa-user-plus"></i> add investor</button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addInvestor" data-whatever="@mdo"><i class="fas fa-user-plus"></i> investor</button>
             @endif
             <br> <br>
-                <?php 
-                $numberFormatter = new NumberFormatter('en_US', NumberFormatter::ORDINAL)
-                ?>
+                <?php $numberFormatter = new NumberFormatter('en_US', NumberFormatter::ORDINAL) ?>
                    <table class="table table-bordered table-striped">
                        <tr>
-                           <th colspan="2">Unit Information</th>
+                           <th colspan="2" >Room Information</th>
                        </tr>
                        <tr>
-                            <td>Unit No</th>
+                            <td>unit no</th>
                             <td>{{ $unit->unit_no }}</td>
                        </tr>
                         <tr>
-                            <td>Building</td>
+                            <td>building</td>
                             <td>{{ $unit->building }}</td>
                        </tr>
                        <tr>
-                            <td>Floor No</td>
+                            <td>floor no</td>
                             <td>{{ $numberFormatter->format($unit->floor_no) }}</td>
                        </tr>
                        <tr>
-                            <td>Unit Type</td>
+                            <td>room type</td>
                             <td>{{ $unit->type_of_units }}</td>
                        </tr>
                        <tr>
-                            <td>No of Bed</td>
+                            <td>no of bed</td>
                             <td>{{ $unit->beds }}</td>     
                         </tr>
                         <tr>
-                            <td>Status</td>
+                            <td>status</td>
                             <td>{{ $unit->status }}</td>
                         </tr>
                         <tr>
-                            <td>Monthly Rent <br>(excluding utilities)</td> 
+                            <td>monthly rent <br>(excluding utilities)</td> 
                             <td>{{ number_format($unit->monthly_rent,2) }}</td>
 
                             <?php 
@@ -71,15 +69,15 @@
                             
                         </tr>
                         <tr>
-                            <td>Investor </td>
+                            <td>investor </td>
                             <td><a href="{{ route('show-investor',['unit_id'=> $item->unit_id, 'unit_owner_id'=>$item->unit_owner_id]) }}">{{ $item->unit_owner }} </a></td>
                         </tr>
                         <tr>
-                            <td>Representative</td>
+                            <td>representative</td>
                             <td>{{ $item->investor_representative }}</td>
                         </tr>
                         <tr>
-                            <td>Contract starts</td>
+                            <td>contract duration</td>
                             <td>
                                 @if($item->contract_end == NULL)
                                     {{ Carbon\Carbon::parse($item->contract_start)->format('M d Y') }} (Renewable) 
@@ -117,7 +115,7 @@
                         </tr>
                         @else
                         <tr>
-                            <th>#</th>
+                            <th class="text-center">#</th>
                             <th>name</th>
                             <th>status</th>
                             <th>contract</th>   
@@ -129,7 +127,7 @@
                         ?>   
                     @foreach ($tenant_active as $item)
                         <tr>
-                            <th>{{ $ctr++ }}</th>
+                            <th class="text-center">{{ $ctr++ }}</th>
                             <td><a href="{{ route('show-tenant',['unit_id'=> $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }} </a></td>
                             <td> 
                                 @if($item->tenant_status === 'active')
@@ -157,7 +155,7 @@
                         </tr>
                         @else
                         <tr>
-                            <th>#</th>
+                            <th class="text-center">#</th>
                             <th>name</th>
                             <th>status</th>
                             <th>moveout since</th>   
@@ -169,7 +167,7 @@
                         ?>   
                     @foreach ($tenant_inactive as $item)
                         <tr>
-                            <th>{{ $ctr++ }}</th>
+                            <th class="text-center">{{ $ctr++ }}</th>
                             <td><a href="{{ route('show-tenant',['unit_id'=> $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }} </a></td>
                             <td>
                                 @if($item->tenant_status === 'active')
@@ -195,7 +193,7 @@
                         </tr>
                         @else
                         <tr>
-                            <th>#</th>
+                            <th class="text-center">#</th>
                             <th>name</th>
                             <th>reserved via</th>
                             <th>reservation date</th>   
@@ -207,7 +205,7 @@
                         ?>   
                     @foreach ($tenant_reservations as $item)
                         <tr>
-                            <th>{{ $ctr++ }}</th>
+                            <th class="text-center">{{ $ctr++ }}</th>
                             <td><a href="{{ route('show-tenant',['unit_id'=> $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }} </a></td>
                             @if($item->type_of_tenant === 'online')
                             <td><a class="badge badge-success">{{ $item->type_of_tenant }}</td>
@@ -243,7 +241,7 @@
                 <div class="modal-body">
                 <form>
                     <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">Unit No:</label>
+                    <label for="recipient-name" class="col-form-label">unit no</label>
                     <input form="editUnitForm" type="text" value="{{ $unit->unit_no }}" name="unit_no" class="form-control" id="unit_no" >
                     </div>
                     <div class="form-group">
@@ -260,7 +258,7 @@
                     </select>
                     </div>
                     <div class="form-group">
-                        <label for="message-text" class="col-form-label">Building:</label>
+                        <label for="message-text" class="col-form-label">building:</label>
                         <input form="editUnitForm" type="text" value="{{ $unit->building }}" name="building" class="form-control">
                         {{-- <select form="editUnitForm" id="building" name="building" class="form-control">
                             <option value="{{ $unit->building }}" readonly selected class="bg-primary">{{ $unit->building }}</option>
@@ -270,7 +268,7 @@
                         </select> --}}
                         </div>
                     <div class="form-group">
-                    <label for="message-text" class="col-form-label">Type of Unit:</label>
+                    <label for="message-text" class="col-form-label">room type</label>
                     <select form="editUnitForm" id="type_of_units" name="type_of_units" class="form-control">
                         <option value="{{ $unit->type_of_units }}" readonly selected class="bg-primary">{{ $unit->type_of_units }}</option>
                         <option value="residential">residential</option>
@@ -278,11 +276,11 @@
                     </select>
                     </div>
                     <div class="form-group">
-                    <label for="message-text" class="col-form-label">Beds:</label>
+                    <label for="message-text" class="col-form-label">beds</label>
                     <input form="editUnitForm" min="1" max="4" type="number" value="{{ $unit->beds }}" name="beds" class="form-control">
                     </div>
                     <div class="form-group">
-                    <label for="message-text" class="col-form-label">Status:</label>
+                    <label for="message-text" class="col-form-label">status</label>
                     <select form="editUnitForm" id="status" name="status" class="form-control">
                         <option value="{{ $unit->status }}" readonly selected class="bg-primary">{{ $unit->status }}</option>
                         <option value="vacant">vacant</option>
@@ -291,7 +289,7 @@
                     </select>
                     </div>
                     <div class="form-group">
-                        <label for="message-text" class="col-form-label">Monthly Rent:</label>
+                        <label for="message-text" class="col-form-label">monthly rent</label>
                         <input form="editUnitForm" min="1" type="number" value="{{ $unit->monthly_rent }}" name="monthly_rent" class="form-control">
                         </div>
                 </form>
@@ -329,19 +327,19 @@
                     <input form="addInvestorForm" type="text"  value="{{ $unit->unit_owner }}" class="form-control" name="unit_owner" id="unit_owner" required>
                     </div>
                     <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">email address:</label>
+                        <label for="recipient-name" class="col-form-label">email address</label>
                         <input form="addInvestorForm" type="email" class="form-control" name="investor_email_address" id="investor_email_address">
                     </div>
                     <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">contact no:</label>
+                        <label for="recipient-name" class="col-form-label">contact no</label>
                         <input form="addInvestorForm" type="text" class="form-control" name="contact_no" id="contact_no">
                     </div>
                     <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">address:</label>
+                        <label for="recipient-name" class="col-form-label">address</label>
                         <input form="addInvestorForm" type="text" class="form-control" name="investor_address" id="investor_address"    >
                     </div>
                     <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">representative:</label>
+                        <label for="recipient-name" class="col-form-label">representative</label>
                         <input form="addInvestorForm" type="text" class="form-control" name="investor_representative" id="investor_representative">
                     </div>
                     <div class="form-group">

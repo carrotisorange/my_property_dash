@@ -30,6 +30,7 @@ class Tenant extends Model
                                 'tenant_status',
                                 'movein_date',
                                 'moveout_date',
+                                'renewal_history',
                                 'guardian',
                                 'guardian_relationship',
                                 'guardian_contact_no',

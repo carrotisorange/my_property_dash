@@ -169,8 +169,7 @@ class TenantController extends Controller
                 'tenant_status' => 'active',
                 'movein_date'=> session(Auth::user()->property.'movein_date'),
                 'moveout_date'=> session(Auth::user()->property.'moveout_date'),
-
-                
+        
                 //information for student
                 'high_school' => session(Auth::user()->property.'high_school'),
                 'high_school_address' => session(Auth::user()->property.'high_school_address'),
@@ -440,6 +439,8 @@ class TenantController extends Controller
 
     public function renew(Request $request, $unit_id, $tenant_id){
 
+        $renewal_history = Tenant::findOrFail($tenant_id);
+
         //retrieve the number of dynamically created.
        $no_of_row = (int) $request->no_of_row; 
         
@@ -450,7 +451,8 @@ class TenantController extends Controller
             ->update([
                 'movein_date' => $request->movein_date, 
                 'moveout_date' => Carbon::parse($request->movein_date)->addMonths($request->no_of_months),
-                'has_extended' => 'renewed'
+                'has_extended' => 'renewed',
+                'renewal_history' => $renewal_history->renewal_history.','.$request->old_movein_date.'-'.$request->movein_date
             ]);
 
             return back()->with('success', 'Tenant contract has been extended to '. $request->no_of_months.' months.');
@@ -705,6 +707,7 @@ class TenantController extends Controller
                 'tenant_status' => 'pending',
                 'movein_date'=> $request->movein_date,
                 'moveout_date'=> $request->moveout_date,
+    
                 
                 //information for studentf
                 'high_school' => $request->high_school,

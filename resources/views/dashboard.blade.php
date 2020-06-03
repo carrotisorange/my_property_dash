@@ -221,7 +221,8 @@
                                                     @endif
                                                 </td>
                                                 <td>{{ $item->building.' '.$item->unit_no }}</td>
-                                                <td><a class="badge badge-success">{{ $item->has_extended }} {{ number_format(Carbon\Carbon::now()->DiffInDays(Carbon\Carbon::parse($item->movein_date)) ) }} days ago</a></td>
+                                                <?php $renewal_history = explode(",", $item->renewal_history); ?>
+                                                <td><a class="badge badge-success">{{ $item->has_extended }} ({{ count($renewal_history) }}x) {{ number_format(Carbon\Carbon::now()->DiffInDays(Carbon\Carbon::parse($item->movein_date)) ) }} days ago</a></td>
                                            </tr>
                                            @endforeach
                                            @foreach($terminated_contracts->take(3) as $item)
@@ -271,15 +272,17 @@
                                              $ctr = 1;
                                            ?>   
                                            @foreach($recent_movein as $item)
+                                           <?php $renewal_history = explode(",", $item->renewal_history); ?>
                                             <tr>
                                                 <th class="text-center">{{ $ctr++ }}</th>
                                                 <td>
                                                     @if(Auth::user()->user_type === 'admin')
-                                                    <a href="{{ route('show-tenant',['unit_id' => $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a> <a class="badge badge-success">{{ $item->has_extended }}</a>
+                                                    <a href="{{ route('show-tenant',['unit_id' => $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a> <a class="badge badge-success">{{ $item->has_extended }} ({{ count($renewal_history) }}x)</a>
                                                     @elseif(Auth::user()->user_type === 'treasury')
-                                                    <a href="/units/{{ $item->unit_tenant_id }}/tenants/{{ $item->tenant_id }}/billings">{{ $item->first_name.' '.$item->last_name }}</a><a class="badge badge-success">{{ $item->has_extended }}</a>
+                                                    
+                                                    <a href="/units/{{ $item->unit_tenant_id }}/tenants/{{ $item->tenant_id }}/billings">{{ $item->first_name.' '.$item->last_name }}</a><a class="badge badge-success">{{ $item->has_extended }} ({{ count($renewal_history) }}x)</a>
                                                     @else
-                                                    {{ $item->first_name.' '.$item->last_name }}<a class="badge badge-success">{{ $item->has_extended }}</a>
+                                                    {{ $item->first_name.' '.$item->last_name }}<a class="badge badge-success">{{ $item->has_extended }} ({{ count($renewal_history) }}x)</a>
                                                     @endif
                                                 </td>
                                                 <td>{{ $item->tenant_status }}</td>
@@ -980,12 +983,12 @@
                 </form>
 
                 <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">unit no:</label>
+                    <label for="recipient-name" class="col-form-label">unit no</label>
                     <input form="addUnitForm" type="text" class="form-control" name="unit_no" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">type of room</label>
+                    <label for="recipient-name" class="col-form-label">room type</label>
                     <select form="addUnitForm" class="form-control" name="type_of_units" required>
                         <option value="" selected>Please select one</option>
                         <option value="commercial">commercial</option>
@@ -994,24 +997,24 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">floor no:</label>
+                    <label for="recipient-name" class="col-form-label">floor no</label>
                     <input form="addUnitForm" type="text" class="form-control" name="floor_no" required>
                 </div>
 
                 
                 <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">name of the building:</label>
+                    <label for="recipient-name" class="col-form-label">name of the building</label>
                     <input form="addUnitForm" type="text" class="form-control" name="building" placeholder="Building-A">
                     <small class="text-danger">please put hyphen(-) between spaces</small>
                 </div>
 
                 <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">no of beds:</label>
+                    <label for="recipient-name" class="col-form-label">no of beds</label>
                     <input form="addUnitForm" type="text" class="form-control" name="beds" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">monthly rent:</label>
+                    <label for="recipient-name" class="col-form-label">monthly rent</label>
                     <input form="addUnitForm" type="number" class="form-control" name="monthly_rent" required>
                 </div>
                
@@ -1044,7 +1047,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">type of room</label>
+                    <label for="recipient-name" class="col-form-label">room type</label>
                     <select form="addUMultipleUnitForm" class="form-control" name="type_of_units" required>
                         <option value="" selected>Please select one</option>
                         <option value="commercial">commercial</option>
@@ -1058,23 +1061,23 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">name of the building:</label>
+                    <label for="recipient-name" class="col-form-label">name of the building</label>
                     <input form="addUMultipleUnitForm" type="text" class="form-control" name="building" placeholder="Building-A">
                     <small class="text-danger">please put hyphen(-) between spaces</small>
                 </div>
 
                 <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">floor no:</label>
+                    <label for="recipient-name" class="col-form-label">floor no</label>
                     <input form="addUMultipleUnitForm" type="text" class="form-control" name="floor_no" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">no of beds:</label>
+                    <label for="recipient-name" class="col-form-label">no of beds</label>
                     <input form="addUMultipleUnitForm" type="number" class="form-control" name="beds" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">monthly Rent:</label>
+                    <label for="recipient-name" class="col-form-label">monthly rent</label>
                     <input form="addUMultipleUnitForm" type="number" class="form-control" name="monthly_rent" required>
                 </div>
     

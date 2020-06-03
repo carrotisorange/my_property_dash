@@ -137,9 +137,15 @@
                 <td>Monthly Rent</td>
                 <td>{{ number_format($tenant->tenant_monthly_rent, 2) }}</td>
             </tr>
+            <?php $renewal_history = explode(",", $tenant->renewal_history); ?>
             <tr>
                 <td>Contract Duration</td>
-                <td>{{ Carbon\Carbon::parse($tenant->movein_date)->format('M d Y').'-'.Carbon\Carbon::parse($tenant->moveout_date)->format('M d Y') }} <a class="badge badge-primary">{{ $tenant->has_extended }}</a></td>
+                <td>{{ Carbon\Carbon::parse($tenant->movein_date)->format('M d Y').'-'.Carbon\Carbon::parse($tenant->moveout_date)->format('M d Y') }} <a class="badge badge-primary">{{ $tenant->has_extended}}  {{ count($renewal_history) }}x</a></td>
+            </tr>
+            
+            <tr>
+                <td>Renewal History</td>
+                <td>{{ $renewal_history[0] }}</td>
             </tr>
             <tr>
                 <td>Note</td>
@@ -248,17 +254,11 @@
                 <div class="col">
                     <label for="moveout_date">extend contract to </label>
                     <input type="number" form="extendTenantForm" class="form-control" name="no_of_months" min="1" placeholder="enter no of months" required >
+                    <input type="hidden" form="extendTenantForm" class="form-control" name="old_movein_date" value="{{ $tenant->movein_date }}" required>
                 </div>
             </div>
              <br>
-            {{-- <br>
-            <div class="row">
-                <div class="col">
-                    <label for="moveout_date">move out date</label>
-                    <input type="date" form="extendTenantForm" class="form-control" name="moveout_date" required>
-                </div>
-            </div>  --}}
-            <br>
+            
             <div class="row">
                 <div class="col">
                     <p>
