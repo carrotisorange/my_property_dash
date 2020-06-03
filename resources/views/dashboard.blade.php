@@ -272,17 +272,18 @@
                                              $ctr = 1;
                                            ?>   
                                            @foreach($recent_movein as $item)
-                                           <?php $renewal_history = explode(",", $item->renewal_history); ?>
+                                           
                                             <tr>
                                                 <th class="text-center">{{ $ctr++ }}</th>
                                                 <td>
                                                     @if(Auth::user()->user_type === 'admin')
-                                                    <a href="{{ route('show-tenant',['unit_id' => $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a> <a class="badge badge-success">{{ $item->has_extended }} ({{ count($renewal_history) }}x)</a>
+                                                   
+                                                    <a href="{{ route('show-tenant',['unit_id' => $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a> <a class="badge badge-success">{{ $item->has_extended }}</a>
                                                     @elseif(Auth::user()->user_type === 'treasury')
                                                     
-                                                    <a href="/units/{{ $item->unit_tenant_id }}/tenants/{{ $item->tenant_id }}/billings">{{ $item->first_name.' '.$item->last_name }}</a><a class="badge badge-success">{{ $item->has_extended }} ({{ count($renewal_history) }}x)</a>
+                                                    <a href="/units/{{ $item->unit_tenant_id }}/tenants/{{ $item->tenant_id }}/billings">{{ $item->first_name.' '.$item->last_name }}</a><a class="badge badge-success">{{ $item->has_extended }}</a>
                                                     @else
-                                                    {{ $item->first_name.' '.$item->last_name }}<a class="badge badge-success">{{ $item->has_extended }} ({{ count($renewal_history) }}x)</a>
+                                                    {{ $item->first_name.' '.$item->last_name }}<a class="badge badge-success">{{ $item->has_extended }}</a>
                                                     @endif
                                                 </td>
                                                 <td>{{ $item->tenant_status }}</td>
