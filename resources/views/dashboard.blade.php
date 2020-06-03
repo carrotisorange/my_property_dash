@@ -933,7 +933,13 @@
                                         <td>{{ $item->name }}</td>
                                         <td>{{ $item->email }}</td>
                                         <td>{{ $item->user_type }}</td>
-                                        <td>{{ $item->status }}</td>
+                                        <td>
+                                            @if($item->status === 'registered')
+                                            <a class="badge badge-success">{{ $item->status }}</a>
+                                            @else
+                                            <a class="badge badge-danger">{{ $item->status }}</a>
+                                            @endif
+                                        </td>
                                         <td>{{ $item->property }}</td>
                                         <td>
                                             @if($item->user_type === 'admin')
