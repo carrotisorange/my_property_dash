@@ -4,7 +4,7 @@
 <div class="container">
     <h5 style="text-align:left;">
         <a href="/units/{{ $tenant->unit_tenant_id }}" class="btn btn-primary"><i class="fas fa-arrow-left"></i> go back to unit</a>
-        <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/edit" class="btn btn-primary"><i class="fas fa-user-edit"></i> edit</a>    
+        <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/edit" class="btn btn-primary"><i class="fas fa-user-edit"></i> edit</a>  
         <a href="{{ route('show-billings',['unit_id' => $tenant->unit_tenant_id, 'tenant_id'=>$tenant->tenant_id]) }}" class="btn btn-primary"><i class="fas fa-file-invoice-dollar"></i> billing <span class="badge badge-light">{{ $billings->count() }}</span> </a>
         <a href="{{ route('show-payments',['unit_id' => $tenant->unit_tenant_id, 'tenant_id'=>$tenant->tenant_id]) }}" class="btn btn-primary"><i class="fas fa-dollar-sign"></i> payment history <span class="badge badge-light">{{ $payments->count() }}</span></a>
         <span style="float:right;">
@@ -149,11 +149,7 @@
                 <td>
                     @for ($i = 0; $i < count($renewal_history); $i++)
                          {{ $numberFormatter->format($i) .' renewal: '.$renewal_history[$i] }}<br>
-                    @endfor
-                     
-                   
-                        
-                     
+                    @endfor     
                 </td>
             </tr>
             <tr>
@@ -300,7 +296,6 @@
     </div>
     </div>
 </div>
-
 
 {{-- Modal for warning message --}}
 <div class="modal fade" id="moveoutTenantWarning" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

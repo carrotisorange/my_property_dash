@@ -20,6 +20,6 @@ class Billing extends Model
 
  public function tenant()
     {
-    return $this->belongsTo('App\Tenant', 'payment_tenant_id');
+    return $this->belongsTo('App\Tenant', 'billing_tenant_id');
     }
 }

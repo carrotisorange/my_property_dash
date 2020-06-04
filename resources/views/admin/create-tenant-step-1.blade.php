@@ -56,7 +56,7 @@
               <input form="addTenantForm1" type="text" class="form-control" name="contact_no" id="contact_no" value="{{ session(Auth::user()->property.'contact_no') }}" required >
             </div>
             <div class="col">
-              <label for="recipient-name" class="col-form-label">Email Address:</label>
+              <label for="recipient-name" class="col-form-label">Email:</label>
               <input form="addTenantForm1" type="email" class="form-control" name="email_address" id="email_address" value="{{ session(Auth::user()->property.'email_address') }}">
             </div>
         </div>
