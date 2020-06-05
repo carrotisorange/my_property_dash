@@ -137,14 +137,23 @@
                 <td>Monthly Rent</td>
                 <td>{{ number_format($tenant->tenant_monthly_rent, 2) }}</td>
             </tr>
-            <?php $renewal_history = explode(",", $tenant->renewal_history); ?>
+            <?php 
+                $renewal_history = explode(",", $tenant->renewal_history); 
+                $diffInMonths =  number_format(Carbon\Carbon::now()->floatDiffInMonths(Carbon\Carbon::parse($tenant->moveout_date), false));
+                $diffInDays =  number_format(Carbon\Carbon::now()->DiffInDays(Carbon\Carbon::parse($tenant->moveout_date), false));
+            ?>
             <tr>
                 <td>Contract Duration</td>
                 <td>{{ Carbon\Carbon::parse($tenant->movein_date)->format('M d Y').'-'.Carbon\Carbon::parse($tenant->moveout_date)->format('M d Y') }} <a class="badge badge-primary">{{ $tenant->has_extended}} 
-                    @if( count($renewal_history) >= 0)
+                    @if( count($renewal_history) > 1)
                     ({{ count($renewal_history)-1 }}x) </a>  
                     @endif
-                </a>  
+                    @if($diffInDays <= -1)
+                    <a class="badge badge-danger">contract has lapsed {{ $diffInDays*-1 }} days ago</a> 
+                     @else
+                    <a class="badge badge-warning">contract expires in {{ $diffInDays }} days </a>
+                     @endif
+                    </a>  
                 </td>
             </tr>
             
