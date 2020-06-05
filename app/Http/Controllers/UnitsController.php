@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Unit;
 use DB;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class UnitsController extends Controller
 {
@@ -181,6 +182,7 @@ class UnitsController extends Controller
              'type_of_units' => 'residential',
              'unit_property' => Auth::user()->property,
              'type_of_units' => $request->type_of_units,
+             'created_at'=> Carbon::now(),
          ]);
         }
  

@@ -264,8 +264,8 @@
                                             <tr>
                                                 <th class="text-center">#</th>
                                                 <th>name</th>
-                                                <th>status</th>
-                                                <th>unit no</th>   
+                                                
+                                                <th>unit no</>   
                                                 <th></th>          
                                             </tr>
                                            <?php
@@ -286,7 +286,7 @@
                                                     {{ $item->first_name.' '.$item->last_name }}<a class="badge badge-success">{{ $item->has_extended }}</a>
                                                     @endif
                                                 </td>
-                                                <td>{{ $item->tenant_status }}</td>
+                                               
                                                 <td>{{ $item->building.' '.$item->unit_no }}</td>
                                                 <td><a class="badge badge-primary">{{ number_format(Carbon\Carbon::now()->DiffInDays(Carbon\Carbon::parse($item->movein_date)) ) }} days ago</a></td>
                                            </tr>
@@ -1042,49 +1042,63 @@
                 <form id="addUMultipleUnitForm" action="/units/add-multiple" method="POST">
                     {{ csrf_field() }}
                 </form>
+
                 <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">no of rooms you want to create</label>
-                    <input form="addUMultipleUnitForm" type="number" class="form-control" name="no_of_rooms"required>
+                    <label for="recipient-name" class="col-form-label">enter the name of the building</label>
+                    <input form="addUMultipleUnitForm" type="text" class="form-control" name="building" placeholder="Building-A" required>
+                    <small class="text-danger">please put hyphen(-) between spaces</small>
                 </div>
 
                 <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">room type</label>
+                    <label for="recipient-name" class="col-form-label">select the floor number</label>
+                    <select class="form-control" form="addUMultipleUnitForm" name="floor_no" id="floor_no" onkeydown="getFloorNo()" required>
+                        <option value="" selected>Please select one</option>
+                        <option value="G">Ground floor</option>
+                        <option value="1">1st floor</option>
+                        <option value="2">2nd floor</option>
+                        <option value="3">3rd floor</option>
+                        <option value="4">4th floor</option>
+                        <option value="5">5ht floor</option>
+                        <option value="6">6th floor</option>
+                        <option value="7">7th floor</option>
+                        <option value="8">8th floor</option>
+                        <option value="9">9th floor</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">select the purpose of the rooms/units</label>
                     <select form="addUMultipleUnitForm" class="form-control" name="type_of_units" required>
                         <option value="" selected>Please select one</option>
+                        <option value="for leasing">for leasing</option>
                         <option value="commercial">commercial</option>
                         <option value="residential">residential</option>
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">initial name for the room</label>
-                    <input form="addUMultipleUnitForm" type="text" class="form-control" name="unit_no" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">name of the building</label>
-                    <input form="addUMultipleUnitForm" type="text" class="form-control" name="building" placeholder="Building-A">
-                    <small class="text-danger">please put hyphen(-) between spaces</small>
-                </div>
-
-                <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">floor no</label>
-                    <input form="addUMultipleUnitForm" type="text" class="form-control" name="floor_no" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">no of beds</label>
+                    <label for="recipient-name" class="col-form-label">enter the number of beds of the rooms/units</label>
                     <input form="addUMultipleUnitForm" type="number" class="form-control" name="beds" required>
                 </div>
+
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">enter the number of rooms/units you want to create</label>
+                    <input form="addUMultipleUnitForm" type="number" class="form-control" name="no_of_rooms"required>
+                </div>
+
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">enter the initial name of the rooms/units </label>
+                    <input form="addUMultipleUnitForm" type="text" class="form-control" name="unit_no" id="unit_no" required>
+                </div>
                 
                 <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">monthly rent</label>
+                    <label for="recipient-name" class="col-form-label">enter the monthly rent</label>
                     <input form="addUMultipleUnitForm" type="number" class="form-control" name="monthly_rent" required>
                 </div>
     
             </div>
             <div class="modal-footer">
-                <button form="addUMultipleUnitForm" type="submit" class="btn btn-primary"><i class="fas fa-check"></i> Save</button>
+                <button form="addUMultipleUnitForm" type="submit" class="btn btn-primary"><i class="fas fa-check"></i> create rooms</button>
                 </div>
         </div>
         </div>
@@ -1110,6 +1124,13 @@
 {!! $movein_rate->script() !!}
 {!! $moveout_rate->script() !!}
 {!! $renewed_chart->script() !!}
+
+<script type="text/javascript">
+    function getFloorNo(){
+        document.getElementById('unit_no').value = 'asdasdasdasd';
+    }
+    
+</script>
 @endsection
  
 
