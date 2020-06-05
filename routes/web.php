@@ -609,9 +609,6 @@ Route::get('/', function(Request $request){
        ->get();
 
    }
-
-       
-
        
     $overall_contract_termination = $renewed_contracts->count() + $terminated_contracts->count();
 

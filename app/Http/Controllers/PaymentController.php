@@ -90,7 +90,12 @@ class PaymentController extends Controller
             //change tenant's status to active.
             DB::table('tenants')
             ->where('tenant_id', $request->payment_tenant_id)
-            ->update(['tenant_status'=> 'active']);
+            ->update(
+                        [
+                            'tenant_status'=> 'active',
+                            'tenants_note' => ''
+                        ]
+                    );
 
             //change the billing status to paid,
             DB::table('billings')
@@ -100,9 +105,10 @@ class PaymentController extends Controller
             //change the unit status to occupied.
             DB::table('units')
             ->where('unit_id', $request->unit_tenant_id)
-            ->update(['status'=> 'occupied']);
-
-           
+            ->update([
+                        'status'=> 'occupied',
+                        'updated_at' => Carbon::now(), 
+                    ]);
         }else{
             return redirect('/units/'.$request->unit_tenant_id.'/tenants/'.$request->payment_tenant_id.'/billings')->with('error','Payment has been rejected. Insufficient amount!');
         }

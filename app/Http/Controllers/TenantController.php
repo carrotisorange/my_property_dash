@@ -208,7 +208,7 @@ class TenantController extends Controller
                     'or_number' => $request->or_number,
                     'ar_number' => $request->ar_number,
                     'bank_name' => $request->bank_name,
-                    'form_of_payment' => $request->form_of_payment,
+                    'form_of_payment' => 'cash',
                     'check_no' => $request->check_no,
                     'date_deposited' => $request->date_deposited,
                     'payment_note' => $request->input('desc'.$i),
