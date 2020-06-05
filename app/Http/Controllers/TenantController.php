@@ -200,20 +200,33 @@ class TenantController extends Controller
                     'billing_amt' =>  $request->input('amt'.$i),
                     'billing_status' => 'paid'
                 ]);
+
+                DB::table('payments')->insert([
+                    'payment_tenant_id' => $tenant_id,
+                    'payment_created' => session(Auth::user()->property.'movein_date'),
+                    'amt_paid' => $request->input('amt'.$i),
+                    'or_number' => $request->or_number,
+                    'ar_number' => $request->ar_number,
+                    'bank_name' => $request->bank_name,
+                    'form_of_payment' => $request->form_of_payment,
+                    'check_no' => $request->check_no,
+                    'date_deposited' => $request->date_deposited,
+                    'payment_note' => $request->input('desc'.$i),
+                ]);
         }        
 
-        DB::table('payments')->insert([
-            'payment_tenant_id' => $tenant_id,
-            'payment_created' => session(Auth::user()->property.'movein_date'),
-            'amt_paid' => DB::table('billings')->where('billing_tenant_id', $tenant_id)->sum('billing_amt'),
-            'or_number' => $request->or_number,
-            'ar_number' => $request->ar_number,
-            'bank_name' => $request->bank_name,
-            'form_of_payment' => $request->form_of_payment,
-            'check_no' => $request->check_no,
-            'date_deposited' => $request->date_deposited,
-            'payment_note' => 'movein charges',
-        ]);
+        // DB::table('payments')->insert([
+        //     'payment_tenant_id' => $tenant_id,
+        //     'payment_created' => session(Auth::user()->property.'movein_date'),
+        //     'amt_paid' => DB::table('billings')->where('billing_tenant_id', $tenant_id)->sum('billing_amt'),
+        //     'or_number' => $request->or_number,
+        //     'ar_number' => $request->ar_number,
+        //     'bank_name' => $request->bank_name,
+        //     'form_of_payment' => $request->form_of_payment,
+        //     'check_no' => $request->check_no,
+        //     'date_deposited' => $request->date_deposited,
+        //     'payment_note' => 'movein charges',
+        // ]);
 
         //web unit status to occupied.
          DB::table('units')->where('unit_id', session(Auth::user()->property.'unit_id'))
