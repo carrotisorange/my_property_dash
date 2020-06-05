@@ -222,7 +222,7 @@
                                                 </td>
                                                 <td>{{ $item->building.' '.$item->unit_no }}</td>
                                                 <?php $renewal_history = explode(",", $item->renewal_history); ?>
-                                                <td><a class="badge badge-success">{{ $item->has_extended }} ({{ count($renewal_history) }}x) {{ number_format(Carbon\Carbon::now()->DiffInDays(Carbon\Carbon::parse($item->movein_date)) ) }} days ago</a></td>
+                                                <td><a class="badge badge-success">{{ $item->has_extended }} ({{ count($renewal_history)-1 }}x) {{ number_format(Carbon\Carbon::now()->DiffInDays(Carbon\Carbon::parse($item->movein_date)) ) }} days ago</a></td>
                                            </tr>
                                            @endforeach
                                            @foreach($terminated_contracts->take(3) as $item)

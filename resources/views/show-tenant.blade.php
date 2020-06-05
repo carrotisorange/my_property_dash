@@ -8,11 +8,11 @@
         <a href="{{ route('show-billings',['unit_id' => $tenant->unit_tenant_id, 'tenant_id'=>$tenant->tenant_id]) }}" class="btn btn-primary"><i class="fas fa-file-invoice-dollar"></i> billing <span class="badge badge-light">{{ $billings->count() }}</span> </a>
         <a href="{{ route('show-payments',['unit_id' => $tenant->unit_tenant_id, 'tenant_id'=>$tenant->tenant_id]) }}" class="btn btn-primary"><i class="fas fa-dollar-sign"></i> payment history <span class="badge badge-light">{{ $payments->count() }}</span></a>
         <span style="float:right;">
-            <form action="/tenants/{{ $tenant->tenant_id }}" method="POST">
+            {{-- <form action="/tenants/{{ $tenant->tenant_id }}" method="POST">
                 {{ csrf_field() }}
                 @method('delete')
                 <button type="submit">Delete</button>
-            </form>
+            </form> --}}
         <a class="btn btn-primary" data-toggle="modal" data-target="#extendTenant" data-whatever="@mdo"><i class="fas fa-external-link-alt"></i> extend</a>
         @if ($tenant->tenant_status === 'active' || $tenant->tenant_status === 'pending')
             @if($pending_balance > 0)
@@ -140,14 +140,19 @@
             <?php $renewal_history = explode(",", $tenant->renewal_history); ?>
             <tr>
                 <td>Contract Duration</td>
-                <td>{{ Carbon\Carbon::parse($tenant->movein_date)->format('M d Y').'-'.Carbon\Carbon::parse($tenant->moveout_date)->format('M d Y') }} <a class="badge badge-primary">{{ $tenant->has_extended}}  {{ count($renewal_history) }}x</a></td>
+                <td>{{ Carbon\Carbon::parse($tenant->movein_date)->format('M d Y').'-'.Carbon\Carbon::parse($tenant->moveout_date)->format('M d Y') }} <a class="badge badge-primary">{{ $tenant->has_extended}} 
+                    @if( count($renewal_history) > 0)
+                    ({{ count($renewal_history)-1 }}x) </a>  
+                    @endif
+                </a>  
+                </td>
             </tr>
             
             <tr>
                 <td>Contract Renewal History</td>
                 <?php $numberFormatter = new NumberFormatter('en_US', NumberFormatter::ORDINAL) ?>
                 <td>
-                    @for ($i = 0; $i < count($renewal_history); $i++)
+                    @for ($i = 1; $i < count($renewal_history); $i++)
                          {{ $numberFormatter->format($i) .' renewal: '.$renewal_history[$i] }}<br>
                     @endfor     
                 </td>
@@ -159,9 +164,7 @@
                 </td>
             </tr>
         </table>
-
 </div>
-
 {{-- Modal to moveout tenant --}}
 <div class="modal fade" id="moveoutTenant" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-md" role="document">
