@@ -141,7 +141,7 @@
             <tr>
                 <td>Contract Duration</td>
                 <td>{{ Carbon\Carbon::parse($tenant->movein_date)->format('M d Y').'-'.Carbon\Carbon::parse($tenant->moveout_date)->format('M d Y') }} <a class="badge badge-primary">{{ $tenant->has_extended}} 
-                    @if( count($renewal_history) > 0)
+                    @if( count($renewal_history) >= 0)
                     ({{ count($renewal_history)-1 }}x) </a>  
                     @endif
                 </a>  
