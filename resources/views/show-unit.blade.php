@@ -98,7 +98,7 @@
                   <a class="nav-link active" id="pills-active-tab" data-toggle="pill" href="#active" role="tab" aria-controls="pills-active" aria-selected="true"><i class="fas fa-user-check"></i>&nbsp&nbspcurrent tenants  <span class="badge badge-light">{{ $tenant_active->count() }}</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="pills-reserved-tab" data-toggle="pill" href="#reserved" role="tab" aria-controls="pills-reserved" aria-selected="false"><i class="far fa-calendar-check"></i>&nbsp&nbspreserved tenants <span class="badge badge-light">{{ $tenant_reservations->count() }}</a>
+                    <a class="nav-link" id="pills-reserved-tab" data-toggle="pill" href="#reserved" role="tab" aria-controls="pills-reserved" aria-selected="false"><i class="fas fa-user-clock"></i>&nbsp&nbspreserved tenants <span class="badge badge-light">{{ $tenant_reservations->count() }}</a>
                   </li>
                 <li class="nav-item">
                   <a class="nav-link" id="pills-inactive-tab" data-toggle="pill" href="#inactive" role="tab" aria-controls="pills-inactive" aria-selected="false"><i class="fas fa-user-times"></i>&nbsp&nbspprevious tenants <span class="badge badge-light">{{ $tenant_inactive->count() }}</a>

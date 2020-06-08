@@ -9,7 +9,7 @@
             @if(Auth::user()->user_type === 'admin')
             <a class="nav-link" id="v-pills-units-tab" data-toggle="pill" href="#units" role="tab" aria-controls="v-pills-units" aria-selected="false"><i class="fas fa-home"></i>&nbsp&nbspUnits <span class="badge badge-light">{{ $units->count() }}</span></a>
              @foreach ($units_per_building as $item)
-            <a class="nav-link" id="pills-{{ $item->building }}-tab" data-toggle="pill" href="#{{ $item->building }}" role="tab" aria-controls="pills-{{ $item->building }}" aria-selected="false">- {{ $item->building }} <span class="badge badge-light">{{ $item->count }}</span> </a>
+            <a class="nav-link" id="pills-{{ $item->building }}-tab" data-toggle="pill" href="#{{ $item->building }}" role="tab" aria-controls="pills-{{ $item->building }}" aria-selected="false">&nbsp&nbsp&nbsp&nbsp - {{ $item->building }} <span class="badge badge-light">{{ $item->count }}</span> </a>
             @endforeach
             <a class="nav-link" id="v-pills-tenants-tab" data-toggle="pill" href="#tenants" role="tab" aria-controls="v-pills-tenants" aria-selected="false"><i class="fas fa-user"></i>&nbsp&nbspTenants  <span class="badge badge-light">{{ $tenants->count() }}</span></a>
             <a class="nav-link" id="v-pills-investors-tab" data-toggle="pill" href="#investors" role="tab" aria-controls="v-pills-investors" aria-selected="false"><i class="fas fa-user-tie"></i>&nbsp&nbspInvestors <span class="badge badge-light">{{ $investors->count() }}</span> </a>
@@ -51,7 +51,6 @@
                             @endif  
                             </div>
                         </div>
-                    
                         <div class="row text-center">
                             <div class="col-md-3">
                                 <div class="card bg-primary">
@@ -75,7 +74,6 @@
                                             <span class="text-right"><p><i class="fas fa-home fa-1x"></i></p></span>
                                         </h1>
                                     </div>
-                                    
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -102,7 +100,6 @@
                                     </div>
                                 </div>
                             </div>
-                            
                         </div>
                         <br>
                         <div class="row">
@@ -116,9 +113,7 @@
                                         <th>unit no</th>   
                                         <th colspan="3"></th>         
                                     </tr>
-                                   <?php
-                                     $ctr = 1;
-                                   ?>   
+                                   <?php $ctr = 1; ?>   
                                    @foreach($tenants as $item)
                                    <?php
                                             $diffInMonths =  number_format(Carbon\Carbon::now()->floatDiffInMonths(Carbon\Carbon::parse($item->moveout_date), false));
@@ -134,8 +129,7 @@
                                             <a href="/units/{{ $item->unit_tenant_id }}/tenants/{{ $item->tenant_id }}/payments">{{ $item->first_name.' '.$item->last_name }}</a>
                                             @else
                                             {{ $item->first_name.' '.$item->last_name }}
-                                            @endif
-                                           
+                                            @endif  
                                         </td>
                                         <td>{{ $item->contact_no }}</td>
                                         <td>{{ $item->building.' '.$item->unit_no }}</td>
@@ -195,7 +189,6 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="card">
-                                   
                                     <div class="card-body">
                                         {!! $renewed_chart->container() !!}  
                                     </div>
@@ -245,11 +238,9 @@
                                           </tr>
                                           @endforeach
                                         </table>
-                                    
                             </div>
                         </div>
                         <br>
-                   
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="card">
@@ -271,11 +262,8 @@
                                                 <th>unit no</th>   
                                                 <th></th>          
                                             </tr>
-                                           <?php
-                                             $ctr = 1;
-                                           ?>   
+                                           <?php $ctr = 1; ?>   
                                            @foreach($recent_movein as $item)
-                                           
                                             <tr>
                                                 <th class="text-center">{{ $ctr++ }}</th>
                                                 <td>
@@ -294,10 +282,7 @@
                                                 <td><a class="badge badge-primary">{{ number_format(Carbon\Carbon::now()->DiffInDays(Carbon\Carbon::parse($item->movein_date)) ) }} days ago</a></td>
                                            </tr>
                                            @endforeach
-                                        </table>
-                                        
-                                    
-                                
+                                        </table>            
                             </div>   
                         </div>
                         <br>
@@ -346,11 +331,9 @@
                             </div>   
                         </div>
                         <br>
-                        
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="card">
-                                   
                                     <div class="card-body">
                                         {!! $collection_rate->container() !!}  
                                     </div>
@@ -358,7 +341,6 @@
                             </div>    
                             <div class="col-md-6">
                                 <h4>delinquents</h4>
-                                  
                                         <table class="table table-bordered">
                                             <tr>
                                                 <th class="text-center">#</th>
@@ -370,7 +352,6 @@
                                             $ctr = 1;
                                             ?>   
                                             @foreach ($delinquent_accounts as $item)
-                                            
                                             <tr>
                                                 <th class="text-center">{{ $ctr++ }}</th>
                                                 <td>
@@ -384,29 +365,30 @@
                                                 <td>{{$item->building.' '.$item->unit_no }}</td>
                                                 <td>{{ number_format($item->total_bills,2) }}</td>
                                             </tr>
-                                          
                                             @endforeach
-                                        </table>
-                                    
+                                        </table>      
                             </div>   
                         </div>
-                        
                         <br>
                     </div>
                 </div>
             </div>
-          
-               
             <div class="tab-pane fade" id="units" role="tabpanel" aria-labelledby="v-pills-units-tab">
                 <div class="card">
                     <div class="card-body">
-                         <ul class="nav nav-pills mb-3 text-right" id="pills-tab" role="tablist">
+                <ul class="nav nav-pills mb-3 text-right" id="pills-tab" role="tablist">
                 <li class="nav-item">
-                  <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#all" role="tab" aria-controls="pills-home" aria-selected="true">all <span class="badge badge-light">{{ $units->count() }}</span></a>
+                  <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#all" role="tab" aria-controls="pills-home" aria-selected="true"><i class="fas fa-home"></i> all <span class="badge badge-light">{{ $units->count() }}</span></a>
                 </li>
                 @foreach ($units_per_status as $item)
                     <li class="nav-item">
-                        <a class="nav-link" id="pills-{{ $item->status }}-tab" data-toggle="pill" href="#{{ $item->status }}" role="tab" aria-controls="pills-{{ $item->status }}" aria-selected="false">{{ $item->status }} <span class="badge badge-light">{{ $item->count }}</span> </a>
+                        @if($item->status==='occupied')
+                        <a class="nav-link" id="pills-{{ $item->status }}-tab" data-toggle="pill" href="#{{ $item->status }}" role="tab" aria-controls="pills-{{ $item->status }}" aria-selected="false"><i class="fas fa-house-user"></i> {{ $item->status }} <span class="badge badge-light">{{ $item->count }}</span> </a>
+                        @elseif($item->status==='vacant')
+                        <a class="nav-link" id="pills-{{ $item->status }}-tab" data-toggle="pill" href="#{{ $item->status }}" role="tab" aria-controls="pills-{{ $item->status }}" aria-selected="false"><i class="fas fa-home"></i> {{ $item->status }} <span class="badge badge-light">{{ $item->count }}</span> </a>
+                        @else
+                        <a class="nav-link" id="pills-{{ $item->status }}-tab" data-toggle="pill" href="#{{ $item->status }}" role="tab" aria-controls="pills-{{ $item->status }}" aria-selected="false"><i class="fas fa-laptop-house"></i> {{ $item->status }} <span class="badge badge-light">{{ $item->count }}</span> </a>
+                        @endif
                     </li>  
                 @endforeach
                 {{--<li class="nav-item">
@@ -418,7 +400,6 @@
                 </li>  
                 @endforeach --}}
               </ul>
-              
               <div class="tab-content" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="pills-home-tab">
                     <div class="row border-rounded">
@@ -464,7 +445,7 @@
                                                 <a title="{{ $unit->type_of_units }}" href="/units/{{$unit->unit_id}}" class="btn btn-secondary">
                                                     <i class="fas fa-home fa-2x"></i>
                                                     <br>
-                                                    <font size="-3">{{ $unit->unit_no }} </font>
+                                                    <font size="-3">{{ $unit->unit_no }}</font>
                                                 </a>   
                                                 @elseif($item->status=== 'reserved')
                                                 <a title="{{ $unit->type_of_units }}" href="/units/{{$unit->unit_id}}" class="btn btn-warning">
@@ -492,13 +473,25 @@
                     </div>
                 </div>   
             </div>
+            
 
-            {{-- display tenants --}}
             @foreach ($units_per_building as $item)
             <div class="tab-pane fade" id="{{ $item->building }}" role="tabpanel" aria-labelledby="pills-{{ $item->building }}-tab">
                 <div class="card">
                     <div class="card-body">
-                            <h5>{{ $item->building }}</h5>
+                        <ul class="nav nav-pills mb-3 text-right" id="pills-tab" role="tablist">
+                            @foreach ($units_per_status as $status)
+                            <li class="nav-item">
+                                @if($status->status==='occupied')
+                                <a class="nav-link" id="pills-{{ $item->building.'#'.$status->status }}-tab" data-toggle="pill" href="#{{ $item->building.'#'.$status->status }}" role="tab" aria-controls="pills-{{ $item->building.'#'.$status->status }}" aria-selected="false"><i class="fas fa-house-user"></i> {{ $status->status }} <span class="badge badge-light"></span></a>
+                                @elseif($status->status==='vacant')
+                                <a class="nav-link" id="pills-{{ $item->building.'#'.$status->status }}-tab" data-toggle="pill" href="#{{ $item->building.'#'.$status->status }}" role="tab" aria-controls="pills-{{ $item->building.'#'.$status->status }}" aria-selected="false"><i class="fas fa-home"></i>  {{ $status->status }} <span class="badge badge-light"></span></a>
+                                @else
+                                <a class="nav-link" id="pills-{{ $item->building.'#'.$status->status }}-tab" data-toggle="pill" href="#{{ $item->building.'#'.$status->status }}" role="tab" aria-controls="pills-{{ $item->building.'#'.$status->status }}" aria-selected="false"><i class="fas fa-laptop-house"></i> {{ $status->status }} <span class="badge badge-light"></span></a>
+                                @endif
+                            </li>
+                            @endforeach
+                        </ul>
                             <table class="table">
                                 <tr>
                                     <td>
@@ -529,11 +522,11 @@
                                     <br>
                                 </tr>
                             </table>
-                
                     </div>
                 </div>
             </div>
             @endforeach
+
             {{-- display tenants --}}
             <div class="tab-pane fade" id="tenants" role="tabpanel" aria-labelledby="v-pills-tenants-tab">
                 <div class="card">
