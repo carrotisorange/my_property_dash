@@ -7,13 +7,21 @@
           <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
             <a class="nav-link active" id="v-pills-dashboard-tab" data-toggle="pill" href="#dashboard" role="tab" aria-controls="v-pills-dashboard" aria-selected="true"><i class="fas fa-tachometer-alt"></i>&nbsp&nbspDashboard</a>
             @if(Auth::user()->user_type === 'admin')
-            <a class="nav-link" id="v-pills-units-tab" data-toggle="pill" href="#units" role="tab" aria-controls="v-pills-units" aria-selected="false"><i class="fas fa-home"></i>&nbsp&nbspUnits <span class="badge badge-light">{{ $units->count() }}</span></a>
-             @foreach ($units_per_building as $item)
+            <a class="nav-link" id="v-pills-users-tab" data-toggle="pill" href="#users" role="tab" aria-controls="v-pills-users" aria-selected="false"><i class="fas fa-user-secret"></i>&nbsp&nbspUsers</a>
+        
+            <a class="nav-link"  data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1"><i class="fas fa-home"></i>&nbsp&nbspUnits <span class="badge badge-light">{{ $units->count() }}</span></a>
+            <div class="collapse multi-collapse" id="multiCollapseExample1">
+            @foreach ($units_per_building as $item)
             <a class="nav-link" id="pills-{{ $item->building }}-tab" data-toggle="pill" href="#{{ $item->building }}" role="tab" aria-controls="pills-{{ $item->building }}" aria-selected="false">&nbsp&nbsp&nbsp&nbsp - {{ $item->building }} <span class="badge badge-light">{{ $item->count }}</span> </a>
             @endforeach
+            </div>
+            
+            
             <a class="nav-link" id="v-pills-tenants-tab" data-toggle="pill" href="#tenants" role="tab" aria-controls="v-pills-tenants" aria-selected="false"><i class="fas fa-user"></i>&nbsp&nbspTenants  <span class="badge badge-light">{{ $tenants->count() }}</span></a>
             <a class="nav-link" id="v-pills-investors-tab" data-toggle="pill" href="#investors" role="tab" aria-controls="v-pills-investors" aria-selected="false"><i class="fas fa-user-tie"></i>&nbsp&nbspInvestors <span class="badge badge-light">{{ $investors->count() }}</span> </a>
+            <a class="nav-link" id="v-pills-joborders-tab" data-toggle="pill" href="#joborders" role="tab" aria-controls="v-pills-joborders" aria-selected="false"><i class="fas fa-tools"></i>&nbspJob Orders</a>
             @else
+            <a href="#" onclick="return false;" class="nav-link" id="v-pills-users-tab" data-toggle="pill" href="#users" role="tab" aria-controls="v-pills-users" aria-selected="false"> <i class="fas fa-user-secret"></i>&nbsp&nbspUsers</a>
             <a href="#" onclick="return false;" class="nav-link" id="v-pills-units-tab" data-toggle="pill" href="#units" role="tab" aria-controls="v-pills-units" aria-selected="false"> <i class="fas fa-door-closed"></i>&nbsp&nbspUnits</a>
             <a href="#" onclick="return false;" class="nav-link" id="v-pills-investors-tab" data-toggle="pill" href="#investors" role="tab" aria-controls="v-pills-investors" aria-selected="false"><i class="fas fa-user-tie"></i>&nbsp&nbspInvestors</a>
             <a href="#" onclick="return false;" class="nav-link" id="v-pills-tenants-tab" data-toggle="pill" href="#tenants" role="tab" aria-controls="v-pills-tenants" aria-selected="false"><i class="fas fa-user"></i>&nbsp&nbspTenants</a>
@@ -28,11 +36,6 @@
             @else
             <a href="#" onclick="return false;" class="nav-link" id="v-pills-payments-tab" data-toggle="pill" href="#payments" role="tab" aria-controls="v-pills-payments" aria-selected="false"><i class="fas fa-dollar-sign"></i>&nbsp&nbspPayments</a>
             @endif
-            @if(Auth::user()->user_type === 'admin')
-            <a class="nav-link" id="v-pills-users-tab" data-toggle="pill" href="#users" role="tab" aria-controls="v-pills-users" aria-selected="false"><i class="fas fa-user-secret"></i>&nbsp&nbspUsers</a>
-            @else
-            <a class="nav-link" id="v-pills-users-tab" data-toggle="pill" href="#" role="tab" aria-controls="v-pills-users" aria-selected="false"><i class="fas fa-user-secret"></i>&nbsp&nbspUsers</a>
-            @endif
           </div>
         </div>
         <div class="col-10">
@@ -40,7 +43,7 @@
             <div class="tab-pane fade show active" id="dashboard" role="tabpanel" aria-labelledby="v-pills-dashboard-tab">
                 <div class="card">
                     <div class="card-body">
-                        <h4>Dashboard</h4>
+                        <h4>Dashboard <i class="fas fa-tachometer-alt"></i></h4>
                         <div class="row">
                             <div class="col">
                             @if(Auth::user()->user_type === 'admin')
@@ -324,7 +327,7 @@
                                                 </td>
                                                 <td>{{ $item->building.' '.$item->unit_no }}</td>
                                                 <td>{{ $item->reason_for_moving_out }}</td>
-                                                <td><a class="badge badge-primary">{{ number_format(Carbon\Carbon::now()->DiffInDays(Carbon\Carbon::parse($item->moveout_date)) ) }} days ago</a></td>
+                                                <td><a class="badge badge-danger">{{ number_format(Carbon\Carbon::now()->DiffInDays(Carbon\Carbon::parse($item->moveout_date)) ) }} days ago</a></td>
                                            </tr>
                                            @endforeach
                                         </table>
@@ -354,14 +357,7 @@
                                             @foreach ($delinquent_accounts as $item)
                                             <tr>
                                                 <th class="text-center">{{ $ctr++ }}</th>
-                                                <td>
-                                                    @if(Auth::user()->user_type === 'admin')
-                                                    <a href="{{ route('show-tenant',['unit_id' => $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a>
-                                                    @elseif(Auth::user()->user_type === 'treasury' || Auth::user()->user_type === 'billing')
-                                                    <a href="/units/{{ $item->unit_tenant_id }}/tenants/{{ $item->tenant_id }}/billings">{{ $item->first_name.' '.$item->last_name }}</a>
-                                                    @elseif(Auth::user()->user_type === 'billing')
-                                                    @endif
-                                                </td>
+                                                <td><a href="/units/{{ $item->unit_tenant_id }}/tenants/{{ $item->tenant_id }}/billings">{{ $item->first_name.' '.$item->last_name }}</a></td>
                                                 <td>{{$item->building.' '.$item->unit_no }}</td>
                                                 <td>{{ number_format($item->total_bills,2) }}</td>
                                             </tr>
@@ -531,7 +527,7 @@
             <div class="tab-pane fade" id="tenants" role="tabpanel" aria-labelledby="v-pills-tenants-tab">
                 <div class="card">
                     <div class="card-body">
-                        <h4>Tenants </h4>
+                        <h4>Tenants <i class="fas fa-user"></i></h4>
                         <br>
                         <div class="justify-content-center">
                             <form action="tenants/search" method="GET" >
@@ -582,7 +578,7 @@
             <div class="tab-pane fade" id="investors" role="tabpanel" aria-labelledby="v-pills-investors-tab">
                 <div class="card">
                     <div class="card-body">
-                        <h4>Investors</h4>
+                        <h4>Investors <i class="fas fa-user-tie"></i></h4>
                         <br>
                         <div class="justify-content-center">
                             <form action="/unit_owners/search" method="GET" >
@@ -622,12 +618,63 @@
                 </div>
             </div>
 
+            {{-- display job orders --}}
+            <div class="tab-pane fade" id="joborders" role="tabpanel" aria-labelledby="v-pills-joborders-tab">
+                <div class="card">
+                    <div class="card-body">
+                        <h4>Job Orders <i class="fas fa-tools"></i> </h4>
+                        <br>
+                        <div class="justify-content-center">
+                            <form action="tenants/search" method="GET" >
+                                @csrf
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="search" placeholder="enter tenant name" value="{{ session('search_tenant') }}">
+                                </div>
+                            </form>
+                            <br>
+                           
+                                <table class="table table-striped">
+                                     <tr>
+                                        <th class="text-center">#</th>
+                                        <th>name</th>
+                                        <th>unit no</th>
+                                        <th>contact no</th>
+                                        <th>monthly rent</th>
+                                        <th>contract expires in</th>
+                                        </tr>
+                                    <?php $ctr = 1;?>   
+                                    
+                                    @foreach ($tenants as $item)
+                                    <tr>
+                                        <th class="text-center">{{ $ctr++ }}</th>
+                                        <td><a href="{{ route('show-tenant',['unit_id'=> $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a> 
+                                            @if($item->tenant_status === 'active')
+                                            <a class="badge badge-primary">{{ $item->tenant_status }}</a>
+                                            @elseif($item->tenant_status === 'inactive')
+                                            <a class="badge badge-secondary">{{ $item->tenant_status }}</a>
+                                            @else
+                                            <a class="badge badge-warning">{{ $item->tenant_status }}</a>
+                                            @endif
+                                        </td>
+                                        <td>{{ $item->building.' '.$item->unit_no }}</td>
+                                        <td>{{ $item->contact_no }}</td>
+                                        <td>{{ number_format($item->tenant_monthly_rent,2) }}</td>
+                                        <td>{{   $diffInMonths =  number_format(Carbon\Carbon::now()->floatDiffInMonths(Carbon\Carbon::parse($item->moveout_date), false), 1) }} mon</td>
+                                    </tr>
+                                    @endforeach
+                                    
+                                 </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             {{-- display billings --}}
             <div class="tab-pane fade" id="billings" role="tabpanel" aria-labelledby="v-pills-billings-tab">
                 <div class="card">
                     <div class="card-body">
                         
-                       <h4> Billings </h4>  
+                       <h4> Billings <i class="fas fa-file-invoice-dollar"></i></h4>  
                        <form id="billingRentForm" action="/tenants/billings" method="POST">
                             @csrf
                         </form>
@@ -840,17 +887,21 @@
              <div class="tab-pane fade" id="users" role="tabpanel" aria-labelledby="v-pills-users-tab">
                 <div class="card">
                     <div class="card-body">
-                        <h4>Users</h4>
-                        <br>
+                        <h4>Users <i class="fas fa-user-secret"></i></h4>
                         <div class="row">
                             <div class="col">
-                                <p>
-                                    @if($users->count() > 3)
-                                    <a href="#" title="Reach the limit for creating users. You can only add 4 users per property. " class="btn btn-primary"> <i class="fas fa-user-plus"></i> user</a>
-                                    @else
-                                    <a class="btn btn-primary" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1"> <i class="fas fa-user-plus"></i> user</a>
-                                    @endif
-                                  </p>
+                           
+                               <p class="text-right">
+                                @if($users->count() > 3)
+                                <a href="#" title="Reach the limit for creating users. You can only add 4 users per property. " class="btn btn-primary"> <i class="fas fa-user-plus"></i> user</a>
+                                @else
+                                <a class="btn btn-primary" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1"> <i class="fas fa-user-plus"></i> user</a>
+                                @endif
+                               </p>
+                            
+                            </div>
+                        </div>
+                        
                                   <div class="row">
                                     <div class="col">
                                       <div class="collapse multi-collapse" id="multiCollapseExample1">
@@ -901,21 +952,18 @@
                                         </div>
                                       </div>
                                     </div>
-                                   
-                                  </div>
-                            </div>
                         </div>
                         <br>
                         <div class="row">
                            <div class="col">
-                            <form action="users/search" method="GET" >
+                            {{-- <form action="users/search" method="GET" >
                                 @csrf
                                 <div class="input-group">
                                     <input type="text" class="form-control col-md-3" name="search" placeholder="enter user name" value="{{ session('search_user') }}">
                                     &nbsp&nbsp<button type="submit" class="btn btn-primary"><i class="fas fa-search"></i> search</button>
                                 </div>
                             </form>
-                            <br>
+                            <br> --}}
                            
                                 <table class="table table-striped">
                                      <tr>

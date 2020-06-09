@@ -252,7 +252,7 @@ Route::get('/', function(Request $request){
         ->where('billing_status', 'unpaid')
         ->where('billing_date', '<', Carbon::now()->addDays(7))
         ->groupBy('tenant_id')
-        ->orderBy('total_bills')
+        ->orderBy('total_bills', 'desc')
         ->get();
     
         $recent_payments = DB::table('units')
