@@ -260,7 +260,7 @@
                                             <tr>
                                                 <th class="text-center">#</th>
                                                 <th>name</th>
-                                                <th>status</th>
+                                               
                                                 <th>unit no</th>   
                                                 <th></th>          
                                             </tr>
@@ -276,10 +276,11 @@
                                                     
                                                     <a href="/units/{{ $item->unit_tenant_id }}/tenants/{{ $item->tenant_id }}/billings">{{ $item->first_name.' '.$item->last_name }}</a><a class="badge badge-success">{{ $item->has_extended }}</a>
                                                     @else
+                                                    
                                                     {{ $item->first_name.' '.$item->last_name }}<a class="badge badge-success">{{ $item->has_extended }}</a>
                                                     @endif
                                                 </td>
-                                                <td>{{ $item->tenant_status }}</td>
+                                                
                                                 <td>{{ $item->building.' '.$item->unit_no }}</td>
                                                 <td><a class="badge badge-primary">{{ number_format(Carbon\Carbon::now()->DiffInDays(Carbon\Carbon::parse($item->movein_date)) ) }} days ago</a></td>
                                            </tr>
