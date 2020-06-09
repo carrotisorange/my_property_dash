@@ -641,7 +641,7 @@ Route::get('/', function(Request $request){
     $overall_contract_termination = $renewed_contracts->count() + $terminated_contracts->count();
 
     $renewed_chart = new DashboardChart;
-    $renewed_chart->title('Retention Rate');
+    $renewed_chart->title('Retention Rate'.'('.number_format(($overall_contract_termination == 0 ? 0 : $renewed_contracts->count()/$overall_contract_termination) * 100,1).'%)');
     $renewed_chart->displayAxes(false);
     $renewed_chart->labels([ 'Renewal'.' ('.$renewed_contracts->count(). ')', 'Terminate'.' ('.$terminated_contracts->count(). ')', 'Total'.' ('.$overall_contract_termination. ')']);
     $renewed_chart->dataset('', 'pie', [number_format(($overall_contract_termination == 0 ? 0 : $renewed_contracts->count()/$overall_contract_termination) * 100,1),number_format(($overall_contract_termination == 0 ? 0 :$terminated_contracts->count()/$overall_contract_termination) * 100,1)  ])
