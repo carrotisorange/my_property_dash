@@ -40,7 +40,7 @@
         @foreach ($monthly_rent as $item)
         <tr>
             <th>{{ $item->billing_desc }}</th>
-            <td>{{ $item->billing_desc.' '.$item->details }}</td>
+            <td>{{ $item->details }}</td>
             <th class="text-right" colspan="3">{{ number_format($item->billing_amt,2) }}</th>
         </tr>
         @endforeach
@@ -53,7 +53,7 @@
         @foreach ($other_charges as $item)
         <tr>
             <th>{{ $item->billing_desc }}</th>
-            <td>{{ $item->billing_desc.' '.$item->details }}</td>
+            <td>{{ $item->details }}</td>
             <th class="text-right" colspan="3">{{ number_format($item->billing_amt,2) }}</th>
         </tr>
        
@@ -64,12 +64,12 @@
                 {{ number_format($total_bills,2) }} 
             </th>
         </tr>
-        <tr>
+        {{-- <tr>
             <td colspan="2">ADD: 10% surcharge ON RENT if not paid on due date</td>
             <th class="text-right">
                 {{ number_format($total_bills * .1,2) }}
             </th>
-        </tr>
+        </tr> --}}
         <tr class="text-danger" >
             <th colspan="2">TOTAL AMOUNT PAYABLE AFTER DUE DATE</th>
             <th class="text-right">

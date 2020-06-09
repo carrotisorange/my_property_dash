@@ -317,7 +317,7 @@ class TenantController extends Controller
 
         $total_bills = DB::table('billings')->where('billing_tenant_id', $tenant_id)->where('billing_status', 'unpaid')->sum('billing_amt');
 
-        $other_charges = DB::table('billings')->where('billing_tenant_id', $tenant_id)->where('billing_status', 'unpaid')->where('billing_desc', '!=','Monthly Rent')->get();
+        $other_charges = DB::table('billings')->where('billing_tenant_id', $tenant_id)->where('billing_status', 'unpaid')->where('billing_desc','!=','Monthly Rent')->get();
 
         $overall_payments = DB::table('payments')->where('payment_tenant_id', $tenant_id)->sum('amt_paid');
         $overall_bills = DB::table('billings')->where('billing_tenant_id', $tenant_id)->sum('billing_amt');
@@ -438,6 +438,7 @@ class TenantController extends Controller
         ->where('tenant_id', $request->tenant_id)
         ->update([
             'tenant_status' => 'inactive',
+            'reason_for_moving_out' => $request->reason_for_moving_out,
             'actual_move_out_date' => $request->actual_move_out_date,
         ]);
 
@@ -523,7 +524,7 @@ class TenantController extends Controller
             ->whereIn('unit_property', [$property[0],$property[1]])
             ->whereIn('billing_desc', ['Monthly Rent', 'Surcharge Fee'])
             ->where('billing_status', 'unpaid')
-            ->where('billing_date', '<', Carbon::now()->subMonth())
+            ->where('billing_date', '<', Carbon::now()->addDays(7))
             ->groupBy('tenant_id')
             ->orderBy('total_bills')
             ->get();
@@ -542,7 +543,7 @@ class TenantController extends Controller
             ->where('unit_property', $property[0])
             ->whereIn('billing_desc', ['Monthly Rent', 'Surcharge Fee'])
             ->where('billing_status', 'unpaid')
-            ->where('billing_date', '<', Carbon::now()->subMonth())
+            ->where('billing_date', '<', Carbon::now()->addDays(7))
             ->groupBy('tenant_id')
             ->orderBy('total_bills')
             ->get();
@@ -580,7 +581,7 @@ class TenantController extends Controller
                 ->whereIn('unit_property', [$property[0],$property[1]])
                 ->whereIn('billing_desc', ['Monthly Rent', 'Surcharge Fee'])
                 ->where('billing_status', 'unpaid')
-                ->where('billing_date', '<', Carbon::now()->subMonth())
+                ->where('billing_date', '<', Carbon::now()->addDays(7))
                 ->groupBy('tenant_id')
                 ->count();
              }else{
@@ -591,7 +592,7 @@ class TenantController extends Controller
                 ->where('unit_property', $property[0])
                 ->whereIn('billing_desc', ['Monthly Rent', 'Surcharge Fee'])
                 ->where('billing_status', 'unpaid')
-                ->where('billing_date', '<', Carbon::now()->subMonth())
+                ->where('billing_date', '<', Carbon::now()->addDays(7))
                 ->groupBy('tenant_id')
                 ->count();
              }
