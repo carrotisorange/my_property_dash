@@ -167,7 +167,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i> cancel</button>
-            <button form="acceptPaymentForm" type="submit" class="btn btn-primary"><i class="fas fa-check"></i> add</button>
+            <button form="acceptPaymentForm" type="submit" class="btn btn-primary" ><i class="fas fa-check"></i> add</button>
         </div>
  
     </div>

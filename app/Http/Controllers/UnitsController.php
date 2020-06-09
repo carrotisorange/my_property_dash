@@ -92,14 +92,6 @@ class UnitsController extends Controller
      */
     public function show(Request $request, $unit_id)
     {
-       
-
-        if(!Auth::check()){
-            
-            $unit = Unit::whereIn('status', ['vacant', 'reserved'])->findOrFail($unit_id);
-
-            return view('reservation-forms.reservation', compact('unit'));
-        }else{
             if(Auth::user()->status === 'unregistered')
             return view('unregistered'); 
         else
@@ -149,7 +141,7 @@ class UnitsController extends Controller
                 ->get('building', 'count');
              }
                 return view('show-unit',compact('unit', 'unit_owner', 'tenant_active', 'tenant_inactive', 'tenant_reservations','units_per_building'));
-        }
+        
         
     }
 
@@ -225,38 +217,49 @@ class UnitsController extends Controller
         return back()->with('success', 'Unit information has been successfully updated!');
     }
 
-    public function show_vacant_units(Request $request){
+    public function show_vacant_units($property){
 
         if(Auth::check()){
             return abort(404);
         }
         else
-        $request->session()->put('property', $request->property);
+        $buildings = DB::table('units')
+        ->select('building',DB::raw('count(*) as count'))
+        ->whereIn('status', ['vacant','reserved'])
+        ->where('unit_property', $property)
+        ->groupBy('building')
+        ->get();
 
         $units = DB::table('units')
         ->whereIn('status', ['vacant','reserved'])
-        ->where('unit_property', $request->property)
+        ->where('unit_property', $property)
         ->get();
 
-        $properties = DB::table('units')
-        ->select('unit_property',DB::raw('count(*) as count'))
-        
+        return view('reservation-forms.show-vacant-units', compact('buildings','units'));
+    }
+
+    public function show_property(){
+        if(Auth::check()){
+            return abort(404);
+        }
+        else
+         $properties = DB::table('units')
+        ->select('unit_property',DB::raw('count(distinct building) as count_building'),DB::raw('count(distinct unit_no) as count_unit_no'))
         ->groupBy('unit_property')        
-        ->get('unit_property', 'count');
+        ->get('unit_property', 'count_building','count_unit_no');
 
-        $buildings = DB::table('units')
-        ->select('building',DB::raw('count(*) as count'))
-        
-        ->groupBy('building')
-        ->get('building', 'count');
+        return view('reservation-forms.show-property', compact('properties'));
 
-        $floor_nos = DB::table('units')
-        ->select('floor_no',DB::raw('count(*) as count'))
+    }
 
-        ->groupBy('floor_no')
-        ->get('floor_no', 'count');
-      
-        return view('reservation-forms.show-vacant-units', compact('units','floor_nos', 'buildings', 'properties'));
+    public function show_reservation_form($property, $unit_id){
+
+        if(Auth::check()){
+            return abort(404);
+        }
+        $unit = Unit::whereIn('status', ['vacant', 'reserved'])->findOrFail($unit_id);
+
+        return view('reservation-forms.show-reservation-form', compact('unit'));
     }
 
     

@@ -8,7 +8,7 @@
             <a class="nav-link active" id="v-pills-dashboard-tab" data-toggle="pill" href="#dashboard" role="tab" aria-controls="v-pills-dashboard" aria-selected="true"><i class="fas fa-tachometer-alt"></i>&nbsp&nbspDashboard</a>
             @if(Auth::user()->user_type === 'admin')
             <a class="nav-link" id="v-pills-users-tab" data-toggle="pill" href="#users" role="tab" aria-controls="v-pills-users" aria-selected="false"><i class="fas fa-user-secret"></i>&nbsp&nbspUsers</a>
-        
+            <input type="hidden" id="count_units" value="{{ $units->count() }}">
             <a class="nav-link" id="v-pills-units-tab" data-toggle="pill" href="#units" role="tab" aria-controls="v-pills-units" aria-selected="false"><i class="fas fa-home"></i>&nbsp&nbspUnits <span class="badge badge-light">{{ $units->count() }}</span></a>
             @foreach ($units_per_building as $item)
             <a class="nav-link" id="pills-{{ $item->building }}-tab" data-toggle="pill" href="#{{ $item->building }}" role="tab" aria-controls="pills-{{ $item->building }}" aria-selected="false">&nbsp&nbsp&nbsp&nbsp - {{ $item->building }} <span class="badge badge-light">{{ $item->count }}</span> </a>
@@ -945,7 +945,7 @@
                                             <br>
                                             <div class="">
                                                 <p class="text-right">   
-                                                    <button type="submit" form="addUserForm" class="btn btn-primary"><i class="fas fa-check"></i> save</button>
+                                                    <button type="submit" form="addUserForm" class="btn btn-primary" ><i class="fas fa-check"></i> add</button>
                                                 </p>
                                                 
                                             </div>
@@ -996,7 +996,7 @@
                                             <form action="/users/{{ $item->id }}" method="POST">
                                                 {{ csrf_field() }}
                                                 @method('delete')
-                                                <button class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this user?');" type="submit"><i class="far fa-trash-alt"></i></button>
+                                                <button class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this user?');" type="submit" ><i class="far fa-trash-alt"></i></button>
                                                 </form>
                                             @endif
                                       </td>
@@ -1017,7 +1017,7 @@
         <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">
             <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Add Rooms</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Add Room/Unit</h5>
             
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -1029,44 +1029,57 @@
                 </form>
 
                 <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">unit no</label>
-                    <input form="addUnitForm" type="text" class="form-control" name="unit_no" required>
+                    <label for="recipient-name" class="col-form-label">enter name of the building</label>
+                    <input form="addUnitForm" type="text" class="form-control" name="building" placeholder="Building-A" required> 
+                    <small class="text-danger">please put hyphen(-) between spaces</small>
                 </div>
 
                 <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">room type</label>
+                    <label for="recipient-name" class="col-form-label">enter the floor number of the room/unit</label>
+                    <select class="form-control" form="addUnitForm" name="floor_no" id="floor_no" onkeyup="getFloorNo()" required>
+                        <option value="" selected>Please select one</option>
+                        <option value="G">Ground floor</option>
+                        <option value="1">1st floor</option>
+                        <option value="2">2nd floor</option>
+                        <option value="3">3rd floor</option>
+                        <option value="4">4th floor</option>
+                        <option value="5">5ht floor</option>
+                        <option value="6">6th floor</option>
+                        <option value="7">7th floor</option>
+                        <option value="8">8th floor</option>
+                        <option value="9">9th floor</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">select the purpose of the rooms/units</label>
                     <select form="addUnitForm" class="form-control" name="type_of_units" required>
                         <option value="" selected>Please select one</option>
+                        <option value="leasing">leasing</option>
                         <option value="commercial">commercial</option>
                         <option value="residential">residential</option>
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">floor no</label>
-                    <input form="addUnitForm" type="text" class="form-control" name="floor_no" required>
+                    <label for="recipient-name" class="col-form-label">enter the unit no</label>
+                    <input form="addUnitForm" type="text" class="form-control" name="unit_no" required>
                 </div>
 
-                
-                <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">name of the building</label>
-                    <input form="addUnitForm" type="text" class="form-control" name="building" placeholder="Building-A">
-                    <small class="text-danger">please put hyphen(-) between spaces</small>
-                </div>
 
                 <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">no of beds</label>
+                    <label for="recipient-name" class="col-form-label">enter the number of the bed/room</label>
                     <input form="addUnitForm" type="text" class="form-control" name="beds" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">monthly rent</label>
-                    <input form="addUnitForm" type="number" class="form-control" name="monthly_rent" required>
+                    <label for="recipient-name" class="col-form-label">enter the monthly rent of the room/unit</label>
+                    <input form="addUnitForm" type="number" min="1" class="form-control" name="monthly_rent" required>
                 </div>
                
             </div>
             <div class="modal-footer">
-                <button form="addUnitForm" type="submit" class="btn btn-primary"><i class="fas fa-check"></i> Save</button>
+                <button form="addUnitForm" type="submit" class="btn btn-primary"><i class="fas fa-check"></i> create room</button>
                 </div>
         </div>
         </div>
@@ -1077,7 +1090,7 @@
         <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">
             <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Add Multiple Rooms</h5>
+            <h5 class="modal-title" id="exampleModalLabel" >Add Multiple Rooms/Units</h5>
             
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -1112,10 +1125,10 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">selec the purpose of the rooms/units</label>
+                    <label for="recipient-name" class="col-form-label">select the purpose of the rooms/units</label>
                     <select form="addUMultipleUnitForm" class="form-control" name="type_of_units" required>
                         <option value="" selected>Please select one</option>
-                        <option value="for leasing">for leasing</option>
+                        <option value="leasing">leasing</option>
                         <option value="commercial">commercial</option>
                         <option value="residential">residential</option>
                     </select>
@@ -1137,18 +1150,26 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">enter the monthly rent</label>
-                    <input form="addUMultipleUnitForm" type="number" class="form-control" name="monthly_rent" required>
+                    <label for="recipient-name" class="col-form-label">enter the monthly rent of the room/unit</label>
+                    <input form="addUMultipleUnitForm" type="number" min="1" class="form-control" name="monthly_rent" required>
                 </div>
     
             </div>
             <div class="modal-footer">
-                <button form="addUMultipleUnitForm" type="submit" class="btn btn-primary"><i class="fas fa-check"></i> create rooms</button>
+                <button form="addUMultipleUnitForm" type="submit" class="btn btn-primary" ><i class="fas fa-check"></i> create rooms</button>
                 </div>
         </div>
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    $(window).on('load',function(){
+       if(document.getElementById('count_units').value <= 0){
+        $('#addUnit').modal('show');
+       }
+    });
+</script>
 <script>
     $(document).ready(() => {
     var url = window.location.href;
@@ -1169,9 +1190,6 @@
 {!! $movein_rate->script() !!}
 {!! $moveout_rate->script() !!}
 {!! $renewed_chart->script() !!}
-
-
-</script>
 @endsection
  
 

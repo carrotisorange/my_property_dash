@@ -59,7 +59,7 @@
                                 <h5><a class="nav-link  btn" href="/register">Register your property <i class="fas fa-user-circle"></i></a></h5>
                             </li>
                             <li class="nav-item">
-                                <h5><a class="nav-link  btn" href="/units">Make a reservation <i class="far fa-calendar-check"></i></a></h5>
+                                <h5><a class="nav-link  btn" href="/properties">Make a reservation <i class="far fa-calendar-check"></i></a></h5>
                             </li>
                             <li class="nav-item">
                                 <h5><a class="nav-link btn " href="/faq">FAQ <i class="fas fa-question-circle"></i></a></h5>
@@ -113,4 +113,12 @@
       
       </footer>
 </body>
+<script>
+    $(document).ready(function() {
+        $(document).on('submit', 'form', function() {
+            $('button').attr('disabled', 'disabled');
+        });
+    });
+    </script>
+    
 </html>

@@ -39,7 +39,7 @@
     </table>
     <p class="text-right">
         <a href="/#billings" class="btn btn-secondary"><i class="fas fa-times"></i> cancel</a>
-        <button type="submit" form="add_billings" class="btn btn-primary"><i class="fas fa-check"></i> post</button>
+        <button type="submit" form="add_billings" class="btn btn-primary" onclick="this.form.submit(); this.disabled = true; this.value = 'Submitting the form';"><i class="fas fa-check"></i> post</button>
     </p>
 </div>
 @endsection

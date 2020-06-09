@@ -40,7 +40,7 @@
 
         <p class="text-right">   
             <a href="/units/{{ session(Auth::user()->property.'unit_id') }}/tenant-step3" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> prev</a>
-            <button type="submit" form="addTenantForm4" class="btn btn-primary"><i class="fas fa-check"></i> save</button>
+            <button type="submit" form="addTenantForm4" class="btn btn-primary" ><i class="fas fa-check"></i> add</button>
         </p>
     
 </div>

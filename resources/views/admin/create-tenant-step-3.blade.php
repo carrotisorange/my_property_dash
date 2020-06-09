@@ -18,7 +18,7 @@
         </div>
         <div class="col">
             <label for="recipient-name" class="col-form-label">Monthly Rent:</label>
-            <input form="addTenantForm3" type="number" class="form-control" name="tenant_monthly_rent" id="tenant_monthly_rent" value="{{ session(Auth::user()->property.'tenant_monthly_rent') }}" required>
+            <input form="addTenantForm3" type="number" class="form-control" name="tenant_monthly_rent" min="1" id="tenant_monthly_rent" value="{{ session(Auth::user()->property.'tenant_monthly_rent') }}" required>
         </div>
       </div>
         <br>

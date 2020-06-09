@@ -2,55 +2,29 @@
 @section('title', 'My Property Dash')
 @section('content')
 <div class="container">
-    <form action="/units/" method="GET" >
-        @csrf
-        <div class="row">
-            <div class="col">
-                <select class="form-control" name="property" onchange='this.form.submit()'>
-                    @if(session('property') == NULL)
-                    <option value=""><small id="" class="form-text text-muted">Please Select Property</small></option>
-                    @foreach ($properties as $item)
-                    <option value="{{ $item->unit_property }}">{{ $item->unit_property }}</option>
-                    @endforeach
-                    @else
-                    <option value="{{ session('property') }}">{{ session('property') }}</option>
-                    @foreach ($properties as $item)
-                    <option value="{{ $item->unit_property }}">{{ $item->unit_property }}</option>
-                    @endforeach
-                    @endif
-                </select>    
-            </div>
+    <div class="card">
+        <div class="card-body">
+  
+   {{-- <p class="text-center"><small ><b>{{ $units->count() }}</b> units found.</small></p> --}}
+   <ul class="nav nav-pills mb-3 text-right" id="pills-tab" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link" id="pills-all-tab" data-toggle="pill" href="#all" role="tab" aria-controls="pills-all" aria-selected="true"><i class="fas fa-home"></i> All <span class="badge badge-light">{{ $units->count() }}</span></a>
+    </li>
+   @foreach ($buildings as $item)
+   <li class="nav-item">
+        <a class="nav-link" id="pills-{{ $item->building }}-tab" data-toggle="pill" href="#{{ $item->building }}" role="tab" aria-controls="pills-{{ $item->building }}" aria-selected="true"><i class="fas fa-home"></i> {{ $item->building }} <span class="badge badge-light">{{ $item->count }}</span></a>
+    </li>
+   @endforeach
+</ul>
 
-            {{-- <div class="col">
-                <select class="form-control" name="building" onchange='this.form.submit()'>
-                    <option value="">Select Building</option>
-                    @foreach ($buildings as $item)
-                    <option value="{{ $item->building }}">{{ $item->building }}</option>
-                    @endforeach
-                </select>
-            </div>
-
-            <div class="col">
-                <select class="form-control" name="floor_no" onchange='this.form.submit()'>
-                    <option value="">Select Floor No</option>
-                    @foreach ($floor_nos as $item)
-                    <option value="{{ $item->floor_no }}">{{ $item->floor_no }}</option>
-                    @endforeach
-                </select>
-            </div> --}}
-        </div>
-       
-    </form>
-    <br>
-   @if($units->count() > 0)
-   <p class="text-center"><small ><b>{{ $units->count() }}</b> units found.</small></p>
-   @endif
-    <div class="row border-rounded">
+<div class="tab-content" id="pills-tabContent">
+    <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="pills-all-tab">
+    <div class="row ">
         <table class="table">
             <tr>
                 <td>
                     @foreach ($units as $item)
-                            <a title="{{ number_format($item->monthly_rent,2) }}/month" href="/units/{{$item->unit_id}}" class="btn btn-secondary">
+                            <a title="{{ number_format($item->monthly_rent,2) }}/month" href="/{{ $item->unit_property }}/units/{{$item->unit_id}}" class="btn btn-secondary">
                                 <i class="fas fa-home fa-2x"></i>
                                 <br>
                                 <font size="-3" >{{ $item->unit_no }} </font>
@@ -60,6 +34,32 @@
                 <br>
             </tr>
         </table>
+    </div> 
+        </div>
+
+@foreach ($buildings as $item)
+    <div class="tab-pane fade" id="{{ $item->building }}" role="tabpanel" aria-labelledby="pills-{{ $item->building }}-tab">
+    <div class="row ">
+        <table class="table">
+            <tr>
+                <td>
+                    @foreach ($units as $building)
+                        @if($building->building === $item->building)
+                        <a title="{{ number_format($building->monthly_rent,2) }}/month" href="/units/{{$building->unit_id}}" class="btn btn-secondary">
+                            <i class="fas fa-home fa-2x"></i>
+                            <br>
+                            <font size="-3" >{{ $building->unit_no }} </font>
+                        </a>   
+                        @endif
+                    @endforeach
+                </td>
+                <br>
+            </tr>
+        </table>
+    </div> 
+        </div>
+@endforeach
+        </div>
     </div>
 </div>  
 @endsection

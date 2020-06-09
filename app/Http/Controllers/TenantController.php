@@ -681,12 +681,6 @@ class TenantController extends Controller
         return back()->with('success', 'Tenant has been successfully deleted!');
     }
 
-    //functions for tenant's reservation
-
-    public function create_reservation(){
-        return view('reservation-forms.reservation');
-    }
-
     public function post_reservation(Request $request){
         
         $tenant_id = DB::table('tenants')->insertGetId(
@@ -764,10 +758,10 @@ class TenantController extends Controller
          DB::table('units')->where('unit_id', $request->unit_id)
              ->update(['status'=> 'reserved']);
 
-        return redirect('/units/'.$request->unit_id.'/tenants/'.$tenant_id.'/reserved')->with('success', 'Unit has been successfully reserved!');
+        return redirect($request->unit_property.'/units/'.$request->unit_id.'/tenants/'.$tenant_id.'/reserved')->with('success', 'Your reservation has been successfully recorded!');
     }
 
-    public function get_reservation($unit_id, $tenant_id){
+    public function get_reservation($properties, $unit_id, $tenant_id){
         
         $tenant = Tenant::findOrFail($tenant_id);
 
@@ -777,9 +771,6 @@ class TenantController extends Controller
 
         return view('reservation-forms.get-reservation', compact('tenant', 'unit', 'billings'));
     }
-
-   
-
 }
 
 

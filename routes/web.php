@@ -211,8 +211,6 @@ Route::get('/', function(Request $request){
         ->groupBy('building')
         ->get('building', 'status','count');
 
-
-
         $units_per_floor = DB::table('units')
         ->select('floor_no')
         ->whereIn('unit_property', [$property[0],$property[1]])
@@ -699,7 +697,7 @@ Route::get('/', function(Request $request){
 
 
 //routes for units
-Route::get('units/{unit_id}', 'UnitsController@show');
+Route::get('units/{unit_id}', 'UnitsController@show')->middleware('auth');
 Route::put('units/{unit_id}', 'UnitsController@update')->middleware('auth');
 Route::post('units/add', 'UnitsController@add_unit')->middleware('auth');
 Route::post('units/add-multiple', 'UnitsController@add_multiple_rooms')->middleware('auth');
@@ -766,9 +764,6 @@ Route::get('/faq', function(){
     return view('faq');
 });
 
-//tenant's online reservation
-Route::get('/reservation','TenantController@create_reservation');
-Route::post('/reservation','TenantController@post_reservation');
 
 //step1
 Route::get('/units/{unit_id}/tenant-step1', 'TenantController@createTenantStep1')->middleware('auth');
@@ -786,6 +781,11 @@ Route::post('/units/{unit_id}/tenant-step3', 'TenantController@postTenantStep3')
 Route::get('/units/{unit_id}/tenant-step4', 'TenantController@createTenantStep4')->middleware('auth');
 Route::post('/units/{unit_id}/tenant-step4', 'TenantController@postTenantStep4')->middleware('auth');
 
-Route::get('/units','UnitsController@show_vacant_units');
-Route::get('/units/{unit_id}/tenants/{tenant_id}/reserved', 'TenantController@get_reservation');
+
+//tenant's online reservation
+Route::post('/reservation','TenantController@post_reservation');
+Route::get('/properties','UnitsController@show_property');
+Route::get('/{properties}/units','UnitsController@show_vacant_units');
+Route::get('/{properties}/units/{unit_id}', 'UnitsController@show_reservation_form');
+Route::get('/{properties}/units/{unit_id}/tenants/{tenant_id}/reserved', 'TenantController@get_reservation');
 

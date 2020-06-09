@@ -235,7 +235,7 @@
 
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i> cancel</button>
-            <button form="moveoutTenantForm" type="submit" class="btn btn-danger"><i class="fas fa-check"></i> moveout</button>
+            <button form="moveoutTenantForm" type="submit" class="btn btn-danger" ><i class="fas fa-check"></i> moveout</button>
         </div>
     </div>
     </div>
@@ -303,7 +303,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i> cancel</button>
-            <button form="extendTenantForm" type="submit" class="btn btn-primary"><i class="fas fa-check"></i> extend</button>
+            <button form="extendTenantForm" type="submit" class="btn btn-primary" ><i class="fas fa-check"></i> extend</button>
         </div>
     </div>
     </div>
