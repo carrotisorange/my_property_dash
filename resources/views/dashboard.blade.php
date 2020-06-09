@@ -9,12 +9,10 @@
             @if(Auth::user()->user_type === 'admin')
             <a class="nav-link" id="v-pills-users-tab" data-toggle="pill" href="#users" role="tab" aria-controls="v-pills-users" aria-selected="false"><i class="fas fa-user-secret"></i>&nbsp&nbspUsers</a>
         
-            <a class="nav-link"  data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1"><i class="fas fa-home"></i>&nbsp&nbspUnits <span class="badge badge-light">{{ $units->count() }}</span></a>
-            <div class="collapse multi-collapse" id="multiCollapseExample1">
+            <a class="nav-link" id="v-pills-units-tab" data-toggle="pill" href="#units" role="tab" aria-controls="v-pills-units" aria-selected="false"><i class="fas fa-home"></i>&nbsp&nbspUnits <span class="badge badge-light">{{ $units->count() }}</span></a>
             @foreach ($units_per_building as $item)
             <a class="nav-link" id="pills-{{ $item->building }}-tab" data-toggle="pill" href="#{{ $item->building }}" role="tab" aria-controls="pills-{{ $item->building }}" aria-selected="false">&nbsp&nbsp&nbsp&nbsp - {{ $item->building }} <span class="badge badge-light">{{ $item->count }}</span> </a>
             @endforeach
-            </div>
             
             
             <a class="nav-link" id="v-pills-tenants-tab" data-toggle="pill" href="#tenants" role="tab" aria-controls="v-pills-tenants" aria-selected="false"><i class="fas fa-user"></i>&nbsp&nbspTenants  <span class="badge badge-light">{{ $tenants->count() }}</span></a>
