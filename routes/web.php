@@ -62,6 +62,7 @@ Route::get('/', function(Request $request){
     ->join('units', 'unit_id', 'unit_tenant_id')
     ->whereIn('unit_property', [$property[0],$property[1]])
     ->orderBy('moveout_date')
+    ->where('tenant_status', 'active')
     ->get();
 
     $active_tenants = DB::table('tenants')
@@ -364,6 +365,7 @@ Route::get('/', function(Request $request){
     ->join('units', 'unit_id', 'unit_tenant_id')
     ->where('unit_property', $property[0])
     ->orderBy('moveout_date')
+    ->where('tenant_status', 'active')
     ->get();
 
     $active_tenants = DB::table('tenants')
