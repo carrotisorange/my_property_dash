@@ -105,7 +105,8 @@
                         <br>
                         <div class="row">
                             <div class="col-md-12">
-                                <h4>tenants to watch out</h4>
+                                <?php $ctr = 1; ?>  
+                                <h4>tenants to watch out </h4>
                                 <table class="table table-bordered">
                                     <tr>
                                         <th class="text-center">#</th>
@@ -114,8 +115,8 @@
                                         <th>unit no</th>   
                                         <th colspan="3"></th>         
                                     </tr>
-                                   <?php $ctr = 1; ?>   
-                                   @foreach($tenants as $item)
+                                    
+                                   @foreach($tenants_to_watch_out as $item)
                                    <?php
                                             $diffInMonths =  number_format(Carbon\Carbon::now()->floatDiffInMonths(Carbon\Carbon::parse($item->moveout_date), false));
                                             $diffInDays =  number_format(Carbon\Carbon::now()->DiffInDays(Carbon\Carbon::parse($item->moveout_date), false));
