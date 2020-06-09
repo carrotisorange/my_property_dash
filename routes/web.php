@@ -692,7 +692,7 @@ Route::get('/', function(Request $request){
     return view('dashboard', compact('tenants_to_watch_out','active_tenants','reservations','occupied_units','units', 'investors', 'tenants', 'movein_rate','moveout_rate','recent_movein', 'units_per_status', 'units_per_building', 'units_per_floor',
     'expected_collection', 'actual_collection', 'uncollected_amount', 'delinquent_accounts', 'collection_rate', 'payments', 'recent_payments', 'renewed_contracts', 'renewed_chart', 'terminated_contracts',
     'users'));
- 
+
 });
 
 
