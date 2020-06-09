@@ -340,7 +340,7 @@
                                 </div>    
                             </div>    
                             <div class="col-md-6">
-                                <h4>delinquents</h4>
+                                <h4>delinquents ({{ $delinquent_accounts->count() }})</h4>
                                         <table class="table table-bordered">
                                             <tr>
                                                 <th class="text-center">#</th>
