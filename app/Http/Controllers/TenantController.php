@@ -601,7 +601,7 @@ class TenantController extends Controller
                 DB::table('billings')->insert(
                     [
                         'billing_tenant_id' => $request->input('tenant'.$i),
-                        'billing_date' => Carbon::now(),
+                        'billing_date' => Carbon::now()->addDays(7),
                         'billing_desc' =>  $request->input('desc'.$i),
                         'details' => $request->input('details'.$i),
                         'billing_amt' =>  $request->input('amt'.$i)
@@ -628,7 +628,7 @@ class TenantController extends Controller
             DB::table('billings')->insert(
                 [
                     'billing_tenant_id' => $request->input('tenant'.$i),
-                    'billing_date' => Carbon::now(),
+                    'billing_date' => Carbon::now()->firstOfMonth(),
                     'billing_desc' =>  $request->input('desc'.$i),
                     'details' => $request->input('details'.$i),
                     'billing_amt' =>  $request->input('amt'.$i)
@@ -649,7 +649,7 @@ class TenantController extends Controller
             ->join('billings', 'tenant_id', 'billing_tenant_id')
             ->whereIn('unit_property', [$property[0],$property[1]])
             ->where('billing_status', 'unpaid')
-            ->orderBy('billing_date')
+            ->orderBy('billing_date', 'desc')
             ->get();
          }else{
             $billings = DB::table('units')
@@ -657,7 +657,7 @@ class TenantController extends Controller
             ->join('billings', 'tenant_id', 'billing_tenant_id')
             ->where('unit_property', $property[0])
             ->where('billing_status', 'unpaid')
-            ->orderBy('billing_date')
+            ->orderBy('billing_date', 'desc')
             ->get();
          }
        

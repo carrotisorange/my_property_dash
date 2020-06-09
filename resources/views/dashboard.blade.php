@@ -357,7 +357,7 @@
                                                 <td>
                                                     @if(Auth::user()->user_type === 'admin')
                                                     <a href="{{ route('show-tenant',['unit_id' => $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a>
-                                                    @elseif(Auth::user()->user_type === 'treasury')
+                                                    @elseif(Auth::user()->user_type === 'treasury' || Auth::user()->user_type === 'billing')
                                                     <a href="/units/{{ $item->unit_tenant_id }}/tenants/{{ $item->tenant_id }}/billings">{{ $item->first_name.' '.$item->last_name }}</a>
                                                     @elseif(Auth::user()->user_type === 'billing')
                                                     @endif
@@ -759,9 +759,7 @@
             {{-- display payments --}}
             <div class="tab-pane fade" id="payments" role="tabpanel" aria-labelledby="v-pills-payments-tab">
                 <div class="card">
-                   
                     <div class="card-body">
-                        <h4>payments </h4>
                         <div class="row">
                           <div class="col">
                             <a class="btn btn-primary" href="/tenants/search"><i class="fas fa-plus"></i> payment</a>

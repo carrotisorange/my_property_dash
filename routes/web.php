@@ -243,14 +243,14 @@ Route::get('/', function(Request $request){
     
         $uncollected_amount = $total_billings-$total_payments;
     
-         $delinquent_accounts = DB::table('units')
+        $delinquent_accounts = DB::table('units')
         ->selectRaw('*,sum(billing_amt) as total_bills')
         ->join('tenants', 'unit_id', 'unit_tenant_id')
         ->join('billings', 'tenant_id', 'billing_tenant_id')
         ->whereIn('unit_property', [$property[0],$property[1]])
         ->whereIn('billing_desc', ['Monthly Rent', 'Surcharge Fee'])
         ->where('billing_status', 'unpaid')
-        ->where('billing_date', '<', Carbon::now()->subMonth())
+        ->where('billing_date', '<', Carbon::now()->addDays(7))
         ->groupBy('tenant_id')
         ->orderBy('total_bills')
         ->get();
@@ -544,7 +544,7 @@ Route::get('/', function(Request $request){
         ->where('unit_property', $property[0])
         ->whereIn('billing_desc', ['Monthly Rent', 'Surcharge Fee'])
         ->where('billing_status', 'unpaid')
-        ->where('billing_date', '<', Carbon::now()->subMonth())
+        ->where('billing_date', '<', Carbon::now()->addDays(7))
         ->groupBy('tenant_id')
         ->orderBy('total_bills')
         ->get();
