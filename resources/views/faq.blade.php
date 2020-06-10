@@ -7,7 +7,7 @@
            <h3>What is My Property Dash?</h3>
            <p>
                My Property Dash is a property management system that lets landlords manage their property anytime and anywhere with minimal effort. Unlike OTA (Trivago, Agoda, etc.) that allows
-               landlors to advertise their property online as a transient Cribs, offers longterm instead minimum of a month.
+               landlors to advertise their property online as a transient, My Property Dash offers longterm stay for tenants.
 
                Services
                <ul>
@@ -27,13 +27,13 @@
     <li>
         <h3>How much it will cost me to start using My Property Dash?</h3>
         <p>
-            Cribs offer free usage for the first year.
+            My Property Dash offer free usage for the first year.
         </p>
     </li>
     <li>
         <h3>What is the pro?</h3>
         <p>
-            Cribs offer free usage for the first year.
+            My Property Dash offer free usage for the first year.
         </p>
     </li>
 

@@ -7,6 +7,50 @@
             <div class="card">
                 <div class="card-body">
                     <h4>My Property Dash</h4>
+                    <p>
+                        My Property Dash is a property management system that lets landlords manage their property anytime and anywhere with minimal effort. Unlike OTA (Trivago, Agoda, etc.) that allows
+                        landlors to advertise their property online as a transient, My Property Dash offers longterm stay for tenants.
+                        <br><br>
+                        <b>Products:</b>
+                        <br>
+                        Community Management And Rental Property Management System
+                        <br><br>
+                        <b>Users of the application</b>
+                        <br>
+                        <ul>
+                            <li>Condomonium Corporations Managers</li>
+                            <li>Homeowners Associations Manager</li>
+                            
+                            <li>Building Owners</li>
+                            <li>Real Estate Lessors</li>
+                            <li>Leasing Agents</li>
+                            <li>Dormitory Operators</li>
+                        </ul>
+                        
+                        <b>Features of the application:</b>
+                        <ul>
+                            <li>Admin System</li>
+                            <li>Billing and collection System</li>
+                            <li>Expense Tracker</li>
+                            <li>Tenant Information</li>
+                            <li>Online Payment System</li>
+                            <li>Job Order System</li>
+                            <li>Concierge</li>
+                            <li>Concerns Portal for Tenant</li>
+                            <li>Roles Management</li>
+                            <li>Monitoring System</li>
+                            <li>Dashboard System</li>
+                            <li>Management Informat</li>
+                            <li>Online Access for Landlords and unit owners</li>
+                        </ul>
+                    </p>
+                    <b>Current Statistics</b>
+                    <br><br>
+                    <div class="card">
+                        <div class="card-body">
+                        
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
