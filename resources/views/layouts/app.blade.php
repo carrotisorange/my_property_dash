@@ -119,6 +119,6 @@
             $('button').attr('disabled', 'disabled');
         });
     });
-    </script>
+</script>
     
 </html>

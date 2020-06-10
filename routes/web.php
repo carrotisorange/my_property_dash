@@ -327,6 +327,15 @@ Route::get('/', function(Request $request){
         ->where('payment_created', Carbon::today()->format('Y-m-d'))
         ->get();
 
+
+         $posted_bills_this_month_for_rent = DB::table('units')
+        ->join('tenants', 'unit_id', 'unit_tenant_id')
+        ->join('billings', 'tenant_id', 'billing_tenant_id')
+        ->whereMonth('billing_date', Carbon::today()->month)
+        ->where('billing_desc', 'Monthly Rent')
+        ->whereIn('unit_property', [$property[0],$property[1]])
+        ->count();
+
         //for admin
        $users = DB::table('users')
        ->whereIn('property', [$property[0],$property[1]])
@@ -628,6 +637,14 @@ Route::get('/', function(Request $request){
         ->where('payment_created', Carbon::today()->format('Y-m-d'))
         ->get();
 
+         $posted_bills_this_month_for_rent = DB::table('units')
+        ->join('tenants', 'unit_id', 'unit_tenant_id')
+        ->join('billings', 'tenant_id', 'billing_tenant_id')
+        ->whereMonth('billing_date', Carbon::today()->month)
+        ->where('billing_desc', 'Monthly Rent')
+        ->where('unit_property', $property[0])
+        ->count();
+
         //for admin
        $users = DB::table('users')
        ->where('property', $property[0])
@@ -690,7 +707,7 @@ Route::get('/', function(Request $request){
     ->dashed([5]);
 
     return view('dashboard', compact('tenants_to_watch_out','active_tenants','reservations','occupied_units','units', 'investors', 'tenants', 'movein_rate','moveout_rate','recent_movein', 'units_per_status', 'units_per_building', 'units_per_floor',
-    'expected_collection', 'actual_collection', 'uncollected_amount', 'delinquent_accounts', 'collection_rate', 'payments', 'recent_payments', 'renewed_contracts', 'renewed_chart', 'terminated_contracts',
+    'expected_collection', 'actual_collection', 'uncollected_amount', 'delinquent_accounts','posted_bills_this_month_for_rent','collection_rate', 'payments', 'recent_payments', 'renewed_contracts', 'renewed_chart', 'terminated_contracts',
     'users'));
 
 });

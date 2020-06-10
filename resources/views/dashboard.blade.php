@@ -9,6 +9,7 @@
             @if(Auth::user()->user_type === 'admin')
             <a class="nav-link" id="v-pills-users-tab" data-toggle="pill" href="#users" role="tab" aria-controls="v-pills-users" aria-selected="false"><i class="fas fa-user-secret"></i>&nbsp&nbspUsers</a>
             <input type="hidden" id="count_units" value="{{ $units->count() }}">
+            <input type="hidden" id="current_user" value="{{ Auth::user()->user_type }}">
             <a class="nav-link" id="v-pills-units-tab" data-toggle="pill" href="#units" role="tab" aria-controls="v-pills-units" aria-selected="false"><i class="fas fa-home"></i>&nbsp&nbspUnits <span class="badge badge-light">{{ $units->count() }}</span></a>
             @foreach ($units_per_building as $item)
             <a class="nav-link" id="pills-{{ $item->building }}-tab" data-toggle="pill" href="#{{ $item->building }}" role="tab" aria-controls="pills-{{ $item->building }}" aria-selected="false">&nbsp&nbsp&nbsp&nbsp - {{ $item->building }} <span class="badge badge-light">{{ $item->count }}</span> </a>
@@ -25,6 +26,9 @@
             <a href="#" onclick="return false;" class="nav-link" id="v-pills-tenants-tab" data-toggle="pill" href="#tenants" role="tab" aria-controls="v-pills-tenants" aria-selected="false"><i class="fas fa-user"></i>&nbsp&nbspTenants</a>
             @endif
             @if(Auth::user()->user_type === 'billing')
+            <input type="hidden" id="current_user" value="{{ Auth::user()->user_type }}">
+            <input type="hidden" id="posted_bills_this_month_for_rent" value="{{ $posted_bills_this_month_for_rent }}">
+            <input type="hidden" id="delinquent_accounts" value="{{ $delinquent_accounts->count() }}">
             <a class="nav-link" id="v-pills-billings-tab" data-toggle="pill" href="#billings" role="tab" aria-controls="v-pills-billings" aria-selected="false"><i class="fas fa-file-invoice-dollar"></i>&nbsp&nbspBillings</a>
             @else
             <a href="#" onclick="return false;"  class="nav-link" id="v-pills-billings-tab" data-toggle="pill" href="#billings" role="tab" aria-controls="v-pills-billings" aria-selected="false"><i class="fas fa-file-invoice-dollar"></i>&nbsp&nbspBillings</a>
@@ -1161,15 +1165,55 @@
         </div>
         </div>
     </div>
+
+    <div class="modal fade" id="notificationToBillTenants" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Watch out for your billing schedule.</h5>
+            
+           
+            </div>
+            <div class="modal-body">
+              It seems like you have not billed the tenants yet for this month. Please click the billings and bill them now. 
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+        </div>
+        </div>
+    </div>
+    <div class="modal fade" id="notificationToCollectDelinquentAccounts" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Watch out for the delinquent accounts.</h5>
+            
+          
+            </div>
+            <div class="modal-body">
+              You have a total of {{ $delinquent_accounts->count() }} delinquent accounts. Please get in touh with them now.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+        </div>
+        </div>
+    </div>
 </div>
 
 <script type="text/javascript">
     $(window).on('load',function(){
-       if(document.getElementById('count_units').value <= 0){
-        $('#addUnit').modal('show');
-       }
+        if(document.getElementById('current_user').value === 'admin' && document.getElementById('count_units').value <= 0){
+         $('#addUnit').modal('show');
+        }else if(document.getElementById('current_user').value === 'billing' && document.getElementById('posted_bills_this_month_for_rent').value <= 0 ){
+            $('#notificationToBillTenants').modal('show');
+        }else if(document.getElementById('current_user').value === 'billing' && document.getElementById('delinquent_accounts').value > 0 ){
+            $('#notificationToCollectDelinquentAccounts').modal('show');
+        }
     });
 </script>
+
 <script>
     $(document).ready(() => {
     var url = window.location.href;
