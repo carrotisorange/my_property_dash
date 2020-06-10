@@ -11,25 +11,26 @@
         <input form="reservationForm" type="hidden" value="{{ $unit->unit_property }}" name="unit_property"> 
         <div class="row">
             <div class="col">
-                <label for="recipient-name" class="col-form-label">First Name:</label>
+                <small>First Name:</small>  
                 <input form="reservationForm" type="text" class="form-control" name="first_name" id="first_name" value="" required>
             </div>
             <div class="col">
-                <label for="recipient-name" class="col-form-label">Middle Name:</label>
+                <small>Middle Name:</small>  
                 <input form="reservationForm" type="text" class="form-control" name="middle_name" id="middle_name" value="">
             </div>
             <div class="col">
-                <label for="recipient-name" class="col-form-label">Last Name:</label>
+                <small>Last Name:</small>  
                 <input form="reservationForm" type="text" class="form-control" name="last_name" id="last_name" value="" required>
             </div>
             </div>
+            <br>
         <div class="row">
             <div class="col">
-                <label for="recipient-name" class="col-form-label">Birthdate:</label>
+                <small>Birthdate:</small>  
                 <input form="reservationForm" type="date" class="form-control" name="birthdate" id="birthdate" value="">
             </div>
             <div class="col">
-                <label for="recipient-name" class="col-form-label">Gender:</label>
+                <small>Gender:</small>  
                 <select form="reservationForm"  id="gender" name="gender" class="form-control" required >        
                     <option value="" selected>Please select one</option>
                     <option value="male">male</option>
@@ -49,21 +50,21 @@
                 <input form="reservationForm" type="text" class="form-control" name="id_number" id="id_number" value="">
             </div> --}}
         </div>
-        
+        <br>
         <div class="row">
             <div class="col">
-              <label for="recipient-name" class="col-form-label">Contact Number:</label>
+                <small>Mobile:</small>  
               <input form="reservationForm" type="text" class="form-control" name="contact_no" id="contact_no" value="" required >
             </div>
             <div class="col">
-              <label for="recipient-name" class="col-form-label">Email Address:</label>
+                <small>Email:</small>  
               <input form="reservationForm" type="email" class="form-control" name="email_address" id="email_address" value="">
             </div>
         </div>
 
         <div class="row">
             <div class="col">
-                <label for="recipient-name" class="col-form-label">House No/Barangay:</label>
+                <small>House No/Barangay:</small>  
                 <input form="reservationForm" type="text" class="form-control" name="barangay" id="barangay" value="">
             </div>
             <div class="col">
@@ -102,7 +103,7 @@
             </div>
        </div>
        <br> --}}
-       <h5>Educational Background (for student) </h5>
+       {{-- <h5>Educational Background (for student) </h5>
     <hr>
     <div class="row">
         <div class="col">
@@ -170,51 +171,50 @@
             <input form="reservationForm" type="text" class="form-control" name="employer_address" id="employer_address" value="">
         </div>
     </div>
-    <br>
+    <br> --}}
     <h5>Contract Duration</h5>
     <hr>
     <div class="row">
-        <div class="col">
+        <div class="col-md-4">
           <label for="recipient-name" class="col-form-label">Move In Date:</label>
           <input form="reservationForm" type="date" class="form-control" name="movein_date" id="movein_date" value={{date('Y-m-d')}} required>
-        </div>
-        <div class="col">
-          <label for="recipient-name" class="col-form-label">Move Out Date:</label>
-          <input onkeyup="duration()" form="reservationForm" type="date" class="form-control" name="moveout_date" value="" required>
         </div>
         {{-- <div class="col"> --}}
             {{-- <label for="recipient-name" class="col-form-label">Monthly Rent:</label> --}}
             <input form="reservationForm" type="hidden" class="form-control" name="tenant_monthly_rent" id="tenant_monthly_rent" value="{{ $unit->monthly_rent }}" required readonly>
         {{-- </div> --}}
       </div>
-      <br><br>
+      <br>
+      <div class="row">
+        <div class="col-md-4">
+            <label for="recipient-name" class="col-form-label">Move Out Date:</label>
+            <input onkeyup="duration()" form="reservationForm" type="date" class="form-control" name="moveout_date" value="" required>
+          </div>
+      </div>
+      <br>
       <h5>Payment Requirements</h5>
-    <h5><p class="text-right" id="total_bills">Total: </p></h5>
     <div class="row">
         <div class="col">
-             <table class="table" id="tab_logic">
-                 <tr>
-                     <th class="text-center">#</th>
-                     <th>Description</th>
-                     <th>Amount</th>
-                 </tr>
+             <table class="table table-borderless" id="tab_logic">
                      <input form="reservationForm" type="hidden" id="no_of_items" name="no_of_items" value="3">
                  <tr id='addr0'>
-                     <th class="text-center">1</th>
+                     
                      <td><input form="reservationForm"  type="text" name='desc0' id='desc0' class="form-control" value="Security Deposit (Rent)" readonly/></td>
                      <td><input oninput="this.value = Math.abs(this.value)" form="reservationForm"  onkeyup="computeTotal()" type="number" name='amt0' id='amt0' class="form-control" value="{{ $unit->monthly_rent }}" readonly/></td>
                  </tr>
                  <tr id='addr1'>
-                    <th class="text-center">2</th>
+                   
                     <td><input form="reservationForm"  type="text" name='desc1' id='desc1' class="form-control" value="Security Deposit (Utilities)" readonly/></td>
                     <td><input oninput="this.value = Math.abs(this.value)" form="reservationForm"  onkeyup="computeTotal()" type="number" name='amt1' id='amt1' class="form-control" value="2000" readonly/></td>
                 </tr>
                  <tr>
-                     <th class="text-center">3</th>
+                     
                     <td><input form="reservationForm"  type="text" name='desc2' id='desc2' class="form-control" value="Advance Rent" readonly/></td>
                     <td><input oninput="this.value = Math.abs(this.value)" form="reservationForm"  onkeyup="computeTotal()" type="number" name='amt2' id='amt2' class="form-control" value="{{ $unit->monthly_rent }}" readonly/></td>
                  </tr>
-                 <tr id='addr2'></tr>
+                 <tr id='addr2'>
+                    <h5><p class="text-right" id="total_bills">Total: </p></h5>
+                 </tr>
              </table>      
         </div>
         
