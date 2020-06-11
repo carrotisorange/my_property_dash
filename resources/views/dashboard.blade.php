@@ -82,7 +82,7 @@
                                 </div>
                             </div>
                             <div class="col-md-3">
-                                <div class="card">
+                                <div class="card bg-primary">
                                     <div class="card-header">
                                         Leasing Units
                                     </div>

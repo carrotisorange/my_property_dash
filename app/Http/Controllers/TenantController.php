@@ -465,6 +465,7 @@ class TenantController extends Controller
             ->update([
                 'movein_date' => $request->movein_date, 
                 'moveout_date' => Carbon::parse($request->movein_date)->addMonths($request->no_of_months),
+                'tenant_status' => 'active',
                 'has_extended' => 'renewed',
                 'renewal_history' => $renewal_history->renewal_history.', from '.Carbon::parse($request->old_movein_date)->format('M d Y').' to -'.Carbon::parse($request->movein_date)->format('M d Y')
             ]);
