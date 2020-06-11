@@ -44,13 +44,7 @@
                             <li>Online Access for Landlords and unit owners</li>
                         </ul>
                     </p>
-                    <b>Current Statistics</b>
-                    <br><br>
-                    <div class="card">
-                        <div class="card-body">
-                        
-                        </div>
-                    </div>
+                   
                 </div>
             </div>
         </div>
