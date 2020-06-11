@@ -18,7 +18,7 @@
             @endif
             {{-- if unit owner does not exist in this unit, then show the add investor button, otherwise, hide. --}}
             @if ($unit_owner->count() < 1)
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addInvestor" data-whatever="@mdo"><i class="fas fa-user-plus"></i> investor</button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addInvestor" data-whatever="@mdo"><i class="fas fa-user-plus"></i> unit owner</button>
             @endif
             <br> <br>
                 <?php $numberFormatter = new NumberFormatter('en_US', NumberFormatter::ORDINAL) ?>
@@ -69,7 +69,7 @@
                             
                         </tr>
                         <tr>
-                            <td>investor </td>
+                            <td>unit owner </td>
                             <td><a href="{{ route('show-investor',['unit_id'=> $item->unit_id, 'unit_owner_id'=>$item->unit_owner_id]) }}">{{ $item->unit_owner }} </a></td>
                         </tr>
                         <tr>
@@ -308,7 +308,7 @@
             <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add Investor</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Add Unit Owner</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
