@@ -24,7 +24,7 @@
                 <?php $numberFormatter = new NumberFormatter('en_US', NumberFormatter::ORDINAL) ?>
                    <table class="table table-bordered table-striped">
                        <tr>
-                           <th colspan="2" >Room Information</th>
+                           <th colspan="2" >Room/Unit Information</th>
                        </tr>
                        <tr>
                             <td>unit no</th>
@@ -65,7 +65,7 @@
                             @foreach ($unit_owner as $item)
                         
                         <tr>
-                            <th colspan="2">Investor Information</th>
+                            <th colspan="2">Unit Owner Information</th>
                             
                         </tr>
                         <tr>
