@@ -278,7 +278,7 @@
                                                 <td><a class="badge badge-success">{{ $item->has_extended }} ({{ count($renewal_history)-1 }}x) {{ number_format(Carbon\Carbon::now()->DiffInDays(Carbon\Carbon::parse($item->movein_date)) ) }} days ago</a></td>
                                            </tr>
                                            @endforeach
-                                           @foreach($terminated_contracts->take(3) as $item)
+                                           @foreach($terminated_contracts->take(5) as $item)
                                            <tr>
                                                <th class="text-center">{{ $ctr++ }}</th>
                                                <td>
