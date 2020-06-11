@@ -1108,7 +1108,7 @@
 
                 <div class="form-group">
                     <label for="recipient-name" class="col-form-label">select the purpose of the room/unit</label>
-                    <select form="addUnitForm" class="form-control" name="type_of_units" required>
+                    <select form="addUnitForm" class="form-control" name="type_of_units" id="type_of_units" required>
                         <option value="" selected>Please select one</option>
                         <option value="leasing">leasing</option>
                         <option value="commercial">commercial</option>
@@ -1129,7 +1129,7 @@
 
                 <div class="form-group">
                     <label for="recipient-name" class="col-form-label">enter the monthly rent of the room/unit</label>
-                    <input form="addUnitForm" type="number" min="1" class="form-control" name="monthly_rent" required>
+                    <input form="addUnitForm" type="number" min="1" class="form-control" name="monthly_rent" id="monthly_rent" required>
                 </div>
 
             </div>
