@@ -226,6 +226,7 @@ class UnitsController extends Controller
         $buildings = DB::table('units')
         ->select('building',DB::raw('count(*) as count'))
         ->whereIn('status', ['vacant','reserved'])
+        ->where('type_of_units', 'leasing')
         ->where('unit_property', $property)
         ->groupBy('building')
         ->get();
@@ -233,6 +234,7 @@ class UnitsController extends Controller
         $units = DB::table('units')
         ->whereIn('status', ['vacant','reserved'])
         ->where('unit_property', $property)
+        ->where('type_of_units', 'leasing')
         ->get();
 
         return view('reservation-forms.show-vacant-units', compact('buildings','units'));

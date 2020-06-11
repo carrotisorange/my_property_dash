@@ -1107,7 +1107,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">select the purpose of the rooms/units</label>
+                    <label for="recipient-name" class="col-form-label">select the purpose of the room/unit</label>
                     <select form="addUnitForm" class="form-control" name="type_of_units" required>
                         <option value="" selected>Please select one</option>
                         <option value="leasing">leasing</option>
@@ -1139,7 +1139,6 @@
         </div>
         </div>
     </div>
-
 
     <div class="modal fade" id="addMultipleUnits" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-md" role="document">
