@@ -40,12 +40,38 @@ Route::get('/', function(Request $request){
     ->orderBy('unit_no')
     ->get();
 
+     $commercial_units = DB::table('units')
+    ->whereIn('unit_property', [$property[0],$property[1]])
+    ->where('type_of_units', 'commercial')
+    ->orderBy('building')
+    ->orderBy('floor_no')
+    ->orderBy('unit_no')
+    ->get();
+
+    $leasing_units= DB::table('units')
+    ->whereIn('unit_property', [$property[0],$property[1]])
+    ->where('type_of_units', 'leasing')
+    ->orderBy('building')
+    ->orderBy('floor_no')
+    ->orderBy('unit_no')
+    ->get();
+
+    $residential_units= DB::table('units')
+    ->whereIn('unit_property', [$property[0],$property[1]])
+    ->where('type_of_units', 'residential')
+    ->orderBy('building')
+    ->orderBy('floor_no')
+    ->orderBy('unit_no')
+    ->get();
+
     $occupied_units = DB::table('units')
     ->whereIn('unit_property', [$property[0],$property[1]])
     ->orderBy('building')
     ->orderBy('unit_no')
     ->where('status','occupied')
     ->get();
+
+    
 
     $investors = DB::table('units')
     ->join('unit_owners', 'unit_unit_owner_id', 'unit_owner_id')
@@ -57,6 +83,14 @@ Route::get('/', function(Request $request){
     ->whereIn('unit_property', [$property[0],$property[1]])
     ->orderBy('movein_date')
     ->get();
+
+    $pending_tenants = DB::table('tenants')
+    ->join('units', 'unit_id', 'unit_tenant_id')
+    ->whereIn('unit_property', [$property[0],$property[1]])
+    ->where('tenant_status', 'pending')
+    ->orderBy('movein_date')
+    ->get();
+
 
     $tenants_to_watch_out = DB::table('tenants')
     ->join('units', 'unit_id', 'unit_tenant_id')
@@ -382,6 +416,13 @@ Route::get('/', function(Request $request){
     ->orderBy('movein_date', 'desc')
     ->get();
 
+    $pending_tenants = DB::table('tenants')
+    ->join('units', 'unit_id', 'unit_tenant_id')
+    ->where('unit_property', $property[0])
+    ->where('tenant_status', 'pending')
+    ->orderBy('movein_date')
+    ->get();
+
     $reservations = DB::table('tenants')
     ->join('units', 'unit_id', 'unit_tenant_id')
     ->where('unit_property', $property[0])
@@ -645,6 +686,30 @@ Route::get('/', function(Request $request){
         ->where('unit_property', $property[0])
         ->count();
 
+        $commercial_units = DB::table('units')
+        ->where('unit_property', $property[0])
+        ->where('type_of_units', 'commercial')
+        ->orderBy('building')
+        ->orderBy('floor_no')
+        ->orderBy('unit_no')
+        ->get();
+    
+        $leasing_units= DB::table('units')
+        ->where('unit_property', $property[0])
+        ->where('type_of_units', 'leasing')
+        ->orderBy('building')
+        ->orderBy('floor_no')
+        ->orderBy('unit_no')
+        ->get();
+
+        $residential_units= DB::table('units')
+        ->where('unit_property', $property[0])
+        ->where('type_of_units', 'residential')
+        ->orderBy('building')
+        ->orderBy('floor_no')
+        ->orderBy('unit_no')
+        ->get();
+
         //for admin
        $users = DB::table('users')
        ->where('property', $property[0])
@@ -708,7 +773,7 @@ Route::get('/', function(Request $request){
 
     return view('dashboard', compact('tenants_to_watch_out','active_tenants','reservations','occupied_units','units', 'investors', 'tenants', 'movein_rate','moveout_rate','recent_movein', 'units_per_status', 'units_per_building', 'units_per_floor',
     'expected_collection', 'actual_collection', 'uncollected_amount', 'delinquent_accounts','posted_bills_this_month_for_rent','collection_rate', 'payments', 'recent_payments', 'renewed_contracts', 'renewed_chart', 'terminated_contracts',
-    'users'));
+    'users','commercial_units','leasing_units','residential_units','pending_tenants'));
 
 });
 

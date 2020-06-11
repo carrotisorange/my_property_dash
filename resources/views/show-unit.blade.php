@@ -271,8 +271,9 @@
                     <label for="message-text" class="col-form-label">room type</label>
                     <select form="editUnitForm" id="type_of_units" name="type_of_units" class="form-control">
                         <option value="{{ $unit->type_of_units }}" readonly selected class="bg-primary">{{ $unit->type_of_units }}</option>
-                        <option value="residential">residential</option>
+                        <option value="leasing">leasing</option>
                         <option value="commercial">commercial</option>
+                        <option value="residential">residential</option>
                     </select>
                     </div>
                     <div class="form-group">

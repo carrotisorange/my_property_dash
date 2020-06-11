@@ -14,10 +14,10 @@
             @foreach ($units_per_building as $item)
             <a class="nav-link" id="pills-{{ $item->building }}-tab" data-toggle="pill" href="#{{ $item->building }}" role="tab" aria-controls="pills-{{ $item->building }}" aria-selected="false">&nbsp&nbsp&nbsp&nbsp - {{ $item->building }} <span class="badge badge-light">{{ $item->count }}</span> </a>
             @endforeach
-            
-            
+
+
             <a class="nav-link" id="v-pills-tenants-tab" data-toggle="pill" href="#tenants" role="tab" aria-controls="v-pills-tenants" aria-selected="false"><i class="fas fa-user"></i>&nbsp&nbspTenants  <span class="badge badge-light">{{ $tenants->count() }}</span></a>
-            <a class="nav-link" id="v-pills-investors-tab" data-toggle="pill" href="#investors" role="tab" aria-controls="v-pills-investors" aria-selected="false"><i class="fas fa-user-tie"></i>&nbsp&nbspInvestors <span class="badge badge-light">{{ $investors->count() }}</span> </a>
+            <a class="nav-link" id="v-pills-investors-tab" data-toggle="pill" href="#investors" role="tab" aria-controls="v-pills-investors" aria-selected="false"><i class="fas fa-user-tie"></i>&nbsp&nbspUnit Owners <span class="badge badge-light">{{ $investors->count() }}</span> </a>
             <a class="nav-link" id="v-pills-joborders-tab" data-toggle="pill" href="#joborders" role="tab" aria-controls="v-pills-joborders" aria-selected="false"><i class="fas fa-tools"></i>&nbspJob Orders</a>
             @else
             <a href="#" onclick="return false;" class="nav-link" id="v-pills-users-tab" data-toggle="pill" href="#users" role="tab" aria-controls="v-pills-users" aria-selected="false"> <i class="fas fa-user-secret"></i>&nbsp&nbspUsers</a>
@@ -50,57 +50,108 @@
                             <div class="col">
                             @if(Auth::user()->user_type === 'admin')
                                <p class="text-right">
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addUnit" data-whatever="@mdo"><i class="fas fa-plus"></i> room</button> 
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addUnit" data-whatever="@mdo"><i class="fas fa-plus"></i> room</button>
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addMultipleUnits" data-whatever="@mdo"><i class="fas fa-plus"></i> multiple rooms</button>
                                </p>
-                            @endif  
+                            @endif
                             </div>
                         </div>
                         <div class="row text-center">
                             <div class="col-md-3">
-                                <div class="card bg-primary">
+                                <div class="card">
                                     <div class="card-header">
-                                        Occupancy Rate
+                                        Total Units
                                     </div>
                                     <div class="card-body">
-                                    <h1 class="text-center">{{ number_format($units->count() == 0 ? 0 :$occupied_units->count()/$units->count() * 100,2) }}%
-                                            <span class="text-right"><p><i class="fas fa-chart-line"></i></p></span>
+                                    <h1 class="text-center">{{ $units->count() }}
+                                            <span class="text-right"><p><i class="fas fa-home"></i></p></span>
                                         </h1>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-3">
-                                <div class="card bg-secondary">
+                                <div class="card">
                                     <div class="card-header">
-                                        Units Enrolled
+                                        Commercial Units
                                     </div>
                                     <div class="card-body">
-                                        <h1 class="text-center">{{ $units->count() }}
-                                            <span class="text-right"><p><i class="fas fa-home fa-1x"></i></p></span>
+                                    <h1 class="text-center">{{ $commercial_units->count() }}
+                                            <span class="text-right"><p><i class="fas fa-hotel"></i></p></span>
                                         </h1>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-3">
-                                <div class="card bg-warning">
+                                <div class="card">
                                     <div class="card-header">
-                                        Investors
+                                        Leasing Units
                                     </div>
                                     <div class="card-body">
-                                        <h1 class="text-center">{{ $investors->count('unit_owner') }}
-                                            <span class="text-right"><p><i class="fas fa-user-tie"></i></p></span>
+                                        <h1 class="text-center">{{ $leasing_units->count() }}
+                                            <span class="text-right"><p><i class="fas fa-laptop-house"></i></p></span>
                                         </h1>
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <div class="card-header">
+                                        Residential Units
+                                    </div>
+                                    <div class="card-body">
+                                    <h1 class="text-center">{{ $residential_units->count() }}
+                                            <span class="text-right"><p><i class="fas fa-house-user"></i></p></span>
+                                        </h1>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row text-center">
                             <div class="col-md-3">
                                 <div class="card bg-success">
                                     <div class="card-header">
                                         Active Tenants
                                     </div>
                                     <div class="card-body">
-                                        <h1 class="text-center">{{ $active_tenants->count() }}
-                                            <span class="text-right"><p><i class="fas fa-user"></i></p></span>
+                                    <h1 class="text-center">{{ $active_tenants->count() }}
+                                            <span class="text-right"><p><i class="fas fa-user-check"></i></p></span>
+                                        </h1>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <div class="card-header">
+                                        Pending Tenants
+                                    </div>
+                                    <div class="card-body">
+                                    <h1 class="text-center">{{ $pending_tenants->count() }}
+                                            <span class="text-right"><p><i class="fas fa-user-clock"></i></p></span>
+                                        </h1>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <div class="card-header">
+                                        Unit Owners
+                                    </div>
+                                    <div class="card-body">
+                                    <h1 class="text-center">{{ $investors->count() }}
+                                            <span class="text-right"><p><i class="fas fa-user-tie"></i></p></span>
+                                        </h1>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card bg-danger">
+                                    <div class="card-header">
+                                        Pending Job Orders
+                                    </div>
+                                    <div class="card-body">
+                                    <h1 class="text-center">0
+                                            <span class="text-right"><p><i class="fas fa-tools"></i></p></span>
                                         </h1>
                                     </div>
                                 </div>
@@ -109,17 +160,17 @@
                         <br>
                         <div class="row">
                             <div class="col-md-12">
-                                <?php $ctr = 1; ?>  
+                                <?php $ctr = 1; ?>
                                 <h4>tenants to watch out </h4>
                                 <table class="table table-bordered">
                                     <tr>
                                         <th class="text-center">#</th>
                                         <th>name</th>
                                         <th>contact no</th>
-                                        <th>unit no</th>   
-                                        <th colspan="3"></th>         
+                                        <th>unit no</th>
+                                        <th colspan="3"></th>
                                     </tr>
-                                    
+
                                    @foreach($tenants_to_watch_out as $item)
                                    <?php
                                             $diffInMonths =  number_format(Carbon\Carbon::now()->floatDiffInMonths(Carbon\Carbon::parse($item->moveout_date), false));
@@ -135,13 +186,13 @@
                                             <a href="/units/{{ $item->unit_tenant_id }}/tenants/{{ $item->tenant_id }}/payments">{{ $item->first_name.' '.$item->last_name }}</a>
                                             @else
                                             {{ $item->first_name.' '.$item->last_name }}
-                                            @endif  
+                                            @endif
                                         </td>
                                         <td>{{ $item->contact_no }}</td>
                                         <td>{{ $item->building.' '.$item->unit_no }}</td>
                                         <td colspan="2">
                                             @if($diffInDays <= -1)
-                                            <a class="badge badge-danger">contract has lapsed {{ $diffInDays*-1 }} days ago</a> 
+                                            <a class="badge badge-danger">contract has lapsed {{ $diffInDays*-1 }} days ago</a>
                                              @else
                                             <a class="badge badge-warning">contract expires in {{ $diffInDays }} days </a>
                                              @endif
@@ -162,11 +213,11 @@
                                         <th class="text-center">#</th>
                                         <th>name</th>
                                         <th>unit no</th>
-                                        <th>reserved via</th>   
+                                        <th>reserved via</th>
                                         <th>contact no</th>
-                                        <th>reservation date</th>       
+                                        <th>reservation date</th>
                                     </tr>
-                                   <?php $ctr = 1; ?>   
+                                   <?php $ctr = 1; ?>
                                    @foreach($reservations as $item)
                                     <tr>
                                         <th class="text-center">{{ $ctr++ }}</th>
@@ -177,18 +228,18 @@
                                             <a href="/units/{{ $item->unit_tenant_id }}/tenants/{{ $item->tenant_id }}/payments">{{ $item->first_name.' '.$item->last_name }}</a>
                                             @else
                                             {{ $item->first_name.' '.$item->last_name }}
-                                            @endif      
+                                            @endif
                                         </td>
                                         <td>{{ $item->building.' '.$item->unit_no }}</td>
-                                       
+
                                         <td>{{ $item->contact_no }}</td>
                                         <td>{{ Carbon\Carbon::parse($item->created_at)->format('M d Y') }}</td>
                                     </tr>
                                    @endforeach
                                 </table>
                             </div>
-                        </div>  
-                        <br> 
+                        </div>
+                        <br>
                         <div class="row">
                             <div class="col-md-6"></div>
                         </div>
@@ -196,20 +247,20 @@
                             <div class="col-md-6">
                                 <div class="card">
                                     <div class="card-body">
-                                        {!! $renewed_chart->container() !!}  
+                                        {!! $renewed_chart->container() !!}
                                     </div>
-                                </div>    
-                            </div>    
+                                </div>
+                            </div>
                             <div class="col-md-6">
                                 <h4>tenants' retention</h4>
                                         <table class="table table-bordered">
                                             <tr>
                                                 <th class="text-center">#</th>
                                                 <th>name</th>
-                                                <th>unit no</th>   
-                                                <th></th>          
+                                                <th>unit no</th>
+                                                <th></th>
                                             </tr>
-                                           <?php $ctr = 1; ?>   
+                                           <?php $ctr = 1; ?>
                                            @foreach($renewed_contracts->take(3) as $item)
                                             <tr>
                                                 <th class="text-center">{{ $ctr++ }}</th>
@@ -254,43 +305,43 @@
                                         Move-in rate  <span style="float:right;">Occupancy ({{ number_format($occupied_units->count()/$units->count() * 100,2) }} %) </span>
                                     </div> --}}
                                     <div class="card-body">
-                                        {!! $movein_rate->container() !!}  
+                                        {!! $movein_rate->container() !!}
                                     </div>
-                                </div>    
-                            </div>    
+                                </div>
+                            </div>
                             <div class="col-md-6">
                                 <h4>recent tenants</h4>
                                         <table class="table table-bordered">
                                             <tr>
                                                 <th class="text-center">#</th>
                                                 <th>name</th>
-                                               
-                                                <th>unit no</th>   
-                                                <th></th>          
+
+                                                <th>unit no</th>
+                                                <th></th>
                                             </tr>
-                                           <?php $ctr = 1; ?>   
+                                           <?php $ctr = 1; ?>
                                            @foreach($recent_movein as $item)
                                             <tr>
                                                 <th class="text-center">{{ $ctr++ }}</th>
                                                 <td>
                                                     @if(Auth::user()->user_type === 'admin')
-                                                   
+
                                                     <a href="{{ route('show-tenant',['unit_id' => $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a> <a class="badge badge-success">{{ $item->has_extended }}</a>
                                                     @elseif(Auth::user()->user_type === 'treasury')
-                                                    
+
                                                     <a href="/units/{{ $item->unit_tenant_id }}/tenants/{{ $item->tenant_id }}/billings">{{ $item->first_name.' '.$item->last_name }}</a><a class="badge badge-success">{{ $item->has_extended }}</a>
                                                     @else
-                                                    
+
                                                     {{ $item->first_name.' '.$item->last_name }}<a class="badge badge-success">{{ $item->has_extended }}</a>
                                                     @endif
                                                 </td>
-                                                
+
                                                 <td>{{ $item->building.' '.$item->unit_no }}</td>
                                                 <td><a class="badge badge-primary">{{ number_format(Carbon\Carbon::now()->DiffInDays(Carbon\Carbon::parse($item->movein_date)) ) }} days ago</a></td>
                                            </tr>
                                            @endforeach
-                                        </table>            
-                            </div>   
+                                        </table>
+                            </div>
                         </div>
                         <br>
                         <div class="row">
@@ -300,24 +351,24 @@
                                         Move-in rate  <span style="float:right;">Occupancy ({{ number_format($occupied_units->count()/$units->count() * 100,2) }} %) </span>
                                     </div> --}}
                                     <div class="card-body">
-                                        {!! $moveout_rate->container() !!}  
+                                        {!! $moveout_rate->container() !!}
                                     </div>
-                                </div>    
-                            </div>    
+                                </div>
+                            </div>
                             <div class="col-md-6">
                                 <h4>terminated contracts</h4>
                                         <table class="table table-bordered">
                                             <tr>
                                                 <th class="text-center">#</th>
                                                 <th>name</th>
-                                                <th>unit no</th> 
-                                                <th>reason</th>  
-                                                <th></th>          
+                                                <th>unit no</th>
+                                                <th>reason</th>
+                                                <th></th>
                                             </tr>
                                            <?php
                                              $ctr = 1;
-                                           ?>   
-                                           @foreach($terminated_contracts as $item)
+                                           ?>
+                                            @foreach($terminated_contracts->take(3) as $item)
                                             <tr>
                                                 <th class="text-center">{{ $ctr++ }}</th>
                                                 <td>
@@ -335,17 +386,17 @@
                                            </tr>
                                            @endforeach
                                         </table>
-                            </div>   
+                            </div>
                         </div>
                         <br>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="card">
                                     <div class="card-body">
-                                        {!! $collection_rate->container() !!}  
+                                        {!! $collection_rate->container() !!}
                                     </div>
-                                </div>    
-                            </div>    
+                                </div>
+                            </div>
                             <div class="col-md-6">
                                 <h4>delinquents ({{ $delinquent_accounts->count() }})</h4>
                                         <table class="table table-bordered">
@@ -357,7 +408,7 @@
                                             </tr>
                                             <?php
                                             $ctr = 1;
-                                            ?>   
+                                            ?>
                                             @foreach ($delinquent_accounts as $item)
                                             <tr>
                                                 <th class="text-center">{{ $ctr++ }}</th>
@@ -366,8 +417,8 @@
                                                 <td>{{ number_format($item->total_bills,2) }}</td>
                                             </tr>
                                             @endforeach
-                                        </table>      
-                            </div>   
+                                        </table>
+                            </div>
                         </div>
                         <br>
                     </div>
@@ -389,15 +440,15 @@
                         @else
                         <a class="nav-link" id="pills-{{ $item->status }}-tab" data-toggle="pill" href="#{{ $item->status }}" role="tab" aria-controls="pills-{{ $item->status }}" aria-selected="false"><i class="fas fa-laptop-house"></i> {{ $item->status }} <span class="badge badge-light">{{ $item->count }}</span> </a>
                         @endif
-                    </li>  
+                    </li>
                 @endforeach
                 {{--<li class="nav-item">
                     <a class="nav-link" href="#/">|</a>
-                </li> 
+                </li>
                  @foreach ($units_per_building as $item)
                 <li class="nav-item">
                     <a class="nav-link" id="pills-{{ $item->building }}-tab" data-toggle="pill" href="#{{ $item->building }}" role="tab" aria-controls="pills-{{ $item->building }}" aria-selected="false">{{ $item->building }} <span class="badge badge-light">{{ $item->count }}</span> </a>
-                </li>  
+                </li>
                 @endforeach --}}
               </ul>
               <div class="tab-content" id="pills-tabContent">
@@ -412,19 +463,19 @@
                                                 <i class="fas fa-home fa-2x"></i>
                                                 <br>
                                                 <font size="-3" >{{ $item->unit_no }} </font>
-                                            </a>   
+                                            </a>
                                         @elseif($item->status=== 'reserved')
                                             <a title="{{ $item->type_of_units }}" href="/units/{{$item->unit_id}}" class="btn btn-warning">
                                                 <i class="fas fa-home fa-2x"></i>
                                                 <br>
                                                 <font size="-3">{{ $item->unit_no }} </font>
-                                            </a>  
+                                            </a>
                                         @elseif($item->status=== 'occupied')
                                             <a title="{{ $item->type_of_units }}" href="/units/{{$item->unit_id}}" class="btn btn-primary">
                                                 <i class="fas fa-home fa-2x"></i>
                                                 <br>
                                                 <font size="-3">{{ $item->unit_no }} </font>
-                                            </a>  
+                                            </a>
                                         @endif
                                     @endforeach
                                 </td>
@@ -446,19 +497,19 @@
                                                     <i class="fas fa-home fa-2x"></i>
                                                     <br>
                                                     <font size="-3">{{ $unit->unit_no }}</font>
-                                                </a>   
+                                                </a>
                                                 @elseif($item->status=== 'reserved')
                                                 <a title="{{ $unit->type_of_units }}" href="/units/{{$unit->unit_id}}" class="btn btn-warning">
                                                     <i class="fas fa-home fa-2x"></i>
                                                     <br>
                                                     <font size="-3">{{ $unit->unit_no }} </font>
-                                                </a>  
+                                                </a>
                                                 @elseif($item->status=== 'occupied')
                                                 <a title="{{ $unit->type_of_units }}" href="/units/{{$unit->unit_id}}" class="btn btn-primary">
                                                     <i class="fas fa-home fa-2x"></i>
                                                     <br>
                                                     <font size="-3">{{ $unit->unit_no }} </font>
-                                                </a>  
+                                                </a>
                                             @endif
                                         @endif
                                     @endforeach
@@ -471,9 +522,9 @@
                 @endforeach
               </div>
                     </div>
-                </div>   
+                </div>
             </div>
-            
+
 
             @foreach ($units_per_building as $item)
             <div class="tab-pane fade" id="{{ $item->building }}" role="tabpanel" aria-labelledby="pills-{{ $item->building }}-tab">
@@ -502,19 +553,19 @@
                                                         <i class="fas fa-home fa-2x"></i>
                                                         <br>
                                                         <font size="-3">{{ $unit->unit_no }} </font>
-                                                    </a>   
+                                                    </a>
                                                     @elseif($unit->status=== 'reserved')
                                                     <a title="{{ $unit->type_of_units }}" href="/units/{{$unit->unit_id}}" class="btn btn-warning">
                                                         <i class="fas fa-home fa-2x"></i>
                                                         <br>
                                                         <font size="-3">{{ $unit->unit_no }} </font>
-                                                    </a>  
+                                                    </a>
                                                     @elseif($unit->status=== 'occupied')
                                                     <a title="{{ $unit->type_of_units }}" href="/units/{{$unit->unit_id}}" class="btn btn-primary">
                                                         <i class="fas fa-home fa-2x"></i>
                                                         <br>
                                                         <font size="-3">{{ $unit->unit_no }} </font>
-                                                    </a>  
+                                                    </a>
                                                 @endif
                                             @endif
                                         @endforeach
@@ -541,7 +592,7 @@
                                 </div>
                             </form>
                             <br>
-                           
+
                                 <table class="table table-striped">
                                      <tr>
                                         <th class="text-center">#</th>
@@ -551,12 +602,12 @@
                                         <th>monthly rent</th>
                                         <th>contract expires in</th>
                                         </tr>
-                                    <?php $ctr = 1;?>   
-                                    
+                                    <?php $ctr = 1;?>
+
                                     @foreach ($tenants as $item)
                                     <tr>
                                         <th class="text-center">{{ $ctr++ }}</th>
-                                        <td><a href="{{ route('show-tenant',['unit_id'=> $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a> 
+                                        <td><a href="{{ route('show-tenant',['unit_id'=> $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a>
                                             @if($item->tenant_status === 'active')
                                             <a class="badge badge-primary">{{ $item->tenant_status }}</a>
                                             @elseif($item->tenant_status === 'inactive')
@@ -571,7 +622,7 @@
                                         <td>{{   $diffInMonths =  number_format(Carbon\Carbon::now()->floatDiffInMonths(Carbon\Carbon::parse($item->moveout_date), false), 1) }} mon</td>
                                     </tr>
                                     @endforeach
-                                    
+
                                  </table>
                         </div>
                     </div>
@@ -582,7 +633,7 @@
             <div class="tab-pane fade" id="investors" role="tabpanel" aria-labelledby="v-pills-investors-tab">
                 <div class="card">
                     <div class="card-body">
-                        <h4>Investors <i class="fas fa-user-tie"></i></h4>
+                        <h4>Unit Owners <i class="fas fa-user-tie"></i></h4>
                         <br>
                         <div class="justify-content-center">
                             <form action="/unit_owners/search" method="GET" >
@@ -604,7 +655,7 @@
                                     </thead>
                                     <?php
                                       $ctr = 1;
-                                    ?>   
+                                    ?>
                                     <tbody>
                                     @foreach ($investors as $item)
                                     <tr>
@@ -636,7 +687,7 @@
                                 </div>
                             </form>
                             <br>
-                           
+
                                 <table class="table table-striped">
                                      <tr>
                                         <th class="text-center">#</th>
@@ -646,12 +697,12 @@
                                         <th>monthly rent</th>
                                         <th>contract expires in</th>
                                         </tr>
-                                    <?php $ctr = 1;?>   
-                                    
+                                    <?php $ctr = 1;?>
+
                                     @foreach ($tenants as $item)
                                     <tr>
                                         <th class="text-center">{{ $ctr++ }}</th>
-                                        <td><a href="{{ route('show-tenant',['unit_id'=> $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a> 
+                                        <td><a href="{{ route('show-tenant',['unit_id'=> $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a>
                                             @if($item->tenant_status === 'active')
                                             <a class="badge badge-primary">{{ $item->tenant_status }}</a>
                                             @elseif($item->tenant_status === 'inactive')
@@ -666,7 +717,7 @@
                                         <td>{{   $diffInMonths =  number_format(Carbon\Carbon::now()->floatDiffInMonths(Carbon\Carbon::parse($item->moveout_date), false), 1) }} mon</td>
                                     </tr>
                                     @endforeach
-                                    
+
                                  </table>
                         </div>
                     </div>
@@ -677,8 +728,8 @@
             <div class="tab-pane fade" id="billings" role="tabpanel" aria-labelledby="v-pills-billings-tab">
                 <div class="card">
                     <div class="card-body">
-                        
-                       <h4> Billings <i class="fas fa-file-invoice-dollar"></i></h4>  
+
+                       <h4> Billings <i class="fas fa-file-invoice-dollar"></i></h4>
                        <form id="billingRentForm" action="/tenants/billings" method="POST">
                             @csrf
                         </form>
@@ -692,15 +743,15 @@
                             @csrf
                         </form>
                        <span style="float:right;">
-                        <button type="submit" form="billingRentForm" class="btn btn-primary"><i class="fas fa-plus"></i> rent</button> 
+                        <button type="submit" form="billingRentForm" class="btn btn-primary"><i class="fas fa-plus"></i> rent</button>
                         <input type="hidden" form="billingRentForm" name="billing_option" value="rent">
-                        <button type="submit" form="billingElectricForm" class="btn btn-primary"><i class="fas fa-plus"></i> electric</button> 
+                        <button type="submit" form="billingElectricForm" class="btn btn-primary"><i class="fas fa-plus"></i> electric</button>
                         <input type="hidden" form="billingElectricForm" name="billing_option" value="electric">
-                        <button type="submit" form="billingWaterForm" class="btn btn-primary"><i class="fas fa-plus"></i> water</button> 
+                        <button type="submit" form="billingWaterForm" class="btn btn-primary"><i class="fas fa-plus"></i> water</button>
                         <input type="hidden" form="billingWaterForm" name="billing_option" value="water">
-                        <button type="submit" form="billingSurchargeForm" class="btn btn-primary"><i class="fas fa-plus"></i> surcharge</button> 
+                        <button type="submit" form="billingSurchargeForm" class="btn btn-primary"><i class="fas fa-plus"></i> surcharge</button>
                         <input type="hidden" form="billingSurchargeForm" name="billing_option" value="surcharge">
-                       </span>    
+                       </span>
                         <br><br>
                         <div class="row text-center">
                             <div class="col-md-4">
@@ -720,7 +771,7 @@
                                     </div>
                                     <div class="card-body">
                                         <h2>{{ number_format($actual_collection,2) }}</h2>
-                                      
+
                                     </div>
                                 </div>
                             </div>
@@ -731,7 +782,7 @@
                                     </div>
                                     <div class="card-body">
                                         <h2>{{ number_format($uncollected_amount,2) }}</h2>
-                                      
+
                                     </div>
                                 </div>
                             </div>
@@ -750,9 +801,9 @@
                                             </tr>
                                             <?php
                                             $ctr = 1;
-                                            ?>   
+                                            ?>
                                             @foreach ($delinquent_accounts as $item)
-                                           
+
                                             <tr>
                                                 <th class="text-center">{{ $ctr++ }}</th>
                                                 <td><a href="{{ route('show-billings',['unit_id' => $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a></td>
@@ -761,9 +812,9 @@
                                                 <td>{{ number_format($item->total_bills,2) }}</td>
                                             </tr>
                                             @endforeach
-                                          
-                                        </table>                       
-                            </div> 
+
+                                        </table>
+                            </div>
                     </div>
                     <br>
                     <div class="row">
@@ -778,11 +829,11 @@
                                 <th>unit no</th>
                                 <th>description</th>
                                 <th>amount</th>
-                                
+
                             </tr>
                            <?php
                              $ctr = 1;
-                           ?>   
+                           ?>
                            @foreach ($recent_payments as $tenant)
                             <tr>
                                 <th class="text-center">{{ $ctr++ }}</th>
@@ -827,9 +878,9 @@
                                    <th>unit no</th>
                                    <th>form of payment</th>
                                    <th>amount</th>
-                                   <th></th>    
+                                   <th></th>
                                </tr>
-                               <?php $ctr = 1; ?>   
+                               <?php $ctr = 1; ?>
                                @if($payments->count() <= 0)
                                <tr>
                                    <td colspan="6" class="text-center">No payments found today!</td>
@@ -856,7 +907,7 @@
                         <br>
                         <div class="row">
                            <div class="col">
-                                <h5> delinquent accounts</h5> 
+                                <h5> delinquent accounts</h5>
                                    <table class="table table-bordered table-striped">
                                         <tr>
                                             <th class="text-center">#</th>
@@ -864,7 +915,7 @@
                                             <th>unit no</th>
                                             <th>balance</th>
                                         </tr>
-                                        <?php $ctr = 1; ?>   
+                                        <?php $ctr = 1; ?>
                                         @if($delinquent_accounts->count() <= 0)
                                         <tr>
                                             <td colspan="6" class="text-center">No delinquents found!</td>
@@ -880,7 +931,7 @@
                                         @endforeach
                                         @endif
                                     </table>
-                           </div>   
+                           </div>
                         </div>
                        <br>
                     </div>
@@ -894,7 +945,7 @@
                         <h4>Users <i class="fas fa-user-secret"></i></h4>
                         <div class="row">
                             <div class="col">
-                           
+
                                <p class="text-right">
                                 @if($users->count() > 3)
                                 <a href="#" title="Reach the limit for creating users. You can only add 4 users per property. " class="btn btn-primary"> <i class="fas fa-user-plus"></i> user</a>
@@ -902,10 +953,10 @@
                                 <a class="btn btn-primary" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1"> <i class="fas fa-user-plus"></i> user</a>
                                 @endif
                                </p>
-                            
+
                             </div>
                         </div>
-                        
+
                                   <div class="row">
                                     <div class="col">
                                       <div class="collapse multi-collapse" id="multiCollapseExample1">
@@ -948,10 +999,10 @@
                                             </div>
                                             <br>
                                             <div class="">
-                                                <p class="text-right">   
+                                                <p class="text-right">
                                                     <button type="submit" form="addUserForm" class="btn btn-primary" ><i class="fas fa-check"></i> add</button>
                                                 </p>
-                                                
+
                                             </div>
                                         </div>
                                       </div>
@@ -968,7 +1019,7 @@
                                 </div>
                             </form>
                             <br> --}}
-                           
+
                                 <table class="table table-striped">
                                      <tr>
                                         <th class="text-center">#</th>
@@ -979,7 +1030,7 @@
                                         <th>property</th>
                                         <th></th>
                                         </tr>
-                                    <?php $ctr = 1;?>   
+                                    <?php $ctr = 1;?>
                                     @foreach ($users as $item)
                                     <tr>
                                         <th class="text-center">{{ $ctr++ }}</th>
@@ -1006,7 +1057,7 @@
                                       </td>
                                     </tr>
                                     @endforeach
-                                    
+
                                  </table>
                            </div>
                         </div>
@@ -1022,7 +1073,7 @@
         <div class="modal-content">
             <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Add Room/Unit</h5>
-            
+
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -1034,7 +1085,7 @@
 
                 <div class="form-group">
                     <label for="recipient-name" class="col-form-label">enter name of the building</label>
-                    <input form="addUnitForm" type="text" class="form-control" name="building" placeholder="Building-A" required> 
+                    <input form="addUnitForm" type="text" class="form-control" name="building" placeholder="Building-A" required>
                     <small class="text-danger">please put hyphen(-) between spaces</small>
                 </div>
 
@@ -1075,12 +1126,12 @@
                     <label for="recipient-name" class="col-form-label">enter the number of the bed/room</label>
                     <input form="addUnitForm" type="text" class="form-control" name="beds" required>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="recipient-name" class="col-form-label">enter the monthly rent of the room/unit</label>
                     <input form="addUnitForm" type="number" min="1" class="form-control" name="monthly_rent" required>
                 </div>
-               
+
             </div>
             <div class="modal-footer">
                 <button form="addUnitForm" type="submit" class="btn btn-primary"><i class="fas fa-check"></i> create room</button>
@@ -1089,13 +1140,13 @@
         </div>
     </div>
 
-    
+
     <div class="modal fade" id="addMultipleUnits" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">
             <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel" >Add Multiple Rooms/Units</h5>
-            
+
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -1152,12 +1203,12 @@
                     <label for="recipient-name" class="col-form-label">enter the initial name of the rooms/units </label>
                     <input form="addUMultipleUnitForm" type="text" class="form-control" name="unit_no" id="unit_no" required>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="recipient-name" class="col-form-label">enter the monthly rent of the room/unit</label>
                     <input form="addUMultipleUnitForm" type="number" min="1" class="form-control" name="monthly_rent" required>
                 </div>
-    
+
             </div>
             <div class="modal-footer">
                 <button form="addUMultipleUnitForm" type="submit" class="btn btn-primary" ><i class="fas fa-check"></i> create rooms</button>
@@ -1171,11 +1222,11 @@
         <div class="modal-content">
             <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Watch out for your billing schedule.</h5>
-            
-           
+
+
             </div>
             <div class="modal-body">
-              It seems like you have not billed the tenants yet for this month. Please click the billings and bill them now. 
+              It seems like you have not billed the tenants yet for this month. Please click the billings and bill them now.
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -1188,8 +1239,8 @@
         <div class="modal-content">
             <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Watch out for the delinquent accounts.</h5>
-            
-          
+
+
             </div>
             <div class="modal-body">
               You have a total of {{ $delinquent_accounts->count() }} delinquent accounts. Please get in touh with them now.
@@ -1221,7 +1272,7 @@
     var activeTab = url.substring(url.indexOf("#") + 1);
       $('.nav[role="tablist"] a[href="#'+activeTab+'"]').tab('show');
     }
-  
+
     $('a[role="tab"]').on("click", function() {
       var newUrl;
       const hash = $(this).attr("href");
@@ -1235,5 +1286,5 @@
 {!! $moveout_rate->script() !!}
 {!! $renewed_chart->script() !!}
 @endsection
- 
+
 

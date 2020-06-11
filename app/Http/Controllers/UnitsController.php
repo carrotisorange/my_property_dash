@@ -203,15 +203,11 @@ class UnitsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        DB::table('units')->where('unit_id', $id)
+        DB::table('units')
+            ->where('type_of_units', 'residential')
+           ->where('unit_property', Auth::user()->property)
             ->update([
-                'unit_no' => $request->unit_no,
-                'floor_no' => $request->floor_no,
-                'beds' => $request->beds,
-                'status' => $request->status,
-                'building' => $request->building,
-                'type_of_units' => $request->type_of_units,
-                'monthly_rent' => $request->monthly_rent
+                'type_of_units' => 'leasing'
             ]);
         
         return back()->with('success', 'Unit information has been successfully updated!');

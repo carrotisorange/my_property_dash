@@ -10,7 +10,7 @@
             </div>
         </form>
         <br>
-        <p class="text-center"><small ><b>{{ $investors->count() }}</b> units found.</small></p>
+        <p class="text-center"><small ><b>{{ $investors->count() }}</b> unit owners found.</small></p>
         <table class="table table-striped">
             <thead>
              <tr>
