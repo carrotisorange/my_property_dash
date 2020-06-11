@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Unregistered User')
+@section('title', 'Account is being reviewed')
 @section('content')
 <div class="container-fluid">
     <div class="row">
@@ -9,12 +9,10 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-header">
-                    <b>Subscription Error</b>
+                    <b>Account is being reviewed</b>
                 </div>
                 <div class="card-body">
-                    <p>
-                        Oooops! It seems like your account is unregistered. Please get in touch with Cribs for more information.
-                    </p>
+                    Please hang-on as we review your account...
                 </div>
             </div>
             </div>

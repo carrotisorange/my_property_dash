@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use DB, App\User, Carbon\Carbon;
+use DB, App\User, Carbon\Carbon, Auth, Session;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -81,9 +81,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($user_id)
     {
-        //
+        $user = User::findOrFail($user_id);
+
+        return view('users.edit-user', compact('user'));
     }
 
     /**
@@ -93,9 +95,39 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $user_id)
     {
-        //
+        if($request->password === null){
+            DB::table('users')
+            ->where('id', $user_id)
+            ->update(
+                [
+                    'name' => $request->name,
+                    'email' => $request->email
+                ]
+                );
+
+                return redirect('/users/'.$user_id)->with('success', 'User information has been successfully updated!');
+        }else{
+            DB::table('users')
+            ->where('id', $user_id)
+            ->update(
+                [
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'password' => Hash::make($request->password),
+                ]
+                );
+
+            Auth::logout();
+
+            Session::flash('message', 'You have been logged out!');
+
+            return redirect()->route('login');
+
+        }
+
+        
     }
 
     /**
