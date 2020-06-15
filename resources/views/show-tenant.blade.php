@@ -260,8 +260,8 @@
 
             <div class="row">
                 <div class="col">
-                    <label for="movein_date">new move in date</label>
-                    <input type="hidden" form="extendTenantForm" class="form-control" name="movein_date" required readonly>
+                    <label for="movein_date">ener the new move in date</label>
+                    <input type="text" form="extendTenantForm" class="form-control" name="movein_date" required readonly>
                     {{-- <input type="text" form="" class="form-control" name="" value="{{ Carbon\Carbon::parse($tenant->moveout_date)->format('M d Y') }}" required readonly> --}}
                 </div>
             </div>
