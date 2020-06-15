@@ -398,7 +398,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <h4>delinquents ({{ $delinquent_accounts->count() }})</h4>
+                                <h4>delinquent ({{ $delinquent_accounts->count() }})</h4>
                                         <table class="table table-bordered">
                                             <tr>
                                                 <th class="text-center">#</th>
@@ -790,7 +790,7 @@
                         <br>
                         <div class="row">
                             <div class="col-md-12">
-                                    <h4>Delinquent Accounts</h4>
+                                    <h4>delinquents ({{ $delinquent_accounts->count() }})</h4>
                                         <table class="table table-bordered table-striped">
                                             <tr>
                                                 <th class="text-center">#</th>
@@ -806,7 +806,7 @@
 
                                             <tr>
                                                 <th class="text-center">{{ $ctr++ }}</th>
-                                                <td><a href="{{ route('show-billings',['unit_id' => $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a></td>
+                                                <td><a href="/units/{{ $item->unit_tenant_id }}/tenants/{{ $item->tenant_id }}/billings">{{ $item->first_name.' '.$item->last_name }}</a></td>
                                                 <td>{{ $item->contact_no }}</td>
                                                 <td>{{ $item->building.' '.$item->unit_no }}</td>
                                                 <td>{{ number_format($item->total_bills,2) }}</td>
@@ -924,7 +924,7 @@
                                         @foreach ($delinquent_accounts as $item)
                                         <tr>
                                             <th class="text-center">{{ $ctr++ }}</th>
-                                            <td>{{ $item->first_name.' '.$item->last_name }}</td>
+                                            <td><a href="{{ route('show-billings',['unit_id' => $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a></td>
                                             <td>{{ $item->building.' '.$item->unit_no }}</td>
                                             <td>{{ number_format($item->total_bills,2) }}</td>
                                         </tr>
