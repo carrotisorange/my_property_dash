@@ -13,7 +13,7 @@
                 @method('delete')
                 <button type="submit">Delete</button>
             </form> --}}
-        <a class="btn btn-primary" data-toggle="modal" data-target="#extendTenant" data-whatever="@mdo"><i class="fas fa-external-link-alt"></i> extend</a>
+        <a class="btn btn-primary" data-toggle="modal" data-target="#extendTenant" data-whatever="@mdo"><i class="fas fa-external-link-alt"></i> extend/renew</a>
         @if ($tenant->tenant_status === 'active' || $tenant->tenant_status === 'pending')
             @if($pending_balance > 0)
         <a class="btn btn-danger" data-toggle="modal" data-target="#moveoutTenantWarning" data-whatever="@mdo"><i class="fas fa-sign-out-alt"></i> move out</a>
@@ -261,9 +261,8 @@
             <div class="row">
                 <div class="col">
                     <label for="movein_date">new move in date</label>
-                    <input type="hidden" form="extendTenantForm" class="form-control" name="movein_date" value={{ $tenant->moveout_date }} required readonly>
+                    <input type="hidden" form="extendTenantForm" class="form-control" name="movein_date"  required>
                     <input type="text" form="" class="form-control" name="" value="{{ Carbon\Carbon::parse($tenant->moveout_date)->format('M d Y') }}" required readonly>
-                    
                 </div>
             </div>
             <br>
