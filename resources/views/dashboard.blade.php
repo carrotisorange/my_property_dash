@@ -398,7 +398,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <h4>delinquent ({{ $delinquent_accounts->count() }})</h4>
+                                <h4>delinquents ({{ $delinquent_accounts->count() }})</h4>
                                         <table class="table table-bordered">
                                             <tr>
                                                 <th class="text-center">#</th>
@@ -907,7 +907,7 @@
                         <br>
                         <div class="row">
                            <div class="col">
-                                <h5> delinquent accounts ({{ $delinquent_accounts->count() }})</h5>
+                                <h5> delinquents ({{ $delinquent_accounts->count() }})</h5>
                                    <table class="table table-bordered table-striped">
                                         <tr>
                                             <th class="text-center">#</th>
@@ -1231,12 +1231,12 @@
         <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">
             <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Watch out for the delinquent accounts.</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Watch out for the delinquents.</h5>
 
 
             </div>
             <div class="modal-body">
-              You have a total of {{ $delinquent_accounts->count() }} delinquent accounts. Please get in touh with them now.
+              You have a total of {{ $delinquent_accounts->count() }} delinquents. Please get in touh with them now.
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
