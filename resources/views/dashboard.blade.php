@@ -864,8 +864,8 @@
                     <div class="card-body">
                         <div class="row">
                           <div class="col">
-                            <a class="btn btn-primary" href="/tenants/search"><i class="fas fa-plus"></i> payment</a>
-                            <a class="btn btn-primary" href="/payments/all"><i class="fas fa-search-dollar"></i> see more payments</a>
+                            <a class="btn btn-primary" href="/tenants/search"><i class="fas fa-plus"></i> collect payments</a>
+                            <a class="btn btn-primary" href="/payments/all"><i class="fas fa-search-dollar"></i> see all payments</a>
                           </div>
                         </div>
                         <br>
@@ -916,11 +916,6 @@
                                             <th>balance</th>
                                         </tr>
                                         <?php $ctr = 1; ?>
-                                        @if($delinquent_accounts->count() <= 0)
-                                        <tr>
-                                            <td colspan="6" class="text-center">No delinquents found!</td>
-                                        </tr>
-                                        @else
                                         @foreach ($delinquent_accounts as $item)
                                         <tr>
                                             <th class="text-center">{{ $ctr++ }}</th>
@@ -929,7 +924,6 @@
                                             <td>{{ number_format($item->total_bills,2) }}</td>
                                         </tr>
                                         @endforeach
-                                        @endif
                                     </table>
                            </div>
                         </div>
