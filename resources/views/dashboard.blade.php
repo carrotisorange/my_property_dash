@@ -907,7 +907,7 @@
                         <br>
                         <div class="row">
                            <div class="col">
-                                <h5> delinquent accounts</h5>
+                                <h5> delinquent accounts ({{ $delinquent_accounts->count() }})</h5>
                                    <table class="table table-bordered table-striped">
                                         <tr>
                                             <th class="text-center">#</th>
