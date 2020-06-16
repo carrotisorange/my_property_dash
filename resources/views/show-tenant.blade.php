@@ -214,7 +214,12 @@
             <div class="row">
                 <div class="col">
                     <p>
-                        move out charges
+                        moveout charges
+                        @foreach ($security_deposits as $item)
+                            <ul>
+                                <li>{{ $item->payment_note.' - '. $item->amt_paid}} </li>
+                            </ul>
+                        @endforeach
                         <span style="float:right">
                             <a id="add_row" class="btn btn-primary"><i class="fas fa-plus"></i></a>
                             <a id='delete_row' class="btn btn-danger"><i class="fas fa-minus"></i></a>

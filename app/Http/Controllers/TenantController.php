@@ -292,6 +292,8 @@ class TenantController extends Controller
 
         $payments = DB::table('payments')->where('payment_tenant_id', $tenant_id)->get();
 
+        $security_deposits = DB::table('payments')->where('payment_tenant_id', $tenant_id)->wherein('payment_note',['Security Deposit (Rent)', 'Security Deposit (Utilities)'])->get();
+
         $billings = DB::table('billings')->where('billing_tenant_id', $tenant_id)->where('billing_status', 'unpaid')->get();
 
         $overall_payments = DB::table('payments')->where('payment_tenant_id', $tenant_id)->sum('amt_paid');
@@ -299,7 +301,7 @@ class TenantController extends Controller
 
         $pending_balance = $overall_bills - $overall_payments;
         
-            return view('show-tenant', compact('tenant', 'billings', 'payments', 'pending_balance'));  
+            return view('show-tenant', compact('tenant', 'billings', 'payments', 'pending_balance','security_deposits'));  
     }
 
     public function show_billings($unit_id, $tenant_id){
