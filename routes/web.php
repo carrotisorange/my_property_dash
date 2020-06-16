@@ -106,6 +106,13 @@ Route::get('/', function(Request $request){
     ->orderBy('movein_date', 'desc')
     ->get();
 
+    $all_active_tenants = DB::table('tenants')
+    ->join('units', 'unit_id', 'unit_tenant_id')
+    ->whereIn('unit_property', [$property[0],$property[1]])
+    ->where('tenant_status','!=','reserved')
+    ->orderBy('movein_date', 'desc')
+    ->get();
+
     $reservations = DB::table('tenants')
     ->join('units', 'unit_id', 'unit_tenant_id')
     ->whereIn('unit_property', [$property[0],$property[1]])
@@ -430,6 +437,13 @@ Route::get('/', function(Request $request){
     ->orderBy('movein_date', 'desc')
     ->get();
 
+    $all_active_tenants = DB::table('tenants')
+    ->join('units', 'unit_id', 'unit_tenant_id')
+    ->where('unit_property', $property[0])
+    ->where('tenant_status','!=','reserved')
+    ->orderBy('movein_date', 'desc')
+    ->get();
+
     $pending_tenants = DB::table('tenants')
     ->join('units', 'unit_id', 'unit_tenant_id')
     ->where('unit_property', $property[0])
@@ -750,12 +764,12 @@ Route::get('/', function(Request $request){
     $movein_rate->displaylegend(false);
     $movein_rate->labels([Carbon::now()->subMonth(5)->format('M Y'),Carbon::now()->subMonth(4)->format('M Y'),Carbon::now()->subMonth(3)->format('M Y'),Carbon::now()->subMonths(2)->format('M Y'),Carbon::now()->subMonth()->format('M Y'),Carbon::now()->format('M Y')]);
     $movein_rate->dataset('', 'line', [
-                                        ($active_tenants->count()- $movein_rate_2 + $movein_rate_3 + $movein_rate_4 + $movein_rate_5 + $movein_rate_6)/$leasing_units->count() * 100,
-                                        ($active_tenants->count()-($movein_rate_3 + $movein_rate_4 + $movein_rate_5 + $movein_rate_6))/$leasing_units->count() * 100,
-                                        ($active_tenants->count()-($movein_rate_4 + $movein_rate_5 + $movein_rate_6))/$leasing_units->count() * 100,
-                                        ($active_tenants->count()-($movein_rate_5 + $movein_rate_6))/$leasing_units->count() * 100,
-                                        ($active_tenants->count()-($movein_rate_6))/$leasing_units->count() * 100,
-                                        ($active_tenants->count()/$leasing_units->count()) * 100
+                                        ($all_active_tenants->count()-($movein_rate_2 + $movein_rate_3 + $movein_rate_4 + $movein_rate_5 + $movein_rate_6))/$leasing_units->count() * 100,
+                                        ($all_active_tenants->count()-($movein_rate_3 + $movein_rate_4 + $movein_rate_5 + $movein_rate_6))/$leasing_units->count() * 100,
+                                        ($all_active_tenants->count()-($movein_rate_4 + $movein_rate_5 + $movein_rate_6))/$leasing_units->count() * 100,
+                                        ($all_active_tenants->count()-($movein_rate_5 + $movein_rate_6))/$leasing_units->count() * 100,
+                                        ($all_active_tenants->count()-($movein_rate_6))/$leasing_units->count() * 100,
+                                        ($all_active_tenants->count()/$leasing_units->count()) * 100
                                         ])
     ->color("rgb(0, 0, 0)")
     ->backgroundcolor("rgb(169, 169, 169)")
