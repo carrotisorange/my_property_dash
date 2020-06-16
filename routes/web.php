@@ -750,11 +750,11 @@ Route::get('/', function(Request $request){
     $movein_rate->displaylegend(false);
     $movein_rate->labels([Carbon::now()->subMonth(5)->format('M Y'),Carbon::now()->subMonth(4)->format('M Y'),Carbon::now()->subMonth(3)->format('M Y'),Carbon::now()->subMonths(2)->format('M Y'),Carbon::now()->subMonth()->format('M Y'),Carbon::now()->format('M Y')]);
     $movein_rate->dataset('', 'line', [
-                                        ((((($active_tenants->count() - ($movein_rate_2 + $movein_rate_3 + $movein_rate_4 + $movein_rate_5 + $movein_rate_6))) + $movein_rate_1))/$leasing_units->count()) * 100 ,
-                                        ((((($active_tenants->count() - ($movein_rate_1 + $movein_rate_3 + $movein_rate_4 + $movein_rate_5 + $movein_rate_6))) + $movein_rate_2))/$leasing_units->count()) * 100,
-                                        ((((($active_tenants->count() - ($movein_rate_1 + $movein_rate_2 + $movein_rate_4 + $movein_rate_5 + $movein_rate_6))) + $movein_rate_3))/$leasing_units->count()) * 100,
-                                        ((((($active_tenants->count() - ($movein_rate_1 + $movein_rate_2 + $movein_rate_3 + $movein_rate_5 + $movein_rate_6))) + $movein_rate_4))/$leasing_units->count()) * 100,
-                                        ((((($active_tenants->count() - ($movein_rate_1 + $movein_rate_2 + $movein_rate_3 + $movein_rate_4 + $movein_rate_6))) + $movein_rate_5))/$leasing_units->count()) * 100,
+                                        ($active_tenants->count()-$movein_rate_1)/$leasing_units->count() * 100,
+                                        ($active_tenants->count()-($movein_rate_1 + $movein_rate_2))/$leasing_units->count() * 100,
+                                        ($active_tenants->count()-($movein_rate_1 + $movein_rate_2 + $movein_rate_3))/$leasing_units->count() * 100,
+                                        ($active_tenants->count()-($movein_rate_1 + $movein_rate_2 + $movein_rate_3 + $movein_rate_4))/$leasing_units->count() * 100,
+                                        ($active_tenants->count()-($movein_rate_1 + $movein_rate_2 + $movein_rate_3 + $movein_rate_4 + $movein_rate_5))/$leasing_units->count() * 100,
                                         ($active_tenants->count()/$leasing_units->count()) * 100
                                         ])
     ->color("rgb(0, 0, 0)")
