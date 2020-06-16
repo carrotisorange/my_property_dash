@@ -755,7 +755,7 @@ Route::get('/', function(Request $request){
                                         ((((($active_tenants->count() - ($movein_rate_1 + $movein_rate_2 + $movein_rate_4 + $movein_rate_5 + $movein_rate_6))) + $movein_rate_3))/$leasing_units->count()) * 100,
                                         ((((($active_tenants->count() - ($movein_rate_1 + $movein_rate_2 + $movein_rate_3 + $movein_rate_5 + $movein_rate_6))) + $movein_rate_4))/$leasing_units->count()) * 100,
                                         ((((($active_tenants->count() - ($movein_rate_1 + $movein_rate_2 + $movein_rate_3 + $movein_rate_4 + $movein_rate_6))) + $movein_rate_5))/$leasing_units->count()) * 100,
-                                        ((((($active_tenants->count() - ($movein_rate_1 + $movein_rate_2 + $movein_rate_3 + $movein_rate_4 + $movein_rate_5))) + $movein_rate_6))/$leasing_units->count()) * 100,
+                                        ($active_tenants->count()/$leasing_units->count()) * 100
                                         ])
     ->color("rgb(0, 0, 0)")
     ->backgroundcolor("rgb(169, 169, 169)")
