@@ -109,7 +109,7 @@ Route::get('/', function(Request $request){
     $all_active_tenants = DB::table('tenants')
     ->join('units', 'unit_id', 'unit_tenant_id')
     ->whereIn('unit_property', [$property[0],$property[1]])
-    ->where('tenant_status','!=','reserved')
+    ->where('tenant_status','!=','pending')
     ->orderBy('movein_date', 'desc')
     ->get();
 
@@ -440,7 +440,7 @@ Route::get('/', function(Request $request){
     $all_active_tenants = DB::table('tenants')
     ->join('units', 'unit_id', 'unit_tenant_id')
     ->where('unit_property', $property[0])
-    ->where('tenant_status','!=','reserved')
+    ->where('tenant_status','!=','pending')
     ->orderBy('movein_date', 'desc')
     ->get();
 
