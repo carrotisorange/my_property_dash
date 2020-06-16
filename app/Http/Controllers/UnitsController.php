@@ -171,7 +171,6 @@ class UnitsController extends Controller
              'beds' => $request->beds,
              'monthly_rent' => $request->monthly_rent,
              'status' => 'vacant',
-             'type_of_units' => 'residential',
              'unit_property' => Auth::user()->property,
              'type_of_units' => $request->type_of_units,
              'created_at'=> Carbon::now(),
