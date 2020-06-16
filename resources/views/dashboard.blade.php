@@ -837,7 +837,7 @@
                             <tr>
                                 <th class="text-center">{{ $ctr++ }}</th>
                                 <td>{{ Carbon\Carbon::parse($tenant->payment_created)->format('M d Y') }}</td>
-                                <td>{{ $tenant->first_name.' '.$tenant->last_name }}</>
+                                <td><a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/billings">{{ $tenant->first_name.' '.$tenant->last_name }}</a></td>
                                 <td>
                                  @if($tenant->tenant_status === 'active')
                                     <a class="badge badge-primary">{{ $tenant->tenant_status }}</a>
