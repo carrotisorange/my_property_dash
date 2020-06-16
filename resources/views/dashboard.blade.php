@@ -818,7 +818,7 @@
                     <br>
                     <div class="row">
                        <div class="col-md-12">
-                           <h4>Recent Payments </h4>
+                           <h4>recent payments </h4>
                         <table class="table table-bordered table-striped">
                             <tr>
                                 <th class="text-center">#</th>
@@ -838,7 +838,15 @@
                                 <th class="text-center">{{ $ctr++ }}</th>
                                 <td>{{ Carbon\Carbon::parse($tenant->payment_created)->format('M d Y') }}</td>
                                 <td>{{ $tenant->first_name.' '.$tenant->last_name }}</>
-                                <td>{{ $tenant->tenant_status }}</td>
+                                <td>
+                                 @if($tenant->tenant_status === 'active')
+                                    <a class="badge badge-primary">{{ $tenant->tenant_status }}</a>
+                                    @elseif($tenant->tenant_status === 'inactive')
+                                    <a class="badge badge-secondary">{{ $tenant->tenant_status }}</a>
+                                    @else
+                                    <a class="badge badge-warning">{{ $tenant->tenant_status }}</a>
+                                    @endif
+                                </td>
                                 <td>{{ $tenant->building.' '.$tenant->unit_no }}</td>
                                 <td>
                                 @if ($tenant->payment_note === 'Security Deposit (Utilities), Security Deposit (Rent),Advance Rent')
