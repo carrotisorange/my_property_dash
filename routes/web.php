@@ -129,6 +129,8 @@ Route::get('/', function(Request $request){
     ->where('tenant_status', 'inactive')
     ->get();
 
+
+
     $movein_rate_1 = DB::table('tenants')
         ->join('units', 'unit_id', 'unit_tenant_id')
         ->where('movein_date', '>=', Carbon::now()->subMonths(5)->firstOfMonth())
@@ -138,7 +140,7 @@ Route::get('/', function(Request $request){
         ->where('type_of_units', 'leasing')
         ->count();
 
-        $movein_rate_2 = DB::table('tenants')
+    $movein_rate_2 = DB::table('tenants')
         ->join('units', 'unit_id', 'unit_tenant_id')
         ->where('movein_date', '>=', Carbon::now()->subMonths(4)->firstOfMonth())
         ->where('movein_date', '<=', Carbon::now()->subMonths(4)->endOfMonth())
@@ -147,7 +149,7 @@ Route::get('/', function(Request $request){
         ->where('type_of_units', 'leasing')
         ->count();
         
-        $movein_rate_3 = DB::table('tenants')
+    $movein_rate_3 = DB::table('tenants')
         ->join('units', 'unit_id', 'unit_tenant_id')
         ->where('movein_date', '>=', Carbon::now()->subMonths(3)->firstOfMonth())
         ->where('movein_date', '<=', Carbon::now()->subMonths(3)->endOfMonth())
@@ -156,7 +158,7 @@ Route::get('/', function(Request $request){
         ->where('type_of_units', 'leasing')
         ->count();
 
-        $movein_rate_4 = DB::table('tenants')
+    $movein_rate_4 = DB::table('tenants')
         ->join('units', 'unit_id', 'unit_tenant_id')
         ->where('movein_date', '>=', Carbon::now()->subMonths(2)->firstOfMonth())
         ->where('movein_date', '<=', Carbon::now()->subMonths(2)->endOfMonth())
@@ -165,7 +167,7 @@ Route::get('/', function(Request $request){
         ->where('type_of_units', 'leasing')
         ->count();
 
-        $movein_rate_5 = DB::table('tenants')
+    $movein_rate_5 = DB::table('tenants')
         ->join('units', 'unit_id', 'unit_tenant_id')
         ->where('movein_date', '>=', Carbon::now()->subMonth()->firstOfMonth())
         ->where('movein_date', '<=', Carbon::now()->subMonth()->endOfMonth())
@@ -174,7 +176,7 @@ Route::get('/', function(Request $request){
         ->where('type_of_units', 'leasing')
         ->count();
 
-        $movein_rate_6 = DB::table('tenants')
+    $movein_rate_6 = DB::table('tenants')
         ->join('units', 'unit_id', 'unit_tenant_id')
         ->where('movein_date', '>=', Carbon::now()->firstOfMonth())
         ->where('movein_date', '<=', Carbon::now()->endOfMonth())
@@ -739,14 +741,22 @@ Route::get('/', function(Request $request){
     $renewed_chart->dataset('', 'pie', [number_format(($overall_contract_termination == 0 ? 0 : $renewed_contracts->count()/$overall_contract_termination) * 100,1),number_format(($overall_contract_termination == 0 ? 0 :$terminated_contracts->count()/$overall_contract_termination) * 100,1)  ])
     ->backgroundColor(['#008000', '#FF0000']);
 
-    $movein_rate_increase = ($movein_rate_5 == 0 ? 0 :($movein_rate_6-$movein_rate_5)/$movein_rate_5)*100;
+    // $movein_rate_increase = ($movein_rate_5 == 0 ? 0 :($movein_rate_6-$movein_rate_5)/$movein_rate_5)*100;
 
     $movein_rate = new DashboardChart;
-    $movein_rate->title('Move-in Rate'.' ('.number_format($movein_rate_increase,2).'%)');
+    $movein_rate->title('Occupancy Rate');
+    // $movein_rate->title('Occupancy Rate'.' ('.number_format($movein_rate_increase,2).'%)');
     $movein_rate->barwidth(0.0);
     $movein_rate->displaylegend(false);
     $movein_rate->labels([Carbon::now()->subMonth(5)->format('M Y'),Carbon::now()->subMonth(4)->format('M Y'),Carbon::now()->subMonth(3)->format('M Y'),Carbon::now()->subMonths(2)->format('M Y'),Carbon::now()->subMonth()->format('M Y'),Carbon::now()->format('M Y')]);
-    $movein_rate->dataset('number of new tenants', 'line', [$movein_rate_1,$movein_rate_2,$movein_rate_3,$movein_rate_4,$movein_rate_5,$movein_rate_6])
+    $movein_rate->dataset('', 'line', [
+                                                                number_format(($movein_rate_1)-($movein_rate_2 + $movein_rate_3 + $movein_rate_4 + $movein_rate_5 + $movein_rate_6)/$active_tenants->count() * -100,2),
+                                                                number_format(($movein_rate_2)-($movein_rate_1 + $movein_rate_3 + $movein_rate_4 + $movein_rate_5 + $movein_rate_6)/$active_tenants->count() * -100,2),
+                                                                number_format(($movein_rate_3)-($movein_rate_1 + $movein_rate_2 + $movein_rate_4 + $movein_rate_5 + $movein_rate_6)/$active_tenants->count() * -100,2),
+                                                                number_format(($movein_rate_4)-($movein_rate_1 + $movein_rate_2 + $movein_rate_3 + $movein_rate_5 + $movein_rate_6)/$active_tenants->count() * -100,2),
+                                                                number_format(($movein_rate_5)-($movein_rate_1 + $movein_rate_2 + $movein_rate_3 + $movein_rate_4 + $movein_rate_6)/$active_tenants->count() * -100,2),
+                                                                number_format(($movein_rate_6)-($movein_rate_1 + $movein_rate_2 + $movein_rate_3 + $movein_rate_4 + $movein_rate_5)/$active_tenants->count() * -100,2),
+                                                            ])
     ->color("rgb(0, 0, 0)")
     ->backgroundcolor("rgb(169, 169, 169)")
     ->fill(false)
