@@ -16,9 +16,9 @@
         <a class="btn btn-primary" data-toggle="modal" data-target="#extendTenant" data-whatever="@mdo"><i class="fas fa-external-link-alt"></i> extend/renew</a>
         @if ($tenant->tenant_status === 'active' || $tenant->tenant_status === 'pending')
             @if($pending_balance > 0)
-        <a class="btn btn-danger" data-toggle="modal" data-target="#moveoutTenantWarning" data-whatever="@mdo"><i class="fas fa-sign-out-alt"></i> move out</a>
+        <a class="btn btn-danger" data-toggle="modal" data-target="#moveoutTenantWarning" data-whatever="@mdo"><i class="fas fa-sign-out-alt"></i> moveout</a>
             @else
-        <a class="btn btn-danger" data-toggle="modal" data-target="#moveoutTenant" data-whatever="@mdo"><i class="fas fa-sign-out-alt"></i> move out</a>
+        <a class="btn btn-danger" data-toggle="modal" data-target="#moveoutTenant" data-whatever="@mdo"><i class="fas fa-sign-out-alt"></i> moveout</a>
             @endif
         @else
         @endif
@@ -217,7 +217,7 @@
                         moveout charges
                         @foreach ($security_deposits as $item)
                             <ul>
-                                <li>{{ $item->payment_note.' - '. $item->amt_paid}} </li>
+                                <li>{{ $item->payment_note.' - '. number_format($item->amt_paid,2)}} </li>
                             </ul>
                         @endforeach
                         <span style="float:right">
