@@ -135,6 +135,7 @@ Route::get('/', function(Request $request){
         ->where('movein_date', '<=', Carbon::now()->subMonths(5)->endOfMonth())
         ->whereIn('unit_property', [$property[0],$property[1]])
         ->where('tenant_status','active')
+        ->where('type_of_units', 'leasing')
         ->count();
 
         $movein_rate_2 = DB::table('tenants')
@@ -143,6 +144,7 @@ Route::get('/', function(Request $request){
         ->where('movein_date', '<=', Carbon::now()->subMonths(4)->endOfMonth())
         ->whereIn('unit_property', [$property[0],$property[1]])
         ->where('tenant_status','active')
+        ->where('type_of_units', 'leasing')
         ->count();
         
         $movein_rate_3 = DB::table('tenants')
@@ -151,6 +153,7 @@ Route::get('/', function(Request $request){
         ->where('movein_date', '<=', Carbon::now()->subMonths(3)->endOfMonth())
         ->whereIn('unit_property', [$property[0],$property[1]])
         ->where('tenant_status','active')
+        ->where('type_of_units', 'leasing')
         ->count();
 
         $movein_rate_4 = DB::table('tenants')
@@ -159,6 +162,7 @@ Route::get('/', function(Request $request){
         ->where('movein_date', '<=', Carbon::now()->subMonths(2)->endOfMonth())
         ->whereIn('unit_property', [$property[0],$property[1]])
         ->where('tenant_status','active')
+        ->where('type_of_units', 'leasing')
         ->count();
 
         $movein_rate_5 = DB::table('tenants')
@@ -167,6 +171,7 @@ Route::get('/', function(Request $request){
         ->where('movein_date', '<=', Carbon::now()->subMonth()->endOfMonth())
         ->whereIn('unit_property', [$property[0],$property[1]])
         ->where('tenant_status','active')
+        ->where('type_of_units', 'leasing')
         ->count();
 
         $movein_rate_6 = DB::table('tenants')
@@ -175,6 +180,7 @@ Route::get('/', function(Request $request){
         ->where('movein_date', '<=', Carbon::now()->endOfMonth())
         ->whereIn('unit_property', [$property[0],$property[1]])
         ->where('tenant_status','active')
+        ->where('type_of_units', 'leasing')
         ->count();
 
         $moveout_rate_1 = DB::table('tenants')
@@ -183,6 +189,7 @@ Route::get('/', function(Request $request){
         ->where('moveout_date', '<=', Carbon::now()->subMonths(5)->endOfMonth())
         ->whereIn('unit_property', [$property[0],$property[1]])
         ->where('tenant_status','inactive')
+        ->where('type_of_units', 'leasing')
         ->count();
     
         $moveout_rate_2 = DB::table('tenants')
@@ -191,6 +198,7 @@ Route::get('/', function(Request $request){
         ->where('moveout_date', '<=', Carbon::now()->subMonths(4)->endOfMonth())
         ->whereIn('unit_property', [$property[0],$property[1]])
         ->where('tenant_status','inactive')
+        ->where('type_of_units', 'leasing')
         ->count();
     
         $moveout_rate_3 = DB::table('tenants')
@@ -199,6 +207,7 @@ Route::get('/', function(Request $request){
         ->where('moveout_date', '<=', Carbon::now()->subMonths(3)->endOfMonth())
         ->whereIn('unit_property', [$property[0],$property[1]])
         ->where('tenant_status','inactive')
+        ->where('type_of_units', 'leasing')
         ->count();
     
         $moveout_rate_4 = DB::table('tenants')
@@ -207,6 +216,7 @@ Route::get('/', function(Request $request){
         ->where('moveout_date', '<=', Carbon::now()->subMonths(2)->endOfMonth())
         ->whereIn('unit_property', [$property[0],$property[1]])
         ->where('tenant_status','inactive')
+        ->where('type_of_units', 'leasing')
         ->count();
     
         $moveout_rate_5 = DB::table('tenants')
@@ -215,6 +225,7 @@ Route::get('/', function(Request $request){
         ->where('moveout_date', '<=', Carbon::now()->subMonth()->endOfMonth())
         ->where('unit_property', Auth::user()->property)
         ->where('tenant_status','inactive')
+        ->where('type_of_units', 'leasing')
         ->count();
     
         $moveout_rate_6 = DB::table('tenants')
@@ -223,6 +234,7 @@ Route::get('/', function(Request $request){
         ->where('moveout_date', '<=', Carbon::now()->endOfMonth())
         ->whereIn('unit_property', [$property[0],$property[1]])
         ->where('tenant_status','inactive')
+        ->where('type_of_units', 'leasing')
         ->count();
 
         $recent_movein = DB::table('tenants')
