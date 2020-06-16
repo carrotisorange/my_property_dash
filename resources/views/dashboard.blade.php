@@ -822,7 +822,7 @@
                         <table class="table table-bordered table-striped">
                             <tr>
                                 <th class="text-center">#</th>
-                                <th>date paid</th>
+                                <th>date</th>
                                 <th>name</>
                                 <th>status</th>
                                 <th>unit no</th>
