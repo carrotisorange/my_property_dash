@@ -750,12 +750,12 @@ Route::get('/', function(Request $request){
     $movein_rate->displaylegend(false);
     $movein_rate->labels([Carbon::now()->subMonth(5)->format('M Y'),Carbon::now()->subMonth(4)->format('M Y'),Carbon::now()->subMonth(3)->format('M Y'),Carbon::now()->subMonths(2)->format('M Y'),Carbon::now()->subMonth()->format('M Y'),Carbon::now()->format('M Y')]);
     $movein_rate->dataset('', 'line', [
-                                                                number_format(($movein_rate_1)-($movein_rate_2 + $movein_rate_3 + $movein_rate_4 + $movein_rate_5 + $movein_rate_6)/$leasing_units->count() * -100,2),
-                                                                number_format(($movein_rate_2)-($movein_rate_1 + $movein_rate_3 + $movein_rate_4 + $movein_rate_5 + $movein_rate_6)/$leasing_units->count() * -100,2),
-                                                                number_format(($movein_rate_3)-($movein_rate_1 + $movein_rate_2 + $movein_rate_4 + $movein_rate_5 + $movein_rate_6)/$leasing_units->count() * -100,2),
-                                                                number_format(($movein_rate_4)-($movein_rate_1 + $movein_rate_2 + $movein_rate_3 + $movein_rate_5 + $movein_rate_6)/$leasing_units->count() * -100,2),
-                                                                number_format(($movein_rate_5)-($movein_rate_1 + $movein_rate_2 + $movein_rate_3 + $movein_rate_4 + $movein_rate_6)/$leasing_units->count() * -100,2),
-                                                                number_format(($movein_rate_6)-($movein_rate_1 + $movein_rate_2 + $movein_rate_3 + $movein_rate_4 + $movein_rate_5)/$leasing_units->count() * -100,2),
+                                                                number_format((($movein_rate_1)-($movein_rate_2 + $movein_rate_3 + $movein_rate_4 + $movein_rate_5 + $movein_rate_6))/$leasing_units->count() * -100,2),
+                                                                number_format((($movein_rate_2)-($movein_rate_1 + $movein_rate_3 + $movein_rate_4 + $movein_rate_5 + $movein_rate_6))/$leasing_units->count() * -100,2),
+                                                                number_format((($movein_rate_3)-($movein_rate_1 + $movein_rate_2 + $movein_rate_4 + $movein_rate_5 + $movein_rate_6))/$leasing_units->count() * -100,2),
+                                                                number_format((($movein_rate_4)-($movein_rate_1 + $movein_rate_2 + $movein_rate_3 + $movein_rate_5 + $movein_rate_6))/$leasing_units->count() * -100,2),
+                                                                number_format((($movein_rate_5)-($movein_rate_1 + $movein_rate_2 + $movein_rate_3 + $movein_rate_4 + $movein_rate_6))/$leasing_units->count() * -100,2),
+                                                                number_format((($movein_rate_6)-($movein_rate_1 + $movein_rate_2 + $movein_rate_3 + $movein_rate_4 + $movein_rate_5))/$leasing_units->count() * -100,2),
                                                             ])
     ->color("rgb(0, 0, 0)")
     ->backgroundcolor("rgb(169, 169, 169)")
