@@ -585,7 +585,7 @@
                         <ul class="nav nav-pills mb-3 text-right" id="pills-tab" role="tablist">
                             @foreach ($units_per_building_residential as $building)
                             <li class="nav-item">
-                                <a class="nav-link" id="pills-{{ $item->building.'#'.$building->building }}-tab" data-toggle="pill" href="#{{ $item->building.'#'.$building->building }}" role="tab" aria-controls="pills-{{ $item->building.'#'.$building->building }}" aria-selected="false"><i class="fas fa-house-user"></i> {{ $building->building }} <span class="badge badge-light"></span></a>
+                                <a class="nav-link" id="pills-{{ $item->building }}-tab" data-toggle="pill" href="#{{ $item->building }}" role="tab" aria-controls="pills-{{ $item->building }}" aria-selected="false"><i class="fas fa-house-user"></i> {{ $building->building }} <span class="badge badge-light"></span></a>
                             </li>
                             @endforeach
                         </ul>
