@@ -625,27 +625,14 @@
                 </div>
             </div>
 
-            @foreach ($units_per_building as $item)
+            @foreach ($units_per_building_residential as $item)
             <div class="tab-pane fade" id="{{ $item->building }}" role="tabpanel" aria-labelledby="pills-{{ $item->building }}-tab">
                 <div class="card">
                     <div class="card-body">
-                        <ul class="nav nav-pills mb-3 text-right" id="pills-tab" role="tablist">
-                            @foreach ($units_per_status as $status)
-                            <li class="nav-item">
-                                @if($status->status==='occupied')
-                                <a class="nav-link" id="pills-{{ $item->building.'#'.$status->status }}-tab" data-toggle="pill" href="#{{ $item->building.'#'.$status->status }}" role="tab" aria-controls="pills-{{ $item->building.'#'.$status->status }}" aria-selected="false"><i class="fas fa-house-user"></i> {{ $status->status }} <span class="badge badge-light"></span></a>
-                                @elseif($status->status==='vacant')
-                                <a class="nav-link" id="pills-{{ $item->building.'#'.$status->status }}-tab" data-toggle="pill" href="#{{ $item->building.'#'.$status->status }}" role="tab" aria-controls="pills-{{ $item->building.'#'.$status->status }}" aria-selected="false"><i class="fas fa-home"></i>  {{ $status->status }} <span class="badge badge-light"></span></a>
-                                @else
-                                <a class="nav-link" id="pills-{{ $item->building.'#'.$status->status }}-tab" data-toggle="pill" href="#{{ $item->building.'#'.$status->status }}" role="tab" aria-controls="pills-{{ $item->building.'#'.$status->status }}" aria-selected="false"><i class="fas fa-laptop-house"></i> {{ $status->status }} <span class="badge badge-light"></span></a>
-                                @endif
-                            </li>
-                            @endforeach
-                        </ul>
                             <table class="table">
                                 <tr>
                                     <td>
-                                        @foreach ($units as $unit)
+                                        @foreach ($residential_units as $unit)
                                             @if($unit->building === $item->building)
                                                     @if($unit->status === 'vacant')
                                                     <a title="{{ $unit->type_of_units }}" href="/units/{{$unit->unit_id}}" class="btn btn-secondary">
