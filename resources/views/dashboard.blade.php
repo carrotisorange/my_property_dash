@@ -652,7 +652,7 @@
                                         <th>unit no</th>
                                         <th>contact no</th>
                                         <th>monthly rent</th>
-                                        <th>contract expires in</th>
+                                        <th>contract</th>
                                         </tr>
                                     <?php $ctr = 1;?>
 
