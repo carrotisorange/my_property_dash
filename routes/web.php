@@ -266,14 +266,21 @@ Route::get('/', function(Request $request){
         ->whereIn('unit_property', [$property[0],$property[1]])
         ->groupBy('building')
         ->where('type_of_units', 'leasing')
-        ->get('building', 'status','count');
+        ->get('building', 'status','count');       
 
-        $units_per_floor = DB::table('units')
-        ->select('floor_no')
+        $units_per_status_residential = DB::table('units')
+        ->select('status',DB::raw('count(*) as count'))
         ->whereIn('unit_property', [$property[0],$property[1]])
-        ->groupBy('floor_no')
-        ->where('type_of_units', 'leasing')
-        ->get('floor_no');        
+        ->where('type_of_units', 'residential')
+        ->groupBy('status')
+        ->get();
+
+        $units_per_building_residential = DB::table('units')
+        ->select('building', 'status', DB::raw('count(*) as count'))
+        ->whereIn('unit_property', [$property[0],$property[1]])
+        ->groupBy('building')
+        ->where('type_of_units', 'residential')
+        ->get('building', 'status','count');  
     
         //billings
         $expected_collection = DB::table('units')
@@ -595,12 +602,19 @@ Route::get('/', function(Request $request){
         ->groupBy('building')
         ->get('building', 'count');
 
-        $units_per_floor = DB::table('units')
-        ->select('floor_no','building',DB::raw('count(*) as count'))
+        $units_per_status_residential = DB::table('units')
+        ->select('status',DB::raw('count(*) as count'))
         ->where('unit_property', $property[0])
-        ->where('type_of_units', 'leasing')
-        ->groupBy('floor_no')
-        ->get('floor_no','building', 'count');
+        ->where('type_of_units', 'residential')
+        ->groupBy('status')
+        ->get();
+
+        $units_per_building_residential = DB::table('units')
+        ->select('building', 'status', DB::raw('count(*) as count'))
+        ->where('unit_property', $property[0])
+        ->groupBy('building')
+        ->where('type_of_units', 'residential')
+        ->get('building', 'status','count');  
     
         //billings
         $expected_collection = DB::table('units')
@@ -815,7 +829,7 @@ Route::get('/', function(Request $request){
 
     return view('dashboard', compact('tenants_to_watch_out','active_tenants','reservations','occupied_units','units', 'investors', 'tenants', 'movein_rate','moveout_rate','recent_movein', 'units_per_status', 'units_per_building', 'units_per_floor',
     'expected_collection', 'actual_collection', 'uncollected_amount', 'delinquent_accounts','posted_bills_this_month_for_rent','collection_rate', 'payments', 'recent_payments', 'renewed_contracts', 'renewed_chart', 'terminated_contracts',
-    'users','commercial_units','leasing_units','residential_units','pending_tenants'));
+    'users','commercial_units','leasing_units','residential_units','pending_tenants','units_per_status_residential','units_per_buildings_residential'));
 
 });
 
