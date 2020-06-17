@@ -162,11 +162,14 @@
                 <?php $numberFormatter = new NumberFormatter('en_US', NumberFormatter::ORDINAL) ?>
                 <td>
                     @for ($i = 1; $i < count($renewal_history); $i++)
-                    {{ 'Initial contract: '.$renewal_history[$i] }}<br>
-                @endfor  
-                @for ($i = 2; $i < count($renewal_history); $i++)
-                        {{ $numberFormatter->format($i) .' renewal: '.$renewal_history[$i] }}<br>
-                @endfor     
+                       @if($i <= 1)
+                       {{ 'Initial contract: '.$renewal_history[$i] }}<br>
+                       @else
+                       {{ $numberFormatter->format($i-1) .' renewal: '.$renewal_history[$i] }}<br>
+                       @endif
+                       
+                        
+                    @endfor     
                 </td>
             </tr>
             <tr>
