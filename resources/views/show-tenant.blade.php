@@ -163,10 +163,8 @@
                 <td>
                     @for ($i = 1; $i < count($renewal_history); $i++)
                     {{ 'Initial contract: '.$renewal_history[$i] }}<br>
-                  
                 @endfor  
                 @for ($i = 2; $i < count($renewal_history); $i++)
-                        
                         {{ $numberFormatter->format($i) .' renewal: '.$renewal_history[$i] }}<br>
                 @endfor     
                 </td>
