@@ -257,6 +257,7 @@ Route::get('/', function(Request $request){
        $units_per_status = DB::table('units')
         ->select('status',DB::raw('count(*) as count'))
         ->whereIn('unit_property', [$property[0],$property[1]])
+        ->where('type_of_units', 'leasing')
         ->groupBy('status')
         ->get();
     
@@ -264,12 +265,14 @@ Route::get('/', function(Request $request){
         ->select('building', 'status', DB::raw('count(*) as count'))
         ->whereIn('unit_property', [$property[0],$property[1]])
         ->groupBy('building')
+        ->where('type_of_units', 'leasing')
         ->get('building', 'status','count');
 
         $units_per_floor = DB::table('units')
         ->select('floor_no')
         ->whereIn('unit_property', [$property[0],$property[1]])
         ->groupBy('floor_no')
+        ->where('type_of_units', 'leasing')
         ->get('floor_no');        
     
         //billings
@@ -581,18 +584,21 @@ Route::get('/', function(Request $request){
         $units_per_status = DB::table('units')
         ->select('status','building',DB::raw('count(*) as count'))
         ->where('unit_property', $property[0])
+        ->where('type_of_units', 'leasing')
         ->groupBy('status')
         ->get('status','building', 'count');
     
         $units_per_building = DB::table('units')
         ->select('building',DB::raw('count(*) as count'))
         ->where('unit_property', $property[0])
+        ->where('type_of_units', 'leasing')
         ->groupBy('building')
         ->get('building', 'count');
 
         $units_per_floor = DB::table('units')
         ->select('floor_no','building',DB::raw('count(*) as count'))
         ->where('unit_property', $property[0])
+        ->where('type_of_units', 'leasing')
         ->groupBy('floor_no')
         ->get('floor_no','building', 'count');
     

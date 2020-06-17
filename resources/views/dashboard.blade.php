@@ -456,7 +456,7 @@
                         <table class="table">
                             <tr>
                                 <td>
-                                    @foreach ($units as $item)
+                                    @foreach ($leasing_units as $item)
                                         @if($item->status === 'vacant')
                                             <a title="{{ $item->type_of_units }}" href="/units/{{$item->unit_id}}" class="btn btn-secondary">
                                                 <i class="fas fa-home fa-2x"></i>
@@ -489,7 +489,7 @@
                         <table class="table">
                             <tr>
                                 <td>
-                                    @foreach ($units as $unit)
+                                    @foreach ($leasing_units as $unit)
                                         @if($unit->status === $item->status)
                                                 @if($unit->status === 'vacant')
                                                 <a title="{{ $unit->type_of_units }}" href="/units/{{$unit->unit_id}}" class="btn btn-secondary">
@@ -919,6 +919,7 @@
                                         <tr>
                                             <th class="text-center">#</th>
                                             <th>name</th>
+                                            <th>contact no</th>
                                             <th>unit no</th>
                                             <th>balance</th>
                                         </tr>
@@ -927,6 +928,7 @@
                                         <tr>
                                             <th class="text-center">{{ $ctr++ }}</th>
                                             <td><a href="{{ route('show-billings',['unit_id' => $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a></td>
+                                            <td>{{ $item->contact_no }}</td>
                                             <td>{{ $item->building.' '.$item->unit_no }}</td>
                                             <td>{{ number_format($item->total_bills,2) }}</td>
                                         </tr>
