@@ -459,7 +459,7 @@
                         <table class="table">
                             <tr>
                                 <td>
-                                    @foreach ($leasing_$units as $item)
+                                    @foreach ($leasing_units as $item)
                                         @if($item->status === 'vacant')
                                             <a title="{{ $item->type_of_units }}" href="/units/{{$item->unit_id}}" class="btn btn-secondary">
                                                 <i class="fas fa-home fa-2x"></i>
