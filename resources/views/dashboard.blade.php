@@ -558,25 +558,11 @@
                             <tr>
                                 <td>
                                     @foreach ($residential_units as $item)
-                                        @if($item->status === 'vacant')
-                                            <a title="{{ $item->type_of_units }}" href="/units/{{$item->unit_id}}" class="btn btn-secondary">
-                                                <i class="fas fa-home fa-2x"></i>
-                                                <br>
-                                                <font size="-3" >{{ $item->unit_no }} </font>
-                                            </a>
-                                        @elseif($item->status=== 'reserved')
-                                            <a title="{{ $item->type_of_units }}" href="/units/{{$item->unit_id}}" class="btn btn-warning">
-                                                <i class="fas fa-home fa-2x"></i>
-                                                <br>
-                                                <font size="-3">{{ $item->unit_no }} </font>
-                                            </a>
-                                        @elseif($item->status=== 'occupied')
-                                            <a title="{{ $item->type_of_units }}" href="/units/{{$item->unit_id}}" class="btn btn-primary">
-                                                <i class="fas fa-home fa-2x"></i>
-                                                <br>
-                                                <font size="-3">{{ $item->unit_no }} </font>
-                                            </a>
-                                        @endif
+                                        <a title="{{ $item->type_of_units }}" href="/units/{{$item->unit_id}}" class="btn btn-secondary">
+                                            <i class="fas fa-home fa-2x"></i>
+                                        <br>
+                                        <font size="-3" >{{ $item->unit_no }} </font>
+                                        </a>
                                     @endforeach
                                 </td>
                                 <br>
@@ -584,42 +570,6 @@
                         </table>
                 </div>
                 </div>
-                @foreach ($units_per_status_residential as $item)
-                <div class="tab-pane fade" id="{{ $item->status }}" role="tabpanel" aria-labelledby="pills-{{ $item->status }}-tab">
-                    <div class="row border-rounded">
-                        <table class="table">
-                            <tr>
-                                <td>
-                                    @foreach ($residential_units as $unit)
-                                        @if($unit->status === $item->status)
-                                                @if($unit->status === 'vacant')
-                                                <a title="{{ $unit->type_of_units }}" href="/units/{{$unit->unit_id}}" class="btn btn-secondary">
-                                                    <i class="fas fa-home fa-2x"></i>
-                                                    <br>
-                                                    <font size="-3">{{ $unit->unit_no }}</font>
-                                                </a>
-                                                @elseif($item->status=== 'reserved')
-                                                <a title="{{ $unit->type_of_units }}" href="/units/{{$unit->unit_id}}" class="btn btn-warning">
-                                                    <i class="fas fa-home fa-2x"></i>
-                                                    <br>
-                                                    <font size="-3">{{ $unit->unit_no }} </font>
-                                                </a>
-                                                @elseif($item->status=== 'occupied')
-                                                <a title="{{ $unit->type_of_units }}" href="/units/{{$unit->unit_id}}" class="btn btn-primary">
-                                                    <i class="fas fa-home fa-2x"></i>
-                                                    <br>
-                                                    <font size="-3">{{ $unit->unit_no }} </font>
-                                                </a>
-                                            @endif
-                                        @endif
-                                    @endforeach
-                                </td>
-                                <br>
-                            </tr>
-                        </table>
-                </div>
-                </div>
-                @endforeach
               </div>
                     </div>
                 </div>
@@ -629,30 +579,17 @@
             <div class="tab-pane fade" id="{{ $item->building }}" role="tabpanel" aria-labelledby="pills-{{ $item->building }}-tab">
                 <div class="card">
                     <div class="card-body">
+                       
                             <table class="table">
                                 <tr>
                                     <td>
                                         @foreach ($residential_units as $unit)
                                             @if($unit->building === $item->building)
-                                                    @if($unit->status === 'vacant')
-                                                    <a title="{{ $unit->type_of_units }}" href="/units/{{$unit->unit_id}}" class="btn btn-secondary">
-                                                        <i class="fas fa-home fa-2x"></i>
-                                                        <br>
-                                                        <font size="-3">{{ $unit->unit_no }} </font>
-                                                    </a>
-                                                    @elseif($unit->status=== 'reserved')
-                                                    <a title="{{ $unit->type_of_units }}" href="/units/{{$unit->unit_id}}" class="btn btn-warning">
-                                                        <i class="fas fa-home fa-2x"></i>
-                                                        <br>
-                                                        <font size="-3">{{ $unit->unit_no }} </font>
-                                                    </a>
-                                                    @elseif($unit->status=== 'occupied')
-                                                    <a title="{{ $unit->type_of_units }}" href="/units/{{$unit->unit_id}}" class="btn btn-primary">
-                                                        <i class="fas fa-home fa-2x"></i>
-                                                        <br>
-                                                        <font size="-3">{{ $unit->unit_no }} </font>
-                                                    </a>
-                                                @endif
+                                                <a title="{{ $unit->type_of_units }}" href="/units/{{$unit->unit_id}}" class="btn btn-secondary">
+                                                    <i class="fas fa-home fa-2x"></i>
+                                                    <br>
+                                                    <font size="-3">{{ $unit->unit_no }} </font>
+                                                </a>
                                             @endif
                                         @endforeach
                                     </td>
