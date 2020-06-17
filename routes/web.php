@@ -775,11 +775,11 @@ Route::get('/', function(Request $request){
     $renewed_chart->dataset('', 'pie', [number_format(($overall_contract_termination == 0 ? 0 : $renewed_contracts->count()/$overall_contract_termination) * 100,1),number_format(($overall_contract_termination == 0 ? 0 :$terminated_contracts->count()/$overall_contract_termination) * 100,1)  ])
     ->backgroundColor(['#008000', '#FF0000']);
 
-    // $movein_rate_increase = ($movein_rate_5 == 0 ? 0 :($movein_rate_6-$movein_rate_5)/$movein_rate_5)*100;
+    $movein_rate_increase = (($all_active_tenants->count()-($movein_rate_6))/$leasing_units->count() == 0 ? 1 :(($active_tenants->count()/$leasing_units->count())-($all_active_tenants->count()-($movein_rate_6))/$leasing_units->count())/ ($all_active_tenants->count()-($movein_rate_6))/$leasing_units->count())*100;
 
     $movein_rate = new DashboardChart;
     $movein_rate->title('Occupancy Rate');
-    // $movein_rate->title('Occupancy Rate'.' ('.number_format($movein_rate_increase,2).'%)');
+    $movein_rate->title('Occupancy Rate'.' ('.number_format($movein_rate_increase,2).'%)');
     $movein_rate->barwidth(0.0);
     $movein_rate->displaylegend(false);
     $movein_rate->labels([Carbon::now()->subMonth(5)->format('M Y'),Carbon::now()->subMonth(4)->format('M Y'),Carbon::now()->subMonth(3)->format('M Y'),Carbon::now()->subMonths(2)->format('M Y'),Carbon::now()->subMonth()->format('M Y'),Carbon::now()->format('M Y')]);
