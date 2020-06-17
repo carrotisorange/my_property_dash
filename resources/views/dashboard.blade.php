@@ -702,7 +702,7 @@
                                         <th>name</th>
                                         <th>unit no</th>
                                         <th>contact no</th>
-                                        <th>contract</th>
+                                        <th>contract expires on</th>
                                     </tr>
                                     </thead>
                                     <?php
@@ -715,7 +715,7 @@
                                         <td><a href="{{ route('show-investor',['unit_id'=> $item->unit_id, 'unit_owner_id'=>$item->unit_owner_id]) }}">{{ $item->unit_owner }} </a></td>
                                         <td>{{ $item->building.' '.$item->unit_no }}</td>
                                         <td>{{ $item->investor_contact_no }}</td>
-                                        <td>{{ Carbon\Carbon::parse($item->movein_date)->format('M d Y').' - '.Carbon\Carbon::parse($item->moveout_date)->format('M d Y') }}</td>
+                                       <td>{{ Carbon\Carbon::parse($item->contract_end)->format('M d Y') }}</td>
                                     </tr>
                                     @endforeach
                                     </tbody>
@@ -766,7 +766,7 @@
                                         <td>{{ $item->building.' '.$item->unit_no }}</td>
                                         <td>{{ $item->contact_no }}</td>
                                         <td>{{ number_format($item->tenant_monthly_rent,2) }}</td>
-                                        <td>{{   $diffInMonths =  number_format(Carbon\Carbon::now()->floatDiffInMonths(Carbon\Carbon::parse($item->moveout_date), false), 1) }} mon</td>
+                                        <td>{{ Carbon\Carbon::parse($item->movein_date)->format('M d Y').' - '.Carbon\Carbon::parse($item->moveout_date)->format('M d Y') }}</td>
                                     </tr>
                                     @endforeach
 
