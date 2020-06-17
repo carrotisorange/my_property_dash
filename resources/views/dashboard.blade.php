@@ -582,6 +582,13 @@
             <div class="tab-pane fade" id="residential-units" role="tabpanel" aria-labelledby="v-pills-residential-units-tab">
                 <div class="card">
                     <div class="card-body">
+                        <ul class="nav nav-pills mb-3 text-right" id="pills-tab" role="tablist">
+                            @foreach ($units_per_building_residential as $building)
+                            <li class="nav-item">
+                                <a class="nav-link" id="pills-{{ $item->building.'#'.$building->building }}-tab" data-toggle="pill" href="#{{ $item->building.'#'.$building->building }}" role="tab" aria-controls="pills-{{ $item->building.'#'.$building->building }}" aria-selected="false"><i class="fas fa-house-user"></i> {{ $building->building }} <span class="badge badge-light"></span></a>
+                            </li>
+                            @endforeach
+                        </ul>
               <div class="tab-content" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="pills-home-tab">
                     <div class="row border-rounded">
