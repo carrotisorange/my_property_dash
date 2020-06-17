@@ -443,7 +443,8 @@
                         @endif
                     </li>
                 @endforeach
-                {{--<li class="nav-item">
+                {{--
+                <li class="nav-item">
                     <a class="nav-link" href="#/">|</a>
                 </li>
                  @foreach ($units_per_building as $item)
@@ -526,7 +527,6 @@
                 </div>
             </div>
 
-
             @foreach ($units_per_building as $item)
             <div class="tab-pane fade" id="{{ $item->building }}" role="tabpanel" aria-labelledby="pills-{{ $item->building }}-tab">
                 <div class="card">
@@ -547,7 +547,7 @@
                             <table class="table">
                                 <tr>
                                     <td>
-                                        @foreach ($units as $unit)
+                                        @foreach ($leasing_units as $unit)
                                             @if($unit->building === $item->building)
                                                     @if($unit->status === 'vacant')
                                                     <a title="{{ $unit->type_of_units }}" href="/units/{{$unit->unit_id}}" class="btn btn-secondary">
