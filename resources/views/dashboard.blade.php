@@ -11,7 +11,7 @@
             <input type="hidden" id="count_units" value="{{ $units->count() }}">
             <input type="hidden" id="current_user" value="{{ Auth::user()->user_type }}">
             <a class="nav-link" id="v-pills-residential-units-tab" data-toggle="pill" href="#residential-units" role="tab" aria-controls="v-pills-residential-units" aria-selected="false"><i class="fas fa-house-user"></i>&nbsp&nbspResidential Units <span class="badge badge-light">{{ $residential_units->count() }}</span></a>
-            <a class="nav-link" id="v-pills-units-tab" data-toggle="pill" href="#units" role="tab" aria-controls="v-pills-units" aria-selected="false"><i class="fas fa-laptop-house"></i>&nbsp&nbspLeasing Units <span class="badge badge-light">{{ $units->count() }}</span></a>
+            <a class="nav-link" id="v-pills-units-tab" data-toggle="pill" href="#units" role="tab" aria-controls="v-pills-units" aria-selected="false"><i class="fas fa-laptop-house"></i>&nbsp&nbspLeasing Units <span class="badge badge-light">{{ $leasing_units->count() }}</span></a>
             @foreach ($units_per_building as $item)
             <a class="nav-link" id="pills-{{ $item->building }}-tab" data-toggle="pill" href="#{{ $item->building }}" role="tab" aria-controls="pills-{{ $item->building }}" aria-selected="false">&nbsp&nbsp&nbsp&nbsp - {{ $item->building }} <span class="badge badge-light">{{ $item->count }}</span> </a>
             @endforeach
