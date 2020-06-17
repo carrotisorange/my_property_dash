@@ -443,15 +443,6 @@
                         @endif
                     </li>
                 @endforeach
-                {{--
-                <li class="nav-item">
-                    <a class="nav-link" href="#/">|</a>
-                </li>
-                 @foreach ($units_per_building as $item)
-                <li class="nav-item">
-                    <a class="nav-link" id="pills-{{ $item->building }}-tab" data-toggle="pill" href="#{{ $item->building }}" role="tab" aria-controls="pills-{{ $item->building }}" aria-selected="false">{{ $item->building }} <span class="badge badge-light">{{ $item->count }}</span> </a>
-                </li>
-                @endforeach --}}
               </ul>
               <div class="tab-content" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="pills-home-tab">
@@ -583,14 +574,17 @@
                 <div class="card">
                     <div class="card-body">
                         <ul class="nav nav-pills mb-3 text-right" id="pills-tab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#residential-units" role="tab" aria-controls="pills-home" aria-selected="true"><i class="fas fa-home"></i> all <span class="badge badge-light">{{ $residential_units->count() }}</span></a>
+                              </li>
                             @foreach ($units_per_building_residential as $building)
                             <li class="nav-item">
-                                <a class="nav-link" id="pills-{{ $item->building }}-tab" data-toggle="pill" href="#{{ $item->building }}" role="tab" aria-controls="pills-{{ $item->building }}" aria-selected="false"><i class="fas fa-house-user"></i> {{ $building->building }} <span class="badge badge-light"></span></a>
+                                <a class="nav-link" id="pills-residential-units-{{ $item->building }}-tab" data-toggle="pill" href="#residential-units-{{ $item->building }}" role="tab" aria-controls="pills-residential-units-{{ $item->building }}" aria-selected="false"><i class="fas fa-house-user"></i> {{ $building->building }} <span class="badge badge-light"></span></a>
                             </li>
                             @endforeach
                         </ul>
               <div class="tab-content" id="pills-tabContent">
-                <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="pills-home-tab">
+                <div class="tab-pane fade show active" id="residential-units" role="tabpanel" aria-labelledby="pills-home-tab">
                     <div class="row border-rounded">
                         <table class="table">
                             <tr>
@@ -609,7 +603,7 @@
                 </div>
                 </div>
                 @foreach ($units_per_building_residential as $item)
-                <div class="tab-pane fade" id="{{ $item->building }}" role="tabpanel" aria-labelledby="pills-{{ $item->building }}-tab">
+                <div class="tab-pane fade" id="residential-units-{{ $item->building }}" role="tabpanel" aria-labelledby="pills-residential-units-{{ $item->building }}-tab">
                     <div class="row border-rounded">
                         <table class="table">
                             <tr>
