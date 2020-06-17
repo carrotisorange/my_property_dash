@@ -575,7 +575,7 @@
                     <div class="card-body">
                         <ul class="nav nav-pills mb-3 text-right" id="pills-tab" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#residential-units" role="tab" aria-controls="pills-home" aria-selected="true"><i class="fas fa-home"></i> all <span class="badge badge-light">{{ $residential_units->count() }}</span></a>
+                                <a class="nav-link active" id="pills-residential-units--tab" data-toggle="pill" href="#residential-units" role="tab" aria-controls="pills-home" aria-selected="true"><i class="fas fa-home"></i> all <span class="badge badge-light">{{ $residential_units->count() }}</span></a>
                               </li>
                             @foreach ($units_per_building_residential as $building)
                             <li class="nav-item">
@@ -584,7 +584,7 @@
                             @endforeach
                         </ul>
               <div class="tab-content" id="pills-tabContent">
-                <div class="tab-pane fade show active" id="residential-units" role="tabpanel" aria-labelledby="pills-home-tab">
+                <div class="tab-pane fade show active" id="residential-units" role="tabpanel" aria-labelledby="pills-residential-units--tab">
                     <div class="row border-rounded">
                         <table class="table">
                             <tr>

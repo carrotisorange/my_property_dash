@@ -813,7 +813,7 @@ Route::get('/', function(Request $request){
     ->dashed([5]);
 
 
-    $collection_rate_increase = ($collection_rate_5 == 0 ? 0 :($collection_rate_6-$collection_rate_5)/$collection_rate_5)*100;
+    $collection_rate_increase = ($collection_rate_5 == 0 ? 1 :($collection_rate_6-$collection_rate_5)/$collection_rate_5)*100;
 
     $collection_rate = new DashboardChart;
     $collection_rate->title('Collection Rate'.' ('.$collection_rate_increase.'%)');
