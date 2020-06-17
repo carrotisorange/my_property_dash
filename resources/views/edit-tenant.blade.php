@@ -36,7 +36,7 @@
                         <input form="editTenantForm" class="form-control" type="date" name="birthdate" value="{{ $tenant->birthdate }}">
                     </div>
                     <div class="col">
-                        <label for="recipient-name" class="col-form-label">Civil Status:</label>
+                        <small>Civil Status:</small>
                         <select form="addTenantForm"  id="civil_status" name="civil_status" class="form-control">
                             <option value="{{ $tenant->civil_status }}" selected>{{ $tenant->civil_status }}</option>
                             <option value="single" selected>single</option>
