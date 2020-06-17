@@ -430,7 +430,7 @@
                     <div class="card-body">
                 <ul class="nav nav-pills mb-3 text-right" id="pills-tab" role="tablist">
                 <li class="nav-item">
-                  <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#all" role="tab" aria-controls="pills-home" aria-selected="true"><i class="fas fa-home"></i> all <span class="badge badge-light">{{ $units->count() }}</span></a>
+                  <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#all" role="tab" aria-controls="pills-home" aria-selected="true"><i class="fas fa-home"></i> all <span class="badge badge-light">{{ $leasing_units->count() }}</span></a>
                 </li>
                 @foreach ($units_per_status as $item)
                     <li class="nav-item">
@@ -459,7 +459,7 @@
                         <table class="table">
                             <tr>
                                 <td>
-                                    @foreach ($units as $item)
+                                    @foreach ($leasing_$units as $item)
                                         @if($item->status === 'vacant')
                                             <a title="{{ $item->type_of_units }}" href="/units/{{$item->unit_id}}" class="btn btn-secondary">
                                                 <i class="fas fa-home fa-2x"></i>
@@ -492,7 +492,7 @@
                         <table class="table">
                             <tr>
                                 <td>
-                                    @foreach ($units as $unit)
+                                    @foreach ($leasing_units as $unit)
                                         @if($unit->status === $item->status)
                                                 @if($unit->status === 'vacant')
                                                 <a title="{{ $unit->type_of_units }}" href="/units/{{$unit->unit_id}}" class="btn btn-secondary">
