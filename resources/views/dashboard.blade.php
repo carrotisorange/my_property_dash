@@ -10,7 +10,8 @@
             <a class="nav-link" id="v-pills-users-tab" data-toggle="pill" href="#users" role="tab" aria-controls="v-pills-users" aria-selected="false"><i class="fas fa-user-secret"></i>&nbsp&nbspUsers</a>
             <input type="hidden" id="count_units" value="{{ $units->count() }}">
             <input type="hidden" id="current_user" value="{{ Auth::user()->user_type }}">
-            <a class="nav-link" id="v-pills-units-tab" data-toggle="pill" href="#units" role="tab" aria-controls="v-pills-units" aria-selected="false"><i class="fas fa-home"></i>&nbsp&nbspUnits <span class="badge badge-light">{{ $units->count() }}</span></a>
+            <a class="nav-link" id="v-pills-units-tab" data-toggle="pill" href="#units" role="tab" aria-controls="v-pills-units" aria-selected="false"><i class="fas fa-home"></i>&nbsp&nbspLeasing Units <span class="badge badge-light">{{ $units->count() }}</span></a>
+            <a class="nav-link" id="v-pills-residential-units-tab" data-toggle="pill" href="#residential-units" role="tab" aria-controls="v-pills-residential-units" aria-selected="false"><i class="fas fa-home"></i>&nbsp&nbspResidential Units <span class="badge badge-light">{{ $residential_units->count() }}</span></a>
             @foreach ($units_per_building as $item)
             <a class="nav-link" id="pills-{{ $item->building }}-tab" data-toggle="pill" href="#{{ $item->building }}" role="tab" aria-controls="pills-{{ $item->building }}" aria-selected="false">&nbsp&nbsp&nbsp&nbsp - {{ $item->building }} <span class="badge badge-light">{{ $item->count }}</span> </a>
             @endforeach
@@ -576,6 +577,56 @@
                 </div>
             </div>
             @endforeach
+
+            <div class="tab-pane fade" id="residential-units" role="tabpanel" aria-labelledby="v-pills-residential-units-tab">
+                <div class="card">
+                    <div class="card-body">
+              <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="pills-home-tab">
+                    <div class="row border-rounded">
+                        <table class="table">
+                            <tr>
+                                <td>
+                                    @foreach ($residential_units as $item)
+                                    <a title="{{ $item->type_of_units }}" href="/units/{{$item->unit_id}}" class="btn btn-secondary">
+                                        <i class="fas fa-home fa-2x"></i>
+                                        <br>
+                                        <font size="-3" >{{ $item->unit_no }} </font>
+                                    </a>
+                                    @endforeach
+                                </td>
+                                <br>
+                            </tr>
+                        </table>
+                </div>
+                </div>
+                @foreach ($units_per_building_residential as $item)
+                <div class="tab-pane fade" id="{{ $item->building }}" role="tabpanel" aria-labelledby="pills-{{ $item->building }}-tab">
+                    <div class="row border-rounded">
+                        <table class="table">
+                            <tr>
+                                <td>
+                                    @foreach ($residential_units as $unit)
+                                        @if($unit->building === $item->building)
+                                        <a title="{{ $unit->type_of_units }}" href="/units/{{$unit->unit_id}}" class="btn btn-secondary">
+                                            <i class="fas fa-home fa-2x"></i>
+                                            <br>
+                                            <font size="-3">{{ $unit->unit_no }}</font>
+                                        </a>
+                                        @endif
+                                    @endforeach
+                                </td>
+                                <br>
+                            </tr>
+                        </table>
+                </div>
+                </div>
+                @endforeach
+              </div>
+                    </div>
+                </div>
+            </div>
+
 
             {{-- display tenants --}}
             <div class="tab-pane fade" id="tenants" role="tabpanel" aria-labelledby="v-pills-tenants-tab">
