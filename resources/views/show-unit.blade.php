@@ -235,7 +235,7 @@
                 </button>
                 </div>
                 <form id="editUnitForm" action="/units/{{$unit->unit_id }}" method="POST">
-                    @method('put')
+                    @method('delete')
                     {{ csrf_field() }}
                 </form>
                 <div class="modal-body">
