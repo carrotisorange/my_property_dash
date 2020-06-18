@@ -814,12 +814,12 @@ Route::get('/', function(Request $request){
     $collection_rate->displaylegend(false);
     $collection_rate->labels([Carbon::now()->subMonth(5)->format('M Y'),Carbon::now()->subMonth(4)->format('M Y'),Carbon::now()->subMonth(3)->format('M Y'),Carbon::now()->subMonths(2)->format('M Y'),Carbon::now()->subMonth()->format('M Y'),Carbon::now()->format('M Y')]);
     $collection_rate->dataset('Total collection', 'line', [
-                                                           number_format($collection_rate_1,2),
-                                                           number_format($collection_rate_2,2),
-                                                           number_format($collection_rate_3,2),
-                                                           number_format($collection_rate_4,2),
-                                                           number_format($collection_rate_5,2),
-                                                           number_format($collection_rate_6,2),
+                                                            $collection_rate_1,
+                                                            $collection_rate_2,
+                                                            $collection_rate_3,
+                                                            $collection_rate_4,
+                                                            $collection_rate_5,
+                                                            $collection_rate_6,
                                                           ])
     ->color("rgb(0, 0, 0)")
     ->backgroundcolor("rgb(169, 169, 169)")
