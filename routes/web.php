@@ -797,7 +797,7 @@ Route::get('/', function(Request $request){
 
 
     $moveout_rate = new DashboardChart;
-    $moveout_rate->title('Number of moveout');
+    $moveout_rate->title('Number of moveouts ('.$moveout_rate_6.')');
     $moveout_rate->barwidth(0.0);
     $moveout_rate->displaylegend(false);
     $moveout_rate->labels([Carbon::now()->subMonth(5)->format('M Y'),Carbon::now()->subMonth(4)->format('M Y'),Carbon::now()->subMonth(3)->format('M Y'),Carbon::now()->subMonths(2)->format('M Y'),Carbon::now()->subMonth()->format('M Y'),Carbon::now()->format('M Y')]);
@@ -813,7 +813,7 @@ Route::get('/', function(Request $request){
     $collection_rate->barwidth(0.0);
     $collection_rate->displaylegend(false);
     $collection_rate->labels([Carbon::now()->subMonth(5)->format('M Y'),Carbon::now()->subMonth(4)->format('M Y'),Carbon::now()->subMonth(3)->format('M Y'),Carbon::now()->subMonths(2)->format('M Y'),Carbon::now()->subMonth()->format('M Y'),Carbon::now()->format('M Y')]);
-    $collection_rate->dataset('number of payments made', 'line', [$collection_rate_1,$collection_rate_2,$collection_rate_3,$collection_rate_4,$collection_rate_5,$collection_rate_6])
+    $collection_rate->dataset('Total collection', 'line', [$collection_rate_1,$collection_rate_2,$collection_rate_3,$collection_rate_4,$collection_rate_5,$collection_rate_6])
     ->color("rgb(0, 0, 0)")
     ->backgroundcolor("rgb(169, 169, 169)")
     ->fill(false)
