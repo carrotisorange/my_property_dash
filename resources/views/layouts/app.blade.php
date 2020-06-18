@@ -31,8 +31,8 @@
             <div class="container">
                 @guest
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    <b>My Property Dash</b>
-                    <h6>The Property Management System of Dormrun</h6>
+                    <b>The Property Manager</b>
+                    <h6></h6>
                 </a> 
                 @else
                 <a class="navbar-brand" href="{{ url('/') }}">
