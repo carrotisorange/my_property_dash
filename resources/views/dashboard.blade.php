@@ -253,7 +253,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <h4>tenants' retention</h4>
+                                <h4>retention</h4>
                                         <table class="table table-bordered">
                                             <tr>
                                                 <th class="text-center">#</th>
