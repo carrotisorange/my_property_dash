@@ -777,7 +777,7 @@ Route::get('/', function(Request $request){
 
     $movein_rate = new DashboardChart;
     $movein_rate->title('Occupancy Rate');
-    $movein_rate->title('Occupancy Rate'.' ('.number_format($active_tenants->count()/$leasing_units->count()) * 100,2).'%)');
+    $movein_rate->title('Occupancy Rate'.'('.number_format($active_tenants->count()/$leasing_units->count() * 100,2).'%)');
     $movein_rate->barwidth(0.0);
     $movein_rate->displaylegend(false);
     $movein_rate->labels([Carbon::now()->subMonth(5)->format('M Y'),Carbon::now()->subMonth(4)->format('M Y'),Carbon::now()->subMonth(3)->format('M Y'),Carbon::now()->subMonths(2)->format('M Y'),Carbon::now()->subMonth()->format('M Y'),Carbon::now()->format('M Y')]);
