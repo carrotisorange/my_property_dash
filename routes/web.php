@@ -809,7 +809,7 @@ Route::get('/', function(Request $request){
     ->dashed([5]);
 
     $collection_rate = new DashboardChart;
-    $collection_rate->title('Collection Rate'.' ('.number_format($collection_rate_6,2).'%)');
+    $collection_rate->title('Total Collection'.' ('.number_format($collection_rate_6,2).')');
     $collection_rate->barwidth(0.0);
     $collection_rate->displaylegend(false);
     $collection_rate->labels([Carbon::now()->subMonth(5)->format('M Y'),Carbon::now()->subMonth(4)->format('M Y'),Carbon::now()->subMonth(3)->format('M Y'),Carbon::now()->subMonths(2)->format('M Y'),Carbon::now()->subMonth()->format('M Y'),Carbon::now()->format('M Y')]);
