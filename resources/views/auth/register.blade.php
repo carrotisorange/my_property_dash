@@ -6,7 +6,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-body">
-                    <h4>My Property Dash</h4>
+                    <h4>The Property Manager</h4>
                     <p>
                         My Property Dash is a property management system that lets landlords manage their property anytime and anywhere with minimal effort. Unlike OTA (Trivago, Agoda, etc.) that allows
                         landlors to advertise their property online as a transient, My Property Dash offers longterm stay for tenants.

@@ -32,7 +32,7 @@
                 @guest
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <b>The Property Manager</b>
-                    <h6>The property management of GoDi</h6>
+                    <h6>The Property Management System of GoDi</h6>
                 </a> 
                 @else
                 <a class="navbar-brand" href="{{ url('/') }}">
