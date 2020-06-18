@@ -771,15 +771,13 @@ Route::get('/', function(Request $request){
     $renewed_chart = new DashboardChart;
     $renewed_chart->title('Retention Rate'.' ('.number_format(($overall_contract_termination == 0 ? 0 : $renewed_contracts->count()/$overall_contract_termination) * 100,1).'%)');
     $renewed_chart->displayAxes(false);
-    $renewed_chart->labels([ 'Renewal'.' ('.$renewed_contracts->count(). ')', 'Terminate'.' ('.$terminated_contracts->count(). ')', 'Total'.' ('.$overall_contract_termination. ')']);
+    $renewed_chart->labels([ 'Renewal'.' ('.$renewed_contracts->count(). ')', 'Termination'.' ('.$terminated_contracts->count(). ')', 'Total'.' ('.$overall_contract_termination. ')']);
     $renewed_chart->dataset('', 'pie', [number_format(($overall_contract_termination == 0 ? 0 : $renewed_contracts->count()/$overall_contract_termination) * 100,1),number_format(($overall_contract_termination == 0 ? 0 :$terminated_contracts->count()/$overall_contract_termination) * 100,1)  ])
     ->backgroundColor(['#008000', '#FF0000']);
 
-    $movein_rate_increase = (($all_active_tenants->count()-($movein_rate_6))/$leasing_units->count() == 0 ? 1 :(($active_tenants->count()/$leasing_units->count())-($all_active_tenants->count()-($movein_rate_6))/$leasing_units->count())/ ($all_active_tenants->count()-($movein_rate_6))/$leasing_units->count())*100;
-
     $movein_rate = new DashboardChart;
     $movein_rate->title('Occupancy Rate');
-    $movein_rate->title('Occupancy Rate'.' ('.number_format($movein_rate_increase,2).'%)');
+    $movein_rate->title('Occupancy Rate'.' ('.number_format($active_tenants->count()/$leasing_units->count()) * 100,2).'%)');
     $movein_rate->barwidth(0.0);
     $movein_rate->displaylegend(false);
     $movein_rate->labels([Carbon::now()->subMonth(5)->format('M Y'),Carbon::now()->subMonth(4)->format('M Y'),Carbon::now()->subMonth(3)->format('M Y'),Carbon::now()->subMonths(2)->format('M Y'),Carbon::now()->subMonth()->format('M Y'),Carbon::now()->format('M Y')]);
@@ -796,12 +794,10 @@ Route::get('/', function(Request $request){
     ->fill(false)
     ->linetension(0.1)
     ->dashed([5]);
-  
-    
-    $moveout_rate_increase = ($moveout_rate_5 == 0 ? 1 :($moveout_rate_6-$moveout_rate_5)/$moveout_rate_5)*100;
+
 
     $moveout_rate = new DashboardChart;
-    $moveout_rate->title('Move-out Rate'.' ('.number_format($moveout_rate_increase,2).'%)');
+    $moveout_rate->title('Number of moveout');
     $moveout_rate->barwidth(0.0);
     $moveout_rate->displaylegend(false);
     $moveout_rate->labels([Carbon::now()->subMonth(5)->format('M Y'),Carbon::now()->subMonth(4)->format('M Y'),Carbon::now()->subMonth(3)->format('M Y'),Carbon::now()->subMonths(2)->format('M Y'),Carbon::now()->subMonth()->format('M Y'),Carbon::now()->format('M Y')]);
@@ -812,11 +808,8 @@ Route::get('/', function(Request $request){
     ->linetension(0.1)
     ->dashed([5]);
 
-
-    $collection_rate_increase = ($collection_rate_5 == 0 ? 1 :($collection_rate_6-$collection_rate_5)/$collection_rate_5)*100;
-
     $collection_rate = new DashboardChart;
-    $collection_rate->title('Collection Rate'.' ('.number_format($collection_rate_increase,2).'%)');
+    $collection_rate->title('Collection Rate'.' ('.number_format($collection_rate_6,2).'%)');
     $collection_rate->barwidth(0.0);
     $collection_rate->displaylegend(false);
     $collection_rate->labels([Carbon::now()->subMonth(5)->format('M Y'),Carbon::now()->subMonth(4)->format('M Y'),Carbon::now()->subMonth(3)->format('M Y'),Carbon::now()->subMonths(2)->format('M Y'),Carbon::now()->subMonth()->format('M Y'),Carbon::now()->format('M Y')]);
