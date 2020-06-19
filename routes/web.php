@@ -21,9 +21,8 @@ Auth::routes();
 Route::get('/', function(Request $request){
 
     if(Auth::guest()){
-        return view('auth.login');
+        return view('index');
     }
-    
 
     if(auth()->user()->status === 'unregistered'){
         return view('unregistered');

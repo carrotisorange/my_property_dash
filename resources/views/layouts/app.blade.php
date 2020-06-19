@@ -8,6 +8,14 @@
 
     <title>@yield('title')</title>
 
+      <!-- Favicons -->
+
+    <link href="{{ asset('index/assets/img/favicon.png') }}" rel="icon">
+    <link href="{{ asset('index/assets/img/favicon.png') }}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
     <!-- Scripts -->
     <script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -30,12 +38,12 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 @guest
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="{{ url('/login') }}">
                     <b>The Property Manager</b>
                     <h6>The Property Management System of GoDi</h6>
                 </a> 
                 @else
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="{{ url('/login') }}">
                     {{Auth::user()->property }}
                 </a>
                 
@@ -61,9 +69,9 @@
                             <li class="nav-item">
                                 <h5><a class="nav-link  btn" href="/properties">Make a reservation <i class="far fa-calendar-check"></i></a></h5>
                             </li>
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <h5><a class="nav-link btn " href="/faq">FAQ <i class="fas fa-question-circle"></i></a></h5>
-                            </li>
+                            </li> --}}
                            
                             {{-- @if (Route::has('register'))
                                 <li class="nav-item">
@@ -101,19 +109,6 @@
             @yield('content')
         </main>
     </div>
-    <footer class="page-footer font-small blue-grey lighten-5">
-        <!-- Footer Links -->
-        <div class="container text-center text-md-left mt-5">
-      
-        <!-- Footer Links -->
-      
-        <!-- Copyright -->
-        <div class="footer-copyright text-center text-black-50 py-3">© 2020 Copyright:
-          <a class="dark-grey-text" href="#">DormRun.com</a>
-        </div>
-        <!-- Copyright -->
-      
-      </footer>
 </body>
 <script>
     $(document).ready(function() {
