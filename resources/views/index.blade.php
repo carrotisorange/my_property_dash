@@ -45,23 +45,6 @@
           <li><a href="#portfolio">Portfolio</a></li>
           <li><a href="#team">Team</a></li>
           <li><a href="#pricing">Pricing</a></li>
-          <li class="drop-down"><a href="">Drop Down</a>
-            <ul>
-              <li><a href="#">Drop Down 1</a></li>
-              <li class="drop-down"><a href="#">Deep Drop Down</a>
-                <ul>
-                  <li><a href="#">Deep Drop Down 1</a></li>
-                  <li><a href="#">Deep Drop Down 2</a></li>
-                  <li><a href="#">Deep Drop Down 3</a></li>
-                  <li><a href="#">Deep Drop Down 4</a></li>
-                  <li><a href="#">Deep Drop Down 5</a></li>
-                </ul>
-              </li>
-              <li><a href="#">Drop Down 2</a></li>
-              <li><a href="#">Drop Down 3</a></li>
-              <li><a href="#">Drop Down 4</a></li>
-            </ul>
-          </li>
           <li><a href="#contact">Contact</a></li>
 
         </ul>
@@ -383,7 +366,7 @@
           </div>
 
           <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <img src="assets/img/portfolio/portfolio-3.jpg" class="img-fluid" alt="">
+            <img src="{{ asset('index/assets/img/portfolio/portfolio-3.jpg') }}" class="img-fluid" alt="">
             <div class="portfolio-info">
               <h4>App 2</h4>
               <p>App</p>
@@ -468,7 +451,7 @@
 
         <div class="row">
 
-          <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
             <div class="member">
               <div class="member-img">
                 <img src="{{ asset('/index/assets/img/team/team-1.jpg') }}" class="img-fluid" alt="">
@@ -480,16 +463,16 @@
                 </div>
               </div>
               <div class="member-info">
-                <h4>Walter White</h4>
+                <h4>Pamela Tecson</h4>
                 <span>Chief Executive Officer</span>
               </div>
             </div>
           </div>
 
-          <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
             <div class="member">
               <div class="member-img">
-                <img src="{{ asset('/index/assets/img/team/team-2.jpg') }}" class="img-fluid" alt="">
+                <img src="{{ asset('/index/assets/img/team/team-1.jpg') }}" class="img-fluid" alt="">
                 <div class="social">
                   <a href=""><i class="icofont-twitter"></i></a>
                   <a href=""><i class="icofont-facebook"></i></a>
@@ -498,16 +481,16 @@
                 </div>
               </div>
               <div class="member-info">
-                <h4>Sarah Jhonson</h4>
-                <span>Product Manager</span>
+                <h4>July Gotschall</h4>
+                <span>Marketing Head</span>
               </div>
             </div>
           </div>
 
-          <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
             <div class="member">
               <div class="member-img">
-                <img src="{{ asset('/index/assets/img/team/team-3.jpg') }}" class="img-fluid" alt="">
+                <img src="{{ asset('/index/assets/img/team/team-1.jpg') }}" class="img-fluid" alt="">
                 <div class="social">
                   <a href=""><i class="icofont-twitter"></i></a>
                   <a href=""><i class="icofont-facebook"></i></a>
@@ -516,13 +499,13 @@
                 </div>
               </div>
               <div class="member-info">
-                <h4>William Anderson</h4>
+                <h4>Landley Bernardo</h4>
                 <span>CTO</span>
               </div>
             </div>
           </div>
 
-          <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+          {{-- <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
             <div class="member">
               <div class="member-img">
                 <img src="{{ asset('/index/assets/img/team/team-4.jpg') }}" class="img-fluid" alt="">
@@ -538,7 +521,7 @@
                 <span>Accountant</span>
               </div>
             </div>
-          </div>
+          </div> --}}
 
         </div>
 
@@ -575,7 +558,7 @@
 
           <div class="col-lg-3 col-md-6 mt-4 mt-md-0">
             <div class="box featured">
-              <h3>Business</h3>
+              <h3>Medium</h3>
               <h4><sup>$</sup>19<span> / month</span></h4>
               <ul>
                 <li>Aida dere</li>
@@ -592,7 +575,7 @@
 
           <div class="col-lg-3 col-md-6 mt-4 mt-lg-0">
             <div class="box">
-              <h3>Developer</h3>
+              <h3>Large</h3>
               <h4><sup>$</sup>29<span> / month</span></h4>
               <ul>
                 <li>Aida dere</li>
@@ -610,7 +593,7 @@
           <div class="col-lg-3 col-md-6 mt-4 mt-lg-0">
             <div class="box">
               <span class="advanced">Advanced</span>
-              <h3>Ultimate</h3>
+              <h3>Enterprise</h3>
               <h4><sup>$</sup>49<span> / month</span></h4>
               <ul>
                 <li>Aida dere</li>
@@ -703,14 +686,14 @@
 
         <div class="row">
 
-          <div class="col-lg-6">
+          <div class="col-lg-12">
 
             <div class="row">
               <div class="col-md-12">
                 <div class="info-box">
                   <i class="bx bx-map"></i>
                   <h3>Our Address</h3>
-                  <p>A108 Adam Street, New York, NY 535022</p>
+                  <p>Baguio City, PH, 2600</p>
                 </div>
               </div>
               <div class="col-md-6">
@@ -731,7 +714,7 @@
 
           </div>
 
-          <div class="col-lg-6">
+          {{-- <div class="col-lg-6">
             <form action="forms/contact.php" method="post" role="form" class="php-email-form">
               <div class="form-row">
                 <div class="col-md-6 form-group">
@@ -758,7 +741,7 @@
               </div>
               <div class="text-center"><button type="submit">Send Message</button></div>
             </form>
-          </div>
+          </div> --}}
 
         </div>
 
@@ -775,11 +758,11 @@
         <div class="row">
 
           <div class="col-lg-3 col-md-6 footer-contact">
-            <h3>Baker</h3>
+            <h3>The Property Manager</h3>
             <p>
-              A108 Adam Street <br>
-              New York, NY 535022<br>
-              United States <br><br>
+               <br>
+              Baguio City, 2600<br>
+              Philippines <br><br>
               <strong>Phone:</strong> +1 5589 55488 55<br>
               <strong>Email:</strong> info@example.com<br>
             </p>
@@ -823,7 +806,7 @@
 
       <div class="mr-md-auto text-center text-md-left">
         <div class="copyright">
-          &copy; Copyright <strong><span>The Property Manager</span></strong>. All Rights Reserved
+          &copy; Copyright <strong><span>GoDI Enterprise</span></strong>. All Rights Reserved
         </div>
         <div class="credits">
           <!-- All the links in the footer should remain intact. -->
