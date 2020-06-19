@@ -75,7 +75,7 @@
     <div class="container position-relative">
       <h1>Simplifying Property Management</h1>
       <h2>Online resource and tools for landlords and property managers. </h2>
-      <a href="/register" class="btn-get-started scrollto">Get Started</a>
+      <a href="/register" class="btn-get-started scrollto">START FREE TRIAL</a>
     </div>
   </section><!-- End Hero -->
 
@@ -127,7 +127,7 @@
           <div class="col-lg-6 pt-4 pt-lg-0">
             <h3>The Property Manager</h3>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis aute irure dolor in reprehenderit
+              We offer a full suite of property management tools to  rental property owners and landlords. Let us help you make your work simple so you can relax knowing your property is running smoothly.
             </p>
             <div class="row">
               <div class="col-md-6">
@@ -153,25 +153,25 @@
 
         <div class="row counters">
 
-          <div class="col-lg-3 col-6 text-center">
+          <div class="col-lg-4 col-6 text-center">
             <span data-toggle="counter-up">232</span>
             <p>Clients</p>
           </div>
 
-          <div class="col-lg-3 col-6 text-center">
+          <div class="col-lg-4 col-6 text-center">
             <span data-toggle="counter-up">521</span>
             <p>Properties</p>
           </div>
 
-          <div class="col-lg-3 col-6 text-center">
+          <div class="col-lg-4 col-6 text-center">
             <span data-toggle="counter-up">1,463</span>
             <p>Rooms</p>
           </div>
 
-          <div class="col-lg-3 col-6 text-center">
+          {{-- <div class="col-lg-3 col-6 text-center">
             <span data-toggle="counter-up">15</span>
             <p>Hard Workers</p>
-          </div>
+          </div> --}}
 
         </div>
 
@@ -184,17 +184,19 @@
 
         <div class="section-title">
           <h2>Services</h2>
-          <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+          <p>We offer a full suite of property management tools to  rental property owners and landlords. Let us help you make your work simple so you can relax knowing your property is running smoothly.</p>
         </div>
 
         <div class="row">
 
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
-            <div class="icon-box iconbox-blue">
+            
+              <div class="icon-box iconbox-teal">
               <div class="icon">
-                <i class="bx bxl-dribbble"></i>
+                <i class="bx bx-arch"></i>
+                
               </div>
-              <h4><a href="">Lorem Ipsum</a></h4>
+              <h4><a href="">Property Management</a></h4>
               <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p>
             </div>
           </div>
@@ -204,7 +206,7 @@
               <div class="icon">
                 <i class="bx bx-file"></i>
               </div>
-              <h4><a href="">Sed Perspiciatis</a></h4>
+              <h4><a href="">Billing And Collection</a></h4>
               <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</p>
             </div>
           </div>
@@ -240,9 +242,9 @@
           </div>
 
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
-            <div class="icon-box iconbox-teal">
+            <div class="icon-box iconbox-blue">
               <div class="icon">
-                <i class="bx bx-arch"></i>
+                <i class="bx bxl-dribbble"></i>
               </div>
               <h4><a href="">Divera Don</a></h4>
               <p>Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur</p>
