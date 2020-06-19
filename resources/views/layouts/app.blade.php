@@ -40,7 +40,7 @@
                 @guest
                 <a class="navbar-brand" href="{{ url('/login') }}">
                     <b>The Property Manager</b>
-                    <h6>The Property Management System of GoDi</h6>
+                    <h6>The Property Management System of GoDie</h6>
                 </a> 
                 @else
                 <a class="navbar-brand" href="{{ url('/login') }}">
@@ -63,21 +63,24 @@
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest
-                            <li class="nav-item">
+                         {{-- <li class="nav-item">
+                                <h5><a class="nav-link  btn" href="/register">Register your property <i class="fas fa-user-circle"></i></a></h5>
+                            </li>
+                            {{-- <li class="nav-item">
                                 <h5><a class="nav-link  btn" href="/register">Register your property <i class="fas fa-user-circle"></i></a></h5>
                             </li>
                             <li class="nav-item">
                                 <h5><a class="nav-link  btn" href="/properties">Make a reservation <i class="far fa-calendar-check"></i></a></h5>
-                            </li>
+                            </li> --}}
                             {{-- <li class="nav-item">
                                 <h5><a class="nav-link btn " href="/faq">FAQ <i class="fas fa-question-circle"></i></a></h5>
                             </li> --}}
                            
-                            {{-- @if (Route::has('register'))
+                            @if (Route::has('register'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">Register</a>
                                 </li>
-                            @endif --}}
+                            @endif 
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

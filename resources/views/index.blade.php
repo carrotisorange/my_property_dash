@@ -59,6 +59,7 @@
       <h1>Simplifying Property Management</h1>
       <h2>Online resource and tools for landlords and property managers. </h2>
       <a href="/register" class="btn-get-started scrollto">START FREE TRIAL</a>
+      <a href="/login" class="btn-get-started scrollto">LOGIN</a>
     </div>
   </section><!-- End Hero -->
 
@@ -115,13 +116,13 @@
             <div class="row">
               <div class="col-md-6">
                 <i class="bx bx-receipt"></i>
-                <h4>Corporis voluptates sit</h4>
-                <p>Consequuntur sunt aut quasi enim aliquam quae harum pariatur laboris nisi ut aliquip</p>
+                <h4>Property Management System</h4>
+                <p>Monitor tenants issues, bill and collect rent, handle maintenance and repairs, and qualify new tenants. You get peace of mind knowing your property and tenants are in good hands.  We have plans for all sizes of rental properties. <a href="/register">Start Free trial now</a>.</p>
               </div>
               <div class="col-md-6">
                 <i class="bx bx-cube-alt"></i>
-                <h4>Ullamco laboris nisi</h4>
-                <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt</p>
+                <h4>Real Estate Rules and Regulations</h4>
+                <p>f you have questions about affordable housing programs, grants, leasing, repairs, or tax credits, rely on our property management services to ensure everything goes smoothly. Book a consultation today to get some answers.</p>
               </div>
             </div>
           </div>
@@ -136,18 +137,23 @@
 
         <div class="row counters">
 
-          <div class="col-lg-4 col-6 text-center">
-            <span data-toggle="counter-up">232</span>
+          <div class="col-lg-3 col-6 text-center">
+            <span data-toggle="counter-up">{{ number_format($clients,0) }}</span>
             <p>Clients</p>
           </div>
 
-          <div class="col-lg-4 col-6 text-center">
-            <span data-toggle="counter-up">521</span>
+          <div class="col-lg-3 col-6 text-center">
+            <span data-toggle="counter-up">{{ number_format($properties,0) }}</span>
             <p>Properties</p>
           </div>
 
-          <div class="col-lg-4 col-6 text-center">
-            <span data-toggle="counter-up">1,463</span>
+          <div class="col-lg-3 col-6 text-center">
+            <span data-toggle="counter-up">{{ number_format($buildings,0) }}</span>
+            <p>Buildings</p>
+          </div>
+
+          <div class="col-lg-3 col-6 text-center">
+            <span data-toggle="counter-up">{{ number_format($rooms,0) }}</span>
             <p>Rooms</p>
           </div>
 
@@ -179,7 +185,7 @@
                 <i class="bx bx-arch"></i>
                 
               </div>
-              <h4><a href="">Property Management</a></h4>
+              <h4><a href="">Unit/Room Management</a></h4>
               <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p>
             </div>
           </div>
@@ -189,7 +195,7 @@
               <div class="icon">
                 <i class="bx bx-file"></i>
               </div>
-              <h4><a href="">Billing And Collection</a></h4>
+              <h4><a href="">Billing and Collection</a></h4>
               <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</p>
             </div>
           </div>
@@ -199,7 +205,7 @@
               <div class="icon">
                 <i class="bx bx-tachometer"></i>
               </div>
-              <h4><a href="">Magni Dolores</a></h4>
+              <h4><a href="">Expense Tracker</a></h4>
               <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia</p>
             </div>
           </div>
@@ -209,7 +215,7 @@
               <div class="icon">
                 <i class="bx bx-layer"></i>
               </div>
-              <h4><a href="">Nemo Enim</a></h4>
+              <h4><a href="">Online Payment</a></h4>
               <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis</p>
             </div>
           </div>
@@ -219,7 +225,7 @@
               <div class="icon">
                 <i class="bx bx-slideshow"></i>
               </div>
-              <h4><a href="">Dele Cardo</a></h4>
+              <h4><a href="">Job Order</a></h4>
               <p>Quis consequatur saepe eligendi voluptatem consequatur dolor consequuntur</p>
             </div>
           </div>
@@ -229,10 +235,40 @@
               <div class="icon">
                 <i class="bx bxl-dribbble"></i>
               </div>
-              <h4><a href="">Divera Don</a></h4>
+              <h4><a href="">Landlord/Tenant Portal</a></h4>
               <p>Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur</p>
             </div>
           </div>
+
+          {{-- <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
+            <div class="icon-box iconbox-blue">
+              <div class="icon">
+                <i class="bx bxl-dribbble"></i>
+              </div>
+              <h4><a href="">Landlord Portal</a></h4>
+              <p>Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur</p>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
+            <div class="icon-box iconbox-blue">
+              <div class="icon">
+                <i class="bx bxl-dribbble"></i>
+              </div>
+              <h4><a href="">Concierge</a></h4>
+              <p>Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur</p>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
+            <div class="icon-box iconbox-blue">
+              <div class="icon">
+                <i class="bx bxl-dribbble"></i>
+              </div>
+              <h4><a href="">Tenant Portal</a></h4>
+              <p>Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur</p>
+            </div>
+          </div> --}}
 
         </div>
 
@@ -240,20 +276,10 @@
     </section><!-- End Services Section -->
 
     <!-- ======= Cta Section ======= -->
-    <section id="cta" class="cta">
-      <div class="container">
-
-        <div class="text-center">
-          <h3>Call To Action</h3>
-          <p> Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-          <a class="cta-btn" href="#">Call To Action</a>
-        </div>
-
-      </div>
-    </section><!-- End Cta Section -->
+   
 
     <!-- ======= Testimonials Section ======= -->
-    <section id="testimonials" class="testimonials">
+    {{-- <section id="testimonials" class="testimonials">
       <div class="container">
 
         <div class="section-title">
@@ -321,7 +347,7 @@
         </div>
 
       </div>
-    </section><!-- End Testimonials Section -->
+    </section><!-- End Testimonials Section --> --}}
 
     <!-- ======= Portfolio Section ======= -->
     <section id="portfolio" class="portfolio">
@@ -332,7 +358,7 @@
           <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
         </div>
 
-        <div class="row">
+        {{-- <div class="row">
           <div class="col-lg-12 d-flex justify-content-center">
             <ul id="portfolio-flters">
               <li data-filter="*" class="filter-active">All</li>
@@ -341,7 +367,7 @@
               <li data-filter=".filter-web">Web</li>
             </ul>
           </div>
-        </div>
+        </div> --}}
 
         <div class="row portfolio-container">
 
@@ -464,7 +490,10 @@
               </div>
               <div class="member-info">
                 <h4>Pamela Tecson</h4>
-                <span>Chief Executive Officer</span>
+                <span>CEO</span>
+                <p>Pamela has experience with all types of property. From condos and apartments to vacation homes, she knows that your home is important to you. She's a jill-of-all-trades and can help you manage anything from maintenance and leasing to bookkeeping and legal compliance!
+
+                </p>
               </div>
             </div>
           </div>
@@ -483,6 +512,9 @@
               <div class="member-info">
                 <h4>July Gotschall</h4>
                 <span>Marketing Head</span>
+                <p>
+                  July has a passion for connecting with people. She loves accommodating people looking for a place to rent and knows all about what they need! Her top priority is making sure your property is rented out thru charteredrooms.com
+                </p>
               </div>
             </div>
           </div>
@@ -501,6 +533,9 @@
               <div class="member-info">
                 <h4>Landley Bernardo</h4>
                 <span>CTO</span>
+                <p>
+                  Andy is our systems engineer.  This makes him the man to go to for all your property management system questions. From systems setup, adding tenants, billing, to move-out of tenants, Andy's calm, matter-of-fact attitude can handle all the work for you!
+                </p>
               </div>
             </div>
           </div>
@@ -544,9 +579,9 @@
               <h3>Free</h3>
               <h4><sup>$</sup>0<span> / month</span></h4>
               <ul>
-                <li>Aida dere</li>
-                <li>Nec feugiat nisl</li>
-                <li>Nulla at volutpat dola</li>
+                <li>1 building </li>
+                <li>10 rooms</li>
+                <li>3 users</li>
                 <li class="na">Pharetra massa</li>
                 <li class="na">Massa ultricies mi</li>
               </ul>
@@ -559,11 +594,11 @@
           <div class="col-lg-3 col-md-6 mt-4 mt-md-0">
             <div class="box featured">
               <h3>Medium</h3>
-              <h4><sup>$</sup>19<span> / month</span></h4>
+              <h4><sup>$</sup>13<span> / month</span></h4>
               <ul>
-                <li>Aida dere</li>
-                <li>Nec feugiat nisl</li>
-                <li>Nulla at volutpat dola</li>
+                <li>2-3 buildings</li>
+                <li>50 rooms</li>
+                <li>6 users</li>
                 <li>Pharetra massa</li>
                 <li class="na">Massa ultricies mi</li>
               </ul>
@@ -757,7 +792,7 @@
       <div class="container">
         <div class="row">
 
-          <div class="col-lg-3 col-md-6 footer-contact">
+          <div class="col-lg-6 col-md-6 footer-contact">
             <h3>The Property Manager</h3>
             <p>
                <br>
@@ -768,7 +803,7 @@
             </p>
           </div>
 
-          <div class="col-lg-2 col-md-6 footer-links">
+          <div class="col-lg-3 col-md-6 footer-links">
             <h4>Useful Links</h4>
             <ul>
               <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
@@ -790,13 +825,13 @@
             </ul>
           </div>
 
-          <div class="col-lg-4 col-md-6 footer-newsletter">
+          {{-- <div class="col-lg-4 col-md-6 footer-newsletter">
             <h4>Join Our Newsletter</h4>
             <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
             <form action="" method="post">
               <input type="email" name="email"><input type="submit" value="Subscribe">
             </form>
-          </div>
+          </div> --}}
 
         </div>
       </div>
@@ -806,7 +841,7 @@
 
       <div class="mr-md-auto text-center text-md-left">
         <div class="copyright">
-          &copy; Copyright <strong><span>GoDI Enterprise</span></strong>. All Rights Reserved
+          &copy; Copyright <strong><span>GoDie Enterprise</span></strong>. All Rights Reserved
         </div>
         <div class="credits">
           <!-- All the links in the footer should remain intact. -->

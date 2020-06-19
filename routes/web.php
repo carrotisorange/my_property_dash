@@ -21,7 +21,19 @@ Auth::routes();
 Route::get('/', function(Request $request){
 
     if(Auth::guest()){
-        return view('index');
+
+        $clients = DB::table('users')
+        ->select('')
+        ->where('user_type', 'admin')
+        ->count();
+
+        $properties = Unit::distinct()->count('unit_property');
+      
+        $buildings = Unit::distinct()->count('building');
+
+        $rooms = Unit::distinct()->count('unit_no');
+
+        return view('index', compact('clients','properties', 'buildings', 'rooms'));
     }
 
     if(auth()->user()->status === 'unregistered'){
@@ -69,8 +81,6 @@ Route::get('/', function(Request $request){
     ->orderBy('unit_no')
     ->where('status','occupied')
     ->get();
-
-    
 
     $investors = DB::table('units')
     ->join('unit_owners', 'unit_unit_owner_id', 'unit_owner_id')
