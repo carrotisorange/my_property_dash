@@ -1,1345 +1,714 @@
-@extends('layouts.app')
-@section('title', 'Dashboard')
-@section('content')
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-2">
-          <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-            <a class="nav-link active" id="v-pills-dashboard-tab" data-toggle="pill" href="#dashboard" role="tab" aria-controls="v-pills-dashboard" aria-selected="true"><i class="fas fa-tachometer-alt"></i>&nbsp&nbspDashboard</a>
-            @if(Auth::user()->user_type === 'admin')
-            <a class="nav-link" id="v-pills-users-tab" data-toggle="pill" href="#users" role="tab" aria-controls="v-pills-users" aria-selected="false"><i class="fas fa-user-secret"></i>&nbsp&nbspUsers</a>
-            <input type="hidden" id="count_units" value="{{ $units->count() }}">
-            <input type="hidden" id="current_user" value="{{ Auth::user()->user_type }}">
-            <a class="nav-link" id="v-pills-residential-units-tab" data-toggle="pill" href="#residential-units" role="tab" aria-controls="v-pills-residential-units" aria-selected="false"><i class="fas fa-house-user"></i>&nbsp&nbspResidential Units <span class="badge badge-light">{{ $residential_units->count() }}</span></a>
-            <a class="nav-link" id="v-pills-units-tab" data-toggle="pill" href="#units" role="tab" aria-controls="v-pills-units" aria-selected="false"><i class="fas fa-laptop-house"></i>&nbsp&nbspLeasing Units <span class="badge badge-light">{{ $leasing_units->count() }}</span></a>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Dashboard</title>
+
+  <!-- Custom fonts for this template-->
+  <link href="{{ asset('dashboard/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+  <!-- Custom styles for this template-->
+  <link href="{{ asset('dashboard/css/sb-admin-2.min.css') }}" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+      {{-- <!-- Sidebar - Brand -->
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
+        
+        <div class="sidebar-brand-text mx-5"> </div>
+      </a>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider my-0"> --}}
+
+      <!-- Nav Item - Dashboard -->
+      <li class="nav-item active">
+        <a class="nav-link" href="/">
+          {{-- <i class="fas fa-fw fa-tachometer-alt"></i> --}}
+          <span>The Property Manager</span></a>
+      </li>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+
+      <!-- Heading -->
+      {{-- <div class="sidebar-heading">
+        Interface
+      </div> --}}
+
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item active">
+        <a class="nav-link" href="/">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Dashboard</span></a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="/leasing">
+          <i class="fas fa-home"></i>
+          <span>Leasing</span></a>
+      </li>
+
+      {{-- <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+          <i class="fas fa-home fa-cog"></i>
+          <span>Leasing</span>
+          
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            
             @foreach ($units_per_building as $item)
-            <a class="nav-link" id="pills-{{ $item->building }}-tab" data-toggle="pill" href="#{{ $item->building }}" role="tab" aria-controls="pills-{{ $item->building }}" aria-selected="false">&nbsp&nbsp&nbsp&nbsp - {{ $item->building }} <span class="badge badge-light">{{ $item->count }}</span> </a>
+            <a class="collapse-item" href="/leasing">{{ $item->building }}</a>
             @endforeach
-            <a class="nav-link" id="v-pills-tenants-tab" data-toggle="pill" href="#tenants" role="tab" aria-controls="v-pills-tenants" aria-selected="false"><i class="fas fa-user"></i>&nbsp&nbspTenants  <span class="badge badge-light">{{ $tenants->count() }}</span></a>
-            <a class="nav-link" id="v-pills-investors-tab" data-toggle="pill" href="#investors" role="tab" aria-controls="v-pills-investors" aria-selected="false"><i class="fas fa-user-tie"></i>&nbsp&nbspUnit Owners <span class="badge badge-light">{{ $investors->count() }}</span> </a>
-            <a class="nav-link" id="v-pills-joborders-tab" data-toggle="pill" href="#joborders" role="tab" aria-controls="v-pills-joborders" aria-selected="false"><i class="fas fa-tools"></i>&nbspJob Orders</a>
-            @else
-            <a href="#" onclick="return false;" class="nav-link" id="v-pills-users-tab" data-toggle="pill" href="#users" role="tab" aria-controls="v-pills-users" aria-selected="false"> <i class="fas fa-user-secret"></i>&nbsp&nbspUsers</a>
-            <a href="#" onclick="return false;" class="nav-link" id="v-pills-units-tab" data-toggle="pill" href="#units" role="tab" aria-controls="v-pills-units" aria-selected="false"> <i class="fas fa-house-user"></i>&nbsp&nbspResidential Units</a>
-            <a href="#" onclick="return false;" class="nav-link" id="v-pills-units-tab" data-toggle="pill" href="#units" role="tab" aria-controls="v-pills-units" aria-selected="false"> <i class="fas fa-laptop-house"></i>&nbsp&nbspLeasing Units</a>
-            <a href="#" onclick="return false;" class="nav-link" id="v-pills-investors-tab" data-toggle="pill" href="#investors" role="tab" aria-controls="v-pills-investors" aria-selected="false"><i class="fas fa-user-tie"></i>&nbsp&nbspInvestors</a>
-            <a href="#" onclick="return false;" class="nav-link" id="v-pills-tenants-tab" data-toggle="pill" href="#tenants" role="tab" aria-controls="v-pills-tenants" aria-selected="false"><i class="fas fa-user"></i>&nbsp&nbspTenants</a>
-            <a href="#" onclick="return false;" class="nav-link" id="v-pills-joborders-tab" data-toggle="pill" href="#joborders" role="tab" aria-controls="v-pills-joborders" aria-selected="false"><i class="fas fa-tools"></i>&nbspJob Orders</a>
-            @endif
-            @if(Auth::user()->user_type === 'billing')
-            <input type="hidden" id="current_user" value="{{ Auth::user()->user_type }}">
-            <input type="hidden" id="posted_bills_this_month_for_rent" value="{{ $posted_bills_this_month_for_rent }}">
-            <input type="hidden" id="delinquent_accounts" value="{{ $delinquent_accounts->count() }}">
-            <a class="nav-link" id="v-pills-billings-tab" data-toggle="pill" href="#billings" role="tab" aria-controls="v-pills-billings" aria-selected="false"><i class="fas fa-file-invoice-dollar"></i>&nbsp&nbspBillings</a>
-            @else
-            <a href="#" onclick="return false;"  class="nav-link" id="v-pills-billings-tab" data-toggle="pill" href="#billings" role="tab" aria-controls="v-pills-billings" aria-selected="false"><i class="fas fa-file-invoice-dollar"></i>&nbsp&nbspBillings</a>
-            @endif
-            @if(Auth::user()->user_type === 'treasury')
-            <a class="nav-link" id="v-pills-payments-tab" data-toggle="pill" href="#payments" role="tab" aria-controls="v-pills-payments" aria-selected="false"><i class="fas fa-dollar-sign"></i>&nbsp&nbspPayments</a>
-            @else
-            <a href="#" onclick="return false;" class="nav-link" id="v-pills-payments-tab" data-toggle="pill" href="#payments" role="tab" aria-controls="v-pills-payments" aria-selected="false"><i class="fas fa-dollar-sign"></i>&nbsp&nbspPayments</a>
-            @endif
+            
           </div>
         </div>
-        <div class="col-10">
-          <div class="tab-content" id="v-pills-tabContent">
-            <div class="tab-pane fade show active" id="dashboard" role="tabpanel" aria-labelledby="v-pills-dashboard-tab">
-                <div class="card">
-                    <div class="card-body">
-                        <h4>Dashboard <i class="fas fa-tachometer-alt"></i></h4>
-                        <div class="row">
-                            <div class="col">
-                            @if(Auth::user()->user_type === 'admin')
-                               <p class="text-right">
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addUnit" data-whatever="@mdo"><i class="fas fa-plus"></i> room</button>
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addMultipleUnits" data-whatever="@mdo"><i class="fas fa-plus"></i> multiple rooms</button>
-                               </p>
-                            @endif
-                            </div>
-                        </div>
-                        <div class="row text-center">
-                            <div class="col-md-3">
-                                <div class="card">
-                                    <div class="card-header">
-                                        Total Units
-                                    </div>
-                                    <div class="card-body">
-                                    <h1 class="text-center">{{ $units->count() }}
-                                            <span class="text-right"><p><i class="fas fa-home"></i></p></span>
-                                        </h1>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="card">
-                                    <div class="card-header">
-                                        Commercial Units
-                                    </div>
-                                    <div class="card-body">
-                                    <h1 class="text-center">{{ $commercial_units->count() }}
-                                            <span class="text-right"><p><i class="fas fa-hotel"></i></p></span>
-                                        </h1>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="card bg-primary">
-                                    <div class="card-header">
-                                        Leasing Units
-                                    </div>
-                                    <div class="card-body">
-                                        <h1 class="text-center">{{ $leasing_units->count() }}
-                                            <span class="text-right"><p><i class="fas fa-laptop-house"></i></p></span>
-                                        </h1>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="card">
-                                    <div class="card-header">
-                                        Residential Units
-                                    </div>
-                                    <div class="card-body">
-                                    <h1 class="text-center">{{ $residential_units->count() }}
-                                            <span class="text-right"><p><i class="fas fa-house-user"></i></p></span>
-                                        </h1>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="row text-center">
-                            <div class="col-md-3">
-                                <div class="card bg-success">
-                                    <div class="card-header">
-                                        Active Tenants
-                                    </div>
-                                    <div class="card-body">
-                                    <h1 class="text-center">{{ $active_tenants->count() }}
-                                            <span class="text-right"><p><i class="fas fa-user-check"></i></p></span>
-                                        </h1>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="card">
-                                    <div class="card-header">
-                                        Pending Tenants
-                                    </div>
-                                    <div class="card-body">
-                                    <h1 class="text-center">{{ $pending_tenants->count() }}
-                                            <span class="text-right"><p><i class="fas fa-user-clock"></i></p></span>
-                                        </h1>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="card">
-                                    <div class="card-header">
-                                        Unit Owners
-                                    </div>
-                                    <div class="card-body">
-                                    <h1 class="text-center">{{ $investors->count() }}
-                                            <span class="text-right"><p><i class="fas fa-user-tie"></i></p></span>
-                                        </h1>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="card bg-danger">
-                                    <div class="card-header">
-                                        Pending Job Orders
-                                    </div>
-                                    <div class="card-body">
-                                    <h1 class="text-center">0
-                                            <span class="text-right"><p><i class="fas fa-tools"></i></p></span>
-                                        </h1>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <?php $ctr = 1; ?>
-                                <h4>tenants to watch out </h4>
-                                <table class="table table-bordered">
-                                    <tr>
-                                        <th class="text-center">#</th>
-                                        <th>name</th>
-                                        <th>contact no</th>
-                                        <th>unit no</th>
-                                        <th colspan="3"></th>
-                                    </tr>
+      </li> --}}
 
-                                   @foreach($tenants_to_watch_out as $item)
-                                   <?php
-                                            $diffInMonths =  number_format(Carbon\Carbon::now()->floatDiffInMonths(Carbon\Carbon::parse($item->moveout_date), false));
-                                            $diffInDays =  number_format(Carbon\Carbon::now()->DiffInDays(Carbon\Carbon::parse($item->moveout_date), false));
-                                    ?>
-                                    @if($diffInDays <= 30 )
-                                    <tr>
-                                        <th class="text-center">{{ $ctr++ }}</th>
-                                        <td>
-                                            @if (Auth::user()->user_type === 'admin')
-                                            <a href="{{ route('show-tenant',['unit_id' => $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a>
-                                            @elseif(Auth::user()->user_type === 'treasury')
-                                            <a href="/units/{{ $item->unit_tenant_id }}/tenants/{{ $item->tenant_id }}/payments">{{ $item->first_name.' '.$item->last_name }}</a>
-                                            @else
-                                            {{ $item->first_name.' '.$item->last_name }}
-                                            @endif
-                                        </td>
-                                        <td>{{ $item->contact_no }}</td>
-                                        <td>{{ $item->building.' '.$item->unit_no }}</td>
-                                        <td colspan="2">
-                                            @if($diffInDays <= -1)
-                                            <a class="badge badge-danger">contract has lapsed {{ $diffInDays*-1 }} days ago</a>
-                                             @else
-                                            <a class="badge badge-warning">contract expires in {{ $diffInDays }} days </a>
-                                             @endif
-                                        </td>
-                                        <td>{{ $item->tenants_note  }}</td>
-                                   </tr>
-                                    @endif
-                                   @endforeach
-                                </table>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h4>reservations ({{ $reservations->count() }}) </h4>
-                                <table class="table table-bordered">
-                                    <tr>
-                                        <th class="text-center">#</th>
-                                        <th>name</th>
-                                        <th>unit no</th>
-                                        <th>reserved via</th>
-                                        <th>contact no</th>
-                                        <th>reservation date</th>
-                                    </tr>
-                                   <?php $ctr = 1; ?>
-                                   @foreach($reservations as $item)
-                                    <tr>
-                                        <th class="text-center">{{ $ctr++ }}</th>
-                                         <td>
-                                            @if (Auth::user()->user_type === 'admin')
-                                            <a href="{{ route('show-tenant',['unit_id' => $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a>
-                                            @elseif(Auth::user()->user_type === 'treasury')
-                                            <a href="/units/{{ $item->unit_tenant_id }}/tenants/{{ $item->tenant_id }}/payments">{{ $item->first_name.' '.$item->last_name }}</a>
-                                            @else
-                                            {{ $item->first_name.' '.$item->last_name }}
-                                            @endif
-                                        </td>
-                                        <td>{{ $item->building.' '.$item->unit_no }}</td>
-
-                                        <td>{{ $item->contact_no }}</td>
-                                        <td>{{ Carbon\Carbon::parse($item->created_at)->format('M d Y') }}</td>
-                                    </tr>
-                                   @endforeach
-                                </table>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-md-6"></div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="card">
-                                    <div class="card-body">
-                                        {!! $renewed_chart->container() !!}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <h4>retention</h4>
-                                        <table class="table table-bordered">
-                                            <tr>
-                                                <th class="text-center">#</th>
-                                                <th>name</th>
-                                                <th>unit no</th>
-                                                <th></th>
-                                            </tr>
-                                           <?php $ctr = 1; ?>
-                                           @foreach($renewed_contracts->take(3) as $item)
-                                            <tr>
-                                                <th class="text-center">{{ $ctr++ }}</th>
-                                                <td>
-                                                    @if(Auth::user()->user_type === 'admin')
-                                                    <a href="{{ route('show-tenant',['unit_id' => $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a>
-                                                    @elseif(Auth::user()->user_type === 'treasury')
-                                                    <a href="/units/{{ $item->unit_tenant_id }}/tenants/{{ $item->tenant_id }}/billings">{{ $item->first_name.' '.$item->last_name }}</a>
-                                                    @else
-                                                    {{ $item->first_name.' '.$item->last_name }}
-                                                    @endif
-                                                </td>
-                                                <td>{{ $item->building.' '.$item->unit_no }}</td>
-                                                <?php $renewal_history = explode(",", $item->renewal_history); ?>
-                                                <td><a class="badge badge-success">{{ $item->has_extended }} ({{ count($renewal_history)-1 }}x) {{ number_format(Carbon\Carbon::now()->DiffInDays(Carbon\Carbon::parse($item->movein_date)) ) }} days ago</a></td>
-                                           </tr>
-                                           @endforeach
-                                           @foreach($terminated_contracts->take(3) as $item)
-                                           <tr>
-                                               <th class="text-center">{{ $ctr++ }}</th>
-                                               <td>
-                                                   @if(Auth::user()->user_type === 'admin')
-                                                   <a href="{{ route('show-tenant',['unit_id' => $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a>
-                                                   @elseif(Auth::user()->user_type === 'treasury')
-                                                   <a href="/units/{{ $item->unit_tenant_id }}/tenants/{{ $item->tenant_id }}/billings">{{ $item->first_name.' '.$item->last_name }}</a>
-                                                   @else
-                                                   {{ $item->first_name.' '.$item->last_name }}
-                                                   @endif
-                                               </td>
-                                               <td>{{ $item->building.' '.$item->unit_no }}</td>
-                                               <td><a class="badge badge-danger" >terminated {{ number_format(Carbon\Carbon::now()->DiffInDays(Carbon\Carbon::parse($item->moveout_date)) ) }} days ago</a></td>
-                                          </tr>
-                                          @endforeach
-                                        </table>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="card">
-                                    {{-- <div class="card-header">
-                                        Move-in rate  <span style="float:right;">Occupancy ({{ number_format($occupied_units->count()/$units->count() * 100,2) }} %) </span>
-                                    </div> --}}
-                                    <div class="card-body">
-                                        {!! $movein_rate->container() !!}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <h4>recent tenants</h4>
-                                        <table class="table table-bordered">
-                                            <tr>
-                                                <th class="text-center">#</th>
-                                                <th>name</th>
-
-                                                <th>unit no</th>
-                                                <th></th>
-                                            </tr>
-                                           <?php $ctr = 1; ?>
-                                           @foreach($recent_movein as $item)
-                                            <tr>
-                                                <th class="text-center">{{ $ctr++ }}</th>
-                                                <td>
-                                                    @if(Auth::user()->user_type === 'admin')
-
-                                                    <a href="{{ route('show-tenant',['unit_id' => $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a> <a class="badge badge-success">{{ $item->has_extended }}</a>
-                                                    @elseif(Auth::user()->user_type === 'treasury')
-
-                                                    <a href="/units/{{ $item->unit_tenant_id }}/tenants/{{ $item->tenant_id }}/billings">{{ $item->first_name.' '.$item->last_name }}</a><a class="badge badge-success">{{ $item->has_extended }}</a>
-                                                    @else
-
-                                                    {{ $item->first_name.' '.$item->last_name }}<a class="badge badge-success">{{ $item->has_extended }}</a>
-                                                    @endif
-                                                </td>
-
-                                                <td>{{ $item->building.' '.$item->unit_no }}</td>
-                                                <td><a class="badge badge-primary">{{ number_format(Carbon\Carbon::now()->DiffInDays(Carbon\Carbon::parse($item->movein_date)) ) }} days ago</a></td>
-                                           </tr>
-                                           @endforeach
-                                        </table>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="card">
-                                    {{-- <div class="card-header">
-                                        Move-in rate  <span style="float:right;">Occupancy ({{ number_format($occupied_units->count()/$units->count() * 100,2) }} %) </span>
-                                    </div> --}}
-                                    <div class="card-body">
-                                        {!! $moveout_rate->container() !!}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <h4>terminated contracts</h4>
-                                        <table class="table table-bordered">
-                                            <tr>
-                                                <th class="text-center">#</th>
-                                                <th>name</th>
-                                                <th>unit no</th>
-                                                <th>reason</th>
-                                                <th></th>
-                                            </tr>
-                                           <?php
-                                             $ctr = 1;
-                                           ?>
-                                            @foreach($terminated_contracts->take(5) as $item)
-                                            <tr>
-                                                <th class="text-center">{{ $ctr++ }}</th>
-                                                <td>
-                                                    @if(Auth::user()->user_type === 'admin')
-                                                    <a href="{{ route('show-tenant',['unit_id' => $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a> <a class="badge badge-success">{{ $item->has_extended }}</a>
-                                                    @elseif(Auth::user()->user_type === 'treasury')
-                                                    <a href="/units/{{ $item->unit_tenant_id }}/tenants/{{ $item->tenant_id }}/billings">{{ $item->first_name.' '.$item->last_name }}</a><a class="badge badge-success">{{ $item->has_extended }}</a>
-                                                    @else
-                                                    {{ $item->first_name.' '.$item->last_name }}<a class="badge badge-success">{{ $item->has_extended }}</a>
-                                                    @endif
-                                                </td>
-                                                <td>{{ $item->building.' '.$item->unit_no }}</td>
-                                                <td>{{ $item->reason_for_moving_out }}</td>
-                                                <td><a class="badge badge-danger">{{ number_format(Carbon\Carbon::now()->DiffInDays(Carbon\Carbon::parse($item->moveout_date)) ) }} days ago</a></td>
-                                           </tr>
-                                           @endforeach
-                                        </table>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="card">
-                                    <div class="card-body">
-                                        {!! $collection_rate->container() !!}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <h4>delinquents ({{ $delinquent_accounts->count() }})</h4>
-                                        <table class="table table-bordered">
-                                            <tr>
-                                                <th class="text-center">#</th>
-                                                <th>name</th>
-                                                <th>unit no</th>
-                                                <th>balance</th>
-                                            </tr>
-                                            <?php
-                                            $ctr = 1;
-                                            ?>
-                                            @foreach ($delinquent_accounts as $item)
-                                            <tr>
-                                                <th class="text-center">{{ $ctr++ }}</th>
-                                                <td><a href="/units/{{ $item->unit_tenant_id }}/tenants/{{ $item->tenant_id }}/billings">{{ $item->first_name.' '.$item->last_name }}</a></td>
-                                                <td>{{$item->building.' '.$item->unit_no }}</td>
-                                                <td>{{ number_format($item->total_bills,2) }}</td>
-                                            </tr>
-                                            @endforeach
-                                        </table>
-                            </div>
-                        </div>
-                        <br>
-                    </div>
-                </div>
-            </div>
-            <div class="tab-pane fade" id="units" role="tabpanel" aria-labelledby="v-pills-units-tab">
-                <div class="card">
-                    <div class="card-body">
-                <ul class="nav nav-pills mb-3 text-right" id="pills-tab" role="tablist">
-                <li class="nav-item">
-                  <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#all" role="tab" aria-controls="pills-home" aria-selected="true"><i class="fas fa-home"></i> all <span class="badge badge-light">{{ $leasing_units->count() }}</span></a>
-                </li>
-                @foreach ($units_per_status as $item)
-                    <li class="nav-item">
-                        @if($item->status==='occupied')
-                        <a class="nav-link" id="pills-{{ $item->status }}-tab" data-toggle="pill" href="#{{ $item->status }}" role="tab" aria-controls="pills-{{ $item->status }}" aria-selected="false"><i class="fas fa-house-user"></i> {{ $item->status }} <span class="badge badge-light">{{ $item->count }}</span> </a>
-                        @elseif($item->status==='vacant')
-                        <a class="nav-link" id="pills-{{ $item->status }}-tab" data-toggle="pill" href="#{{ $item->status }}" role="tab" aria-controls="pills-{{ $item->status }}" aria-selected="false"><i class="fas fa-home"></i> {{ $item->status }} <span class="badge badge-light">{{ $item->count }}</span> </a>
-                        @else
-                        <a class="nav-link" id="pills-{{ $item->status }}-tab" data-toggle="pill" href="#{{ $item->status }}" role="tab" aria-controls="pills-{{ $item->status }}" aria-selected="false"><i class="fas fa-laptop-house"></i> {{ $item->status }} <span class="badge badge-light">{{ $item->count }}</span> </a>
-                        @endif
-                    </li>
-                @endforeach
-              </ul>
-              <div class="tab-content" id="pills-tabContent">
-                <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="pills-home-tab">
-                    <div class="row border-rounded">
-                        <table class="table">
-                            <tr>
-                                <td>
-                                    @foreach ($leasing_units as $item)
-                                        @if($item->status === 'vacant')
-                                            <a title="{{ $item->type_of_units }}" href="/units/{{$item->unit_id}}" class="btn btn-secondary">
-                                                <i class="fas fa-home fa-2x"></i>
-                                                <br>
-                                                <font size="-3" >{{ $item->unit_no }} </font>
-                                            </a>
-                                        @elseif($item->status=== 'reserved')
-                                            <a title="{{ $item->type_of_units }}" href="/units/{{$item->unit_id}}" class="btn btn-warning">
-                                                <i class="fas fa-home fa-2x"></i>
-                                                <br>
-                                                <font size="-3">{{ $item->unit_no }} </font>
-                                            </a>
-                                        @elseif($item->status=== 'occupied')
-                                            <a title="{{ $item->type_of_units }}" href="/units/{{$item->unit_id}}" class="btn btn-primary">
-                                                <i class="fas fa-home fa-2x"></i>
-                                                <br>
-                                                <font size="-3">{{ $item->unit_no }} </font>
-                                            </a>
-                                        @endif
-                                    @endforeach
-                                </td>
-                                <br>
-                            </tr>
-                        </table>
-                </div>
-                </div>
-                @foreach ($units_per_status as $item)
-                <div class="tab-pane fade" id="{{ $item->status }}" role="tabpanel" aria-labelledby="pills-{{ $item->status }}-tab">
-                    <div class="row border-rounded">
-                        <table class="table">
-                            <tr>
-                                <td>
-                                    @foreach ($leasing_units as $unit)
-                                        @if($unit->status === $item->status)
-                                                @if($unit->status === 'vacant')
-                                                <a title="{{ $unit->type_of_units }}" href="/units/{{$unit->unit_id}}" class="btn btn-secondary">
-                                                    <i class="fas fa-home fa-2x"></i>
-                                                    <br>
-                                                    <font size="-3">{{ $unit->unit_no }}</font>
-                                                </a>
-                                                @elseif($item->status=== 'reserved')
-                                                <a title="{{ $unit->type_of_units }}" href="/units/{{$unit->unit_id}}" class="btn btn-warning">
-                                                    <i class="fas fa-home fa-2x"></i>
-                                                    <br>
-                                                    <font size="-3">{{ $unit->unit_no }} </font>
-                                                </a>
-                                                @elseif($item->status=== 'occupied')
-                                                <a title="{{ $unit->type_of_units }}" href="/units/{{$unit->unit_id}}" class="btn btn-primary">
-                                                    <i class="fas fa-home fa-2x"></i>
-                                                    <br>
-                                                    <font size="-3">{{ $unit->unit_no }} </font>
-                                                </a>
-                                            @endif
-                                        @endif
-                                    @endforeach
-                                </td>
-                                <br>
-                            </tr>
-                        </table>
-                </div>
-                </div>
-                @endforeach
-              </div>
-                    </div>
-                </div>
-            </div>
-
-            @foreach ($units_per_building as $item)
-            <div class="tab-pane fade" id="{{ $item->building }}" role="tabpanel" aria-labelledby="pills-{{ $item->building }}-tab">
-                <div class="card">
-                    <div class="card-body">
-                        <ul class="nav nav-pills mb-3 text-right" id="pills-tab" role="tablist">
-                            @foreach ($units_per_status as $status)
-                            <li class="nav-item">
-                                @if($status->status==='occupied')
-                                <a class="nav-link" id="pills-{{ $item->building.'#'.$status->status }}-tab" data-toggle="pill" href="#{{ $item->building.'#'.$status->status }}" role="tab" aria-controls="pills-{{ $item->building.'#'.$status->status }}" aria-selected="false"><i class="fas fa-house-user"></i> {{ $status->status }} <span class="badge badge-light"></span></a>
-                                @elseif($status->status==='vacant')
-                                <a class="nav-link" id="pills-{{ $item->building.'#'.$status->status }}-tab" data-toggle="pill" href="#{{ $item->building.'#'.$status->status }}" role="tab" aria-controls="pills-{{ $item->building.'#'.$status->status }}" aria-selected="false"><i class="fas fa-home"></i>  {{ $status->status }} <span class="badge badge-light"></span></a>
-                                @else
-                                <a class="nav-link" id="pills-{{ $item->building.'#'.$status->status }}-tab" data-toggle="pill" href="#{{ $item->building.'#'.$status->status }}" role="tab" aria-controls="pills-{{ $item->building.'#'.$status->status }}" aria-selected="false"><i class="fas fa-laptop-house"></i> {{ $status->status }} <span class="badge badge-light"></span></a>
-                                @endif
-                            </li>
-                            @endforeach
-                        </ul>
-                            <table class="table">
-                                <tr>
-                                    <td>
-                                        @foreach ($leasing_units as $unit)
-                                            @if($unit->building === $item->building)
-                                                    @if($unit->status === 'vacant')
-                                                    <a title="{{ $unit->type_of_units }}" href="/units/{{$unit->unit_id}}" class="btn btn-secondary">
-                                                        <i class="fas fa-home fa-2x"></i>
-                                                        <br>
-                                                        <font size="-3">{{ $unit->unit_no }} </font>
-                                                    </a>
-                                                    @elseif($unit->status=== 'reserved')
-                                                    <a title="{{ $unit->type_of_units }}" href="/units/{{$unit->unit_id}}" class="btn btn-warning">
-                                                        <i class="fas fa-home fa-2x"></i>
-                                                        <br>
-                                                        <font size="-3">{{ $unit->unit_no }} </font>
-                                                    </a>
-                                                    @elseif($unit->status=== 'occupied')
-                                                    <a title="{{ $unit->type_of_units }}" href="/units/{{$unit->unit_id}}" class="btn btn-primary">
-                                                        <i class="fas fa-home fa-2x"></i>
-                                                        <br>
-                                                        <font size="-3">{{ $unit->unit_no }} </font>
-                                                    </a>
-                                                @endif
-                                            @endif
-                                        @endforeach
-                                    </td>
-                                    <br>
-                                </tr>
-                            </table>
-                    </div>
-                </div>
-            </div>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+          <i class="fas fa-home fa-cog"></i>
+          <span>Residential</span>
+          
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            {{-- <h6 class="collapse-header">Custom Components:</h6> --}}
+            @foreach ($units_per_building_residential as $item)
+            <a class="collapse-item" href="#">{{ $item->building }}</a>
             @endforeach
-
-            <div class="tab-pane fade" id="residential-units" role="tabpanel" aria-labelledby="v-pills-residential-units-tab">
-                <div class="card">
-                    <div class="card-body">
-                        <ul class="nav nav-pills mb-3 text-right" id="pills-tab" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active" id="pills-residential-units--tab" data-toggle="pill" href="#residential-units" role="tab" aria-controls="pills-home" aria-selected="true"><i class="fas fa-home"></i> all <span class="badge badge-light">{{ $residential_units->count() }}</span></a>
-                              </li>
-                            @foreach ($units_per_building_residential as $building)
-                            <li class="nav-item">
-                                <a class="nav-link" id="pills-residential-units-{{ $item->building }}-tab" data-toggle="pill" href="#residential-units-{{ $item->building }}" role="tab" aria-controls="pills-residential-units-{{ $item->building }}" aria-selected="false"><i class="fas fa-house-user"></i> {{ $building->building }} <span class="badge badge-light"></span></a>
-                            </li>
-                            @endforeach
-                        </ul>
-              <div class="tab-content" id="pills-tabContent">
-                <div class="tab-pane fade show active" id="residential-units" role="tabpanel" aria-labelledby="pills-residential-units--tab">
-                    <div class="row border-rounded">
-                        <table class="table">
-                            <tr>
-                                <td>
-                                    @foreach ($residential_units as $item)
-                                    <a title="{{ $item->type_of_units }}" href="/units/{{$item->unit_id}}" class="btn btn-secondary">
-                                        <i class="fas fa-home fa-2x"></i>
-                                        <br>
-                                        <font size="-3" >{{ $item->unit_no }} </font>
-                                    </a>
-                                    @endforeach
-                                </td>
-                                <br>
-                            </tr>
-                        </table>
-                </div>
-                </div>
-                @foreach ($units_per_building_residential as $item)
-                <div class="tab-pane fade" id="residential-units-{{ $item->building }}" role="tabpanel" aria-labelledby="pills-residential-units-{{ $item->building }}-tab">
-                    <div class="row border-rounded">
-                        <table class="table">
-                            <tr>
-                                <td>
-                                    @foreach ($residential_units as $unit)
-                                        @if($unit->building === $item->building)
-                                        <a title="{{ $unit->type_of_units }}" href="/units/{{$unit->unit_id}}" class="btn btn-secondary">
-                                            <i class="fas fa-home fa-2x"></i>
-                                            <br>
-                                            <font size="-3">{{ $unit->unit_no }}</font>
-                                        </a>
-                                        @endif
-                                    @endforeach
-                                </td>
-                                <br>
-                            </tr>
-                        </table>
-                </div>
-                </div>
-                @endforeach
-              </div>
-                    </div>
-                </div>
-            </div>
-
-
-            {{-- display tenants --}}
-            <div class="tab-pane fade" id="tenants" role="tabpanel" aria-labelledby="v-pills-tenants-tab">
-                <div class="card">
-                    <div class="card-body">
-                        <h4>Tenants <i class="fas fa-user"></i></h4>
-                        <br>
-                        <div class="justify-content-center">
-                            <form action="tenants/search" method="GET" >
-                                @csrf
-                                <div class="input-group">
-                                    <input type="text" class="form-control" name="search" placeholder="enter tenant name" value="{{ session('search_tenant') }}">
-                                </div>
-                            </form>
-                            <br>
-
-                                <table class="table table-striped">
-                                     <tr>
-                                        <th class="text-center">#</th>
-                                        <th>name</th>
-                                        <th>unit no</th>
-                                        <th>contact no</th>
-                                        <th>monthly rent</th>
-                                        <th>contract</th>
-                                        </tr>
-                                    <?php $ctr = 1;?>
-
-                                    @foreach ($tenants as $item)
-                                    <tr>
-                                        <th class="text-center">{{ $ctr++ }}</th>
-                                        <td><a href="{{ route('show-tenant',['unit_id'=> $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a>
-                                            @if($item->tenant_status === 'active')
-                                            <a class="badge badge-primary">{{ $item->tenant_status }}</a>
-                                            @elseif($item->tenant_status === 'inactive')
-                                            <a class="badge badge-secondary">{{ $item->tenant_status }}</a>
-                                            @else
-                                            <a class="badge badge-warning">{{ $item->tenant_status }}</a>
-                                            @endif
-                                        </td>
-                                        <td>{{ $item->building.' '.$item->unit_no }}</td>
-                                        <td>{{ $item->contact_no }}</td>
-                                        <td>{{ number_format($item->tenant_monthly_rent,2) }}</td>
-                                        <td>{{ Carbon\Carbon::parse($item->movein_date)->format('M d Y').' - '.Carbon\Carbon::parse($item->moveout_date)->format('M d Y') }}</td>
-                                    </tr>
-                                    @endforeach
-
-                                 </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {{-- display investors --}}
-            <div class="tab-pane fade" id="investors" role="tabpanel" aria-labelledby="v-pills-investors-tab">
-                <div class="card">
-                    <div class="card-body">
-                        <h4>Unit Owners <i class="fas fa-user-tie"></i></h4>
-                        <br>
-                        <div class="justify-content-center">
-                            <form action="/unit_owners/search" method="GET" >
-                                @csrf
-                                <div class="input-group">
-                                    <input type="text" class="form-control" name="search" placeholder="enter investor name" value="{{ session('search_unit_owners') }}">
-                                </div>
-                            </form>
-                            <br>
-                                <table class="table table-striped">
-                                    <thead>
-                                    <tr>
-                                        <th class="text-center">#</th>
-                                        <th>name</th>
-                                        <th>unit no</th>
-                                        <th>contact no</th>
-                                        <th>contract expires on</th>
-                                    </tr>
-                                    </thead>
-                                    <?php
-                                      $ctr = 1;
-                                    ?>
-                                    <tbody>
-                                    @foreach ($investors as $item)
-                                    <tr>
-                                        <th class="text-center">{{ $ctr++ }}</th>
-                                        <td><a href="{{ route('show-investor',['unit_id'=> $item->unit_id, 'unit_owner_id'=>$item->unit_owner_id]) }}">{{ $item->unit_owner }} </a></td>
-                                        <td>{{ $item->building.' '.$item->unit_no }}</td>
-                                        <td>{{ $item->investor_contact_no }}</td>
-                                       <td>{{ Carbon\Carbon::parse($item->contract_end)->format('M d Y') }}</td>
-                                    </tr>
-                                    @endforeach
-                                    </tbody>
-                                 </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {{-- display job orders --}}
-            <div class="tab-pane fade" id="joborders" role="tabpanel" aria-labelledby="v-pills-joborders-tab">
-                <div class="card">
-                    <div class="card-body">
-                        <h4>Job Orders <i class="fas fa-tools"></i> </h4>
-                        <br>
-                        <div class="justify-content-center">
-                            <form action="tenants/search" method="GET" >
-                                @csrf
-                                <div class="input-group">
-                                    <input type="text" class="form-control" name="search" placeholder="enter tenant name" value="{{ session('search_tenant') }}">
-                                </div>
-                            </form>
-                            <br>
-
-                                <table class="table table-striped">
-                                     <tr>
-                                        <th class="text-center">#</th>
-                                        <th>name</th>
-                                        <th>unit no</th>
-                                        <th>contact no</th>
-                                        <th>monthly rent</th>
-                                        <th>contract expires in</th>
-                                        </tr>
-                                    <?php $ctr = 1;?>
-
-                                    @foreach ($tenants as $item)
-                                    <tr>
-                                        <th class="text-center">{{ $ctr++ }}</th>
-                                        <td><a href="{{ route('show-tenant',['unit_id'=> $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a>
-                                            @if($item->tenant_status === 'active')
-                                            <a class="badge badge-primary">{{ $item->tenant_status }}</a>
-                                            @elseif($item->tenant_status === 'inactive')
-                                            <a class="badge badge-secondary">{{ $item->tenant_status }}</a>
-                                            @else
-                                            <a class="badge badge-warning">{{ $item->tenant_status }}</a>
-                                            @endif
-                                        </td>
-                                        <td>{{ $item->building.' '.$item->unit_no }}</td>
-                                        <td>{{ $item->contact_no }}</td>
-                                        <td>{{ number_format($item->tenant_monthly_rent,2) }}</td>
-                                        <td>{{ Carbon\Carbon::parse($item->movein_date)->format('M d Y').' - '.Carbon\Carbon::parse($item->moveout_date)->format('M d Y') }}</td>
-                                    </tr>
-                                    @endforeach
-
-                                 </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {{-- display billings --}}
-            <div class="tab-pane fade" id="billings" role="tabpanel" aria-labelledby="v-pills-billings-tab">
-                <div class="card">
-                    <div class="card-body">
-
-                       <h4> Billings <i class="fas fa-file-invoice-dollar"></i></h4>
-                       <form id="billingRentForm" action="/tenants/billings" method="POST">
-                            @csrf
-                        </form>
-                        <form id="billingElectricForm" action="/tenants/billings" method="POST">
-                            @csrf
-                        </form>
-                        <form id="billingWaterForm" action="/tenants/billings" method="POST">
-                            @csrf
-                        </form>
-                        <form id="billingSurchargeForm" action="/tenants/billings" method="POST">
-                            @csrf
-                        </form>
-                       <span style="float:right;">
-                        <button type="submit" form="billingRentForm" class="btn btn-primary"><i class="fas fa-plus"></i> rent</button>
-                        <input type="hidden" form="billingRentForm" name="billing_option" value="rent">
-                        <button type="submit" form="billingElectricForm" class="btn btn-primary"><i class="fas fa-plus"></i> electric</button>
-                        <input type="hidden" form="billingElectricForm" name="billing_option" value="electric">
-                        <button type="submit" form="billingWaterForm" class="btn btn-primary"><i class="fas fa-plus"></i> water</button>
-                        <input type="hidden" form="billingWaterForm" name="billing_option" value="water">
-                        <button type="submit" form="billingSurchargeForm" class="btn btn-primary"><i class="fas fa-plus"></i> surcharge</button>
-                        <input type="hidden" form="billingSurchargeForm" name="billing_option" value="surcharge">
-                       </span>
-                        <br><br>
-                        <div class="row text-center">
-                            <div class="col-md-4">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <b>Expected Collection</b>
-                                    </div>
-                                    <div class="card-body">
-                                        <h2>{{ number_format($expected_collection,2) }}</h2>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <b>Actual Collection</b>
-                                    </div>
-                                    <div class="card-body">
-                                        <h2>{{ number_format($actual_collection,2) }}</h2>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <b>Uncollected Amount</b>
-                                    </div>
-                                    <div class="card-body">
-                                        <h2>{{ number_format($uncollected_amount,2) }}</h2>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-md-12">
-                                    <h4>delinquents ({{ $delinquent_accounts->count() }})</h4>
-                                        <table class="table table-bordered table-striped">
-                                            <tr>
-                                                <th class="text-center">#</th>
-                                                <th>name</th>
-                                                <th>contact no</th>
-                                                <th>unit no</th>
-                                                <th>amount</th>
-                                            </tr>
-                                            <?php
-                                            $ctr = 1;
-                                            ?>
-                                            @foreach ($delinquent_accounts as $item)
-
-                                            <tr>
-                                                <th class="text-center">{{ $ctr++ }}</th>
-                                                <td><a href="/units/{{ $item->unit_tenant_id }}/tenants/{{ $item->tenant_id }}/billings">{{ $item->first_name.' '.$item->last_name }}</a></td>
-                                                <td>{{ $item->contact_no }}</td>
-                                                <td>{{ $item->building.' '.$item->unit_no }}</td>
-                                                <td>{{ number_format($item->total_bills,2) }}</td>
-                                            </tr>
-                                            @endforeach
-
-                                        </table>
-                            </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                       <div class="col-md-12">
-                           <h4>recent payments </h4>
-                        <table class="table table-bordered table-striped">
-                            <tr>
-                                <th class="text-center">#</th>
-                                <th>date</th>
-                                <th>name</>
-                                <th>status</th>
-                                <th>unit no</th>
-                                <th>description</th>
-                                <th>amount</th>
-
-                            </tr>
-                           <?php
-                             $ctr = 1;
-                           ?>
-                           @foreach ($recent_payments as $tenant)
-                            <tr>
-                                <th class="text-center">{{ $ctr++ }}</th>
-                                <td>{{ Carbon\Carbon::parse($tenant->payment_created)->format('M d Y') }}</td>
-                                <td><a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/billings">{{ $tenant->first_name.' '.$tenant->last_name }}</a></td>
-                                <td>
-                                 @if($tenant->tenant_status === 'active')
-                                    <a class="badge badge-primary">{{ $tenant->tenant_status }}</a>
-                                    @elseif($tenant->tenant_status === 'inactive')
-                                    <a class="badge badge-secondary">{{ $tenant->tenant_status }}</a>
-                                    @else
-                                    <a class="badge badge-warning">{{ $tenant->tenant_status }}</a>
-                                    @endif
-                                </td>
-                                <td>{{ $tenant->building.' '.$tenant->unit_no }}</td>
-                                <td>
-                                @if ($tenant->payment_note === 'Security Deposit (Utilities), Security Deposit (Rent),Advance Rent')
-                                    Move-in Charges
-                                @else
-                                {{ $tenant->payment_note }}
-                                @endif
-                                </td>
-                                <td>{{ number_format($tenant->amt_paid,2) }}</td>
-                            </tr>
-                           @endforeach
-                        </table>
-                       </div>
-                    </div>
-                    </div>
-                </div>
-            </div>
-
-            {{-- display payments --}}
-            <div class="tab-pane fade" id="payments" role="tabpanel" aria-labelledby="v-pills-payments-tab">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row">
-                          <div class="col">
-                            <a class="btn btn-primary" href="/tenants/search"><i class="fas fa-plus"></i> collect payments</a>
-                            <a class="btn btn-primary" href="/payments/all"><i class="fas fa-search-dollar"></i> see all payments</a>
-                          </div>
-                        </div>
-                        <br>
-                       <div class="row">
-                           <div class="col-md-12">
-                            <table class="table table-striped table-bordered">
-                                <tr>
-                                   <th>#</th>
-                                   <th>name</th>
-                                   <th>unit no</th>
-                                   <th>form of payment</th>
-                                   <th>amount</th>
-                                   <th></th>
-                               </tr>
-                               <?php $ctr = 1; ?>
-                               @if($payments->count() <= 0)
-                               <tr>
-                                   <td colspan="6" class="text-center">No payments found today!</td>
-                               </tr>
-                               @else
-                               @foreach ($payments as $item)
-                               <tr>
-                                   <th>{{ $ctr++ }}</th>
-                                   <td>{{ $item->first_name.' '.$item->last_name }}</td>
-                                   <td>{{ $item->building.' '.$item->unit_no }}</td>
-                                   <td>{{ $item->form_of_payment }}</td>
-                                   <td>{{ number_format($item->amt_paid,2) }}</td>
-                                   <td><a href="/units/{{ $item->unit_tenant_id }}/tenants/{{ $item->tenant_id }}/payments/{{ $item->payment_id }}">View Details</a></td>
-                               </tr>
-                               @endforeach
-                               <th colspan="4">TOTAL</th>
-                               <th>{{ number_format($payments->sum('amt_paid'),2) }}</th>
-                               <td></td>
-                               @endif
-                            </table>
-                           </div>
-                       </div>
-
-                        <br>
-                        <div class="row">
-                           <div class="col">
-                                <h5> delinquents ({{ $delinquent_accounts->count() }})</h5>
-                                   <table class="table table-bordered table-striped">
-                                        <tr>
-                                            <th class="text-center">#</th>
-                                            <th>name</th>
-                                            <th>contact no</th>
-                                            <th>unit no</th>
-                                            <th>balance</th>
-                                        </tr>
-                                        <?php $ctr = 1; ?>
-                                        @foreach ($delinquent_accounts as $item)
-                                        <tr>
-                                            <th class="text-center">{{ $ctr++ }}</th>
-                                            <td><a href="{{ route('show-billings',['unit_id' => $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a></td>
-                                            <td>{{ $item->contact_no }}</td>
-                                            <td>{{ $item->building.' '.$item->unit_no }}</td>
-                                            <td>{{ number_format($item->total_bills,2) }}</td>
-                                        </tr>
-                                        @endforeach
-                                    </table>
-                           </div>
-                        </div>
-                       <br>
-                    </div>
-                </div>
-            </div>
-
-             {{-- display users --}}
-             <div class="tab-pane fade" id="users" role="tabpanel" aria-labelledby="v-pills-users-tab">
-                <div class="card">
-                    <div class="card-body">
-                        <h4>Users <i class="fas fa-user-secret"></i></h4>
-                        <div class="row">
-                            <div class="col">
-
-                               <p class="text-right">
-                                @if($users->count() > 3)
-                                <a href="#" title="Reach the limit for creating users. You can only add 4 users per property. " class="btn btn-primary"> <i class="fas fa-user-plus"></i> user</a>
-                                @else
-                                <a class="btn btn-primary" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1"> <i class="fas fa-user-plus"></i> user</a>
-                                @endif
-                               </p>
-
-                            </div>
-                        </div>
-
-                                  <div class="row">
-                                    <div class="col">
-                                      <div class="collapse multi-collapse" id="multiCollapseExample1">
-                                        <div class="card card-body">
-                                            <form id="addUserForm" action="/users" method="POST">
-                                                {{ csrf_field() }}
-                                            </form>
-                                            <div class="row">
-                                                <div class="col">
-                                                    <label for="recipient-name" class="col-form-label"><b>name</b></label>
-                                                    <input form="addUserForm" type="text" class="form-control" name="name" required>
-                                                </div>
-                                                <div class="col">
-                                                    <label for="recipient-name" class="col-form-label"><b>email</b></label>
-                                                    <input form="addUserForm" type="email" class="form-control" name="email" required>
-                                                </div>
-                                                <div class="col">
-                                                    <label for="recipient-name" class="col-form-label"><b>user type</b></label>
-                                                    <select class="form-control" form="addUserForm" name="user_type" required>
-                                                        <option value="">Please select one</option>
-                                                        <option value="admin">admin</option>
-                                                        <option value="billing">billing</option>
-                                                        <option value="manager">manager</option>
-                                                        <option value="treasury">treasury</option>
-                                                        <option value="root">root</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col">
-                                                    <label for="recipient-name" class="col-form-label"><b>status</b></label>
-                                                    <select class="form-control" form="addUserForm" name="status" required>
-                                                        <option value="">Please select one</option>
-                                                        <option value="registered">registered</option>
-                                                        <option value="unregistered">unregistered</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col">
-                                                    <label for="recipient-name" class="col-form-label"><b>property</b></label>
-                                                    <input form="addUserForm" type="text" class="form-control" name="property" value="{{ Auth::user()->property }}" required>
-                                                </div>
-                                            </div>
-                                            <br>
-                                            <div class="">
-                                                <p class="text-right">
-                                                    <button type="submit" form="addUserForm" class="btn btn-primary" ><i class="fas fa-check"></i> add</button>
-                                                </p>
-
-                                            </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                           <div class="col">
-                            {{-- <form action="users/search" method="GET" >
-                                @csrf
-                                <div class="input-group">
-                                    <input type="text" class="form-control col-md-3" name="search" placeholder="enter user name" value="{{ session('search_user') }}">
-                                    &nbsp&nbsp<button type="submit" class="btn btn-primary"><i class="fas fa-search"></i> search</button>
-                                </div>
-                            </form>
-                            <br> --}}
-
-                                <table class="table table-striped">
-                                     <tr>
-                                        <th class="text-center">#</th>
-                                        <th>name</th>
-                                        <th>email</th>
-                                        <th>user type</th>
-                                        <th>status</th>
-                                        <th>property</th>
-                                        <th></th>
-                                        </tr>
-                                    <?php $ctr = 1;?>
-                                    @foreach ($users as $item)
-                                    <tr>
-                                        <th class="text-center">{{ $ctr++ }}</th>
-                                        <td>{{ $item->name }}</td>
-                                        <td>{{ $item->email }}</td>
-                                        <td>{{ $item->user_type }}</td>
-                                        <td>
-                                            @if($item->status === 'registered')
-                                            <a class="badge badge-success">{{ $item->status }}</a>
-                                            @else
-                                            <a class="badge badge-danger">{{ $item->status }}</a>
-                                            @endif
-                                        </td>
-                                        <td>{{ $item->property }}</td>
-                                        <td>
-                                            @if($item->user_type === 'admin')
-                                            @else
-                                            <form action="/users/{{ $item->id }}" method="POST">
-                                                {{ csrf_field() }}
-                                                @method('delete')
-                                                <button class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this user?');" type="submit" ><i class="far fa-trash-alt"></i></button>
-                                                </form>
-                                            @endif
-                                      </td>
-                                    </tr>
-                                    @endforeach
-
-                                 </table>
-                           </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
           </div>
         </div>
+      </li>
+
+
+      <!-- Divider -->
+      {{-- <hr class="sidebar-divider"> --}}
+
+      {{-- <!-- Heading -->
+      <div class="sidebar-heading">
+        Addons
+      </div> --}}
+
+      <!-- Nav Item - Pages Collapse Menu -->
+      {{-- <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
+          <i class="fas fa-fw fa-folder"></i>
+          <span>Pages</span>
+        </a>
+        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Login Screens:</h6>
+            <a class="collapse-item" href="login.html">Login</a>
+            <a class="collapse-item" href="register.html">Register</a>
+            <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
+            <div class="collapse-divider"></div>
+            <h6 class="collapse-header">Other Pages:</h6>
+            <a class="collapse-item" href="404.html">404 Page</a>
+            <a class="collapse-item" href="blank.html">Blank Page</a>
+          </div>
+        </div>
+      </li> --}}
+
+      <!-- Nav Item - Charts -->
+
+      <li class="nav-item">
+        <a class="nav-link" href="#">
+          <i class="fas fa-user fa-chart-area"></i>
+          <span>Tenants</span></a>
+      </li>
+
+      <!-- Nav Item - Tables -->
+      <li class="nav-item">
+        <a class="nav-link" href="tables.html">
+          <i class="fas fa-user-tie fa-table"></i>
+          <span>Unit Owners</span></a>
+      </li>
+
+       <!-- Nav Item - Tables -->
+       <li class="nav-item">
+        <a class="nav-link" href="tables.html">
+          <i class="fas fa-tools fa-table"></i>
+          <span>Job Orders</span></a>
+      </li>
+
+       <!-- Nav Item - Tables -->
+       <li class="nav-item">
+        <a class="nav-link" href="tables.html">
+          <i class="fas fa-user-secret fa-table"></i>
+          <span>Users</span></a>
+      </li>
+      
+
+      <!-- Divider -->
+      <hr class="sidebar-divider d-none d-md-block">
+
+      <!-- Sidebar Toggler (Sidebar) -->
+      <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
       </div>
 
-      <div class="modal fade" id="addUnit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-md" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Add Room/Unit</h5>
+    </ul>
+    <!-- End of Sidebar -->
 
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            </div>
-            <div class="modal-body">
-                <form id="addUnitForm" action="/units/add" method="POST">
-                    {{ csrf_field() }}
-                </form>
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
 
-                <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">enter name of the building</label>
-                    <input form="addUnitForm" type="text" class="form-control" name="building" placeholder="Building-A" required>
-                    <small class="text-danger">please put hyphen(-) between spaces</small>
-                </div>
+      <!-- Main Content -->
+      <div id="content">
 
-                <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">enter the floor number of the room/unit</label>
-                    <select class="form-control" form="addUnitForm" name="floor_no" id="floor_no" onkeyup="getFloorNo()" required>
-                        <option value="" selected>Please select one</option>
-                        <option value="G">Ground floor</option>
-                        <option value="1">1st floor</option>
-                        <option value="2">2nd floor</option>
-                        <option value="3">3rd floor</option>
-                        <option value="4">4th floor</option>
-                        <option value="5">5ht floor</option>
-                        <option value="6">6th floor</option>
-                        <option value="7">7th floor</option>
-                        <option value="8">8th floor</option>
-                        <option value="9">9th floor</option>
-                    </select>
-                </div>
+        <!-- Topbar -->
+        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
-                <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">select the purpose of the room/unit</label>
-                    <select form="addUnitForm" class="form-control" name="type_of_units" id="type_of_units" required>
-                        <option value="" selected>Please select one</option>
-                        <option value="leasing">leasing</option>
-                        <option value="commercial">commercial</option>
-                        <option value="residential">residential</option>
-                    </select>
-                </div>
+          <!-- Sidebar Toggle (Topbar) -->
+          <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+            <i class="fa fa-bars"></i>
+          </button>
 
-                <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">enter the unit no</label>
-                    <input form="addUnitForm" type="text" class="form-control" name="unit_no" required>
-                </div>
-
-
-                <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">enter the number of the bed/room</label>
-                    <input form="addUnitForm" type="text" class="form-control" name="beds" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">enter the monthly rent of the room/unit</label>
-                    <input form="addUnitForm" type="number" min="1" class="form-control" name="monthly_rent" id="monthly_rent" required>
-                </div>
-
-            </div>
-            <div class="modal-footer">
-                <button form="addUnitForm" type="submit" class="btn btn-primary"><i class="fas fa-check"></i> create room</button>
-                </div>
-        </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="addMultipleUnits" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-md" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel" >Add Multiple Rooms/Units</h5>
-
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            </div>
-            <div class="modal-body">
-                <form id="addUMultipleUnitForm" action="/units/add-multiple" method="POST">
-                    {{ csrf_field() }}
-                </form>
-
-                <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">enter the name of the building</label>
-                    <input form="addUMultipleUnitForm" type="text" class="form-control" name="building" placeholder="Building-A" required>
-                    <small class="text-danger">please put hyphen(-) between spaces</small>
-                </div>
-
-                <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">select the floor number</label>
-                    <select class="form-control" form="addUMultipleUnitForm" name="floor_no" id="floor_no" onkeyup="getFloorNo()" required>
-                        <option value="" selected>Please select one</option>
-                        <option value="G">Ground floor</option>
-                        <option value="1">1st floor</option>
-                        <option value="2">2nd floor</option>
-                        <option value="3">3rd floor</option>
-                        <option value="4">4th floor</option>
-                        <option value="5">5ht floor</option>
-                        <option value="6">6th floor</option>
-                        <option value="7">7th floor</option>
-                        <option value="8">8th floor</option>
-                        <option value="9">9th floor</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">select the purpose of the rooms/units</label>
-                    <select form="addUMultipleUnitForm" class="form-control" name="type_of_units" required>
-                        <option value="" selected>Please select one</option>
-                        <option value="leasing">leasing</option>
-                        <option value="commercial">commercial</option>
-                        <option value="residential">residential</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">enter the number of beds of the rooms/units</label>
-                    <input form="addUMultipleUnitForm" type="number" class="form-control" name="beds" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">enter the number of rooms/units you want to create</label>
-                    <input form="addUMultipleUnitForm" type="number" class="form-control" name="no_of_rooms"required>
-                </div>
-
-                <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">enter the initial name of the rooms/units </label>
-                    <input form="addUMultipleUnitForm" type="text" class="form-control" name="unit_no" id="unit_no" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">enter the monthly rent of the room/unit</label>
-                    <input form="addUMultipleUnitForm" type="number" min="1" class="form-control" name="monthly_rent" required>
-                </div>
-
-            </div>
-            <div class="modal-footer">
-                <button form="addUMultipleUnitForm" type="submit" class="btn btn-primary" ><i class="fas fa-check"></i> create rooms</button>
-                </div>
-        </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="notificationToBillTenants" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-md" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Watch out for your billing schedule.</h5>
-
-
-            </div>
-            <div class="modal-body">
-              It seems like you have not billed the tenants yet for this month. Please click the billings and bill them now.
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          {{ Auth::user()->property }}
+          <!-- Topbar Search -->
+          {{-- <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+            <div class="input-group">
+              <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+              <div class="input-group-append">
+                <button class="btn btn-primary" type="button">
+                  <i class="fas fa-search fa-sm"></i>
+                </button>
               </div>
-        </div>
-        </div>
-    </div>
-    <div class="modal fade" id="notificationToCollectDelinquentAccounts" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-md" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Watch out for the delinquents.</h5>
-
-
             </div>
-            <div class="modal-body">
-              You have a total of {{ $delinquent_accounts->count() }} delinquents. Please get in touh with them now.
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </form> --}}
+
+          <!-- Topbar Navbar -->
+          <ul class="navbar-nav ml-auto">
+
+            {{-- <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+            <li class="nav-item dropdown no-arrow d-sm-none">
+              <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-search fa-fw"></i>
+              </a>
+              <!-- Dropdown - Messages -->
+              <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
+                <form class="form-inline mr-auto w-100 navbar-search">
+                  <div class="input-group">
+                    <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                      <button class="btn btn-primary" type="button">
+                        <i class="fas fa-search fa-sm"></i>
+                      </button>
+                    </div>
+                  </div>
+                </form>
               </div>
+            </li> --}}
+
+            <!-- Nav Item - Alerts -->
+            <li class="nav-item dropdown no-arrow mx-1">
+              <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-bell fa-fw"></i>
+                <!-- Counter - Alerts -->
+                <span class="badge badge-danger badge-counter">3+</span>
+              </a>
+              <!-- Dropdown - Alerts -->
+              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
+                <h6 class="dropdown-header">
+                  Alerts Center
+                </h6>
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                  <div class="mr-3">
+                    <div class="icon-circle bg-primary">
+                      <i class="fas fa-file-alt text-white"></i>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="small text-gray-500">December 12, 2019</div>
+                    <span class="font-weight-bold">A new monthly report is ready to download!</span>
+                  </div>
+                </a>
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                  <div class="mr-3">
+                    <div class="icon-circle bg-success">
+                      <i class="fas fa-donate text-white"></i>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="small text-gray-500">December 7, 2019</div>
+                    $290.29 has been deposited into your account!
+                  </div>
+                </a>
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                  <div class="mr-3">
+                    <div class="icon-circle bg-warning">
+                      <i class="fas fa-exclamation-triangle text-white"></i>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="small text-gray-500">December 2, 2019</div>
+                    Spending Alert: We've noticed unusually high spending for your account.
+                  </div>
+                </a>
+                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+              </div>
+            </li>
+
+            <!-- Nav Item - Messages -->
+            <li class="nav-item dropdown no-arrow mx-1">
+              <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-envelope fa-fw"></i>
+                <!-- Counter - Messages -->
+                <span class="badge badge-danger badge-counter">7</span>
+              </a>
+              <!-- Dropdown - Messages -->
+              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
+                <h6 class="dropdown-header">
+                  Message Center
+                </h6>
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                  <div class="dropdown-list-image mr-3">
+                    <img class="rounded-circle" src="https://source.unsplash.com/fn_BT9fwg_E/60x60" alt="">
+                    <div class="status-indicator bg-success"></div>
+                  </div>
+                  <div class="font-weight-bold">
+                    <div class="text-truncate">Hi there! I am wondering if you can help me with a problem I've been having.</div>
+                    <div class="small text-gray-500">Emily Fowler · 58m</div>
+                  </div>
+                </a>
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                  <div class="dropdown-list-image mr-3">
+                    <img class="rounded-circle" src="https://source.unsplash.com/AU4VPcFN4LE/60x60" alt="">
+                    <div class="status-indicator"></div>
+                  </div>
+                  <div>
+                    <div class="text-truncate">I have the photos that you ordered last month, how would you like them sent to you?</div>
+                    <div class="small text-gray-500">Jae Chun · 1d</div>
+                  </div>
+                </a>
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                  <div class="dropdown-list-image mr-3">
+                    <img class="rounded-circle" src="https://source.unsplash.com/CS2uCrpNzJY/60x60" alt="">
+                    <div class="status-indicator bg-warning"></div>
+                  </div>
+                  <div>
+                    <div class="text-truncate">Last month's report looks great, I am very happy with the progress so far, keep up the good work!</div>
+                    <div class="small text-gray-500">Morgan Alvarez · 2d</div>
+                  </div>
+                </a>
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                  <div class="dropdown-list-image mr-3">
+                    <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60" alt="">
+                    <div class="status-indicator bg-success"></div>
+                  </div>
+                  <div>
+                    <div class="text-truncate">Am I a good boy? The reason I ask is because someone told me that people say this to all dogs, even if they aren't good...</div>
+                    <div class="small text-gray-500">Chicken the Dog · 2w</div>
+                  </div>
+                </a>
+                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
+              </div>
+            </li>
+
+            <div class="topbar-divider d-none d-sm-block"></div>
+
+            <!-- Nav Item - User Information -->
+            <li class="nav-item dropdown no-arrow">
+              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name }}</span>
+                {{-- <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60"> --}}
+              </a>
+              <!-- Dropdown - User Information -->
+              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                <a class="dropdown-item" href="/users/{{ Auth::user()->id }}">
+                  <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Profile
+                </a>
+                {{-- <a class="dropdown-item" href="#">
+                  <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Settings
+                </a>
+                <a class="dropdown-item" href="#">
+                  <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Activity Log
+                </a> --}}
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Logout
+                </a>
+              </div>
+            </li>
+
+          </ul>
+
+        </nav>
+        <!-- End of Topbar -->
+        <div class="container-fluid">
+  
+            
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                  <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+                  {{-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> --}}
+                </div>
+      
+                <!-- Content Row -->
+                <div class="row">
+      
+                  <!-- Earnings (Monthly) Card Example -->
+                  <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-primary shadow h-100 py-2">
+                      <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                          <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">TOTAL UNITS </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $units->count() }}</div>
+                            
+                            <small>LSG ({{ $leasing_units->count() }})</small>
+                            <small>CML ({{ $commercial_units->count() }})</small>
+                            <small>RSL ({{ $residential_units->count() }})</small>
+                          </div>
+                          <div class="col-auto">
+                              <i class="fas fa-home fa-2x text-gray-300"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+      
+                  <!-- Earnings (Monthly) Card Example -->
+                  <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-success shadow h-100 py-2">
+                      <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                          <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">ACTIVE TENANTS </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $active_tenants->count() }}</div>
+                            <small>PENDING ({{ $pending_tenants->count() }})</small>
+                            
+                          </div>
+                          <div class="col-auto">
+                            <i class="fas fa-user-check fa-2x text-gray-300"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+      
+                  <!-- Earnings (Monthly) Card Example -->
+                  <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-warning shadow h-100 py-2">
+                      <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                          <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">UNIT OWNERS </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $investors->count() }}</div>
+                            <small>|</small>
+                            
+                          </div>
+                          <div class="col-auto">
+                            <i class="fas fa-user-tie fa-2x text-gray-300"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+      
+                  <!-- Pending Requests Card Example -->
+                  <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-danger shadow h-100 py-2">
+                      <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                          <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">PENDING JOB ORDERS</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                          </div>
+                          <div class="col-auto">
+                            <i class="fas fa-tools fa-2x text-gray-300"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+      
+                <!-- Content Row -->
+      
+                <div class="row">
+      
+                  <!-- Area Chart -->
+                  <div class="col-xl-8 col-lg-7">
+                    <div class="card shadow mb-4">
+                      <!-- Card Header - Dropdown -->
+                      <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary">OCCUPANCY RATE</h6>
+                        <div class="dropdown no-arrow">
+                          <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                          </a>
+                          {{-- <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                            <div class="dropdown-header">Dropdown Header:</div>
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                          </div> --}}
+                        </div>
+                      </div>
+                      <!-- Card Body -->
+                      <div class="card-body">
+                       
+                          {!! $movein_rate->container() !!}
+                        
+                      </div>
+                    </div>
+                  </div>
+      
+                  <!-- Pie Chart -->
+                  <div class="col-xl-4 col-lg-5">
+                    <div class="card shadow mb-3">
+                      <!-- Card Header - Dropdown -->
+                      <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary">RETENTION RATE</h6>
+                        <div class="dropdown no-arrow">
+                          <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                          </a>
+                          {{-- <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                            <div class="dropdown-header">Dropdown Header:</div>
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                          </div> --}}
+                        </div>
+                      </div>
+                      <!-- Card Body -->
+                      <div class="card-body">
+                        
+                          {!! $renewed_chart->container() !!}
+                        
+                        {{-- <div class="mt-4 text-center small">
+                          <span class="mr-2">
+                            <i class="fas fa-circle text-primary"></i> Direct
+                          </span>
+                          <span class="mr-2">
+                            <i class="fas fa-circle text-success"></i> Social
+                          </span>
+                          <span class="mr-2">
+                            <i class="fas fa-circle text-info"></i> Referral
+                          </span>
+                        </div> --}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+      
+                <!-- Content Row -->
+                <div class="row">
+      
+                  <!-- Content Column -->
+                  <div class="col-lg-12 mb-4">
+      
+                    <!-- Project Card Example -->
+                    <div class="card shadow mb-4">
+                      <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">TENANTS TO WATCH OUT</h6>
+                        <?php $ctr = 1; ?>
+                      </div>
+                      <div class="card-body">
+                          <table class="table ">
+                              <tr>
+                                  <th class="text-center">#</th>
+                                  <th>TENANT</th>
+                                  <th>CONTACT</th>
+                                  <th>UNIT/ROOM </th>
+                                  <th colspan="3"></th>
+                              </tr>
+      
+                             @foreach($tenants_to_watch_out as $item)
+                             <?php
+                                      $diffInMonths =  number_format(Carbon\Carbon::now()->floatDiffInMonths(Carbon\Carbon::parse($item->moveout_date), false));
+                                      $diffInDays =  number_format(Carbon\Carbon::now()->DiffInDays(Carbon\Carbon::parse($item->moveout_date), false));
+                              ?>
+                              @if($diffInDays <= 30 )
+                              <tr>
+                                  <th class="text-center">{{ $ctr++ }}</th>
+                                  <td>
+                                      @if (Auth::user()->user_type === 'admin')
+                                      <a href="{{ route('show-tenant',['unit_id' => $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a>
+                                      @elseif(Auth::user()->user_type === 'treasury')
+                                      <a href="/units/{{ $item->unit_tenant_id }}/tenants/{{ $item->tenant_id }}/payments">{{ $item->first_name.' '.$item->last_name }}</a>
+                                      @else
+                                      {{ $item->first_name.' '.$item->last_name }}
+                                      @endif
+                                  </td>
+                                  <td>{{ $item->contact_no }}</td>
+                                  <td>{{ $item->building.' '.$item->unit_no }}</td>
+                                  <td colspan="2">
+                                      @if($diffInDays <= -1)
+                                      <a class="badge badge-danger">contract has lapsed {{ $diffInDays*-1 }} days ago</a>
+                                       @else
+                                      <a class="badge badge-warning">contract expires in {{ $diffInDays }} days </a>
+                                       @endif
+                                  </td>
+                                  <td>{{ $item->tenants_note  }}</td>
+                             </tr>
+                              @endif
+                             @endforeach
+                          </table>
+                      </div>
+                    </div>
+      
+                  </div>
+      
+                  <div class="col-lg-6 mb-4">
+      
+                    <!-- Illustrations -->
+                    <div class="card shadow mb-4">
+                      <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">FREQUENCY OF MOVEOUT</h6>
+                      </div>
+                      <div class="card-body">
+                          {!! $moveout_rate->container() !!}
+                      </div>
+                    </div>
+      
+                  
+      
+                  </div>
+      
+                  <div class="col-lg-6 mb-4">
+      
+                    <!-- Illustrations -->
+                    <div class="card shadow mb-4">
+                      <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">RECENT MOVEOUTS</h6>
+                      </div>
+                      <div class="card-body">
+                        <table class="table">
+                          <tr>
+                              <th class="text-center">#</th>
+                              <th>name</th>
+                              <th>unit no</th>
+                              <th>reason</th>
+                              <th></th>
+                          </tr>
+                         <?php
+                           $ctr = 1;
+                         ?>
+                          @foreach($terminated_contracts->take(5) as $item)
+                          <tr>
+                              <th class="text-center">{{ $ctr++ }}</th>
+                              <td>
+                                  @if(Auth::user()->user_type === 'admin')
+                                  <a href="{{ route('show-tenant',['unit_id' => $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a> <a class="badge badge-success">{{ $item->has_extended }}</a>
+                                  @elseif(Auth::user()->user_type === 'treasury')
+                                  <a href="/units/{{ $item->unit_tenant_id }}/tenants/{{ $item->tenant_id }}/billings">{{ $item->first_name.' '.$item->last_name }}</a><a class="badge badge-success">{{ $item->has_extended }}</a>
+                                  @else
+                                  {{ $item->first_name.' '.$item->last_name }}<a class="badge badge-success">{{ $item->has_extended }}</a>
+                                  @endif
+                              </td>
+                              <td>{{ $item->building.' '.$item->unit_no }}</td>
+                              <td>{{ $item->reason_for_moving_out }}</td>
+                              <td><a class="badge badge-danger">{{ number_format(Carbon\Carbon::now()->DiffInDays(Carbon\Carbon::parse($item->moveout_date)) ) }} days ago</a></td>
+                         </tr>
+                         @endforeach
+                      </table>
+                      </div>
+                    </div>
+      
+                  </div>
+                </div>
+              
+            <!-- Page Heading -->
+         
         </div>
+      </div>
+      <!-- End of Main Content -->
+
+      <!-- Footer -->
+      <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>Copyright &copy; Godie Enterprises 2020</span>
+          </div>
         </div>
+      </footer>
+      <!-- End of Footer -->
+
     </div>
-</div>
+    <!-- End of Content Wrapper -->
 
-<script type="text/javascript">
-    $(window).on('load',function(){
-        if(document.getElementById('current_user').value === 'admin' && document.getElementById('count_units').value <= 0){
-         $('#addUnit').modal('show');
-        }else if(document.getElementById('current_user').value === 'billing' && document.getElementById('posted_bills_this_month_for_rent').value <= 0 ){
-            $('#notificationToBillTenants').modal('show');
-        }else if(document.getElementById('current_user').value === 'billing' && document.getElementById('delinquent_accounts').value > 0 ){
-            $('#notificationToCollectDelinquentAccounts').modal('show');
-        }
-    });
-</script>
+  </div>
+  <!-- End of Page Wrapper -->
 
-<script>
-    $(document).ready(() => {
-    var url = window.location.href;
-    if (url.indexOf("#") > 0){
-    var activeTab = url.substring(url.indexOf("#") + 1);
-      $('.nav[role="tablist"] a[href="#'+activeTab+'"]').tab('show');
-    }
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
 
-    $('a[role="tab"]').on("click", function() {
-      var newUrl;
-      const hash = $(this).attr("href");
-        newUrl = url.split("#")[0] + hash;
-      history.replaceState(null, null, newUrl);
-    });
-  });
-  </script>
-{!! $collection_rate->script() !!}
+  <!-- Logout Modal-->
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <a class="btn btn-danger" href="{{ route('logout') }}"
+                onclick="event.preventDefault();
+                document.getElementById('logout-form').submit();">
+              Logout
+        </a>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            @csrf
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="{{ asset('/dashboard/vendor/jquery/jquery.min.js') }}"></script>
+  <script src="{{ asset('/dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="{{ asset('/dashboard/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="{{ asset('/dashboard/js/sb-admin-2.min.js') }}"></script>
+
+  <!-- Page level plugins -->
+  <script src="{{ asset('/dashboard/vendor/chart.js/Chart.min.js') }}"></script>
+
+  <!-- Page level custom scripts -->
+  <script src="{{ asset('/dashboard/js/demo/chart-area-demo.js') }}"></script>
+  <script src="{{ asset('/dashboard/js/demo/chart-pie-demo.js') }}"></script>
+
 {!! $movein_rate->script() !!}
-{!! $moveout_rate->script() !!}
 {!! $renewed_chart->script() !!}
-@endsection
+{!! $moveout_rate->script() !!}
 
+</body>
 
+</html>

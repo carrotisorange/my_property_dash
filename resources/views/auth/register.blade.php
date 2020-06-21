@@ -1,136 +1,130 @@
-@extends('layouts.app')
-@section('title', 'Register Your Property')
-@section('content')
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-body">
-                    <h4>The Property Manager</h4>
-                    <p>
-                        My Property Dash is a property management system that lets landlords manage their property anytime and anywhere with minimal effort. Unlike OTA (Trivago, Agoda, etc.) that allows
-                        landlors to advertise their property online as a transient, My Property Dash offers longterm stay for tenants.
-                        <br><br>
-                        <b>Products:</b>
-                        <br>
-                        Community Management And Rental Property Management System
-                        <br><br>
-                        <b>Users of the application</b>
-                        <br>
-                        <ul>
-                            <li>Condomonium Corporations Managers</li>
-                            <li>Homeowners Associations Manager</li>
-                            
-                            <li>Building Owners</li>
-                            <li>Real Estate Lessors</li>
-                            <li>Leasing Agents</li>
-                            <li>Dormitory Operators</li>
-                        </ul>
-                        
-                        <b>Features of the application:</b>
-                        <ul>
-                            <li>Admin System</li>
-                            <li>Billing and collection System</li>
-                            <li>Expense Tracker</li>
-                            <li>Tenant Information</li>
-                            <li>Online Payment System</li>
-                            <li>Job Order System</li>
-                            <li>Concierge</li>
-                            <li>Concerns Portal for Tenant</li>
-                            <li>Roles Management</li>
-                            <li>Monitoring System</li>
-                            <li>Dashboard System</li>
-                            <li>Management Informat</li>
-                            <li>Online Access for Landlords and unit owners</li>
-                        </ul>
-                    </p>
-                   
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Register</title>
+
+  <!-- Custom fonts for this template-->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+  <!-- Custom styles for this template-->
+  <link href="{{ asset('/dashboard/css/sb-admin-2.min.css') }}" rel="stylesheet">
+
+</head>
+
+<body class="bg-gradient-primary">
+
+  <div class="container">
+
+    <div class="card o-hidden border-0 shadow-lg my-5">
+      <div class="card-body p-0">
+        <form id="registrationForm" method="POST" action="/register">
+            @csrf
+        </form>
+        <!-- Nested Row within Card Body -->
+        <div class="row">
+          <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+          <div class="col-lg-7">
+            <div class="p-5">
+              <div class="text-center">
+                <h1 class="h4 text-gray-900 mb-4">Register your property now!</h1>
+              </div>
+              <form class="user">
+                <div class="form-group row">
+                  <div class="col-sm-12 mb-6 mb-sm-0">
+                    <input form="registrationForm"  id="name" type="text" class="form-control form-control-user @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" autocomplete="name" autofocus placeholder="Full Name" required>
+
+                     @error('name')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                  </div>
                 </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body">
-                    <b>REGISTER YOUR PROPERTY HERE</b>
-                    
-                    <form method="POST" action="/register">
-                        @csrf
+                <div class="form-group">
+                    <input form="registrationForm"  id="email" type="email" class="form-control form-control-user @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" autocomplete="email" placeholder="Email" required>
 
-                        <div class="row">
-                            <div class="col">
-                                <label for="name" class="col-form-label">{{ __('name') }}</label>
-                            <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-
-                            @error('name')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                            </div>
-                            
-                        </div>
-
-                        <div class="row">
-                            <div class="col">
-                                <label for="email" class="col-form-label">{{ __('email') }}</label>
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            
-                        </div>
-
-                        <div class="row">
-                            <div class="col">
-                                <label for="property" class="col-form-label">{{ __('name of your property') }}</label>
-                                <input id="property" type="text" class="form-control @error('property') is-invalid @enderror" name="property" value="{{ old('property') }}" required autocomplete="property">
-
-                                @error('property')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            
-                        </div>
-
-                        <div class="row">
-                            <div class="col">
-                                <label for="password" class="col-form-label ">{{ __('password') }}</label>
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            
-                        </div>
-
-                        <div class="row">
-                            <div class="col">
-                                <label for="password-confirm" class=" col-form-label">{{ __('confirm password') }}</label>
-                    
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                           
-                            </div>
-                            
-                        </div>
-                        <br>
-                        <p class="text-right"> 
-                            <button type="submit" class="btn btn-primary" id="registerButton" onclick="this.form.submit(); this.disabled = true; this.value = 'Submitting the form';">
-                                <i class="fas fa-check"></i> register
-                        </button></p>
-                    </form>
+                     @error('email')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
+
+                <div class="form-group">
+                    <input form="registrationForm" id="property" type="text" class="form-control form-control-user @error('property') is-invalid @enderror" name="property" value="{{ old('property') }}" required autocomplete="property" placeholder="Property Name">
+  
+                       @error('property')
+                          <span class="invalid-feedback" role="alert">
+                              <strong>{{ $message }}</strong>
+                          </span>
+                      @enderror
+                  </div>
+
+                <div class="form-group row">
+                  <div class="col-sm-6 mb-3 mb-sm-0">
+                    <input form="registrationForm" id="password" type="password" class="form-control form-control-user @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="Password">
+
+                    @error('password')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+
+                  </div>
+                  <div class="col-sm-6">
+                    <input form="registrationForm" id="password-confirm" type="password" class="form-control form-control-user" name="password_confirmation" required autocomplete="new-password" placeholder="Repeat Password">
+                  </div>
+                </div>
+               
+                <button form="registrationForm" type="submit" class="btn btn-primary btn-user btn-block" id="registerButton" onclick="this.form.submit(); this.disabled = true;">
+                    <i class="fas fa-check"></i> Register
+            </button>
+                <hr>
+                <a href="#" class="btn btn-google btn-user btn-block">
+                  <i class="fab fa-google fa-fw"></i> Register with Google
+                </a>
+                <a href="#" class="btn btn-facebook btn-user btn-block">
+                  <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
+                </a>
+              </form>
+              <hr>
+              <div class="text-center">
+                @if (Route::has('password.request'))
+                    <a class="small" btn-link" href="{{ route('password.request') }}">
+                        {{ __('Forgot Your Password?') }}
+                    </a>
+                @endif
+              </div>
+              <div class="text-center">
+                <a class="small" href="/login">Already have an account? Login!</a>
+              </div>
             </div>
+          </div>
         </div>
-        
+      </div>
     </div>
-</div>
-@endsection
+
+  </div>
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="{{ asset('/dashboard/vendor/jquery/jquery.min.js') }}"></script>
+  <script src="{{ asset('/dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="{{ asset('/dashboard/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="{{ asset('/dashboard/js/sb-admin-2.min.js') }}"></script>
+
+</body>
+
+</html>

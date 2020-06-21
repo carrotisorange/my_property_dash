@@ -18,6 +18,7 @@ use Illuminate\Http\Request;
 
 Auth::routes();
 
+
 Route::get('/', function(Request $request){
 
     if(Auth::guest()){
@@ -40,6 +41,7 @@ Route::get('/', function(Request $request){
         return view('unregistered');
     }
 
+   
     $property = explode(",", Auth::user()->property);
 
     //get all the units
@@ -778,15 +780,12 @@ Route::get('/', function(Request $request){
     $overall_contract_termination = $renewed_contracts->count() + $terminated_contracts->count();
 
     $renewed_chart = new DashboardChart;
-    $renewed_chart->title('Retention Rate'.' ('.number_format(($overall_contract_termination == 0 ? 0 : $renewed_contracts->count()/$overall_contract_termination) * 100,1).'%)');
     $renewed_chart->displayAxes(false);
     $renewed_chart->labels([ 'Renewal'.' ('.$renewed_contracts->count(). ')', 'Termination'.' ('.$terminated_contracts->count(). ')', 'Total'.' ('.$overall_contract_termination. ')']);
     $renewed_chart->dataset('', 'pie', [number_format(($overall_contract_termination == 0 ? 0 : $renewed_contracts->count()/$overall_contract_termination) * 100,1),number_format(($overall_contract_termination == 0 ? 0 :$terminated_contracts->count()/$overall_contract_termination) * 100,1)  ])
     ->backgroundColor(['#008000', '#FF0000']);
 
     $movein_rate = new DashboardChart;
-    $movein_rate->title('Occupancy Rate');
-    $movein_rate->title('Occupancy Rate'.'('.number_format($active_tenants->count()/$leasing_units->count() * 100,2).'%)');
     $movein_rate->barwidth(0.0);
     $movein_rate->displaylegend(false);
     $movein_rate->labels([Carbon::now()->subMonth(5)->format('M Y'),Carbon::now()->subMonth(4)->format('M Y'),Carbon::now()->subMonth(3)->format('M Y'),Carbon::now()->subMonths(2)->format('M Y'),Carbon::now()->subMonth()->format('M Y'),Carbon::now()->format('M Y')]);
@@ -806,7 +805,6 @@ Route::get('/', function(Request $request){
 
 
     $moveout_rate = new DashboardChart;
-    $moveout_rate->title('Number of moveouts ('.$moveout_rate_6.')');
     $moveout_rate->barwidth(0.0);
     $moveout_rate->displaylegend(false);
     $moveout_rate->labels([Carbon::now()->subMonth(5)->format('M Y'),Carbon::now()->subMonth(4)->format('M Y'),Carbon::now()->subMonth(3)->format('M Y'),Carbon::now()->subMonths(2)->format('M Y'),Carbon::now()->subMonth()->format('M Y'),Carbon::now()->format('M Y')]);
@@ -849,6 +847,75 @@ Route::put('units/{unit_id}', 'UnitsController@update')->middleware('auth');
 Route::post('units/add', 'UnitsController@add_unit')->middleware('auth');
 Route::post('units/add-multiple', 'UnitsController@add_multiple_rooms')->middleware('auth');
 
+
+Route::get('/leasing', function(){
+
+    $property = explode(",", Auth::user()->property);
+
+    if(count($property) > 1){
+        $units_per_building = DB::table('units')
+        ->select('building', 'status', DB::raw('count(*) as count'))
+        ->whereIn('unit_property', [$property[0],$property[1]])
+        ->groupBy('building')
+        ->where('type_of_units', 'leasing')
+        ->get('building', 'status','count');   
+        
+    $units_per_building_residential = DB::table('units')
+        ->select('building', 'status', DB::raw('count(*) as count'))
+        ->whereIn('unit_property', [$property[0],$property[1]])
+        ->groupBy('building')
+        ->where('type_of_units', 'residential')
+        ->get('building', 'status','count');  
+
+    $leasing_units= DB::table('units')
+        ->whereIn('unit_property', [$property[0],$property[1]])
+        ->where('type_of_units', 'leasing')
+        ->orderBy('building')
+        ->orderBy('floor_no')
+        ->orderBy('unit_no')
+        ->get();
+
+    $units_per_status = DB::table('units')
+        ->select('status',DB::raw('count(*) as count'))
+        ->whereIn('unit_property', [$property[0],$property[1]])
+        ->where('type_of_units', 'leasing')
+        ->groupBy('status')
+        ->get();
+
+    }else{
+    $units_per_building = DB::table('units')
+        ->select('building', 'status', DB::raw('count(*) as count'))
+        ->where('unit_property', $property[0])
+        ->groupBy('building')
+        ->where('type_of_units', 'leasing')
+        ->get('building', 'status','count');   
+        
+    $units_per_building_residential = DB::table('units')
+        ->select('building', 'status', DB::raw('count(*) as count'))
+        ->where('unit_property', $property[0])
+        ->groupBy('building')
+        ->where('type_of_units', 'residential')
+        ->get('building', 'status','count');  
+
+    $leasing_units= DB::table('units')
+        ->where('unit_property', $property[0])
+        ->where('type_of_units', 'leasing')
+        ->orderBy('building')
+        ->orderBy('floor_no')
+        ->orderBy('unit_no')
+        ->get();
+
+    $units_per_status = DB::table('units')
+        ->select('status',DB::raw('count(*) as count'))
+        ->where('unit_property', $property[0])
+        ->where('type_of_units', 'leasing')
+        ->groupBy('status')
+        ->get();
+    }
+    
+    return view('leasing',compact('units_per_building','units_per_building_residential','leasing_units','units_per_status'));
+})->middleware('auth');
+
 //routes for payments
 Route::get('units/{unit_id}/tenants/{tenant_id}/payments/{payment_id}', 'PaymentController@show')->name('show-payment')->middleware('auth');
 Route::post('/payments', 'PaymentController@store')->middleware('auth');
@@ -864,6 +931,7 @@ Route::put('/units/{unit_id}/tenants/{tenant_id}/', 'TenantController@update')->
 Route::post('/units/{unit_id}/tenants/{tenant_id}', 'TenantController@moveout')->middleware('auth');
 Route::post('/units/{unit_id}/tenants/{tenant_id}/renew', 'TenantController@renew')->middleware('auth');
 Route::delete('/tenants/{tenant_id}', 'TenantController@destroy')->middleware('auth');
+
 
 
 //step1
@@ -909,6 +977,9 @@ Route::post('/users', 'UserController@store')->middleware('auth');
 Route::get('/users/{user_id}/edit', 'UserController@edit')->middleware('auth');
 Route::put('users/{user_id}', 'UserController@update')->middleware('auth');
 Route::delete('/users/{user_id}', 'UserController@destroy')->middleware('auth');
+
+
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout')->middleware('auth');
 
 Route::get('/faq', function(){
     return view('faq');
