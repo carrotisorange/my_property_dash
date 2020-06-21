@@ -34,7 +34,7 @@ Route::get('/', function(Request $request){
 
         $rooms = Unit::distinct()->count('unit_no');
 
-        $active_tenants = DB::table('tenants')
+        $tenants = DB::table('tenants')
         ->where('tenant_status', 'active')
         ->count();
 

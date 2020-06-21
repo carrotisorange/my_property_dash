@@ -157,9 +157,9 @@
             <p>Rooms</p>
           </div>
 
-           <div class="col-lg-3 col-6 text-center">
-            <span data-toggle="counter-up">15</span>
-            <p>Hard Workers</p>
+           <div class="col-lg-2 col-6 text-center">
+            <span data-toggle="counter-up">{{ number_format($tenants,0) }}</span>
+            <p>Active Tenants</p>
           </div> 
 
         </div>
