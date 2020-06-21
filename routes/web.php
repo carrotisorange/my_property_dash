@@ -34,7 +34,11 @@ Route::get('/', function(Request $request){
 
         $rooms = Unit::distinct()->count('unit_no');
 
-        return view('index', compact('clients','properties', 'buildings', 'rooms'));
+        $active_tenants = DB::table('tenants')
+        ->where('tenant_status', 'active')
+        ->count();
+
+        return view('index', compact('clients','properties', 'buildings', 'rooms', 'tenants'));
     }
 
     if(auth()->user()->status === 'unregistered'){
