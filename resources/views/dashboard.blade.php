@@ -561,9 +561,9 @@
                                   <td>{{ $item->building.' '.$item->unit_no }}</td>
                                   <td colspan="2">
                                       @if($diffInDays <= -1)
-                                      <a class="badge badge-danger">contract has lapsed {{ $diffInDays*-1 }} days ago</a>
+                                      <span class="badge badge-danger">contract has lapsed {{ $diffInDays*-1 }} days ago</span>
                                        @else
-                                      <a class="badge badge-warning">contract expires in {{ $diffInDays }} days </a>
+                                      <span class="badge badge-warning">contract expires in {{ $diffInDays }} days </span>
                                        @endif
                                   </td>
                                   <td>{{ $item->tenants_note  }}</td>
@@ -620,12 +620,12 @@
                                   @elseif(Auth::user()->user_type === 'treasury')
                                   <a href="/units/{{ $item->unit_tenant_id }}/tenants/{{ $item->tenant_id }}/billings">{{ $item->first_name.' '.$item->last_name }}</a><a class="badge badge-success">{{ $item->has_extended }}</a>
                                   @else
-                                  {{ $item->first_name.' '.$item->last_name }}<a class="badge badge-success">{{ $item->has_extended }}</a>
+                                  {{ $item->first_name.' '.$item->last_name }}<span class="badge badge-success">{{ $item->has_extended }}</span>
                                   @endif
                               </td>
                               <td>{{ $item->building.' '.$item->unit_no }}</td>
                               <td>{{ $item->reason_for_moving_out }}</td>
-                              <td><a class="badge badge-danger">{{ number_format(Carbon\Carbon::now()->DiffInDays(Carbon\Carbon::parse($item->moveout_date)) ) }} days ago</a></td>
+                              <td><span class="badge badge-danger">{{ number_format(Carbon\Carbon::now()->DiffInDays(Carbon\Carbon::parse($item->moveout_date)) ) }} days ago</span></td>
                          </tr>
                          @endforeach
                       </table>
