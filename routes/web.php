@@ -793,7 +793,7 @@ Route::get('/', function(Request $request){
     $movein_rate->barwidth(0.0);
     $movein_rate->displaylegend(false);
     $movein_rate->labels([Carbon::now()->subMonth(5)->format('M Y'),Carbon::now()->subMonth(4)->format('M Y'),Carbon::now()->subMonth(3)->format('M Y'),Carbon::now()->subMonths(2)->format('M Y'),Carbon::now()->subMonth()->format('M Y'),Carbon::now()->format('M Y')]);
-    $movein_rate->dataset('', 'line', [
+    $movein_rate->dataset('Occupancy Rate: ', 'line', [
         number_format(($all_active_tenants->count()-($movein_rate_2 + $movein_rate_3 + $movein_rate_4 + $movein_rate_5 + $movein_rate_6))/$leasing_units->count() * 100,2),
                                         number_format(($all_active_tenants->count()-($movein_rate_3 + $movein_rate_4 + $movein_rate_5 + $movein_rate_6))/$leasing_units->count() * 100,2),
                                         number_format(($all_active_tenants->count()-($movein_rate_4 + $movein_rate_5 + $movein_rate_6))/$leasing_units->count() * 100,2),
@@ -801,11 +801,10 @@ Route::get('/', function(Request $request){
                                         number_format(($all_active_tenants->count()-($movein_rate_6))/$leasing_units->count() * 100,2),
                                         number_format(($active_tenants->count()/$leasing_units->count()) * 100,2)
                                         ])
-    ->color("rgb(0, 0, 0)")
-    ->backgroundcolor("rgb(169, 169, 169)")
-    ->fill(false)
-    ->linetension(0.1)
-    ->dashed([5]);
+    ->color("#858796")
+    ->backgroundcolor("rgba(78, 115, 223, 0.05)")
+    ->fill(true)
+    ->linetension(0.3);
 
 
     $moveout_rate = new DashboardChart;
@@ -820,7 +819,7 @@ Route::get('/', function(Request $request){
     ->dashed([5]);
 
     $collection_rate = new DashboardChart;
-    $collection_rate->title('Total Collection'.' ('.number_format($collection_rate_6,2).')');
+
     $collection_rate->barwidth(0.0);
     $collection_rate->displaylegend(false);
     $collection_rate->labels([Carbon::now()->subMonth(5)->format('M Y'),Carbon::now()->subMonth(4)->format('M Y'),Carbon::now()->subMonth(3)->format('M Y'),Carbon::now()->subMonths(2)->format('M Y'),Carbon::now()->subMonth()->format('M Y'),Carbon::now()->format('M Y')]);
@@ -832,11 +831,10 @@ Route::get('/', function(Request $request){
                                                             $collection_rate_5,
                                                             $collection_rate_6,
                                                           ])
-    ->color("rgb(0, 0, 0)")
-    ->backgroundcolor("rgb(169, 169, 169)")
-    ->fill(false)
-    ->linetension(0.1)
-    ->dashed([5]);
+    ->color("#858796")
+    ->backgroundcolor("rgba(78, 115, 223, 0.05)")
+    ->fill(true)
+    ->linetension(0.3);
 
     return view('dashboard', compact('tenants_to_watch_out','active_tenants','reservations','occupied_units','units', 'investors', 'tenants', 'movein_rate','moveout_rate','recent_movein', 'units_per_status', 'units_per_building',
     'expected_collection', 'actual_collection', 'uncollected_amount', 'delinquent_accounts','posted_bills_this_month_for_rent','collection_rate', 'payments', 'recent_payments', 'renewed_contracts', 'renewed_chart', 'terminated_contracts',
