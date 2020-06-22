@@ -399,7 +399,7 @@
                     @endforeach
                   </tbody>
                 </table>
-                
+                {{ $tenants->links() }}
               </div>
         
         </div>
