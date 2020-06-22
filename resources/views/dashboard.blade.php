@@ -436,6 +436,7 @@
                           <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">PENDING JOB ORDERS</div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                            <small>|</small>
                           </div>
                           <div class="col-auto">
                             <i class="fas fa-tools fa-2x text-gray-300"></i>
