@@ -112,7 +112,7 @@
       <!-- Nav Item - Charts -->
 
       <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="/tenants">
           <i class="fas fa-user fa-chart-area"></i>
           <span>Tenants</span></a>
       </li>
@@ -347,21 +347,21 @@
 
                 <div class="row">
                     <div class="col-md-6">
-                        <button type="button" title="edit room information." class="btn btn-primary" data-toggle="modal" data-target="#editUnit" data-whatever="@mdo"><i class="fas fa-edit"></i>edit</button> 
+                        <button type="button" title="edit unit/room information." class="btn btn-primary" data-toggle="modal" data-target="#editUnit" data-whatever="@mdo"><i class="fas fa-edit"></i>EDIT</button> 
                         @if ($tenant_active->count() < $unit->beds)
                         <button title="{{ $unit->beds - $tenant_active->count() }} remaining tenant/s to be fully occupied." type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                            <i class="fas fa-user-plus"></i> tenant <span class="badge badge-light">{{  $tenant_active->count() }}/{{ $unit->beds }} 
+                            <i class="fas fa-user-plus"></i> TENANT <span class="badge badge-light">{{  $tenant_active->count() }}/{{ $unit->beds }} 
                           </button>
                           <div class="dropdown-menu">
-                              <a href="/units/{{ $unit->unit_id }}/tenant-step1" class="dropdown-item" >Student</a>
+                              <a href="/units/{{ $unit->unit_id }}/tenant-step1" class="dropdown-item" >STUDENT</a>
                               {{-- <a href="/units/{{ $unit->unit_id }}/tenants-working-step1" class="dropdown-item" >Working</a> --}}
                           </div>
                         @else
-                            <button type="button" title="{{ $unit->beds - $tenant_active->count() }} remaining tenant/s to be fully occupied." class="btn btn-primary" data-toggle="modal" data-target="#warningTenant" data-whatever="@mdo"><i class="fas fa-user-plus"></i> add tenant ({{ $tenant_active->count() }}/{{ $unit->beds }})</button>
+                            <button type="button" title="{{ $unit->beds - $tenant_active->count() }} remaining tenant/s to be fully occupied." class="btn btn-primary" data-toggle="modal" data-target="#warningTenant" data-whatever="@mdo"><i class="fas fa-user-plus"></i> ({{ $tenant_active->count() }}/{{ $unit->beds }})</button>
                         @endif
                         {{-- if unit owner does not exist in this unit, then show the add investor button, otherwise, hide. --}}
                         @if ($unit_owner->count() < 1)
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addInvestor" data-whatever="@mdo"><i class="fas fa-user-plus"></i> unit owner</button>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addInvestor" data-whatever="@mdo"><i class="fas fa-user-plus"></i> UNIT OWNER</button>
                         @endif
                         <br> <br>
                             <?php $numberFormatter = new NumberFormatter('en_US', NumberFormatter::ORDINAL) ?>
@@ -556,7 +556,7 @@
                         <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Edit</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">EDIT UNIT/ROOM</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -568,11 +568,11 @@
                             <div class="modal-body">
                             <form>
                                 <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">unit no</label>
+                                <label for="recipient-name" class="col-form-label">UNIT/ROOM NO</label>
                                 <input form="editUnitForm" type="text" value="{{ $unit->unit_no }}" name="unit_no" class="form-control" id="unit_no" >
                                 </div>
                                 <div class="form-group">
-                                <label for="message-text" class="col-form-label">Floor No:</label>
+                                <label for="message-text" class="col-form-label">FLOOR NO:</label>
                                 <select form="editUnitForm" id="floor_no" name="floor_no" class="form-control">
                                     <option value="{{ $unit->floor_no }}" readonly selected class="bg-primary">{{ $unit->floor_no }}</option>
                                     <option value="1">1</option>
@@ -585,7 +585,7 @@
                                 </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="message-text" class="col-form-label">building:</label>
+                                    <label for="message-text" class="col-form-label">BUILDING:</label>
                                     <input form="editUnitForm" type="text" value="{{ $unit->building }}" name="building" class="form-control">
                                     {{-- <select form="editUnitForm" id="building" name="building" class="form-control">
                                         <option value="{{ $unit->building }}" readonly selected class="bg-primary">{{ $unit->building }}</option>
@@ -595,7 +595,7 @@
                                     </select> --}}
                                     </div>
                                 <div class="form-group">
-                                <label for="message-text" class="col-form-label">room type</label>
+                                <label for="message-text" class="col-form-label">ROOM TYPE</label>
                                 <select form="editUnitForm" id="type_of_units" name="type_of_units" class="form-control">
                                     <option value="{{ $unit->type_of_units }}" readonly selected class="bg-primary">{{ $unit->type_of_units }}</option>
                                     <option value="leasing">leasing</option>
@@ -604,11 +604,11 @@
                                 </select>
                                 </div>
                                 <div class="form-group">
-                                <label for="message-text" class="col-form-label">beds</label>
+                                <label for="message-text" class="col-form-label">NO OF BEDS</label>
                                 <input form="editUnitForm" min="1" max="4" type="number" value="{{ $unit->beds }}" name="beds" class="form-control">
                                 </div>
                                 <div class="form-group">
-                                <label for="message-text" class="col-form-label">status</label>
+                                <label for="message-text" class="col-form-label">UNIT/ROOM STATUS</label>
                                 <select form="editUnitForm" id="status" name="status" class="form-control">
                                     <option value="{{ $unit->status }}" readonly selected class="bg-primary">{{ $unit->status }}</option>
                                     <option value="vacant">vacant</option>
@@ -617,14 +617,14 @@
                                 </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="message-text" class="col-form-label">monthly rent</label>
+                                    <label for="message-text" class="col-form-label">MONTHLY RENT</label>
                                     <input form="editUnitForm" min="1" type="number" value="{{ $unit->monthly_rent }}" name="monthly_rent" class="form-control">
                                     </div>
                             </form>
                             </div>
                             <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i> close</button>
-                            <button form="editUnitForm" type="submit" class="btn btn-primary" ><i class="fas fa-check"></i> save</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i> CLOSE</button>
+                            <button form="editUnitForm" type="submit" class="btn btn-primary" ><i class="fas fa-check"></i> UPDATE UNIT/ROOM</button>
                             </div>
                         </div>
                         </div>

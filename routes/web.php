@@ -933,6 +933,27 @@ Route::post('/units/{unit_id}/tenants/{tenant_id}', 'TenantController@moveout')-
 Route::post('/units/{unit_id}/tenants/{tenant_id}/renew', 'TenantController@renew')->middleware('auth');
 Route::delete('/tenants/{tenant_id}', 'TenantController@destroy')->middleware('auth');
 
+Route::get('/tenants', function(){
+    $property = explode(",", Auth::user()->property);
+
+    //get all the units
+   if(count($property) > 1){
+        $tenants = DB::table('tenants')
+        ->join('units', 'unit_id', 'unit_tenant_id')
+        ->whereIn('unit_property', [$property[0],$property[1]])
+        ->orderBy('movein_date')
+        ->paginate(10);
+    }else{
+        $tenants = DB::table('tenants')
+        ->join('units', 'unit_id', 'unit_tenant_id')
+        ->where('unit_property', $property[0])
+        ->orderBy('movein_date')
+        ->paginate(10);
+    }
+
+    return view('tenants', compact('tenants'));
+})->middleware('auth');
+
 
 
 //step1

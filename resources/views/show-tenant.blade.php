@@ -112,7 +112,7 @@
       <!-- Nav Item - Charts -->
 
       <li class="nav-item active">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="/tenants">
           <i class="fas fa-user fa-chart-area"></i>
           <span>Tenants</span></a>
       </li>

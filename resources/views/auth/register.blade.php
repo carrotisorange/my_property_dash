@@ -37,7 +37,7 @@
               <div class="text-center">
                 <h1 class="h4 text-gray-900 mb-4">Register your property now!</h1>
               </div>
-              <form class="user">
+              
                 <div class="form-group row">
                   <div class="col-sm-12 mb-6 mb-sm-0">
                     <input form="registrationForm"  id="name" type="text" class="form-control form-control-user @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" autocomplete="name" autofocus placeholder="Full Name" required>
@@ -95,7 +95,7 @@
                 <a href="#" class="btn btn-facebook btn-user btn-block">
                   <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
                 </a>
-              </form>
+              
               <hr>
               <div class="text-center">
                 @if (Route::has('password.request'))
