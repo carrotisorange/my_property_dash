@@ -812,11 +812,10 @@ Route::get('/', function(Request $request){
     $moveout_rate->displaylegend(false);
     $moveout_rate->labels([Carbon::now()->subMonth(5)->format('M Y'),Carbon::now()->subMonth(4)->format('M Y'),Carbon::now()->subMonth(3)->format('M Y'),Carbon::now()->subMonths(2)->format('M Y'),Carbon::now()->subMonth()->format('M Y'),Carbon::now()->format('M Y')]);
     $moveout_rate->dataset('number of moveouts', 'line', [$moveout_rate_1,$moveout_rate_2,$moveout_rate_3,$moveout_rate_4,$moveout_rate_5,$moveout_rate_6])
-    ->color("rgb(0, 0, 0)")
-    ->backgroundcolor("rgb(169, 169, 169)")
-    ->fill(false)
-    ->linetension(0.1)
-    ->dashed([5]);
+    ->color("#858796")
+    ->backgroundcolor("rgba(78, 115, 223, 0.05)")
+    ->fill(true)
+    ->linetension(0.3);
 
     $collection_rate = new DashboardChart;
 
