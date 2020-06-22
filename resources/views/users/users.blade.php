@@ -347,18 +347,17 @@
           <h1 class="h3 mb-0 text-gray-800">Contract Duration (3/4)</h1>
         </div>
         
-        div class="table-responsive">
+        <div class="table-responsive">
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
           <thead>
             <tr>
-                <th class="text-center">#</th>
                 <th>USER</th>
                 <th>EMAIL</th>
                 <th>USER TYPE</th>
                 <th>STATUS</th>
                 <th>PROPERTY NAME</th>
-                <th>password</th>
-                </tr>
+                <th></th>
+              </tr>
           </thead>
           <tbody>
             @foreach ($users as $item)
