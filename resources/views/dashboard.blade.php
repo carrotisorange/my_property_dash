@@ -692,12 +692,10 @@
                               <th>REASON</th>
                               
                           </tr>
-                         <?php
-                           $ctr = 1;
-                         ?>
+                         
                           @foreach($terminated_contracts->take(5) as $item)
                           <tr>
-                              <th class="text-center">{{ $ctr++ }}</th>
+                              
                               <td>
                                   @if(Auth::user()->user_type === 'admin')
                                   <a href="{{ route('show-tenant',['unit_id' => $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a> <a class="badge badge-success">{{ $item->has_extended }}</a>
