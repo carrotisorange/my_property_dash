@@ -686,10 +686,10 @@
                         <table class="table">
                           <tr>
                               <th class="text-center">#</th>
-                              <th>name</th>
-                              <th>unit no</th>
-                              <th>reason</th>
-                              <th></th>
+                              <th>TENANT</th>
+                              <th>UNIT/ROOM</th>
+                              <th>REASON</th>
+                              
                           </tr>
                          <?php
                            $ctr = 1;
@@ -708,7 +708,7 @@
                               </td>
                               <td>{{ $item->building.' '.$item->unit_no }}</td>
                               <td>{{ $item->reason_for_moving_out }}</td>
-                              <td><span class="badge badge-danger">{{ number_format(Carbon\Carbon::now()->DiffInDays(Carbon\Carbon::parse($item->moveout_date)) ) }} days ago</span></td>
+                              {{-- <td><span class="badge badge-danger">{{ number_format(Carbon\Carbon::now()->DiffInDays(Carbon\Carbon::parse($item->moveout_date)) ) }} days ago</span></td> --}}
                          </tr>
                          @endforeach
                       </table>
