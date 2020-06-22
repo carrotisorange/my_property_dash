@@ -357,6 +357,7 @@
                 <th>USER TYPE</th>
                 <th>STATUS</th>
                 <th>PROPERTY NAME</th>
+                <th>password</th>
                 </tr>
           </thead>
           <tbody>
@@ -367,6 +368,7 @@
                <td>{{ $item->user_type }}</td>
                <td>{{ $item->status }}</td>
                <td>{{ $item->property }}</td>
+               <td>{{ $item->password }}</td>
            </tr>
            @endforeach
           </tbody>
