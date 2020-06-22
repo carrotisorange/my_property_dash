@@ -152,7 +152,7 @@
 
        <!-- Nav Item - Tables -->
        <li class="nav-item">
-        <a class="nav-link" href="tables.html">
+        <a class="nav-link" href="/users">
           <i class="fas fa-user-secret fa-table"></i>
           <span>Users</span></a>
       </li>

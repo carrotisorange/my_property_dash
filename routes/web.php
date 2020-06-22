@@ -954,6 +954,25 @@ Route::get('/tenants', function(){
     return view('tenants', compact('tenants'));
 })->middleware('auth');
 
+Route::get('/users', function(){
+    $property = explode(",", Auth::user()->property);
+
+    //get all the units
+   if(count($property) > 1){
+        $users = DB::table('users')
+        ->whereIn('property', [$property[0],$property[1]])
+        ->orderBy('created_at')
+        ->get();
+    }else{
+        $users = DB::table('users')
+        ->where('unit_property', $property[0])
+        ->orderBy('created_at')
+        ->get();
+    }
+
+    return view('users.users', compact('users'));
+})->middleware('auth');
+
 
 
 //step1
