@@ -980,12 +980,12 @@ Route::get('/users', function(){
     //get all the units
    if(count($property) > 1){
         $users = DB::table('users')
-        ->whereIn('unit_property', [$property[0],$property[1]])
+        ->whereIn('property', [$property[0],$property[1]])
         ->orderBy('created_at')
         ->get();
     }else{
         $users = DB::table('users')
-        ->where('unit_property', $property[0])
+        ->where('property', $property[0])
         ->orderBy('created_at')
         ->get();
     }
