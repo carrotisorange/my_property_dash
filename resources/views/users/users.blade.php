@@ -52,24 +52,42 @@
         Interface
       </div> --}}
 
-      <!-- Nav Item - Pages Collapse Menu -->
+<!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link" href="/">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
 
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="/leasing">
           <i class="fas fa-home"></i>
           <span>Leasing</span></a>
       </li>
+
+      {{-- <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+          <i class="fas fa-home fa-cog"></i>
+          <span>Leasing</span>
+          
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            
+            @foreach ($units_per_building as $item)
+            <a class="collapse-item" href="/leasing">{{ $item->building }}</a>
+            @endforeach
+            
+          </div>
+        </div>
+      </li> --}}
 
       <li class="nav-item">
         <a class="nav-link" href="/residential">
           <i class="fas fa-home"></i>
           <span>Residential</span></a>
       </li>
+
 
 
       <!-- Divider -->
@@ -103,27 +121,27 @@
       <!-- Nav Item - Charts -->
 
       <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="/tenants">
           <i class="fas fa-user fa-chart-area"></i>
           <span>Tenants</span></a>
       </li>
 
       <!-- Nav Item - Tables -->
       <li class="nav-item">
-        <a class="nav-link" href="tables.html">
+        <a class="nav-link" href="/owners">
           <i class="fas fa-user-tie fa-table"></i>
           <span>Unit Owners</span></a>
       </li>
 
        <!-- Nav Item - Tables -->
        <li class="nav-item">
-        <a class="nav-link" href="tables.html">
+        <a class="nav-link" href="/joborders">
           <i class="fas fa-tools fa-table"></i>
           <span>Job Orders</span></a>
       </li>
 
        <!-- Nav Item - Tables -->
-       <li class="nav-item">
+       <li class="nav-item active">
         <a class="nav-link" href="/users">
           <i class="fas fa-user-secret fa-table"></i>
           <span>Users</span></a>
@@ -331,6 +349,56 @@
         </nav>
         <!-- End of Topbar -->
         <div class="container-fluid">
+          <div class="row">
+                                    <div class="col">
+                                    
+                                        <div class="card card-body">
+                                            <form id="addUserForm" action="/users" method="POST">
+                                                {{ csrf_field() }}
+                                            </form>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <label for="recipient-name" class="col-form-label"><b>name</b></label>
+                                                    <input form="addUserForm" type="text" class="form-control" name="name" required>
+                                                </div>
+                                                <div class="col">
+                                                    <label for="recipient-name" class="col-form-label"><b>email</b></label>
+                                                    <input form="addUserForm" type="email" class="form-control" name="email" required>
+                                                </div>
+                                                <div class="col">
+                                                    <label for="recipient-name" class="col-form-label"><b>user type</b></label>
+                                                    <select class="form-control" form="addUserForm" name="user_type" required>
+                                                        <option value="">Please select one</option>
+                                                        <option value="admin">admin</option>
+                                                        <option value="billing">billing</option>
+                                                        <option value="manager">manager</option>
+                                                        <option value="treasury">treasury</option>
+                                                        <option value="root">root</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col">
+                                                    <label for="recipient-name" class="col-form-label"><b>status</b></label>
+                                                    <select class="form-control" form="addUserForm" name="status" required>
+                                                        <option value="">Please select one</option>
+                                                        <option value="registered">registered</option>
+                                                        <option value="unregistered">unregistered</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col">
+                                                    <label for="recipient-name" class="col-form-label"><b>property</b></label>
+                                                    <input form="addUserForm" type="text" class="form-control" name="property" value="{{ Auth::user()->property }}" required>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="">
+                                                <p class="text-right">
+                                                    <button type="submit" form="addUserForm" class="btn btn-primary" ><i class="fas fa-check"></i> add</button>
+                                                </p>
+
+                                            </div>
+                                        </div>
+                                      
+                                    </div>
           <form id="addTenantForm3" action="/units/{{ session(Auth::user()->property.'unit_id') }}/tenant-step3" method="POST">
             {{ csrf_field() }}
         </form>
@@ -358,7 +426,17 @@
                <td>{{ $item->user_type }}</td>
                <td>{{ $item->status }}</td>
                <td>{{ $item->property }}</td>
-               <td>{{ $item->password }}</td>
+               <td>
+                
+               <td>
+                <form action="/users/{{ $item->id }}" method="POST">
+                  {{ csrf_field() }}
+                  @method('delete')
+                  <button class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this user?');" type="submit" ><i class="far fa-trash-alt"></i></button>
+                  </form>
+               </td>
+              
+          </td>
            </tr>
            @endforeach
           </tbody>

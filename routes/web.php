@@ -269,34 +269,6 @@ Route::get('/', function(Request $request){
         ->limit(5)
         ->get();
     
-       $units_per_status = DB::table('units')
-        ->select('status',DB::raw('count(*) as count'))
-        ->whereIn('unit_property', [$property[0],$property[1]])
-        ->where('type_of_units', 'leasing')
-        ->groupBy('status')
-        ->get();
-    
-         $units_per_building = DB::table('units')
-        ->select('building', 'status', DB::raw('count(*) as count'))
-        ->whereIn('unit_property', [$property[0],$property[1]])
-        ->groupBy('building')
-        ->where('type_of_units', 'leasing')
-        ->get('building', 'status','count');       
-
-        $units_per_status_residential = DB::table('units')
-        ->select('status',DB::raw('count(*) as count'))
-        ->whereIn('unit_property', [$property[0],$property[1]])
-        ->where('type_of_units', 'residential')
-        ->groupBy('status')
-        ->get();
-
-        $units_per_building_residential = DB::table('units')
-        ->select('building', 'status', DB::raw('count(*) as count'))
-        ->whereIn('unit_property', [$property[0],$property[1]])
-        ->groupBy('building')
-        ->where('type_of_units', 'residential')
-        ->get('building', 'status','count');  
-    
         //billings
         $expected_collection = DB::table('units')
         ->join('tenants', 'unit_id', 'unit_tenant_id')
@@ -603,34 +575,6 @@ Route::get('/', function(Request $request){
         ->limit(5)
         ->get();
     
-        $units_per_status = DB::table('units')
-        ->select('status','building',DB::raw('count(*) as count'))
-        ->where('unit_property', $property[0])
-        ->where('type_of_units', 'leasing')
-        ->groupBy('status')
-        ->get('status','building', 'count');
-    
-        $units_per_building = DB::table('units')
-        ->select('building',DB::raw('count(*) as count'))
-        ->where('unit_property', $property[0])
-        ->where('type_of_units', 'leasing')
-        ->groupBy('building')
-        ->get('building', 'count');
-
-        $units_per_status_residential = DB::table('units')
-        ->select('status',DB::raw('count(*) as count'))
-        ->where('unit_property', $property[0])
-        ->where('type_of_units', 'residential')
-        ->groupBy('status')
-        ->get();
-
-        $units_per_building_residential = DB::table('units')
-        ->select('building', 'status', DB::raw('count(*) as count'))
-        ->where('unit_property', $property[0])
-        ->groupBy('building')
-        ->where('type_of_units', 'residential')
-        ->get('building', 'status','count');  
-    
         //billings
         $expected_collection = DB::table('units')
         ->join('tenants', 'unit_id', 'unit_tenant_id')
@@ -835,9 +779,9 @@ Route::get('/', function(Request $request){
     ->fill(true)
     ->linetension(0.3);
 
-    return view('dashboard', compact('tenants_to_watch_out','active_tenants','reservations','occupied_units','units', 'investors', 'tenants', 'movein_rate','moveout_rate','recent_movein', 'units_per_status', 'units_per_building',
+    return view('dashboard', compact('tenants_to_watch_out','active_tenants','reservations','occupied_units','units', 'investors', 'tenants', 'movein_rate','moveout_rate','recent_movein',
     'expected_collection', 'actual_collection', 'uncollected_amount', 'delinquent_accounts','posted_bills_this_month_for_rent','collection_rate', 'payments', 'recent_payments', 'renewed_contracts', 'renewed_chart', 'terminated_contracts',
-    'users','commercial_units','leasing_units','residential_units','pending_tenants','units_per_status_residential','units_per_building_residential'));
+    'users','commercial_units','leasing_units','residential_units','pending_tenants'));
 
 });
 
@@ -851,17 +795,20 @@ Route::post('units/add-multiple', 'UnitsController@add_multiple_rooms')->middlew
 
 Route::get('/leasing', function(){
 
+    if(auth()->user()->status === 'unregistered'){
+        return view('unregistered');
+    }
+
     $property = explode(",", Auth::user()->property);
 
     if(count($property) > 1){
-        $units_per_building = DB::table('units')
+    $units_per_building = DB::table('units')
         ->select('building', 'status', DB::raw('count(*) as count'))
         ->whereIn('unit_property', [$property[0],$property[1]])
         ->groupBy('building')
         ->where('type_of_units', 'leasing')
         ->get('building', 'status','count');   
         
-
     $leasing_units= DB::table('units')
         ->whereIn('unit_property', [$property[0],$property[1]])
         ->where('type_of_units', 'leasing')
@@ -905,6 +852,10 @@ Route::get('/leasing', function(){
 
 Route::get('/residential', function(){
 
+    if(auth()->user()->status === 'unregistered'){
+        return view('unregistered');
+    }
+
     $property = explode(",", Auth::user()->property);
 
     if(count($property) > 1){
@@ -916,7 +867,7 @@ Route::get('/residential', function(){
         ->get('building', 'status','count');   
         
 
-    $leasing_units= DB::table('units')
+    $residential_units= DB::table('units')
         ->whereIn('unit_property', [$property[0],$property[1]])
         ->where('type_of_units', 'residential')
         ->orderBy('building')
@@ -938,7 +889,7 @@ Route::get('/residential', function(){
         ->where('type_of_units', 'residential')
         ->get('building', 'status','count');   
 
-    $leasing_units= DB::table('units')
+    $residential_units= DB::table('units')
         ->where('unit_property', $property[0])
         ->where('type_of_units', 'residential')
         ->orderBy('building')
@@ -954,7 +905,7 @@ Route::get('/residential', function(){
         ->get();
     }
     
-    return view('leasing',compact('units_per_building','leasing_units','units_per_status'));
+    return view('residential',compact('units_per_building','residential_units','units_per_status'));
 })->middleware('auth');
 
 //routes for payments
@@ -974,6 +925,11 @@ Route::post('/units/{unit_id}/tenants/{tenant_id}/renew', 'TenantController@rene
 Route::delete('/tenants/{tenant_id}', 'TenantController@destroy')->middleware('auth');
 
 Route::get('/tenants', function(){
+
+    if(auth()->user()->status === 'unregistered'){
+        return view('unregistered');
+    }
+
     $property = explode(",", Auth::user()->property);
 
     //get all the units
@@ -995,6 +951,11 @@ Route::get('/tenants', function(){
 })->middleware('auth');
 
 Route::get('/users', function(){
+
+    if(auth()->user()->status === 'unregistered'){
+        return view('unregistered');
+    }
+
     $property = explode(",", Auth::user()->property);
 
     //get all the units
@@ -1011,6 +972,34 @@ Route::get('/users', function(){
     }
 
     return view('users.users', compact('users'));
+})->middleware('auth');
+
+Route::get('/owners', function(){
+
+    if(auth()->user()->status === 'unregistered'){
+        return view('unregistered');
+    }
+
+    $property = explode(",", Auth::user()->property);
+
+    //get all the units
+   if(count($property) > 1){
+       
+    $owners = DB::table('units')
+    ->join('unit_owners', 'unit_unit_owner_id', 'unit_owner_id')
+    ->whereIn('unit_property', [$property[0],$property[1]])
+    ->paginate(10);
+
+    }else{
+    $owners = DB::table('units')
+    ->join('unit_owners', 'unit_unit_owner_id', 'unit_owner_id')
+    ->where('unit_property', $property[0])
+    ->paginate(10);
+    
+    }
+
+    return view('owners', compact('owners'));
+    
 })->middleware('auth');
 
 

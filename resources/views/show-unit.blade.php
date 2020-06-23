@@ -38,7 +38,7 @@
       <hr class="sidebar-divider my-0"> --}}
 
       <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="/">
           {{-- <i class="fas fa-fw fa-tachometer-alt"></i> --}}
           <span>The Property Manager</span></a>
@@ -65,20 +65,29 @@
           <span>Leasing</span></a>
       </li>
 
-      <li class="nav-item">
+      {{-- <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
           <i class="fas fa-home fa-cog"></i>
-          <span>Residential</span>
+          <span>Leasing</span>
           
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            {{-- <h6 class="collapse-header">Custom Components:</h6> --}}
             
+            @foreach ($units_per_building as $item)
+            <a class="collapse-item" href="/leasing">{{ $item->building }}</a>
+            @endforeach
             
           </div>
         </div>
+      </li> --}}
+
+      <li class="nav-item">
+        <a class="nav-link" href="/residential">
+          <i class="fas fa-home"></i>
+          <span>Residential</span></a>
       </li>
+
 
 
       <!-- Divider -->
@@ -119,21 +128,21 @@
 
       <!-- Nav Item - Tables -->
       <li class="nav-item">
-        <a class="nav-link" href="tables.html">
+        <a class="nav-link" href="/owners">
           <i class="fas fa-user-tie fa-table"></i>
           <span>Unit Owners</span></a>
       </li>
 
        <!-- Nav Item - Tables -->
        <li class="nav-item">
-        <a class="nav-link" href="tables.html">
+        <a class="nav-link" href="/joborders">
           <i class="fas fa-tools fa-table"></i>
           <span>Job Orders</span></a>
       </li>
 
        <!-- Nav Item - Tables -->
        <li class="nav-item">
-        <a class="nav-link" href="tables.html">
+        <a class="nav-link" href="/users">
           <i class="fas fa-user-secret fa-table"></i>
           <span>Users</span></a>
       </li>

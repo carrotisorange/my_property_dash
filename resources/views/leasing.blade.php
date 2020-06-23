@@ -65,11 +65,29 @@
           <span>Leasing</span></a>
       </li>
 
+      {{-- <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+          <i class="fas fa-home fa-cog"></i>
+          <span>Leasing</span>
+          
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            
+            @foreach ($units_per_building as $item)
+            <a class="collapse-item" href="/leasing">{{ $item->building }}</a>
+            @endforeach
+            
+          </div>
+        </div>
+      </li> --}}
+
       <li class="nav-item">
         <a class="nav-link" href="/residential">
           <i class="fas fa-home"></i>
           <span>Residential</span></a>
       </li>
+
 
 
       <!-- Divider -->
@@ -110,21 +128,21 @@
 
       <!-- Nav Item - Tables -->
       <li class="nav-item">
-        <a class="nav-link" href="tables.html">
+        <a class="nav-link" href="/owners">
           <i class="fas fa-user-tie fa-table"></i>
           <span>Unit Owners</span></a>
       </li>
 
        <!-- Nav Item - Tables -->
        <li class="nav-item">
-        <a class="nav-link" href="tables.html">
+        <a class="nav-link" href="/joborders">
           <i class="fas fa-tools fa-table"></i>
           <span>Job Orders</span></a>
       </li>
 
        <!-- Nav Item - Tables -->
        <li class="nav-item">
-        <a class="nav-link" href="tables.html">
+        <a class="nav-link" href="/users">
           <i class="fas fa-user-secret fa-table"></i>
           <span>Users</span></a>
       </li>
@@ -350,21 +368,20 @@
                       <tr>
                         <td>
                           @foreach ($leasing_units as $item)
-                            
                                 @if($item->status === 'vacant')
-                                    <a title="{{ $item->type_of_units }}" href="/units/{{$item->unit_id}}" class="btn btn-secondary">
+                                    <a href="/units/{{$item->unit_id}}" class="btn btn-secondary">
                                         <i class="fas fa-home fa-2x"></i>
                                         <br>
                                         <font size="-3" >{{ $item->unit_no }} </font>
                                     </a>
                                 @elseif($item->status=== 'reserved')
-                                    <a title="{{ $item->type_of_units }}" href="/units/{{$item->unit_id}}" class="btn btn-warning">
+                                    <a href="/units/{{$item->unit_id}}" class="btn btn-warning">
                                         <i class="fas fa-home fa-2x"></i>
                                         <br>
                                         <font size="-3">{{ $item->unit_no }} </font>
                                     </a>
                                 @elseif($item->status=== 'occupied')
-                                    <a title="{{ $item->type_of_units }}" href="/units/{{$item->unit_id}}" class="btn btn-primary">
+                                    <a href="/units/{{$item->unit_id}}" class="btn btn-primary">
                                         <i class="fas fa-home fa-2x"></i>
                                         <br>
                                         <font size="-3">{{ $item->unit_no }} </font>
@@ -385,19 +402,19 @@
                             @foreach ($leasing_units as $unit_building)
                                @if($unit_building->building === $item->building)
                                   @if($item->status === 'vacant')
-                                      <a title="{{ $item->type_of_units }}" href="/units/{{$item->unit_id}}" class="btn btn-secondary">
+                                      <a href="/units/{{$item->unit_id}}" class="btn btn-secondary">
                                           <i class="fas fa-home fa-2x"></i>
                                           <br>
                                           <font size="-3" >{{ $item->unit_no }} </font>
                                       </a>
                                   @elseif($item->status=== 'reserved')
-                                      <a title="{{ $item->type_of_units }}" href="/units/{{$item->unit_id}}" class="btn btn-warning">
+                                      <a href="/units/{{$item->unit_id}}" class="btn btn-warning">
                                           <i class="fas fa-home fa-2x"></i>
                                           <br>
                                           <font size="-3">{{ $item->unit_no }} </font>
                                       </a>
                                   @elseif($item->status=== 'occupied')
-                                      <a title="{{ $item->type_of_units }}" href="/units/{{$item->unit_id}}" class="btn btn-primary">
+                                      <a href="/units/{{$item->unit_id}}" class="btn btn-primary">
                                           <i class="fas fa-home fa-2x"></i>
                                           <br>
                                           <font size="-3">{{ $item->unit_no }} </font>

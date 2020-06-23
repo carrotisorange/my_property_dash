@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Residential</title>
+  <title>Unit Owners</title>
 
   <!-- Custom fonts for this template-->
   <link href="{{ asset('dashboard/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -38,7 +38,7 @@
       <hr class="sidebar-divider my-0"> --}}
 
       <!-- Nav Item - Dashboard -->
-      <li class="nav-item">
+      <li class="nav-item active">
         <a class="nav-link" href="/">
           {{-- <i class="fas fa-fw fa-tachometer-alt"></i> --}}
           <span>The Property Manager</span></a>
@@ -52,8 +52,8 @@
         Interface
       </div> --}}
 
- <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item active">
+  <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
         <a class="nav-link" href="/">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
@@ -82,7 +82,7 @@
         </div>
       </li> --}}
 
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="/residential">
           <i class="fas fa-home"></i>
           <span>Residential</span></a>
@@ -127,7 +127,7 @@
       </li>
 
       <!-- Nav Item - Tables -->
-      <li class="nav-item">
+      <li class="nav-item active">
         <a class="nav-link" href="/owners">
           <i class="fas fa-user-tie fa-table"></i>
           <span>Unit Owners</span></a>
@@ -349,88 +349,54 @@
         </nav>
         <!-- End of Topbar -->
         <div class="container-fluid">
-                {{-- <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                  <h1 class="h3 mb-0 text-gray-800">Leasng</h1>
-                 <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> 
-                </div> --}}
-
-                <nav>
-                  <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">All</a>
-                    @foreach ($units_per_building as $item)
-                    <a class="nav-item nav-link" id="nav-{{ $item->building }}-tab" data-toggle="tab" href="#nav-{{ $item->building }}" role="tab" aria-controls="nav-{{ $item->building }}" aria-selected="false">{{ $item->building }}</a>
-                    @endforeach
-                  </div>
-                </nav>
-                <div class="tab-content" id="nav-tabContent">
-                  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                    <table class=" table-borderless">
-                      <tr>
-                        <td>
-                          @foreach ($residential_units as $item)
-                            
-                                @if($item->status === 'vacant')
-                                    <a href="/units/{{$item->unit_id}}" class="btn btn-secondary">
-                                        <i class="fas fa-home fa-2x"></i>
-                                        <br>
-                                        <font size="-3" >{{ $item->unit_no }} </font>
-                                    </a>
-                                @elseif($item->status=== 'reserved')
-                                    <a href="/units/{{$item->unit_id}}" class="btn btn-warning">
-                                        <i class="fas fa-home fa-2x"></i>
-                                        <br>
-                                        <font size="-3">{{ $item->unit_no }} </font>
-                                    </a>
-                                @elseif($item->status=== 'occupied')
-                                    <a href="/units/{{$item->unit_id}}" class="btn btn-primary">
-                                        <i class="fas fa-home fa-2x"></i>
-                                        <br>
-                                        <font size="-3">{{ $item->unit_no }} </font>
-                                    </a>
-                                @endif
-                             
-                          @endforeach
-                      </td>
-                          <br>
-                      </tr>
-                  </table>
-                  </div>
-                  @foreach ($residential_units as $item)
-                    <div class="tab-pane fade show" id="nav-{{ $item->building }}" role="tabpanel" aria-labelledby="nav-{{ $item->building }}-tab">
-                      <table class=" table-borderless">
-                        <tr>
-                          <td>
-                            @foreach ($residential_units as $unit_building)
-                               @if($unit_building->building === $item->building)
-                                  @if($item->status === 'vacant')
-                                      <a href="/units/{{$item->unit_id}}" class="btn btn-secondary">
-                                          <i class="fas fa-home fa-2x"></i>
-                                          <br>
-                                          <font size="-3" >{{ $item->unit_no }} </font>
-                                      </a>
-                                  @elseif($item->status=== 'reserved')
-                                      <a href="/units/{{$item->unit_id}}" class="btn btn-warning">
-                                          <i class="fas fa-home fa-2x"></i>
-                                          <br>
-                                          <font size="-3">{{ $item->unit_no }} </font>
-                                      </a>
-                                  @elseif($item->status=== 'occupied')
-                                      <a href="/units/{{$item->unit_id}}" class="btn btn-primary">
-                                          <i class="fas fa-home fa-2x"></i>
-                                          <br>
-                                          <font size="-3">{{ $item->unit_no }} </font>
-                                      </a>
-                                  @endif
-                               @endif
-                            @endforeach
-                        </td>
-                            <br>
-                        </tr>
-                    </table>
-                    </div>
-                  @endforeach
-                </div>
+          <form id="addTenantForm3" action="/units/{{ session(Auth::user()->property.'unit_id') }}/tenant-step3" method="POST">
+            {{ csrf_field() }}
+        </form>
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+          <h1 class="h3 mb-0 text-gray-800">Owners</h1>
         </div>
+        
+    
+            {{-- <form action="/tenants/search" method="GET" >
+                @csrf
+                <div class="input-group">
+                    <input type="text" class="form-control" name="search" placeholder="enter tenant name" value="{{ session(Auth::user()->property.'search_tenant') }}">
+                </div>
+            </form>
+            <br>
+            <p class="text-center"><small ><b>{{ $tenants->count() }}</b> tenants found.</small></p> --}}
+            <?php $ctr=1; ?>
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                           <th>#</th>
+                           <th>NAME</th>
+                           <th>UNIT/ROOM</th>
+                           <th>MOBILE</th>
+                           <th>CONTRACT PERIOD</th>
+                       </tr>
+                    </thead>   
+                       <tbody>
+                       @foreach ($owners as $item)
+                       <tr>
+                           <th>{{ $ctr++ }}</th>
+                           <td><a href="{{ route('show-investor',['unit_id'=> $item->unit_id, 'unit_owner_id'=>$item->unit_owner_id]) }}">{{ $item->unit_owner }} </a></td>
+                           <td>{{ $item->building.' '.$item->unit_no }}</td>
+                           <td>{{ $item->investor_contact_no }}</td>
+                           <td>{{ Carbon\Carbon::parse($item->contract_start)->format('M d Y').' - '.Carbon\Carbon::parse($item->contract_end)->format('M d Y') }}</td>
+                       </tr>
+                       @endforeach
+                       </tbody>
+                </table>
+                {{ $owners->links() }}
+              </div>
+        
+        </div>
+
+        
+        
+       
       </div>
       <!-- End of Main Content -->
 
@@ -497,23 +463,6 @@
   <!-- Page level custom scripts -->
   <script src="{{ asset('/dashboard/js/demo/chart-area-demo.js') }}"></script>
   <script src="{{ asset('/dashboard/js/demo/chart-pie-demo.js') }}"></script>
-
-  <script>
-    $(document).ready(() => {
-    var url = window.location.href;
-    if (url.indexOf("#") > 0){
-    var activeTab = url.substring(url.indexOf("#") + 1);
-      $('.nav[role="tablist"] a[href="#'+activeTab+'"]').tab('show');
-    }
-
-    $('a[role="tab"]').on("click", function() {
-      var newUrl;
-      const hash = $(this).attr("href");
-        newUrl = url.split("#")[0] + hash;
-      history.replaceState(null, null, newUrl);
-    });
-  });
-  </script>
 
 </body>
 

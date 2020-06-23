@@ -128,14 +128,14 @@
 
       <!-- Nav Item - Tables -->
       <li class="nav-item">
-        <a class="nav-link" href="tables.html">
+        <a class="nav-link" href="/owners">
           <i class="fas fa-user-tie fa-table"></i>
           <span>Unit Owners</span></a>
       </li>
 
        <!-- Nav Item - Tables -->
        <li class="nav-item">
-        <a class="nav-link" href="tables.html">
+        <a class="nav-link" href="/joborders">
           <i class="fas fa-tools fa-table"></i>
           <span>Job Orders</span></a>
       </li>
