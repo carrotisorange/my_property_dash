@@ -403,30 +403,31 @@
             {{ csrf_field() }}
         </form>
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-          <h1 class="h3 mb-0 text-gray-800">Contract Duration (3/4)</h1>
+          <h1 class="h3 mb-0 text-gray-800">Users</h1>
         </div>
-        
+        <?php $ctr=1; ?>
         <div class="table-responsive">
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
           <thead>
             <tr>
+              <td>#</td>
                 <th>USER</th>
                 <th>EMAIL</th>
                 <th>USER TYPE</th>
                 <th>STATUS</th>
                 <th>PROPERTY NAME</th>
-                <th></th>
               </tr>
           </thead>
           <tbody>
             @foreach ($users as $item)
            <tr>
+              <th>{{ $ctr++ }}</th>
                <td><a href="/users/{{ $item->id }}">{{ $item->name }}</a></td>
                <td>{{ $item->email }}</td>
                <td>{{ $item->user_type }}</td>
                <td>{{ $item->status }}</td>
                <td>{{ $item->property }}</td>
-               <td>{{ $item->password }}</td>
+               
            </tr>
            @endforeach
           </tbody>
