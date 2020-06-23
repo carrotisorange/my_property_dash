@@ -349,6 +349,15 @@
         </nav>
         <!-- End of Topbar -->
         <div class="container-fluid">
+
+          @if($leasing_units->count() <= 0 )
+          <div class="text-center">
+            <div class="error mx-auto" data-text="">0</div>
+            <p class="lead text-gray-800 mb-5">units/rooms found</p>
+            {{-- <p class="text-gray-500 mb-0">No units/rooms found...</p> --}}
+            <a href="/">&larr; Add your first unit/room</a>
+          </div>
+          @else
                 {{-- <div class="d-sm-flex align-items-center justify-content-between mb-4">
                   <h1 class="h3 mb-0 text-gray-800">Leasng</h1>
                  <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> 
@@ -429,8 +438,11 @@
                     </div>
                   @endforeach
                 </div>
+                @endif
         </div>
+        
       </div>
+     
       <!-- End of Main Content -->
 
       <!-- Footer -->
