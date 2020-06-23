@@ -900,7 +900,7 @@ Route::get('/leasing', function(){
         ->get();
     }
     
-    return view('leasing',compact('units_per_building','units_per_building_residential','leasing_units','units_per_status'));
+    return view('leasing',compact('units_per_building','leasing_units','units_per_status'));
 })->middleware('auth');
 
 Route::get('/residential', function(){
@@ -954,7 +954,7 @@ Route::get('/residential', function(){
         ->get();
     }
     
-    return view('leasing',compact('units_per_building','units_per_building_residential','leasing_units','units_per_status'));
+    return view('leasing',compact('units_per_building','leasing_units','units_per_status'));
 })->middleware('auth');
 
 //routes for payments
