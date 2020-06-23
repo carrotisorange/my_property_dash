@@ -733,22 +733,41 @@ Route::get('/', function(Request $request){
     $renewed_chart->dataset('', 'pie', [number_format(($overall_contract_termination == 0 ? 0 : $renewed_contracts->count()/$overall_contract_termination) * 100,1),number_format(($overall_contract_termination == 0 ? 0 :$terminated_contracts->count()/$overall_contract_termination) * 100,1)  ])
     ->backgroundColor(['#008000', '#FF0000']);
 
-    $movein_rate = new DashboardChart;
-    $movein_rate->barwidth(0.0);
-    $movein_rate->displaylegend(false);
-    $movein_rate->labels([Carbon::now()->subMonth(5)->format('M Y'),Carbon::now()->subMonth(4)->format('M Y'),Carbon::now()->subMonth(3)->format('M Y'),Carbon::now()->subMonths(2)->format('M Y'),Carbon::now()->subMonth()->format('M Y'),Carbon::now()->format('M Y')]);
-    $movein_rate->dataset('Occupancy Rate: ', 'line', [
-        number_format(($leasing_units->count() == 0 ? 0:$all_active_tenants->count()-($movein_rate_2 + $movein_rate_3 + $movein_rate_4 + $movein_rate_5 + $movein_rate_6))/$leasing_units->count() * 100,2),
-                                        number_format(($leasing_units->count() == 0 ? 0: $all_active_tenants->count()-($movein_rate_3 + $movein_rate_4 + $movein_rate_5 + $movein_rate_6))/$leasing_units->count() * 100,2),
-                                        number_format(($leasing_units->count() == 0 ? 0: $all_active_tenants->count()-($movein_rate_4 + $movein_rate_5 + $movein_rate_6))/$leasing_units->count() * 100,2),
-                                        number_format(($leasing_units->count() == 0 ? 0: $all_active_tenants->count()-($movein_rate_5 + $movein_rate_6))/$leasing_units->count() * 100,2),
-                                        number_format(($leasing_units->count() == 0 ? 0: $all_active_tenants->count()-($movein_rate_6))/$leasing_units->count() * 100,2),
-                                        number_format(($leasing_units->count() == 0 ? 0: $active_tenants->count()/$leasing_units->count()) * 100,2)
-                                        ])
-    ->color("#858796")
-    ->backgroundcolor("rgba(78, 115, 223, 0.05)")
-    ->fill(true)
-    ->linetension(0.3);
+    if($leasing_units->count() <0){
+        $movein_rate = new DashboardChart;
+        $movein_rate->barwidth(0.0);
+        $movein_rate->displaylegend(false);
+        $movein_rate->labels([Carbon::now()->subMonth(5)->format('M Y'),Carbon::now()->subMonth(4)->format('M Y'),Carbon::now()->subMonth(3)->format('M Y'),Carbon::now()->subMonths(2)->format('M Y'),Carbon::now()->subMonth()->format('M Y'),Carbon::now()->format('M Y')]);
+        $movein_rate->dataset('Occupancy Rate: ', 'line', [
+                                            number_format(1,2),
+                                            number_format(1,2),
+                                            number_format(1,2),
+                                            number_format(1,2),
+                                            number_format(1,2),
+                                            number_format(1,2),
+                                            ])
+        ->color("#858796")
+        ->backgroundcolor("rgba(78, 115, 223, 0.05)")
+        ->fill(true)
+        ->linetension(0.3);
+    }else{
+        $movein_rate = new DashboardChart;
+        $movein_rate->barwidth(0.0);
+        $movein_rate->displaylegend(false);
+        $movein_rate->labels([Carbon::now()->subMonth(5)->format('M Y'),Carbon::now()->subMonth(4)->format('M Y'),Carbon::now()->subMonth(3)->format('M Y'),Carbon::now()->subMonths(2)->format('M Y'),Carbon::now()->subMonth()->format('M Y'),Carbon::now()->format('M Y')]);
+        $movein_rate->dataset('Occupancy Rate: ', 'line', [
+                                            number_format(($all_active_tenants->count()-($movein_rate_2 + $movein_rate_3 + $movein_rate_4 + $movein_rate_5 + $movein_rate_6))/$leasing_units->count() * 100,2),
+                                            number_format(($all_active_tenants->count()-($movein_rate_3 + $movein_rate_4 + $movein_rate_5 + $movein_rate_6))/$leasing_units->count() * 100,2),
+                                            number_format(($all_active_tenants->count()-($movein_rate_4 + $movein_rate_5 + $movein_rate_6))/$leasing_units->count() * 100,2),
+                                            number_format(($all_active_tenants->count()-($movein_rate_5 + $movein_rate_6))/$leasing_units->count() * 100,2),
+                                            number_format(($all_active_tenants->count()-($movein_rate_6))/$leasing_units->count() * 100,2),
+                                            number_format(($active_tenants->count()/$leasing_units->count()) * 100,2)
+                                            ])
+        ->color("#858796")
+        ->backgroundcolor("rgba(78, 115, 223, 0.05)")
+        ->fill(true)
+        ->linetension(0.3);
+    }
 
 
     $moveout_rate = new DashboardChart;
@@ -961,12 +980,12 @@ Route::get('/users', function(){
     //get all the units
    if(count($property) > 1){
         $users = DB::table('users')
-        ->whereIn('unit_property', [$property[0],$property[1]])
+        
         ->orderBy('created_at')
         ->get();
     }else{
         $users = DB::table('users')
-        ->where('unit_property', $property[0])
+       
         ->orderBy('created_at')
         ->get();
     }
@@ -995,7 +1014,7 @@ Route::get('/owners', function(){
     ->join('unit_owners', 'unit_unit_owner_id', 'unit_owner_id')
     ->where('unit_property', $property[0])
     ->paginate(10);
-
+    
     }
 
     return view('owners', compact('owners'));
