@@ -738,7 +738,7 @@ Route::get('/', function(Request $request){
     $movein_rate->displaylegend(false);
     $movein_rate->labels([Carbon::now()->subMonth(5)->format('M Y'),Carbon::now()->subMonth(4)->format('M Y'),Carbon::now()->subMonth(3)->format('M Y'),Carbon::now()->subMonths(2)->format('M Y'),Carbon::now()->subMonth()->format('M Y'),Carbon::now()->format('M Y')]);
     $movein_rate->dataset('Occupancy Rate: ', 'line', [
-        number_format(($all_active_tenants->count()-($leasing_units->count() == 0 ? 0: $movein_rate_2 + $movein_rate_3 + $movein_rate_4 + $movein_rate_5 + $movein_rate_6))/$leasing_units->count() * 100,2),
+        number_format(($leasing_units->count() == 0 ? 0:$all_active_tenants->count()-($movein_rate_2 + $movein_rate_3 + $movein_rate_4 + $movein_rate_5 + $movein_rate_6))/$leasing_units->count() * 100,2),
                                         number_format(($leasing_units->count() == 0 ? 0: $all_active_tenants->count()-($movein_rate_3 + $movein_rate_4 + $movein_rate_5 + $movein_rate_6))/$leasing_units->count() * 100,2),
                                         number_format(($leasing_units->count() == 0 ? 0: $all_active_tenants->count()-($movein_rate_4 + $movein_rate_5 + $movein_rate_6))/$leasing_units->count() * 100,2),
                                         number_format(($leasing_units->count() == 0 ? 0: $all_active_tenants->count()-($movein_rate_5 + $movein_rate_6))/$leasing_units->count() * 100,2),
