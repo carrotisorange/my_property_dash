@@ -351,7 +351,7 @@
         <div class="container-fluid">
           <div class="row">
                                     <div class="col">
-                                    
+                                      <div class="collapse multi-collapse" id="multiCollapseExample1">
                                         <div class="card card-body">
                                             <form id="addUserForm" action="/users" method="POST">
                                                 {{ csrf_field() }}
@@ -397,7 +397,7 @@
 
                                             </div>
                                         </div>
-                                      
+                                      </div>
                                     </div>
           <form id="addTenantForm3" action="/units/{{ session(Auth::user()->property.'unit_id') }}/tenant-step3" method="POST">
             {{ csrf_field() }}
@@ -426,17 +426,7 @@
                <td>{{ $item->user_type }}</td>
                <td>{{ $item->status }}</td>
                <td>{{ $item->property }}</td>
-               <td>
-                
-               <td>
-                <form action="/users/{{ $item->id }}" method="POST">
-                  {{ csrf_field() }}
-                  @method('delete')
-                  <button class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this user?');" type="submit" ><i class="far fa-trash-alt"></i></button>
-                  </form>
-               </td>
-              
-          </td>
+               <td>{{ $item->password }}</td>
            </tr>
            @endforeach
           </tbody>
