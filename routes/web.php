@@ -733,7 +733,7 @@ Route::get('/', function(Request $request){
     $renewed_chart->dataset('', 'pie', [number_format(($overall_contract_termination == 0 ? 0 : $renewed_contracts->count()/$overall_contract_termination) * 100,1),number_format(($overall_contract_termination == 0 ? 0 :$terminated_contracts->count()/$overall_contract_termination) * 100,1)  ])
     ->backgroundColor(['#008000', '#FF0000']);
 
-    if($leasing_units->count() <0){
+    if($leasing_units->count() <= 0){
         $movein_rate = new DashboardChart;
         $movein_rate->barwidth(0.0);
         $movein_rate->displaylegend(false);
