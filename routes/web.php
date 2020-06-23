@@ -738,12 +738,12 @@ Route::get('/', function(Request $request){
     $movein_rate->displaylegend(false);
     $movein_rate->labels([Carbon::now()->subMonth(5)->format('M Y'),Carbon::now()->subMonth(4)->format('M Y'),Carbon::now()->subMonth(3)->format('M Y'),Carbon::now()->subMonths(2)->format('M Y'),Carbon::now()->subMonth()->format('M Y'),Carbon::now()->format('M Y')]);
     $movein_rate->dataset('Occupancy Rate: ', 'line', [
-        number_format(($all_active_tenants->count()-($leasing_units == 0 ? 0: $movein_rate_2 + $movein_rate_3 + $movein_rate_4 + $movein_rate_5 + $movein_rate_6))/$leasing_units->count() * 100,2),
-                                        number_format(($leasing_units == 0 ? 0: $all_active_tenants->count()-($movein_rate_3 + $movein_rate_4 + $movein_rate_5 + $movein_rate_6))/$leasing_units->count() * 100,2),
-                                        number_format(($leasing_units == 0 ? 0: $all_active_tenants->count()-($movein_rate_4 + $movein_rate_5 + $movein_rate_6))/$leasing_units->count() * 100,2),
-                                        number_format(($leasing_units == 0 ? 0: $all_active_tenants->count()-($movein_rate_5 + $movein_rate_6))/$leasing_units->count() * 100,2),
-                                        number_format(($leasing_units == 0 ? 0: $all_active_tenants->count()-($movein_rate_6))/$leasing_units->count() * 100,2),
-                                        number_format(($leasing_units == 0 ? 0: $active_tenants->count()/$leasing_units->count()) * 100,2)
+        number_format(($all_active_tenants->count()-($leasing_units->count() == 0 ? 0: $movein_rate_2 + $movein_rate_3 + $movein_rate_4 + $movein_rate_5 + $movein_rate_6))/$leasing_units->count() * 100,2),
+                                        number_format(($leasing_units->count() == 0 ? 0: $all_active_tenants->count()-($movein_rate_3 + $movein_rate_4 + $movein_rate_5 + $movein_rate_6))/$leasing_units->count() * 100,2),
+                                        number_format(($leasing_units->count() == 0 ? 0: $all_active_tenants->count()-($movein_rate_4 + $movein_rate_5 + $movein_rate_6))/$leasing_units->count() * 100,2),
+                                        number_format(($leasing_units->count() == 0 ? 0: $all_active_tenants->count()-($movein_rate_5 + $movein_rate_6))/$leasing_units->count() * 100,2),
+                                        number_format(($leasing_units->count() == 0 ? 0: $all_active_tenants->count()-($movein_rate_6))/$leasing_units->count() * 100,2),
+                                        number_format(($leasing_units->count() == 0 ? 0: $active_tenants->count()/$leasing_units->count()) * 100,2)
                                         ])
     ->color("#858796")
     ->backgroundcolor("rgba(78, 115, 223, 0.05)")
@@ -961,12 +961,12 @@ Route::get('/users', function(){
     //get all the units
    if(count($property) > 1){
         $users = DB::table('users')
-        
+        ->whereIn('unit_property', [$property[0],$property[1]])
         ->orderBy('created_at')
         ->get();
     }else{
         $users = DB::table('users')
-       
+        ->where('unit_property', $property[0])
         ->orderBy('created_at')
         ->get();
     }
