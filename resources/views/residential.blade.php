@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Users</title>
+  <title>Residential</title>
 
   <!-- Custom fonts for this template-->
   <link href="{{ asset('dashboard/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -103,7 +103,7 @@
       <!-- Nav Item - Charts -->
 
       <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="/tenants">
           <i class="fas fa-user fa-chart-area"></i>
           <span>Tenants</span></a>
       </li>
@@ -124,7 +124,7 @@
 
        <!-- Nav Item - Tables -->
        <li class="nav-item">
-        <a class="nav-link" href="/users">
+        <a class="nav-link" href="tables.html">
           <i class="fas fa-user-secret fa-table"></i>
           <span>Users</span></a>
       </li>
@@ -331,40 +331,89 @@
         </nav>
         <!-- End of Topbar -->
         <div class="container-fluid">
-          <form id="addTenantForm3" action="/units/{{ session(Auth::user()->property.'unit_id') }}/tenant-step3" method="POST">
-            {{ csrf_field() }}
-        </form>
-        <div class="d-sm-flex align-items-center justify-content-between mb-4">
-          <h1 class="h3 mb-0 text-gray-800">Contract Duration (3/4)</h1>
+                {{-- <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                  <h1 class="h3 mb-0 text-gray-800">Leasng</h1>
+                 <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> 
+                </div> --}}
+
+                <nav>
+                  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <a class="nav-item nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="nhome" aria-selected="true">All</a>
+                    @foreach ($units_per_building as $item)
+                    <a class="nav-item nav-link" id="{{ $item->building }}-tab" data-toggle="tab" href="#{{ $item->building }}" role="tab" aria-controls="{{ $item->building }}" aria-selected="false">{{ $item->building }}</a>
+                    @endforeach
+                  </div>
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+                  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="tab-pane fade show" id="{{ $item->building }}" role="tabpanel" aria-labelledby="nav-{{ $item->building }}-tab">
+                      <table class=" table-borderless">
+                        <tr>
+                          <td>
+                            @foreach ($leasing_units as $item)
+                                @if($item->status === 'vacant')
+                                    <a title="{{ $item->type_of_units }}" href="/units/{{$item->unit_id}}" class="btn btn-secondary">
+                                        <i class="fas fa-home fa-2x"></i>
+                                        <br>
+                                        <font size="-3" >{{ $item->unit_no }} </font>
+                                    </a>
+                                @elseif($item->status=== 'reserved')
+                                    <a title="{{ $item->type_of_units }}" href="/units/{{$item->unit_id}}" class="btn btn-warning">
+                                        <i class="fas fa-home fa-2x"></i>
+                                        <br>
+                                        <font size="-3">{{ $item->unit_no }} </font>
+                                    </a>
+                                @elseif($item->status=== 'occupied')
+                                    <a title="{{ $item->type_of_units }}" href="/units/{{$item->unit_id}}" class="btn btn-primary">
+                                        <i class="fas fa-home fa-2x"></i>
+                                        <br>
+                                        <font size="-3">{{ $item->unit_no }} </font>
+                                    </a>
+                                @endif
+                            @endforeach
+                        </td>
+                            <br>
+                        </tr>
+                    </table>
+                    </div>
+                
+                  </div>
+                  @foreach ($leasing_units as $item)
+                    <div class="tab-pane fade show" id="{{ $item->building }}" role="tabpanel" aria-labelledby="{{ $item->building }}-tab">
+                      <table class=" table-borderless">
+                        <tr>
+                          <td>
+                            @foreach ($leasing_units as $unit_building)
+                               @if($unit_building->building === $item->building)
+                                  @if($item->status === 'vacant')
+                                      <a title="{{ $item->type_of_units }}" href="/units/{{$item->unit_id}}" class="btn btn-secondary">
+                                          <i class="fas fa-home fa-2x"></i>
+                                          <br>
+                                          <font size="-3" >{{ $item->unit_no }} </font>
+                                      </a>
+                                  @elseif($item->status=== 'reserved')
+                                      <a title="{{ $item->type_of_units }}" href="/units/{{$item->unit_id}}" class="btn btn-warning">
+                                          <i class="fas fa-home fa-2x"></i>
+                                          <br>
+                                          <font size="-3">{{ $item->unit_no }} </font>
+                                      </a>
+                                  @elseif($item->status=== 'occupied')
+                                      <a title="{{ $item->type_of_units }}" href="/units/{{$item->unit_id}}" class="btn btn-primary">
+                                          <i class="fas fa-home fa-2x"></i>
+                                          <br>
+                                          <font size="-3">{{ $item->unit_no }} </font>
+                                      </a>
+                                  @endif
+                               @endif
+                            @endforeach
+                        </td>
+                            <br>
+                        </tr>
+                    </table>
+                    </div>
+                  @endforeach
+                </div>
         </div>
-        
-        <div class="table-responsive">
-        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-          <thead>
-            <tr>
-                <th>USER</th>
-                <th>EMAIL</th>
-                <th>USER TYPE</th>
-                <th>STATUS</th>
-                <th>PROPERTY NAME</th>
-                <th></th>
-              </tr>
-          </thead>
-          <tbody>
-            @foreach ($users as $item)
-           <tr>
-               <td><a href="/users/{{ $item->id }}">{{ $item->name }}</a></td>
-               <td>{{ $item->email }}</td>
-               <td>{{ $item->user_type }}</td>
-               <td>{{ $item->status }}</td>
-               <td>{{ $item->property }}</td>
-               <td>{{ $item->password }}</td>
-           </tr>
-           @endforeach
-          </tbody>
-        </table>
-      </div>
-       
       </div>
       <!-- End of Main Content -->
 
@@ -431,6 +480,23 @@
   <!-- Page level custom scripts -->
   <script src="{{ asset('/dashboard/js/demo/chart-area-demo.js') }}"></script>
   <script src="{{ asset('/dashboard/js/demo/chart-pie-demo.js') }}"></script>
+
+  <script>
+    $(document).ready(() => {
+    var url = window.location.href;
+    if (url.indexOf("#") > 0){
+    var activeTab = url.substring(url.indexOf("#") + 1);
+      $('.nav[role="tablist"] a[href="#'+activeTab+'"]').tab('show');
+    }
+
+    $('a[role="tab"]').on("click", function() {
+      var newUrl;
+      const hash = $(this).attr("href");
+        newUrl = url.split("#")[0] + hash;
+      history.replaceState(null, null, newUrl);
+    });
+  });
+  </script>
 
 </body>
 

@@ -861,12 +861,6 @@ Route::get('/leasing', function(){
         ->where('type_of_units', 'leasing')
         ->get('building', 'status','count');   
         
-    $units_per_building_residential = DB::table('units')
-        ->select('building', 'status', DB::raw('count(*) as count'))
-        ->whereIn('unit_property', [$property[0],$property[1]])
-        ->groupBy('building')
-        ->where('type_of_units', 'residential')
-        ->get('building', 'status','count');  
 
     $leasing_units= DB::table('units')
         ->whereIn('unit_property', [$property[0],$property[1]])
@@ -882,7 +876,6 @@ Route::get('/leasing', function(){
         ->where('type_of_units', 'leasing')
         ->groupBy('status')
         ->get();
-
     }else{
     $units_per_building = DB::table('units')
         ->select('building', 'status', DB::raw('count(*) as count'))
@@ -890,13 +883,6 @@ Route::get('/leasing', function(){
         ->groupBy('building')
         ->where('type_of_units', 'leasing')
         ->get('building', 'status','count');   
-        
-    $units_per_building_residential = DB::table('units')
-        ->select('building', 'status', DB::raw('count(*) as count'))
-        ->where('unit_property', $property[0])
-        ->groupBy('building')
-        ->where('type_of_units', 'residential')
-        ->get('building', 'status','count');  
 
     $leasing_units= DB::table('units')
         ->where('unit_property', $property[0])
@@ -910,6 +896,60 @@ Route::get('/leasing', function(){
         ->select('status',DB::raw('count(*) as count'))
         ->where('unit_property', $property[0])
         ->where('type_of_units', 'leasing')
+        ->groupBy('status')
+        ->get();
+    }
+    
+    return view('leasing',compact('units_per_building','units_per_building_residential','leasing_units','units_per_status'));
+})->middleware('auth');
+
+Route::get('/residential', function(){
+
+    $property = explode(",", Auth::user()->property);
+
+    if(count($property) > 1){
+        $units_per_building = DB::table('units')
+        ->select('building', 'status', DB::raw('count(*) as count'))
+        ->whereIn('unit_property', [$property[0],$property[1]])
+        ->groupBy('building')
+        ->where('type_of_units', 'residential')
+        ->get('building', 'status','count');   
+        
+
+    $leasing_units= DB::table('units')
+        ->whereIn('unit_property', [$property[0],$property[1]])
+        ->where('type_of_units', 'residential')
+        ->orderBy('building')
+        ->orderBy('floor_no')
+        ->orderBy('unit_no')
+        ->get();
+
+    $units_per_status = DB::table('units')
+        ->select('status',DB::raw('count(*) as count'))
+        ->whereIn('unit_property', [$property[0],$property[1]])
+        ->where('type_of_units', 'residential')
+        ->groupBy('status')
+        ->get();
+    }else{
+    $units_per_building = DB::table('units')
+        ->select('building', 'status', DB::raw('count(*) as count'))
+        ->where('unit_property', $property[0])
+        ->groupBy('building')
+        ->where('type_of_units', 'residential')
+        ->get('building', 'status','count');   
+
+    $leasing_units= DB::table('units')
+        ->where('unit_property', $property[0])
+        ->where('type_of_units', 'residential')
+        ->orderBy('building')
+        ->orderBy('floor_no')
+        ->orderBy('unit_no')
+        ->get();
+
+    $units_per_status = DB::table('units')
+        ->select('status',DB::raw('count(*) as count'))
+        ->where('unit_property', $property[0])
+        ->where('type_of_units', 'residential')
         ->groupBy('status')
         ->get();
     }

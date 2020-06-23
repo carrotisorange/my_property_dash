@@ -83,21 +83,11 @@
       </li> --}}
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-          <i class="fas fa-home fa-cog"></i>
-          <span>Residential</span>
-          
-        </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            {{-- <h6 class="collapse-header">Custom Components:</h6> --}}
-            @foreach ($units_per_building_residential as $item)
-            <a class="collapse-item" href="#">{{ $item->building }}</a>
-            @endforeach
-            
-          </div>
-        </div>
+        <a class="nav-link" href="/residential">
+          <i class="fas fa-home"></i>
+          <span>Residential</span></a>
       </li>
+
 
 
       <!-- Divider -->

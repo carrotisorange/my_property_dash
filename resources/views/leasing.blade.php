@@ -66,20 +66,9 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-          <i class="fas fa-home fa-cog"></i>
-          <span>Residential</span>
-          
-        </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            {{-- <h6 class="collapse-header">Custom Components:</h6> --}}
-            @foreach ($units_per_building_residential as $item)
-            <a class="collapse-item" href="#">{{ $item->building }}</a>
-            @endforeach
-            
-          </div>
-        </div>
+        <a class="nav-link" href="/residential">
+          <i class="fas fa-home"></i>
+          <span>Residential</span></a>
       </li>
 
 
@@ -347,22 +336,54 @@
                  <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> 
                 </div> --}}
 
-                <div class="row">
-                  <ul class="nav nav-pills mb-3 text-right" id="pills-tab" role="tablist">
-                    <li class="nav-item">
-                      <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#all" role="tab" aria-controls="pills-home" aria-selected="true"><i class="fas fa-home"></i> all <span class="badge badge-light">{{ $leasing_units->count() }}</span></a>
-                    </li>
-                    @foreach ($units_per_status as $item)
-                        <li class="nav-item">
-                           <a class="nav-link" id="pills-{{ $item->status }}-tab" data-toggle="pill" href="#{{ $item->status }}" role="tab" aria-controls="pills-{{ $item->status }}" aria-selected="false"><i class="fas fa-home""></i> {{ $item->status }} <span class="badge badge-light">{{ $item->count }}</span> </a>
-                        </li>
+                <nav>
+                  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">All</a>
+                    @foreach ($units_per_building as $item)
+                    <a class="nav-item nav-link" id="nav-{{ $item->building }}-tab" data-toggle="tab" href="#nav-{{ $item->building }}" role="tab" aria-controls="nav-{{ $item->building }}" aria-selected="false">{{ $item->building }}</a>
                     @endforeach
-                  </ul>
-          
+                  </div>
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+                  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                     <table class=" table-borderless">
                       <tr>
+                        <td>
+                          @foreach ($leasing_units as $item)
+                            
+                                @if($item->status === 'vacant')
+                                    <a title="{{ $item->type_of_units }}" href="/units/{{$item->unit_id}}" class="btn btn-secondary">
+                                        <i class="fas fa-home fa-2x"></i>
+                                        <br>
+                                        <font size="-3" >{{ $item->unit_no }} </font>
+                                    </a>
+                                @elseif($item->status=== 'reserved')
+                                    <a title="{{ $item->type_of_units }}" href="/units/{{$item->unit_id}}" class="btn btn-warning">
+                                        <i class="fas fa-home fa-2x"></i>
+                                        <br>
+                                        <font size="-3">{{ $item->unit_no }} </font>
+                                    </a>
+                                @elseif($item->status=== 'occupied')
+                                    <a title="{{ $item->type_of_units }}" href="/units/{{$item->unit_id}}" class="btn btn-primary">
+                                        <i class="fas fa-home fa-2x"></i>
+                                        <br>
+                                        <font size="-3">{{ $item->unit_no }} </font>
+                                    </a>
+                                @endif
+                             
+                          @endforeach
+                      </td>
+                          <br>
+                      </tr>
+                  </table>
+                  </div>
+                  @foreach ($leasing_units as $item)
+                    <div class="tab-pane fade show" id="nav-{{ $item->building }}" role="tabpanel" aria-labelledby="nav-{{ $item->building }}-tab">
+                      <table class=" table-borderless">
+                        <tr>
                           <td>
-                              @foreach ($leasing_units as $item)
+                            @foreach ($leasing_units as $unit_building)
+                               @if($unit_building->building === $item->building)
                                   @if($item->status === 'vacant')
                                       <a title="{{ $item->type_of_units }}" href="/units/{{$item->unit_id}}" class="btn btn-secondary">
                                           <i class="fas fa-home fa-2x"></i>
@@ -382,11 +403,14 @@
                                           <font size="-3">{{ $item->unit_no }} </font>
                                       </a>
                                   @endif
-                              @endforeach
-                          </td>
-                          <br>
-                      </tr>
-                  </table>
+                               @endif
+                            @endforeach
+                        </td>
+                            <br>
+                        </tr>
+                    </table>
+                    </div>
+                  @endforeach
                 </div>
         </div>
       </div>
@@ -455,6 +479,23 @@
   <!-- Page level custom scripts -->
   <script src="{{ asset('/dashboard/js/demo/chart-area-demo.js') }}"></script>
   <script src="{{ asset('/dashboard/js/demo/chart-pie-demo.js') }}"></script>
+
+  <script>
+    $(document).ready(() => {
+    var url = window.location.href;
+    if (url.indexOf("#") > 0){
+    var activeTab = url.substring(url.indexOf("#") + 1);
+      $('.nav[role="tablist"] a[href="#'+activeTab+'"]').tab('show');
+    }
+
+    $('a[role="tab"]').on("click", function() {
+      var newUrl;
+      const hash = $(this).attr("href");
+        newUrl = url.split("#")[0] + hash;
+      history.replaceState(null, null, newUrl);
+    });
+  });
+  </script>
 
 </body>
 
