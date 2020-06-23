@@ -373,6 +373,7 @@
                 </nav>
                 <div class="tab-content" id="nav-tabContent">
                   <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                    <div class="table-responsive">
                     <table class=" table-borderless">
                       <tr>
                         <td>
@@ -403,8 +404,10 @@
                       </tr>
                   </table>
                   </div>
+                  </div>
                   @foreach ($residential_units as $item)
                     <div class="tab-pane fade show" id="nav-{{ $item->building }}" role="tabpanel" aria-labelledby="nav-{{ $item->building }}-tab">
+                      <div class="table-responsive">
                       <table class=" table-borderless">
                         <tr>
                           <td>
@@ -435,6 +438,7 @@
                             <br>
                         </tr>
                     </table>
+                    </div>
                     </div>
                   @endforeach
                 </div>
