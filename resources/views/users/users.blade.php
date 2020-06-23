@@ -349,56 +349,7 @@
         </nav>
         <!-- End of Topbar -->
         <div class="container-fluid">
-          <div class="row">
-                                    <div class="col">
-                                      <div class="collapse multi-collapse" id="multiCollapseExample1">
-                                        <div class="card card-body">
-                                            <form id="addUserForm" action="/users" method="POST">
-                                                {{ csrf_field() }}
-                                            </form>
-                                            <div class="row">
-                                                <div class="col">
-                                                    <label for="recipient-name" class="col-form-label"><b>name</b></label>
-                                                    <input form="addUserForm" type="text" class="form-control" name="name" required>
-                                                </div>
-                                                <div class="col">
-                                                    <label for="recipient-name" class="col-form-label"><b>email</b></label>
-                                                    <input form="addUserForm" type="email" class="form-control" name="email" required>
-                                                </div>
-                                                <div class="col">
-                                                    <label for="recipient-name" class="col-form-label"><b>user type</b></label>
-                                                    <select class="form-control" form="addUserForm" name="user_type" required>
-                                                        <option value="">Please select one</option>
-                                                        <option value="admin">admin</option>
-                                                        <option value="billing">billing</option>
-                                                        <option value="manager">manager</option>
-                                                        <option value="treasury">treasury</option>
-                                                        <option value="root">root</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col">
-                                                    <label for="recipient-name" class="col-form-label"><b>status</b></label>
-                                                    <select class="form-control" form="addUserForm" name="status" required>
-                                                        <option value="">Please select one</option>
-                                                        <option value="registered">registered</option>
-                                                        <option value="unregistered">unregistered</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col">
-                                                    <label for="recipient-name" class="col-form-label"><b>property</b></label>
-                                                    <input form="addUserForm" type="text" class="form-control" name="property" value="{{ Auth::user()->property }}" required>
-                                                </div>
-                                            </div>
-                                            <br>
-                                            <div class="">
-                                                <p class="text-right">
-                                                    <button type="submit" form="addUserForm" class="btn btn-primary" ><i class="fas fa-check"></i> add</button>
-                                                </p>
 
-                                            </div>
-                                        </div>
-                                      </div>
-                                    </div>
           <form id="addTenantForm3" action="/units/{{ session(Auth::user()->property.'unit_id') }}/tenant-step3" method="POST">
             {{ csrf_field() }}
         </form>
@@ -433,8 +384,7 @@
           </tbody>
         </table>
       </div>
-       
-      </div>
+        </div>
       <!-- End of Main Content -->
 
       <!-- Footer -->
