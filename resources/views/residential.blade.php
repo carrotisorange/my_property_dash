@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Residential</title>
+  <title>Leasing</title>
 
   <!-- Custom fonts for this template-->
   <link href="{{ asset('dashboard/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -38,7 +38,7 @@
       <hr class="sidebar-divider my-0"> --}}
 
       <!-- Nav Item - Dashboard -->
-      <li class="nav-item">
+      <li class="nav-item active">
         <a class="nav-link" href="/">
           {{-- <i class="fas fa-fw fa-tachometer-alt"></i> --}}
           <span>The Property Manager</span></a>
@@ -52,8 +52,8 @@
         Interface
       </div> --}}
 
- <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item active">
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
         <a class="nav-link" href="/">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
@@ -349,6 +349,15 @@
         </nav>
         <!-- End of Topbar -->
         <div class="container-fluid">
+
+          @if($residential_units->count() <= 0 )
+          <div class="text-center">
+            <div class="error mx-auto" data-text="">0</div>
+            <p class="lead text-gray-800 mb-5">units/rooms found</p>
+            {{-- <p class="text-gray-500 mb-0">No units/rooms found...</p> --}}
+            <a href="/">&larr; Add your first unit/room</a>
+          </div>
+          @else
                 {{-- <div class="d-sm-flex align-items-center justify-content-between mb-4">
                   <h1 class="h3 mb-0 text-gray-800">Leasng</h1>
                  <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> 
@@ -368,7 +377,6 @@
                       <tr>
                         <td>
                           @foreach ($residential_units as $item)
-                            
                                 @if($item->status === 'vacant')
                                     <a href="/units/{{$item->unit_id}}" class="btn btn-secondary">
                                         <i class="fas fa-home fa-2x"></i>
@@ -430,8 +438,11 @@
                     </div>
                   @endforeach
                 </div>
+                @endif
         </div>
+        
       </div>
+     
       <!-- End of Main Content -->
 
       <!-- Footer -->
