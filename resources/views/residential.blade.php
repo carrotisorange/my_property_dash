@@ -413,23 +413,23 @@
                           <td>
                             @foreach ($residential_units as $unit_building)
                                @if($unit_building->building === $item->building)
-                                  @if($item->status === 'vacant')
-                                      <a href="/units/{{$item->unit_id}}" class="btn btn-secondary">
+                                  @if($unit_building->status === 'vacant')
+                                      <a href="/units/{{$unit_building->unit_id}}" class="btn btn-secondary">
                                           <i class="fas fa-home fa-2x"></i>
                                           <br>
-                                          <font size="-3" >{{ $item->unit_no }} </font>
+                                          <font size="-3" >{{ $unit_building->unit_no }} </font>
                                       </a>
-                                  @elseif($item->status=== 'reserved')
-                                      <a href="/units/{{$item->unit_id}}" class="btn btn-warning">
+                                  @elseif($unit_building->status=== 'reserved')
+                                      <a href="/units/{{$unit_building->unit_id}}" class="btn btn-warning">
                                           <i class="fas fa-home fa-2x"></i>
                                           <br>
-                                          <font size="-3">{{ $item->unit_no }} </font>
+                                          <font size="-3">{{ $unit_building->unit_no }} </font>
                                       </a>
-                                  @elseif($item->status=== 'occupied')
-                                      <a href="/units/{{$item->unit_id}}" class="btn btn-primary">
+                                  @elseif($unit_building->status=== 'occupied')
+                                      <a href="/units/{{$unit_building->unit_id}}" class="btn btn-primary">
                                           <i class="fas fa-home fa-2x"></i>
                                           <br>
-                                          <font size="-3">{{ $item->unit_no }} </font>
+                                          <font size="-3">{{ $unit_building->unit_no }} </font>
                                       </a>
                                   @endif
                                @endif
