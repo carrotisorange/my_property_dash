@@ -45,7 +45,7 @@
           <li><a href="#portfolio">Portfolio</a></li>
           <li><a href="#team">Team</a></li>
           <li><a href="#pricing">Pricing</a></li>
-          <li><a href="/foods">Foods</a></li>
+          <li><a href="">Foods</a></li>
           <li><a href="#contact">Contact</a></li>
           
 
@@ -188,7 +188,7 @@
                 
               </div>
               <h4><a href="">Unit/Room Management</a></h4>
-              {{-- <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p> --}}
+              <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p>
             </div>
           </div>
 
@@ -198,7 +198,7 @@
                 <i class="bx bx-file"></i>
               </div>
               <h4><a href="">Billing and Collection</a></h4>
-              {{-- <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</p> --}}
+              <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</p>
             </div>
           </div>
 
@@ -208,7 +208,7 @@
                 <i class="bx bx-tachometer"></i>
               </div>
               <h4><a href="">Expense Tracker</a></h4>
-              {{-- <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia</p> --}}
+              <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia</p>
             </div>
           </div>
 
@@ -218,7 +218,7 @@
                 <i class="bx bx-layer"></i>
               </div>
               <h4><a href="">Online Payment</a></h4>
-              {{-- <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis</p> --}}
+              <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis</p>
             </div>
           </div>
 
@@ -228,7 +228,7 @@
                 <i class="bx bx-slideshow"></i>
               </div>
               <h4><a href="">Job Order</a></h4>
-              {{-- <p>Quis consequatur saepe eligendi voluptatem consequatur dolor consequuntur</p> --}}
+              <p>Quis consequatur saepe eligendi voluptatem consequatur dolor consequuntur</p>
             </div>
           </div>
 
@@ -238,7 +238,7 @@
                 <i class="bx bxl-dribbble"></i>
               </div>
               <h4><a href="">Landlord/Tenant Portal</a></h4>
-              {{-- <p>Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur</p> --}}
+              <p>Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur</p>
             </div>
           </div>
 
