@@ -53,99 +53,99 @@
       </div> --}}
 
   <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item">
-        <a class="nav-link" href="/#">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a>
-      </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/">
+      <i class="fas fa-fw fa-tachometer-alt"></i>
+      <span>Dashboard</span></a>
+  </li>
 
-      <li class="nav-item">
-        <a class="nav-link" href="/#">
-          <i class="fas fa-home"></i>
-          <span>Leasing</span></a>
-      </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/leasing">
+      <i class="fas fa-home"></i>
+      <span>Leasing</span></a>
+  </li>
 
-      {{-- <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-          <i class="fas fa-home fa-cog"></i>
-          <span>Leasing</span>
-          
-        </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            
-            @foreach ($units_per_building as $item)
-            <a class="collapse-item" href="/leasing">{{ $item->building }}</a>
-            @endforeach
-            
-          </div>
-        </div>
-      </li> --}}
+  {{-- <li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+      <i class="fas fa-home fa-cog"></i>
+      <span>Leasing</span>
+      
+    </a>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+        
+        @foreach ($units_per_building as $item)
+        <a class="collapse-item" href="/leasing">{{ $item->building }}</a>
+        @endforeach
+        
+      </div>
+    </div>
+  </li> --}}
 
-      <li class="nav-item">
-        <a class="nav-link" href="/#">
-          <i class="fas fa-home"></i>
-          <span>Residential</span></a>
-      </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/residential">
+      <i class="fas fa-home"></i>
+      <span>Residential</span></a>
+  </li>
 
 
 
-      <!-- Divider -->
-      {{-- <hr class="sidebar-divider"> --}}
+  <!-- Divider -->
+  {{-- <hr class="sidebar-divider"> --}}
 
-      {{-- <!-- Heading -->
-      <div class="sidebar-heading">
-        Addons
-      </div> --}}
+  {{-- <!-- Heading -->
+  <div class="sidebar-heading">
+    Addons
+  </div> --}}
 
-      <!-- Nav Item - Pages Collapse Menu -->
-      {{-- <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-          <i class="fas fa-fw fa-folder"></i>
-          <span>Pages</span>
-        </a>
-        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Login Screens:</h6>
-            <a class="collapse-item" href="login.html">Login</a>
-            <a class="collapse-item" href="register.html">Register</a>
-            <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-            <div class="collapse-divider"></div>
-            <h6 class="collapse-header">Other Pages:</h6>
-            <a class="collapse-item" href="404.html">404 Page</a>
-            <a class="collapse-item" href="blank.html">Blank Page</a>
-          </div>
-        </div>
-      </li> --}}
+  <!-- Nav Item - Pages Collapse Menu -->
+  {{-- <li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
+      <i class="fas fa-fw fa-folder"></i>
+      <span>Pages</span>
+    </a>
+    <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+        <h6 class="collapse-header">Login Screens:</h6>
+        <a class="collapse-item" href="login.html">Login</a>
+        <a class="collapse-item" href="register.html">Register</a>
+        <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
+        <div class="collapse-divider"></div>
+        <h6 class="collapse-header">Other Pages:</h6>
+        <a class="collapse-item" href="404.html">404 Page</a>
+        <a class="collapse-item" href="blank.html">Blank Page</a>
+      </div>
+    </div>
+  </li> --}}
 
-      <!-- Nav Item - Charts -->
+  <!-- Nav Item - Charts -->
 
-      <li class="nav-item">
-        <a class="nav-link" href="/#">
-          <i class="fas fa-user fa-chart-area"></i>
-          <span>Tenants</span></a>
-      </li>
+  <li class="nav-item active">
+    <a class="nav-link" href="/tenants">
+      <i class="fas fa-user fa-chart-area"></i>
+      <span>Tenants</span></a>
+  </li>
 
-      <!-- Nav Item - Tables -->
-      <li class="nav-item">
-        <a class="nav-link" href="/#">
-          <i class="fas fa-user-tie fa-table"></i>
-          <span>Unit Owners</span></a>
-      </li>
+  <!-- Nav Item - Tables -->
+  <li class="nav-item">
+    <a class="nav-link" href="/owners">
+      <i class="fas fa-user-tie fa-table"></i>
+      <span>Unit Owners</span></a>
+  </li>
 
-       <!-- Nav Item - Tables -->
-       <li class="nav-item">
-        <a class="nav-link" href="/#">
-          <i class="fas fa-tools fa-table"></i>
-          <span>Job Orders</span></a>
-      </li>
+   <!-- Nav Item - Tables -->
+   <li class="nav-item">
+    <a class="nav-link" href="/joborders">
+      <i class="fas fa-tools fa-table"></i>
+      <span>Job Orders</span></a>
+  </li>
 
-       <!-- Nav Item - Tables -->
-       <li class="nav-item">
-        <a class="nav-link" href="/#">
-          <i class="fas fa-user-secret fa-table"></i>
-          <span>Users</span></a>
-      </li>
+   <!-- Nav Item - Tables -->
+   <li class="nav-item">
+    <a class="nav-link" href="/users">
+      <i class="fas fa-user-secret fa-table"></i>
+      <span>Users</span></a>
+  </li>
       
 
       <!-- Divider -->
@@ -352,8 +352,8 @@
         <!-- 404 Error Text -->
         <div class="table-responsive">
             @if(Auth::user()->user_type === 'treasury')
-            <p><a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/payments" class="btn btn-primary"><i class="fas fa-dollar-sign"></i> see payment history</a>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#acceptPayment"><i class="fas fa-plus"></i> payment</button>
+            <p><a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/payments" class="btn btn-primary"><i class="fas fa-dollar-sign"></i> VIEW PAYMENT HISTORY</a>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#acceptPayment"><i class="fas fa-plus"></i> ADD PAYMENT</button>
             @endif
             </p>
             <h4 class="text-center text-primary">ACCOUNTING DEPARTMENT</h4>
@@ -451,7 +451,7 @@
             <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">add payment</h5>
+                <h5 class="modal-title" id="exampleModalLabel">ADD PAYMENT</h5>
                 
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
