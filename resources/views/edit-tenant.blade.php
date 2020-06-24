@@ -541,8 +541,8 @@
     
     
         <p class="text-right">   
-            <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}" class="btn btn-secondary"><i class="fas fa-times"></i> cancel</a>
-            <button form="editTenantForm" type="submit" class="btn btn-primary"><i class="fas fa-check"></i> Update</button>
+            <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}" class="btn btn-secondary"><i class="fas fa-times"></i> CANCEL</a>
+            <button form="editTenantForm" type="submit" class="btn btn-primary"><i class="fas fa-check"></i> UPDATE</button>
         </p>
         </div>
 
