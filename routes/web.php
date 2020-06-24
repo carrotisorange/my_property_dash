@@ -1022,6 +1022,10 @@ Route::get('/owners', function(){
 })->middleware('auth');
 
 
+Route::get('/foods', function(){
+    return view('foods.index');
+});
+
 
 //step1
 Route::get('/units/{unit_id}/tenant-step1', 'TenantController@createTenantStep1')->middleware('auth');
