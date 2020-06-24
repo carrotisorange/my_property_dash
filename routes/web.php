@@ -957,13 +957,13 @@ Route::get('/tenants', function(){
         ->join('units', 'unit_id', 'unit_tenant_id')
         ->whereIn('unit_property', [$property[0],$property[1]])
         ->orderBy('movein_date')
-        ->paginate(10);
+        ->get();
     }else{
         $tenants = DB::table('tenants')
         ->join('units', 'unit_id', 'unit_tenant_id')
         ->where('unit_property', $property[0])
         ->orderBy('movein_date')
-        ->paginate(10);
+        ->get();
     }
 
     return view('tenants', compact('tenants'));

@@ -408,7 +408,7 @@
                     @endforeach
                   </tbody>
                 </table>
-                {{ $tenants->links() }}
+                {{-- {{ $tenants->links() }} --}}
               </div>
         
         </div>
