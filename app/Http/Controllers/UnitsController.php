@@ -96,7 +96,7 @@ class UnitsController extends Controller
             return view('unregistered'); 
         else
             if(Auth::user()->user_type !== 'admin')
-            return abort('404');
+            return view('unregistered');
             else
             $property = explode(",", Auth::user()->property);
             if(count($property) > 1){
@@ -220,7 +220,7 @@ class UnitsController extends Controller
     public function show_vacant_units($property){
 
         if(Auth::check()){
-            return abort(404);
+            return view('unregistered');
         }
         else
         $buildings = DB::table('units')
@@ -242,7 +242,7 @@ class UnitsController extends Controller
 
     public function show_property(){
         if(Auth::check()){
-            return abort(404);
+            return view('unregistered');
         }
         else
          $properties = DB::table('units')
@@ -257,7 +257,7 @@ class UnitsController extends Controller
     public function show_reservation_form($property, $unit_id){
 
         if(Auth::check()){
-            return abort(404);
+            return view('unregistered');
         }
         $unit = Unit::whereIn('status', ['vacant', 'reserved'])->findOrFail($unit_id);
 
