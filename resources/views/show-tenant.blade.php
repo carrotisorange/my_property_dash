@@ -350,22 +350,22 @@
         <!-- End of Topbar -->
         <div class="container-fluid">
             <h5 style="text-align:left;">
-                <a href="/units/{{ $tenant->unit_tenant_id }}" class="btn btn-primary"><i class="fas fa-arrow-left"></i> go back to unit</a>
-                <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/edit" class="btn btn-primary"><i class="fas fa-user-edit"></i> edit</a>  
-                <a href="{{ route('show-billings',['unit_id' => $tenant->unit_tenant_id, 'tenant_id'=>$tenant->tenant_id]) }}" class="btn btn-primary"><i class="fas fa-file-invoice-dollar"></i> billing <span class="badge badge-light">{{ $billings->count() }}</span> </a>
-                <a href="{{ route('show-payments',['unit_id' => $tenant->unit_tenant_id, 'tenant_id'=>$tenant->tenant_id]) }}" class="btn btn-primary"><i class="fas fa-dollar-sign"></i> payment history <span class="badge badge-light">{{ $payments->count() }}</span></a>
+                <a href="/units/{{ $tenant->unit_tenant_id }}" class="btn btn-primary"><i class="fas fa-arrow-left"></i> GO BACK TO THE UNIT</a>
+                <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/edit" class="btn btn-primary"><i class="fas fa-user-edit"></i> EDIT</a>  
+                <a href="{{ route('show-billings',['unit_id' => $tenant->unit_tenant_id, 'tenant_id'=>$tenant->tenant_id]) }}" class="btn btn-primary"><i class="fas fa-file-invoice-dollar"></i> BILLING <span class="badge badge-light">{{ $billings->count() }}</span> </a>
+                <a href="{{ route('show-payments',['unit_id' => $tenant->unit_tenant_id, 'tenant_id'=>$tenant->tenant_id]) }}" class="btn btn-primary"><i class="fas fa-dollar-sign"></i> PAYMENT HISTORY <span class="badge badge-light">{{ $payments->count() }}</span></a>
                 <span style="float:right;">
                     {{-- <form action="/tenants/{{ $tenant->tenant_id }}" method="POST">
                         {{ csrf_field() }}
                         @method('delete')
                         <button type="submit">Delete</button>
                     </form> --}}
-                <a class="btn btn-primary" data-toggle="modal" data-target="#extendTenant" data-whatever="@mdo"><i class="fas fa-external-link-alt"></i> extend/renew</a>
+                <a class="btn btn-primary" data-toggle="modal" data-target="#extendTenant" data-whatever="@mdo"><i class="fas fa-external-link-alt"></i> EXTEND/RENEW</a>
                 @if ($tenant->tenant_status === 'active' || $tenant->tenant_status === 'pending')
                     @if($pending_balance > 0)
-                <a class="btn btn-danger" data-toggle="modal" data-target="#moveoutTenantWarning" data-whatever="@mdo"><i class="fas fa-sign-out-alt"></i> moveout</a>
+                <a class="btn btn-danger" data-toggle="modal" data-target="#moveoutTenantWarning" data-whatever="@mdo"><i class="fas fa-sign-out-alt"></i> MOVEOUT</a>
                     @else
-                <a class="btn btn-danger" data-toggle="modal" data-target="#moveoutTenant" data-whatever="@mdo"><i class="fas fa-sign-out-alt"></i> moveout</a>
+                <a class="btn btn-danger" data-toggle="modal" data-target="#moveoutTenant" data-whatever="@mdo"><i class="fas fa-sign-out-alt"></i> MOVEOUT</a>
                     @endif
                 @else
                 @endif
