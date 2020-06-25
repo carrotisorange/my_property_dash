@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Payment Details</title>
+  <title>{{ $investor->unit_owner }}</title>
 
   <!-- Custom fonts for this template-->
   <link href="{{ asset('dashboard/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -354,11 +354,47 @@
             <p style="float:right;">
                 <button type="button" title="edit this unit information." class="btn btn-primary" data-toggle="modal" data-target="#editTenant" data-whatever="@mdo"><i class="fas fa-edit"></i>EDIT</button> 
             </p>
-            <table class="table table-bordered table-striped">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                <tr>
-                   <th>Name:</th>
+                   <th>Unit Owner</th>
                    <td>{{ $investor->unit_owner }}</td>
                </tr>
+               <tr>
+                <th>Email</th>
+                <td>{{ $investor->investor_email_address }}</td>
+            </tr>
+             <tr>
+                <th>Mobile</th>
+                <td>{{ $investor->investor_contact_no }}</td>
+            </tr>
+            <tr>
+              <th>Representative</th>
+              <td>{{ $investor->investor_contact_no }}</td>
+          </tr>
+          <tr>
+            <th>Address</th>
+            <td>{{ $investor->investor_address }}</td>
+          </tr>
+            <tr>
+              <th>Bank Name</th>
+              <td>{{ $investor->investor_contact_no }}</td>
+          </tr>
+          <tr>
+            <th>Account Name</th>
+            <td>{{ $investor->account_name }}</td>
+        </tr>
+        <tr>
+          <th>Account Number</th>
+          <td>{{ $investor->account_number }}</td>
+        </tr>
+        <tr>
+          <th>Account Name</th>
+          <td>{{ $investor->account_name }}</td>
+        </tr>
+        <tr>
+          <th>Contract Period</th>
+          <td>{{ Carbon\Carbon::parse($investor->contract_start)->format('M d Y').' - '.Carbon\Carbon::parse($investor->contract_end)->format('M d Y') }}</td>
+        </tr>
             </table>
         </div>
         </div>

@@ -154,7 +154,6 @@
           <span>Users</span></a>
       </li>
       
-
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
 
@@ -363,7 +362,7 @@
           </div>
         <!-- 404 Error Text -->
         <div class="table-responsive">
-            <table id="billing" class="table table-bordered table-striped">
+          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <tr>
                     <th class="text-center">#</th>
                     <th>DATE BILLED</th>
