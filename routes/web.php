@@ -558,37 +558,6 @@ Route::get('/', function(Request $request){
         ->limit(5)
         ->get();
     
-        //billings
-        $expected_collection = DB::table('units')
-        ->join('tenants', 'unit_id', 'unit_tenant_id')
-        ->join('billings', 'tenant_id', 'billing_tenant_id')
-        ->whereMonth('billing_date', Carbon::today()->month)
-        ->whereYear('billing_date', Carbon::today()->year)
-        ->where('unit_property', $property[0])
-        ->sum('billing_amt');
-    
-        $actual_collection = DB::table('units')
-        ->join('tenants', 'unit_id', 'unit_tenant_id')
-        ->join('payments', 'tenant_id', 'payment_tenant_id')
-        ->whereMonth('payment_created', Carbon::today()->month)
-        ->whereYear('payment_created', Carbon::today()->year)
-        ->where('unit_property', $property[0])
-        ->sum('amt_paid');
-    
-        $total_billings = DB::table('units')
-        ->join('tenants', 'unit_id', 'unit_tenant_id')
-        ->join('billings', 'tenant_id', 'billing_tenant_id')
-        ->where('unit_property', $property[0])
-        ->sum('billing_amt');
-    
-        $total_payments = DB::table('units')
-        ->join('tenants', 'unit_id', 'unit_tenant_id')
-        ->join('payments', 'tenant_id', 'payment_tenant_id')
-        ->where('unit_property', $property[0])
-        ->sum('amt_paid');
-    
-        $uncollected_amount = $total_billings-$total_payments;
-    
          $delinquent_accounts = DB::table('units')
         ->selectRaw('*,sum(billing_amt) as total_bills')
         ->join('tenants', 'unit_id', 'unit_tenant_id')
@@ -781,8 +750,7 @@ Route::get('/', function(Request $request){
     ->fill(true)
     ->linetension(0.3);
 
-    return view('dashboard', compact('tenants_to_watch_out','active_tenants','reservations','occupied_units','units', 'investors', 'tenants', 'movein_rate','moveout_rate','recent_movein',
-    'expected_collection', 'actual_collection', 'uncollected_amount', 'delinquent_accounts','posted_bills_this_month_for_rent','collection_rate', 'payments', 'recent_payments', 'renewed_contracts', 'renewed_chart', 'terminated_contracts',
+    return view('dashboard', compact('tenants_to_watch_out','active_tenants','reservations','occupied_units','units', 'investors', 'tenants', 'movein_rate','moveout_rate','recent_movein', 'delinquent_accounts','posted_bills_this_month_for_rent','collection_rate', 'payments', 'recent_payments', 'renewed_contracts', 'renewed_chart', 'terminated_contracts',
     'users','commercial_units','leasing_units','residential_units','pending_tenants'));
 
 });
