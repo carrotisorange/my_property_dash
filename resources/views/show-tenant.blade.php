@@ -532,7 +532,7 @@
             <div class="modal-dialog modal-md" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Moveout </h5>
+                <h5 class="modal-title" id="exampleModalLabel">MOVEOUT </h5>
         
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -546,14 +546,14 @@
                     <input type="hidden" form="moveoutTenantForm" id="tenant_id" name="tenant_id" value="{{ $tenant->tenant_id }}"required>
                     <div class=" row">
                         <div class="col">
-                            <label for="moveout_date">move out date</label>
+                            <label for="moveout_date">MOVEOUT DATE</label>
                             <input type="date" form="moveoutTenantForm" class="form-control" name="actual_move_out_date" id="actual_moveout_date" value={{date('Y-m-d')}} required>
                         </div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col">
-                            <label for="ex1">reason for moving-out</label>
+                            <label for="ex1">REASON FOR MOVING-OUT</label>
                               <select form="moveoutTenantForm" class="form-control" name="reason_for_moving_out" id="reason_for_moving_out">
                                   <option value="end of contract" selected>end of contract</option>
                                   <option value="delinquent">delinquent</option>
@@ -567,7 +567,7 @@
                     <div class="row">
                         <div class="col">
                             <p>
-                                moveout charges
+                                MOVEOUT CHARGES
                                 @foreach ($security_deposits as $item)
                                     <ul>
                                         <li>{{ $item->payment_note.' - '. number_format($item->amt_paid,2)}} </li>
@@ -582,8 +582,8 @@
                             <table class = "table table-hover " id="tab_logic">
                                 <tr>
                                     <th class="text-center">#</th>
-                                    <th>description</th>
-                                    <th>amount</th>
+                                    <th>DESCRIPTION</th>
+                                    <th>AMOUNT</th>
                                 </tr>
                                     <input form="moveoutTenantForm" type="hidden" id="no_of_items" name="no_of_items" >
                                 <tr id='addr1'></tr>
@@ -592,8 +592,8 @@
                       </div>
         
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i> cancel</button>
-                    <button form="moveoutTenantForm" type="submit" class="btn btn-danger" ><i class="fas fa-check"></i> moveout</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i> CANCEL</button>
+                    <button form="moveoutTenantForm" type="submit" class="btn btn-danger" ><i class="fas fa-check"></i> MOVEOUT</button>
                 </div>
             </div>
             </div>
