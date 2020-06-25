@@ -367,7 +367,8 @@
           @else
                  <div class="d-sm-flex align-items-center justify-content-between mb-4">
                   <h1 class="h3 mb-0 text-gray-800">Residential</h1>
-                 <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> 
+                  <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addUnit" data-whatever="@mdo"><i class="fas fa-plus fa-sm text-white-50"></i> ADD UNIT/ROOM</button>
+                  <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addMultipleUnits" data-whatever="@mdo"><i class="fas fa-plus fa-sm text-white-50"></i> ADD MULTIPLE UNITS/ROOMS</button>
                 </div> 
 
                 <nav>
@@ -502,6 +503,157 @@
       </div>
     </div>
   </div>
+
+  <div class="modal fade" id="addUnit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">ADD UNIT/ROOM</h5>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body">
+            <form id="addUnitForm" action="/units/add" method="POST">
+                {{ csrf_field() }}
+            </form>
+
+            <div class="form-group">
+                <label for="recipient-name" class="col-form-label">ENTER THE NAME OF THE BUILDING</label>
+                <input form="addUnitForm" type="text" class="form-control" name="building" placeholder="Building-A" required>
+                <small class="text-danger">please put hyphen(-) between spaces</small>
+            </div>
+
+            <div class="form-group">
+                <label for="recipient-name" class="col-form-label">ENTER THE FLOOR NO</label>
+                <select class="form-control" form="addUnitForm" name="floor_no" id="floor_no" onkeyup="getFloorNo()" required>
+                    <option value="" selected>Please select one</option>
+                    <option value="G">Ground floor</option>
+                    <option value="1">1st floor</option>
+                    <option value="2">2nd floor</option>
+                    <option value="3">3rd floor</option>
+                    <option value="4">4th floor</option>
+                    <option value="5">5ht floor</option>
+                    <option value="6">6th floor</option>
+                    <option value="7">7th floor</option>
+                    <option value="8">8th floor</option>
+                    <option value="9">9th floor</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="recipient-name" class="col-form-label">SELECT THE UNIT/ROOM TYPE</label>
+                <select form="addUnitForm" class="form-control" name="type_of_units" id="type_of_units" required>
+                    {{-- <option value="" selected>Please select one</option> --}}
+                    <option value="leasing" selected>leasing</option>
+                    {{-- <option value="commercial">commercial</option>
+                    <option value="residential">residential</option> --}}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="recipient-name" class="col-form-label">ENTER THE UNIT NO</label>
+                <input form="addUnitForm" type="text" class="form-control" name="unit_no" required>
+            </div>
+
+
+            <div class="form-group">
+                <label for="recipient-name" class="col-form-label">ENTER THE NO OF BEDS</label>
+                <input form="addUnitForm" type="text" class="form-control" name="beds" required>
+            </div>
+
+            <input form="addUnitForm" type="hidden" class="form-control" name="monthly_rent" value="0" >
+
+            {{-- <div class="form-group">
+                <label for="recipient-name" class="col-form-label">ENTER THE RENT/MONTH</label>
+                <input form="addUnitForm" type="number" min="1" class="form-control" name="monthly_rent" id="monthly_rent" required>
+            </div> --}}
+
+        </div>
+        <div class="modal-footer">
+            <button form="addUnitForm" type="submit" class="btn btn-primary" onclick="this.form.submit(); this.disabled = true;><i class="fas fa-check"></i> CREATE ROOM</button>
+            </div>
+    </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addMultipleUnits" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md" role="document">
+  <div class="modal-content">
+      <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel" >ADD MULTIPLE UNITS/ROOMS</h5>
+
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+      </button>
+      </div>
+      <div class="modal-body">
+          <form id="addUMultipleUnitForm" action="/units/add-multiple" method="POST">
+              {{ csrf_field() }}
+          </form>
+
+          <div class="form-group">
+              <label for="recipient-name" class="col-form-label">ENTER THE NAME OF BUILDING</label>
+              <input form="addUMultipleUnitForm" type="text" class="form-control" name="building" placeholder="Building-A" required>
+              <small class="text-danger">please put hyphen(-) between spaces</small>
+          </div>
+
+          <div class="form-group">
+              <label for="recipient-name" class="col-form-label">SELECT THE FLOOR NO</label>
+              <select class="form-control" form="addUMultipleUnitForm" name="floor_no" id="floor_no" onkeyup="getFloorNo()" required>
+                  <option value="" selected>Please select one</option>
+                  <option value="G">Ground floor</option>
+                  <option value="1">1st floor</option>
+                  <option value="2">2nd floor</option>
+                  <option value="3">3rd floor</option>
+                  <option value="4">4th floor</option>
+                  <option value="5">5ht floor</option>
+                  <option value="6">6th floor</option>
+                  <option value="7">7th floor</option>
+                  <option value="8">8th floor</option>
+                  <option value="9">9th floor</option>
+              </select>
+          </div>
+
+          <div class="form-group">
+              <label for="recipient-name" class="col-form-label">SELECT THE UNIT/ROOM TYPE</label>
+              <select form="addUMultipleUnitForm" class="form-control" name="type_of_units" required>
+                  {{-- <option value="" selected>Please select one</option>
+                  <option value="leasing">leasing</option>
+                  <option value="commercial">commercial</option> --}}
+                  <option value="residential" selected readonly>residential</option>
+              </select>
+          </div>
+
+          <div class="form-group">
+              <label for="recipient-name" class="col-form-label">ENTER THE NO OF BED</label>
+              <input form="addUMultipleUnitForm" type="number" class="form-control" name="beds" required>
+          </div>
+
+          <div class="form-group">
+              <label for="recipient-name" class="col-form-label">ENTER THE NO OF ROOMS YOU WANT TO CREATE</label>
+              <input form="addUMultipleUnitForm" type="number" class="form-control" name="no_of_rooms"required>
+          </div>
+
+          <div class="form-group">
+              <label for="recipient-name" class="col-form-label">ENTER THE INITIAL NAME OF THE UNTIS/ROOMS </label>
+              <input form="addUMultipleUnitForm" type="text" class="form-control" name="unit_no" id="unit_no" required>
+          </div>
+
+          <input form="addUMultipleUnitForm" type="hidden" class="form-control" name="monthly_rent" value="0" >
+          {{-- <div class="form-group">
+              <label for="recipient-name" class="col-form-label">ENTER THE RENT/MONTH</label>
+              
+          </div> --}}
+
+      </div>
+      <div class="modal-footer">
+          <button form="addUMultipleUnitForm" type="submit" class="btn btn-primary" onclick="this.form.submit(); this.disabled = true;><i class="fas fa-check"></i> CREATE ROOMS</button>
+          </div>
+  </div>
+  </div>
+</div>
 
   <!-- Bootstrap core JavaScript-->
   <script src="{{ asset('/dashboard/vendor/jquery/jquery.min.js') }}"></script>
