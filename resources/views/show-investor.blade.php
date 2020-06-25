@@ -387,10 +387,7 @@
           <th>Account Number</th>
           <td>{{ $investor->account_number }}</td>
         </tr>
-        <tr>
-          <th>Account Name</th>
-          <td>{{ $investor->account_name }}</td>
-        </tr>
+       
         <tr>
           <th>Contract Period</th>
           <td>{{ Carbon\Carbon::parse($investor->contract_start)->format('M d Y').' - '.Carbon\Carbon::parse($investor->contract_end)->format('M d Y') }}</td>
