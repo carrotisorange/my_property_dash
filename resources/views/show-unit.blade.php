@@ -447,13 +447,13 @@
                     <div class="col-md-6">
                         <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                             <li class="nav-item">
-                              <a class="nav-link active" id="pills-active-tab" data-toggle="pill" href="#active" role="tab" aria-controls="pills-active" aria-selected="true"><i class="fas fa-user-check"></i>&nbsp&nbspactive  <span class="badge badge-light">{{ $tenant_active->count() }}</span></a>
+                              <a class="nav-link active" id="pills-active-tab" data-toggle="pill" href="#active" role="tab" aria-controls="pills-active" aria-selected="true"><i class="fas fa-user-check"></i>&nbsp&nbspACTIVE  <span class="badge badge-light">{{ $tenant_active->count() }}</span></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="pills-reserved-tab" data-toggle="pill" href="#reserved" role="tab" aria-controls="pills-reserved" aria-selected="false"><i class="fas fa-user-clock"></i>&nbsp&nbspreserved <span class="badge badge-light">{{ $tenant_reservations->count() }}</a>
+                                <a class="nav-link" id="pills-reserved-tab" data-toggle="pill" href="#reserved" role="tab" aria-controls="pills-reserved" aria-selected="false"><i class="fas fa-user-clock"></i>&nbsp&nbspRESERVED <span class="badge badge-light">{{ $tenant_reservations->count() }}</a>
                               </li>
                             <li class="nav-item">
-                              <a class="nav-link" id="pills-inactive-tab" data-toggle="pill" href="#inactive" role="tab" aria-controls="pills-inactive" aria-selected="false"><i class="fas fa-user-times"></i>&nbsp&nbspinactive <span class="badge badge-light">{{ $tenant_inactive->count() }}</a>
+                              <a class="nav-link" id="pills-inactive-tab" data-toggle="pill" href="#inactive" role="tab" aria-controls="pills-inactive" aria-selected="false"><i class="fas fa-user-times"></i>&nbsp&nbspINACTIVE <span class="badge badge-light">{{ $tenant_inactive->count() }}</a>
                             </li>
                             
                           </ul>
