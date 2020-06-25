@@ -605,7 +605,7 @@
             <div class="modal-dialog modal-md" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Extend/Renew</h5>
+                <h5 class="modal-title" id="exampleModalLabel">EXTEND/RENEW</h5>
         
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -618,7 +618,7 @@
         
                     <div class="row">
                         <div class="col">
-                            <label for="movein_date">enter the new move in date</label>
+                            <label for="movein_date">ENTER THE NEW MOVEIN DATE</label>
                             <input type="date" form="extendTenantForm" class="form-control" name="movein_date" value="{{ $tenant->moveout_date }}" required>
                             {{-- <input type="text" form="" class="form-control" name="" value="{{ Carbon\Carbon::parse($tenant->moveout_date)->format('M d Y') }}" required readonly> --}}
                         </div>
@@ -626,7 +626,7 @@
                     <br>
                     <div class="row">
                         <div class="col">
-                            <label for="moveout_date">extend contract to </label>
+                            <label for="moveout_date">EXTEND CONTRACT TO </label>
                             <input type="number" form="extendTenantForm" class="form-control" name="no_of_months" min="1" placeholder="enter no of months" required >
                             <input type="hidden" form="extendTenantForm" class="form-control" name="old_movein_date" value="{{ $tenant->movein_date }}" required>
                         </div>
@@ -636,8 +636,8 @@
                     <div class="row">
                         <div class="col">
                             <p>
-                                additional charges
-                                <small class="text-danger">(optional)</small>
+                                ADDITIONAL CHARGES
+                                <small class="text-danger">(OPTIONAL)</small>
                                 <span style="float:right">
                                     <a id="add_charges" class="btn btn-primary"><i class="fas fa-plus"></i></a>
                                     <a id='remove_charges' class="btn btn-danger"><i class="fas fa-minus"></i></a>
@@ -647,8 +647,8 @@
                                 <table class = "table table-hover " id="extend_table">
                                     <tr>
                                         <th class="text-center">#</th>
-                                        <th>description</th>
-                                        <th>amount</th>
+                                        <th>DESCRIPTION</th>
+                                        <th>AMOUNT</th>
                                     </tr>
                                         <input form="extendTenantForm" type="hidden" id="no_of_row" name="no_of_row" >
                                         <input form="extendTenantForm" type="hidden" id="current_date" name="current_date" value="{{ date('Y-m-d') }}">
@@ -659,8 +659,8 @@
                       </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i> cancel</button>
-                    <button form="extendTenantForm" type="submit" class="btn btn-primary" ><i class="fas fa-check"></i> extend/renew</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i> CANCEL</button>
+                    <button form="extendTenantForm" type="submit" class="btn btn-primary" ><i class="fas fa-check"></i> EXTEND/RENEW</button>
                 </div>
             </div>
             </div>
@@ -671,7 +671,7 @@
             <div class="modal-dialog modal-md" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Tenant can't move out</h5>
+                <h5 class="modal-title" id="exampleModalLabel">CAN'T MOVEOUT TENANT.</h5>
         
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -679,7 +679,7 @@
                 </div>
                 <div class="modal-body">
                    <p class="text-center">
-                       Tenant has a pending balance of <a title="click this to see the breakdown" href=#billing>{{ number_format($pending_balance,2) }}</a>.
+                       TENANT HAS A PENDING BALANCE OF <a title="click this to see the breakdown" href=#billing>{{ number_format($pending_balance,2) }}</a>.
                    </p>
                 </div>
             </div>
