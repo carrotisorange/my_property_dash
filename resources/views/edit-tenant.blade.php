@@ -54,13 +54,13 @@
 
   <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
-        <a class="nav-link" href="/#">
+        <a class="nav-link" href="/">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" href="/#">
+        <a class="nav-link" href="/leasing">
           <i class="fas fa-home"></i>
           <span>Leasing</span></a>
       </li>
@@ -83,7 +83,7 @@
       </li> --}}
 
       <li class="nav-item">
-        <a class="nav-link" href="/#">
+        <a class="nav-link" href="/residential">
           <i class="fas fa-home"></i>
           <span>Residential</span></a>
       </li>
@@ -121,16 +121,23 @@
       <!-- Nav Item - Charts -->
 
       <li class="nav-item active">
-        <a class="nav-link" href="/#">
+        <a class="nav-link" href="/tenants">
           <i class="fas fa-user fa-chart-area"></i>
           <span>Tenants</span></a>
       </li>
 
       <!-- Nav Item - Tables -->
       <li class="nav-item">
-        <a class="nav-link" href="/#">
+        <a class="nav-link" href="/owners">
           <i class="fas fa-user-tie fa-table"></i>
           <span>Unit Owners</span></a>
+      </li>
+
+       <!-- Nav Item - Tables -->
+       <li class="nav-item">
+        <a class="nav-link" href="/billing-and-collection">
+          <i class="fas fa-file-invoice-dollar fa-table"></i>
+          <span>Billing and collection</span></a>
       </li>
 
        <!-- Nav Item - Tables -->
