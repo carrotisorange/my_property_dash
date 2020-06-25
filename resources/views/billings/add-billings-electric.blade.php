@@ -354,7 +354,7 @@
         <form id="add_billings" action="/tenants/billings-post" method="POST">
             {{ csrf_field() }}
             </form>
-        <table class="table table-bordered table-striped">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <tr>
                 <th  class="text-center">#</th>
                 <th>NAME</th>

@@ -133,6 +133,13 @@
           <span>Unit Owners</span></a>
       </li>
 
+        <!-- Nav Item - Tables -->
+        <li class="nav-item">
+          <a class="nav-link" href="/billing-and-collection">
+            <i class="fas fa-file-invoice-dollar fa-table"></i>
+            <span>Billing and collection</span></a>
+        </li>
+
        <!-- Nav Item - Tables -->
        <li class="nav-item">
         <a class="nav-link" href="/joborders">
@@ -349,7 +356,6 @@
         </nav>
         <!-- End of Topbar -->
         <div class="container-fluid">
-  
             
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                   <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>

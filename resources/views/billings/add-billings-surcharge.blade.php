@@ -354,7 +354,7 @@
             {{ csrf_field() }}
             </form>
             <div class="table-responsive">
-        <table class="table table-bordered table-striped">
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <tr>
                 <th  class="text-center">#</th>
                 <th>NAME</th>

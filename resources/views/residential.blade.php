@@ -358,10 +358,10 @@
             <a href="/">&larr; Add your first unit/room</a>
           </div>
           @else
-                {{-- <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                  <h1 class="h3 mb-0 text-gray-800">Leasng</h1>
+                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                  <h1 class="h3 mb-0 text-gray-800">Residential</h1>
                  <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> 
-                </div> --}}
+                </div> 
 
                 <nav>
                   <div class="nav nav-tabs" id="nav-tab" role="tablist">

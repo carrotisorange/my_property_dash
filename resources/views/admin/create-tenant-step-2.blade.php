@@ -425,7 +425,7 @@
             <br>
             <p class="text-right">   
                 <a href="/units/{{ session(Auth::user()->property.'unit_id') }}/tenant-step1" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> GO BACK TO STEP 1</a>
-                <button type="submit" form="addTenantForm2" class="btn btn-primary"><i class="fas fa-arrow-right"></i> GO TO STEP 3</button>
+                <button type="submit" form="addTenantForm2" class="btn btn-primary" onclick="this.form.submit(); this.disabled = true;"><i class="fas fa-arrow-right"></i> GO TO STEP 3</button>
             </p>
         
         

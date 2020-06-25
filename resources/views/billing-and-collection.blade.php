@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>{{ session(Auth::user()->property.'building').' '.session(Auth::user()->property.'unit_no').' '.'(Step 1 of 4)' }}</title>
+  <title>Billing and collection</title>
 
   <!-- Custom fonts for this template-->
   <link href="{{ asset('dashboard/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -52,14 +52,14 @@
         Interface
       </div> --}}
 
-       <!-- Nav Item - Pages Collapse Menu -->
-       <li class="nav-item">
+  <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
         <a class="nav-link" href="/">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
 
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="/leasing">
           <i class="fas fa-home"></i>
           <span>Leasing</span></a>
@@ -133,6 +133,13 @@
           <span>Unit Owners</span></a>
       </li>
 
+        <!-- Nav Item - Tables -->
+        <li class="nav-item active">
+            <a class="nav-link" href="/billing-and-collection">
+              <i class="fas fa-file-invoice-dollar fa-table"></i>
+              <span>Billing and collection</span></a>
+          </li>
+
        <!-- Nav Item - Tables -->
        <li class="nav-item">
         <a class="nav-link" href="/joborders">
@@ -146,8 +153,6 @@
           <i class="fas fa-user-secret fa-table"></i>
           <span>Users</span></a>
       </li>
-      
-
       
 
       <!-- Divider -->
@@ -351,115 +356,119 @@
         </nav>
         <!-- End of Topbar -->
         <div class="container-fluid">
-            <!-- Page Heading -->
-          <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Personal Information (1/4)</h1>
+            
+           <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Billing and collection
+                <button type="submit" form="billingRentForm" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus text-white-50"></i> Rent</button>
+                <input type="hidden" form="billingRentForm" name="billing_option" value="rent">
+                <button type="submit" form="billingElectricForm" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus text-white-50"></i> Electric</button>
+                <input type="hidden" form="billingElectricForm" name="billing_option" value="electric">
+                <button type="submit" form="billingWaterForm" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus text-white-50"></i> Water</button>
+                <input type="hidden" form="billingWaterForm" name="billing_option" value="water">
+                <button type="submit" form="billingSurchargeForm" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus text-white-50"></i> Surcharge</button>
+                <input type="hidden" form="billingSurchargeForm" name="billing_option" value="surcharge">
+            </h1>
+             <form id="billingRentForm" action="/tenants/billings" method="POST">
+                @csrf
+            </form>
+            <form id="billingElectricForm" action="/tenants/billings" method="POST">
+                @csrf
+            </form>
+            <form id="billingWaterForm" action="/tenants/billings" method="POST">
+                @csrf
+            </form>
+            <form id="billingSurchargeForm" action="/tenants/billings" method="POST">
+                @csrf
+            </form>
           </div>
-          <form id="addTenantForm1" action="/units/{{ session(Auth::user()->property.'unit_id') }}/tenant-step1" method="POST">
-            {{ csrf_field() }}
-        </form>
-    
-            <input form="addTenantForm1" type="hidden" value="{{ session(Auth::user()->property.'unit_id') }}" name="unit_id"> 
-            <div class="row">
-                <div class="col">
-                    <small class="">First Name</small>
-                    <input form="addTenantForm1" type="text" class="form-control" name="first_name" id="first_name" value="{{ session(Auth::user()->property.'first_name') }}" required>
+
+          <!-- Content Row -->
+          <div class="row">
+
+            <!-- Earnings (Monthly) Card Example -->
+            <div class="col-xl-4 col-md-6 mb-4">
+              <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">EXPECTED COLLECTION </div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">{{ number_format( $expected_collection ,2) }}</div>
+                      
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-coins fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
                 </div>
-                <div class="col">
-                    <small class="">Middle Name</small>
-                    <input form="addTenantForm1" type="text" class="form-control" name="middle_name" id="middle_name" value="{{ session(Auth::user()->property.'middle_name') }}">
-                </div>
-                <div class="col">
-                    <small class="">Last Name</small>
-                    <input form="addTenantForm1" type="text" class="form-control" name="last_name" id="last_name" value="{{ session(Auth::user()->property.'last_name') }}" required>
-                </div>
-                </div>
-            <div class="row">
-                <div class="col">
-                    <small class="">Birthdate</small>
-                    <input form="addTenantForm1" type="date" class="form-control" name="birthdate" id="birthdate" value="{{ session(Auth::user()->property.'birthdate') }}">
-                </div>
-                <div class="col">
-                    <small class="">Gender</small>
-                    <select form="addTenantForm1"  id="gender" name="gender" class="form-control" required >        
-                        <option value="{{ session(Auth::user()->property.'gender') }}" selected>{{ session(Auth::user()->property.'gender') }}</option>
-                        <option value="male">male</option>
-                        <option value="female">female</option>
-                    </select>
-                </div>
-                <div class="col">
-                    <small class="">Civil Status</small>
-                    <select form="addTenantForm1"  id="civil_status" name="civil_status" class="form-control">
-                        <option value="{{ session('civil_status') }}" selected>{{ session(Auth::user()->property.'civil_status') }}</option>
-                        <option value="single" selected>single</option>
-                        <option value="married">married</option>
-                    </select>
-                </div>
-                <div class="col">
-                    <small class="">ID/ID Number</small>
-                    <input form="addTenantForm1" type="text" class="form-control" name="id_number" id="id_number" value="{{ session(Auth::user()->property.'id_number') }}">
-                </div>
+              </div>
             </div>
-            
-            <div class="row">
-                <div class="col">
-                    <small class="">Mobile</small>
-                  <input form="addTenantForm1" type="text" class="form-control" name="contact_no" id="contact_no" value="{{ session(Auth::user()->property.'contact_no') }}" required >
+
+            <!-- Earnings (Monthly) Card Example -->
+            <div class="col-xl-4 col-md-6 mb-4">
+              <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">ACTUAL COLLECTION </div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">{{ number_format( $actual_collection ,2) }}</div>
+                      
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-hand-holding-usd fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
                 </div>
-                <div class="col">
-                    <small class="">Email</small>
-                  <input form="addTenantForm1" type="email" class="form-control" name="email_address" id="email_address" value="{{ session(Auth::user()->property.'email_address') }}">
-                </div>
+              </div>
             </div>
-    
-            <div class="row">
-                <div class="col">
-                    <small class="">House No/Barangay</small>
-                    <input form="addTenantForm1" type="text" class="form-control" name="barangay" id="barangay" value="{{ session(Auth::user()->property.'barangay') }}">
+
+            <!-- Pending Requests Card Example -->
+            <div class="col-xl-4 col-md-6 mb-4">
+              <div class="card border-left-danger shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">UNCOLLECTED</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">{{ number_format( $uncollected_amount ,2) }}</div>
+                      
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-tools fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
                 </div>
-                <div class="col">
-                    <small class="">City</small>
-                    <input form="addTenantForm1" type="text" class="form-control" name="city" id="city" value="{{ session(Auth::user()->property.'city') }}">
-                </div>
+              </div>
             </div>
-            <div class="row">
-                <div class="col">
-                    <small class="">Province</small>
-                  <input form="addTenantForm1" type="text" class="form-control" name="province" id="province" value="{{ session(Auth::user()->property.'province') }}">
-                </div>
-                <div class="col">
-                    <small class="">Country</small>
-                    <input form="addTenantForm1" type="text" class="form-control" name="country" id="country" value="{{ session(Auth::user()->property.'country') }}">
-                </div>
-                <div class="col">
-                    <small class="">Zip Code</small>
-                    <input form="addTenantForm1" type="text" class="form-control" name="zip_code" id="zip_code" value="{{ session(Auth::user()->property.'zip_code') }}">
-                </div>
-            </div>
-            <br>
-            <small><b>PERSON TO CONTACT IN CASE OF EMERGENCY</b></small>
-            <div class="row">   
-                <div class="col">
-                    <small class="">Name</small>
-                    <input form="addTenantForm1" type="text" class="form-control" name="guardian" id="guardian" value="{{ session(Auth::user()->property.'guardian') }}">
-                </div>
-                <div class="col">
-                    <small class="">Relationship to the tenant</small>
-                    <input form="addTenantForm1" type="text" class="form-control" name="guardian_relationship" id="guardian_relationship" value="{{ session(Auth::user()->property.'guardian_relationship') }}">
-                </div>
-                <div class="col">
-                    <small class="">Mobile</small>
-                    <input form="addTenantForm1" type="text" class="form-control" name="guardian_contact_no" id="guardian_contact_no" value="{{ session(Auth::user()->property.'guardian_contact_no') }}">
-                </div>
+          </div>
+
+          <div class="row">
+           <div class="col-md-12">
+            <div class="table-responsive">
+                <h4>DELINQUENTS ({{ $delinquent_accounts->count() }})</h4>
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <tr>
+                            <th class="text-center">#</th>
+                            <th>TENANT</th>
+                            <th>MOBILE</th>
+                            <th>UNIT/ROOM</th>
+                            <th>AMOUNT</th>
+                        </tr>
+                        <?php
+                        $ctr = 1;
+                        ?>
+                        @foreach ($delinquent_accounts as $item)
+
+                        <tr>
+                            <th class="text-center">{{ $ctr++ }}</th>
+                            <td><a href="/units/{{ $item->unit_tenant_id }}/tenants/{{ $item->tenant_id }}/billings">{{ $item->first_name.' '.$item->last_name }}</a></td>
+                            <td>{{ $item->contact_no }}</td>
+                            <td>{{ $item->building.' '.$item->unit_no }}</td>
+                            <td>{{ number_format($item->total_bills,2) }}</td>
+                        </tr>
+                        @endforeach
+
+                    </table>
+        </div>
            </div>
-            
-            <br>
-            <p class="text-right">   
-                <a href="/units/{{ session(Auth::user()->property.'unit_id') }}" class="btn btn-secondary"><i class="fas fa-times"></i> GO BACK TO UNIT</a>
-                <button type="submit" form="addTenantForm1" class="btn btn-primary" onclick="this.form.submit(); this.disabled = true;"><i class="fas fa-arrow-right" ></i> GO TO STEP 2</button>
-            </p>
-        
-        
         </div>
 
         

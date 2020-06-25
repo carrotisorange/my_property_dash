@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>POST RENT</title>
+  <title>Post Rent</title>
 
   <!-- Custom fonts for this template-->
   <link href="{{ asset('dashboard/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -354,7 +354,7 @@
             {{ csrf_field() }}
             </form>
             
-        <table class="table table-bordered table-striped">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <tr>
                 <th  class="text-center">#</th>
                 <th>NAME</th>
@@ -389,7 +389,7 @@
     
         <p class="text-right">
             <a href="/#billings" class="btn btn-secondary"><i class="fas fa-times"></i> cancel</a>
-            <button type="submit" form="add_billings" class="btn btn-primary" onclick="this.form.submit(); this.disabled = true; this.value = 'Submitting the form';"><i class="fas fa-check"></i> post</button>
+            <button type="submit" form="add_billings" class="btn btn-primary" onclick="this.form.submit(); this.disabled = true;><i class="fas fa-check"></i> post</button>
         </p>
         </div>
     </div>
