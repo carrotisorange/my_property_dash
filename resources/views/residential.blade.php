@@ -542,15 +542,19 @@
                 </select>
             </div>
 
-            <div class="form-group">
+
+            <input form="addUnitForm" type="hidden" class="form-control" name="type_of_units" value="residential" required>
+
+
+            {{-- <div class="form-group">
                 <label for="recipient-name" class="col-form-label">SELECT THE UNIT/ROOM TYPE</label>
                 <select form="addUnitForm" class="form-control" name="type_of_units" id="type_of_units" required>
-                    {{-- <option value="" selected>Please select one</option> --}}
+                     <option value="" selected>Please select one</option> 
                     <option value="residential" selected>residential</option>
-                    {{-- <option value="commercial">commercial</option>
-                    <option value="residential">residential</option> --}}
+                    <option value="commercial">commercial</option>
+                    <option value="residential">residential</option> 
                 </select>
-            </div>
+            </div> --}}
 
             <div class="form-group">
                 <label for="recipient-name" class="col-form-label">ENTER THE UNIT NO</label>
@@ -616,15 +620,16 @@
               </select>
           </div>
 
-          <div class="form-group">
+          <input form="addUMultipleUnitForm" type="hidden" class="form-control" name="type_of_units" value="residential" required>
+          {{-- <div class="form-group">
               <label for="recipient-name" class="col-form-label">SELECT THE UNIT/ROOM TYPE</label>
               <select form="addUMultipleUnitForm" class="form-control" name="type_of_units" required>
-                  {{-- <option value="" selected>Please select one</option>
+                   <option value="" selected>Please select one</option>
                   <option value="leasing">leasing</option>
-                  <option value="commercial">commercial</option> --}}
+                  <option value="commercial">commercial</option> 
                   <option value="residential" selected readonly>residential</option>
               </select>
-          </div>
+          </div> --}}
 
           <div class="form-group">
               <label for="recipient-name" class="col-form-label">ENTER THE NO OF BED</label>
@@ -637,7 +642,7 @@
           </div>
 
           <div class="form-group">
-              <label for="recipient-name" class="col-form-label">ENTER THE INITIAL NAME OF THE UNTIS/ROOMS </label>
+              <label for="recipient-name" class="col-form-label">ENTER THE INITIAL NAME OF THE UNITS/ROOMS </label>
               <input form="addUMultipleUnitForm" type="text" class="form-control" name="unit_no" id="unit_no" required>
           </div>
 
