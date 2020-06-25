@@ -463,14 +463,14 @@
                                     @if($tenant_active->count() <= 0)
                                     <tr>
                                         <br><br><br>
-                                        <p class="text-center">No tenants found!</p>
+                                        <p class="text-center">NO TENANTS FOUND!</p>
                                     </tr>
                                     @else
                                     <tr>
                                         <th class="text-center">#</th>
-                                        <th>name</th>
+                                        <th>NAME</th>
                                        
-                                        <th>contract period</th>   
+                                        <th>CONTRACT PERIOD</th>   
                                                  
                                     
                                     </tr>
@@ -495,14 +495,14 @@
                                     @if($tenant_inactive->count() <= 0)
                                     <tr>
                                         <br><br><br>
-                                        <p class="text-center">No tenants found!</p>
+                                        <p class="text-center">NO TENANTS FOUND!</p>
                                     </tr>
                                     @else
                                     <tr>
                                         <th class="text-center">#</th>
-                                        <th>name</th>
+                                        <th>NAME</th>
                                         
-                                        <th>moveout since</th>   
+                                        <th>MOVEOUT SINCE</th>   
                                                  
                                         <th></th>
                                     </tr>
@@ -525,14 +525,14 @@
                                     @if($tenant_reservations->count() <= 0)
                                     <tr>
                                         <br><br><br>
-                                        <p class="text-center">No tenants found!</p>
+                                        <p class="text-center">NO TENANTS FOUND!</p>
                                     </tr>
                                     @else
                                     <tr>
                                         <th class="text-center">#</th>
-                                        <th>name</th>
-                                        <th>reserved via</th>
-                                        <th>reservation date</th>   
+                                        <th>NAME</th>
+                                        <th>RESERVED VIA</th>
+                                        <th>RESERVATION DATE</th>   
                                                  
                                         <th></th>
                                     </tr>
@@ -644,7 +644,7 @@
                         <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Add Unit Owner</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">ADD UNIT OWNER</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -660,59 +660,59 @@
                                 </div> --}}
             
                                 <div class="form-group">
-                                <label for="message-text" class="col-form-label">name</label>
+                                <label for="message-text" class="col-form-label">NAME</label>
                                 <input form="addInvestorForm" type="text"  value="{{ $unit->unit_owner }}" class="form-control" name="unit_owner" id="unit_owner" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="recipient-name" class="col-form-label">email address</label>
+                                    <label for="recipient-name" class="col-form-label">EMAIL</label>
                                     <input form="addInvestorForm" type="email" class="form-control" name="investor_email_address" id="investor_email_address">
                                 </div>
                                 <div class="form-group">
-                                    <label for="recipient-name" class="col-form-label">contact no</label>
+                                    <label for="recipient-name" class="col-form-label">MOBILE</label>
                                     <input form="addInvestorForm" type="text" class="form-control" name="contact_no" id="contact_no">
                                 </div>
                                 <div class="form-group">
-                                    <label for="recipient-name" class="col-form-label">address</label>
+                                    <label for="recipient-name" class="col-form-label">ADDRESS</label>
                                     <input form="addInvestorForm" type="text" class="form-control" name="investor_address" id="investor_address"    >
                                 </div>
                                 <div class="form-group">
-                                    <label for="recipient-name" class="col-form-label">representative</label>
+                                    <label for="recipient-name" class="col-form-label">REPRESENTATIVE</label>
                                     <input form="addInvestorForm" type="text" class="form-control" name="investor_representative" id="investor_representative">
                                 </div>
                                 <div class="form-group">
-                                    <label for="recipient-name" class="col-form-label"><b>contract duration</b></label>
+                                    <label for="recipient-name" class="col-form-label"><b>CONTRACT PERIOD</b></label>
                                 </div>
                                 <div class="row">
                                     <div class="col">
-                                        <label for="recipient-name" class="col-form-label">start</label>
+                                        <label for="recipient-name" class="col-form-label">START</label>
                                         <input form="addInvestorForm" type="date" class="form-control" name="contract_start" id="contract_start">
                                     </div>
                                     <div class="col">
-                                        <label for="recipient-name" class="col-form-label">end</label>
+                                        <label for="recipient-name" class="col-form-label">END</label>
                                         <input form="addInvestorForm" type="date" class="form-control" name="contract_end" id="contract_end">
                                     </div>
                                 </div>
                              <br>
                                 <div class="form-group">
-                                    <label for="recipient-name" class="col-form-label"><b>bank details</b></label>
+                                    <label for="recipient-name" class="col-form-label"><b>BANK DETAILS</b></label>
                                 </div>
                                 <div class="form-group">
-                                    <label for="recipient-name" class="col-form-label">bank name</label>
+                                    <label for="recipient-name" class="col-form-label">BANK NAME</label>
                                     <input form="addInvestorForm" type="text" class="form-control" name="bank_name" id="bank_name">
                                 </div>
                                 <div class="form-group">
-                                    <label for="recipient-name" class="col-form-label">account name</label>
+                                    <label for="recipient-name" class="col-form-label">ACCOUNT NAME</label>
                                     <input form="addInvestorForm" type="text" class="form-control" name="account_name" id="account_name">
                                 </div>
                                 <div class="form-group">
-                                    <label for="recipient-name" class="col-form-label">account number</label>
+                                    <label for="recipient-name" class="col-form-label">ACCOUNT NUMBER</label>
                                     <input form="addInvestorForm" type="text" class="form-control" name="account_number" id="account_number">
                                 </div>
             
                             </div>
                             <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i> close</button>
-                            <button form="addInvestorForm" type="submit" class="btn btn-primary" ><i class="fas fa-check"></i> save</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i> CLOSE</button>
+                            <button form="addInvestorForm" type="submit" class="btn btn-primary" ><i class="fas fa-check"></i> SAVE</button>
                             </div>
                         </div>
                         </div>
@@ -724,7 +724,7 @@
                                 <div class="modal-dialog modal-md" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Error Adding Tenant</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel">CAN'T ADD TENANT</h5>
                                     
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
@@ -732,7 +732,7 @@
                                     </div>
                                     <div class="modal-body">
                                        <p class="text-center">
-                                            The room is fully occupied.
+                                            THE UNIT/ROOM IS FULLY OCCUPIED!
                                        </p>
                                     </div>
                                     
