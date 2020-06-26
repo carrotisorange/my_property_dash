@@ -359,7 +359,7 @@
           </div>
           @foreach (['danger', 'warning', 'success', 'info'] as $key)
           @if(Session::has($key))
-              <p class="alert alert-{{ $key }}">{{ Session::get($key) }}</p>
+          <i class="fas fa-times-circle"></i> <p class="alert alert-{{ $key }}">{{ Session::get($key) }}</p>
           @endif
           @endforeach
           <form id="addTenantForm1" action="/units/{{ session(Auth::user()->property.'unit_id') }}/tenant-step1" method="POST">

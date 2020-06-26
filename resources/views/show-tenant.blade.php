@@ -358,7 +358,7 @@
         <div class="container-fluid">
           @foreach (['danger', 'warning', 'success', 'info'] as $key)
           @if(Session::has($key))
-              <p class="alert alert-{{ $key }}">{{ Session::get($key) }}</p>
+          <i class="fas fa-check-circle"></i><p class="alert alert-{{ $key }}">{{ Session::get($key) }}</p>
           @endif
           @endforeach
             <h5 style="text-align:left;">
