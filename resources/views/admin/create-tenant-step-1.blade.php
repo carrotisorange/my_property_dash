@@ -357,6 +357,11 @@
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Personal Information (1/4)</h1>
           </div>
+          @foreach (['danger', 'warning', 'success', 'info'] as $key)
+          @if(Session::has($key))
+              <p class="alert alert-{{ $key }}">{{ Session::get($key) }}</p>
+          @endif
+          @endforeach
           <form id="addTenantForm1" action="/units/{{ session(Auth::user()->property.'unit_id') }}/tenant-step1" method="POST">
             {{ csrf_field() }}
         </form>
