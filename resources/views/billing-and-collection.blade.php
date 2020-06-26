@@ -359,8 +359,8 @@
             
            <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Billing and collection
-              <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-plus fa-sm text-white-50"></i> Post bills</a>
             </h1>
+            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-plus fa-sm text-white-50"></i> Post bills</a>
             <div class="dropdown show">
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <button type="submit" form="billingRentForm" class="dropdown-item "> Rent</button>
