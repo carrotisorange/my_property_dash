@@ -1436,6 +1436,23 @@ Route::get('/residential', function(){
     return view('residential',compact('units_per_building','residential_units','units_per_status'));
 })->middleware('auth');
 
+Route::get('/payments', function(){
+
+    if(auth()->user()->status === 'unregistered'){
+        return view('unregistered');
+    }
+
+    $property = explode(",", Auth::user()->property);
+        
+    if(count($property) > 1){
+            
+    }else{
+
+    }
+    
+    return view('payments',compact('units_per_building','residential_units','units_per_status'));
+})->middleware('auth');
+
 //routes for payments
 Route::get('units/{unit_id}/tenants/{tenant_id}/payments/{payment_id}', 'PaymentController@show')->name('show-payment')->middleware('auth');
 Route::post('/payments', 'PaymentController@store')->middleware('auth');

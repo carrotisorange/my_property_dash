@@ -129,7 +129,7 @@
       <!-- Nav Item - Tables -->
       <li class="nav-item">
         <a class="nav-link" href="/owners">
-          <i class="fas fa-user-tie fa-table"></i>
+          <i class="fas fa-user-tie"></i>
           <span>Unit Owners</span></a>
       </li>
 
@@ -138,6 +138,12 @@
           <a class="nav-link" href="/billing-and-collection">
             <i class="fas fa-file-invoice-dollar fa-table"></i>
             <span>Billing and collection</span></a>
+        </li>
+
+          <li class="nav-item">
+          <a class="nav-link" href="/payments">
+            <i class="fas fa-file-invoice-dollar"></i>
+            <span>Payments</span></a>
         </li>
 
        <!-- Nav Item - Tables -->
