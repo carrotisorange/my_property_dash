@@ -166,6 +166,7 @@ class PaymentController extends Controller
              ->join('tenants', 'unit_id', 'unit_tenant_id')
              ->join('payments', 'tenant_id', 'payment_tenant_id')
              ->where('payment_id', $payment_id)
+             ->where('amt_paid','>',0)
             ->get();
 
          return view('treasury.show-payment', compact('payment'));
