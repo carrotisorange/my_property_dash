@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Post Rent</title>
+  <title>Post Rental Bill</title>
 
   <!-- Custom fonts for this template-->
   <link href="{{ asset('dashboard/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -355,6 +355,11 @@
         </nav>
         <!-- End of Topbar -->
         <div class="container-fluid">
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Post Rental Bill</h1>
+            {{-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> --}}
+          </div>
+
             <div class="table-responsive">
         <!-- 404 Error Text -->
         <form id="add_billings" action="/tenants/billings-post" method="POST">
@@ -395,8 +400,8 @@
         </table>
     
         <p class="text-right">
-            <a href="/#billings" class="btn btn-secondary"><i class="fas fa-times"></i> cancel</a>
-            <button type="submit" form="add_billings" class="btn btn-primary" onclick="this.form.submit(); this.disabled = true;><i class="fas fa-check"></i> post</button>
+            <a href="/#billings" class="btn btn-secondary"><i class="fas fa-times"></i> CANCEL</a>
+            <button type="submit" form="add_billings" class="btn btn-primary" onclick="this.form.submit(); this.disabled = true;><i class="fas fa-check"></i> POST</button>
         </p>
         </div>
     </div>

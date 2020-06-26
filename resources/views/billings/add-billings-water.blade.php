@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>POST WATER</title>
+  <title>Post Water Bill</title>
 
   <!-- Custom fonts for this template-->
   <link href="{{ asset('dashboard/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -355,6 +355,11 @@
         </nav>
         <!-- End of Topbar -->
         <div class="container-fluid">
+
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Post Water Bill</h1>
+            {{-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> --}}
+          </div>
         <!-- 404 Error Text -->
         <div class="table-responsive">
         <form id="add_billings" action="/tenants/billings-post" method="POST">
