@@ -82,7 +82,7 @@ class TenantController extends Controller
             $request->session()->put(Auth::user()->property.'guardian_relationship', $request->guardian_relationship);
             $request->session()->put(Auth::user()->property.'guardian_contact_no', $request->guardian_contact_no);
 
-            $request->session()->flash('warning', 'Please fill-up necessary fields!');
+            $request->session()->flash('danger', 'Please fill-up necessary fields!');
             return back();
         }
         
@@ -281,6 +281,8 @@ class TenantController extends Controller
         $request->session()->forget(Auth::user()->property.'job');
         $request->session()->forget(Auth::user()->property.'years_of_employment');
         $request->session()->forget(Auth::user()->property.'employer_contact_no');
+
+        $request->session()->flash('success', 'A new tenant has been added to the record!');
 
         return redirect('/units/'.session(Auth::user()->property.'unit_id').'/tenants/'.$tenant_id)->with('success', 'Tenant has been successfully added!');
     }

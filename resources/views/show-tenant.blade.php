@@ -356,6 +356,11 @@
         </nav>
         <!-- End of Topbar -->
         <div class="container-fluid">
+          @foreach (['danger', 'warning', 'success', 'info'] as $key)
+          @if(Session::has($key))
+              <p class="alert alert-{{ $key }}">{{ Session::get($key) }}</p>
+          @endif
+          @endforeach
             <h5 style="text-align:left;">
                 <a href="/units/{{ $tenant->unit_tenant_id }}" class="btn btn-primary"><i class="fas fa-arrow-left"></i> GO BACK TO THE UNIT</a>
                 <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/edit" class="btn btn-primary"><i class="fas fa-user-edit"></i> EDIT</a>  
