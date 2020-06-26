@@ -63,13 +63,15 @@ class TenantController extends Controller
         if($request->first_name  && $request->last_name  && $request->contact_no ){
             $request->session()->put(Auth::user()->property.'type_of_tenant', 'student');
             $request->session()->put(Auth::user()->property.'first_name', $request->first_name);
-            $request->session()->put(Auth::user()->property.'middle_name', $request->middle_name);
+            $request->session()->put(Auth::user()->property.'contact_no', $request->contact_no);
             $request->session()->put(Auth::user()->property.'last_name', $request->last_name);
+          
+        }else{
+            $request->session()->put(Auth::user()->property.'middle_name', $request->middle_name);
             $request->session()->put(Auth::user()->property.'birthdate', $request->birthdate);
             $request->session()->put(Auth::user()->property.'gender', $request->gender);
             $request->session()->put(Auth::user()->property.'civil_status', $request->civil_status);
             $request->session()->put(Auth::user()->property.'id_number', $request->id_number);
-            $request->session()->put(Auth::user()->property.'contact_no', $request->contact_no);
             $request->session()->put(Auth::user()->property.'email_address', $request->email_address);
             $request->session()->put(Auth::user()->property.'barangay', $request->barangay);
             $request->session()->put(Auth::user()->property.'city', $request->city);
@@ -79,7 +81,7 @@ class TenantController extends Controller
             $request->session()->put(Auth::user()->property.'guardian', $request->guardian);
             $request->session()->put(Auth::user()->property.'guardian_relationship', $request->guardian_relationship);
             $request->session()->put(Auth::user()->property.'guardian_contact_no', $request->guardian_contact_no);
-        }else{
+
             $request->session()->flash('warning', 'Please fill-up necessary fields!');
             return back();
         }
