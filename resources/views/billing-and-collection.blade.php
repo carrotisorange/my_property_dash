@@ -361,13 +361,10 @@
             <h1 class="h3 mb-0 text-gray-800">Billing and collection
             </h1>
             <div class="dropdown show">
-              
-              <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-plus text-white-50">&nbspBILL</i>
-              </a>
+              <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-plus fa-sm text-white-50"></i> Post bills</a>
             
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <button type="submit" form="billingRentForm" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm dropdown-item"><i class="fas fa-plus fa-sm text-white-50"></i>RENT</button>
+                <button type="submit" form="billingRentForm" class="dropdown-item "> Rent</button>
                 <input type="hidden" form="billingRentForm" name="billing_option" value="rent">
                 <button type="submit" form="billingElectricForm" class="dropdown-item"> Electric</button>
                 <input type="hidden" form="billingElectricForm" name="billing_option" value="electric">

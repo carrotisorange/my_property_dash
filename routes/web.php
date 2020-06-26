@@ -1445,12 +1445,12 @@ Route::get('/payments', function(){
     $property = explode(",", Auth::user()->property);
         
     if(count($property) > 1){
-            
+
     }else{
 
     }
     
-    return view('payments',compact('units_per_building','residential_units','units_per_status'));
+    return view('treasury.show-all-payments',compact('units_per_building','residential_units','units_per_status'));
 })->middleware('auth');
 
 //routes for payments
