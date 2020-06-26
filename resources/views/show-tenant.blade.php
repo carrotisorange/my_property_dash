@@ -378,6 +378,7 @@
                 @endif
                 </span>
             </h5>
+            <div class="table-responsive">
             <table class="table table-striped">
                 <tr>
                         <th colspan="2">Personal Information</th>
@@ -533,6 +534,7 @@
                         </td>
                     </tr>
                 </table>
+              </div>
         </div>
         {{-- Modal to moveout tenant --}}
         <div class="modal fade" id="moveoutTenant" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

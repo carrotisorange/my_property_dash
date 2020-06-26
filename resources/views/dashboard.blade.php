@@ -371,12 +371,12 @@
                       <div class="card-body">
                         <div class="row no-gutters align-items-center">
                           <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">TOTAL UNITS </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $units->count() }}</div>
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">LEASING </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $leasing_units->count() }}</div>
                             
-                            <small>LSG ({{ $leasing_units->count() }})</small>
-                            <small>CML ({{ $commercial_units->count() }})</small>
-                            <small>RSL ({{ $residential_units->count() }})</small>
+                            <small>O ({{ $leasing_units_occupied->count() }})</small>
+                            <small>V ({{ $leasing_units_vacant->count() }})</small>
+                            <small>P ({{ $leasing_units_reserved->count() }})</small>
                           </div>
                           <div class="col-auto">
                               <i class="fas fa-home fa-2x text-gray-300"></i>
@@ -677,33 +677,24 @@
                     <!-- Illustrations -->
                     <div class="card shadow mb-4">
                       <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">RECENT MOVEOUTS</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">REASON FOR MOVING-OUT</h6>
                       </div>
                       <div class="card-body">
-                        <table class="table">
-                          <tr>
-                              <th>TENANT</th>
-                              <th>UNIT/ROOM</th>
-                              <th>REASON</th>
-                          </tr>
-                          @foreach($terminated_contracts->take(5) as $item)
-                          <tr>
-                              <td>
-                                  @if(Auth::user()->user_type === 'admin')
-                                  <a href="{{ route('show-tenant',['unit_id' => $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a> <a class="badge badge-success">{{ $item->has_extended }}</a>
-                                  @elseif(Auth::user()->user_type === 'treasury')
-                                  <a href="/units/{{ $item->unit_tenant_id }}/tenants/{{ $item->tenant_id }}/billings">{{ $item->first_name.' '.$item->last_name }}</a><a class="badge badge-success">{{ $item->has_extended }}</a>
-                                  @else
-                                  {{ $item->first_name.' '.$item->last_name }}<span class="badge badge-success">{{ $item->has_extended }}</span>
-                                  @endif
-                              </td>
-                              <td>{{ $item->building.' '.$item->unit_no }}</td>
-                              <td>{{ $item->reason_for_moving_out }}</td>
-                              {{-- <td><span class="badge badge-danger">{{ number_format(Carbon\Carbon::now()->DiffInDays(Carbon\Carbon::parse($item->moveout_date)) ) }} days ago</span></td> --}}
-                         </tr>
-                         @endforeach
-                      </table>
-                      </div>
+                        
+                        {!! $reason_for_moving_out_chart->container() !!}
+                      
+                      {{-- <div class="mt-4 text-center small">
+                        <span class="mr-2">
+                          <i class="fas fa-circle text-primary"></i> Direct
+                        </span>
+                        <span class="mr-2">
+                          <i class="fas fa-circle text-success"></i> Social
+                        </span>
+                        <span class="mr-2">
+                          <i class="fas fa-circle text-info"></i> Referral
+                        </span>
+                      </div> --}}
+                    </div>
                     </div>
       
                   </div>
@@ -783,6 +774,7 @@
 {!! $renewed_chart->script() !!}
 {!! $moveout_rate->script() !!}
 {!! $collection_rate->script() !!}
+{!! $reason_for_moving_out_chart->script() !!}
 </body>
 
 </html>
