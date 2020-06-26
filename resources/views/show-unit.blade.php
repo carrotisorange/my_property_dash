@@ -364,18 +364,16 @@
                 <div class="row">
                     <div class="col-md-6">
                         <button type="button" title="edit unit/room information." class="btn btn-primary" data-toggle="modal" data-target="#editUnit" data-whatever="@mdo"><i class="fas fa-edit"></i>EDIT</button> 
-                        @if($unit->type_of_tenant === 'leasing')
-                          @if ($tenant_active->count() < $unit->beds)
-                          <button title="{{ $unit->beds - $tenant_active->count() }} remaining tenant/s to be fully occupied." type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                              <i class="fas fa-user-plus"></i> TENANT <span class="badge badge-light">{{  $tenant_active->count() }}/{{ $unit->beds }} 
-                            </button>
-                            <div class="dropdown-menu">
-                                <a href="/units/{{ $unit->unit_id }}/tenant-step1" class="dropdown-item" >STUDENT</a>
-                                {{-- <a href="/units/{{ $unit->unit_id }}/tenants-working-step1" class="dropdown-item" >Working</a> --}}
-                            </div>
-                          @else
-                              <button type="button" title="{{ $unit->beds - $tenant_active->count() }} remaining tenant/s to be fully occupied." class="btn btn-primary" data-toggle="modal" data-target="#warningTenant" data-whatever="@mdo"><i class="fas fa-user-plus"></i> ({{ $tenant_active->count() }}/{{ $unit->beds }})</button>
-                          @endif
+                        @if ($tenant_active->count() < $unit->beds)
+                        <button title="{{ $unit->beds - $tenant_active->count() }} remaining tenant/s to be fully occupied." type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                            <i class="fas fa-user-plus"></i> TENANT <span class="badge badge-light">{{  $tenant_active->count() }}/{{ $unit->beds }} 
+                          </button>
+                          <div class="dropdown-menu">
+                              <a href="/units/{{ $unit->unit_id }}/tenant-step1" class="dropdown-item" >STUDENT</a>
+                              {{-- <a href="/units/{{ $unit->unit_id }}/tenants-working-step1" class="dropdown-item" >Working</a> --}}
+                          </div>
+                        @else
+                            <button type="button" title="{{ $unit->beds - $tenant_active->count() }} remaining tenant/s to be fully occupied." class="btn btn-primary" data-toggle="modal" data-target="#warningTenant" data-whatever="@mdo"><i class="fas fa-user-plus"></i> ({{ $tenant_active->count() }}/{{ $unit->beds }})</button>
                         @endif
                         {{-- if unit owner does not exist in this unit, then show the add investor button, otherwise, hide. --}}
                         @if ($unit_owner->count() < 1)
