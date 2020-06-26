@@ -342,6 +342,7 @@ class TenantController extends Controller
             ->join('payments', 'tenant_id', 'payment_tenant_id')
             ->where('payment_tenant_id', $tenant_id)
             ->whereIn('unit_property', [$property[0],$property[1]])
+            ->where('amt_paid','>',0)
             ->get();
          }else{
             $payments = DB::table('units')
@@ -349,6 +350,7 @@ class TenantController extends Controller
             ->join('payments', 'tenant_id', 'payment_tenant_id')
             ->where('payment_tenant_id', $tenant_id)
             ->where('unit_property', $property[0])
+            ->where('amt_paid','>',0)
             ->get();
          }
        
