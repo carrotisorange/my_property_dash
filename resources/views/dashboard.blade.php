@@ -377,6 +377,7 @@
                             <small>OC ({{ $leasing_units_occupied->count() }})</small>
                             <small>VC ({{ $leasing_units_vacant->count() }})</small>
                             <small>RS ({{ $leasing_units_reserved->count() }})</small>
+                            
                           </div>
                           <div class="col-auto">
                               <i class="fas fa-home fa-2x text-gray-300"></i>

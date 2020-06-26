@@ -296,6 +296,60 @@ Route::get('/', function(Request $request){
         ->where('type_of_units', 'leasing')
         ->count();
 
+        $moveout_rate_16 = DB::table('tenants')
+        ->join('units', 'unit_id', 'unit_tenant_id')
+        ->where('moveout_date', '>=', Carbon::now()->subMonths(11)->firstOfMonth())
+        ->where('moveout_date', '<=', Carbon::now()->subMonths(11)->endOfMonth())
+        ->whereIn('unit_property', [$property[0],$property[1]])
+        ->where('tenant_status','inactive')
+        ->where('type_of_units', 'leasing')
+        ->count();
+
+        $moveout_rate_15 = DB::table('tenants')
+        ->join('units', 'unit_id', 'unit_tenant_id')
+        ->where('moveout_date', '>=', Carbon::now()->subMonths(10)->firstOfMonth())
+        ->where('moveout_date', '<=', Carbon::now()->subMonths(10)->endOfMonth())
+        ->whereIn('unit_property', [$property[0],$property[1]])
+        ->where('tenant_status','inactive')
+        ->where('type_of_units', 'leasing')
+        ->count();
+
+        $moveout_rate_14 = DB::table('tenants')
+        ->join('units', 'unit_id', 'unit_tenant_id')
+        ->where('moveout_date', '>=', Carbon::now()->subMonths(9)->firstOfMonth())
+        ->where('moveout_date', '<=', Carbon::now()->subMonths(9)->endOfMonth())
+        ->whereIn('unit_property', [$property[0],$property[1]])
+        ->where('tenant_status','inactive')
+        ->where('type_of_units', 'leasing')
+        ->count();
+
+        $moveout_rate_13 = DB::table('tenants')
+        ->join('units', 'unit_id', 'unit_tenant_id')
+        ->where('moveout_date', '>=', Carbon::now()->subMonths(8)->firstOfMonth())
+        ->where('moveout_date', '<=', Carbon::now()->subMonths(8)->endOfMonth())
+        ->whereIn('unit_property', [$property[0],$property[1]])
+        ->where('tenant_status','inactive')
+        ->where('type_of_units', 'leasing')
+        ->count();
+
+        $moveout_rate_12 = DB::table('tenants')
+        ->join('units', 'unit_id', 'unit_tenant_id')
+        ->where('moveout_date', '>=', Carbon::now()->subMonths(7)->firstOfMonth())
+        ->where('moveout_date', '<=', Carbon::now()->subMonths(7)->endOfMonth())
+        ->whereIn('unit_property', [$property[0],$property[1]])
+        ->where('tenant_status','inactive')
+        ->where('type_of_units', 'leasing')
+        ->count();
+
+        $moveout_rate_11 = DB::table('tenants')
+        ->join('units', 'unit_id', 'unit_tenant_id')
+        ->where('moveout_date', '>=', Carbon::now()->subMonths(6)->firstOfMonth())
+        ->where('moveout_date', '<=', Carbon::now()->subMonths(6)->endOfMonth())
+        ->whereIn('unit_property', [$property[0],$property[1]])
+        ->where('tenant_status','inactive')
+        ->where('type_of_units', 'leasing')
+        ->count();
+
         $moveout_rate_1 = DB::table('tenants')
         ->join('units', 'unit_id', 'unit_tenant_id')
         ->where('moveout_date', '>=', Carbon::now()->subMonths(5)->firstOfMonth())
@@ -756,6 +810,60 @@ $movein_rate_11 = DB::table('tenants')
     ->whereIn('tenant_status',['active', 'inactive'])
     ->count();
 
+    $moveout_rate_16 = DB::table('tenants')
+    ->join('units', 'unit_id', 'unit_tenant_id')
+    ->where('moveout_date', '>=', Carbon::now()->subMonths(11)->firstOfMonth())
+    ->where('moveout_date', '<=', Carbon::now()->subMonths(11)->endOfMonth())
+    ->where('unit_property', $property[0])
+    ->where('tenant_status','inactive')
+    ->where('type_of_units', 'leasing')
+    ->count();
+
+    $moveout_rate_15 = DB::table('tenants')
+    ->join('units', 'unit_id', 'unit_tenant_id')
+    ->where('moveout_date', '>=', Carbon::now()->subMonths(10)->firstOfMonth())
+    ->where('moveout_date', '<=', Carbon::now()->subMonths(10)->endOfMonth())
+    ->where('unit_property', $property[0])
+    ->where('tenant_status','inactive')
+    ->where('type_of_units', 'leasing')
+    ->count();
+
+    $moveout_rate_14 = DB::table('tenants')
+    ->join('units', 'unit_id', 'unit_tenant_id')
+    ->where('moveout_date', '>=', Carbon::now()->subMonths(9)->firstOfMonth())
+    ->where('moveout_date', '<=', Carbon::now()->subMonths(9)->endOfMonth())
+    ->where('unit_property', $property[0])
+    ->where('tenant_status','inactive')
+    ->where('type_of_units', 'leasing')
+    ->count();
+
+    $moveout_rate_13 = DB::table('tenants')
+    ->join('units', 'unit_id', 'unit_tenant_id')
+    ->where('moveout_date', '>=', Carbon::now()->subMonths(8)->firstOfMonth())
+    ->where('moveout_date', '<=', Carbon::now()->subMonths(8)->endOfMonth())
+    ->where('unit_property', $property[0])
+    ->where('tenant_status','inactive')
+    ->where('type_of_units', 'leasing')
+    ->count();
+
+    $moveout_rate_12 = DB::table('tenants')
+    ->join('units', 'unit_id', 'unit_tenant_id')
+    ->where('moveout_date', '>=', Carbon::now()->subMonths(7)->firstOfMonth())
+    ->where('moveout_date', '<=', Carbon::now()->subMonths(7)->endOfMonth())
+    ->where('unit_property', $property[0])
+    ->where('tenant_status','inactive')
+    ->where('type_of_units', 'leasing')
+    ->count();
+
+    $moveout_rate_11 = DB::table('tenants')
+    ->join('units', 'unit_id', 'unit_tenant_id')
+    ->where('moveout_date', '>=', Carbon::now()->subMonths(6)->firstOfMonth())
+    ->where('moveout_date', '<=', Carbon::now()->subMonths(6)->endOfMonth())
+    ->where('unit_property', $property[0])
+    ->where('tenant_status','inactive')
+    ->where('type_of_units', 'leasing')
+    ->count();
+
     $moveout_rate_1 = DB::table('tenants')
     ->join('units', 'unit_id', 'unit_tenant_id')
     ->where('moveout_date', '>=', Carbon::now()->subMonths(5)->firstOfMonth())
@@ -1128,8 +1236,22 @@ $movein_rate_11 = DB::table('tenants')
     $moveout_rate = new DashboardChart;
     $moveout_rate->barwidth(0.0);
     $moveout_rate->displaylegend(false);
-    $moveout_rate->labels([Carbon::now()->subMonth(5)->format('M Y'),Carbon::now()->subMonth(4)->format('M Y'),Carbon::now()->subMonth(3)->format('M Y'),Carbon::now()->subMonths(2)->format('M Y'),Carbon::now()->subMonth()->format('M Y'),Carbon::now()->format('M Y')]);
-    $moveout_rate->dataset('number of moveouts', 'line', [$moveout_rate_1,$moveout_rate_2,$moveout_rate_3,$moveout_rate_4,$moveout_rate_5,$moveout_rate_6])
+    $moveout_rate->labels([Carbon::now()->subMonth(11)->format('M Y'),Carbon::now()->subMonth(10)->format('M Y'),Carbon::now()->subMonth(9)->format('M Y'),Carbon::now()->subMonth(8)->format('M Y'),Carbon::now()->subMonth(7)->format('M Y'),Carbon::now()->subMonth(6)->format('M Y'),Carbon::now()->subMonth(5)->format('M Y'),Carbon::now()->subMonth(4)->format('M Y'),Carbon::now()->subMonth(3)->format('M Y'),Carbon::now()->subMonths(2)->format('M Y'),Carbon::now()->subMonth()->format('M Y'),Carbon::now()->format('M Y')]);
+    $moveout_rate->dataset('number of moveouts', 'line', [
+                                                            $moveout_rate_16,
+                                                            $moveout_rate_15,
+                                                            $moveout_rate_14,
+                                                            $moveout_rate_13,
+                                                            $moveout_rate_12,
+                                                            $moveout_rate_11,
+                                                            $moveout_rate_1,
+                                                            $moveout_rate_2,
+                                                            $moveout_rate_3,
+                                                            $moveout_rate_4,
+                                                            $moveout_rate_5,
+                                                            $moveout_rate_6
+                                                          ]
+                            )
     ->color("#858796")
     ->backgroundcolor("rgba(78, 115, 223, 0.05)")
     ->fill(true)
