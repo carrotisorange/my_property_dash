@@ -82,7 +82,7 @@ class TenantController extends Controller
             $request->session()->put(Auth::user()->property.'guardian_relationship', $request->guardian_relationship);
             $request->session()->put(Auth::user()->property.'guardian_contact_no', $request->guardian_contact_no);
 
-            $request->session()->flash('danger', 'Please fill-up necessary fields!');
+            $request->session()->flash('danger', 'Please fill-up required fields!');
             return back();
         }
         
