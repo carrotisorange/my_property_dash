@@ -60,7 +60,7 @@ class TenantController extends Controller
 
     public function postTenantStep1(Request $request, $unit_id){
         
-        if($request->first_name  && $request->last_name  && $contact_no ){
+        if($request->first_name  && $request->last_name  && $request->contact_no ){
             $request->session()->put(Auth::user()->property.'type_of_tenant', 'student');
             $request->session()->put(Auth::user()->property.'first_name', $request->first_name);
             $request->session()->put(Auth::user()->property.'middle_name', $request->middle_name);
