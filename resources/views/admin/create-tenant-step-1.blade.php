@@ -381,6 +381,7 @@
                     <input form="addTenantForm1" type="text" class="form-control" name="last_name" id="last_name" value="{{ session(Auth::user()->property.'last_name') }}" required>
                 </div>
                 </div>
+                <br>
             <div class="row">
                 <div class="col">
                     <small class="">Birthdate</small>
@@ -407,7 +408,7 @@
                     <input form="addTenantForm1" type="text" class="form-control" name="id_number" id="id_number" value="{{ session(Auth::user()->property.'id_number') }}">
                 </div>
             </div>
-            
+            <br>
             <div class="row">
                 <div class="col">
                     <small class="">Mobile <span class="text-danger">(required)</span></small>
@@ -418,7 +419,7 @@
                   <input form="addTenantForm1" type="email" class="form-control" name="email_address" id="email_address" value="{{ session(Auth::user()->property.'email_address') }}">
                 </div>
             </div>
-    
+            <br>
             <div class="row">
                 <div class="col">
                     <small class="">House No/Barangay</small>
@@ -429,6 +430,7 @@
                     <input form="addTenantForm1" type="text" class="form-control" name="city" id="city" value="{{ session(Auth::user()->property.'city') }}">
                 </div>
             </div>
+            <br>
             <div class="row">
                 <div class="col">
                     <small class="">Province</small>
