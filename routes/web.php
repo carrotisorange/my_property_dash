@@ -370,6 +370,15 @@ Route::get('/', function(Request $request){
         ->where('reason_for_moving_out','force_majeure')
         ->get();
     
+        $unruly = DB::table('tenants')
+        ->join('units', 'unit_id', 'unit_tenant_id')
+        ->whereIn('unit_property', [$property[0],$property[1]])
+        ->orderBy('movein_date', 'desc')
+        ->where('tenant_status', 'inactive')
+        ->where('reason_for_moving_out','unruly')
+        ->get();
+    
+
         $total_billings = DB::table('units')
         ->join('tenants', 'unit_id', 'unit_tenant_id')
         ->join('billings', 'tenant_id', 'billing_tenant_id')
