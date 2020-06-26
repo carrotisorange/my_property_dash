@@ -369,7 +369,7 @@
             <input form="addTenantForm1" type="hidden" value="{{ session(Auth::user()->property.'unit_id') }}" name="unit_id"> 
             <div class="row">
                 <div class="col">
-                    <small class="">First Name <p class="text-danger">(required)</p></small>
+                    <small class="">First Name <span class="text-danger">(required)</span></small>
                     <input form="addTenantForm1" type="text" class="form-control" name="first_name" id="first_name" value="{{ session(Auth::user()->property.'first_name') }}" required>
                 </div>
                 <div class="col">
@@ -377,7 +377,7 @@
                     <input form="addTenantForm1" type="text" class="form-control" name="middle_name" id="middle_name" value="{{ session(Auth::user()->property.'middle_name') }}">
                 </div>
                 <div class="col">
-                    <small class="">Last Name  <p class="text-danger">(required)</p></small>
+                    <small class="">Last Name  <span class="text-danger">(required)</span></small>
                     <input form="addTenantForm1" type="text" class="form-control" name="last_name" id="last_name" value="{{ session(Auth::user()->property.'last_name') }}" required>
                 </div>
                 </div>
@@ -410,7 +410,7 @@
             
             <div class="row">
                 <div class="col">
-                    <small class="">Mobile <p class="text-danger">(required)</p></small>
+                    <small class="">Mobile <span class="text-danger">(required)</span></small>
                   <input form="addTenantForm1" type="text" class="form-control" name="contact_no" id="contact_no" value="{{ session(Auth::user()->property.'contact_no') }}" required >
                 </div>
                 <div class="col">
