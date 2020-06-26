@@ -374,9 +374,9 @@
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">LEASING </div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $leasing_units->count() }}</div>
                             
-                            <small>O ({{ $leasing_units_occupied->count() }})</small>
-                            <small>V ({{ $leasing_units_vacant->count() }})</small>
-                            <small>P ({{ $leasing_units_reserved->count() }})</small>
+                            <small>OC ({{ $leasing_units_occupied->count() }})</small>
+                            <small>VC ({{ $leasing_units_vacant->count() }})</small>
+                            <small>RS ({{ $leasing_units_reserved->count() }})</small>
                           </div>
                           <div class="col-auto">
                               <i class="fas fa-home fa-2x text-gray-300"></i>
