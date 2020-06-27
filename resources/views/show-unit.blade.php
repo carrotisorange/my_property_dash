@@ -363,7 +363,8 @@
 
                 <div class="row">
                     <div class="col-md-6">
-                        <button type="button" title="edit unit/room information." class="btn btn-primary" data-toggle="modal" data-target="#editUnit" data-whatever="@mdo"><i class="fas fa-edit"></i>EDIT</button> 
+                      
+                        <button type="button" title="edit unit/room information." class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#editUnit" data-whatever="@mdo"><i class="fas fa-edit fa-sm text-white-50"></i>EDIT</button> 
                         @if ($tenant_active->count() < $unit->beds)
                         <button title="{{ $unit->beds - $tenant_active->count() }} remaining tenant/s to be fully occupied." type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
                             <i class="fas fa-user-plus"></i> TENANT <span class="badge badge-light">{{  $tenant_active->count() }}/{{ $unit->beds }} 
