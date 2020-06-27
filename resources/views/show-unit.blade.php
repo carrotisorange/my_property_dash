@@ -366,13 +366,9 @@
                       
                         <button type="button" title="edit unit/room information." class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#editUnit" data-whatever="@mdo"><i class="fas fa-edit fa-sm text-white-50"></i>EDIT</button> 
                         @if ($tenant_active->count() < $unit->beds)
-                        <button title="{{ $unit->beds - $tenant_active->count() }} remaining tenant/s to be fully occupied." type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                            <i class="fas fa-user-plus"></i> TENANT <span class="badge badge-light">{{  $tenant_active->count() }}/{{ $unit->beds }} 
-                          </button>
-                          <div class="dropdown-menu">
-                              <a href="/units/{{ $unit->unit_id }}/tenant-step1" class="dropdown-item" >STUDENT</a>
-                              {{-- <a href="/units/{{ $unit->unit_id }}/tenants-working-step1" class="dropdown-item" >Working</a> --}}
-                          </div>
+                        <a href="/units/{{ $unit->unit_id }}/tenant-step1" title="{{ $unit->beds - $tenant_active->count() }} remaining tenant/s to be fully occupied." type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary">
+                            <i class="fas fa-user-plus"></i> TENANT <span class="badge badge-light">{{  $tenant_active->count() }}/{{ $unit->beds }} </a>
+
                         @else
                             <button type="button" title="{{ $unit->beds - $tenant_active->count() }} remaining tenant/s to be fully occupied." class="btn btn-primary" data-toggle="modal" data-target="#warningTenant" data-whatever="@mdo"><i class="fas fa-user-plus"></i> TENANT <span class="badge badge-light">{{  $tenant_active->count() }}/{{ $unit->beds }} </button>
                         @endif
