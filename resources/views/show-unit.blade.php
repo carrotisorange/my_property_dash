@@ -373,7 +373,7 @@
                               {{-- <a href="/units/{{ $unit->unit_id }}/tenants-working-step1" class="dropdown-item" >Working</a> --}}
                           </div>
                         @else
-                            <button type="button" title="{{ $unit->beds - $tenant_active->count() }} remaining tenant/s to be fully occupied." class="btn btn-primary" data-toggle="modal" data-target="#warningTenant" data-whatever="@mdo"><i class="fas fa-user-plus"></i> ({{ $tenant_active->count() }}/{{ $unit->beds }})</button>
+                            <button type="button" title="{{ $unit->beds - $tenant_active->count() }} remaining tenant/s to be fully occupied." class="btn btn-primary" data-toggle="modal" data-target="#warningTenant" data-whatever="@mdo"><i class="fas fa-user-plus"></i> TENANT <span class="badge badge-light">{{  $tenant_active->count() }}/{{ $unit->beds }} </button>
                         @endif
                         {{-- if unit owner does not exist in this unit, then show the add investor button, otherwise, hide. --}}
                         @if ($unit_owner->count() < 1)
@@ -381,36 +381,37 @@
                         @endif
                         <br> <br>
                             <?php $numberFormatter = new NumberFormatter('en_US', NumberFormatter::ORDINAL) ?>
+                            <div class="table-responsive">
                                <table class="table table-bordered table-striped">
                                    <tr>
-                                       <th colspan="2" >Room/Unit Information</th>
+                                       <th colspan="2" >ROOM/UNIT INFORMATION</th>
                                    </tr>
                                    <tr>
-                                        <td>unit no</th>
+                                        <th>UNIT/ROOM NO</th>
                                         <td>{{ $unit->unit_no }}</td>
                                    </tr>
                                     <tr>
-                                        <td>building</td>
+                                        <th>BUILDING</th>
                                         <td>{{ $unit->building }}</td>
                                    </tr>
                                    <tr>
-                                        <td>floor no</td>
+                                        <th>FLOOR NO</th>
                                         <td>{{ $numberFormatter->format($unit->floor_no) }}</td>
                                    </tr>
                                    <tr>
-                                        <td>room type</td>
+                                        <th>UNIT/ROOM TYPE</th>
                                         <td>{{ $unit->type_of_units }}</td>
                                    </tr>
                                    <tr>
-                                        <td>no of bed</td>
+                                        <th>NO OF BEDS</th>
                                         <td>{{ $unit->beds }}</td>     
                                     </tr>
                                     <tr>
-                                        <td>status</td>
+                                        <th>STATUS</th>
                                         <td>{{ $unit->status }}</td>
                                     </tr>
                                     <tr>
-                                        <td>monthly rent <br>(excluding utilities)</td> 
+                                        <th>MONTHLY RENT <br>(excluding utilities)</th> 
                                         <td>{{ number_format($unit->monthly_rent,2) }}</td>
             
                                         <?php 
@@ -424,19 +425,19 @@
                                         @foreach ($unit_owner as $item)
                                     
                                     <tr>
-                                        <th colspan="2">Unit Owner Information</th>
+                                        <th colspan="2">OWNER INFORMATION</th>
                                         
                                     </tr>
                                     <tr>
-                                        <td>unit owner </td>
+                                        <th>OWNER </th>
                                         <td><a href="{{ route('show-investor',['unit_id'=> $item->unit_id, 'unit_owner_id'=>$item->unit_owner_id]) }}">{{ $item->unit_owner }} </a></td>
                                     </tr>
                                     <tr>
-                                        <td>representative</td>
+                                        <th>REPRESENTATIVE</th>
                                         <td>{{ $item->investor_representative }}</td>
                                     </tr>
                                     <tr>
-                                        <td>contract duration</td>
+                                        <th>CONTRACT PERIOD</th>
                                         <td>
                                             @if($item->contract_end == NULL)
                                                 {{ Carbon\Carbon::parse($item->contract_start)->format('M d Y') }} (Renewable) 
@@ -448,6 +449,7 @@
                                         @endforeach
                                     @endif
                                </table>
+                              </div>
                     </div>
                 
                     
