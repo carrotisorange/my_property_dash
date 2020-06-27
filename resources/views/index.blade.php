@@ -595,7 +595,7 @@
                 <li class="na">Massa ultricies mi</li>
               </ul>
               <div class="btn-wrap">
-                <a href="#" class="btn-buy">Buy Now</a>
+                <a href="/register" class="btn-buy">Try for free</a>
               </div>
             </div>
           </div>
