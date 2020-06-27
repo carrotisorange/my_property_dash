@@ -372,11 +372,13 @@
                         @else
                         <a href="#/" title="{{ $unit->beds - $tenant_active->count() }} remaining tenant/s to be fully occupied." data-toggle="modal" data-target="#warningTenant" data-whatever="@mdo" type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                             <i class="fas fa-user-plus fa-sm text-white-50"></i> TENANT <span class="badge badge-light">{{  $tenant_active->count() }}/{{ $unit->beds }} 
-                            </a>
+                          </a>
                         @endif
                         {{-- if unit owner does not exist in this unit, then show the add investor button, otherwise, hide. --}}
                         @if ($unit_owner->count() < 1)
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addInvestor" data-whatever="@mdo"><i class="fas fa-user-plus"></i> UNIT OWNER</button>
+                        <a href="#/" data-toggle="modal" data-target="#addInvestor" data-whatever="@mdo" type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                          <i class="fas fa-user-plus fa-sm text-white-50"></i> OWNER 
+                        </a>   
                         @endif
                         <br> <br>
                             <?php $numberFormatter = new NumberFormatter('en_US', NumberFormatter::ORDINAL) ?>
