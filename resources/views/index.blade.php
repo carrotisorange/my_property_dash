@@ -67,7 +67,7 @@
     <div class="container position-relative">
       <h1>Simplifying Property Management</h1>
       <h2>Online resource and tools for landlords and property managers. </h2>
-      <a href="/register" class="btn-get-started scrollto">START FREE TRIAL</a>
+      <a href="#pricing" class="btn-get-started scrollto">START FREE TRIAL</a>
       <a href="/login" class="btn-get-started scrollto">LOGIN</a>
     </div>
   </section><!-- End Hero -->
@@ -126,7 +126,7 @@
               <div class="col-md-6">
                 <i class="bx bx-receipt"></i>
                 <h4>Property Management System</h4>
-                <p>Monitor tenants issues, bill and collect rent, handle maintenance and repairs, and qualify new tenants. You get peace of mind knowing your property and tenants are in good hands.  We have plans for all sizes of rental properties. <a href="/register">Start Free trial now</a>.</p>
+                <p>Monitor tenants issues, bill and collect rent, handle maintenance and repairs, and qualify new tenants. You get peace of mind knowing your property and tenants are in good hands.  We have plans for all sizes of rental properties. <a href="#pricing">Start Free trial now</a>.</p>
               </div>
               <div class="col-md-6">
                 <i class="bx bx-cube-alt"></i>
