@@ -59,7 +59,7 @@
         <span>Dashboard</span></a>
     </li>
 
-    <li class="nav-item active">
+    <li class="nav-item">
       <a class="nav-link" href="/home">
         <i class="fas fa-home"></i>
         <span>Home</span></a>
