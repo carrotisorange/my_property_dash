@@ -1294,7 +1294,7 @@ Route::post('units/add', 'UnitsController@add_unit')->middleware('auth');
 Route::post('units/add-multiple', 'UnitsController@add_multiple_rooms')->middleware('auth');
 
 
-Route::get('/leasing', function(){
+Route::get('/home', function(){
 
     if(auth()->user()->status === 'unregistered'){
         return view('unregistered');
@@ -1375,7 +1375,7 @@ Route::get('/leasing', function(){
         ->get();
     }
     
-    return view('leasing',compact('units_per_building','leasing_units','units_per_status'));
+    return view('home',compact('units_per_building','leasing_units','units_per_status'));
 })->middleware('auth');
 
 Route::get('/residential', function(){

@@ -60,9 +60,9 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" href="/leasing">
+        <a class="nav-link" href="/residential">
           <i class="fas fa-home"></i>
-          <span>Leasing</span></a>
+          <span>Residential</span></a>
       </li>
 
       {{-- <li class="nav-item">
@@ -82,11 +82,11 @@
         </div>
       </li> --}}
 
-      <li class="nav-item">
+      {{-- <li class="nav-item">
         <a class="nav-link" href="/residential">
           <i class="fas fa-home"></i>
           <span>Residential</span></a>
-      </li>
+      </li> --}}
 
 
 
