@@ -401,7 +401,7 @@
     
         <p class="text-right">
             <a href="/#billings" class="btn btn-secondary"><i class="fas fa-times"></i> CANCEL</a>
-            <button type="submit" form="add_billings" class="btn btn-primary" onclick="this.form.submit(); this.disabled = true;><i class="fas fa-check"></i> POST</button>
+            <button type="submit" form="add_billings" class="btn btn-primary" onclick="this.form.submit(); this.disabled = true;"><i class="fas fa-check"></i> POST</button>
         </p>
         </div>
     </div>

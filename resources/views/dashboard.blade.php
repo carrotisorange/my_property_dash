@@ -81,12 +81,12 @@
           </div>
         </div>
       </li> --}}
-
+{{-- 
       <li class="nav-item">
         <a class="nav-link" href="/residential">
           <i class="fas fa-home"></i>
           <span>Residential</span></a>
-      </li> 
+      </li> --}}
 
 
 

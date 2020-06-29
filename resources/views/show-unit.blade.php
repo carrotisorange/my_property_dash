@@ -644,7 +644,7 @@
                             </div>
                             <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i> CLOSE</button>
-                            <button form="editUnitForm" type="submit" class="btn btn-primary" ><i class="fas fa-check"></i> UPDATE UNIT/ROOM</button>
+                            <button form="editUnitForm" type="submit" class="btn btn-primary" onclick="this.form.submit(); this.disabled = true;"><i class="fas fa-check"></i> UPDATE UNIT/ROOM</button>
                             </div>
                         </div>
                         </div>
