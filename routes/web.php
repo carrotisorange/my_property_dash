@@ -1524,6 +1524,7 @@ Route::get('/payments', function(){
         ->join('payments', 'tenant_id', 'payment_tenant_id')
         ->groupBy('tenant_id')
         ->whereIn('unit_property', [$property[0],$property[1]])
+        ->orderBy('payment_created', 'desc')
    
         ->get();
      }else{
@@ -1532,7 +1533,7 @@ Route::get('/payments', function(){
         ->join('payments', 'tenant_id', 'payment_tenant_id')
         ->groupBy('tenant_id')
         ->where('unit_property', $property[0])
-       
+        ->orderBy('payment_created', 'desc')
         ->get();
      }
 

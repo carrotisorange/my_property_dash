@@ -688,7 +688,7 @@ class TenantController extends Controller
             ->join('tenants', 'unit_id', 'unit_tenant_id')
             ->join('billings', 'tenant_id', 'billing_tenant_id')
             ->whereIn('unit_property', [$property[0],$property[1]])
-            ->where('billing_status', 'unpaid')
+         
             ->orderBy('billing_date', 'desc')
             ->get();
          }else{
@@ -696,7 +696,7 @@ class TenantController extends Controller
             ->join('tenants', 'unit_id', 'unit_tenant_id')
             ->join('billings', 'tenant_id', 'billing_tenant_id')
             ->where('unit_property', $property[0])
-            ->where('billing_status', 'unpaid')
+            
             ->orderBy('billing_date', 'desc')
             ->get();
          }

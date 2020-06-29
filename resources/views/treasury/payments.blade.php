@@ -283,6 +283,7 @@
                            <thead>
                             <tr>
                                 <th>#</th>
+                                <th>DATE PAID</th>
                                 <th>NAME</th>
                                 <th>UNIT/ROOM</th>
                                 <th>FORM OF PAYMENT</th>
@@ -294,6 +295,7 @@
                             @foreach ($payments as $item)
                             <tr>
                                 <th>{{ $ctr++ }}</th>
+                                <td>{{ Carbon\Carbon::parse($item->payment_created)->format('M d Y') }}</td>
                                 <td>{{ $item->first_name.' '.$item->last_name }}</td>
                                 <td>{{ $item->building.' '.$item->unit_no }}</td>
                                 <td>{{ $item->form_of_payment }}</td>
