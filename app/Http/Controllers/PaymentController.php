@@ -64,6 +64,13 @@ class PaymentController extends Controller
      */
     public function store(Request $request)
     {   
+
+        if($request->payment_note === null){
+            $request->session()->flash('success', 'A new tenant has been added to the record!');
+
+            return back()->with('danger', 'Please fill-up the payment description!');
+        }
+
         $movein_charges = DB::table('billings')
         ->where('billing_tenant_id', $request->payment_tenant_id)
         ->whereIn('billing_desc', ['Security Deposit (Utilities)', 'Security Deposit (Rent)', 'Advance Rent'])
@@ -110,7 +117,7 @@ class PaymentController extends Controller
                         'updated_at' => Carbon::now(), 
                     ]);
         }else{
-            return redirect('/units/'.$request->unit_tenant_id.'/tenants/'.$request->payment_tenant_id.'/billings')->with('error','Payment has been rejected. Insufficient amount!');
+            return back()->with('error','Payment has been rejected. Insufficient amount!');
         }
        }else{
               $payment_id = DB::table('payments')->insertGetId([
@@ -146,7 +153,7 @@ class PaymentController extends Controller
                
        }
 
-       return redirect('/units/'.$request->unit_tenant_id.'/tenants/'.$request->payment_tenant_id.'/payments')->with('success','Payment has been successfully recorded!');
+       return back()->with('success','Payment has been successfully recorded!');
     }
 
     /**

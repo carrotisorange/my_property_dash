@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Page not found</title>
+  <title>Payments</title>
 
   <!-- Custom fonts for this template-->
   <link href="{{ asset('dashboard/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -52,67 +52,24 @@
         Interface
       </div> --}}
 
+   <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link" href="/">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
 
-      @if(Auth::user()->user_type === 'admin')
       <li class="nav-item">
-        <a class="nav-link" href="/home">
-          <i class="fas fa-home"></i>
-          <span>Home</span></a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link" href="/tenants">
-          <i class="fas fa-user fa-chart-area"></i>
+        <a class="nav-link" href="/tenants/search">
+          <i class="fas fa-user"></i>
           <span>Tenants</span></a>
       </li>
-
-      <!-- Nav Item - Tables -->
-      <li class="nav-item">
-        <a class="nav-link" href="/owners">
-          <i class="fas fa-user-tie"></i>
-          <span>Unit Owners</span></a>
-      </li>
-
-        <!-- Nav Item - Tables -->
-      <li class="nav-item">
-          <a class="nav-link" href="/joborders">
-            <i class="fas fa-tools fa-table"></i>
-            <span>Job Orders</span></a>
-        </li>
-      @endif
-
-       @if(Auth::user()->user_type === 'billing')
-        <!-- Nav Item - Tables -->
-        <li class="nav-item">
-          <a class="nav-link" href="/billing-and-collection">
-            <i class="fas fa-file-invoice-dollar fa-table"></i>
-            <span>Bills</span></a>
-        </li>
-       @endif
-
-       @if(Auth::user()->user_type === 'treasury')
-          <li class="nav-item">
-          <a class="nav-link" href="/payments">
-            <i class="fas fa-file-invoice-dollar"></i>
-            <span>Payments</span></a>
-        </li>
-
-        @endif
-
-      @if(Auth::user()->user_type === 'manager')
-       <!-- Nav Item - Tables -->
-       <li class="nav-item">
-        <a class="nav-link" href="/users">
-          <i class="fas fa-user-secret fa-table"></i>
-          <span>Users</span></a>
-      </li>
-      @endif
       
+      <li class="nav-item active">
+        <a class="nav-link" href="/payments">
+          <i class="fas fa-file-invoice-dollar"></i>
+          <span>Payments</span></a>
+      </li>          
 
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
@@ -315,16 +272,43 @@
         </nav>
         <!-- End of Topbar -->
         <div class="container-fluid">
-        <!-- 404 Error Text -->
-        <div class="text-center">
-            <div class="error mx-auto" data-text="404">404</div>
-            <p class="lead text-gray-800 mb-5">Page Not Found</p>
-            <p class="text-gray-500 mb-0">Please wait. Your account is being reviewed...</p>
-           
+            
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Payments</h1>
           </div>
+    
+                     <div class="card-body">
+                       <div class="table-responsive">
+                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                           <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>NAME</th>
+                                <th>UNIT/ROOM</th>
+                                <th>FORM OF PAYMENT</th>
+                                <th>AMOUNT</th>
+                                <th></th>
+                            </tr>
+                            <?php $ctr = 1; ?>
+                           <tbody>
+                            @foreach ($payments as $item)
+                            <tr>
+                                <th>{{ $ctr++ }}</th>
+                                <td>{{ $item->first_name.' '.$item->last_name }}</td>
+                                <td>{{ $item->building.' '.$item->unit_no }}</td>
+                                <td>{{ $item->form_of_payment }}</td>
+                                <td>{{ number_format($item->amt_paid,2) }}</td>
+                                <td><a href="/units/{{ $item->unit_tenant_id }}/tenants/{{ $item->tenant_id }}/payments/{{ $item->payment_id }}">View Details</a></td>
+                            </tr>
+                            @endforeach
+                           </tbody>
+                         </table>
+                       </div>
+                     </div>
 
-        </div>
-
+      </div>
+        
+       
       </div>
       <!-- End of Main Content -->
 

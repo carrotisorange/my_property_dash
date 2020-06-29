@@ -59,66 +59,12 @@
           <span>Dashboard</span></a>
       </li>
 
+      @if(Auth::user()->user_type === 'admin')
       <li class="nav-item">
         <a class="nav-link" href="/home">
           <i class="fas fa-home"></i>
           <span>Home</span></a>
       </li>
-
-      {{-- <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-          <i class="fas fa-home fa-cog"></i>
-          <span>Leasing</span>
-          
-        </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            
-            @foreach ($units_per_building as $item)
-            <a class="collapse-item" href="/leasing">{{ $item->building }}</a>
-            @endforeach
-            
-          </div>
-        </div>
-      </li> --}}
-{{-- 
-      <li class="nav-item">
-        <a class="nav-link" href="/residential">
-          <i class="fas fa-home"></i>
-          <span>Residential</span></a>
-      </li> --}}
-
-
-
-      <!-- Divider -->
-      {{-- <hr class="sidebar-divider"> --}}
-
-      {{-- <!-- Heading -->
-      <div class="sidebar-heading">
-        Addons
-      </div> --}}
-
-      <!-- Nav Item - Pages Collapse Menu -->
-      {{-- <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-          <i class="fas fa-fw fa-folder"></i>
-          <span>Pages</span>
-        </a>
-        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Login Screens:</h6>
-            <a class="collapse-item" href="login.html">Login</a>
-            <a class="collapse-item" href="register.html">Register</a>
-            <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-            <div class="collapse-divider"></div>
-            <h6 class="collapse-header">Other Pages:</h6>
-            <a class="collapse-item" href="404.html">404 Page</a>
-            <a class="collapse-item" href="blank.html">Blank Page</a>
-          </div>
-        </div>
-      </li> --}}
-
-      <!-- Nav Item - Charts -->
 
       <li class="nav-item">
         <a class="nav-link" href="/tenants">
@@ -134,31 +80,39 @@
       </li>
 
         <!-- Nav Item - Tables -->
+      <li class="nav-item">
+          <a class="nav-link" href="/joborders">
+            <i class="fas fa-tools fa-table"></i>
+            <span>Job Orders</span></a>
+        </li>
+      @endif
+
+       @if(Auth::user()->user_type === 'billing')
+        <!-- Nav Item - Tables -->
         <li class="nav-item">
           <a class="nav-link" href="/billing-and-collection">
             <i class="fas fa-file-invoice-dollar fa-table"></i>
-            <span>Billing and collection</span></a>
+            <span></span></a>
         </li>
+       @endif
 
+       @if(Auth::user()->user_type === 'treasury')
           <li class="nav-item">
           <a class="nav-link" href="/payments">
             <i class="fas fa-file-invoice-dollar"></i>
             <span>Payments</span></a>
         </li>
 
-       <!-- Nav Item - Tables -->
-       <li class="nav-item">
-        <a class="nav-link" href="/joborders">
-          <i class="fas fa-tools fa-table"></i>
-          <span>Job Orders</span></a>
-      </li>
+        @endif
 
+      @if(Auth::user()->user_type === 'manager')
        <!-- Nav Item - Tables -->
        <li class="nav-item">
         <a class="nav-link" href="/users">
           <i class="fas fa-user-secret fa-table"></i>
           <span>Users</span></a>
       </li>
+      @endif
       
 
       <!-- Divider -->
@@ -378,11 +332,11 @@
                         <div class="row no-gutters align-items-center">
                           <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">UNITS/ROOMS </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $leasing_units->count() }}</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $units->count() }}</div>
                             
-                            <small>OC ({{ $leasing_units_occupied->count() }})</small>
-                            <small>VC ({{ $leasing_units_vacant->count() }})</small>
-                            <small>RS ({{ $leasing_units_reserved->count() }})</small>
+                            <small>OC ({{ $units_occupied->count() }})</small>
+                            <small>VC ({{ $units_vacant->count() }})</small>
+                            <small>RS ({{ $units_reserved->count() }})</small>
                             
                           </div>
                           <div class="col-auto">
@@ -419,7 +373,7 @@
                         <div class="row no-gutters align-items-center">
                           <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">UNIT OWNERS </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $investors->count() }}</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $owners->count() }}</div>
                             <small>|</small>
                             
                           </div>
@@ -634,13 +588,10 @@
                          <tr>
                              <th class="text-center">{{ $ctr++ }}</th>
                              <td>
-                                 @if (Auth::user()->user_type === 'admin')
+          
                                  <a href="{{ route('show-tenant',['unit_id' => $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a>
-                                 @elseif(Auth::user()->user_type === 'treasury')
-                                 <a href="/units/{{ $item->unit_tenant_id }}/tenants/{{ $item->tenant_id }}/payments">{{ $item->first_name.' '.$item->last_name }}</a>
-                                 @else
-                                 {{ $item->first_name.' '.$item->last_name }}
-                                 @endif
+                               
+                                
                              </td>
                              <td>{{ $item->contact_no }}</td>
                              <td>{{ $item->building.' '.$item->unit_no }}</td>

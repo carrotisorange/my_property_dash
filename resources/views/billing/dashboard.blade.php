@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Page not found</title>
+  <title>Dashboard</title>
 
   <!-- Custom fonts for this template-->
   <link href="{{ asset('dashboard/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -52,67 +52,26 @@
         Interface
       </div> --}}
 
-      <li class="nav-item">
+   <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item active">
         <a class="nav-link" href="/">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
 
-      @if(Auth::user()->user_type === 'admin')
       <li class="nav-item">
-        <a class="nav-link" href="/home">
-          <i class="fas fa-home"></i>
-          <span>Home</span></a>
+        <a class="nav-link" href="/bills">
+          <i class="fas fa-file-invoice-dollar"></i>
+          <span>Bills</span></a>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" href="/tenants">
-          <i class="fas fa-user fa-chart-area"></i>
-          <span>Tenants</span></a>
+        <a class="nav-link" href="/collections">
+          <i class="fas fa-coins"></i>
+          <span>Collections</span></a>
       </li>
 
-      <!-- Nav Item - Tables -->
-      <li class="nav-item">
-        <a class="nav-link" href="/owners">
-          <i class="fas fa-user-tie"></i>
-          <span>Unit Owners</span></a>
-      </li>
-
-        <!-- Nav Item - Tables -->
-      <li class="nav-item">
-          <a class="nav-link" href="/joborders">
-            <i class="fas fa-tools fa-table"></i>
-            <span>Job Orders</span></a>
-        </li>
-      @endif
-
-       @if(Auth::user()->user_type === 'billing')
-        <!-- Nav Item - Tables -->
-        <li class="nav-item">
-          <a class="nav-link" href="/billing-and-collection">
-            <i class="fas fa-file-invoice-dollar fa-table"></i>
-            <span>Bills</span></a>
-        </li>
-       @endif
-
-       @if(Auth::user()->user_type === 'treasury')
-          <li class="nav-item">
-          <a class="nav-link" href="/payments">
-            <i class="fas fa-file-invoice-dollar"></i>
-            <span>Payments</span></a>
-        </li>
-
-        @endif
-
-      @if(Auth::user()->user_type === 'manager')
-       <!-- Nav Item - Tables -->
-       <li class="nav-item">
-        <a class="nav-link" href="/users">
-          <i class="fas fa-user-secret fa-table"></i>
-          <span>Users</span></a>
-      </li>
-      @endif
-      
+          
 
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
@@ -315,16 +274,149 @@
         </nav>
         <!-- End of Topbar -->
         <div class="container-fluid">
-        <!-- 404 Error Text -->
-        <div class="text-center">
-            <div class="error mx-auto" data-text="404">404</div>
-            <p class="lead text-gray-800 mb-5">Page Not Found</p>
-            <p class="text-gray-500 mb-0">Please wait. Your account is being reviewed...</p>
-           
+            
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Billing and collection
+              
+              <div class="dropdown show">
+                <br>
+                <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-plus fa-sm text-white-50"></i> Post bills</a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                  <button type="submit" form="billingRentForm" class="dropdown-item "> Rent</button>
+                  <input type="hidden" form="billingRentForm" name="billing_option" value="rent">
+                  <button type="submit" form="billingElectricForm" class="dropdown-item"> Electric</button>
+                  <input type="hidden" form="billingElectricForm" name="billing_option" value="electric">
+                  <button type="submit" form="billingWaterForm" class="dropdown-item "> Water</button>
+                  <input type="hidden" form="billingWaterForm" name="billing_option" value="water">
+                  <button type="submit" form="billingSurchargeForm" class="dropdown-item ">Surcharge</button>
+                  <input type="hidden" form="billingSurchargeForm" name="billing_option" value="surcharge">
+  
+                <form id="billingRentForm" action="/tenants/billings" method="POST">
+                  @csrf
+                </form>
+                <form id="billingElectricForm" action="/tenants/billings" method="POST">
+                    @csrf
+                </form>
+                <form id="billingWaterForm" action="/tenants/billings" method="POST">
+                    @csrf
+                </form>
+                <form id="billingSurchargeForm" action="/tenants/billings" method="POST">
+                    @csrf
+                </form>
+                </div>
+              </div>
+            </h1>
+            
+             
           </div>
 
-        </div>
+          <!-- Content Row -->
+          <div class="row">
 
+            <!-- Earnings (Monthly) Card Example -->
+            <div class="col-xl-4 col-md-6 mb-4">
+              <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">EXPECTED COLLECTION </div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">{{ number_format( $expected_collection ,2) }}</div>
+                      
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-coins fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Earnings (Monthly) Card Example -->
+            <div class="col-xl-4 col-md-6 mb-4">
+              <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">ACTUAL COLLECTION </div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">{{ number_format( $actual_collection ,2) }}</div>
+                      
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-hand-holding-usd fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pending Requests Card Example -->
+            <div class="col-xl-4 col-md-6 mb-4">
+              <div class="card border-left-danger shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">UNCOLLECTED</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">{{ number_format( $uncollected_amount ,2) }}</div>
+                      
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-tools fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <br>
+          
+          <div class="row">
+           
+                  <!-- Content Column -->
+                  <div class="col-lg-12 mb-4">
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                     <div class="card-header py-3">
+                       <h6 class="m-0 font-weight-bold text-primary">DELINQUENTS</h6>
+                         <?php $ctr = 1; ?>
+                     </div>
+                     <div class="card-body">
+                       <div class="table-responsive">
+                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                           <thead>
+                             <tr>
+                               <th class="text-center">#</th>
+                               <th>TENANT</th>
+                               <th>CONTACT</th>
+                               <th>UNIT/ROOM </th>
+                               <th>BALANCE</th>
+                               
+                           </tr>
+                           </thead>
+                           <tbody>
+                             @foreach($delinquent_accounts as $item)
+                              <tr>
+                                <th class="text-center">{{ $ctr++ }}</th>
+                                <td> <a href="/units/{{ $item->unit_tenant_id }}/tenants/{{ $item->tenant_id }}/billings">{{ $item->first_name.' '.$item->last_name }}</a></td>
+                                <td>{{ $item->contact_no }}</td>
+                                <td>{{ $item->building.' '.$item->unit_no }}</td>
+                                <td>{{ number_format($item->total_bills, 2) }}</td>
+                              </tr>
+                             @endforeach
+                           </tbody>
+                         </table>
+                       </div>
+                     </div>
+                   </div>
+           
+                       </div>
+          </div>
+
+          
+
+      </div>
+        
+       
       </div>
       <!-- End of Main Content -->
 

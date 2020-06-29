@@ -59,99 +59,16 @@
           <span>Dashboard</span></a>
       </li>
 
-      <li class="nav-item">
-        <a class="nav-link" href="/home">
-          <i class="fas fa-home"></i>
-          <span>Home</span></a>
-      </li>
-
-      {{-- <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-          <i class="fas fa-home fa-cog"></i>
-          <span>Leasing</span>
-          
-        </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            
-            @foreach ($units_per_building as $item)
-            <a class="collapse-item" href="/leasing">{{ $item->building }}</a>
-            @endforeach
-            
-          </div>
-        </div>
-      </li> --}}
-
-      {{-- <li class="nav-item">
-        <a class="nav-link" href="/residential">
-          <i class="fas fa-home"></i>
-          <span>Residential</span></a>
-      </li> --}}
-
-
-
-      <!-- Divider -->
-      {{-- <hr class="sidebar-divider"> --}}
-
-      {{-- <!-- Heading -->
-      <div class="sidebar-heading">
-        Addons
-      </div> --}}
-
-      <!-- Nav Item - Pages Collapse Menu -->
-      {{-- <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-          <i class="fas fa-fw fa-folder"></i>
-          <span>Pages</span>
-        </a>
-        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Login Screens:</h6>
-            <a class="collapse-item" href="login.html">Login</a>
-            <a class="collapse-item" href="register.html">Register</a>
-            <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-            <div class="collapse-divider"></div>
-            <h6 class="collapse-header">Other Pages:</h6>
-            <a class="collapse-item" href="404.html">404 Page</a>
-            <a class="collapse-item" href="blank.html">Blank Page</a>
-          </div>
-        </div>
-      </li> --}}
-
-      <!-- Nav Item - Charts -->
-
       <li class="nav-item active">
-        <a class="nav-link" href="/tenants">
-          <i class="fas fa-user fa-chart-area"></i>
+        <a class="nav-link" href="/tenants/search">
+          <i class="fas fa-user"></i>
           <span>Tenants</span></a>
       </li>
-
-      <!-- Nav Item - Tables -->
+      
       <li class="nav-item">
-        <a class="nav-link" href="/owners">
-          <i class="fas fa-user-tie fa-table"></i>
-          <span>Unit Owners</span></a>
-      </li>
-
-       <!-- Nav Item - Tables -->
-       <li class="nav-item">
-        <a class="nav-link" href="/billing-and-collection">
-          <i class="fas fa-file-invoice-dollar fa-table"></i>
-          <span>Billing and collection</span></a>
-      </li>
-
-       <!-- Nav Item - Tables -->
-       <li class="nav-item">
-        <a class="nav-link" href="/joborders">
-          <i class="fas fa-tools fa-table"></i>
-          <span>Job Orders</span></a>
-      </li>
-
-       <!-- Nav Item - Tables -->
-       <li class="nav-item">
-        <a class="nav-link" href="/users">
-          <i class="fas fa-user-secret fa-table"></i>
-          <span>Users</span></a>
+        <a class="nav-link" href="/payments">
+          <i class="fas fa-file-invoice-dollar"></i>
+          <span>Payments</span></a>
       </li>
 
       <!-- Divider -->

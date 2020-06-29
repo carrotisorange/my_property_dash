@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Post Water Bill</title>
+  <title>Post Surcharge Bill</title>
 
   <!-- Custom fonts for this template-->
   <link href="{{ asset('dashboard/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -52,107 +52,24 @@
         Interface
       </div> --}}
 
- <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item">
+  <li class="nav-item">
         <a class="nav-link" href="/">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
 
       <li class="nav-item active">
-        <a class="nav-link" href="/home">
-          <i class="fas fa-home"></i>
-          <span>Home</span></a>
+        <a class="nav-link" href="/bills">
+          <i class="fas fa-file-invoice-dollar"></i>
+          <span>Bills</span></a>
       </li>
 
-      {{-- <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-          <i class="fas fa-home fa-cog"></i>
-          <span>Leasing</span>
-          
-        </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            
-            @foreach ($units_per_building as $item)
-            <a class="collapse-item" href="/leasing">{{ $item->building }}</a>
-            @endforeach
-            
-          </div>
-        </div>
-      </li> --}}
-
-      {{-- <li class="nav-item">
-        <a class="nav-link" href="/residential">
-          <i class="fas fa-home"></i>
-          <span>Residential</span></a>
-      </li> --}}
-
-
-
-      <!-- Divider -->
-      {{-- <hr class="sidebar-divider"> --}}
-
-      {{-- <!-- Heading -->
-      <div class="sidebar-heading">
-        Addons
-      </div> --}}
-
-      <!-- Nav Item - Pages Collapse Menu -->
-      {{-- <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-          <i class="fas fa-fw fa-folder"></i>
-          <span>Pages</span>
-        </a>
-        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Login Screens:</h6>
-            <a class="collapse-item" href="login.html">Login</a>
-            <a class="collapse-item" href="register.html">Register</a>
-            <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-            <div class="collapse-divider"></div>
-            <h6 class="collapse-header">Other Pages:</h6>
-            <a class="collapse-item" href="404.html">404 Page</a>
-            <a class="collapse-item" href="blank.html">Blank Page</a>
-          </div>
-        </div>
-      </li> --}}
-
-      <!-- Nav Item - Charts -->
-
-      <li class="nav-item active">
-        <a class="nav-link" href="/tenants">
-          <i class="fas fa-user fa-chart-area"></i>
-          <span>Tenants</span></a>
-      </li>
-
-      <!-- Nav Item - Tables -->
       <li class="nav-item">
-        <a class="nav-link" href="/owners">
-          <i class="fas fa-user-tie fa-table"></i>
-          <span>Unit Owners</span></a>
+        <a class="nav-link" href="/collections">
+          <i class="fas fa-coins"></i>
+          <span>Collections</span></a>
       </li>
 
-       <!-- Nav Item - Tables -->
-       <li class="nav-item">
-        <a class="nav-link" href="/billing-and-collection">
-          <i class="fas fa-file-invoice-dollar fa-table"></i>
-          <span>Billing and collection</span></a>
-      </li>
-
-       <!-- Nav Item - Tables -->
-       <li class="nav-item">
-        <a class="nav-link" href="/joborders">
-          <i class="fas fa-tools fa-table"></i>
-          <span>Job Orders</span></a>
-      </li>
-
-       <!-- Nav Item - Tables -->
-       <li class="nav-item">
-        <a class="nav-link" href="/users">
-          <i class="fas fa-user-secret fa-table"></i>
-          <span>Users</span></a>
-      </li>
 
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
@@ -355,9 +272,8 @@
         </nav>
         <!-- End of Topbar -->
         <div class="container-fluid">
-
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Post Water Bill</h1>
+            <h1 class="h3 mb-0 text-gray-800">Surcharge Bill</h1>
             {{-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> --}}
           </div>
         <!-- 404 Error Text -->
@@ -368,7 +284,7 @@
             <div class="table-responsive">
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <tr>
-                <th class="text-center">#</th>
+                <th  class="text-center">#</th>
                 <th>NAME</th>
                 <th>UNIT/ROOM</th>   
                 <th>DESCRIPTION</th>  
@@ -382,26 +298,26 @@
              $id_ctr = 1;
              $details_ctr = 1;
            ?>   
-           @foreach($active_tenants as $item)
+           @foreach($delinquent_tenants as $item)
             <tr>
                 <th class="text-center">{{ $ctr++ }}</th>   
                 
                 <td>{{ $item->first_name.' '.$item->last_name }}<input type="hidden" form="add_billings" name="tenant{{ $id_ctr++ }}" value={{ $item->tenant_id }}></td>
                 <td>{{ $item->building.' '.$item->unit_no }}</td>
-                <td><input class="form-control" type="text" form="add_billings" name="desc{{ $desc_ctr++ }}" value="Water" readonly></td>
+                <td><input class="form-control" type="text" form="add_billings" name="desc{{ $desc_ctr++ }}" value="Surcharge" readonly></td>
                 <td>
                     <input form="add_billings" type="text" class='form-control' name="details{{ $details_ctr++  }}" value="{{ Carbon\Carbon::now()->startOfMonth()->format('M d') }}- {{ Carbon\Carbon::now()->endOfMonth()->format('d Y') }} " >
                 </td>
                 <td>
-                    <input form="add_billings" class="form-control" type="number" name="amt{{ $amt_ctr++ }}" value="0" oninput="this.value = Math.abs(this.value)">
+                    <input form="add_billings" class="form-control" type="number" name="amt{{ $amt_ctr++ }}" value="{{ $item->tenant_monthly_rent * .1 }}" oninput="this.value = Math.abs(this.value)">
                 </td>
            </tr>
            @endforeach
         </table>
             </div>
         <p class="text-right">
-            <a href="/#billings" class="btn btn-secondary"><i class="fas fa-times"></i> CANCEL</a>
-            <button type="submit" form="add_billings" class="btn btn-primary" onclick="this.form.submit(); this.disabled = true;"><i class="fas fa-check"></i> POST</button>
+            <a href="/billing-and-collection" class="btn btn-secondary"><i class="fas fa-times"></i> CANCEL</a>
+            <button type="submit" form="add_billings" class="btn btn-primary"  onclick="return confirm('Are you sure you want to delete this item?');"><i class="fas fa-check"></i> POST</button>
         </p>
     </div>
         </div>

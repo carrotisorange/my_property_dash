@@ -97,6 +97,10 @@ class UnitOwnersController extends Controller
      */
     public function show($unit_id, $unit_owner_id)
     {
+        if(Auth::user()->status === 'unregistered'|| auth()->user()->user_type !== 'admin'){
+            return view('unregistered');
+        }
+
         $investor = UnitOwner::findOrFail($unit_owner_id);
 
          $investor_billings = DB::table('units')
@@ -107,7 +111,7 @@ class UnitOwnersController extends Controller
 
         if(Auth::user()->user_type === 'admin'){
 
-            return view('show-investor', compact('investor'));
+            return view('admin.show-investor', compact('investor'));
           
         }elseif(Auth::user()->user_type === 'treasury'){
 

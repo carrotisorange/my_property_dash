@@ -53,106 +53,67 @@
       </div> --}}
 
     <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item">
-      <a class="nav-link" href="/">
-        <i class="fas fa-fw fa-tachometer-alt"></i>
-        <span>Dashboard</span></a>
-    </li>
+   <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link" href="/">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Dashboard</span></a>
+      </li>
 
-    <li class="nav-item">
-      <a class="nav-link" href="/home">
-        <i class="fas fa-home"></i>
-        <span>Home</span></a>
-    </li>
+      @if(Auth::user()->user_type === 'admin')
+      <li class="nav-item">
+        <a class="nav-link" href="/home">
+          <i class="fas fa-home"></i>
+          <span>Home</span></a>
+      </li>
 
-    {{-- <li class="nav-item">
-      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-        <i class="fas fa-home fa-cog"></i>
-        <span>Leasing</span>
-        
-      </a>
-      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-        <div class="bg-white py-2 collapse-inner rounded">
-          
-          @foreach ($units_per_building as $item)
-          <a class="collapse-item" href="/leasing">{{ $item->building }}</a>
-          @endforeach
-          
-        </div>
-      </div>
-    </li> --}}
+      <li class="nav-item active">
+        <a class="nav-link" href="/tenants">
+          <i class="fas fa-user fa-chart-area"></i>
+          <span>Tenants</span></a>
+      </li>
 
-    {{-- <li class="nav-item">
-      <a class="nav-link" href="/residential">
-        <i class="fas fa-home"></i>
-        <span>Residential</span></a>
-    </li> --}}
+      <!-- Nav Item - Tables -->
+      <li class="nav-item">
+        <a class="nav-link" href="/owners">
+          <i class="fas fa-user-tie"></i>
+          <span>Unit Owners</span></a>
+      </li>
 
+        <!-- Nav Item - Tables -->
+      <li class="nav-item">
+          <a class="nav-link" href="/joborders">
+            <i class="fas fa-tools fa-table"></i>
+            <span>Job Orders</span></a>
+        </li>
+      @endif
 
+       @if(Auth::user()->user_type === 'billing')
+        <!-- Nav Item - Tables -->
+        <li class="nav-item">
+          <a class="nav-link" href="/billing-and-collection">
+            <i class="fas fa-file-invoice-dollar fa-table"></i>
+            <span>Billing and collection</span></a>
+        </li>
+       @endif
 
-    <!-- Divider -->
-    {{-- <hr class="sidebar-divider"> --}}
+       @if(Auth::user()->user_type === 'treasury')
+          <li class="nav-item">
+          <a class="nav-link" href="/payments">
+            <i class="fas fa-file-invoice-dollar"></i>
+            <span>Payments</span></a>
+        </li>
 
-    {{-- <!-- Heading -->
-    <div class="sidebar-heading">
-      Addons
-    </div> --}}
+        @endif
 
-    <!-- Nav Item - Pages Collapse Menu -->
-    {{-- <li class="nav-item">
-      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-        <i class="fas fa-fw fa-folder"></i>
-        <span>Pages</span>
-      </a>
-      <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-        <div class="bg-white py-2 collapse-inner rounded">
-          <h6 class="collapse-header">Login Screens:</h6>
-          <a class="collapse-item" href="login.html">Login</a>
-          <a class="collapse-item" href="register.html">Register</a>
-          <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-          <div class="collapse-divider"></div>
-          <h6 class="collapse-header">Other Pages:</h6>
-          <a class="collapse-item" href="404.html">404 Page</a>
-          <a class="collapse-item" href="blank.html">Blank Page</a>
-        </div>
-      </div>
-    </li> --}}
-
-    <!-- Nav Item - Charts -->
-
-    <li class="nav-item active">
-      <a class="nav-link" href="/tenants">
-        <i class="fas fa-user fa-chart-area"></i>
-        <span>Tenants</span></a>
-    </li>
-
-    <!-- Nav Item - Tables -->
-    <li class="nav-item">
-      <a class="nav-link" href="/owners">
-        <i class="fas fa-user-tie fa-table"></i>
-        <span>Unit Owners</span></a>
-    </li>
-
-     <!-- Nav Item - Tables -->
-     <li class="nav-item">
-      <a class="nav-link" href="/billing-and-collection">
-        <i class="fas fa-file-invoice-dollar fa-table"></i>
-        <span>Billing and collection</span></a>
-    </li>
-
-     <!-- Nav Item - Tables -->
-     <li class="nav-item">
-      <a class="nav-link" href="/joborders">
-        <i class="fas fa-tools fa-table"></i>
-        <span>Job Orders</span></a>
-    </li>
-
-     <!-- Nav Item - Tables -->
-     <li class="nav-item">
-      <a class="nav-link" href="/users">
-        <i class="fas fa-user-secret fa-table"></i>
-        <span>Users</span></a>
-    </li>
+      @if(Auth::user()->user_type === 'manager')
+       <!-- Nav Item - Tables -->
+       <li class="nav-item">
+        <a class="nav-link" href="/users">
+          <i class="fas fa-user-secret fa-table"></i>
+          <span>Users</span></a>
+      </li>
+      @endif
       
 
       <!-- Divider -->
@@ -363,9 +324,15 @@
           @endforeach
             <h5 style="text-align:left;">
                 <a href="/units/{{ $tenant->unit_tenant_id }}"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> GO BACK TO THE UNIT</a>
+                @if(Auth::user()->user_type === 'admin')
                 <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/edit"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-user-edit fa-sm text-white-50"></i> EDIT</a>  
+                @endif
+                @if(Auth::user()->user_type === 'billing')
                 <a href="{{ route('show-billings',['unit_id' => $tenant->unit_tenant_id, 'tenant_id'=>$tenant->tenant_id]) }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-file-invoice-dollar fa-sm text-white-50"></i> BILLS <span class="badge badge-light">{{ $billings->count() }}</span> </a>
+                @endif
+                @if(Auth::user()->user_type === 'treasury')
                 <a href="{{ route('show-payments',['unit_id' => $tenant->unit_tenant_id, 'tenant_id'=>$tenant->tenant_id]) }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-dollar-sign fa-sm text-white-50"></i> PAYMENT HISTORY <span class="badge badge-light">{{ $payments->count() }}</span></a>
+                @endif
                 <span style="float:right;">
                     {{-- <form action="/tenants/{{ $tenant->tenant_id }}" method="POST">
                         {{ csrf_field() }}
@@ -566,7 +533,8 @@
                         <div class="col">
                             <label for="ex1">REASON FOR MOVING-OUT</label>
                               <select form="moveoutTenantForm" class="form-control" name="reason_for_moving_out" id="reason_for_moving_out">
-                                  <option value="end of contract" selected>end of contract</option>
+                                  <option value="">Please select one</option>
+                                  <option value="end of contract">end of contract</option>
                                   <option value="delinquent">delinquent</option>
                                   <option value="force majeure">force majeure</option>
                                   <option value="run away">run away</option>
@@ -604,7 +572,7 @@
         
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i> CANCEL</button>
-                    <button form="moveoutTenantForm" type="submit" class="btn btn-danger" ><i class="fas fa-check"></i> MOVEOUT</button>
+                    <button form="moveoutTenantForm" type="submit" class="btn btn-danger"  onclick="return confirm('Are you sure you want to delete this item?');"><i class="fas fa-check"></i> MOVEOUT</button>
                 </div>
             </div>
             </div>
@@ -671,7 +639,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i> CANCEL</button>
-                    <button form="extendTenantForm" type="submit" class="btn btn-primary" ><i class="fas fa-check"></i> EXTEND/RENEW</button>
+                    <button form="extendTenantForm" type="submit" class="btn btn-primary" onclick="return confirm('Are you sure you want to perform this action?');" ><i class="fas fa-check"></i> EXTEND/RENEW</button>
                 </div>
             </div>
             </div>
@@ -690,7 +658,7 @@
                 </div>
                 <div class="modal-body">
                    <p class="text-center">
-                       TENANT HAS A PENDING BALANCE OF <a title="click this to see the breakdown" href=#billing>{{ number_format($pending_balance,2) }}</a>.
+                       TENANT HAS A PENDING BALANCE OF <a title="click this to see the breakdown" >{{ number_format($pending_balance,2) }}</a>.
                    </p>
                 </div>
             </div>

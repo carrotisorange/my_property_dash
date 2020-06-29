@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Tenants</title>
+  <title>Posted Bills</title>
 
   <!-- Custom fonts for this template-->
   <link href="{{ asset('dashboard/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -52,109 +52,25 @@
         Interface
       </div> --}}
 
-  <!-- Nav Item - Pages Collapse Menu -->
+ <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link" href="/">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
 
-       <li class="nav-item">
-        <a class="nav-link" href="/home">
-          <i class="fas fa-home"></i>
-          <span>Home</span></a>
-      </li>
-
-      {{-- <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-          <i class="fas fa-home fa-cog"></i>
-          <span>Leasing</span>
-          
-        </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            
-            @foreach ($units_per_building as $item)
-            <a class="collapse-item" href="/leasing">{{ $item->building }}</a>
-            @endforeach
-            
-          </div>
-        </div>
-      </li> --}}
-
-      {{-- <li class="nav-item">
-        <a class="nav-link" href="/residential">
-          <i class="fas fa-home"></i>
-          <span>Residential</span></a>
-      </li> --}}
-
-
-
-      <!-- Divider -->
-      {{-- <hr class="sidebar-divider"> --}}
-
-      {{-- <!-- Heading -->
-      <div class="sidebar-heading">
-        Addons
-      </div> --}}
-
-      <!-- Nav Item - Pages Collapse Menu -->
-      {{-- <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-          <i class="fas fa-fw fa-folder"></i>
-          <span>Pages</span>
-        </a>
-        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Login Screens:</h6>
-            <a class="collapse-item" href="login.html">Login</a>
-            <a class="collapse-item" href="register.html">Register</a>
-            <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-            <div class="collapse-divider"></div>
-            <h6 class="collapse-header">Other Pages:</h6>
-            <a class="collapse-item" href="404.html">404 Page</a>
-            <a class="collapse-item" href="blank.html">Blank Page</a>
-          </div>
-        </div>
-      </li> --}}
-
-      <!-- Nav Item - Charts -->
-
       <li class="nav-item active">
-        <a class="nav-link" href="/tenants">
-          <i class="fas fa-user fa-chart-area"></i>
-          <span>Tenants</span></a>
-      </li>
-
-      <!-- Nav Item - Tables -->
-      <li class="nav-item">
-        <a class="nav-link" href="/owners">
-          <i class="fas fa-user-tie fa-table"></i>
-          <span>Unit Owners</span></a>
-      </li>
-
-       <!-- Nav Item - Tables -->
-       <li class="nav-item">
-        <a class="nav-link" href="/billing-and-collection">
+        <a class="nav-link" href="/bills">
           <i class="fas fa-file-invoice-dollar fa-table"></i>
-          <span>Billing and collection</span></a>
+          <span>Bills</span></a>
       </li>
 
-       <!-- Nav Item - Tables -->
-       <li class="nav-item">
-        <a class="nav-link" href="/joborders">
-          <i class="fas fa-tools fa-table"></i>
-          <span>Job Orders</span></a>
-      </li>
-
-       <!-- Nav Item - Tables -->
-       <li class="nav-item">
-        <a class="nav-link" href="/users">
-          <i class="fas fa-user-secret fa-table"></i>
-          <span>Users</span></a>
+      <li class="nav-item">
+        <a class="nav-link" href="/collections">
+          <i class="fas fa-coins"></i>
+          <span>Collections</span></a>
       </li>
       
-
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
 
@@ -354,81 +270,42 @@
           </ul>
 
         </nav>
-        <!-- Begin Page Content -->
+        <!-- End of Topbar -->
         <div class="container-fluid">
-          
-          <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Tenants</h1>
-  
-            <form  action="/tenants/search" method="GET" >
-              @csrf
-              <div class="input-group">
-                  <input type="text" class="form-control" name="search" placeholder="Search for tenant..." value="{{ session('search_tenant') }}">
-                  <div class="input-group-append">
-                    <button class="btn btn-primary" type="button">
-                      <i class="fas fa-search fa-sm"></i>
-                    </button>
-                  </div>
-              </div>
-          </form>
-          </div>
-            <?php $ctr=1; ?>
-              <div class="table-responsive">
-                  <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                      <tr>
-                          <th>#</th>
-                          <th>TENANT</th>
-                          <th>UNIT/ROOM</th>
-                          <th>STATUS</th>
-                          <th>MOBILE</th>
-                          <th>RENT</th>
-                          <th>CONTRACT PERIOD</th>    
-                     </tr>
-                    </thead>
-                    <tbody>
-                      @foreach ($tenants as $item)
-                      <tr>
-                          <th>{{ $ctr++ }}</th>
-                          <td>
-                              @if(Auth::user()->user_type === 'admin')
-                              <a href="{{ route('show-tenant',['unit_id'=> $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a>
-                              @else
-                              <a href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/billings">{{ $item->first_name.' '.$item->last_name }}</a>
-                              @endif
-                          </td>
-                          <td>{{ $item->building.' '.$item->unit_no }}</td>
-                          <td>
-                              @if($item->tenant_status === 'active')
-                              <span class="badge badge-primary">{{ $item->tenant_status }}</span>
-                              @elseif($item->tenant_status === 'inactive')
-                              <span class="badge badge-secondary">{{ $item->tenant_status }}</span>
-                              @else
-                              <span class="badge badge-warning">{{ $item->tenant_status }}</span>
-                              @endif
-                          </td>
-                          <td>{{ $item->contact_no }}</td>
-                          <td>{{ number_format($item->tenant_monthly_rent,2) }}</td>
-                          <td>{{ Carbon\Carbon::parse($item->movein_date)->format('M d Y').' - '.Carbon\Carbon::parse($item->moveout_date)->format('M d Y') }}</td>
-                          {{-- <td title="months before move-out">{{ number_format(Carbon\Carbon::now()->diffInDays(Carbon\Carbon::parse($item->moveout_date), false)/30,1) }} mon</td> --}}
-                      </tr>
-                      @endforeach
-                    </tbody>
-                  </table>
-                  {{ $tenants->links() }}
-                  @foreach (['danger', 'warning', 'success', 'info'] as $key)
-                  @if(Session::has($key))
-                 <p class="text-center alert alert-{{ $key }}"> <i class="fas fa-check-circle"></i> {{ Session::get($key) }}</p>
-                  @endif
-                  @endforeach
-                </div>
-          
-          </div>
-        <!-- /.container-fluid -->
 
-        
-        
-       
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Posted Bills</h1>
+            {{-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> --}}
+          </div>
+        <!-- 404 Error Text -->
+        <div class="table-responsive">
+          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <tr>
+                    <th class="text-center">#</th>
+                    <th>DATE BILLED</th>
+                    <th>TENANT</th>
+                    <th>UNIT/ROOM</th>
+                    <th>DESCRIPTION</th>
+                    <th>DETAILS</th>
+                    <th>AMOUNT</th>
+                </tr>
+                <?php $ctr = 1;?> 
+                @foreach ($billings as $item)
+                <tr>
+                    <th class="text-center">{{ $ctr++ }}</th>
+                    
+                    <td>{{ Carbon\Carbon::parse($item->billing_date)->format('M d Y') }}</td>
+                    <td>{{ $item->first_name.' '.$item->last_name }}</td>
+                    <td>{{ $item->building.' '.$item->unit_no }}</td>
+                    <td>{{ $item->billing_desc }}</td>
+                    <td>{{ $item->details }}</td>
+                    <td>{{ number_format($item->billing_amt,2) }}</td>
+                </tr>
+                @endforeach
+            </table>
+        </div>
+        </div>
+
       </div>
       <!-- End of Main Content -->
 

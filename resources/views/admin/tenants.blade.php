@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>{{ $tenant->first_name.' '.$tenant->last_name }}</title>
+  <title>Tenants</title>
 
   <!-- Custom fonts for this template-->
   <link href="{{ asset('dashboard/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -53,106 +53,75 @@
       </div> --}}
 
   <!-- Nav Item - Pages Collapse Menu -->
-  <li class="nav-item">
-    <a class="nav-link" href="/">
-      <i class="fas fa-fw fa-tachometer-alt"></i>
-      <span>Dashboard</span></a>
-  </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Dashboard</span></a>
+      </li>
 
-  <li class="nav-item">
-    <a class="nav-link" href="/home">
-      <i class="fas fa-home"></i>
-      <span>Home</span></a>
-  </li>
+      @if(Auth::user()->user_type === 'admin')
+      <li class="nav-item">
+        <a class="nav-link" href="/home">
+          <i class="fas fa-home"></i>
+          <span>Home</span></a>
+      </li>
 
-  {{-- <li class="nav-item">
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-      <i class="fas fa-home fa-cog"></i>
-      <span>Leasing</span>
+      <li class="nav-item active">
+        <a class="nav-link" href="/tenants">
+          <i class="fas fa-user fa-chart-area"></i>
+          <span>Tenants</span></a>
+      </li>
+
+      <!-- Nav Item - Tables -->
+      <li class="nav-item">
+        <a class="nav-link" href="/owners">
+          <i class="fas fa-user-tie"></i>
+          <span>Unit Owners</span></a>
+      </li>
+
+        <!-- Nav Item - Tables -->
+      <li class="nav-item">
+          <a class="nav-link" href="/joborders">
+            <i class="fas fa-tools fa-table"></i>
+            <span>Job Orders</span></a>
+        </li>
+      @endif
+
+       @if(Auth::user()->user_type === 'billing')
+        <!-- Nav Item - Tables -->
+        <li class="nav-item">
+          <a class="nav-link" href="/billing-and-collection">
+            <i class="fas fa-file-invoice-dollar fa-table"></i>
+            <span>Billing and collection</span></a>
+        </li>
+       @endif
+
+       @if(Auth::user()->user_type === 'treasury')
+
+       <li class="nav-item active">
+        <a class="nav-link" href="/tenants/search">
+          <i class="fas fa-user"></i>
+          <span>Tenants</span></a>
+      </li>
       
-    </a>
-    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-      <div class="bg-white py-2 collapse-inner rounded">
+          <li class="nav-item">
+          <a class="nav-link" href="/payments">
+            <i class="fas fa-file-invoice-dollar"></i>
+            <span>Payments</span></a>
+        </li>
+
         
-        @foreach ($units_per_building as $item)
-        <a class="collapse-item" href="/leasing">{{ $item->building }}</a>
-        @endforeach
-        
-      </div>
-    </div>
-  </li> --}}
-{{-- 
-  <li class="nav-item">
-    <a class="nav-link" href="/residential">
-      <i class="fas fa-home"></i>
-      <span>Residential</span></a>
-  </li> --}}
 
+        @endif
 
-
-  <!-- Divider -->
-  {{-- <hr class="sidebar-divider"> --}}
-
-  {{-- <!-- Heading -->
-  <div class="sidebar-heading">
-    Addons
-  </div> --}}
-
-  <!-- Nav Item - Pages Collapse Menu -->
-  {{-- <li class="nav-item">
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-      <i class="fas fa-fw fa-folder"></i>
-      <span>Pages</span>
-    </a>
-    <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-      <div class="bg-white py-2 collapse-inner rounded">
-        <h6 class="collapse-header">Login Screens:</h6>
-        <a class="collapse-item" href="login.html">Login</a>
-        <a class="collapse-item" href="register.html">Register</a>
-        <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-        <div class="collapse-divider"></div>
-        <h6 class="collapse-header">Other Pages:</h6>
-        <a class="collapse-item" href="404.html">404 Page</a>
-        <a class="collapse-item" href="blank.html">Blank Page</a>
-      </div>
-    </div>
-  </li> --}}
-
-  <!-- Nav Item - Charts -->
-
-  <li class="nav-item active">
-    <a class="nav-link" href="/tenants">
-      <i class="fas fa-user fa-chart-area"></i>
-      <span>Tenants</span></a>
-  </li>
-
-  <!-- Nav Item - Tables -->
-  <li class="nav-item">
-    <a class="nav-link" href="/owners">
-      <i class="fas fa-user-tie fa-table"></i>
-      <span>Unit Owners</span></a>
-  </li>
-
-   <!-- Nav Item - Tables -->
-   <li class="nav-item">
-    <a class="nav-link" href="/billing-and-collection">
-      <i class="fas fa-file-invoice-dollar fa-table"></i>
-      <span>Billing and collection</span></a>
-  </li>
-
-   <!-- Nav Item - Tables -->
-   <li class="nav-item">
-    <a class="nav-link" href="/joborders">
-      <i class="fas fa-tools fa-table"></i>
-      <span>Job Orders</span></a>
-  </li>
-
-   <!-- Nav Item - Tables -->
-   <li class="nav-item">
-    <a class="nav-link" href="/users">
-      <i class="fas fa-user-secret fa-table"></i>
-      <span>Users</span></a>
-  </li>
+      @if(Auth::user()->user_type === 'manager')
+       <!-- Nav Item - Tables -->
+       <li class="nav-item">
+        <a class="nav-link" href="/users">
+          <i class="fas fa-user-secret fa-table"></i>
+          <span>Users</span></a>
+      </li>
+      @endif
       
 
       <!-- Divider -->
@@ -354,183 +323,81 @@
           </ul>
 
         </nav>
-        <!-- End of Topbar -->
+        <!-- Begin Page Content -->
         <div class="container-fluid">
-        <!-- 404 Error Text -->
-            @if(Auth::user()->user_type === 'treasury')
-            <p><a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/payments" class="btn btn-primary"><i class="fas fa-dollar-sign"></i> VIEW PAYMENT HISTORY</a>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#acceptPayment"><i class="fas fa-plus"></i> ADD PAYMENT</button>
-            @endif
-            </p>
-            <h4 class="text-center text-primary">ACCOUNTING DEPARTMENT</h4>
-            <p class="text-center">
-                Bareng Drive, Purok 11 Bakakeng Sur, Baguio City, 2600 Philippines
-                <br>
-                E-mail add: marthagoshenland@yahoo.com.ph; CP No. 09467576159/ 09068758142
-            </p>
-            <h5 class="text-center">{{strToUpper( Auth::user()->property) }}</h5>
-            <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <tr>
-                    <td>To: <b>{{ $tenant->first_name.' '.$tenant->last_name }}</b></td>
-                    
-                    <td class="text-right" colspan="2">Date: <b>{{ Carbon\Carbon::now()->firstOfMonth()->format('M d Y') }}</b></td>
-                </tr>
-                <tr>
-                    <td>Unit/Room: 
-                        <b>
-                            @foreach($unit_no as $item)
-                            {{ $item->building.' '.$item->unit_no }}
-                            @endforeach
-                        </b>
-                    </td>
-                    <td colspan="2" class="text-right text-danger">Due Date: <b>{{ Carbon\Carbon::now()->firstOfMonth()->addDays(6)->format('M d Y') }}</b></td>
-                </tr>
-                <tr>
-                    <th class="text-center" colspan="3">STATEMENT OF ACCOUNT</th>
-                </tr>
-                <tr>
-                    <th class="text-right" colspan="3">Amount</th>
-                </tr>
-               
-                @foreach ($monthly_rent as $item)
-                <tr>
-                    <th>{{ $item->billing_desc }}</th>
-                    <td>{{ $item->details }}</td>
-                    <th class="text-right" colspan="3">{{ number_format($item->billing_amt,2) }}</th>
-                </tr>
-                @endforeach
-                
-                <tr>
-                    <th class="text-left" colspan="3">Other Charges</th>
-                    
-                </tr>
-            
-                @foreach ($other_charges as $item)
-                <tr>
-                    <th>{{ $item->billing_desc }}</th>
-                    <td>{{ $item->details }}</td>
-                    <th class="text-right" colspan="3">{{ number_format($item->billing_amt,2) }}</th>
-                </tr>
-               
-                @endforeach
-                <tr class="text-primary" >
-                    <th colspan="2">TOTAL AMOUNT PAYABLE (If paid before due date)</th>
-                    <th class="text-right">
-                        {{ number_format($total_bills,2) }} 
-                    </th>
-                </tr>
-                {{-- <tr>
-                    <td colspan="2">ADD: 10% surcharge ON RENT if not paid on due date</td>
-                    <th class="text-right">
-                        {{ number_format($total_bills * .1,2) }}
-                    </th>
-                </tr> --}}
-                <tr class="text-danger" >
-                    <th colspan="2">TOTAL AMOUNT PAYABLE AFTER DUE DATE</th>
-                    <th class="text-right">
-                        {{ number_format($total_bills + ($total_bills * .1) ,2) }}
-                    </th>
-                </tr>
-            </table>
-            <br>
-            <div class="card">
-                <div class="card-body">
-                    <b>Notice to All Tenants: </b>
-                        <br>
-                        Failure to pay the amount due on 7th of the month there will be a 10% surcharge and subject your unit to DISCONNECTION of utilities (water & electric)
-                        <br>
-                        THIS SERVES AS YOUR INITIAL NOTICE (DEMAND LETTER)
-                        You can also deposit your cash/check payment to any BDO Branch:
-                        <br>
-                        <b>BDO Account</b>
-                        <br>
-                        Account Name: Martha GoshenLand Property Management Inc.
-                        <br>
-                        Account Number: 0009-4032-9085
+          
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Tenants</h1>
+  
+            <form  action="/tenants/search" method="GET" >
+              @csrf
+              <div class="input-group">
+                  <input type="text" class="form-control" name="search" placeholder="Search for tenant..." value="{{ session('search_tenant') }}">
+                  <div class="input-group-append">
+                    <button class="btn btn-primary" type="button">
+                      <i class="fas fa-search fa-sm"></i>
+                    </button>
+                  </div>
+              </div>
+          </form>
+          </div>
+            <?php $ctr=1; ?>
+              <div class="table-responsive">
+                  <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                      <tr>
+                          <th>#</th>
+                          <th>TENANT</th>
+                          <th>UNIT/ROOM</th>
+                          <th>STATUS</th>
+                          <th>MOBILE</th>
+                          <th>RENT</th>
+                          <th>CONTRACT PERIOD</th>    
+                     </tr>
+                    </thead>
+                    <tbody>
+                      @foreach ($tenants as $item)
+                      <tr>
+                          <th>{{ $ctr++ }}</th>
+                          <td>
+                              @if(Auth::user()->user_type === 'admin')
+                              <a href="{{ route('show-tenant',['unit_id'=> $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a>
+                              @else
+                              <a href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/billings">{{ $item->first_name.' '.$item->last_name }}</a>
+                              @endif
+                          </td>
+                          <td>{{ $item->building.' '.$item->unit_no }}</td>
+                          <td>
+                              @if($item->tenant_status === 'active')
+                              <span class="badge badge-primary">{{ $item->tenant_status }}</span>
+                              @elseif($item->tenant_status === 'inactive')
+                              <span class="badge badge-secondary">{{ $item->tenant_status }}</span>
+                              @else
+                              <span class="badge badge-warning">{{ $item->tenant_status }}</span>
+                              @endif
+                          </td>
+                          <td>{{ $item->contact_no }}</td>
+                          <td>{{ number_format($item->tenant_monthly_rent,2) }}</td>
+                          <td>{{ Carbon\Carbon::parse($item->movein_date)->format('M d Y').' - '.Carbon\Carbon::parse($item->moveout_date)->format('M d Y') }}</td>
+                          {{-- <td title="months before move-out">{{ number_format(Carbon\Carbon::now()->diffInDays(Carbon\Carbon::parse($item->moveout_date), false)/30,1) }} mon</td> --}}
+                      </tr>
+                      @endforeach
+                    </tbody>
+                  </table>
+                  {{ $tenants->links() }}
+                  @foreach (['danger', 'warning', 'success', 'info'] as $key)
+                  @if(Session::has($key))
+                 <p class="text-center alert alert-{{ $key }}"> <i class="fas fa-check-circle"></i> {{ Session::get($key) }}</p>
+                  @endif
+                  @endforeach
                 </div>
-            </div>
-        </div>
-        
-        {{-- modal for adding payments. --}}
-        
-        <div class="modal fade" id="acceptPayment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">ADD PAYMENT</h5>
-                
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                </div>
-                <div class="modal-body">
-                    <form id="acceptPaymentForm" action="/payments" method="POST">
-                    {{ csrf_field() }}
-                    </form>
-                    
-                    <div class="form-group row">
-                        <div class="col">
-                            <label for="">Date</label>
-                        <input form="acceptPaymentForm" type="date" class="form-control" name="payment_created" value={{date('Y-m-d')}} required>
-                        </div>
-                    </div>
-                  
-                    <div class="form-group row">
-                        <div class="col">
-                            <label for="">Form of Payment</label>
-                            <select form="acceptPaymentForm" class="form-control" name="form_of_payment" id="">
-                                <option value="cash">cash</option>
-                                <option value="bank deposit">bank deposit</option>
-                                <option value="cheque">cheque</option>
-                            </select>
-                        </div>
-                        <div class="col">
-                            <label for="">Amount</label>
-                            <input form="acceptPaymentForm" type="number" class="form-control" id="" min="1" name="amt_paid" value="{{ $total_bills }}" required>
-                        </div>
-                     
-                        <div class="col">
-                            <label for="">Acknowledgment Receipt No</label>
-                            <input form="acceptPaymentForm" type="number" class="form-control" id="" name="ar_number">
-                        </div>
-                    </div>
-        
-                    <div class="form-group row">
-                        <div class="col">
-                            <label for="">Bank Name</label>
-                            <input form="acceptPaymentForm" class="form-control" type="text" name="bank_name">
-                            <small class="text-danger">For bank deposit only</small>
-                        </div>
-                        <div class="col">
-                            <label for="">Cheque No</label>
-                            <input form="acceptPaymentForm" class="form-control" type="text" name="cheque_no">
-                            <small class="text-danger">For cheque only</small>
-                        </div>
-                    </div>
-                 
-                    <input type="hidden" form="acceptPaymentForm" id="payment_tenant_id" name="payment_tenant_id" value="{{ $tenant->tenant_id }}">
-                    <input type="hidden" form="acceptPaymentForm" id="unit_tenant_id" name="unit_tenant_id" value="{{ $tenant->unit_tenant_id }}">
-                    <input type="hidden" form="acceptPaymentForm" id="tenant_status" name="tenant_status" value="{{ $tenant->tenant_status }}">
-                    <div class="form-group row">
-                        <div class="col">
-                            <label for="">Payment description</label>
-                            <textarea form="acceptPaymentForm" class="form-control" name="payment_note" required>
-                            </textarea>
-                            
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i> cancel</button>
-                    <button form="acceptPaymentForm" type="submit" class="btn btn-primary" ><i class="fas fa-check"></i> add</button>
-                </div>
-         
-            </div>
-            </div>
-        </div>
-        </div>
+          
+          </div>
+        <!-- /.container-fluid -->
 
+        
+        
+       
       </div>
       <!-- End of Main Content -->
 

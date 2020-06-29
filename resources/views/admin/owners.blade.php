@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Billing and collection</title>
+  <title>Unit Owners</title>
 
   <!-- Custom fonts for this template-->
   <link href="{{ asset('dashboard/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -52,73 +52,19 @@
         Interface
       </div> --}}
 
-  <!-- Nav Item - Pages Collapse Menu -->
+ <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link" href="/">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
 
-      <li class="nav-item active">
+      @if(Auth::user()->user_type === 'admin')
+      <li class="nav-item">
         <a class="nav-link" href="/home">
           <i class="fas fa-home"></i>
           <span>Home</span></a>
       </li>
-
-      {{-- <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-          <i class="fas fa-home fa-cog"></i>
-          <span>Leasing</span>
-          
-        </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            
-            @foreach ($units_per_building as $item)
-            <a class="collapse-item" href="/leasing">{{ $item->building }}</a>
-            @endforeach
-            
-          </div>
-        </div>
-      </li> --}}
-
-      {{-- <li class="nav-item">
-        <a class="nav-link" href="/residential">
-          <i class="fas fa-home"></i>
-          <span>Residential</span></a>
-      </li> --}}
-
-
-
-      <!-- Divider -->
-      {{-- <hr class="sidebar-divider"> --}}
-
-      {{-- <!-- Heading -->
-      <div class="sidebar-heading">
-        Addons
-      </div> --}}
-
-      <!-- Nav Item - Pages Collapse Menu -->
-      {{-- <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-          <i class="fas fa-fw fa-folder"></i>
-          <span>Pages</span>
-        </a>
-        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Login Screens:</h6>
-            <a class="collapse-item" href="login.html">Login</a>
-            <a class="collapse-item" href="register.html">Register</a>
-            <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-            <div class="collapse-divider"></div>
-            <h6 class="collapse-header">Other Pages:</h6>
-            <a class="collapse-item" href="404.html">404 Page</a>
-            <a class="collapse-item" href="blank.html">Blank Page</a>
-          </div>
-        </div>
-      </li> --}}
-
-      <!-- Nav Item - Charts -->
 
       <li class="nav-item">
         <a class="nav-link" href="/tenants">
@@ -127,32 +73,46 @@
       </li>
 
       <!-- Nav Item - Tables -->
-      <li class="nav-item">
+      <li class="nav-item active">
         <a class="nav-link" href="/owners">
-          <i class="fas fa-user-tie fa-table"></i>
+          <i class="fas fa-user-tie"></i>
           <span>Unit Owners</span></a>
       </li>
 
         <!-- Nav Item - Tables -->
-        <li class="nav-item active">
-            <a class="nav-link" href="/billing-and-collection">
-              <i class="fas fa-file-invoice-dollar fa-table"></i>
-              <span>Billing and collection</span></a>
-          </li>
+      <li class="nav-item">
+          <a class="nav-link" href="/joborders">
+            <i class="fas fa-tools fa-table"></i>
+            <span>Job Orders</span></a>
+        </li>
+      @endif
 
-       <!-- Nav Item - Tables -->
-       <li class="nav-item">
-        <a class="nav-link" href="/joborders">
-          <i class="fas fa-tools fa-table"></i>
-          <span>Job Orders</span></a>
-      </li>
+       @if(Auth::user()->user_type === 'billing')
+        <!-- Nav Item - Tables -->
+        <li class="nav-item">
+          <a class="nav-link" href="/billing-and-collection">
+            <i class="fas fa-file-invoice-dollar fa-table"></i>
+            <span>Billing and collection</span></a>
+        </li>
+       @endif
 
+       @if(Auth::user()->user_type === 'treasury')
+          <li class="nav-item">
+          <a class="nav-link" href="/payments">
+            <i class="fas fa-file-invoice-dollar"></i>
+            <span>Payments</span></a>
+        </li>
+
+        @endif
+
+      @if(Auth::user()->user_type === 'manager')
        <!-- Nav Item - Tables -->
        <li class="nav-item">
         <a class="nav-link" href="/users">
           <i class="fas fa-user-secret fa-table"></i>
           <span>Users</span></a>
       </li>
+      @endif
       
 
       <!-- Divider -->
@@ -356,132 +316,52 @@
         </nav>
         <!-- End of Topbar -->
         <div class="container-fluid">
-            
-           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Billing and collection
-              
-              <div class="dropdown show">
-                <br>
-                <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-plus fa-sm text-white-50"></i> Post bills</a>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                  <button type="submit" form="billingRentForm" class="dropdown-item "> Rent</button>
-                  <input type="hidden" form="billingRentForm" name="billing_option" value="rent">
-                  <button type="submit" form="billingElectricForm" class="dropdown-item"> Electric</button>
-                  <input type="hidden" form="billingElectricForm" name="billing_option" value="electric">
-                  <button type="submit" form="billingWaterForm" class="dropdown-item "> Water</button>
-                  <input type="hidden" form="billingWaterForm" name="billing_option" value="water">
-                  <button type="submit" form="billingSurchargeForm" class="dropdown-item ">Surcharge</button>
-                  <input type="hidden" form="billingSurchargeForm" name="billing_option" value="surcharge">
-  
-                <form id="billingRentForm" action="/tenants/billings" method="POST">
-                  @csrf
-                </form>
-                <form id="billingElectricForm" action="/tenants/billings" method="POST">
-                    @csrf
-                </form>
-                <form id="billingWaterForm" action="/tenants/billings" method="POST">
-                    @csrf
-                </form>
-                <form id="billingSurchargeForm" action="/tenants/billings" method="POST">
-                    @csrf
-                </form>
+          <form id="addTenantForm3" action="/units/{{ session(Auth::user()->property.'unit_id') }}/tenant-step3" method="POST">
+            {{ csrf_field() }}
+        </form>
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+          <h1 class="h3 mb-0 text-gray-800">Owners</h1>
+        </div>
+        
+    
+            {{-- <form action="/tenants/search" method="GET" >
+                @csrf
+                <div class="input-group">
+                    <input type="text" class="form-control" name="search" placeholder="enter tenant name" value="{{ session(Auth::user()->property.'search_tenant') }}">
                 </div>
-              </div>
-            </h1>
-            
-             
-          </div>
-
-          <!-- Content Row -->
-          <div class="row">
-
-            <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-4 col-md-6 mb-4">
-              <div class="card border-left-primary shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">EXPECTED COLLECTION </div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">{{ number_format( $expected_collection ,2) }}</div>
-                      
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-coins fa-2x text-gray-300"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-4 col-md-6 mb-4">
-              <div class="card border-left-success shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">ACTUAL COLLECTION </div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">{{ number_format( $actual_collection ,2) }}</div>
-                      
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-hand-holding-usd fa-2x text-gray-300"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Pending Requests Card Example -->
-            <div class="col-xl-4 col-md-6 mb-4">
-              <div class="card border-left-danger shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">UNCOLLECTED</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">{{ number_format( $uncollected_amount ,2) }}</div>
-                      
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-tools fa-2x text-gray-300"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-           <div class="col-md-12">
+            </form>
+            <br>
+            <p class="text-center"><small ><b>{{ $tenants->count() }}</b> tenants found.</small></p> --}}
+            <?php $ctr=1; ?>
             <div class="table-responsive">
-                <h4>DELINQUENTS ({{ $delinquent_accounts->count() }})</h4>
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
                         <tr>
-                            <th class="text-center">#</th>
-                            <th>TENANT</th>
-                            <th>MOBILE</th>
-                            <th>UNIT/ROOM</th>
-                            <th>AMOUNT</th>
-                        </tr>
-                        <?php
-                        $ctr = 1;
-                        ?>
-                        @foreach ($delinquent_accounts as $item)
-
-                        <tr>
-                            <th class="text-center">{{ $ctr++ }}</th>
-                            <td><a href="/units/{{ $item->unit_tenant_id }}/tenants/{{ $item->tenant_id }}/billings">{{ $item->first_name.' '.$item->last_name }}</a></td>
-                            <td>{{ $item->contact_no }}</td>
-                            <td>{{ $item->building.' '.$item->unit_no }}</td>
-                            <td>{{ number_format($item->total_bills,2) }}</td>
-                        </tr>
-                        @endforeach
-
-                    </table>
+                           <th>#</th>
+                           <th>NAME</th>
+                           <th>UNIT/ROOM</th>
+                           <th>MOBILE</th>
+                           <th>CONTRACT PERIOD</th>
+                       </tr>
+                    </thead>   
+                       <tbody>
+                       @foreach ($owners as $item)
+                       <tr>
+                           <th>{{ $ctr++ }}</th>
+                           <td><a href="{{ route('show-investor',['unit_id'=> $item->unit_id, 'unit_owner_id'=>$item->unit_owner_id]) }}">{{ $item->unit_owner }} </a></td>
+                           <td>{{ $item->building.' '.$item->unit_no }}</td>
+                           <td>{{ $item->investor_contact_no }}</td>
+                           <td>{{ Carbon\Carbon::parse($item->contract_start)->format('M d Y').' - '.Carbon\Carbon::parse($item->contract_end)->format('M d Y') }}</td>
+                       </tr>
+                       @endforeach
+                       </tbody>
+                </table>
+                {{ $owners->links() }}
+              </div>
+        
         </div>
-           </div>
-        </div>
 
-      </div>
+        
         
        
       </div>

@@ -92,12 +92,10 @@ class UnitsController extends Controller
      */
     public function show(Request $request, $unit_id)
     {
-            if(Auth::user()->status === 'unregistered')
-            return view('unregistered'); 
-        else
-            if(Auth::user()->user_type !== 'admin')
+        if(Auth::user()->status === 'unregistered'|| auth()->user()->user_type !== 'admin'){
             return view('unregistered');
-            else
+        }
+        
             $property = explode(",", Auth::user()->property);
             if(count($property) > 1){
                 $unit = Unit::whereIn('unit_property', [$property[0],$property[1]])->findOrFail($unit_id);
@@ -140,7 +138,7 @@ class UnitsController extends Controller
                 ->groupBy('building')
                 ->get('building', 'count');
              }
-                return view('show-unit',compact('unit', 'unit_owner', 'tenant_active', 'tenant_inactive', 'tenant_reservations','units_per_building'));
+                return view('admin.show-unit',compact('unit', 'unit_owner', 'tenant_active', 'tenant_inactive', 'tenant_reservations','units_per_building'));
         
         
     }

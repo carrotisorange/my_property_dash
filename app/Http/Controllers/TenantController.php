@@ -49,7 +49,7 @@ class TenantController extends Controller
             $request->session()->flash('danger', $tenants->count().' tenants found in the record!');
          }
 
-        return view('tenants', compact('tenants'));
+        return view('admin.tenants', compact('tenants'));
 
     }
 
@@ -300,9 +300,10 @@ class TenantController extends Controller
      */
     public function show($unit_id, $tenant_id)
     {
-        if(Auth::user()->status === 'unregistered')
+        if(Auth::user()->status === 'unregistered'|| auth()->user()->user_type !== 'admin'){
             return view('unregistered');
-        else
+        }
+
         $tenant = Tenant::findOrFail($tenant_id);
 
         $payments = DB::table('payments')->where('payment_tenant_id', $tenant_id)->get();
@@ -316,11 +317,14 @@ class TenantController extends Controller
 
         $pending_balance = $overall_bills - $overall_payments;
         
-            return view('show-tenant', compact('tenant', 'billings', 'payments', 'pending_balance','security_deposits'));  
+            return view('admin.show-tenant', compact('tenant', 'billings', 'payments', 'pending_balance','security_deposits'));  
     }
 
     public function show_billings($unit_id, $tenant_id){
 
+        if(auth()->user()->status === 'unregistered' && auth()->user()->user_type !== 'billing' || auth()->user()->user_type !== 'treasury' ){
+            return view('unregistered');
+        }
         $tenant = Tenant::findOrFail($tenant_id);
 
         $unit_no = DB::table('tenants')
@@ -341,7 +345,7 @@ class TenantController extends Controller
 
         $pending_balance = $overall_bills - $overall_payments;
         
-            return view('billings.show-billings', compact('tenant', 'monthly_rent', 'pending_balance', 'unit_no', 'other_charges', 'total_bills'));  
+            return view('billing.show-billings', compact('tenant', 'monthly_rent', 'pending_balance', 'unit_no', 'other_charges', 'total_bills'));  
     }
 
 
@@ -370,7 +374,7 @@ class TenantController extends Controller
          }
        
 
-        return view('billings.show-payments', compact('payments', 'tenant'));
+        return view('billing.show-payments', compact('payments', 'tenant'));
     }
 
 
@@ -383,9 +387,13 @@ class TenantController extends Controller
      */
     public function edit($unit_id, $tenant_id)
     {
+        if(Auth::user()->status === 'unregistered'|| auth()->user()->user_type !== 'admin'){
+            return view('unregistered');
+        }
+
         $tenant = Tenant::findOrFail($tenant_id);
         
-        return view('edit-tenant', compact('tenant'));
+        return view('admin.edit-tenant', compact('tenant'));
     }
 
     /**
@@ -571,19 +579,19 @@ class TenantController extends Controller
          }
        
         if($request->billing_option === 'rent'){
-            return view('billings.add-billings', compact('active_tenants'));
+            return view('billing.add-billings', compact('active_tenants'));
         }
 
         if($request->billing_option === 'electric'){
-            return view('billings.add-billings-electric', compact('active_tenants'));
+            return view('billing.add-billings-electric', compact('active_tenants'));
         }
 
         if($request->billing_option === 'water'){
-            return view('billings.add-billings-water', compact('active_tenants'));
+            return view('billing.add-billings-water', compact('active_tenants'));
         }
 
         if($request->billing_option === 'surcharge'){
-            return view('billings.add-billings-surcharge', compact('delinquent_tenants'));
+            return view('billing.add-billings-surcharge', compact('delinquent_tenants'));
         }
         
     }
@@ -683,7 +691,7 @@ class TenantController extends Controller
          }
        
 
-        return view('billings.show-posted-bills', compact('billings'));
+        return view('billing.show-posted-bills', compact('billings'));
     }
 
     /**
