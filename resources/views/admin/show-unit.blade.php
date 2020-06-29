@@ -485,7 +485,7 @@
                         </table>
                           </div>
                         </div>
-                        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                        <div class="tab-pane fade" id="inactive" role="tabpanel" aria-labelledby="nav-contact-tab">
                           <div class="table-responsive">
                           <table class="table table-borderless">
                             @if($tenant_inactive->count() <= 0)
