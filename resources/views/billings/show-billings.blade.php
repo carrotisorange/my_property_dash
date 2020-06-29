@@ -59,7 +59,7 @@
       <span>Dashboard</span></a>
   </li>
 
-  <li class="nav-item active">
+  <li class="nav-item">
     <a class="nav-link" href="/home">
       <i class="fas fa-home"></i>
       <span>Home</span></a>
@@ -357,7 +357,6 @@
         <!-- End of Topbar -->
         <div class="container-fluid">
         <!-- 404 Error Text -->
-        <div class="table-responsive">
             @if(Auth::user()->user_type === 'treasury')
             <p><a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/payments" class="btn btn-primary"><i class="fas fa-dollar-sign"></i> VIEW PAYMENT HISTORY</a>
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#acceptPayment"><i class="fas fa-plus"></i> ADD PAYMENT</button>
@@ -370,14 +369,15 @@
                 E-mail add: marthagoshenland@yahoo.com.ph; CP No. 09467576159/ 09068758142
             </p>
             <h5 class="text-center">{{strToUpper( Auth::user()->property) }}</h5>
-            <table class="table table-borderless">
+            <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <tr>
                     <td>To: <b>{{ $tenant->first_name.' '.$tenant->last_name }}</b></td>
                     
                     <td class="text-right" colspan="2">Date: <b>{{ Carbon\Carbon::now()->firstOfMonth()->format('M d Y') }}</b></td>
                 </tr>
                 <tr>
-                    <td>Unit: 
+                    <td>Unit/Room: 
                         <b>
                             @foreach($unit_no as $item)
                             {{ $item->building.' '.$item->unit_no }}

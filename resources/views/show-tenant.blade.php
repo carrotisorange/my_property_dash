@@ -362,31 +362,32 @@
           @endif
           @endforeach
             <h5 style="text-align:left;">
-                <a href="/units/{{ $tenant->unit_tenant_id }}" class="btn btn-primary"><i class="fas fa-arrow-left"></i> GO BACK TO THE UNIT</a>
-                <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/edit" class="btn btn-primary"><i class="fas fa-user-edit"></i> EDIT</a>  
-                <a href="{{ route('show-billings',['unit_id' => $tenant->unit_tenant_id, 'tenant_id'=>$tenant->tenant_id]) }}" class="btn btn-primary"><i class="fas fa-file-invoice-dollar"></i> BILLS <span class="badge badge-light">{{ $billings->count() }}</span> </a>
-                <a href="{{ route('show-payments',['unit_id' => $tenant->unit_tenant_id, 'tenant_id'=>$tenant->tenant_id]) }}" class="btn btn-primary"><i class="fas fa-dollar-sign"></i> PAYMENT HISTORY <span class="badge badge-light">{{ $payments->count() }}</span></a>
+                <a href="/units/{{ $tenant->unit_tenant_id }}"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> GO BACK TO THE UNIT</a>
+                <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/edit"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-user-edit fa-sm text-white-50"></i> EDIT</a>  
+                <a href="{{ route('show-billings',['unit_id' => $tenant->unit_tenant_id, 'tenant_id'=>$tenant->tenant_id]) }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-file-invoice-dollar fa-sm text-white-50"></i> BILLS <span class="badge badge-light">{{ $billings->count() }}</span> </a>
+                <a href="{{ route('show-payments',['unit_id' => $tenant->unit_tenant_id, 'tenant_id'=>$tenant->tenant_id]) }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-dollar-sign fa-sm text-white-50"></i> PAYMENT HISTORY <span class="badge badge-light">{{ $payments->count() }}</span></a>
                 <span style="float:right;">
                     {{-- <form action="/tenants/{{ $tenant->tenant_id }}" method="POST">
                         {{ csrf_field() }}
                         @method('delete')
                         <button type="submit">Delete</button>
                     </form> --}}
-                <a class="btn btn-primary" data-toggle="modal" data-target="#extendTenant" data-whatever="@mdo"><i class="fas fa-external-link-alt"></i> EXTEND/RENEW</a>
+                <span  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#extendTenant" data-whatever="@mdo"><i class="fas fa-external-link-alt fa-sm text-white-50"></i> EXTEND/RENEW</span>
                 @if ($tenant->tenant_status === 'active' || $tenant->tenant_status === 'pending')
                     @if($pending_balance > 0)
-                <a class="btn btn-danger" data-toggle="modal" data-target="#moveoutTenantWarning" data-whatever="@mdo"><i class="fas fa-sign-out-alt"></i> MOVEOUT</a>
+                <span href="#" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm" data-toggle="modal" data-target="#moveoutTenantWarning" data-whatever="@mdo"><i class="fas fa-sign-out-alt fa-sm text-white-50"></i> MOVEOUT</span>
                     @else
-                <a class="btn btn-danger" data-toggle="modal" data-target="#moveoutTenant" data-whatever="@mdo"><i class="fas fa-sign-out-alt"></i> MOVEOUT</a>
+                <span  href="#" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm" data-toggle="modal" data-target="#moveoutTenant" data-whatever="@mdo"><i class="fas fa-sign-out-alt fa-sm text-white-50"></i> MOVEOUT</span>
                     @endif
                 @else
                 @endif
                 </span>
             </h5>
+            <br>
             <div class="table-responsive">
-            <table class="table table-striped">
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <tr>
-                        <th colspan="2">Personal Information</th>
+                        <th colspan="2">PERSONAL INFORMATION</th>
                     </tr>
                     <tr>
                         <td>Full Name</td>
@@ -421,7 +422,7 @@
                         <td>{{ $tenant->barangay.', '.$tenant->city.', '.$tenant->province.', '.$tenant->country.', '.$tenant->zip_code }}</td>
                     </tr>
                     <tr>
-                        <th colspan="2">Contact Information</th
+                        <th colspan="2">CONTACT INFORMATION</th
                     </tr>
                     <tr>
                         <td>Contact No</td>
@@ -432,7 +433,7 @@
                         <td>{{ $tenant->email_address }}</td>
                     </tr>
                     <tr>
-                        <th colspan="2">Person to contact in case of emergency</th>
+                        <th colspan="2">PERSON TO CONTACT IN CASE OF EMERGENCY</th>
         
                     </tr>
                     <tr>
@@ -447,11 +448,9 @@
                         <td>Contact No</td>
                         <td>{{ $tenant->guardian_contact_no }}</td>
                     </tr>
-                
                     <tr>
-                        <th>Education Background</th>
-                        <td></td>
-                    </tr>
+                      <th colspan="2">EDUCATIONAL BACKGROUND</th>
+                  </tr>
                     <tr>
                         <td>High School</td>
                         <td>{{ $tenant->high_school.', '.$tenant->high_school_address }}</td>
@@ -466,9 +465,9 @@
                     </tr>
                   
                     <tr>
-                        <th colspan="2">Employment Information</th>
-        
-                    </tr>
+                      <th colspan="2">EMPLOYMENT BACKGROUND</th>
+      
+                  </tr>
                     <tr>
                         <td>Employer</td>
                         <td>{{ $tenant->employer}}</td>
@@ -491,8 +490,8 @@
                         <td>{{ $tenant->years_of_employment }}</td>
                     </tr>
                     <tr>
-                        <th colspan="2">Rental Information</th>
-                    </tr>
+                      <th colspan="2">CONTRACT INFORMATION</th>
+                  </tr>
                     <tr>
                         <td>Monthly Rent</td>
                         <td>{{ number_format($tenant->tenant_monthly_rent, 2) }}</td>
@@ -503,30 +502,28 @@
                         $diffInDays =  number_format(Carbon\Carbon::now()->DiffInDays(Carbon\Carbon::parse($tenant->moveout_date), false));
                     ?>
                     <tr>
-                        <td>Contract Duration</td>
-                        <td>{{ Carbon\Carbon::parse($tenant->movein_date)->format('M d Y').'-'.Carbon\Carbon::parse($tenant->moveout_date)->format('M d Y') }} <a class="badge badge-primary">{{ $tenant->has_extended}} 
+                        <td>Current Contract Period</td>
+                        <td>{{ Carbon\Carbon::parse($tenant->movein_date)->format('M d Y').'-'.Carbon\Carbon::parse($tenant->moveout_date)->format('M d Y') }} 
+                          <span class="badge badge-primary">{{ $tenant->has_extended}} 
                             @if( count($renewal_history) > 1)
-                            ({{ count($renewal_history)-1 }}x) </a>  
+                            ({{ count($renewal_history)-1 }}x) 
+                          </span>  
                             @endif
                             @if($diffInDays <= -1)
                             <span class="badge badge-danger">contract has lapsed {{ $diffInDays*-1 }} days ago</span> 
                              @else
-                            <a class="badge badge-warning">contract expires in {{ $diffInDays }} days </a>
+                            <span class="badge badge-warning">contract expires in {{ $diffInDays }} days </span>
                              @endif
-                            </a>  
                         </td>
                     </tr>
-                    
                     <tr>
-                        <td>Contract Renewal History</td>
+                        <td>Previous Contracts</td>
                         <?php $numberFormatter = new NumberFormatter('en_US', NumberFormatter::ORDINAL) ?>
                         <td>
                             @for ($i = 1; $i < count($renewal_history); $i++)
-                               @if($i <= 1)
-                               {{ 'Initial contract: '.$renewal_history[$i] }}<br>
-                               @else
+                               
                                {{ $numberFormatter->format($i-1) .' renewal: '.$renewal_history[$i] }}<br>
-                               @endif
+                              
                                
                                 
                             @endfor     

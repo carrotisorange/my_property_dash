@@ -59,7 +59,7 @@
           <span>Dashboard</span></a>
       </li>
 
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="/home">
           <i class="fas fa-home"></i>
           <span>Home</span></a>
@@ -358,8 +358,9 @@
         <div class="container-fluid">
         <!-- 404 Error Text -->
         <div class="table-responsive">
-            <p><a href="/tenants/search" class="btn btn-primary"><i class="fas fa-arrow-left"></i> GO BACK TO TENANTS</a>
-                <table class="table table-bordered table-striped">
+            <a href="/tenants/search" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> GO BACK TO TENANTS</a>
+            <br><br>
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <tr>
                         <th class="text-center">#</th>
                         <th>DATE PAID</th>

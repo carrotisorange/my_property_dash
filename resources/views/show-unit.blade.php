@@ -383,7 +383,7 @@
                         <br> <br>
                             <?php $numberFormatter = new NumberFormatter('en_US', NumberFormatter::ORDINAL) ?>
                             <div class="table-responsive">
-                               <table class="table table-bordered table-striped">
+                              <table class="table table-bordered" width="100%" cellspacing="0">
                                    <tr>
                                        <th colspan="2" >ROOM/UNIT INFORMATION</th>
                                    </tr>

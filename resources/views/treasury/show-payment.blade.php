@@ -60,9 +60,9 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" href="/leasing">
+        <a class="nav-link" href="/home">
           <i class="fas fa-home"></i>
-          <span>Leasing</span></a>
+          <span>Home</span></a>
       </li>
 
       {{-- <li class="nav-item">
@@ -82,11 +82,11 @@
         </div>
       </li> --}}
 
-      <li class="nav-item">
+      {{-- <li class="nav-item">
         <a class="nav-link" href="/residential">
           <i class="fas fa-home"></i>
           <span>Residential</span></a>
-      </li>
+      </li> --}}
 
 
 
@@ -355,67 +355,75 @@
         </nav>
         <!-- End of Topbar -->
         <div class="container-fluid">
+          <!-- 404 Error Text -->
+          @foreach($payment as $item)
 
-          <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Payment Details</h1>
-            {{-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> --}}
+
+   <!-- 404 Error Text -->
+   <h4 class="text-center text-primary">ACCOUNTING DEPARTMENT</h4>
+   <p class="text-center">
+       Bareng Drive, Purok 11 Bakakeng Sur, Baguio City, 2600 Philippines
+       <br>
+       E-mail add: marthagoshenland@yahoo.com.ph; CP No. 09467576159/ 09068758142
+   </p>
+   <h5 class="text-center">{{strToUpper( Auth::user()->property) }}</h5>
+   <div class="table-responsive">
+   <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+       <tr>
+           <td>To: <b>{{ $item->first_name.' '.$item->last_name }}</b></td>
+           
+           <td class="text-right" colspan="2">Date: <b>{{ Carbon\Carbon::parse($item->payment_created)->format('M d Y') }}</b></td>
+       </tr>
+       <tr>
+           <td>Unit/Room: 
+               <b>
+                  
+                   {{ $item->building.' '.$item->unit_no }}
+              
+               </b>
+           </td>
+         
+       </tr>
+       <tr>
+           <th class="text-center" colspan="3">ACKNOWLEDGMENT RECEIPT</th>
+       </tr>
+       <tr>
+          <th>description</th>
+           <th class="text-right">Amount</th>
+       </tr>
+      
+      
+       
+    
+       <tr class="text-danger" >
+           <th colspan="2">TOTAL AMOUNT PAYABLE AFTER DUE DATE</th>
+           <th class="text-right">
+               {{ number_format($item->amt_paid ,2) }}
+           </th>
+       </tr>
+   </table>
+   <br>
+   <div class="card">
+       <div class="card-body">
+           <b>Notice to All Tenants: </b>
+               <br>
+               Failure to pay the amount due on 7th of the month there will be a 10% surcharge and subject your unit to DISCONNECTION of utilities (water & electric)
+               <br>
+               THIS SERVES AS YOUR INITIAL NOTICE (DEMAND LETTER)
+               You can also deposit your cash/check payment to any BDO Branch:
+               <br>
+               <b>BDO Account</b>
+               <br>
+               Account Name: Martha GoshenLand Property Management Inc.
+               <br>
+               Account Number: 0009-4032-9085
+       </div>
+   </div>
+</div>
+
+          @endforeach
+   
           </div>
-        <!-- 404 Error Text -->
-        <div class="table-responsive">
-            @foreach ($payment as $item)
-            <table class="table table-bordered table-striped">
-                <tr>
-                    <td>TENANT</td>
-                    <td>{{ $item->first_name.' '.$item->last_name }}</td>
-                </tr>
-                <tr>
-                    <td>STATUS</td>
-                    <td>{{ $item->tenant_status }}</td>
-                </tr>
-                
-                <tr>
-                    <td>UNIT/ROOM</td>
-                    <td>{{ $item->building.' '.$item->unit_no }}</td>
-                </tr>
-                <tr>
-                    <td>DATE PAID</td>
-                    <td>{{ Carbon\Carbon::parse($item->payment_created)->format('M d Y') }}</td>
-                </tr>
-                <tr>
-                    <td>OR NO</td>
-                    <td>{{ $item->or_number }}</td>
-                </tr>
-                <tr>
-                    <td>AR NO</td>
-                    <td>{{ $item->ar_number }}</td>
-                </tr>
-                <tr>
-                    <td>FORM OF PAYMENT</td>
-                    <td>{{ $item->form_of_payment }}</td>
-                </tr>
-                <tr>
-                    <td>AMOUNT</td>
-                    <td>{{ number_format($item->amt_paid,2) }}</td>
-                </tr>
-                @if($item->form_of_payment === 'bank deposit')
-                <tr>
-                    <td>BANK NAME</td>
-                    <td>{{ $item->bank_name }}</td>
-                </tr>
-                @elseif($item->form_of_payment === 'cheque')
-                <tr>
-                    <td>CHEQUE NO</td>
-                    <td>{{ $item->check_no }}</td>
-                </tr>
-                @endif
-                <tr>
-                    <td>DESCRIPTION</td>
-                    <td>{{ $item->payment_note }}</td>
-                </tr>
-            </table>
-            @endforeach
-        </div>
-        </div>
 
       </div>
       <!-- End of Main Content -->

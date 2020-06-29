@@ -59,7 +59,7 @@
           <span>Dashboard</span></a>
       </li>
 
-      <li class="nav-item active">
+       <li class="nav-item">
         <a class="nav-link" href="/home">
           <i class="fas fa-home"></i>
           <span>Home</span></a>
@@ -354,71 +354,77 @@
           </ul>
 
         </nav>
-        <!-- End of Topbar -->
+        <!-- Begin Page Content -->
         <div class="container-fluid">
-          <form id="addTenantForm3" action="/units/{{ session(Auth::user()->property.'unit_id') }}/tenant-step3" method="POST">
-            {{ csrf_field() }}
-        </form>
-        <div class="d-sm-flex align-items-center justify-content-between mb-4">
-          <h1 class="h3 mb-0 text-gray-800">Tenants</h1>
-        </div>
-        
-    
-            {{-- <form action="/tenants/search" method="GET" >
-                @csrf
-                <div class="input-group">
-                    <input type="text" class="form-control" name="search" placeholder="enter tenant name" value="{{ session(Auth::user()->property.'search_tenant') }}">
-                </div>
-            </form>
-            <br>
-            <p class="text-center"><small ><b>{{ $tenants->count() }}</b> tenants found.</small></p> --}}
-            <?php $ctr=1; ?>
-            <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                  <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>TENANT</th>
-                        <th>UNIT/ROOM</th>
-                        <th>STATUS</th>
-                        <th>MOBILE</th>
-                        <th>RENT</th>
-                        <th>CONTRACT PERIOD</th>    
-                   </tr>
-                  </thead>
-                  <tbody>
-                    @foreach ($tenants as $item)
-                    <tr>
-                        <th>{{ $ctr++ }}</th>
-                        <td>
-                            @if(Auth::user()->user_type === 'admin')
-                            <a href="{{ route('show-tenant',['unit_id'=> $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a>
-                            @else
-                            <a href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/billings">{{ $item->first_name.' '.$item->last_name }}</a>
-                            @endif
-                        </td>
-                        <td>{{ $item->building.' '.$item->unit_no }}</td>
-                        <td>
-                            @if($item->tenant_status === 'active')
-                            <span class="badge badge-primary">{{ $item->tenant_status }}</span>
-                            @elseif($item->tenant_status === 'inactive')
-                            <span class="badge badge-secondary">{{ $item->tenant_status }}</span>
-                            @else
-                            <span class="badge badge-warning">{{ $item->tenant_status }}</span>
-                            @endif
-                        </td>
-                        <td>{{ $item->contact_no }}</td>
-                        <td>{{ number_format($item->tenant_monthly_rent,2) }}</td>
-                        <td>{{ Carbon\Carbon::parse($item->movein_date)->format('M d Y').' - '.Carbon\Carbon::parse($item->moveout_date)->format('M d Y') }}</td>
-                        {{-- <td title="months before move-out">{{ number_format(Carbon\Carbon::now()->diffInDays(Carbon\Carbon::parse($item->moveout_date), false)/30,1) }} mon</td> --}}
-                    </tr>
-                    @endforeach
-                  </tbody>
-                </table>
-                {{-- {{ $tenants->links() }} --}}
+          
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Tenants</h1>
+  
+            <form  action="/tenants/search" method="GET" >
+              @csrf
+              <div class="input-group">
+                  <input type="text" class="form-control" name="search" placeholder="Search for tenant..." value="{{ session('search_tenant') }}">
+                  <div class="input-group-append">
+                    <button class="btn btn-primary" type="button">
+                      <i class="fas fa-search fa-sm"></i>
+                    </button>
+                  </div>
               </div>
-        
-        </div>
+          </form>
+          </div>
+            <?php $ctr=1; ?>
+              <div class="table-responsive">
+                  <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                      <tr>
+                          <th>#</th>
+                          <th>TENANT</th>
+                          <th>UNIT/ROOM</th>
+                          <th>STATUS</th>
+                          <th>MOBILE</th>
+                          <th>RENT</th>
+                          <th>CONTRACT PERIOD</th>    
+                     </tr>
+                    </thead>
+                    <tbody>
+                      @foreach ($tenants as $item)
+                      <tr>
+                          <th>{{ $ctr++ }}</th>
+                          <td>
+                              @if(Auth::user()->user_type === 'admin')
+                              <a href="{{ route('show-tenant',['unit_id'=> $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a>
+                              @else
+                              <a href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/billings">{{ $item->first_name.' '.$item->last_name }}</a>
+                              @endif
+                          </td>
+                          <td>{{ $item->building.' '.$item->unit_no }}</td>
+                          <td>
+                              @if($item->tenant_status === 'active')
+                              <span class="badge badge-primary">{{ $item->tenant_status }}</span>
+                              @elseif($item->tenant_status === 'inactive')
+                              <span class="badge badge-secondary">{{ $item->tenant_status }}</span>
+                              @else
+                              <span class="badge badge-warning">{{ $item->tenant_status }}</span>
+                              @endif
+                          </td>
+                          <td>{{ $item->contact_no }}</td>
+                          <td>{{ number_format($item->tenant_monthly_rent,2) }}</td>
+                          <td>{{ Carbon\Carbon::parse($item->movein_date)->format('M d Y').' - '.Carbon\Carbon::parse($item->moveout_date)->format('M d Y') }}</td>
+                          {{-- <td title="months before move-out">{{ number_format(Carbon\Carbon::now()->diffInDays(Carbon\Carbon::parse($item->moveout_date), false)/30,1) }} mon</td> --}}
+                      </tr>
+                      @endforeach
+                    </tbody>
+                  </table>
+                  {{ $tenants->links() }}
+                  @foreach (['danger', 'warning', 'success', 'info'] as $key)
+                  @if(Session::has($key))
+                 <p class="text-center alert alert-{{ $key }}"> <i class="fas fa-check-circle"></i> {{ Session::get($key) }}</p>
+                  @endif
+                  @endforeach
+                </div>
+          
+          </div>
+        <!-- /.container-fluid -->
 
         
         

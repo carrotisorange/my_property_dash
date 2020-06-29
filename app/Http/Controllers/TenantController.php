@@ -34,15 +34,20 @@ class TenantController extends Controller
                 ->join('units', 'unit_id', 'unit_tenant_id')
                 ->whereIn('unit_property', [$property[0],$property[1]])
                 ->whereRaw("concat(first_name, ' ', last_name) like '%$search%' ")
-                ->get();
+                ->paginate(10);
          }else{
             $tenants = DB::table('tenants')
                 ->join('units', 'unit_id', 'unit_tenant_id')
                 ->where('unit_property', $property[0])
                 ->whereRaw("concat(first_name, ' ', last_name) like '%$search%' ")
-                ->get();
+                ->paginate(10);
          }
-       
+
+         if($tenants->count() > 0 ){
+            $request->session()->flash('success', $tenants->count().' tenants found in the record!');
+         }else{
+            $request->session()->flash('danger', $tenants->count().' tenants found in the record!');
+         }
 
         return view('tenants', compact('tenants'));
 
