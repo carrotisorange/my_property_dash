@@ -505,10 +505,10 @@
                         <td>Current Contract Period</td>
                         <td>{{ Carbon\Carbon::parse($tenant->movein_date)->format('M d Y').'-'.Carbon\Carbon::parse($tenant->moveout_date)->format('M d Y') }} 
                           <span class="badge badge-primary">{{ $tenant->has_extended}} 
-                            @if( count($renewal_history) > 1)
+                           
                             ({{ count($renewal_history)-1 }}x) 
                           </span>  
-                            @endif
+                         
                             @if($diffInDays <= -1)
                             <span class="badge badge-danger">contract has lapsed {{ $diffInDays*-1 }} days ago</span> 
                              @else
