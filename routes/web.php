@@ -1307,12 +1307,12 @@ Route::get('/home', function(){
         ->select('building', 'status', DB::raw('count(*) as count'))
         ->whereIn('unit_property', [$property[0],$property[1]])
         ->groupBy('building')
-        ->where('type_of_units', 'leasing')
+        
         ->get('building', 'status','count');   
         
     $leasing_units= DB::table('units')
         ->whereIn('unit_property', [$property[0],$property[1]])
-        ->where('type_of_units', 'leasing')
+       
         ->orderBy('building')
         ->orderBy('floor_no')
         ->orderBy('unit_no')
@@ -1320,7 +1320,7 @@ Route::get('/home', function(){
 
         $leasing_units_vacant= DB::table('units')
         ->whereIn('unit_property', [$property[0],$property[1]])
-        ->where('type_of_units', 'leasing')
+       
         ->where('status','vacant')
         ->orderBy('building')
         ->orderBy('floor_no')
@@ -1329,7 +1329,7 @@ Route::get('/home', function(){
 
         $leasing_units_occupied= DB::table('units')
         ->whereIn('unit_property', [$property[0],$property[1]])
-        ->where('type_of_units', 'leasing')
+        
         ->where('status','occupied')
         ->orderBy('building')
         ->orderBy('floor_no')
@@ -1338,7 +1338,7 @@ Route::get('/home', function(){
 
         $leasing_units_reserved= DB::table('units')
         ->whereIn('unit_property', [$property[0],$property[1]])
-        ->where('type_of_units', 'leasing')
+        
         ->where('status','reserved')
         ->orderBy('building')
         ->orderBy('floor_no')
@@ -1348,7 +1348,7 @@ Route::get('/home', function(){
     $units_per_status = DB::table('units')
         ->select('status',DB::raw('count(*) as count'))
         ->whereIn('unit_property', [$property[0],$property[1]])
-        ->where('type_of_units', 'leasing')
+        
         ->groupBy('status')
         ->get();
     }else{
@@ -1356,12 +1356,12 @@ Route::get('/home', function(){
         ->select('building', 'status', DB::raw('count(*) as count'))
         ->where('unit_property', $property[0])
         ->groupBy('building')
-        ->where('type_of_units', 'leasing')
+       
         ->get('building', 'status','count');   
 
     $leasing_units= DB::table('units')
         ->where('unit_property', $property[0])
-        ->where('type_of_units', 'leasing')
+      
         ->orderBy('building')
         ->orderBy('floor_no')
         ->orderBy('unit_no')
@@ -1370,7 +1370,7 @@ Route::get('/home', function(){
     $units_per_status = DB::table('units')
         ->select('status',DB::raw('count(*) as count'))
         ->where('unit_property', $property[0])
-        ->where('type_of_units', 'leasing')
+       
         ->groupBy('status')
         ->get();
     }

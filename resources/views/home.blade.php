@@ -357,20 +357,16 @@
         <!-- End of Topbar -->
         <div class="container-fluid">
 
-          @if($leasing_units->count() <= 0 )
-          <div class="text-center">
-            <div class="error mx-auto" data-text=""></div>
-            <p class="lead text-gray-800 mb-5">No units/rooms found!</p>
-            {{-- <p class="text-gray-500 mb-0">No units/rooms found...</p> --}}
-            <a href="/">&larr; Add your first unit/room</a>
-          </div>
-          @else
                  <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                  <h1 class="h3 mb-0 text-gray-800">Leasing</h1>
-                 <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addUnit" data-whatever="@mdo"><i class="fas fa-plus fa-sm text-white-50"></i> ADD UNIT/ROOM</button>
-                 <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addMultipleUnits" data-whatever="@mdo"><i class="fas fa-plus fa-sm text-white-50"></i> ADD MULTIPLE UNITS/ROOMS</button>
+                  <h1 class="h3 mb-0 text-gray-800">Home</h1>
+                  <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addUnit" data-whatever="@mdo"><i class="fas fa-plus fa-sm text-white-50"></i> ADD UNIT/ROOM</button>
+                  <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addMultipleUnits" data-whatever="@mdo"><i class="fas fa-plus fa-sm text-white-50"></i> ADD MULTIPLE UNITS/ROOMS</button>
                 </div>
-
+                <span class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" ><i class="fas fa-home fa-sm text-white-50"></i> OCCUPIED</span>
+                <span class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" ><i class="fas fa-home fa-sm text-white-50"></i> VACANT</span>
+                <span class="d-none d-sm-inline-block btn btn-sm btn-warning shadow-sm" ><i class="fas fa-home fa-sm text-white-50"></i> RESERVED</span>
+               
+                <br><br>
                 <nav>
                   <div class="nav nav-tabs" id="nav-tab" role="tablist">
                     <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">All</a>
@@ -387,19 +383,19 @@
                         <td>
                           @foreach ($leasing_units as $item)
                                 @if($item->status === 'vacant')
-                                    <a href="/units/{{$item->unit_id}}" class="btn btn-secondary">
+                                    <a title="{{ $item->type_of_units }}" href="/units/{{$item->unit_id}}" class="btn btn-secondary">
                                         <i class="fas fa-home fa-2x"></i>
                                         <br>
                                         <font size="-3" >{{ $item->unit_no }} </font>
                                     </a>
                                 @elseif($item->status=== 'reserved')
-                                    <a href="/units/{{$item->unit_id}}" class="btn btn-warning">
+                                    <a title="{{ $item->type_of_units }}" href="/units/{{$item->unit_id}}" class="btn btn-warning">
                                         <i class="fas fa-home fa-2x"></i>
                                         <br>
                                         <font size="-3">{{ $item->unit_no }} </font>
                                     </a>
                                 @elseif($item->status=== 'occupied')
-                                    <a href="/units/{{$item->unit_id}}" class="btn btn-primary">
+                                    <a title="{{ $item->type_of_units }}" href="/units/{{$item->unit_id}}" class="btn btn-primary">
                                         <i class="fas fa-home fa-2x"></i>
                                         <br>
                                         <font size="-3">{{ $item->unit_no }} </font>
@@ -422,19 +418,19 @@
                             @foreach ($leasing_units as $unit_building)
                                @if($unit_building->building === $item->building)
                                   @if($unit_building->status === 'vacant')
-                                      <a href="/units/{{$unit_building->unit_id}}" class="btn btn-secondary">
+                                      <a title="{{ $item->type_of_units }}" href="/units/{{$unit_building->unit_id}}" class="btn btn-secondary">
                                           <i class="fas fa-home fa-2x"></i>
                                           <br>
                                           <font size="-3" >{{ $unit_building->unit_no }} </font>
                                       </a>
                                   @elseif($unit_building->status=== 'reserved')
-                                      <a href="/units/{{$unit_building->unit_id}}" class="btn btn-warning">
+                                      <a title="{{ $item->type_of_units }}" href="/units/{{$unit_building->unit_id}}" class="btn btn-warning">
                                           <i class="fas fa-home fa-2x"></i>
                                           <br>
                                           <font size="-3">{{ $unit_building->unit_no }} </font>
                                       </a>
                                   @elseif($unit_building->status=== 'occupied')
-                                      <a href="/units/{{$unit_building->unit_id}}" class="btn btn-primary">
+                                      <a title="{{ $item->type_of_units }}" href="/units/{{$unit_building->unit_id}}" class="btn btn-primary">
                                           <i class="fas fa-home fa-2x"></i>
                                           <br>
                                           <font size="-3">{{ $unit_building->unit_no }} </font>
@@ -450,7 +446,7 @@
                     </div>
                   @endforeach
                 </div>
-                @endif
+              
         </div>
         
       </div>
