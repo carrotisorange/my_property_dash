@@ -1570,13 +1570,13 @@ Route::get('/tenants', function(){
         $tenants = DB::table('tenants')
         ->join('units', 'unit_id', 'unit_tenant_id')
         ->whereIn('unit_property', [$property[0],$property[1]])
-        ->orderBy('movein_date')
+        ->orderBy('movein_date', 'desc')
         ->paginate(10);
     }else{
         $tenants = DB::table('tenants')
         ->join('units', 'unit_id', 'unit_tenant_id')
         ->where('unit_property', $property[0])
-        ->orderBy('movein_date')
+        ->orderBy('movein_date','desc')
         ->paginate(10);
     }
 
