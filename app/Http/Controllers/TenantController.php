@@ -469,13 +469,21 @@ class TenantController extends Controller
             'actual_move_out_date' => $request->actual_move_out_date,
         ]);
 
-        DB::table('units')
+        $no_of_active_tenants_in_the_unit = DB::table('tenants')
+        ->join('units', 'unit_id', 'unit_tenant_id')
+        ->where('tenant_status', 'active')
         ->where('unit_id', $request->unit_tenant_id)
-        ->update([
-            'status' => 'vacant'
-        ]);
+        ->count();
+
+        if($no_of_active_tenants_in_the_unit <= 0){
+            DB::table('units')
+            ->where('unit_id', $request->unit_tenant_id)
+            ->update([
+                'status' => 'vacant'
+            ]);
+        }
     
-        return redirect('/units/'.$request->unit_tenant_id.'/tenants/'.$request->tenant_id)->with('success','Tenant has been successfully moved out!');
+        return redirect('/units/'.$request->unit_tenant_id.'/tenants/'.$request->tenant_id)->with('success','Tenant has been moved out!');
     }
 
     public function renew(Request $request, $unit_id, $tenant_id){

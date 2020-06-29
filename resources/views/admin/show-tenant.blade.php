@@ -532,7 +532,7 @@
                     <div class="row">
                         <div class="col">
                             <label for="ex1">REASON FOR MOVING-OUT</label>
-                              <select form="moveoutTenantForm" class="form-control" name="reason_for_moving_out" id="reason_for_moving_out">
+                              <select form="moveoutTenantForm" class="form-control" name="reason_for_moving_out" id="reason_for_moving_out" required>
                                   <option value="">Please select one</option>
                                   <option value="end of contract">end of contract</option>
                                   <option value="delinquent">delinquent</option>
