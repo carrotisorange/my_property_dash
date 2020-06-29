@@ -455,117 +455,110 @@
                 
                     
                     <div class="col-md-6">
-                        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                            <li class="nav-item">
-                              <a class="nav-link active" id="pills-active-tab" data-toggle="pill" href="#active" role="tab" aria-controls="pills-active" aria-selected="true"><i class="fas fa-user-check"></i>&nbsp&nbspACTIVE  <span class="badge badge-light">{{ $tenant_active->count() }}</span></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="pills-reserved-tab" data-toggle="pill" href="#reserved" role="tab" aria-controls="pills-reserved" aria-selected="false"><i class="fas fa-user-clock"></i>&nbsp&nbspRESERVED <span class="badge badge-light">{{ $tenant_reservations->count() }}</a>
-                              </li>
-                            <li class="nav-item">
-                              <a class="nav-link" id="pills-inactive-tab" data-toggle="pill" href="#inactive" role="tab" aria-controls="pills-inactive" aria-selected="false"><i class="fas fa-user-times"></i>&nbsp&nbspINACTIVE <span class="badge badge-light">{{ $tenant_inactive->count() }}</a>
-                            </li>
-                            
-                          </ul>
-                          <div class="tab-content" id="pills-tabContent">
-                            <div class="tab-pane fade show active" id="active" role="tabpanel" aria-labelledby="pills-active-tab">  
-                                <table class="table table-borderless">
-                                    @if($tenant_active->count() <= 0)
-                                    <tr>
-                                        <br><br><br>
-                                        <p class="text-center">NO TENANTS FOUND!</p>
-                                    </tr>
-                                    @else
-                                    <tr>
-                                        <th class="text-center">#</th>
-                                        <th>NAME</th>
-                                       
-                                        <th>CONTRACT PERIOD</th>   
-                                                 
-                                    
-                                    </tr>
-                                    <?php
-                                        $ctr = 1;
-                                    ?>   
-                                @foreach ($tenant_active as $item)
-                                    <tr>
-                                        <th class="text-center">{{ $ctr++ }}</th>
-                                        <td><a href="{{ route('show-tenant',['unit_id'=> $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }} </a></td>
-                                        
-                                        <td title="{{ Carbon\Carbon::now()->diffInDays(Carbon\Carbon::parse($item->moveout_date), false) }} days left">{{ Carbon\Carbon::parse($item->movein_date)->format('M d Y').'-'.Carbon\Carbon::parse($item->moveout_date)->format('M d Y') }}</>
-                                       
-                                       
-                                    </tr>
-                                @endforeach
-                                    @endif                        
-                                </table>
-                            </div>
-                            <div class="tab-pane fade" id="inactive" role="tabpanel" aria-labelledby="pills-inactive-tab">
-                                <table class="table table-borderless">
-                                    @if($tenant_inactive->count() <= 0)
-                                    <tr>
-                                        <br><br><br>
-                                        <p class="text-center">NO TENANTS FOUND!</p>
-                                    </tr>
-                                    @else
-                                    <tr>
-                                        <th class="text-center">#</th>
-                                        <th>NAME</th>
-                                        
-                                        <th>MOVEOUT SINCE</th>   
-                                                 
-                                        <th></th>
-                                    </tr>
-                                    <?php
-                                        $ctr = 1;
-                                    ?>   
-                                @foreach ($tenant_inactive as $item)
-                                    <tr>
-                                        <th class="text-center">{{ $ctr++ }}</th>
-                                        <td><a href="{{ route('show-tenant',['unit_id'=> $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }} </a></td>
-                                        
-                                        <td>{{ Carbon\Carbon::parse($item->moveout_date)->format('M d Y') }}</td>
-                                    </tr>
-                                @endforeach
-                                    @endif                        
-                                </table>
-                            </div>
-                            <div class="tab-pane fade" id="reserved" role="tabpanel" aria-labelledby="pills-reserved-tab">
-                                <table class="table table-borderless">
-                                    @if($tenant_reservations->count() <= 0)
-                                    <tr>
-                                        <br><br><br>
-                                        <p class="text-center">NO TENANTS FOUND!</p>
-                                    </tr>
-                                    @else
-                                    <tr>
-                                        <th class="text-center">#</th>
-                                        <th>NAME</th>
-                                        <th>RESERVED VIA</th>
-                                        <th>RESERVATION DATE</th>   
-                                                 
-                                        <th></th>
-                                    </tr>
-                                    <?php
-                                        $ctr = 1;
-                                    ?>   
-                                @foreach ($tenant_reservations as $item)
-                                    <tr>
-                                        <th class="text-center">{{ $ctr++ }}</th>
-                                        <td><a href="{{ route('show-tenant',['unit_id'=> $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }} </a></td>
-                                        @if($item->type_of_tenant === 'online')
-                                        <td><a class="badge badge-success">{{ $item->type_of_tenant }}</td>
-                                        @else
-                                        <td><a class="badge badge-warning">{{ $item->type_of_tenant }}</td>
-                                        @endif
-                                        <td>{{ Carbon\Carbon::parse($item->created_at)->format('M d Y') }}</td>
-                                        <th>{{ Carbon\Carbon::now()->diffInDays(Carbon\Carbon::parse($item->created_at)->addDays(7), false) }} days before exp</th>
-                                    </tr>
-                                @endforeach
-                                    @endif                        
-                                </table>
-                            </div>
+                      <nav>
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                          <a class="nav-item nav-link active" data-toggle="tab" href="#active" role="tab" aria-controls="nav-home" aria-selected="true"><i class="fas fa-user-check fa-sm text-50"></i>&nbsp&nbspACTIVE  <span class="badge badge-light">{{ $tenant_active->count() }}</span></a>
+                          <a class="nav-item nav-link"  data-toggle="tab" href="#reserved" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="fas fa-user-clock fa-sm text-50"></i>&nbsp&nbspRESERVED <span class="badge badge-light">{{ $tenant_reservations->count() }}</a>
+                          <a class="nav-item nav-link"  data-toggle="tab" href="#inactive" role="tab" aria-controls="nav-contact" aria-selected="false"><i class="fas fa-user-times fa-sm text-50"></i>&nbsp&nbspINACTIVE <span class="badge badge-light">{{ $tenant_inactive->count() }}</a>
+                        </div>
+                      </nav>
+                      <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="active" role="tabpanel" aria-labelledby="nav-home-tab">
+                          <div class="table-responsive">
+                          <table class="table table-borderless">
+                            @if($tenant_active->count() <= 0)
+                            <tr>
+                                <br><br><br>
+                                <p class="text-center">NO TENANTS FOUND!</p>
+                            </tr>
+                            @else
+                            <tr>
+                                <th class="text-center">#</th>
+                                <th>NAME</th>
+                                <th>CONTRACT PERIOD</th>   
+                            </tr>
+                            <?php $ctr = 1; ?>   
+                        @foreach ($tenant_active as $item)
+                            <tr>
+                                <th class="text-center">{{ $ctr++ }}</th>
+                                <td><a href="{{ route('show-tenant',['unit_id'=> $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }} </a></td>
+                                <td title="{{ Carbon\Carbon::now()->diffInDays(Carbon\Carbon::parse($item->moveout_date), false) }} days left">{{ Carbon\Carbon::parse($item->movein_date)->format('M d Y').'-'.Carbon\Carbon::parse($item->moveout_date)->format('M d Y') }}</>
+                            </tr>
+                        @endforeach
+                            @endif                        
+                        </table>
                           </div>
+                        </div>
+                        <div class="tab-pane fade" id="reserved" role="tabpanel" aria-labelledby="nav-profile-tab">
+                          <div class="table-responsive">
+                          <table class="table table-borderless">
+                            @if($tenant_reservations->count() <= 0)
+                            <tr>
+                                <br><br><br>
+                                <p class="text-center">NO TENANTS FOUND!</p>
+                            </tr>
+                            @else
+                            <tr>
+                                <th class="text-center">#</th>
+                                <th>NAME</th>
+                                <th>RESERVED VIA</th>
+                                <th>RESERVATION DATE</th>   
+                                         
+                                <th></th>
+                            </tr>
+                            <?php
+                                $ctr = 1;
+                            ?>   
+                        @foreach ($tenant_reservations as $item)
+                            <tr>
+                                <th class="text-center">{{ $ctr++ }}</th>
+                                <td><a href="{{ route('show-tenant',['unit_id'=> $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }} </a></td>
+                                @if($item->type_of_tenant === 'online')
+                                <td><a class="badge badge-success">{{ $item->type_of_tenant }}</td>
+                                @else
+                                <td><a class="badge badge-warning">{{ $item->type_of_tenant }}</td>
+                                @endif
+                                <td>{{ Carbon\Carbon::parse($item->created_at)->format('M d Y') }}</td>
+                                <th>{{ Carbon\Carbon::now()->diffInDays(Carbon\Carbon::parse($item->created_at)->addDays(7), false) }} days before exp</th>
+                            </tr>
+                        @endforeach
+                            @endif                        
+                        </table>
+                          </div>
+                        </div>
+                        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                          <div class="table-responsive">
+                          <table class="table table-borderless">
+                            @if($tenant_inactive->count() <= 0)
+                            <tr>
+                                <br><br><br>
+                                <p class="text-center">NO TENANTS FOUND!</p>
+                            </tr>
+                            @else
+                            <tr>
+                                <th class="text-center">#</th>
+                                <th>NAME</th>
+                                
+                                <th>MOVEOUT SINCE</th>   
+                                         
+                                <th></th>
+                            </tr>
+                            <?php
+                                $ctr = 1;
+                            ?>   
+                        @foreach ($tenant_inactive as $item)
+                            <tr>
+                                <th class="text-center">{{ $ctr++ }}</th>
+                                <td><a href="{{ route('show-tenant',['unit_id'=> $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }} </a></td>
+                                
+                                <td>{{ Carbon\Carbon::parse($item->moveout_date)->format('M d Y') }}</td>
+                            </tr>
+                        @endforeach
+                            @endif                        
+                        </table>
+                          </div>
+                        </div>
+                      </div>
                     </div>        
                 </div>
             
