@@ -545,18 +545,18 @@
                     <br>
                     <div class="row">
                         <div class="col">
-                            <p>
-                                MOVEOUT CHARGES
+                          
+                            DEPOSIT
                                 @foreach ($security_deposits as $item)
                                     <ul>
                                         <li>{{ $item->payment_note.' - '. number_format($item->amt_paid,2)}} </li>
                                     </ul>
                                 @endforeach
-                                <span style="float:right">
-                                    <a id="add_row" class="btn btn-primary"><i class="fas fa-plus"></i></a>
-                                    <a id='delete_row' class="btn btn-danger"><i class="fas fa-minus"></i></a>
-                                </span>
-                            </p>
+                                MOVEOUT CHARGES
+                                <a id='delete_row' class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-minus fa-sm text-white-50"></i></a>
+                                <a id="add_row" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i></a>     
+                                <br>
+                            
                             <br>
                             <table class = "table table-hover " id="tab_logic">
                                 <tr>
@@ -614,14 +614,13 @@
                     
                     <div class="row">
                         <div class="col">
-                            <p>
+                            
                                 ADDITIONAL CHARGES
                                 <small class="text-danger">(OPTIONAL)</small>
-                                <span style="float:right">
-                                    <a id="add_charges" class="btn btn-primary"><i class="fas fa-plus"></i></a>
-                                    <a id='remove_charges' class="btn btn-danger"><i class="fas fa-minus"></i></a>
-                                </span>
-                            </p>
+                                <a id='remove_charges' class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-minus fa-sm text-white-50"></i></a>
+                                <a id="add_charges" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i></a>     
+                                <br>
+                            
                             <br>
                                 <table class = "table table-hover " id="extend_table">
                                     <tr>
@@ -736,7 +735,7 @@
     $(document).ready(function(){
         var i=1;
     $("#add_row").click(function(){
-        $('#addr'+i).html("<th>"+ (i) +"</th><td><input form='moveoutTenantForm' name='desc"+i+"' id='desc"+i+"' type='text' class='form-control input-md'></td><td><input form='moveoutTenantForm'   name='amt"+i+"' id='amt"+i+"' type='number' min='1' class='form-control input-md'></td>");
+        $('#addr'+i).html("<th>"+ (i) +"</th><td><input form='moveoutTenantForm' name='desc"+i+"' id='desc"+i+"' type='text' class='form-control input-md'></td><td><input form='moveoutTenantForm'   name='amt"+i+"' id='amt"+i+"' type='number' min='1' class='form-control input-md' required></td>");
 
 
      $('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
@@ -755,7 +754,7 @@
 
         var j=1;
     $("#add_charges").click(function(){
-        $('#row'+j).html("<th class='text-center'>"+ (j) +"</th><td><select form='extendTenantForm' name='desc"+j+"' name='desc"+j+"' class='form-control'><option value='Security Deposit (Rent)'>Security Deposit (Rent)</option><option value='Security Deposit (Utilities)'>Security Deposit (Utilities)</option><option value='Advance Rent'>Advance Rent</option></select></td><td><input form='extendTenantForm' name='amt"+j+"' type='number' min='1' class='form-control input-md'></td>");
+        $('#row'+j).html("<th class='text-center'>"+ (j) +"</th><td><select form='extendTenantForm' name='desc"+j+"' name='desc"+j+"' class='form-control' required><option value='Security Deposit (Rent)'>Security Deposit (Rent)</option><option value='Security Deposit (Utilities)'>Security Deposit (Utilities)</option><option value='Advance Rent'>Advance Rent</option></select></td><td><input form='extendTenantForm' name='amt"+j+"' type='number' min='1' class='form-control input-md' required></td>");
 
      $('#extend_table').append('<tr id="row'+(j+1)+'"></tr>');
      j++;

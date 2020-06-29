@@ -350,6 +350,10 @@
                                         <th>UNIT/ROOM NO</th>
                                         <td>{{ $unit->unit_no }}</td>
                                    </tr>
+                                   {{-- <tr>
+                                    <th>LAST UPDATED AT</th>
+                                    <td>{{ $unit->updated_at }}</td>
+                               </tr> --}}
                                     <tr>
                                         <th>BUILDING</th>
                                         <td>{{ $unit->building }}</td>

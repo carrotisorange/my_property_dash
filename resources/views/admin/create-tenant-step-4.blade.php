@@ -354,21 +354,21 @@
         </nav>
         <!-- End of Topbar -->
         <div class="container-fluid">
-          <form id="addTenantForm3" action="/units/{{ session(Auth::user()->property.'unit_id') }}/tenant-step3" method="POST">
-            {{ csrf_field() }}
-        </form>
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-          <h1 class="h3 mb-0 text-gray-800">Payment Requirements (4/4)</h1>
+          <h1 class="h3 mb-0 text-gray-800">Payment Requirements (4/4)<h1>
+             <h4 class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="total_bills">Total:</h4>
         </div>
         
         <form id="addTenantForm4" action="/tenants" method="POST">
             {{ csrf_field() }}
         </form>
-        <h2><p class="text-right" id="total_bills">Total: </p></h2>
+     
         <br>
         <div class="row">
-            <div class="col">
-                 <table class = "table table-borderless" id="tab_logic">
+          <div class="col-md-12">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="tab_logic" width="100%" cellspacing="0">
+                
                      <tr>
                          <th>#</th>
                          <th>Description</th>
@@ -394,10 +394,11 @@
                  </table>      
             </div>
            </div>
+          </div>
     
             <p class="text-right">   
                 <a href="/units/{{ session(Auth::user()->property.'unit_id') }}/tenant-step3" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> GO BACK TO STEP 3</a>
-                <button type="submit" form="addTenantForm4" class="btn btn-primary" onclick="this.form.submit(); this.disabled = true;"><i class="fas fa-check"></i> ADD THE TENANT</button>
+                <button type="submit" form="addTenantForm4" class="btn btn-primary" onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;"><i class="fas fa-check"></i> ADD THE TENANT</button>
             </p>
 
         

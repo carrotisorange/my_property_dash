@@ -125,7 +125,7 @@ class TenantController extends Controller
     public function postTenantStep3(Request $request, $unit_id){
 
         if($request->moveout_date <= $request->movein_date){
-            return back()->with('error', 'Invalid input. Make sure the moveout date is later than the movein date. ');
+            return back()->with('danger', 'Invalid input. Make sure the moveout date is later than the movein date. ');
         }
 
         $request->session()->put(Auth::user()->property.'movein_date', $request->movein_date);
@@ -243,7 +243,12 @@ class TenantController extends Controller
 
         //web unit status to occupied.
          DB::table('units')->where('unit_id', session(Auth::user()->property.'unit_id'))
-             ->update(['status'=> 'occupied']);
+             ->update(
+                        [
+                            'status'=> 'occupied',
+                            'updated_at' => session(Auth::user()->property.'movein_date'),   
+                        ]
+                    );
 
         //delete all the session created during the tenant's registration.
         $request->session()->forget(Auth::user()->property.'first_name');
@@ -287,9 +292,7 @@ class TenantController extends Controller
         $request->session()->forget(Auth::user()->property.'years_of_employment');
         $request->session()->forget(Auth::user()->property.'employer_contact_no');
 
-        $request->session()->flash('success', 'A new tenant has been added to the record!');
-
-        return redirect('/units/'.session(Auth::user()->property.'unit_id').'/tenants/'.$tenant_id)->with('success', 'Tenant has been successfully added!');
+        return redirect('/units/'.session(Auth::user()->property.'unit_id').'/tenants/'.$tenant_id)->with('success', 'A new tenant has been added to the record!');
     }
 
     /**

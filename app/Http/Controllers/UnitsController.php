@@ -157,7 +157,7 @@ class UnitsController extends Controller
             'created_at'=> Carbon::now(),
         ]);
 
-        return redirect('/units/'.$id)->with('success', '1 room/unit has been successfully created!');
+        return redirect('/units/'.$id)->with('success', '1 room/unit has been created!');
     }
 
     public function add_multiple_rooms(Request $request){
@@ -176,7 +176,7 @@ class UnitsController extends Controller
          ]);
         }
  
-         return redirect('/#units')->with('success', $request->no_of_rooms.' rooms/units have been successfully created!');
+         return back()->with('success', $request->no_of_rooms.' rooms/units have been created!');
      }
 
 
