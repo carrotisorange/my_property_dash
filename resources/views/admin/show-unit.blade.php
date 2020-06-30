@@ -357,7 +357,7 @@
                                   <tr>
                                     <th></th>
                                     <th>
-                                         {<form action="/units/{{ $unit->unit_id }}" method="POST">
+                                         <form action="/units/{{ $unit->unit_id }}" method="POST">
                                           {{ csrf_field() }}
                                           @method('delete')
                                           <button type="submit">Delete</button>
