@@ -361,7 +361,7 @@
                                           {{ csrf_field() }}
                                           @method('delete')
                                           <button type="submit">Delete</button>
-                                      </form> -
+                                      </form> 
                                     </th>
                                   </tr>
                                     <tr>
