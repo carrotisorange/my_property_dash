@@ -660,7 +660,6 @@ Route::get('/', function(Request $request){
                 ->orderBy('building')
                 ->orderBy('floor_no')
                 ->orderBy('unit_no')
-                ->where('type_of_unit', 'leasing')
                 ->get();
     
                 $units_reserved = DB::table('units')
@@ -669,7 +668,6 @@ Route::get('/', function(Request $request){
                 ->orderBy('building')
                 ->orderBy('floor_no')
                 ->orderBy('unit_no')
-                ->where('type_of_unit', 'leasing')
                 ->get();
     
                 $active_tenants = DB::table('tenants')
