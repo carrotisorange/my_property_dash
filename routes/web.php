@@ -60,6 +60,7 @@ Route::get('/', function(Request $request){
 
             $units = DB::table('units')
             ->whereIn('unit_property', [$property[0],$property[1]])
+            ->where('status','!=', 'pulled out')
             ->orderBy('building')
             ->orderBy('floor_no')
             ->orderBy('unit_no')
@@ -640,6 +641,7 @@ Route::get('/', function(Request $request){
                 
             $units = DB::table('units')
                 ->where('unit_property', $property[0])
+                ->where('status','!=', 'pulled out')
                 ->orderBy('building')
                 ->orderBy('floor_no')
                 ->orderBy('unit_no')
