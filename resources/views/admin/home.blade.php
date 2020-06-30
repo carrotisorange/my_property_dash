@@ -498,9 +498,8 @@
                 </select>
             </div>
 
-            
-
-            {<div class="form-group">
+          
+            <div class="form-group">
                 <label for="recipient-name" class="col-form-label">SELECT THE UNIT/ROOM TYPE</label>
                 <select form="addUnitForm" class="form-control" name="type_of_units" id="type_of_units" required>
                     <option value="" selected>Please select one</option>
@@ -572,9 +571,9 @@
               </select>
           </div>
 
-          <input form="addUMultipleUnitForm" type="hidden" class="form-control" name="type_of_units" value="leasing" required>
+          {{-- <input form="addUMultipleUnitForm" type="hidden" class="form-control" name="type_of_units" value="leasing" required> --}}
 
-          {{-- <div class="form-group">
+           <div class="form-group">
               <label for="recipient-name" class="col-form-label">SELECT THE UNIT/ROOM TYPE</label>
               <select form="addUMultipleUnitForm" class="form-control" name="type_of_units" required>
                   <option value="" selected>Please select one</option>
@@ -582,7 +581,7 @@
                   <option value="commercial">commercial</option>
                   <option value="residential">residential</option>
               </select>
-          </div> --}}
+          </div> 
 
           <div class="form-group">
               <label for="recipient-name" class="col-form-label">ENTER THE NO OF BED</label>
