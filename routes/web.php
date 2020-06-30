@@ -60,6 +60,7 @@ Route::get('/', function(Request $request){
 
             $units = DB::table('units')
             ->whereIn('unit_property', [$property[0],$property[1]])
+            ->where('type_of_units', 'leasing')
             ->orderBy('building')
             ->orderBy('floor_no')
             ->orderBy('unit_no')
@@ -67,6 +68,7 @@ Route::get('/', function(Request $request){
 
             $units_occupied = DB::table('units')
             ->whereIn('unit_property', [$property[0],$property[1]])
+            ->where('type_of_units', 'leasing')
             ->where('status','occupied')
             ->orderBy('building')
             ->orderBy('floor_no')
@@ -75,6 +77,7 @@ Route::get('/', function(Request $request){
 
             $units_vacant = DB::table('units')
             ->whereIn('unit_property', [$property[0],$property[1]])
+            ->where('type_of_units', 'leasing')
             ->where('status','vacant')
             ->orderBy('building')
             ->orderBy('floor_no')
@@ -83,6 +86,7 @@ Route::get('/', function(Request $request){
 
             $units_reserved = DB::table('units')
             ->whereIn('unit_property', [$property[0],$property[1]])
+            ->where('type_of_units', 'leasing')
             ->where('status','reserved')
             ->orderBy('building')
             ->orderBy('floor_no')
@@ -651,7 +655,7 @@ Route::get('/', function(Request $request){
                 ->orderBy('building')
                 ->orderBy('floor_no')
                 ->orderBy('unit_no')
-                -<wgere
+
                 ->get();
     
                 $units_vacant = DB::table('units')
@@ -1380,7 +1384,7 @@ Route::get('/home', function(){
         
     $leasing_units= DB::table('units')
         ->whereIn('unit_property', [$property[0],$property[1]])
-       
+        ->where('type_of_units', 'leasing')
         ->orderBy('building')
         ->orderBy('floor_no')
         ->orderBy('unit_no')
@@ -1388,7 +1392,7 @@ Route::get('/home', function(){
 
         $leasing_units_vacant= DB::table('units')
         ->whereIn('unit_property', [$property[0],$property[1]])
-       
+        ->where('type_of_units', 'leasing')
         ->where('status','vacant')
         ->orderBy('building')
         ->orderBy('floor_no')
@@ -1397,7 +1401,7 @@ Route::get('/home', function(){
 
         $leasing_units_occupied= DB::table('units')
         ->whereIn('unit_property', [$property[0],$property[1]])
-        
+        ->where('type_of_units', 'leasing')
         ->where('status','occupied')
         ->orderBy('building')
         ->orderBy('floor_no')
@@ -1406,7 +1410,7 @@ Route::get('/home', function(){
 
         $leasing_units_reserved= DB::table('units')
         ->whereIn('unit_property', [$property[0],$property[1]])
-        
+        ->where('type_of_units', 'leasing')
         ->where('status','reserved')
         ->orderBy('building')
         ->orderBy('floor_no')
