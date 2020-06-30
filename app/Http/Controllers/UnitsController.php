@@ -272,7 +272,7 @@ class UnitsController extends Controller
      */
     public function destroy($id)
     {
-        return DB::table('units')->where('unit_id',$id )->delete();
+         DB::table('units')->where('unit_id',$id )->delete();
 
         return back()->with('success', 'Unit information has been deleted!');
     }
