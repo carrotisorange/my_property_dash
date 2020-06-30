@@ -651,7 +651,7 @@ Route::get('/', function(Request $request){
                 ->orderBy('building')
                 ->orderBy('floor_no')
                 ->orderBy('unit_no')
-                ->where('type_of_unit', 'leasing')
+                -<wgere
                 ->get();
     
                 $units_vacant = DB::table('units')
