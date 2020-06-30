@@ -319,8 +319,7 @@
 
                  <div class="d-sm-flex align-items-center justify-content-between mb-4">
                   <h1 class="h3 mb-0 text-gray-800">Home</h1>
-                  <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addMultipleUnits" data-whatever="@mdo"><i class="fas fa-plus fa-sm text-white-50"></i> Add Multiple units_per_building</a>
-                 
+                  <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addMultipleUnits" data-whatever="@mdo"><i class="fas fa-plus fa-sm text-white-50"></i> Add Multiple Units/Rooms</a>
                 </div>
                 <span class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" ><i class="fas fa-home fa-sm text-white-50"></i> OCCUPIED</span>
                 <span class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" ><i class="fas fa-home fa-sm text-white-50"></i> VACANT</span>
