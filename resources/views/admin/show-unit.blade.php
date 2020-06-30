@@ -354,7 +354,7 @@
                                     <th>LAST UPDATED AT</th>
                                     <td>{{ $unit->updated_at }}</td>
                                </tr> --}}
-                                  <tr>
+                                  {{-- <tr>
                                     <th></th>
                                     <th>
                                          <form action="/units/{{ $unit->unit_id }}" method="POST">
@@ -363,7 +363,7 @@
                                           <button type="submit">Delete</button>
                                       </form> 
                                     </th>
-                                  </tr>
+                                  </tr> --}}
                                     <tr>
                                         <th>BUILDING</th>
                                         <td>{{ $unit->building }}</td>
