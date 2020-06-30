@@ -588,7 +588,7 @@
           </div>
 
           <div class="form-group">
-              <label for="recipient-name" class="col-form-label">ENTER THE NO OF ROOMS YOU WANT TO CREATE</label>
+              <label for="recipient-name" class="col-form-label">ENTER THE NO OF UNITS/ROOMS YOU WANT TO CREATE</label>
               <input form="addUMultipleUnitForm" type="number" class="form-control" name="no_of_rooms"required>
           </div>
 
@@ -604,7 +604,7 @@
 
       </div>
       <div class="modal-footer">
-          <button form="addUMultipleUnitForm" type="submit" class="btn btn-primary" onclick="this.form.submit(); this.disabled = true;><i class="fas fa-check"></i> CREATE ROOMS</button>
+          <button form="addUMultipleUnitForm" type="submit" class="btn btn-primary" onclick="this.form.submit(); this.disabled = true;><i class="fas fa-check"></i> CREATE UNITS/ROOMS</button>
           </div>
   </div>
   </div>
