@@ -212,7 +212,7 @@ class UnitsController extends Controller
                 'monthly_rent' => $request->monthly_rent
             ]);
         
-        return back()->with('success', 'Unit information has been successfully updated!');
+        return back()->with('success', 'Unit information has been updated!');
     }
 
     public function show_vacant_units($property){
