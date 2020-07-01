@@ -280,10 +280,11 @@
           
         <!-- 404 Error Text -->
             @if(Auth::user()->user_type === 'treasury')
-            <p><a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/payments" class="btn btn-primary"><i class="fas fa-dollar-sign"></i> VIEW PAYMENT HISTORY</a>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#acceptPayment"><i class="fas fa-plus"></i> ADD PAYMENT</button>
+            <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/payments" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-dollar-sign fa-sm text-white-50"></i> View Payment History</a>
+            <a href="#" data-toggle="modal" data-target="#acceptPayment" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Add Payment</a>
             @endif
-            </p>
+            <br>
+            <br>
             <h4 class="text-center text-primary">ACCOUNTING DEPARTMENT</h4>
             <p class="text-center">
                 Bareng Drive, Purok 11 Bakakeng Sur, Baguio City, 2600 Philippines

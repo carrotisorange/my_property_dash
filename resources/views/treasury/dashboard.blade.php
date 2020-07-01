@@ -276,7 +276,15 @@
             
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-            <a href="/tenants/search" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Payment</a>
+            <form action="/payments/search" method="GET" >
+              @csrf
+              <div class="input-group">
+                  <input type="date" class="form-control" name="search" onchange='this.form.submit()'>
+                  
+              </div>
+          </form>
+           
+            {{-- <a href="/tenants/search" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Payment</a> --}}
           </div>
           
           <div class="row">
@@ -287,34 +295,45 @@
                     <div class="card shadow mb-4">
                      <div class="card-header py-3">
                        <h6 class="m-0 font-weight-bold text-primary">DAILY COLLECTION</h6>
-                         <?php $ctr = 1; ?>
                      </div>
                      <div class="card-body">
                        <div class="table-responsive">
                          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                            <thead>
                             <tr>
-                                <th>#</th>
-                                <th>NAME</th>
+                                <th class="text-center">#</th>
+                                <th>TENANT</th>
                                 <th>UNIT/ROOM</th>
-                                <th>FORM OF PAYMENT</th>
+                                <th>DESCRIPTION</th>
                                 <th>AMOUNT</th>
-                                <th></th>
+                                <th>ACTION</th>
                             </tr>
                             <?php $ctr = 1; ?>
+                          </thead>
                            <tbody>
                             @foreach ($payments as $item)
                             <tr>
-                                <th>{{ $ctr++ }}</th>
+                                <th class="text-center">{{ $ctr++ }}</th>
                                 <td>{{ $item->first_name.' '.$item->last_name }}</td>
                                 <td>{{ $item->building.' '.$item->unit_no }}</td>
-                                <td>{{ $item->form_of_payment }}</td>
+                                <td>{{ $item->payment_note }}</td>
+                                
                                 <td>{{ number_format($item->amt_paid,2) }}</td>
-                                <td><a href="/units/{{ $item->unit_tenant_id }}/tenants/{{ $item->tenant_id }}/payments/{{ $item->payment_id }}">View Details</a></td>
+                                <td>
+                                  <a target="_blank" href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/payments/{{ $item->payment_id }}/export" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i></a>
+                                  <a target="_blank" href="#" title="print invoice" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-print fa-sm text-white-50"></i></a> 
+                                  {{-- <a href="/units/{{ $item->unit_tenant_id }}/tenants/{{ $item->tenant_id }}/payments/{{ $item->payment_id }}">View Details</a> --}}
+                                </td>
                             </tr>
                             @endforeach
                            </tbody>
                          </table>
+                         <table class="table" id="dataTable" width="100%" cellspacing="0">
+                          <tr>
+                           <th>TOTAL</th>
+                           <th class="text-right">{{ number_format($payments->sum('amt_paid'),2) }}</th>
+                          </tr>
+                        </table>
                        </div>
                      </div>
                    </div>

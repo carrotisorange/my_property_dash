@@ -272,9 +272,15 @@
         </nav>
         <!-- End of Topbar -->
         <div class="container-fluid">
-            
+    
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Payments</h1>
+            <form action="/payments/search" method="GET" >
+              @csrf
+              <div class="input-group">
+                  <input type="date" class="form-control" value="{{ session(Auth::user()->property.'search_payment') }}" name="search" onchange='this.form.submit()'>
+              </div>
+          </form>
           </div>
     
                      <div class="card-body">
@@ -282,28 +288,40 @@
                          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                            <thead>
                             <tr>
-                                <th>#</th>
+                                <th class="text-center">#</th>
                                 <th>DATE PAID</th>
-                                <th>NAME</th>
+                                <th>TENANT</th>
                                 <th>UNIT/ROOM</th>
-                                <th>FORM OF PAYMENT</th>
+                                <th>DESCRIPTION</th>
                                 <th>AMOUNT</th>
-                                <th></th>
+                                <th>ACTION</th>
+
                             </tr>
                             <?php $ctr = 1; ?>
                            <tbody>
                             @foreach ($payments as $item)
                             <tr>
-                                <th>{{ $ctr++ }}</th>
+                                <th class="text-center">{{ $ctr++ }}</th>
                                 <td>{{ Carbon\Carbon::parse($item->payment_created)->format('M d Y') }}</td>
                                 <td>{{ $item->first_name.' '.$item->last_name }}</td>
                                 <td>{{ $item->building.' '.$item->unit_no }}</td>
-                                <td>{{ $item->form_of_payment }}</td>
+                                <td>{{ $item->payment_note }}</td>
+                                
                                 <td>{{ number_format($item->amt_paid,2) }}</td>
-                                <td><a href="/units/{{ $item->unit_tenant_id }}/tenants/{{ $item->tenant_id }}/payments/{{ $item->payment_id }}">View Details</a></td>
+                                <td>
+                                  <a target="_blank" href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/payments/{{ $item->payment_id }}/export" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i></a>
+                                  <a href="#" title="print invoice" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-print fa-sm text-white-50"></i></a> 
+                                  {{-- <a href="/units/{{ $item->unit_tenant_id }}/tenants/{{ $item->tenant_id }}/payments/{{ $item->payment_id }}">View Details</a> --}}
+                                </td>
                             </tr>
                             @endforeach
                            </tbody>
+                         </table>
+                         <table class="table" id="dataTable" width="100%" cellspacing="0">
+                           <tr>
+                            <th>TOTAL</th>
+                            <th class="text-right">{{ number_format($payments->sum('amt_paid'),2) }}</th>
+                           </tr>
                          </table>
                        </div>
                      </div>

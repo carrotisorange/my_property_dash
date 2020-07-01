@@ -336,37 +336,28 @@
                 </nav>
                 <div class="tab-content" id="nav-tabContent">
                   <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                    <div class="table-responsive">
-                    <table class=" table-borderless">
-                      <tr>
-                        <td>
-                          @foreach ($leasing_units as $item)
-                                @if($item->status === 'vacant')
-                                    <a title="{{ $item->type_of_units }}" href="/units/{{$item->unit_id}}" class="btn btn-secondary">
-                                        <i class="fas fa-home fa-2x"></i>
-                                        <br>
-                                        <font size="-3" >{{ $item->unit_no }} </font>
-                                    </a>
-                                @elseif($item->status=== 'reserved')
-                                    <a title="{{ $item->type_of_units }}" href="/units/{{$item->unit_id}}" class="btn btn-warning">
-                                        <i class="fas fa-home fa-2x"></i>
-                                        <br>
-                                        <font size="-3">{{ $item->unit_no }} </font>
-                                    </a>
-                                @elseif($item->status=== 'occupied')
-                                    <a title="{{ $item->type_of_units }}" href="/units/{{$item->unit_id}}" class="btn btn-primary">
-                                        <i class="fas fa-home fa-2x"></i>
-                                        <br>
-                                        <font size="-3">{{ $item->unit_no }} </font>
-                                    </a>
-                                @endif
-                             
-                          @endforeach
-                      </td>
-                          <br>
-                      </tr>
-                  </table>
-                  </div>
+                    <br>
+                    @foreach ($leasing_units as $item)
+                    @if($item->status === 'vacant')
+                    <a title="{{ $item->type_of_units }}" href="/units/{{$item->unit_id}}" class="btn btn-secondary">
+                        <i class="fas fa-home fa-2x"></i>
+                        <br>
+                        <font size="-3" >{{ $item->unit_no }} </font>
+                    </a>
+                @elseif($item->status=== 'reserved')
+                    <a title="{{ $item->type_of_units }}" href="/units/{{$item->unit_id}}" class="btn btn-warning">
+                        <i class="fas fa-home fa-2x"></i>
+                        <br>
+                        <font size="-3">{{ $item->unit_no }} </font>
+                    </a>
+                @elseif($item->status=== 'occupied')
+                    <a title="{{ $item->type_of_units }}" href="/units/{{$item->unit_id}}" class="btn btn-primary">
+                        <i class="fas fa-home fa-2x"></i>
+                        <br>
+                        <font size="-3">{{ $item->unit_no }} </font>
+                    </a>
+                @endif        
+                    @endforeach  
                   </div>
                   @foreach ($leasing_units as $item)
                     <div class="tab-pane fade show" id="nav-{{ $item->building }}" role="tabpanel" aria-labelledby="nav-{{ $item->building }}-tab">

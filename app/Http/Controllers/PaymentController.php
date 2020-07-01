@@ -41,9 +41,8 @@ class PaymentController extends Controller
             ->where('payment_created', $search)
             ->get();
          }
-        
 
-       return view('treasury.show-all-payments', compact('payments'));
+       return view('treasury.payments', compact('payments'));
     }
 
     /**
@@ -215,4 +214,5 @@ class PaymentController extends Controller
 
         return back()->with('success', 'Payment has been successfully deleted!');
     }
+
 }

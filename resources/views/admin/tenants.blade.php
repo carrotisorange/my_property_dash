@@ -346,7 +346,7 @@
                   <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                       <tr>
-                          <th>#</th>
+                          <th class="text-center">#</th>
                           <th>TENANT</th>
                           <th>UNIT/ROOM</th>
                           <th>STATUS</th>
@@ -358,7 +358,7 @@
                     <tbody>
                       @foreach ($tenants as $item)
                       <tr>
-                          <th>{{ $ctr++ }}</th>
+                          <th class="text-center">{{ $ctr++ }}</th>
                           <td>
                               @if(Auth::user()->user_type === 'admin')
                               <a href="{{ route('show-tenant',['unit_id'=> $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a>

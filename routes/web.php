@@ -1327,23 +1327,25 @@ Route::get('/', function(Request $request){
             return view('unregistered');
     }
 
-         if(count($property) > 1){
-            $payments = DB::table('units')
-            ->join('tenants', 'unit_id', 'unit_tenant_id')
-            ->join('payments', 'tenant_id', 'payment_tenant_id')
-            ->groupBy('tenant_id')
-            ->whereIn('unit_property', [$property[0],$property[1]])
-            ->where('payment_created', Carbon::today()->format('Y-m-d'))
-            ->get();
-         }else{
-            $payments = DB::table('units')
-            ->join('tenants', 'unit_id', 'unit_tenant_id')
-            ->join('payments', 'tenant_id', 'payment_tenant_id')
-            ->groupBy('tenant_id')
-            ->where('unit_property', $property[0])
-            ->where('payment_created', Carbon::today()->format('Y-m-d'))
-            ->get();
-         }
+    $property = explode(",", Auth::user()->property);
+
+     if(count($property) > 1){
+        $payments = DB::table('units')
+        ->join('tenants', 'unit_id', 'unit_tenant_id')
+        ->join('payments', 'tenant_id', 'payment_tenant_id')
+        ->groupBy('tenant_id')
+        ->whereIn('unit_property', [$property[0],$property[1]])
+        ->where('payment_created', Carbon::today())
+        ->get();
+     }else{
+        $payments = DB::table('units')
+        ->join('tenants', 'unit_id', 'unit_tenant_id')
+        ->join('payments', 'tenant_id', 'payment_tenant_id')
+        ->groupBy('tenant_id')
+        ->where('unit_property', $property[0])
+        ->where('payment_created', Carbon::today())
+        ->get();
+     }
 
         return view('treasury.dashboard', compact('payments'));
     }
@@ -1549,6 +1551,8 @@ Route::post('/payments', 'PaymentController@store')->middleware('auth');
 Route::get('/payments/all', 'PaymentController@index')->name('show-all-payments')->middleware('auth');
 Route::get('/payments/search', 'PaymentController@index')->middleware('auth');
 Route::delete('/payments/{payment_id}', 'PaymentController@destroy')->middleware('auth');
+
+Route::get('/units/{unit_id}/tenants/{tenant_id}/payments/{payment_id}/export', 'TenantController@export')->middleware('auth');
 
 //routes for tenants
 Route::get('/units/{unit_id}/tenants/{tenant_id}', 'TenantController@show')->name('show-tenant')->middleware('auth');

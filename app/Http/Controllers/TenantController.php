@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Tenant;
+use App\Payment;
 use Illuminate\Http\Request;
 use DB;
 use App\Unit;
@@ -229,19 +230,6 @@ class TenantController extends Controller
                     'payment_note' => $request->input('desc'.$i),
                 ]);
         }        
-
-        // DB::table('payments')->insert([
-        //     'payment_tenant_id' => $tenant_id,
-        //     'payment_created' => session(Auth::user()->property.'movein_date'),
-        //     'amt_paid' => DB::table('billings')->where('billing_tenant_id', $tenant_id)->sum('billing_amt'),
-        //     'or_number' => $request->or_number,
-        //     'ar_number' => $request->ar_number,
-        //     'bank_name' => $request->bank_name,
-        //     'form_of_payment' => $request->form_of_payment,
-        //     'check_no' => $request->check_no,
-        //     'date_deposited' => $request->date_deposited,
-        //     'payment_note' => 'movein charges',
-        // ]);
 
         //web unit status to occupied.
          DB::table('units')->where('unit_id', session(Auth::user()->property.'unit_id'))
@@ -811,6 +799,35 @@ class TenantController extends Controller
         $billings = DB::table('billings')->where('billing_tenant_id', $tenant_id)->get();
 
         return view('reservation-forms.get-reservation', compact('tenant', 'unit', 'billings'));
+    }
+
+    public function export ($unit_id, $tenant_id, $payment_id){
+
+            $tenant = Tenant::findOrFail($tenant_id);
+
+            $unit = Unit::findOrFail($unit_id);
+
+            $payment = Payment::findOrFail($payment_id);
+
+            $payment = Payment::findOrFail($payment_id);
+
+            $data = [
+                
+                'tenant' => $tenant->first_name.' '.$tenant->last_name ,
+
+                'unit' => $unit->building.' '.$unit->unit_no,
+
+                'payment' => $payment->amt_paid,
+
+                'payment_date' => $payment->payment_created,
+
+                'payment_desc' => $payment->payment_note
+
+        ];
+
+            $pdf = \PDF::loadView('treasury.pdf', $data);
+      
+            return $pdf->download($tenant->first_name.' '.$tenant->last_name.'.pdf');
     }
 }
 

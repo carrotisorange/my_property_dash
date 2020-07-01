@@ -368,7 +368,6 @@
           <div class="col-md-12">
               <div class="table-responsive">
                 <table class="table table-bordered" id="tab_logic" width="100%" cellspacing="0">
-                
                      <tr>
                          <th>#</th>
                          <th>Description</th>
