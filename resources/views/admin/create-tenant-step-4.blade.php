@@ -379,16 +379,17 @@
                          <td><input form="addTenantForm4"  type="text" name='desc0' id='desc0' class="form-control" value="Security Deposit (Rent)" readonly/></td>
                          <td><input oninput="this.value = Math.abs(this.value)" form="addTenantForm4"  onkeyup="computeTotal()" type="number" name='amt0' id='amt0' class="form-control" value="{{ session(Auth::user()->property.'tenant_monthly_rent') }}"/></td>
                      </tr>
+                     <tr>
+                      <th>3</th>
+                     <td><input form="addTenantForm4"  type="text" name='desc2' id='desc2' class="form-control" value="Advance Rent" readonly/></td>
+                     <td><input oninput="this.value = Math.abs(this.value)" form="addTenantForm4"  onkeyup="computeTotal()" type="number" name='amt2' id='amt2' class="form-control" value="{{ session(Auth::user()->property.'tenant_monthly_rent') }}"/></td>
+                    </tr>
                      <tr id='addr1'>
                         <th>2</th>
-                        <td><input form="addTenantForm4"  type="text" name='desc1' id='desc1' class="form-control" value="Security Deposit (Utilities)" readonly/></td>
+                        <td><input form="addTenantForm4"  type="text" name='desc1' id='desc1' class="form-control" value="Others" readonly/></td>
                         <td><input oninput="this.value = Math.abs(this.value)" form="addTenantForm4"  onkeyup="computeTotal()" type="number" name='amt1' id='amt1' class="form-control" value="2000"/></td>
                     </tr>
-                     <tr>
-                         <th>3</th>
-                        <td><input form="addTenantForm4"  type="text" name='desc2' id='desc2' class="form-control" value="Advance Rent" readonly/></td>
-                        <td><input oninput="this.value = Math.abs(this.value)" form="addTenantForm4"  onkeyup="computeTotal()" type="number" name='amt2' id='amt2' class="form-control" value="{{ session(Auth::user()->property.'tenant_monthly_rent') }}"/></td>
-                     </tr>
+                    
                      <tr id='addr2'></tr>
                  </table>      
             </div>
@@ -397,7 +398,7 @@
     
             <p class="text-right">   
                 <a href="/units/{{ session(Auth::user()->property.'unit_id') }}/tenant-step3" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> GO BACK TO STEP 3</a>
-                <button type="submit" form="addTenantForm4" class="btn btn-primary" onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;"><i class="fas fa-check"></i> ADD THE TENANT</button>
+                <button type="submit" form="addTenantForm4" class="btn btn-primary" onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;"><i class="fas fa-check"></i> ADD TENANT</button>
             </p>
 
         

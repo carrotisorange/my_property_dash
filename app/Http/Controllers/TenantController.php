@@ -282,7 +282,7 @@ class TenantController extends Controller
         $request->session()->forget(Auth::user()->property.'years_of_employment');
         $request->session()->forget(Auth::user()->property.'employer_contact_no');
 
-        return redirect('/units/'.session(Auth::user()->property.'unit_id').'/tenants/'.$tenant_id)->with('success', 'A new tenant has been added to the record!');
+        return redirect('/units/'.session(Auth::user()->property.'unit_id').'/tenants/'.$tenant_id)->with('success', 'Tenant has been added to the record!');
     }
 
     /**
