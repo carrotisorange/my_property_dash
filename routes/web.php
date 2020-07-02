@@ -1539,6 +1539,7 @@ Route::get('/payments', function(){
         ->where('unit_property', $property[0])
         ->orderBy('payment_created', 'desc')
         ->get();
+
      }
 
     return view('treasury.payments', compact('payments'));

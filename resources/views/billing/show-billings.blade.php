@@ -402,7 +402,8 @@
                     <div class="form-group row">
                         <div class="col">
                             <label for="">Form of Payment</label>
-                            <select form="acceptPaymentForm" class="form-control" name="form_of_payment" id="">
+                            <select form="acceptPaymentForm" class="form-control" name="form_of_payment" id="" required>
+                              <option value="" selected>Please select one</option>
                                 <option value="cash">cash</option>
                                 <option value="bank deposit">bank deposit</option>
                                 <option value="cheque">cheque</option>
@@ -415,7 +416,9 @@
                      
                         <div class="col">
                             <label for="">Acknowledgment Receipt No</label>
-                            <input form="acceptPaymentForm" type="number" class="form-control" id="" name="ar_number">
+                            <input form="acceptPaymentForm" type="text" class="form-control" id="" name="ar_number" required>
+
+          
                         </div>
                     </div>
         
@@ -437,11 +440,15 @@
                     <input type="hidden" form="acceptPaymentForm" id="tenant_status" name="tenant_status" value="{{ $tenant->tenant_status }}">
                     <div class="form-group row">
                         <div class="col">
-                            <label for="">Payment description</label>
-                            <textarea form="acceptPaymentForm" class="form-control" name="payment_note" required>
-                            </textarea>
-                            
+                            <label for="">Payment Description</label>
+                            <input form="acceptPaymentForm" class="form-control" name="payment_note"  placeholder="(i.e. Rent, Utilities, Surcharge)" required>
+                           
                         </div>
+
+                        <div class="col">
+                          <label for="">Payment Duration</label>
+                          <input form="acceptPaymentForm" class="form-control" name="or_number" placeholder="Jan 1, 2020 - Feb 1, 2020" required>
+                      </div>
                     </div>
                 </div>
                 <div class="modal-footer">

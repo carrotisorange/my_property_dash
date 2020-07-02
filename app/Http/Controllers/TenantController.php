@@ -809,23 +809,25 @@ class TenantController extends Controller
 
             $payment = Payment::findOrFail($payment_id);
 
-            $payment = Payment::findOrFail($payment_id);
-
             $data = [
                 
                 'tenant' => $tenant->first_name.' '.$tenant->last_name ,
 
                 'unit' => $unit->building.' '.$unit->unit_no,
 
-                'payment' => $payment->amt_paid,
+                'payment_amt' => $payment->amt_paid,
 
                 'payment_date' => $payment->payment_created,
 
-                'payment_desc' => $payment->payment_note
+                'payment_desc' => $payment->payment_note,
+
+                'payment_ar' => $payment->ar_number,
+
+                'payment_duration' => $payment->or_number,
 
         ];
 
-            $pdf = \PDF::loadView('treasury.pdf', $data);
+            $pdf = \PDF::loadView('treasury.pdf', $data)->setPaper('a5', 'portrait');
       
             return $pdf->download($tenant->first_name.' '.$tenant->last_name.'.pdf');
     }

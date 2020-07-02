@@ -9,70 +9,59 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
+    <style>
+      body {
+        font: normal 8px Verdana, Arial, sans-serif;
+          }
+    </style>
+    
   </head>
   <body>
-    <div class="container-fluid">
-          
-      <!-- 404 Error Text -->
-      <h4 class="text-center">ACCOUNTING DEPARTMENT</h4>
-      <p class="text-center">
-          Bareng Drive, Purok 11 Bakakeng Sur, Baguio City, 2600 Philippines
+    <div class="container">
+      <div class="row">
+        
+        <div class="col-md-10">
+          <h2 class="text-black-50">Receipt</h2>
+          Invoice Number:</b> 12312312
           <br>
-          E-mail add: marthagoshenland@yahoo.com.ph; CP No. 09467576159/ 09068758142
-      </p>
-      <h5 class="text-center">{{strToUpper( Auth::user()->property) }}</h5>
-      <div class="table-responsive">
-      <table class="table table-bordered" width="100%" cellspacing="0">
+          <table class="table-borderless" width="100%" cellspacing="0">
+            
+            <tr>
+            <th colspan="3" class="text-right">GoDie Enterprise</th>
+          </tr>
+          
           <tr>
-              <td>Tenant: <b>{{ $tenant }}</b></td>
-              <td class="text-right" colspan="2">Date: <b>{{ Carbon\Carbon::parse( $payment_date )->format('M d Y') }}</b></td>
+            <td colspan="3" class="text-left"> <b>Date:</b> {{ Carbon\Carbon::now()->format('M d Y') }}</td>
+          </tr>   
+          <tr>
+            <td colspan="3" class="text-left"><b>To:</b> {{ $tenant }}</td>
           </tr>
           <tr>
-              <td>Unit/Room: 
-                  <b>
-                       {{ $unit }} 
-                  </b>
-              </td>
-              <td>
-                |
-              </td>
+            <td colspan="3" class="text-left"><b>Unit/Room:</b> {{ $unit }} </td>
+          </tr>     
+         
+            <tr>
+              <th colspan="3" class="text-right">North Cambridge</th>
             </tr>
-      </table>
-       <table class="table table-bordered" width="100%" cellspacing="0">
-        <tr>
-          <th class="text-center" colspan="2">ACKNOWLEDGMENT RECEIPT</th>
-      </tr>
-      <tr>
-         <th>Description</th>
-          <th>Amount</th>
-      </tr>
-      <tr>
-         <td>{{ $payment_desc }}</td>
-          <td>{{ number_format($payment ,2) }} </td>
-      </tr>
-      </table>
-      <br>
-      <div class=card">
-          <div class="card-body">
-              <b class="text-center ">Notice to All Tenants: </b>
-                  <br>
-                  Failure to pay the amount due on 7th of the month there will be a 10% surcharge and subject your unit to DISCONNECTION of utilities (water & electric)
-                  <br>
-                  THIS SERVES AS YOUR INITIAL NOTICE (DEMAND LETTER)
-                  You can also deposit your cash/check payment to any BDO Branch:
-                  <br>
-                  <b class="text-center ">BDO Account</b>
-                  <br>
-                  Account Name: Martha GoshenLand Property Management Inc.
-                  <br>
-                  Account Number: 0009-4032-9085
-          </div>
+          </table>
+            <table class="table" width="100%" cellspacing="0">
+              <tr>
+                <th>Description</th>
+                <th>Date</th>
+                <th>Amount</th>
+              </tr>
+              <tr>
+                <td>{{ $payment_desc }}</td>
+                <td>{{ $payment_duration }}</td>
+                <td>{{ number_format($payment_amt,2) }}</td>
+              </tr>
+              {{-- <tr>
+                <th colspan="3" class="text-left">Running Balance: {{ $balance }}</th>
+              </tr> --}}
+          </table>
+        </div>
       </div>
-   </div>
-
-      
-
-  </div>
+    </div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

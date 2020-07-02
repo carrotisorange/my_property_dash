@@ -278,33 +278,44 @@
         <div class="table-responsive">
             <a href="/tenants/search" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> GO BACK TO TENANTS</a>
             <br><br>
-              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                    <tr>
-                        <th class="text-center">#</th>
-                        <th>DATE PAID</th>
-                        <th>AMOUNT</th>
-                        <th>FORM OF PAYMENT</th>
-                        <th>DESCRIPTION</th>
-                        
-                    </tr>
-                    <?php $ctr = 1; ?> 
-                    @foreach ($payments as $item)
-                    <tr>
-                        <th class="text-center">{{ $ctr++ }}</th>
-                        <td>{{ Carbon\Carbon::parse($item->payment_created)->format('M d Y') }}</td>
-                        <td><a href="/units/{{ $item->unit_tenant_id }}/tenants/{{ $item->tenant_id }}/payments/{{ $item->payment_id }}">{{ number_format($item->amt_paid,2) }}</a></td>
-                        <td>{{ $item->form_of_payment }}</td>
-                        <td>{{ $item->payment_note }}</td>
-                        {{-- <td>
-                            <form action="/payments/{{ $item->payment_id }}" method="POST">
-                                @method('delete')
-                                @csrf
-                                <button type="submit" class="btn btn-danger">Delete</button>
-                            </form>
-                        </td> --}}
-                    </tr>
-                    @endforeach
-                </table>
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+              <thead>
+               <tr>
+                   <th class="text-center">#</th>
+                   <th>DATE PAID</th>
+                   <th>TENANT</th>
+                   <th>UNIT/ROOM</th>
+                   <th>DESCRIPTION</th>
+                   <th>AMOUNT</th>
+                   <th>ACTION</th>
+
+               </tr>
+               <?php $ctr = 1; ?>
+              <tbody>
+               @foreach ($payments as $item)
+               <tr>
+                   <th class="text-center">{{ $ctr++ }}</th>
+                   <td>{{ Carbon\Carbon::parse($item->payment_created)->format('M d Y') }}</td>
+                   <td>{{ $item->first_name.' '.$item->last_name }}</td>
+                   <td>{{ $item->building.' '.$item->unit_no }}</td>
+                   <td>{{ $item->payment_note }}</td>
+                   
+                   <td>{{ number_format($item->amt_paid,2) }}</td>
+                   <td>
+                     <a target="_blank" href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/payments/{{ $item->payment_id }}/export" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i></a>
+                     <a target="_blank" href="#" title="print invoice" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-print fa-sm text-white-50"></i></a> 
+                     {{-- <a href="/units/{{ $item->unit_tenant_id }}/tenants/{{ $item->tenant_id }}/payments/{{ $item->payment_id }}">View Details</a> --}}
+                   </td>
+               </tr>
+               @endforeach
+              </tbody>
+            </table>
+            <table class="table" id="dataTable" width="100%" cellspacing="0">
+              <tr>
+               <th>TOTAL</th>
+               <th class="text-right">{{ number_format($payments->sum('amt_paid'),2) }}</th>
+              </tr>
+            </table>
         </div>
         </div>
 
