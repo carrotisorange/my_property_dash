@@ -1331,6 +1331,7 @@ Route::get('/', function(Request $request){
 
      if(count($property) > 1){
         $payments = DB::table('units')
+        ->select('*', DB::raw('sum(amt_paid) as total'))
         ->join('tenants', 'unit_id', 'unit_tenant_id')
         ->join('payments', 'tenant_id', 'payment_tenant_id')
         ->groupBy('tenant_id')
@@ -1339,6 +1340,7 @@ Route::get('/', function(Request $request){
         ->get();
      }else{
         $payments = DB::table('units')
+        ->select('*', DB::raw('sum(amt_paid) as total'))
         ->join('tenants', 'unit_id', 'unit_tenant_id')
         ->join('payments', 'tenant_id', 'payment_tenant_id')
         ->groupBy('tenant_id')
@@ -1374,6 +1376,12 @@ Route::get('/home', function(){
     $property = explode(",", Auth::user()->property);
 
     if(count($property) > 1){
+
+    $units = DB::table('units')
+        ->whereIn('unit_property', [$property[0],$property[1]])
+        ->where('status','!=', 'pulled out')
+        ->count();
+
     $units_per_building = DB::table('units')
         ->select('building', 'status', DB::raw('count(*) as count'))
         ->whereIn('unit_property', [$property[0],$property[1]])
@@ -1423,6 +1431,12 @@ Route::get('/home', function(){
         ->groupBy('status')
         ->get();
     }else{
+
+    $units = DB::table('units')
+        ->where('unit_property', $property[0])
+        ->where('status','!=', 'pulled out')
+        ->count();
+
     $units_per_building = DB::table('units')
         ->select('building', 'status', DB::raw('count(*) as count'))
         ->where('unit_property', $property[0])
@@ -1446,7 +1460,7 @@ Route::get('/home', function(){
         ->get();
     }
     
-    return view('admin.home',compact('units_per_building','leasing_units','units_per_status'));
+    return view('admin.home',compact('units','units_per_building','leasing_units','units_per_status'));
 })->middleware('auth');
 
 // Route::get('/residential', function(){
@@ -1527,6 +1541,7 @@ Route::get('/payments', function(){
         ->select('*', DB::raw('sum(amt_paid) as total'))
         ->join('tenants', 'unit_id', 'unit_tenant_id')
         ->join('payments', 'tenant_id', 'payment_tenant_id')
+        ->groupBy('tenant_id')
         ->groupBy('payment_created')
         ->whereIn('unit_property', [$property[0],$property[1]])
         ->orderBy('payment_created', 'desc')
@@ -1537,6 +1552,7 @@ Route::get('/payments', function(){
         ->select('*', DB::raw('sum(amt_paid) as total'))
         ->join('tenants', 'unit_id', 'unit_tenant_id')
         ->join('payments', 'tenant_id', 'payment_tenant_id')
+        ->groupBy('tenant_id')
         ->groupBy('payment_created')
         ->where('unit_property', $property[0])
         ->orderBy('payment_created', 'desc')
@@ -1555,7 +1571,7 @@ Route::get('/payments/all', 'PaymentController@index')->name('show-all-payments'
 Route::get('/payments/search', 'PaymentController@index')->middleware('auth');
 Route::delete('/payments/{payment_id}', 'PaymentController@destroy')->middleware('auth');
 
-Route::get('/units/{unit_id}/tenants/{tenant_id}/payments/{payment_id}/export', 'TenantController@export')->middleware('auth');
+Route::get('/units/{unit_id}/tenants/{tenant_id}/payments/{payment_id}/dates/{payment_created}/export', 'TenantController@export')->middleware('auth');
 
 //routes for tenants
 Route::get('/units/{unit_id}/tenants/{tenant_id}', 'TenantController@show')->name('show-tenant')->middleware('auth');

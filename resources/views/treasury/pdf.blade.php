@@ -21,8 +21,8 @@
       <div class="row">
         
         <div class="col-md-10">
-          <h2 class="text-black-50">Receipt</h2>
-          Invoice Number:</b> 12312312
+          <h2 class="text-black-50">Acknowledgment Receipt</h2>
+          Invoice Number:</b> {{ $payment_ar }}
           <br>
           <table class="table-borderless" width="100%" cellspacing="0">
             
@@ -44,20 +44,32 @@
               <th colspan="3" class="text-right">North Cambridge</th>
             </tr>
           </table>
-            <table class="table" width="100%" cellspacing="0">
+            <table class="table text-right" width="100%" cellspacing="0">
               <tr>
+                <th>#</th>
                 <th>Description</th>
                 <th>Date</th>
                 <th>Amount</th>
               </tr>
+              <?php $ctr = 1; ?>
+              @foreach ($payment_breakdown as $item)
               <tr>
-                <td>{{ $payment_desc }}</td>
-                <td>{{ $payment_duration }}</td>
-                <td>{{ number_format($payment_amt,2) }}</td>
+                <th>{{ $ctr++ }}</th>
+                <td>{{ $item->payment_note }}</td>
+                <td>{{  Carbon\Carbon::parse($item->payment_created)->format('M d Y') }}</td>
+                <td >{{ number_format($item->amt_paid,2) }}</td>
               </tr>
-              {{-- <tr>
-                <th colspan="3" class="text-left">Running Balance: {{ $balance }}</th>
-              </tr> --}}
+              @endforeach
+          </table>
+          <table class="table" width="100%" cellspacing="0">
+            <tr>
+             <th>TOTAL</th>
+             <th class="text-right">{{ number_format($payment_amt,2) }}</th>
+            </tr>
+            <tr>
+              <th>RUNNING BALANCE</th>
+              <th class="text-right">{{ number_format($running_balance,2) }}</th>
+             </tr>
           </table>
         </div>
       </div>

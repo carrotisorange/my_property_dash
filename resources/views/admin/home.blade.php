@@ -328,9 +328,9 @@
                 <br><br>
                 <nav>
                   <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">All</a>
+                    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">All<span class="badge badge-light">{{ $units }}</span></a>
                     @foreach ($units_per_building as $item)
-                    <a class="nav-item nav-link" id="nav-{{ $item->building }}-tab" data-toggle="tab" href="#nav-{{ $item->building }}" role="tab" aria-controls="nav-{{ $item->building }}" aria-selected="false">{{ $item->building }}</a>
+                    <a class="nav-item nav-link" id="nav-{{ $item->building }}-tab" data-toggle="tab" href="#nav-{{ $item->building }}" role="tab" aria-controls="nav-{{ $item->building }}" aria-selected="false">{{ $item->building }}<span class="badge badge-light">{{ $item->count }}</span></a>
                     @endforeach
                   </div>
                 </nav>

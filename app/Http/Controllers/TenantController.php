@@ -347,26 +347,17 @@ class TenantController extends Controller
         $tenant = Tenant::findOrFail($tenant_id);
 
         $property = explode(",", Auth::user()->property);
-
-        if(count($property) > 1){
-            $payments = DB::table('units')
+     
+        $payments = DB::table('units')
+            ->select('*', DB::raw('sum(amt_paid) as total'))
             ->join('tenants', 'unit_id', 'unit_tenant_id')
             ->join('payments', 'tenant_id', 'payment_tenant_id')
             ->where('payment_tenant_id', $tenant_id)
-            ->whereIn('unit_property', [$property[0],$property[1]])
             ->where('amt_paid','>',0)
+            ->groupBy('payment_created')
+            ->orderBy('payment_created', 'desc')
             ->get();
-         }else{
-            $payments = DB::table('units')
-            ->join('tenants', 'unit_id', 'unit_tenant_id')
-            ->join('payments', 'tenant_id', 'payment_tenant_id')
-            ->where('payment_tenant_id', $tenant_id)
-            ->where('unit_property', $property[0])
-            ->where('amt_paid','>',0)
-            ->get();
-         }
-       
-
+ 
         return view('billing.show-payments', compact('payments', 'tenant'));
     }
 
@@ -801,30 +792,42 @@ class TenantController extends Controller
         return view('reservation-forms.get-reservation', compact('tenant', 'unit', 'billings'));
     }
 
-    public function export ($unit_id, $tenant_id, $payment_id){
+    public function export ($unit_id, $tenant_id, $payment_id,$payment_created){
 
             $tenant = Tenant::findOrFail($tenant_id);
 
             $unit = Unit::findOrFail($unit_id);
 
             $payment = Payment::findOrFail($payment_id);
-            
 
+            $payment_breakdown = DB::table('payments')
+            ->where('payment_tenant_id',$tenant_id)
+            ->where('payment_created', $payment_created)
+            ->get();
+            
+            $payment_amt = DB::table('payments')
+            ->where('payment_tenant_id',$tenant_id)
+            ->where('payment_created', $payment_created)
+            ->sum('amt_paid');
+
+            $running_balance = DB::table('billings')
+            ->where('billing_tenant_id', $tenant_id)
+            ->where('billing_status', 'unpaid')
+            ->sum('billing_amt');
+            
             $data = [
                 
                 'tenant' => $tenant->first_name.' '.$tenant->last_name ,
 
                 'unit' => $unit->building.' '.$unit->unit_no,
 
-                'payment_amt' => $payment->amt_paid,
-
-                'payment_date' => $payment->payment_created,
-
-                'payment_desc' => $payment->payment_note,
+                'payment_amt' => $payment_amt,
 
                 'payment_ar' => $payment->ar_number,
 
-                'payment_duration' => $payment->or_number,
+                'payment_breakdown' => $payment_breakdown,
+
+                'running_balance' => $running_balance,
 
         ];
 
