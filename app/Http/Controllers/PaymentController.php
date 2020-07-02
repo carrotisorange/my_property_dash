@@ -64,12 +64,6 @@ class PaymentController extends Controller
     public function store(Request $request)
     {   
 
-        if($request->payment_note === null){
-            $request->session()->flash('success', 'A new tenant has been added to the record!');
-
-            return back()->with('danger', 'Please fill-up the payment description!');
-        }
-
         $movein_charges = DB::table('billings')
         ->where('billing_tenant_id', $request->payment_tenant_id)
         ->whereIn('billing_desc', ['Security Deposit (Utilities)', 'Security Deposit (Rent)', 'Advance Rent'])

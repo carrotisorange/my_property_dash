@@ -275,9 +275,11 @@
         <!-- End of Topbar -->
         <div class="container-fluid">
         <!-- 404 Error Text -->
+        
         <div class="table-responsive">
-            <a href="/tenants/search" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> GO BACK TO TENANTS</a>
+            <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/billings" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> GO BACK TO TENANT</a>
             <br><br>
+            
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
               <thead>
                <tr>
