@@ -22,7 +22,7 @@
         
         <div class="col-md-10">
           <h2 class="text-black-50">Acknowledgment Receipt</h2>
-          Invoice Number:</b> {{ $payment_ar }}
+          AR no:</b> {{ $payment_ar }}
           <br>
           <table class="table-borderless" width="100%" cellspacing="0">
             
