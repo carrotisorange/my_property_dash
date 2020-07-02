@@ -1901,3 +1901,7 @@ Route::get('/{properties}/units','UnitsController@show_vacant_units');
 Route::get('/{properties}/units/{unit_id}', 'UnitsController@show_reservation_form');
 Route::get('/{properties}/units/{unit_id}/tenants/{tenant_id}/reserved', 'TenantController@get_reservation');
 
+Route::get('/sendemail', 'SendEmailController@index');
+
+Route::post('/sendemail/send', 'SendEmailController@send');
+

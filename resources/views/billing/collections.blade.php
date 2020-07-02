@@ -302,7 +302,7 @@
                             
                             <td>{{ $item->form_of_payment }}</td>
                             <td>{{ $item->payment_note }}</td>
-                            <td><a href="/units/{{ $item->unit_tenant_id }}/tenants/{{ $item->tenant_id }}/payments/{{ $item->payment_id }}">{{ number_format($item->amt_paid,2) }}</a></td>
+                            <td>{{ number_format($item->amt_paid,2) }}</td>
                             {{-- <td>
                                 <form action="/payments/{{ $item->payment_id }}" method="POST">
                                     @method('delete')

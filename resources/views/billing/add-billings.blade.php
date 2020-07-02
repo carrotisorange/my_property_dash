@@ -316,7 +316,7 @@
         </table>
     
         <p class="text-right">
-            <a href="/billing-and-collection" class="btn btn-secondary"><i class="fas fa-times"></i> CANCEL</a>
+            <a href="/" class="btn btn-secondary"><i class="fas fa-times"></i> CANCEL</a>
             <button type="submit" form="add_billings" class="btn btn-primary"  onclick="return confirm('Are you sure you want perform this action?');"><i class="fas fa-check"></i> POST</button>
         </p>
         </div>
