@@ -1524,18 +1524,20 @@ Route::get('/payments', function(){
 
      if(count($property) > 1){
         $payments = DB::table('units')
+        ->select('*', DB::raw('sum(amt_paid) as total'))
         ->join('tenants', 'unit_id', 'unit_tenant_id')
         ->join('payments', 'tenant_id', 'payment_tenant_id')
-        
+        ->groupBy('payment_created')
         ->whereIn('unit_property', [$property[0],$property[1]])
         ->orderBy('payment_created', 'desc')
    
         ->get();
      }else{
         $payments = DB::table('units')
+        ->select('*', DB::raw('sum(amt_paid) as total'))
         ->join('tenants', 'unit_id', 'unit_tenant_id')
         ->join('payments', 'tenant_id', 'payment_tenant_id')
-        
+        ->groupBy('payment_created')
         ->where('unit_property', $property[0])
         ->orderBy('payment_created', 'desc')
         ->get();

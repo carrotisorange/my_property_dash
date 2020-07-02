@@ -808,6 +808,7 @@ class TenantController extends Controller
             $unit = Unit::findOrFail($unit_id);
 
             $payment = Payment::findOrFail($payment_id);
+            
 
             $data = [
                 
