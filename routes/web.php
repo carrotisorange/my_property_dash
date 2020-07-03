@@ -1807,7 +1807,7 @@ Route::get('/collections', function(){
         ->join('payments', 'tenant_id', 'payment_tenant_id')
         ->groupBy('tenant_id')
         ->whereIn('unit_property', [$property[0],$property[1]])
-        ->orderBy('billing_date', 'desc')
+        ->orderBy('payment_created', 'desc')
         ->get();
      }else{
         $collections = DB::table('units')
@@ -1815,7 +1815,7 @@ Route::get('/collections', function(){
         ->join('payments', 'tenant_id', 'payment_tenant_id')
         ->groupBy('tenant_id')
         ->where('unit_property', $property[0])
-        ->orderBy('billing_date', 'desc')
+        ->orderBy('payment_created', 'desc')
         ->get();
      }
 
