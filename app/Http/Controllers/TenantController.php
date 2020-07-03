@@ -831,7 +831,7 @@ class TenantController extends Controller
 
         ];
 
-            $pdf = \PDF::loadView('treasury.pdf', $data)->setPaper('a5', 'portrait');
+            $pdf = \PDF::loadView('treasury.pdf', $data)->setPaper('a4', 'portrait');
       
             return $pdf->download($tenant->first_name.' '.$tenant->last_name.'.pdf');
     }
