@@ -1441,7 +1441,7 @@ Route::get('/home', function(){
         ->select('building', 'status', DB::raw('count(*) as count'))
         ->where('unit_property', $property[0])
         ->groupBy('building')
-       
+        ->where('status','!=', 'pulled out')
         ->get('building', 'status','count');   
 
     $leasing_units= DB::table('units')
