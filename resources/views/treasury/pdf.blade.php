@@ -20,7 +20,7 @@
         <div class="col-md-10">
           <h4 class="text-black-50">Acknowledgment Receipt</h4>
           <br>
-          <table class="table-borderless" width="100%" cellspacing="0">
+          <table class="table-borderless">
             <tr>
             <td colspan="3" class="text-right"> AR no:</b> {{ $payment_ar }}</td>
           </tr>
@@ -62,6 +62,20 @@
             <tr>
               <th>RUNNING BALANCE</th>
               <th class="text-right">{{ number_format($running_balance,2) }}</th>
+             </tr>
+          </table>
+          <table class="table" cellspacing>
+            <tr>
+             <td>Issued by: </td>
+             <th></th>
+            </tr>
+            <tr>
+              <th>{{ Auth::user()->name }}</th>
+              <th></th>
+             </tr>
+             <tr>
+              <th>{{ Auth::user()->user_type.' of '. Auth::user()->property }}</th>
+              <th></th>
              </tr>
           </table>
         </div>
