@@ -18,9 +18,8 @@
     <div class="container">
       <div class="row">
         <div class="col-md-10">
-          <h4 class="text-black-50">Acknowledgment Receipt</h4>
-          <br>
-          <p class="text-right"> AR no:</b> {{ $payment_ar }}</p>
+          <h5 class="text-black-50">Acknowledgment Receipt</h5>
+          <p class="text-right"> <b>AR #:</b> {{ $payment_ar }}</p>
           <ul style="list-style-type: none">
             <li><b>Date:</b> {{ Carbon\Carbon::now()->format('M d Y') }}</li>
             <li><b>To:</b> {{ $tenant }}</li>
@@ -55,7 +54,7 @@
              </tr>
           </table>
           <ul style="list-style-type: none">
-            <li>Issued by: {{ Auth::user()->name }}</li>
+            <li><b>Issued by:</b> {{ Auth::user()->name }}</li>
             <li>{{ Auth::user()->user_type.' of '. Auth::user()->property }}</li>
           </ul>
         
