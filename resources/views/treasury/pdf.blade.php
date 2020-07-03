@@ -20,7 +20,7 @@
         <div class="col-md-10">
           <h4 class="text-black-50">Acknowledgment Receipt</h4>
           <br>
-          <table class="table-borderless">
+          <table class="table table-borderless">
             <tr>
             <td colspan="3" class="text-right"> AR no:</b> {{ $payment_ar }}</td>
           </tr>
