@@ -280,15 +280,13 @@
           </div>
             <!-- 404 Error Text -->
             <div class="table-responsive">
-               
                   <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <tr>
                             <th class="text-center">#</th>
+                            <th>DATE</th>
                             <th>NAME</th>
                             <th>UNIT/ROOM</th>
-                            <th>DATE PAID</th>
-                           
-                            <th>FORM OF PAYMENT</th>
+                            
                             <th>DESCRIPTION</th>
                             <th>AMOUNT</th>
                         </tr>
@@ -300,7 +298,6 @@
                             <td>{{ $item->building.' '.$item->unit_no }}</td>
                             <td>{{ Carbon\Carbon::parse($item->payment_created)->format('M d Y') }}</td>
                             
-                            <td>{{ $item->form_of_payment }}</td>
                             <td>{{ $item->payment_note }}</td>
                             <td>{{ number_format($item->amt_paid,2) }}</td>
                             {{-- <td>
