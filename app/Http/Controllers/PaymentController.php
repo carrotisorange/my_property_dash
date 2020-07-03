@@ -24,23 +24,29 @@ class PaymentController extends Controller
 
         $property = explode(",", Auth::user()->property);
 
-         if(count($property) > 1){
-            $payments = DB::table('units')
-            ->join('tenants', 'unit_id', 'unit_tenant_id')
-            ->join('payments', 'tenant_id', 'payment_tenant_id')
-            ->groupBy('tenant_id')
-            ->whereIn('unit_property', [$property[0],$property[1]])
-            ->where('payment_created', $search)
-            ->get();
-         }else{
-            $payments = DB::table('units')
-            ->join('tenants', 'unit_id', 'unit_tenant_id')
-            ->join('payments', 'tenant_id', 'payment_tenant_id')
-            ->groupBy('tenant_id')
-            ->where('unit_property', $property[0])
-            ->where('payment_created', $search)
-            ->get();
-         }
+        if(count($property) > 1){
+           $payments = DB::table('units')
+           ->select('*', DB::raw('sum(amt_paid) as total'))
+           ->join('tenants', 'unit_id', 'unit_tenant_id')
+           ->join('payments', 'tenant_id', 'payment_tenant_id')
+           ->groupBy('tenant_id')
+           ->groupBy('payment_created')
+           ->whereIn('unit_property', [$property[0],$property[1]])
+           ->where('payment_created', $search)
+           ->orderBy('payment_created', 'desc')
+           ->get();
+        }else{
+           $payments = DB::table('units')
+           ->select('*', DB::raw('sum(amt_paid) as total'))
+           ->join('tenants', 'unit_id', 'unit_tenant_id')
+           ->join('payments', 'tenant_id', 'payment_tenant_id')
+           ->groupBy('tenant_id')
+           ->groupBy('payment_created')
+           ->where('unit_property', $property[0])
+           ->where('payment_created', $search)
+           ->orderBy('payment_created', 'desc')
+           ->get();
+        }
 
        return view('treasury.payments', compact('payments'));
     }
@@ -146,7 +152,7 @@ class PaymentController extends Controller
                
        }
 
-       return back()->with('success','Payment has been successfully recorded!');
+       return back()->with('success','Payment has been recorded!');
     }
 
     /**
