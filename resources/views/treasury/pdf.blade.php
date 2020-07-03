@@ -31,12 +31,9 @@
           <tr>
             <td colspan="3" class="text-left"><b>Unit/Room:</b> {{ $unit }} </td>
           </tr>     
-           
           </table>
+          <p colspan="3" class="text-right">{{ Auth::user()->property }}</p>
             <table class="table text-right" width="100%" cellspacing="0">
-              <tr>
-                <th colspan="3" class="text-right">{{ Auth::user()->property }}</th>
-              </tr>
               <tr>
                 <th>#</th>
                 <th>Description</th>
