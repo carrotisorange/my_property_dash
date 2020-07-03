@@ -21,18 +21,12 @@
           <h4 class="text-black-50">Acknowledgment Receipt</h4>
           <br>
           <p class="text-right"> AR no:</b> {{ $payment_ar }}</p>
-          <table class="table-borderless">
-          <tr>
-            <td colspan="3" class="text-left"> <b>Date:</b> {{ Carbon\Carbon::now()->format('M d Y') }}</td>
-          </tr>   
-          <tr>
-            <td colspan="3" class="text-left"><b>To:</b> {{ $tenant }}</td>
-          </tr>
-          <tr>
-            <td colspan="3" class="text-left"><b>Unit/Room:</b> {{ $unit }} </td>
-          </tr>     
-          </table>
-          <p colspan="3" class="text-right">{{ Auth::user()->property }}</p>
+          <ul>
+            <li><b>Date:</b> {{ Carbon\Carbon::now()->format('M d Y') }}</li>
+            <li><b>To:</b> {{ $tenant }}</li>
+            <li><b>Unit/Room:</b> {{ $unit }} </li>
+          </ul>
+          <p class="text-right">{{ Auth::user()->property }}</p>
             <table class="table text-right" width="100%" cellspacing="0">
               <tr>
                 <th>#</th>
