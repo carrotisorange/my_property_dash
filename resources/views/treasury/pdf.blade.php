@@ -64,15 +64,11 @@
               <th class="text-right">{{ number_format($running_balance,2) }}</th>
              </tr>
           </table>
-          <table class="table" cellspacing>
+          <table class="table table-borderless" cellspacing>
             <tr>
-             <td>Issued by: </td>
+             <td>Issued by: {{ Auth::user()->name }}</td>
              <th></th>
             </tr>
-            <tr>
-              <th>{{ Auth::user()->name }}</th>
-              <th></th>
-             </tr>
              <tr>
               <th>{{ Auth::user()->user_type.' of '. Auth::user()->property }}</th>
               <th></th>
