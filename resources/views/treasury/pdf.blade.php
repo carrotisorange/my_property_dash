@@ -20,10 +20,8 @@
         <div class="col-md-10">
           <h4 class="text-black-50">Acknowledgment Receipt</h4>
           <br>
-          <table class="table table-borderless">
-            <tr>
-            <td colspan="3" class="text-right"> AR no:</b> {{ $payment_ar }}</td>
-          </tr>
+          <p class="text-right"> AR no:</b> {{ $payment_ar }}</p>
+          <table class="table-borderless">
           <tr>
             <td colspan="3" class="text-left"> <b>Date:</b> {{ Carbon\Carbon::now()->format('M d Y') }}</td>
           </tr>   
@@ -33,11 +31,12 @@
           <tr>
             <td colspan="3" class="text-left"><b>Unit/Room:</b> {{ $unit }} </td>
           </tr>     
-            <tr>
-              <th colspan="3" class="text-right">{{ Auth::user()->property }}</th>
-            </tr>
+           
           </table>
             <table class="table text-right" width="100%" cellspacing="0">
+              <tr>
+                <th colspan="3" class="text-right">{{ Auth::user()->property }}</th>
+              </tr>
               <tr>
                 <th>#</th>
                 <th>Description</th>
