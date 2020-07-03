@@ -21,7 +21,7 @@
           <h4 class="text-black-50">Acknowledgment Receipt</h4>
           <br>
           <p class="text-right"> AR no:</b> {{ $payment_ar }}</p>
-          <ul>
+          <ul style="list-style-type: none">
             <li><b>Date:</b> {{ Carbon\Carbon::now()->format('M d Y') }}</li>
             <li><b>To:</b> {{ $tenant }}</li>
             <li><b>Unit/Room:</b> {{ $unit }} </li>
@@ -54,16 +54,11 @@
               <th class="text-right">{{ number_format($running_balance,2) }}</th>
              </tr>
           </table>
-          <table class="table table-borderless" cellspacing>
-            <tr>
-             <td>Issued by: {{ Auth::user()->name }}</td>
-             <th></th>
-            </tr>
-             <tr>
-              <th>{{ Auth::user()->user_type.' of '. Auth::user()->property }}</th>
-              <th></th>
-             </tr>
-          </table>
+          <ul style="list-style-type: none">
+            <li>Issued by: {{ Auth::user()->name }}</li>
+            <li>{{ Auth::user()->user_type.' of '. Auth::user()->property }}</li>
+          </ul>
+        
         </div>
       </div>
     </div>
