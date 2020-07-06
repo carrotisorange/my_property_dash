@@ -306,7 +306,7 @@
                                 <th>UNIT/ROOM</th>
                                 <th>DESCRIPTION</th>
                                 <th>AMOUNT</th>
-                                
+                                <th></th>
                             </tr>
                             <?php $ctr = 1; ?>
                           </thead>
