@@ -358,7 +358,7 @@
                     <th>TENANT</th>
                     <th>UNIT/ROOM</th>
                     <th>DESCRIPTION</th>
-                    <th>DETAILS</th>
+                    
                     <th>AMOUNT</th>
                     <th>STATUS</th>
                 </tr>
@@ -369,8 +369,8 @@
                     <td>{{ Carbon\Carbon::parse($item->billing_date)->format('M d Y') }}</td>
                     <td>{{ $item->first_name.' '.$item->last_name }}</td>
                     <td>{{ $item->building.' '.$item->unit_no }}</td>
-                    <td>{{ $item->billing_desc }}</td>
-                    <td>{{ $item->details }}</td>
+                    <td>{{ $item->billing_desc.'-'.$item->details }}</td>
+                   
                     <td>{{ number_format($item->billing_amt,2) }}</td>
                     <td>
                       @if($item->billing_status === 'paid')
