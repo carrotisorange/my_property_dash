@@ -38,7 +38,7 @@
               <tr>
                 <th>{{ $ctr++ }}</th>
                 <td>{{ $item->payment_note }}</td>
-                <td>{{  Carbon\Carbon::parse($item->or_number)->format('M d Y') }}</td>
+                <td>{{  $item->or_number}}</td>
                 <td >{{ number_format($item->amt_paid,2) }}</td>
               </tr>
               @endforeach
