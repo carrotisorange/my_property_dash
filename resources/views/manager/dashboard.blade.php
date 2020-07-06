@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Profile</title>
+  <title>Dashboard</title>
 
   <!-- Custom fonts for this template-->
   <link href="{{ asset('dashboard/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -38,7 +38,7 @@
       <hr class="sidebar-divider my-0"> --}}
 
       <!-- Nav Item - Dashboard -->
-      <li class="nav-item">
+      <li class="nav-item active">
         <a class="nav-link" href="/">
           {{-- <i class="fas fa-fw fa-tachometer-alt"></i> --}}
           <span>The Property Manager</span></a>
@@ -52,8 +52,8 @@
         Interface
       </div> --}}
 
-     <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item active">
+       <!-- Nav Item - Pages Collapse Menu -->
+       <li class="nav-item active">
         <a class="nav-link" href="/">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
@@ -114,6 +114,8 @@
       </li>
       @endif
       
+
+          
 
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
@@ -316,39 +318,10 @@
         </nav>
         <!-- End of Topbar -->
         <div class="container-fluid">
-            <!-- Page Heading -->
-          <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Profile</h1>
-          </div>
-          <div class="table-responsive">
-         <table class="table table-bordered">
-            <tr>
-               <th>Name</th>
-               <td>{{ $user->name }}&nbsp <a title="edit profile" href="/users/{{ $user->id }}/edit"><i class="fas fa-user-edit fa-fw"></i></a></td>
-            </tr>
-            <tr>
-              <th>Email</th>
-              <td>{{ $user->email }}</td>
-           </tr>
-           <tr>
-              <th>User Type</th>
-              <td>{{ $user->user_type }}</td>
-           </tr>
-           <tr>
-              <th>Status</th>
-              <td>{{ $user->status }}</td>
-           </tr>
-           <tr>
-              <th>Property Name</th>
-              <td>{{ $user->property }}</td>
-           </tr>
+   
            
-         </table>
-          </div>
-        
-        </div>
 
-        
+      </div>
         
        
       </div>

@@ -53,12 +53,12 @@ class UserController extends Controller
             'email' => $request->email,
             'status' => $request->status,
             'user_type' => $request->user_type,
-            'property' => $request->property,
+            'property' => Auth::user()->property,
             'password' => Hash::make(12345678),
             'created_at' => Carbon::now(),
         ]);
 
-        return redirect('/#users')->with('success', 'User has been successfully created!');
+        return redirect('/users')->with('success', 'A new user has been added to the record!');
 
     }
 

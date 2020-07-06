@@ -52,73 +52,19 @@
         Interface
       </div> --}}
 
-<!-- Nav Item - Pages Collapse Menu -->
+ <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link" href="/">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
 
+      @if(Auth::user()->user_type === 'admin')
       <li class="nav-item">
-        <a class="nav-link" href="/leasing">
+        <a class="nav-link" href="/home">
           <i class="fas fa-home"></i>
-          <span>Leasing</span></a>
+          <span>Home</span></a>
       </li>
-
-      {{-- <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-          <i class="fas fa-home fa-cog"></i>
-          <span>Leasing</span>
-          
-        </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            
-            @foreach ($units_per_building as $item)
-            <a class="collapse-item" href="/leasing">{{ $item->building }}</a>
-            @endforeach
-            
-          </div>
-        </div>
-      </li> --}}
-
-      <li class="nav-item">
-        <a class="nav-link" href="/residential">
-          <i class="fas fa-home"></i>
-          <span>Residential</span></a>
-      </li>
-
-
-
-      <!-- Divider -->
-      {{-- <hr class="sidebar-divider"> --}}
-
-      {{-- <!-- Heading -->
-      <div class="sidebar-heading">
-        Addons
-      </div> --}}
-
-      <!-- Nav Item - Pages Collapse Menu -->
-      {{-- <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-          <i class="fas fa-fw fa-folder"></i>
-          <span>Pages</span>
-        </a>
-        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Login Screens:</h6>
-            <a class="collapse-item" href="login.html">Login</a>
-            <a class="collapse-item" href="register.html">Register</a>
-            <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-            <div class="collapse-divider"></div>
-            <h6 class="collapse-header">Other Pages:</h6>
-            <a class="collapse-item" href="404.html">404 Page</a>
-            <a class="collapse-item" href="blank.html">Blank Page</a>
-          </div>
-        </div>
-      </li> --}}
-
-      <!-- Nav Item - Charts -->
 
       <li class="nav-item">
         <a class="nav-link" href="/tenants">
@@ -129,32 +75,44 @@
       <!-- Nav Item - Tables -->
       <li class="nav-item">
         <a class="nav-link" href="/owners">
-          <i class="fas fa-user-tie fa-table"></i>
+          <i class="fas fa-user-tie"></i>
           <span>Unit Owners</span></a>
       </li>
 
-         <!-- Nav Item - Tables -->
-     <li class="nav-item">
-      <a class="nav-link" href="/billing-and-collection">
-        <i class="fas fa-file-invoice-dollar fa-table"></i>
-        <span>Billing and collection</span></a>
-    </li>
+        <!-- Nav Item - Tables -->
+      <li class="nav-item">
+          <a class="nav-link" href="/joborders">
+            <i class="fas fa-tools fa-table"></i>
+            <span>Job Orders</span></a>
+        </li>
+      @endif
 
-       <!-- Nav Item - Tables -->
-       <li class="nav-item">
-        <a class="nav-link" href="/joborders">
-          <i class="fas fa-tools fa-table"></i>
-          <span>Job Orders</span></a>
-      </li>
+       @if(Auth::user()->user_type === 'billing')
+        <!-- Nav Item - Tables -->
+        <li class="nav-item">
+          <a class="nav-link" href="/billing-and-collection">
+            <i class="fas fa-file-invoice-dollar fa-table"></i>
+            <span></span></a>
+        </li>
+       @endif
 
+       @if(Auth::user()->user_type === 'treasury')
+          <li class="nav-item">
+          <a class="nav-link" href="/payments">
+            <i class="fas fa-file-invoice-dollar"></i>
+            <span>Payments</span></a>
+        </li>
+
+        @endif
+
+      @if(Auth::user()->user_type === 'manager')
        <!-- Nav Item - Tables -->
        <li class="nav-item active">
         <a class="nav-link" href="/users">
           <i class="fas fa-user-secret fa-table"></i>
           <span>Users</span></a>
       </li>
-      
-
+      @endif
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
 
@@ -357,12 +315,67 @@
         <!-- End of Topbar -->
         <div class="container-fluid">
 
-          <form id="addTenantForm3" action="/units/{{ session(Auth::user()->property.'unit_id') }}/tenant-step3" method="POST">
-            {{ csrf_field() }}
-        </form>
+          @foreach (['danger', 'warning', 'success', 'info'] as $key)
+          @if(Session::has($key))
+         <p class="alert alert-{{ $key }}"> <i class="fas fa-check-circle"></i> {{ Session::get($key) }}</p>
+          @endif
+          @endforeach
+
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
           <h1 class="h3 mb-0 text-gray-800">Users</h1>
+          <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1"> <i class="fas fa-user-plus  fa-sm text-white-50"></i> User</a> 
         </div>
+
+        <div class="row">
+            <div class="col">
+              <div class="collapse multi-collapse" id="multiCollapseExample1">
+                <div class="card card-body">
+                    <form id="addUserForm" action="/users" method="POST">
+                        {{ csrf_field() }}
+                    </form>
+                    <div class="row">
+                        <div class="col">
+                            <label for="recipient-name" class="col-form-label"><b>NAME</b></label>
+                            <input form="addUserForm" type="text" class="form-control" name="name" required>
+                        </div>
+                        <div class="col">
+                            <label for="recipient-name" class="col-form-label"><b>EMAIL</b></label>
+                            <input form="addUserForm" type="email" class="form-control" name="email" required>
+                        </div>
+                        <div class="col">
+                            <label for="recipient-name" class="col-form-label"><b>USER TYPE</b></label>
+                            <select class="form-control" form="addUserForm" name="user_type" required>
+                                <option value="">Please select one</option>
+                                <option value="admin">admin</option>
+                                <option value="billing">billing</option>
+                                <option value="manager">manager</option>
+                                <option value="treasury">treasury</option>
+                                <option value="root">root</option>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <label for="recipient-name" class="col-form-label"><b>STATUS</b></label>
+                            <select class="form-control" form="addUserForm" name="status" required>
+                                <option value="">Please select one</option>
+                                <option value="registered" selected>registered</option>
+                                <option value="unregistered">unregistered</option>
+                            </select>
+                        </div>
+                       
+                            {{-- <input form="addUserForm" type="hidden" class="form-control" name="property" value="{{ Auth::user()->property }}" required> --}}
+                       
+                    </div>
+                    <br>
+                      <p class="text-right">
+                        <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" type="submit" form="addUserForm"><i class="fas fa-check fa-sm text-white-50"></i> add</button>
+                      </p>
+
+                </div>
+              </div>
+            </div>
+        </div>
+      
+        <br>
         <?php $ctr=1; ?>
         <div class="table-responsive">
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">

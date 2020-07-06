@@ -58,15 +58,50 @@
                         </span>
                     @enderror
                 </div>
-
+                
                 <div class="form-group">
-                    <input form="registrationForm" id="property" type="text" class="form-control form-control-user @error('property') is-invalid @enderror" name="property" value="{{ old('property') }}" required autocomplete="property" placeholder="Property Name">
-  
-                       @error('property')
-                          <span class="invalid-feedback" role="alert">
-                              <strong>{{ $message }}</strong>
-                          </span>
-                      @enderror
+                  <input form="registrationForm" id="property" type="text" class="form-control form-control-user @error('property') is-invalid @enderror" name="property" value="{{ old('property') }}" required autocomplete="property" placeholder="Name of your property">
+
+                  @error('property')
+                     <span class="invalid-feedback" role="alert">
+                         <strong>{{ $message }}</strong>
+                     </span>
+                 @enderror
+
+                </div>
+
+                <div class="form-group row">
+                 
+                <div class="col-sm-6">
+                  <select form="registrationForm" id="property_ownership" type="text" class="form-control form-control-user @error('property_ownership') is-invalid @enderror" name="property_ownership" value="{{ old('property_ownership') }}" required autocomplete="property_ownership">
+                    <option value="" readonly selected>Property Ownership</option>
+                    <option value="Single Owner">Single Owner</option>
+                    <option value="Multiple Owners">Multiple Owners</option>
+                  </select>
+ 
+                     @error('property_ownership')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                    </div>
+              
+
+               <div class="col-sm-6">
+                 <select form="registrationForm" id="property_type" type="text" class="form-control form-control-user @error('property_type') is-invalid @enderror" name="property_type" value="{{ old('property_type') }}" required autocomplete="property_type">
+                   <option value="" readonly selected>Property Type</option>
+                   <option value="Dormitory">Dormitory</option>
+                   <option value="Apartment Rentals">Apartment Rentals</option>
+                   <option value="Commercial Complex">Commercial Complexs</option>
+                   <option value="Condominium Associations">Condominium Associations</option>
+                 </select>
+
+                    @error('property_type')
+                       <span class="invalid-feedback" role="alert">
+                           <strong>{{ $message }}</strong>
+                       </span>
+                   @enderror
+                   </div>
                   </div>
 
                 <div class="form-group row">

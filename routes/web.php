@@ -1353,7 +1353,8 @@ Route::get('/', function(Request $request){
     }
     
     if(Auth::user()->user_type === 'manager'){
-    
+        
+        return view('manager.dashboard');
     }
 
    
