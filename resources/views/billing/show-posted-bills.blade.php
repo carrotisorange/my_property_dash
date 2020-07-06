@@ -360,6 +360,7 @@
                     <th>DESCRIPTION</th>
                     <th>DETAILS</th>
                     <th>AMOUNT</th>
+                    <th>STATUS</th>
                 </tr>
                 <?php $ctr = 1;?> 
                 @foreach ($billings as $item)
@@ -371,6 +372,7 @@
                     <td>{{ $item->billing_desc }}</td>
                     <td>{{ $item->details }}</td>
                     <td>{{ number_format($item->billing_amt,2) }}</td>
+                    <td>{{ $item->billing_status }}</td>
                 </tr>
                 @endforeach
             </table>
