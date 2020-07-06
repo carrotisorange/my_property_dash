@@ -447,7 +447,7 @@
 
                         <div class="col">
                           <label for="">Payment Duration</label>
-                          <input form="acceptPaymentForm" class="form-control" name="or_number" placeholder="Jan 1, 2020 - Feb 1, 2020" required>
+                          <input form="acceptPaymentForm" class="form-control" name="or_number" value="{{ Carbon\Carbon::now()->startOfMonth()->format('M d') }}- {{ Carbon\Carbon::now()->endOfMonth()->format('d Y') }}" required>
                       </div>
                     </div>
                 </div>
