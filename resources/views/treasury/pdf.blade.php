@@ -26,7 +26,7 @@
             <li><b>Unit/Room:</b> {{ $unit }} </li>
           </ul>
           <p class="text-right">{{ Auth::user()->property }}</p>
-            <table class="table text-right" width="100%" cellspacing="0">
+            <table class="table text-right" width="100%" cellspacing="0" cellpadding="0">
               <tr>
                 <th>#</th>
                 <th>Description</th>

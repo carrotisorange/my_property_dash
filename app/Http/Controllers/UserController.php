@@ -54,6 +54,8 @@ class UserController extends Controller
             'status' => $request->status,
             'user_type' => $request->user_type,
             'property' => Auth::user()->property,
+            'property_type' => Auth::user()->property_type,
+            'property_ownership' => Auth::user()->property_ownership,
             'password' => Hash::make(12345678),
             'created_at' => Carbon::now(),
         ]);

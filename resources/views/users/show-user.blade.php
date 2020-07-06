@@ -76,7 +76,7 @@
       <li class="nav-item">
         <a class="nav-link" href="/owners">
           <i class="fas fa-user-tie"></i>
-          <span>Unit Owners</span></a>
+        <span>Owners</span></a>
       </li>
 
         <!-- Nav Item - Tables -->

@@ -26,107 +26,107 @@
   <div id="wrapper">
 
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+ <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-      {{-- <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
-        
-        <div class="sidebar-brand-text mx-5"> </div>
-      </a>
+    {{-- <!-- Sidebar - Brand -->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
+      
+      <div class="sidebar-brand-text mx-5"> </div>
+    </a>
 
-      <!-- Divider -->
-      <hr class="sidebar-divider my-0"> --}}
+    <!-- Divider -->
+    <hr class="sidebar-divider my-0"> --}}
 
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
-        <a class="nav-link" href="/">
-          {{-- <i class="fas fa-fw fa-tachometer-alt"></i> --}}
-          <span>The Property Manager</span></a>
-      </li>
+    <!-- Nav Item - Dashboard -->
+    <li class="nav-item active">
+      <a class="nav-link" href="/">
+         <i class="fas fa-home"></i> 
+        <span>The Property Manager</span></a>
+    </li>
 
-      <!-- Divider -->
-      <hr class="sidebar-divider">
+    <!-- Divider -->
+    <hr class="sidebar-divider">
 
-      <!-- Heading -->
-      {{-- <div class="sidebar-heading">
-        Interface
-      </div> --}}
+    {{-- <!-- Heading -->
+     <div class="sidebar-heading">
+      Interface
+    </div>  --}}
 
-       <!-- Nav Item - Pages Collapse Menu -->
-       <li class="nav-item active">
-        <a class="nav-link" href="/">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a>
-      </li>
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item active">
+      <a class="nav-link" href="/">
+        <i class="fas fa-fw fa-tachometer-alt"></i>
+        <span>Dashboard</span></a>
+    </li>
 
-      @if(Auth::user()->user_type === 'admin')
-      <li class="nav-item">
-        <a class="nav-link" href="/home">
-          <i class="fas fa-home"></i>
-          <span>Home</span></a>
-      </li>
+    @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' )
+    <li class="nav-item">
+      <a class="nav-link" href="/home">
+        <i class="fas fa-home"></i>
+        <span>Home</span></a>
+    </li>
 
-      <li class="nav-item">
-        <a class="nav-link" href="/tenants">
-          <i class="fas fa-user fa-chart-area"></i>
-          <span>Tenants</span></a>
-      </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/tenants">
+        <i class="fas fa-user fa-chart-area"></i>
+        <span>Tenants</span></a>
+    </li>
+
+   @if(Auth::user()->property_ownership === 'Multiple Owners')
+  <!-- Nav Item - Tables -->
+  <li class="nav-item">
+      <a class="nav-link" href="/owners">
+      <i class="fas fa-user-tie"></i>
+      <span>Owners</span></a>
+  </li>
+   @endif
 
       <!-- Nav Item - Tables -->
-      <li class="nav-item">
-        <a class="nav-link" href="/owners">
-          <i class="fas fa-user-tie"></i>
-          <span>Unit Owners</span></a>
+    <li class="nav-item">
+        <a class="nav-link" href="/joborders">
+          <i class="fas fa-tools fa-table"></i>
+          <span>Job Orders</span></a>
       </li>
+    @endif
 
-        <!-- Nav Item - Tables -->
+     @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'manager')
+      <!-- Nav Item - Tables -->
       <li class="nav-item">
-          <a class="nav-link" href="/joborders">
-            <i class="fas fa-tools fa-table"></i>
-            <span>Job Orders</span></a>
-        </li>
-      @endif
+        <a class="nav-link" href="/bills">
+          <i class="fas fa-file-invoice-dollar fa-table"></i>
+          <span>Bills</span></a>
+      </li>
+     @endif
 
-       @if(Auth::user()->user_type === 'billing')
-        <!-- Nav Item - Tables -->
+     @if(Auth::user()->user_type === 'treasury' || Auth::user()->user_type === 'manager')
         <li class="nav-item">
-          <a class="nav-link" href="/billing-and-collection">
-            <i class="fas fa-file-invoice-dollar fa-table"></i>
-            <span></span></a>
-        </li>
-       @endif
-
-       @if(Auth::user()->user_type === 'treasury')
-          <li class="nav-item">
-          <a class="nav-link" href="/payments">
-            <i class="fas fa-file-invoice-dollar"></i>
-            <span>Payments</span></a>
-        </li>
-
-        @endif
-
-      @if(Auth::user()->user_type === 'manager')
-       <!-- Nav Item - Tables -->
-       <li class="nav-item">
-        <a class="nav-link" href="/users">
-          <i class="fas fa-user-secret fa-table"></i>
-          <span>Users</span></a>
+        <a class="nav-link" href="/collections">
+          <i class="fas fa-file-invoice-dollar"></i>
+          <span>Collections</span></a>
       </li>
+
       @endif
-      
 
-          
+    @if(Auth::user()->user_type === 'manager')
+     <!-- Nav Item - Tables -->
+     <li class="nav-item">
+      <a class="nav-link" href="/users">
+        <i class="fas fa-user-secret fa-table"></i>
+        <span>Users</span></a>
+    </li>
+    @endif
+    
 
-      <!-- Divider -->
-      <hr class="sidebar-divider d-none d-md-block">
+    <!-- Divider -->
+    <hr class="sidebar-divider d-none d-md-block">
 
-      <!-- Sidebar Toggler (Sidebar) -->
-      <div class="text-center d-none d-md-inline">
-        <button class="rounded-circle border-0" id="sidebarToggle"></button>
-      </div>
+    <!-- Sidebar Toggler (Sidebar) -->
+    <div class="text-center d-none d-md-inline">
+      <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
 
-    </ul>
-    <!-- End of Sidebar -->
+  </ul>
+  <!-- End of Sidebar -->
 
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
@@ -318,12 +318,351 @@
         </nav>
         <!-- End of Topbar -->
         <div class="container-fluid">
-   
-           
+            
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                  <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+                  {{-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> --}}
+                </div>
+      
+                <!-- Content Row -->
+                <div class="row">
+      
+                  <!-- Earnings (Monthly) Card Example -->
+                  <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-primary shadow h-100 py-2">
+                      <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                          <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">UNITS/ROOMS </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $units->count() }}</div>
+                            
+                            <small>O ({{ $units_occupied->count() }})</small>
+                            <small>V ({{ $units_vacant->count() }})</small>
+                            <small>R ({{ $units_reserved->count() }})</small>
+                            
+                          </div>
+                          <div class="col-auto">
+                              <i class="fas fa-home fa-2x text-gray-300"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+      
+                  <!-- Earnings (Monthly) Card Example -->
+                  <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-success shadow h-100 py-2">
+                      <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                          <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">ACTIVE TENANTS </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $active_tenants->count() }}</div>
+                            <small>P ({{ $pending_tenants->count() }})</small>
+                            
+                          </div>
+                          <div class="col-auto">
+                            <i class="fas fa-user-check fa-2x text-gray-300"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+      
+                  <!-- Earnings (Monthly) Card Example -->
+                  <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-warning shadow h-100 py-2">
+                      <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                          <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">UNIT OWNERS </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $owners->count() }}</div>
+                            <small>|</small>
+                            
+                          </div>
+                          <div class="col-auto">
+                            <i class="fas fa-user-tie fa-2x text-gray-300"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+      
+                  <!-- Pending Requests Card Example -->
+                  <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-danger shadow h-100 py-2">
+                      <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                          <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">PENDING JOB ORDERS</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+                            <small>|</small>
+                          </div>
+                          <div class="col-auto">
+                            <i class="fas fa-tools fa-2x text-gray-300"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+      
+                <!-- Content Row -->
+      
+                <div class="row">
+      
+                  <!-- Area Chart -->
+                  <div class="col-xl-8 col-lg-7">
+                    <div class="card shadow mb-4">
+                      <!-- Card Header - Dropdown -->
+                      <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary">OCCUPANCY RATE</h6>
+                        <div class="dropdown no-arrow">
+                          <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                          </a>
+                          {{-- <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                            <div class="dropdown-header">Dropdown Header:</div>
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                          </div> --}}
+                        </div>
+                      </div>
+                      <!-- Card Body -->
+                      <div class="card-body">
+                       
+                          {!! $movein_rate->container() !!}
+                        
+                      </div>
+                    </div>
+                  </div>
+      
+                  <!-- Pie Chart -->
+                  <div class="col-xl-4 col-lg-5">
+                    <div class="card shadow mb-3">
+                      <!-- Card Header - Dropdown -->
+                      <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary">RETENTION RATE</h6>
+                        <div class="dropdown no-arrow">
+                          <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                          </a>
+                          {{-- <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                            <div class="dropdown-header">Dropdown Header:</div>
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                          </div> --}}
+                        </div>
+                      </div>
+                      <!-- Card Body -->
+                      <div class="card-body">
+                        
+                          {!! $renewed_chart->container() !!}
+                        
+                        {{-- <div class="mt-4 text-center small">
+                          <span class="mr-2">
+                            <i class="fas fa-circle text-primary"></i> Direct
+                          </span>
+                          <span class="mr-2">
+                            <i class="fas fa-circle text-success"></i> Social
+                          </span>
+                          <span class="mr-2">
+                            <i class="fas fa-circle text-info"></i> Referral
+                          </span>
+                        </div> --}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
-      </div>
-        
-       
+                <!-- Content Row -->
+      
+                <div class="row">
+      
+                  <!-- Area Chart -->
+                  <div class="col-xl-6 col-lg-7">
+                    <div class="card shadow mb-4">
+                      <!-- Card Header - Dropdown -->
+                      <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary">TOTAL COLLECTION</h6>
+                        <div class="dropdown no-arrow">
+                          <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                          </a>
+                          {{-- <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                            <div class="dropdown-header">Dropdown Header:</div>
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                          </div> --}}
+                        </div>
+                      </div>
+                      <!-- Card Body -->
+                      <div class="card-body">
+                       
+                          {!! $collection_rate->container() !!}
+                        
+                      </div>
+                    </div>
+                  </div>
+      
+                  <!-- Pie Chart -->
+                  <div class="col-xl-6 col-lg-5">
+                    <div class="card shadow mb-3">
+                      <!-- Card Header - Dropdown -->
+                      <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary">DELINQUENTS</h6>
+                        <div class="dropdown no-arrow">
+                          <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                          </a>
+                          {{-- <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                            <div class="dropdown-header">Dropdown Header:</div>
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                          </div> --}}
+                        </div>
+                      </div>
+                      <!-- Card Body -->
+                      <div class="card-body">
+                        <div class="table-responsive">
+                          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                              <tr>
+                                <th>TENANT</th>
+                                <th>UNIT/ROOM</th>
+                                <th>AMOUNT</th>
+                               
+                            </tr>
+                            </thead>
+                            <tbody>
+                              @foreach($delinquent_accounts as $item)
+                              <tr>
+                                <td><a href="{{ route('show-tenant',['unit_id' => $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a></td>
+                                <td>{{ $item->building.' '.$item->unit_no }}</td>
+                                <td>{{ number_format($item->total_bills,2) }}</td>
+                              </tr>
+                              @endforeach
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+      
+                <!-- Content Row -->
+                <div class="row">
+      
+                  <!-- Content Column -->
+                  <div class="col-lg-12 mb-4">
+               <!-- DataTales Example -->
+               <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">TENANTS TO WATCH OUT</h6>
+                    <?php $ctr = 1; ?>
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                      <thead>
+                        <tr>
+                          <th class="text-center">#</th>
+                          <th>TENANT</th>
+                          <th>CONTACT</th>
+                          <th>UNIT/ROOM </th>
+                          <th colspan="3"></th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                        @foreach($tenants_to_watch_out as $item)
+                        <?php
+                                 $diffInMonths =  number_format(Carbon\Carbon::now()->floatDiffInMonths(Carbon\Carbon::parse($item->moveout_date), false));
+                                 $diffInDays =  number_format(Carbon\Carbon::now()->DiffInDays(Carbon\Carbon::parse($item->moveout_date), false));
+                         ?>
+                         @if($diffInDays <= 30 )
+                         <tr>
+                             <th class="text-center">{{ $ctr++ }}</th>
+                             <td>
+          
+                                 <a href="{{ route('show-tenant',['unit_id' => $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a>
+                               
+                                
+                             </td>
+                             <td>{{ $item->contact_no }}</td>
+                             <td>{{ $item->building.' '.$item->unit_no }}</td>
+                             <td colspan="2">
+                                 @if($diffInDays <= -1)
+                                 <span class="badge badge-danger">contract has lapsed {{ $diffInDays*-1 }} days ago</span>
+                                  @else
+                                 <span class="badge badge-warning">contract expires in {{ $diffInDays }} days </span>
+                                  @endif
+                             </td>
+                             <td>{{ $item->tenants_note  }}</td>
+                        </tr>
+                         @endif
+                        @endforeach
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+      
+                  </div>
+      
+                  <div class="col-lg-6 mb-4">
+      
+                    <!-- Illustrations -->
+                    <div class="card shadow mb-4">
+                      <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">FREQUENCY OF MOVEOUT</h6>
+                      </div>
+                      <div class="card-body">
+                          {!! $moveout_rate->container() !!}
+                      </div>
+                    </div>
+      
+                  
+      
+                  </div>
+      
+                  <div class="col-lg-6 mb-4">
+      
+                    <!-- Illustrations -->
+                    <div class="card shadow mb-4">
+                      <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">REASON FOR MOVING-OUT</h6>
+                      </div>
+                      <div class="card-body">
+                        
+                        {!! $reason_for_moving_out_chart->container() !!}
+                      
+                      {{-- <div class="mt-4 text-center small">
+                        <span class="mr-2">
+                          <i class="fas fa-circle text-primary"></i> Direct
+                        </span>
+                        <span class="mr-2">
+                          <i class="fas fa-circle text-success"></i> Social
+                        </span>
+                        <span class="mr-2">
+                          <i class="fas fa-circle text-info"></i> Referral
+                        </span>
+                      </div> --}}
+                    </div>
+                    </div>
+      
+                  </div>
+                </div>
+              
+            <!-- Page Heading -->
+         
+        </div>
       </div>
       <!-- End of Main Content -->
 
@@ -391,6 +730,11 @@
   <script src="{{ asset('/dashboard/js/demo/chart-area-demo.js') }}"></script>
   <script src="{{ asset('/dashboard/js/demo/chart-pie-demo.js') }}"></script>
 
+{!! $movein_rate->script() !!}
+{!! $renewed_chart->script() !!}
+{!! $moveout_rate->script() !!}
+{!! $collection_rate->script() !!}
+{!! $reason_for_moving_out_chart->script() !!}
 </body>
 
 </html>

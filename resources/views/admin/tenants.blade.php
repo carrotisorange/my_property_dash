@@ -59,7 +59,7 @@
           <span>Dashboard</span></a>
       </li>
 
-      @if(Auth::user()->user_type === 'admin')
+      @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' )
       <li class="nav-item">
         <a class="nav-link" href="/home">
           <i class="fas fa-home"></i>
@@ -76,7 +76,7 @@
       <li class="nav-item">
         <a class="nav-link" href="/owners">
           <i class="fas fa-user-tie"></i>
-          <span>Unit Owners</span></a>
+          <span>Owners</span></a>
       </li>
 
         <!-- Nav Item - Tables -->
@@ -87,30 +87,21 @@
         </li>
       @endif
 
-       @if(Auth::user()->user_type === 'billing')
+       @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'manager')
         <!-- Nav Item - Tables -->
         <li class="nav-item">
           <a class="nav-link" href="/billing-and-collection">
             <i class="fas fa-file-invoice-dollar fa-table"></i>
-            <span>Billing and collection</span></a>
+            <span>Billings</span></a>
         </li>
        @endif
 
-       @if(Auth::user()->user_type === 'treasury')
-
-       <li class="nav-item active">
-        <a class="nav-link" href="/tenants/search">
-          <i class="fas fa-user"></i>
-          <span>Tenants</span></a>
-      </li>
-      
+       @if(Auth::user()->user_type === 'treasury' || Auth::user()->user_type === 'manager')
           <li class="nav-item">
           <a class="nav-link" href="/payments">
             <i class="fas fa-file-invoice-dollar"></i>
             <span>Payments</span></a>
         </li>
-
-        
 
         @endif
 
@@ -123,7 +114,6 @@
       </li>
       @endif
       
-
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
 

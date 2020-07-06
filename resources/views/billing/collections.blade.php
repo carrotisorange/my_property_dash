@@ -26,63 +26,107 @@
   <div id="wrapper">
 
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+ <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-      {{-- <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
-        
-        <div class="sidebar-brand-text mx-5"> </div>
-      </a>
+    {{-- <!-- Sidebar - Brand -->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
+      
+      <div class="sidebar-brand-text mx-5"> </div>
+    </a>
 
-      <!-- Divider -->
-      <hr class="sidebar-divider my-0"> --}}
+    <!-- Divider -->
+    <hr class="sidebar-divider my-0"> --}}
 
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
-        <a class="nav-link" href="/">
-          {{-- <i class="fas fa-fw fa-tachometer-alt"></i> --}}
-          <span>The Property Manager</span></a>
+    <!-- Nav Item - Dashboard -->
+    <li class="nav-item active">
+      <a class="nav-link" href="/">
+         <i class="fas fa-home"></i> 
+        <span>The Property Manager</span></a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    {{-- <!-- Heading -->
+     <div class="sidebar-heading">
+      Interface
+    </div>  --}}
+
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item">
+      <a class="nav-link" href="/">
+        <i class="fas fa-fw fa-tachometer-alt"></i>
+        <span>Dashboard</span></a>
+    </li>
+
+    @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' )
+    <li class="nav-item">
+      <a class="nav-link" href="/home">
+        <i class="fas fa-home"></i>
+        <span>Home</span></a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link" href="/tenants">
+        <i class="fas fa-user fa-chart-area"></i>
+        <span>Tenants</span></a>
+    </li>
+
+   @if(Auth::user()->property_ownership === 'Multiple Owners')
+  <!-- Nav Item - Tables -->
+  <li class="nav-item">
+      <a class="nav-link" href="/owners">
+      <i class="fas fa-user-tie"></i>
+      <span>Owners</span></a>
+  </li>
+   @endif
+
+      <!-- Nav Item - Tables -->
+    <li class="nav-item">
+        <a class="nav-link" href="/joborders">
+          <i class="fas fa-tools fa-table"></i>
+          <span>Job Orders</span></a>
       </li>
+    @endif
 
-      <!-- Divider -->
-      <hr class="sidebar-divider">
-
-      <!-- Heading -->
-      {{-- <div class="sidebar-heading">
-        Interface
-      </div> --}}
-
-   <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item">
-        <a class="nav-link" href="/">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a>
-      </li>
-
+     @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'manager')
+      <!-- Nav Item - Tables -->
       <li class="nav-item">
         <a class="nav-link" href="/bills">
-          <i class="fas fa-file-invoice-dollar"></i>
+          <i class="fas fa-file-invoice-dollar fa-table"></i>
           <span>Bills</span></a>
       </li>
+     @endif
 
-      <li class="nav-item active">
+     @if(Auth::user()->user_type === 'treasury' || Auth::user()->user_type === 'manager')
+        <li class="nav-item active">
         <a class="nav-link" href="/collections">
-          <i class="fas fa-coins"></i>
+          <i class="fas fa-file-invoice-dollar"></i>
           <span>Collections</span></a>
       </li>
 
-          
+      @endif
 
-      <!-- Divider -->
-      <hr class="sidebar-divider d-none d-md-block">
+    @if(Auth::user()->user_type === 'manager')
+     <!-- Nav Item - Tables -->
+     <li class="nav-item">
+      <a class="nav-link" href="/users">
+        <i class="fas fa-user-secret fa-table"></i>
+        <span>Users</span></a>
+    </li>
+    @endif
+    
 
-      <!-- Sidebar Toggler (Sidebar) -->
-      <div class="text-center d-none d-md-inline">
-        <button class="rounded-circle border-0" id="sidebarToggle"></button>
-      </div>
+    <!-- Divider -->
+    <hr class="sidebar-divider d-none d-md-block">
 
-    </ul>
-    <!-- End of Sidebar -->
+    <!-- Sidebar Toggler (Sidebar) -->
+    <div class="text-center d-none d-md-inline">
+      <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
+
+  </ul>
+  <!-- End of Sidebar -->
 
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
@@ -283,23 +327,27 @@
                   <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <tr>
                             <th class="text-center">#</th>
-                            <th>DATE</th>
+                            <th>DATE PAID</th>
                             <th>NAME</th>
                             <th>UNIT/ROOM</th>
-                            
                             <th>DESCRIPTION</th>
                             <th>AMOUNT</th>
+                            <th></th>
                         </tr>
                         <?php $ctr = 1; ?> 
                         @foreach ($collections as $item)
                         <tr>
                             <th class="text-center">{{ $ctr++ }}</th>
+                            <td>{{ Carbon\Carbon::parse($item->payment_created)->format('M d Y') }}</td>
                             <td>{{ $item->first_name.' '.$item->last_name }}</td>
                             <td>{{ $item->building.' '.$item->unit_no }}</td>
-                            <td>{{ Carbon\Carbon::parse($item->payment_created)->format('M d Y') }}</td>
-                            
                             <td>{{ $item->payment_note }}</td>
-                            <td>{{ number_format($item->amt_paid,2) }}</td>
+                            <td>{{ number_format($item->total,2) }}</td>
+                            <td>
+                              <a title="export pdf" target="_blank" href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/payments/{{ $item->payment_id }}/dates/{{$item->payment_created}}/export" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i></a>
+                              {{-- <a target="_blank" href="#" title="print invoice" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-print fa-sm text-white-50"></i></a> 
+                              --}}
+                            </td>
                             {{-- <td>
                                 <form action="/payments/{{ $item->payment_id }}" method="POST">
                                     @method('delete')

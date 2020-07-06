@@ -40,79 +40,81 @@
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
         <a class="nav-link" href="/">
-          {{-- <i class="fas fa-fw fa-tachometer-alt"></i> --}}
+           <i class="fas fa-home"></i> 
           <span>The Property Manager</span></a>
       </li>
 
       <!-- Divider -->
       <hr class="sidebar-divider">
 
-      <!-- Heading -->
-      {{-- <div class="sidebar-heading">
+      {{-- <!-- Heading -->
+       <div class="sidebar-heading">
         Interface
-      </div> --}}
+      </div>  --}}
 
-     <!-- Nav Item - Pages Collapse Menu -->
-     <li class="nav-item">
-      <a class="nav-link" href="/">
-        <i class="fas fa-fw fa-tachometer-alt"></i>
-        <span>Dashboard</span></a>
-    </li>
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link" href="/">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Dashboard</span></a>
+      </li>
 
-    @if(Auth::user()->user_type === 'admin')
-    <li class="nav-item active">
-      <a class="nav-link" href="/home">
-        <i class="fas fa-home"></i>
-        <span>Home</span></a>
-    </li>
+      @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' )
+      <li class="nav-item active">
+        <a class="nav-link" href="/home">
+          <i class="fas fa-home"></i>
+          <span>Home</span></a>
+      </li>
 
-    <li class="nav-item">
-      <a class="nav-link" href="/tenants">
-        <i class="fas fa-user fa-chart-area"></i>
-        <span>Tenants</span></a>
-    </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/tenants">
+          <i class="fas fa-user fa-chart-area"></i>
+          <span>Tenants</span></a>
+      </li>
 
+     @if(Auth::user()->property_ownership === 'Multiple Owners')
     <!-- Nav Item - Tables -->
     <li class="nav-item">
-      <a class="nav-link" href="/owners">
+        <a class="nav-link" href="/owners">
         <i class="fas fa-user-tie"></i>
-        <span>Unit Owners</span></a>
+        <span>Owners</span></a>
     </li>
-
-      <!-- Nav Item - Tables -->
-    <li class="nav-item">
-        <a class="nav-link" href="/joborders">
-          <i class="fas fa-tools fa-table"></i>
-          <span>Job Orders</span></a>
-      </li>
-    @endif
-
-     @if(Auth::user()->user_type === 'billing')
-      <!-- Nav Item - Tables -->
-      <li class="nav-item">
-        <a class="nav-link" href="/billing-and-collection">
-          <i class="fas fa-file-invoice-dollar fa-table"></i>
-          <span>Billing and collection</span></a>
-      </li>
      @endif
 
-     @if(Auth::user()->user_type === 'treasury')
-        <li class="nav-item">
-        <a class="nav-link" href="/payments">
-          <i class="fas fa-file-invoice-dollar"></i>
-          <span>Payments</span></a>
-      </li>
-
+        <!-- Nav Item - Tables -->
+      <li class="nav-item">
+          <a class="nav-link" href="/joborders">
+            <i class="fas fa-tools fa-table"></i>
+            <span>Job Orders</span></a>
+        </li>
       @endif
 
-    @if(Auth::user()->user_type === 'manager')
-     <!-- Nav Item - Tables -->
-     <li class="nav-item">
-      <a class="nav-link" href="/users">
-        <i class="fas fa-user-secret fa-table"></i>
-        <span>Users</span></a>
-    </li>
-    @endif
+       @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'manager')
+        <!-- Nav Item - Tables -->
+        <li class="nav-item">
+          <a class="nav-link" href="/billing-and-collection">
+            <i class="fas fa-file-invoice-dollar fa-table"></i>
+            <span>Bills</span></a>
+        </li>
+       @endif
+
+       @if(Auth::user()->user_type === 'treasury' || Auth::user()->user_type === 'manager')
+          <li class="nav-item">
+          <a class="nav-link" href="/payments">
+            <i class="fas fa-file-invoice-dollar"></i>
+            <span>Collections</span></a>
+        </li>
+
+        @endif
+
+      @if(Auth::user()->user_type === 'manager')
+       <!-- Nav Item - Tables -->
+       <li class="nav-item">
+        <a class="nav-link" href="/users">
+          <i class="fas fa-user-secret fa-table"></i>
+          <span>Users</span></a>
+      </li>
+      @endif
       
 
       <!-- Divider -->
@@ -316,7 +318,12 @@
         </nav>
         <!-- End of Topbar -->
         <div class="container-fluid">
-
+          @foreach (['danger', 'warning', 'success', 'info'] as $key)
+          @if(Session::has($key))
+         <p class="alert alert-{{ $key }}"> <i class="fas fa-check-circle"></i> {{ Session::get($key) }}</p>
+          @endif
+          @endforeach
+          
                  <div class="d-sm-flex align-items-center justify-content-between mb-4">
                   <h1 class="h3 mb-0 text-gray-800">Home</h1>
                   <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addMultipleUnits" data-whatever="@mdo"><i class="fas fa-plus fa-sm text-white-50"></i> Add Multiple Units/Rooms</a>
@@ -584,7 +591,7 @@
           </div>
 
           <div class="form-group">
-              <label for="recipient-name" class="col-form-label">ENTER THE INITIAL NAME OF THE UNTIS/ROOMS </label>
+              <label for="recipient-name" class="col-form-label">ENTER THE INITIAL NAME OF THE UNITS/ROOMS </label>
               <input form="addUMultipleUnitForm" type="text" class="form-control" name="unit_no" id="unit_no" required>
           </div>
 

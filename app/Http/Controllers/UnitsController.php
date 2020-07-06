@@ -92,10 +92,7 @@ class UnitsController extends Controller
      */
     public function show(Request $request, $unit_id)
     {
-        if(Auth::user()->status === 'unregistered'|| auth()->user()->user_type !== 'admin'){
-            return view('unregistered');
-        }
-        
+        if(Auth::user()->status === 'registered'|| auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager'){
             $property = explode(",", Auth::user()->property);
             if(count($property) > 1){
                 $unit = Unit::whereIn('unit_property', [$property[0],$property[1]])->findOrFail($unit_id);
@@ -139,6 +136,11 @@ class UnitsController extends Controller
                 ->get('building', 'count');
              }
                 return view('admin.show-unit',compact('unit', 'unit_owner', 'tenant_active', 'tenant_inactive', 'tenant_reservations','units_per_building'));
+        }else{
+                return view('unregistered');
+        }
+        
+            
         
         
     }
@@ -157,7 +159,7 @@ class UnitsController extends Controller
             'created_at'=> Carbon::now(),
         ]);
 
-        return redirect('/units/'.$id)->with('success', '1 room/unit has been created!');
+        return redirect('/units/'.$id)->with('success', '1 room/unit has been added to the record!');
     }
 
     public function add_multiple_rooms(Request $request){
@@ -176,7 +178,7 @@ class UnitsController extends Controller
          ]);
         }
  
-         return back()->with('success', $request->no_of_rooms.' rooms/units have been created!');
+         return back()->with('success', $request->no_of_rooms.' rooms/units have been added to the record!');
      }
 
 

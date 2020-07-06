@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Posted Bills</title>
+  <title>Bills</title>
 
   <!-- Custom fonts for this template-->
   <link href="{{ asset('dashboard/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -25,62 +25,108 @@
   <!-- Page Wrapper -->
   <div id="wrapper">
 
-    <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+     <!-- Sidebar -->
+ <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-      {{-- <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
-        
-        <div class="sidebar-brand-text mx-5"> </div>
-      </a>
+    {{-- <!-- Sidebar - Brand -->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
+      
+      <div class="sidebar-brand-text mx-5"> </div>
+    </a>
 
-      <!-- Divider -->
-      <hr class="sidebar-divider my-0"> --}}
+    <!-- Divider -->
+    <hr class="sidebar-divider my-0"> --}}
 
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
-        <a class="nav-link" href="/">
-          {{-- <i class="fas fa-fw fa-tachometer-alt"></i> --}}
-          <span>The Property Manager</span></a>
+    <!-- Nav Item - Dashboard -->
+    <li class="nav-item active">
+      <a class="nav-link" href="/">
+         <i class="fas fa-home"></i> 
+        <span>The Property Manager</span></a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    {{-- <!-- Heading -->
+     <div class="sidebar-heading">
+      Interface
+    </div>  --}}
+
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item">
+      <a class="nav-link" href="/">
+        <i class="fas fa-fw fa-tachometer-alt"></i>
+        <span>Dashboard</span></a>
+    </li>
+
+    @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' )
+    <li class="nav-item">
+      <a class="nav-link" href="/home">
+        <i class="fas fa-home"></i>
+        <span>Home</span></a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link" href="/tenants">
+        <i class="fas fa-user fa-chart-area"></i>
+        <span>Tenants</span></a>
+    </li>
+
+   @if(Auth::user()->property_ownership === 'Multiple Owners')
+  <!-- Nav Item - Tables -->
+  <li class="nav-item">
+      <a class="nav-link" href="/owners">
+      <i class="fas fa-user-tie"></i>
+      <span>Owners</span></a>
+  </li>
+   @endif
+
+      <!-- Nav Item - Tables -->
+    <li class="nav-item">
+        <a class="nav-link" href="/joborders">
+          <i class="fas fa-tools fa-table"></i>
+          <span>Job Orders</span></a>
       </li>
+    @endif
 
-      <!-- Divider -->
-      <hr class="sidebar-divider">
-
-      <!-- Heading -->
-      {{-- <div class="sidebar-heading">
-        Interface
-      </div> --}}
-
- <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item">
-        <a class="nav-link" href="/">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a>
-      </li>
-
+     @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'manager')
+      <!-- Nav Item - Tables -->
       <li class="nav-item active">
         <a class="nav-link" href="/bills">
           <i class="fas fa-file-invoice-dollar fa-table"></i>
           <span>Bills</span></a>
       </li>
+     @endif
 
-      <li class="nav-item">
+     @if(Auth::user()->user_type === 'treasury' || Auth::user()->user_type === 'manager')
+        <li class="nav-item">
         <a class="nav-link" href="/collections">
-          <i class="fas fa-coins"></i>
+          <i class="fas fa-file-invoice-dollar"></i>
           <span>Collections</span></a>
       </li>
-      
-      <!-- Divider -->
-      <hr class="sidebar-divider d-none d-md-block">
 
-      <!-- Sidebar Toggler (Sidebar) -->
-      <div class="text-center d-none d-md-inline">
-        <button class="rounded-circle border-0" id="sidebarToggle"></button>
-      </div>
+      @endif
 
-    </ul>
-    <!-- End of Sidebar -->
+    @if(Auth::user()->user_type === 'manager')
+     <!-- Nav Item - Tables -->
+     <li class="nav-item">
+      <a class="nav-link" href="/users">
+        <i class="fas fa-user-secret fa-table"></i>
+        <span>Users</span></a>
+    </li>
+    @endif
+    
+
+    <!-- Divider -->
+    <hr class="sidebar-divider d-none d-md-block">
+
+    <!-- Sidebar Toggler (Sidebar) -->
+    <div class="text-center d-none d-md-inline">
+      <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
+
+  </ul>
+  <!-- End of Sidebar -->
 
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
@@ -275,7 +321,33 @@
 
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Bills</h1>
-            {{-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> --}}
+            <div class="dropdown show">
+              <br>
+              <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-plus fa-sm text-white-50"></i> Post bills</a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <button type="submit" form="billingRentForm" class="dropdown-item "> Rent</button>
+                <input type="hidden" form="billingRentForm" name="billing_option" value="rent">
+                <button type="submit" form="billingElectricForm" class="dropdown-item"> Electric</button>
+                <input type="hidden" form="billingElectricForm" name="billing_option" value="electric">
+                <button type="submit" form="billingWaterForm" class="dropdown-item "> Water</button>
+                <input type="hidden" form="billingWaterForm" name="billing_option" value="water">
+                <button type="submit" form="billingSurchargeForm" class="dropdown-item ">Surcharge</button>
+                <input type="hidden" form="billingSurchargeForm" name="billing_option" value="surcharge">
+
+              <form id="billingRentForm" action="/tenants/billings" method="POST">
+                @csrf
+              </form>
+              <form id="billingElectricForm" action="/tenants/billings" method="POST">
+                  @csrf
+              </form>
+              <form id="billingWaterForm" action="/tenants/billings" method="POST">
+                  @csrf
+              </form>
+              <form id="billingSurchargeForm" action="/tenants/billings" method="POST">
+                  @csrf
+              </form>
+              </div>
+            </div>
           </div>
         <!-- 404 Error Text -->
         <div class="table-responsive">
@@ -293,7 +365,6 @@
                 @foreach ($billings as $item)
                 <tr>
                     <th class="text-center">{{ $ctr++ }}</th>
-                    
                     <td>{{ Carbon\Carbon::parse($item->billing_date)->format('M d Y') }}</td>
                     <td>{{ $item->first_name.' '.$item->last_name }}</td>
                     <td>{{ $item->building.' '.$item->unit_no }}</td>

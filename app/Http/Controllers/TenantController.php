@@ -282,7 +282,7 @@ class TenantController extends Controller
         $request->session()->forget(Auth::user()->property.'years_of_employment');
         $request->session()->forget(Auth::user()->property.'employer_contact_no');
 
-        return redirect('/units/'.session(Auth::user()->property.'unit_id').'/tenants/'.$tenant_id)->with('success', 'Tenant has been added to the record!');
+        return redirect('/units/'.session(Auth::user()->property.'unit_id').'/tenants/'.$tenant_id)->with('success', 'New tenant has been added to the record!');
     }
 
     /**
@@ -293,24 +293,24 @@ class TenantController extends Controller
      */
     public function show($unit_id, $tenant_id)
     {
-        if(Auth::user()->status === 'unregistered'|| auth()->user()->user_type !== 'admin'){
-            return view('unregistered');
+        if(Auth::user()->status === 'registered'|| auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager'){
+            $tenant = Tenant::findOrFail($tenant_id);
+
+            $payments = DB::table('payments')->where('payment_tenant_id', $tenant_id)->get();
+    
+            $security_deposits = DB::table('payments')->where('payment_tenant_id', $tenant_id)->wherein('payment_note',['Security Deposit (Rent)', 'Security Deposit (Utilities)'])->get();
+    
+            $billings = DB::table('billings')->where('billing_tenant_id', $tenant_id)->where('billing_status', 'unpaid')->get();
+    
+            $overall_payments = DB::table('payments')->where('payment_tenant_id', $tenant_id)->sum('amt_paid');
+            $overall_bills = DB::table('billings')->where('billing_tenant_id', $tenant_id)->sum('billing_amt');
+    
+            $pending_balance = $overall_bills - $overall_payments;
+            
+                return view('admin.show-tenant', compact('tenant', 'billings', 'payments', 'pending_balance','security_deposits'));  
+        }else{
+                return view('unregistered');
         }
-
-        $tenant = Tenant::findOrFail($tenant_id);
-
-        $payments = DB::table('payments')->where('payment_tenant_id', $tenant_id)->get();
-
-        $security_deposits = DB::table('payments')->where('payment_tenant_id', $tenant_id)->wherein('payment_note',['Security Deposit (Rent)', 'Security Deposit (Utilities)'])->get();
-
-        $billings = DB::table('billings')->where('billing_tenant_id', $tenant_id)->where('billing_status', 'unpaid')->get();
-
-        $overall_payments = DB::table('payments')->where('payment_tenant_id', $tenant_id)->sum('amt_paid');
-        $overall_bills = DB::table('billings')->where('billing_tenant_id', $tenant_id)->sum('billing_amt');
-
-        $pending_balance = $overall_bills - $overall_payments;
-        
-            return view('admin.show-tenant', compact('tenant', 'billings', 'payments', 'pending_balance','security_deposits'));  
     }
 
     public function show_billings($unit_id, $tenant_id){
@@ -428,7 +428,7 @@ class TenantController extends Controller
 
                 'tenants_note' => $request->tenants_note,
         ]);
-       return redirect('/units/'.$unit_id.'/tenants/'.$tenant_id)->with('success','Tenant has been successfully updated!');
+       return redirect('/units/'.$unit_id.'/tenants/'.$tenant_id)->with('success','Tenant information has been updated!');
     }
 
     public function moveout(Request $request, $tenant_id){        
@@ -657,33 +657,37 @@ class TenantController extends Controller
         }
     }
         
-        return redirect('/tenants/posted-bills')->with('success', ($i-1). ' Bills has been successfully posted!');
+        return redirect('/bills')->with('success', ($i-1). ' Bills has been posted!');
     }
 
     public function show_posted_bills(){
 
         $property = explode(",", Auth::user()->property);
 
-        if(count($property) > 1){
-            $billings = DB::table('units')
-            ->join('tenants', 'unit_id', 'unit_tenant_id')
-            ->join('billings', 'tenant_id', 'billing_tenant_id')
-            ->whereIn('unit_property', [$property[0],$property[1]])
-         
-            ->orderBy('billing_date', 'desc')
-            ->get();
-         }else{
-            $billings = DB::table('units')
-            ->join('tenants', 'unit_id', 'unit_tenant_id')
-            ->join('billings', 'tenant_id', 'billing_tenant_id')
-            ->where('unit_property', $property[0])
-            
-            ->orderBy('billing_date', 'desc')
-            ->get();
-         }
-       
+        if(auth()->user()->status === 'registered' || auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager'){
+            if(count($property) > 1){
+                $billings = DB::table('units')
+                ->join('tenants', 'unit_id', 'unit_tenant_id')
+                ->join('billings', 'tenant_id', 'billing_tenant_id')
+                ->whereIn('unit_property', [$property[0],$property[1]])
+             
+                ->orderBy('billing_date', 'desc')
+                ->get();
+             }else{
+                $billings = DB::table('units')
+                ->join('tenants', 'unit_id', 'unit_tenant_id')
+                ->join('billings', 'tenant_id', 'billing_tenant_id')
+                ->where('unit_property', $property[0])
+                
+                ->orderBy('billing_date', 'desc')
+                ->get();
+             }    
+            return view('billing.show-posted-bills', compact('billings'));
+        }else{
+            return view('unregistered');
+        }
 
-        return view('billing.show-posted-bills', compact('billings'));
+      
     }
 
     /**
