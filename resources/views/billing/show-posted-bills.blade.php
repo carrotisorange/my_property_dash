@@ -372,7 +372,13 @@
                     <td>{{ $item->billing_desc }}</td>
                     <td>{{ $item->details }}</td>
                     <td>{{ number_format($item->billing_amt,2) }}</td>
-                    <td>{{ $item->billing_status }}</td>
+                    <td>
+                      @if($item->billing_status === 'paid')
+                      <span class="badge badge-success">{{ $item->billing_status }}</span>
+                       @else
+                      <span class="badge badge-danger">{{ $item->billing_status }} </span>
+                       @endif
+                      </td>
                 </tr>
                 @endforeach
             </table>
