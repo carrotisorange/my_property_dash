@@ -66,9 +66,9 @@
       </li>
       
       <li class="nav-item">
-        <a class="nav-link" href="/payments">
+        <a class="nav-link" href="/collections">
           <i class="fas fa-file-invoice-dollar"></i>
-          <span>Payments</span></a>
+          <span>Collections</span></a>
       </li>
           
 
