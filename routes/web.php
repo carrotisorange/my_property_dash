@@ -1310,9 +1310,10 @@ Route::get('/', function(Request $request){
         // ->whereIn('billing_desc', ['Monthly Rent', 'Surcharge'])
         ->where('billing_status', 'unpaid')
         ->where('billing_date', '<', Carbon::now()->addDays(7))
+        ->where('total_bills','>', 1)
         ->groupBy('tenant_id')
         ->orderBy('total_bills', 'desc')
-        ->where('total_bills','>', 0)
+        
         ->get();
     }
         return view('billing.dashboard', compact('expected_collection','actual_collection','uncollected_amount','delinquent_accounts'));
