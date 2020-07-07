@@ -407,7 +407,64 @@
                 </div>
       
                 <!-- Content Row -->
-      
+                <div class="row">
+                  
+                  <!-- Content Column -->
+                  <div class="col-lg-12 mb-4">
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                     <div class="card-header py-3">
+                       <h6 class="m-0 font-weight-bold text-primary">TENANTS TO WATCH OUT</h6>
+                         <?php $ctr = 1; ?>
+                     </div>
+                     <div class="card-body">
+                       <div class="table-responsive">
+                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                           <thead>
+                             <tr>
+                               <th class="text-center">#</th>
+                               <th>TENANT</th>
+                               <th>CONTACT</th>
+                               <th>UNIT/ROOM </th>
+                               <th colspan="3"></th>
+                           </tr>
+                           </thead>
+                           <tbody>
+                             @foreach($tenants_to_watch_out as $item)
+                             <?php
+                                      $diffInMonths =  number_format(Carbon\Carbon::now()->floatDiffInMonths(Carbon\Carbon::parse($item->moveout_date), false));
+                                      $diffInDays =  number_format(Carbon\Carbon::now()->DiffInDays(Carbon\Carbon::parse($item->moveout_date), false));
+                              ?>
+                              @if($diffInDays <= 30 )
+                              <tr>
+                                  <th class="text-center">{{ $ctr++ }}</th>
+                                  <td>
+               
+                                      <a href="{{ route('show-tenant',['unit_id' => $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a>
+                                    
+                                     
+                                  </td>
+                                  <td>{{ $item->contact_no }}</td>
+                                  <td>{{ $item->building.' '.$item->unit_no }}</td>
+                                  <td colspan="2">
+                                      @if($diffInDays <= -1)
+                                      <span class="badge badge-danger">contract has lapsed {{ $diffInDays*-1 }} days ago</span>
+                                       @else
+                                      <span class="badge badge-warning">contract expires in {{ $diffInDays }} days </span>
+                                       @endif
+                                  </td>
+                                  <td>{{ $item->tenants_note  }}</td>
+                             </tr>
+                              @endif
+                             @endforeach
+                           </tbody>
+                         </table>
+                       </div>
+                     </div>
+                   </div>
+           
+                       </div>
+                </div>
                 <div class="row">
       
                   <!-- Area Chart -->
@@ -559,62 +616,6 @@
       
                 <!-- Content Row -->
                 <div class="row">
-      
-                  <!-- Content Column -->
-                  <div class="col-lg-12 mb-4">
-               <!-- DataTales Example -->
-               <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">TENANTS TO WATCH OUT</h6>
-                    <?php $ctr = 1; ?>
-                </div>
-                <div class="card-body">
-                  <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                      <thead>
-                        <tr>
-                          <th class="text-center">#</th>
-                          <th>TENANT</th>
-                          <th>CONTACT</th>
-                          <th>UNIT/ROOM </th>
-                          <th colspan="3"></th>
-                      </tr>
-                      </thead>
-                      <tbody>
-                        @foreach($tenants_to_watch_out as $item)
-                        <?php
-                                 $diffInMonths =  number_format(Carbon\Carbon::now()->floatDiffInMonths(Carbon\Carbon::parse($item->moveout_date), false));
-                                 $diffInDays =  number_format(Carbon\Carbon::now()->DiffInDays(Carbon\Carbon::parse($item->moveout_date), false));
-                         ?>
-                         @if($diffInDays <= 30 )
-                         <tr>
-                             <th class="text-center">{{ $ctr++ }}</th>
-                             <td>
-          
-                                 <a href="{{ route('show-tenant',['unit_id' => $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a>
-                               
-                                
-                             </td>
-                             <td>{{ $item->contact_no }}</td>
-                             <td>{{ $item->building.' '.$item->unit_no }}</td>
-                             <td colspan="2">
-                                 @if($diffInDays <= -1)
-                                 <span class="badge badge-danger">contract has lapsed {{ $diffInDays*-1 }} days ago</span>
-                                  @else
-                                 <span class="badge badge-warning">contract expires in {{ $diffInDays }} days </span>
-                                  @endif
-                             </td>
-                             <td>{{ $item->tenants_note  }}</td>
-                        </tr>
-                         @endif
-                        @endforeach
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-      
-                  </div>
       
                   <div class="col-lg-6 mb-4">
       
