@@ -217,18 +217,18 @@ class TenantController extends Controller
                     'billing_status' => 'paid'
                 ]);
 
-                DB::table('payments')->insert([
-                    'payment_tenant_id' => $tenant_id,
-                    'payment_created' => session(Auth::user()->property.'movein_date'),
-                    'amt_paid' => $request->input('amt'.$i),
-                    'or_number' => $request->or_number,
-                    'ar_number' => $request->ar_number,
-                    'bank_name' => $request->bank_name,
-                    'form_of_payment' => 'cash',
-                    'check_no' => $request->check_no,
-                    'date_deposited' => $request->date_deposited,
-                    'payment_note' => $request->input('desc'.$i),
-                ]);
+                // DB::table('payments')->insert([
+                //     'payment_tenant_id' => $tenant_id,
+                //     'payment_created' => session(Auth::user()->property.'movein_date'),
+                //     'amt_paid' => $request->input('amt'.$i),
+                //     'or_number' => $request->or_number,
+                //     'ar_number' => $request->ar_number,
+                //     'bank_name' => $request->bank_name,
+                //     'form_of_payment' => 'cash',
+                //     'check_no' => $request->check_no,
+                //     'date_deposited' => $request->date_deposited,
+                //     'payment_note' => $request->input('desc'.$i),
+                // ]);
         }        
 
         //web unit status to occupied.
