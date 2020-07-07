@@ -101,7 +101,7 @@ class UserController extends Controller
     {
         if($request->password === null){
             DB::table('users')
-            ->where('usert_type', 'admin')
+            ->where('user_type', 'admin')
             ->update(
                 [
                     'user_type' => 'manager'
