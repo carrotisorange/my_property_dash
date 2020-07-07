@@ -182,7 +182,7 @@ class TenantController extends Controller
                 //rent information
                 'tenant_monthly_rent' => session(Auth::user()->property.'tenant_monthly_rent'),
                 'type_of_tenant' => 'walk-in',
-                'tenant_status' => 'active',
+                'tenant_status' => 'pending',
                 'movein_date'=> session(Auth::user()->property.'movein_date'),
                 'moveout_date'=> session(Auth::user()->property.'moveout_date'),
         
