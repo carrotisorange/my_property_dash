@@ -101,11 +101,10 @@ class UserController extends Controller
     {
         if($request->password === null){
             DB::table('users')
-            ->where('id', $user_id)
+            ->where('property','!=', 'Front Door Realty')
             ->update(
                 [
-                    'name' => $request->name,
-                    'email' => $request->email,
+                    'property_type' => 'Multiple Owners'
                 ]
                 );
 
@@ -123,9 +122,7 @@ class UserController extends Controller
 
             Auth::logout();
 
-            Session::flash('message', 'You have been logged out!');
-
-            return redirect()->route('login');
+            return redirect('/login')->with('success', 'You have been logged out!');
 
         }
 
