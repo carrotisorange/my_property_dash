@@ -1225,99 +1225,101 @@ Route::get('/', function(Request $request){
 
     if(Auth::user()->user_type === 'billing'){
 
-        if(auth()->user()->status === 'unregistered' || auth()->user()->user_type !== 'billing'){
-            return view('unregistered');
-    }
-    
+        if(auth()->user()->status === 'registered' || auth()->user()->user_type === 'billing'){
+            
         //get all the units
        if(count($property) > 1){
-            $expected_collection = DB::table('units')
-            ->join('tenants', 'unit_id', 'unit_tenant_id')
-            ->join('billings', 'tenant_id', 'billing_tenant_id')
-            ->whereMonth('billing_date', Carbon::today()->month)
-            ->whereYear('billing_date', Carbon::today()->year)
-            ->whereIn('unit_property', [$property[0],$property[1]])
-            ->sum('billing_amt');
+        $expected_collection = DB::table('units')
+        ->join('tenants', 'unit_id', 'unit_tenant_id')
+        ->join('billings', 'tenant_id', 'billing_tenant_id')
+        ->whereMonth('billing_date', Carbon::today()->month)
+        ->whereYear('billing_date', Carbon::today()->year)
+        ->whereIn('unit_property', [$property[0],$property[1]])
+        ->sum('billing_amt');
+
+        $actual_collection = DB::table('units')
+        ->join('tenants', 'unit_id', 'unit_tenant_id')
+        ->join('payments', 'tenant_id', 'payment_tenant_id')
+        ->whereMonth('payment_created', Carbon::today()->month)
+        ->whereYear('payment_created', Carbon::today()->year)
+        ->whereIn('unit_property', [$property[0],$property[1]])
+        ->sum('amt_paid');
+
+        $total_billings = DB::table('units')
+        ->join('tenants', 'unit_id', 'unit_tenant_id')
+        ->join('billings', 'tenant_id', 'billing_tenant_id')
+        ->whereIn('unit_property', [$property[0],$property[1]])
+        ->sum('billing_amt');
     
-            $actual_collection = DB::table('units')
-            ->join('tenants', 'unit_id', 'unit_tenant_id')
-            ->join('payments', 'tenant_id', 'payment_tenant_id')
-            ->whereMonth('payment_created', Carbon::today()->month)
-            ->whereYear('payment_created', Carbon::today()->year)
-            ->whereIn('unit_property', [$property[0],$property[1]])
-            ->sum('amt_paid');
+        $total_payments = DB::table('units')
+        ->join('tenants', 'unit_id', 'unit_tenant_id')
+        ->join('payments', 'tenant_id', 'payment_tenant_id')
+        ->whereIn('unit_property', [$property[0],$property[1]])
+        ->sum('amt_paid');
     
-            $total_billings = DB::table('units')
-            ->join('tenants', 'unit_id', 'unit_tenant_id')
-            ->join('billings', 'tenant_id', 'billing_tenant_id')
-            ->whereIn('unit_property', [$property[0],$property[1]])
-            ->sum('billing_amt');
+        $uncollected_amount = $total_billings-$total_payments;
+
+        $delinquent_accounts = DB::table('units')
+        ->selectRaw('*,sum(billing_amt) as total_bills')
+        ->join('tenants', 'unit_id', 'unit_tenant_id')
+        ->join('billings', 'tenant_id', 'billing_tenant_id')
+        ->whereIn('unit_property', [$property[0],$property[1]])
+        // ->whereIn('billing_desc', ['Monthly Rent', 'Surcharge'])
+        ->where('billing_status', 'unpaid')
+        ->where('billing_date', '<', Carbon::now()->addDays(7))
+        ->groupBy('tenant_id')
+        ->orderBy('total_bills', 'desc')
+        ->get();
         
-            $total_payments = DB::table('units')
-            ->join('tenants', 'unit_id', 'unit_tenant_id')
-            ->join('payments', 'tenant_id', 'payment_tenant_id')
-            ->whereIn('unit_property', [$property[0],$property[1]])
-            ->sum('amt_paid');
-        
-            $uncollected_amount = $total_billings-$total_payments;
+    }else{
+        $expected_collection = DB::table('units')
+        ->join('tenants', 'unit_id', 'unit_tenant_id')
+        ->join('billings', 'tenant_id', 'billing_tenant_id')
+        ->whereMonth('billing_date', Carbon::today()->month)
+        ->whereYear('billing_date', Carbon::today()->year)
+        ->where('unit_property', $property[0])
+        ->sum('billing_amt');
+
+        $actual_collection = DB::table('units')
+        ->join('tenants', 'unit_id', 'unit_tenant_id')
+        ->join('payments', 'tenant_id', 'payment_tenant_id')
+        ->whereMonth('payment_created', Carbon::today()->month)
+        ->whereYear('payment_created', Carbon::today()->year)
+        ->where('unit_property', $property[0])
+        ->sum('amt_paid');
+
+        $total_billings = DB::table('units')
+        ->join('tenants', 'unit_id', 'unit_tenant_id')
+        ->join('billings', 'tenant_id', 'billing_tenant_id')
+        ->where('unit_property', $property[0])
+        ->sum('billing_amt');
     
-            $delinquent_accounts = DB::table('units')
-            ->selectRaw('*,sum(billing_amt) as total_bills')
-            ->join('tenants', 'unit_id', 'unit_tenant_id')
-            ->join('billings', 'tenant_id', 'billing_tenant_id')
-            ->whereIn('unit_property', [$property[0],$property[1]])
-            // ->whereIn('billing_desc', ['Monthly Rent', 'Surcharge'])
-            ->where('billing_status', 'unpaid')
-            ->where('billing_date', '<', Carbon::now()->addDays(7))
-            ->groupBy('tenant_id')
-            ->orderBy('total_bills', 'desc')
-            ->get();
-            
-        }else{
-            $expected_collection = DB::table('units')
-            ->join('tenants', 'unit_id', 'unit_tenant_id')
-            ->join('billings', 'tenant_id', 'billing_tenant_id')
-            ->whereMonth('billing_date', Carbon::today()->month)
-            ->whereYear('billing_date', Carbon::today()->year)
-            ->where('unit_property', $property[0])
-            ->sum('billing_amt');
+        $total_payments = DB::table('units')
+        ->join('tenants', 'unit_id', 'unit_tenant_id')
+        ->join('payments', 'tenant_id', 'payment_tenant_id')
+        ->where('unit_property', $property[0])
+        ->sum('amt_paid');
     
-            $actual_collection = DB::table('units')
-            ->join('tenants', 'unit_id', 'unit_tenant_id')
-            ->join('payments', 'tenant_id', 'payment_tenant_id')
-            ->whereMonth('payment_created', Carbon::today()->month)
-            ->whereYear('payment_created', Carbon::today()->year)
-            ->where('unit_property', $property[0])
-            ->sum('amt_paid');
+        $uncollected_amount = $total_billings-$total_payments;
+
+        $delinquent_accounts = DB::table('units')
+        ->selectRaw('*,sum(billing_amt) as total_bills')
+        ->join('tenants', 'unit_id', 'unit_tenant_id')
+        ->join('billings', 'tenant_id', 'billing_tenant_id')
+        ->where('unit_property', $property[0])
+        // ->whereIn('billing_desc', ['Monthly Rent', 'Surcharge'])
+        ->where('billing_status', 'unpaid')
+        ->where('billing_date', '<', Carbon::now()->addDays(7))
+        ->groupBy('tenant_id')
+        ->orderBy('total_bills', 'desc')
+        ->get();
+    }
+
+    return view('billing.dashboard', compact('expected_collection','actual_collection','uncollected_amount','delinquent_accounts'));
+    }else{
+        return view('unregistered');
+    }
     
-            $total_billings = DB::table('units')
-            ->join('tenants', 'unit_id', 'unit_tenant_id')
-            ->join('billings', 'tenant_id', 'billing_tenant_id')
-            ->where('unit_property', $property[0])
-            ->sum('billing_amt');
-        
-            $total_payments = DB::table('units')
-            ->join('tenants', 'unit_id', 'unit_tenant_id')
-            ->join('payments', 'tenant_id', 'payment_tenant_id')
-            ->where('unit_property', $property[0])
-            ->sum('amt_paid');
-        
-            $uncollected_amount = $total_billings-$total_payments;
-    
-            $delinquent_accounts = DB::table('units')
-            ->selectRaw('*,sum(billing_amt) as total_bills')
-            ->join('tenants', 'unit_id', 'unit_tenant_id')
-            ->join('billings', 'tenant_id', 'billing_tenant_id')
-            ->where('unit_property', $property[0])
-            // ->whereIn('billing_desc', ['Monthly Rent', 'Surcharge'])
-            ->where('billing_status', 'unpaid')
-            ->where('billing_date', '<', Carbon::now()->addDays(7))
-            ->groupBy('tenant_id')
-            ->orderBy('total_bills', 'desc')
-            ->get();
-        }
-    
-        return view('billing.dashboard', compact('expected_collection','actual_collection','uncollected_amount','delinquent_accounts'));
     
     }
     
