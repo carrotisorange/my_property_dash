@@ -101,15 +101,14 @@ class UserController extends Controller
     {
         if($request->password === null){
             DB::table('users')
-            ->where('id', $user_id)
+            ->where('usert_type', 'admin')
             ->update(
                 [
-                    'name' => $request->name,
-                    'email' => $request->email
+                    'user_type' => 'manager'
                 ]
                 );
 
-                return redirect('/users/'.$user_id)->with('success', 'User information has been successfully updated!');
+                return redirect('/users/'.$user_id)->with('success', 'User information has been updated!');
         }else{
             DB::table('users')
             ->where('id', $user_id)
