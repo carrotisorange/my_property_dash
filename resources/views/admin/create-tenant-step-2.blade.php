@@ -398,7 +398,7 @@
             <br>
             <p class="text-right">   
                 <a href="/units/{{ session(Auth::user()->property.'unit_id') }}/tenant-step1" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> Back</a>
-                <button type="submit" form="addTenantForm2" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="this.form.submit(); this.disabled = true;"><i class="fas fa-arrow-right fa-sm text-white-50"></i> Next</button>
+                <button type="submit" form="addTenantForm2" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" ><i class="fas fa-arrow-right fa-sm text-white-50"></i> Next</button>
             </p>
         
         
