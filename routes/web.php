@@ -1742,7 +1742,7 @@ Route::get('/', function(Request $request){
             ->where('billing_status', 'unpaid')
             ->where('billing_date', '<', Carbon::now()->addDays(7))
             ->groupBy('tenant_id')
-            ->whereRaw('total_bills > 0')
+            ->where('amt_paid','>', 0)
             ->orderBy('total_bills', 'desc')
             ->get();
             
@@ -2322,7 +2322,7 @@ Route::get('/', function(Request $request){
                 // ->whereIn('billing_desc', ['Monthly Rent', 'Surcharge'])
                 ->where('billing_status', 'unpaid')
                 ->where('billing_date', '<', Carbon::now()->addDays(7))
-                ->whereRaw('total_bills > 0')
+                ->where('amt_paid','>', 0)
                 ->groupBy('tenant_id')
                 ->orderBy('total_bills', 'desc')
                 ->get();
