@@ -436,7 +436,7 @@
             <br>
             <p class="text-right">   
                 <a href="/units/{{ session(Auth::user()->property.'unit_id') }}" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</a>
-                <button type="submit" form="addTenantForm1" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="this.form.submit(); this.disabled = true;"><i class="fas fa-arrow-right fa-sm text-white-50" ></i> Next</button>
+                <button type="submit" form="addTenantForm1" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-arrow-right fa-sm text-white-50" ></i> Next</button>
             </p>
         
         
