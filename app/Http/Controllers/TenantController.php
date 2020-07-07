@@ -315,30 +315,32 @@ class TenantController extends Controller
 
     public function show_billings($unit_id, $tenant_id){
 
-        if(auth()->user()->status === 'unregistered' && auth()->user()->user_type !== 'billing' || auth()->user()->user_type !== 'treasury' ){
+        if(auth()->user()->status === 'registered' && auth()->user()->user_type === 'billing' || auth()->user()->user_type === 'treasury' ){
+            $tenant = Tenant::findOrFail($tenant_id);
+
+            $unit_no = DB::table('tenants')
+            ->join('units', 'unit_id', 'unit_tenant_id')
+            ->where('tenant_id', $tenant_id)
+            ->get();
+    
+            $payments = DB::table('payments')->where('payment_tenant_id', $tenant_id)->get();
+    
+            $monthly_rent = DB::table('billings')->where('billing_tenant_id', $tenant_id)->where('billing_status', 'unpaid')->where('billing_desc', 'Monthly Rent')->get();
+    
+            $total_bills = DB::table('billings')->where('billing_tenant_id', $tenant_id)->where('billing_status', 'unpaid')->sum('billing_amt');
+    
+            $other_charges = DB::table('billings')->where('billing_tenant_id', $tenant_id)->where('billing_status', 'unpaid')->where('billing_desc','!=','Monthly Rent')->get();
+    
+            $overall_payments = DB::table('payments')->where('payment_tenant_id', $tenant_id)->sum('amt_paid');
+            $overall_bills = DB::table('billings')->where('billing_tenant_id', $tenant_id)->sum('billing_amt');
+    
+            $pending_balance = $overall_bills - $overall_payments;
+            
+                return view('billing.show-billings', compact('tenant', 'monthly_rent', 'pending_balance', 'unit_no', 'other_charges', 'total_bills'));  
+        }else{
             return view('unregistered');
         }
-        $tenant = Tenant::findOrFail($tenant_id);
-
-        $unit_no = DB::table('tenants')
-        ->join('units', 'unit_id', 'unit_tenant_id')
-        ->where('tenant_id', $tenant_id)
-        ->get();
-
-        $payments = DB::table('payments')->where('payment_tenant_id', $tenant_id)->get();
-
-        $monthly_rent = DB::table('billings')->where('billing_tenant_id', $tenant_id)->where('billing_status', 'unpaid')->where('billing_desc', 'Monthly Rent')->get();
-
-        $total_bills = DB::table('billings')->where('billing_tenant_id', $tenant_id)->where('billing_status', 'unpaid')->sum('billing_amt');
-
-        $other_charges = DB::table('billings')->where('billing_tenant_id', $tenant_id)->where('billing_status', 'unpaid')->where('billing_desc','!=','Monthly Rent')->get();
-
-        $overall_payments = DB::table('payments')->where('payment_tenant_id', $tenant_id)->sum('amt_paid');
-        $overall_bills = DB::table('billings')->where('billing_tenant_id', $tenant_id)->sum('billing_amt');
-
-        $pending_balance = $overall_bills - $overall_payments;
-        
-            return view('billing.show-billings', compact('tenant', 'monthly_rent', 'pending_balance', 'unit_no', 'other_charges', 'total_bills'));  
+       
     }
 
 
