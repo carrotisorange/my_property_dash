@@ -92,7 +92,7 @@
                    <option value="" readonly selected>Property Type</option>
                    <option value="Dormitory">Dormitory</option>
                    <option value="Apartment Rentals">Apartment Rentals</option>
-                   <option value="Commercial Complex">Commercial Complexs</option>
+                   <option value="Commercial Complex">Commercial Complex</option>
                    <option value="Condominium Associations">Condominium Associations</option>
                  </select>
 

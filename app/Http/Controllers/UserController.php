@@ -104,7 +104,8 @@ class UserController extends Controller
             ->where('property','!=', 'Front Door Realty')
             ->update(
                 [
-                    'property_type' => 'Multiple Owners'
+                    'property_type' => 'Condominium Associations',
+                    'property_ownership' => 'Multiple Owners',
                 ]
                 );
 
