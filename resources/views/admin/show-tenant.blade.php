@@ -92,7 +92,7 @@
      @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'manager')
       <!-- Nav Item - Tables -->
       <li class="nav-item">
-        <a class="nav-link" href="/billing-and-collection">
+        <a class="nav-link" href="/bills">
           <i class="fas fa-file-invoice-dollar fa-table"></i>
           <span>Bills</span></a>
       </li>
@@ -100,7 +100,7 @@
 
      @if(Auth::user()->user_type === 'treasury' || Auth::user()->user_type === 'manager')
         <li class="nav-item">
-        <a class="nav-link" href="/payments">
+        <a class="nav-link" href="/collections">
           <i class="fas fa-file-invoice-dollar"></i>
           <span>Collections</span></a>
       </li>
@@ -324,7 +324,7 @@
           @endif
           @endforeach
             <h5 style="text-align:left;">
-                <a href="/units/{{ $tenant->unit_tenant_id }}"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-home fa-sm text-white-50"></i> GO BACK TO THE UNIT</a>
+                <a href="/units/{{ $tenant->unit_tenant_id }}"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-home fa-sm text-white-50"></i> Go back to the unit/room</a>
                 @if(Auth::user()->user_type === 'admin')
                 <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/edit"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-user-edit fa-sm text-white-50"></i> EDIT</a>  
                 @endif

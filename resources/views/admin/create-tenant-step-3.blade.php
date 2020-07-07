@@ -356,6 +356,13 @@
         </nav>
         <!-- End of Topbar -->
         <div class="container-fluid">
+
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="tenant-step1">Data</a></li>
+            <li class="breadcrumb-item"><a href="tenant-step2">Background</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Contract</li>
+          </ol>
+
           @foreach (['danger', 'warning', 'success', 'info'] as $key)
           @if(Session::has($key))
          <p class="alert alert-{{ $key }}"> <i class="fas fa-check-circle"></i> {{ Session::get($key) }}</p>
@@ -364,9 +371,7 @@
           <form id="addTenantForm3" action="/units/{{ session(Auth::user()->property.'unit_id') }}/tenant-step3" method="POST">
             {{ csrf_field() }}
         </form>
-        <div class="d-sm-flex align-items-center justify-content-between mb-4">
-          <h1 class="h3 mb-0 text-gray-800">Contract Duration (3/4)</h1>
-        </div>
+       
         
         <div class="row">
             <div class="col">
@@ -384,8 +389,8 @@
           </div>
             <br>
             <p class="text-right">   
-                <a href="/units/{{ session(Auth::user()->property.'unit_id') }}/tenant-step2" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> GO BACK TO STEP 2</a>
-                <button type="submit" form="addTenantForm3" class="btn btn-primary" onclick="this.form.submit(); this.disabled = true;"><i class="fas fa-arrow-right"></i> GO TO STEP 4</button>
+                <a href="/units/{{ session(Auth::user()->property.'unit_id') }}/tenant-step2" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> Back</a>
+                <button type="submit" form="addTenantForm3" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="this.form.submit(); this.disabled = true;"><i class="fas fa-arrow-right fa-sm text-white-50"></i> Next</button>
             </p>
         
         </div>

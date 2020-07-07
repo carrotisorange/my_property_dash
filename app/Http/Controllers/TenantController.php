@@ -542,11 +542,11 @@ class TenantController extends Controller
             ->join('tenants', 'unit_id', 'unit_tenant_id')
             ->join('billings', 'tenant_id', 'billing_tenant_id')
             ->whereIn('unit_property', [$property[0],$property[1]])
-            ->whereIn('billing_desc', ['Monthly Rent', 'Surcharge Fee'])
+            ->whereIn('billing_desc', ['Monthly Rent', 'Surcharge'])
             ->where('billing_status', 'unpaid')
             ->where('billing_date', '<', Carbon::now()->addDays(7))
             ->groupBy('tenant_id')
-            ->orderBy('total_bills')
+           
             ->get();
          }else{
             $active_tenants = DB::table('tenants')
@@ -561,11 +561,10 @@ class TenantController extends Controller
             ->join('tenants', 'unit_id', 'unit_tenant_id')
             ->join('billings', 'tenant_id', 'billing_tenant_id')
             ->where('unit_property', $property[0])
-            ->whereIn('billing_desc', ['Monthly Rent', 'Surcharge Fee'])
+            ->whereIn('billing_desc', ['Monthly Rent', 'Surcharge'])
             ->where('billing_status', 'unpaid')
             ->where('billing_date', '<', Carbon::now()->addDays(7))
             ->groupBy('tenant_id')
-            ->orderBy('total_bills')
             ->get();
     
          }
@@ -590,62 +589,21 @@ class TenantController extends Controller
 
     public function post_billings(Request $request){
 
-        $property = explode(",", Auth::user()->property);
-
         if($request->desc1 === 'Surcharge'){
-            if(count($property) > 1){
-                $delinquent_tenants = DB::table('units')
-                ->selectRaw('*,sum(billing_amt) as total_bills')
-                ->join('tenants', 'unit_id', 'unit_tenant_id')
-                ->join('billings', 'tenant_id', 'billing_tenant_id')
-                ->whereIn('unit_property', [$property[0],$property[1]])
-                ->whereIn('billing_desc', ['Monthly Rent', 'Surcharge Fee'])
-                ->where('billing_status', 'unpaid')
-                ->where('billing_date', '<', Carbon::now()->addDays(7))
-                ->groupBy('tenant_id')
-                ->count();
-             }else{
-                $delinquent_tenants = DB::table('units')
-                ->selectRaw('*,sum(billing_amt) as total_bills')
-                ->join('tenants', 'unit_id', 'unit_tenant_id')
-                ->join('billings', 'tenant_id', 'billing_tenant_id')
-                ->where('unit_property', $property[0])
-                ->whereIn('billing_desc', ['Monthly Rent', 'Surcharge Fee'])
-                ->where('billing_status', 'unpaid')
-                ->where('billing_date', '<', Carbon::now()->addDays(7))
-                ->groupBy('tenant_id')
-                ->count();
-             }
            
-
-            for($i = 1; $i<=$delinquent_tenants; $i++){
+            for($i = 1; $i<=$request->ctr; $i++){
                 DB::table('billings')->insert(
                     [
                         'billing_tenant_id' => $request->input('tenant'.$i),
                         'billing_date' => Carbon::now()->addDays(7),
                         'billing_desc' =>  $request->input('desc'.$i),
-                        'details' => $request->input('details'.$i),
                         'billing_amt' =>  $request->input('amt'.$i)
                     ]);
             }
         }
         else{
-            if(count($property) > 1){
-                $total_bills = DB::table('tenants')
-                ->join('units', 'unit_id', 'unit_tenant_id')
-                ->whereIn('unit_property', [$property[0],$property[1]])
-                ->where('tenant_status', 'active')
-                ->count();
-             }else{
-                $total_bills = DB::table('tenants')
-                ->join('units', 'unit_id', 'unit_tenant_id')
-                ->where('unit_property', $property[0])
-                ->where('tenant_status', 'active')
-                ->count();
-             }
-      
 
-        for($i = 1; $i<=$total_bills; $i++){
+        for($i = 1; $i<=$request->ctr; $i++){
             DB::table('billings')->insert(
                 [
                     'billing_tenant_id' => $request->input('tenant'.$i),
@@ -657,7 +615,7 @@ class TenantController extends Controller
         }
     }
         
-        return redirect('/bills')->with('success', ($i-1). ' Bills has been posted!');
+        return redirect('/bills')->with('success', ($i-1). ' bills has been posted!');
     }
 
     public function show_posted_bills(){
@@ -807,6 +765,7 @@ class TenantController extends Controller
             $payment_breakdown = DB::table('payments')
             ->where('payment_tenant_id',$tenant_id)
             ->where('payment_created', $payment_created)
+            ->where('amt_paid','>',0)
             ->get();
             
             $payment_amt = DB::table('payments')

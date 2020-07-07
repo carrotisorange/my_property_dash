@@ -337,15 +337,21 @@
            <tr>
               <th>Status</th>
               <td>{{ $user->status }}</td>
+           </tr>     
+            <tr>
+               <th>Property</th>
+               <td>{{ $user->property }}&nbsp </a></td>
+            </tr>
+            <tr>
+              <th>Property Ownership</th>
+              <td>{{ $user->property_ownership }}</td>
            </tr>
            <tr>
-              <th>Property Name</th>
-              <td>{{ $user->property }}</td>
-           </tr>
-           
+              <th>Property Type</th>
+              <td>{{ $user->property_type }}</td>
+           </tr>  
          </table>
           </div>
-        
         </div>
 
         

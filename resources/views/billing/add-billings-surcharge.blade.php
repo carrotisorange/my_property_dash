@@ -25,62 +25,108 @@
   <!-- Page Wrapper -->
   <div id="wrapper">
 
-    <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+      <!-- Sidebar -->
+      <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-      {{-- <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
-        
-        <div class="sidebar-brand-text mx-5"> </div>
-      </a>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider my-0"> --}}
-
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
-        <a class="nav-link" href="/">
-          {{-- <i class="fas fa-fw fa-tachometer-alt"></i> --}}
-          <span>The Property Manager</span></a>
-      </li>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider">
-
-      <!-- Heading -->
-      {{-- <div class="sidebar-heading">
-        Interface
-      </div> --}}
-
-  <li class="nav-item">
-        <a class="nav-link" href="/">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a>
-      </li>
-
-      <li class="nav-item active">
-        <a class="nav-link" href="/bills">
-          <i class="fas fa-file-invoice-dollar"></i>
-          <span>Bills</span></a>
-      </li>
-
+        {{-- <!-- Sidebar - Brand -->
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
+          
+          <div class="sidebar-brand-text mx-5"> </div>
+        </a>
+    
+        <!-- Divider -->
+        <hr class="sidebar-divider my-0"> --}}
+    
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item active">
+          <a class="nav-link" href="/">
+             <i class="fas fa-home"></i> 
+            <span>The Property Manager</span></a>
+        </li>
+    
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+    
+        {{-- <!-- Heading -->
+         <div class="sidebar-heading">
+          Interface
+        </div>  --}}
+    
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+          <a class="nav-link" href="/">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span></a>
+        </li>
+    
+        @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' )
+        <li class="nav-item">
+          <a class="nav-link" href="/home">
+            <i class="fas fa-home"></i>
+            <span>Home</span></a>
+        </li>
+    
+        <li class="nav-item">
+          <a class="nav-link" href="/tenants">
+            <i class="fas fa-user fa-chart-area"></i>
+            <span>Tenants</span></a>
+        </li>
+    
+       @if(Auth::user()->property_ownership === 'Multiple Owners')
+      <!-- Nav Item - Tables -->
       <li class="nav-item">
-        <a class="nav-link" href="/collections">
-          <i class="fas fa-coins"></i>
-          <span>Collections</span></a>
+          <a class="nav-link" href="/owners">
+          <i class="fas fa-user-tie"></i>
+          <span>Owners</span></a>
       </li>
-
-
-      <!-- Divider -->
-      <hr class="sidebar-divider d-none d-md-block">
-
-      <!-- Sidebar Toggler (Sidebar) -->
-      <div class="text-center d-none d-md-inline">
-        <button class="rounded-circle border-0" id="sidebarToggle"></button>
-      </div>
-
-    </ul>
-    <!-- End of Sidebar -->
+       @endif
+    
+          <!-- Nav Item - Tables -->
+        <li class="nav-item">
+            <a class="nav-link" href="/joborders">
+              <i class="fas fa-tools fa-table"></i>
+              <span>Job Orders</span></a>
+          </li>
+        @endif
+    
+         @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'manager')
+          <!-- Nav Item - Tables -->
+          <li class="nav-item active">
+            <a class="nav-link" href="/bills">
+              <i class="fas fa-file-invoice-dollar fa-table"></i>
+              <span>Bills</span></a>
+          </li>
+         @endif
+    
+         @if(Auth::user()->user_type === 'treasury' || Auth::user()->user_type === 'manager')
+            <li class="nav-item">
+            <a class="nav-link" href="/collections">
+              <i class="fas fa-file-invoice-dollar"></i>
+              <span>Collections</span></a>
+          </li>
+    
+          @endif
+    
+        @if(Auth::user()->user_type === 'manager')
+         <!-- Nav Item - Tables -->
+         <li class="nav-item">
+          <a class="nav-link" href="/users">
+            <i class="fas fa-user-secret fa-table"></i>
+            <span>Users</span></a>
+        </li>
+        @endif
+        
+    
+        <!-- Divider -->
+        <hr class="sidebar-divider d-none d-md-block">
+    
+        <!-- Sidebar Toggler (Sidebar) -->
+        <div class="text-center d-none d-md-inline">
+          <button class="rounded-circle border-0" id="sidebarToggle"></button>
+        </div>
+    
+      </ul>
+      <!-- End of Sidebar -->
 
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
@@ -272,6 +318,11 @@
         </nav>
         <!-- End of Topbar -->
         <div class="container-fluid">
+          @foreach (['danger', 'warning', 'success', 'info'] as $key)
+          @if(Session::has($key))
+         <p class="alert alert-{{ $key }}"> <i class="fas fa-check-circle"></i> {{ Session::get($key) }}</p>
+          @endif
+          @endforeach
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Surcharge Bill</h1>
             {{-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> --}}
@@ -287,12 +338,13 @@
                 <th  class="text-center">#</th>
                 <th>NAME</th>
                 <th>UNIT/ROOM</th>   
-                <th>DESCRIPTION</th>  
-                <th>DETAILS</th>     
+                {{-- <th>DESCRIPTION</th>   --}}
+                <th>PREVIOUS</th>     
                 <th>AMOUNT</th>
             </tr>
            <?php
              $ctr = 1;
+             $col_ctr = 1;
              $desc_ctr = 1;
              $amt_ctr = 1;
              $id_ctr = 1;
@@ -300,24 +352,28 @@
            ?>   
            @foreach($delinquent_tenants as $item)
             <tr>
-                <th class="text-center">{{ $ctr++ }}</th>   
-                
+                <th class="text-center" >{{ $col_ctr++ }}</th>
+                  <input class="form-control" type="hidden" form="add_billings" name="ctr" value="{{ $ctr++ }}" readonly>   
+               
                 <td>{{ $item->first_name.' '.$item->last_name }}<input type="hidden" form="add_billings" name="tenant{{ $id_ctr++ }}" value={{ $item->tenant_id }}></td>
                 <td>{{ $item->building.' '.$item->unit_no }}</td>
-                <td><input class="form-control" type="text" form="add_billings" name="desc{{ $desc_ctr++ }}" value="Surcharge" readonly></td>
+                <input class="form-control" type="hidden" form="add_billings" name="desc{{ $desc_ctr++ }}" value="Surcharge" readonly>
+                
+                    <input form="add_billings" type="hidden" class='form-control' name="details{{ $details_ctr++  }}" value="{{ Carbon\Carbon::now()->startOfMonth()->format('M d') }}- {{ Carbon\Carbon::now()->endOfMonth()->format('d Y') }} " >
+                
                 <td>
-                    <input form="add_billings" type="text" class='form-control' name="details{{ $details_ctr++  }}" value="{{ Carbon\Carbon::now()->startOfMonth()->format('M d') }}- {{ Carbon\Carbon::now()->endOfMonth()->format('d Y') }} " >
-                </td>
+                  <input form="add_billings" type="number" class="form-control" value="{{ $item->total_bills }}">
+              </td>
                 <td>
-                    <input form="add_billings" class="form-control" type="number" name="amt{{ $amt_ctr++ }}" value="{{ $item->tenant_monthly_rent * .1 }}" oninput="this.value = Math.abs(this.value)">
+                    <input form="add_billings" class="form-control" type="number" name="amt{{ $amt_ctr++ }}" value="{{ $item->total_bills * .1 }}" oninput="this.value = Math.abs(this.value)">
                 </td>
            </tr>
            @endforeach
         </table>
             </div>
         <p class="text-right">
-            <a href="/" class="btn btn-secondary"><i class="fas fa-times"></i> CANCEL</a>
-            <button type="submit" form="add_billings" class="btn btn-primary"  onclick="return confirm('Are you sure you want to delete this item?');"><i class="fas fa-check"></i> POST</button>
+            <a href="/bills" class="bd-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm"><i class="fas fa-times"></i> Cancel</a>
+            <button type="submit" form="add_billings" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"  onclick="return confirm('Are you sure you want to delete this item?');"><i class="fas fa-check"></i> Submit</button>
         </p>
     </div>
         </div>

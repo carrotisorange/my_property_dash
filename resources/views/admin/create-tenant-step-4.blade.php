@@ -354,20 +354,27 @@
         </nav>
         <!-- End of Topbar -->
         <div class="container-fluid">
-        <div class="d-sm-flex align-items-center justify-content-between mb-4">
-          <h1 class="h3 mb-0 text-gray-800">Payment Requirements (4/4)<h1>
-             <h4 class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="total_bills">Total:</h4>
-        </div>
+
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="tenant-step1">Data</a></li>
+                    <li class="breadcrumb-item"><a href="tenant-step2">Background</a></li>
+                    <li class="breadcrumb-item"><a href="tenant-step3">Contract</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Payment</li>
+                  </ol>
+                   <h2 class="d-none d-sm-inline-block btn btn-md btn-primary shadow-sm" id="total_bills">Total:</h2>
+              </div>
+
+        
         
         <form id="addTenantForm4" action="/tenants" method="POST">
             {{ csrf_field() }}
         </form>
-     
-        <br>
+    
         <div class="row">
           <div class="col-md-12">
               <div class="table-responsive">
-                <table class="table table-bordered" id="tab_logic" width="100%" cellspacing="0">
+                <table class="table" id="tab_logic" width="90%" cellspacing="0" cellpadding="0">
                      <tr>
                          <th>#</th>
                          <th>Description</th>
@@ -376,18 +383,25 @@
                          <input form="addTenantForm4" type="hidden" id="no_of_items" name="no_of_items" value="3">
                      <tr id='addr0'>
                          <th>1</th>
-                         <td><input form="addTenantForm4"  type="text" name='desc0' id='desc0' class="form-control" value="Security Deposit (Rent)" readonly/></td>
-                         <td><input oninput="this.value = Math.abs(this.value)" form="addTenantForm4"  onkeyup="computeTotal()" type="number" name='amt0' id='amt0' class="form-control" value="{{ session(Auth::user()->property.'tenant_monthly_rent') }}"/></td>
+                         <td><input form="addTenantForm4"  type="text" name='desc0' id='desc0' class="form-control col-md-8" value="Security Deposit (Rent)" readonly/></td>
+                         <td><input oninput="this.value = Math.abs(this.value)" form="addTenantForm4"  onkeyup="computeTotal()" type="number" name='amt0' id='amt0' class="form-control col-md-8" value="{{ session(Auth::user()->property.'tenant_monthly_rent') }}"/></td>
                      </tr>
                      <tr>
-                      <th>3</th>
-                     <td><input form="addTenantForm4"  type="text" name='desc2' id='desc2' class="form-control" value="Advance Rent" readonly/></td>
-                     <td><input oninput="this.value = Math.abs(this.value)" form="addTenantForm4"  onkeyup="computeTotal()" type="number" name='amt2' id='amt2' class="form-control" value="{{ session(Auth::user()->property.'tenant_monthly_rent') }}"/></td>
+                      <th>2</th>
+                     <td><input form="addTenantForm4"  type="text" name='desc1' id='desc1' class="form-control col-md-8" value="Advance Rent" readonly/></td>
+                     <td><input oninput="this.value = Math.abs(this.value)" form="addTenantForm4"  onkeyup="computeTotal()" type="number" name='amt1' id='amt1' class="form-control col-md-8" value="{{ session(Auth::user()->property.'tenant_monthly_rent') }}"/></td>
                     </tr>
                      <tr id='addr1'>
-                        <th>2</th>
-                        <td><input form="addTenantForm4"  type="text" name='desc1' id='desc1' class="form-control" value="Others" readonly/></td>
-                        <td><input oninput="this.value = Math.abs(this.value)" form="addTenantForm4"  onkeyup="computeTotal()" type="number" name='amt1' id='amt1' class="form-control" value="2000"/></td>
+                        <th>3</th>
+                        <td>
+                          <select form="addTenantForm4" name='desc2' id='desc2' class="form-control col-md-8" required>
+                            <option value="Security Deposit (Utilities)" >Security Deposit (Utilities)</option>
+                            <option value="General Cleaning" >General Cleaning</option>
+                            <option value="Management Fee" >Management Fee</option>
+                            <option value="Others" >Others</option>
+                          </select>
+                        </td>
+                        <td><input oninput="this.value = Math.abs(this.value)" form="addTenantForm4"  onkeyup="computeTotal()" type="number" name='amt2' id='amt2' class="form-control col-md-8" value="2000"/></td>
                     </tr>
                     
                      <tr id='addr2'></tr>
@@ -397,8 +411,8 @@
           </div>
     
             <p class="text-right">   
-                <a href="/units/{{ session(Auth::user()->property.'unit_id') }}/tenant-step3" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> GO BACK TO STEP 3</a>
-                <button type="submit" form="addTenantForm4" class="btn btn-primary" onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;"><i class="fas fa-check"></i> ADD TENANT</button>
+                <a href="/units/{{ session(Auth::user()->property.'unit_id') }}/tenant-step3" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> Back</a>
+                <button type="submit" form="addTenantForm4" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;"><i class="fas fa-check fa-sm text-white-50"></i> Submit</button>
             </p>
 
         

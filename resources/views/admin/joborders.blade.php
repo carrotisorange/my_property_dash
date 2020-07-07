@@ -25,7 +25,7 @@
   <!-- Page Wrapper -->
   <div id="wrapper">
 
-    <!-- Sidebar -->
+     <!-- Sidebar -->
  <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     {{-- <!-- Sidebar - Brand -->
@@ -100,7 +100,7 @@
 
      @if(Auth::user()->user_type === 'treasury' || Auth::user()->user_type === 'manager')
         <li class="nav-item">
-        <a class="nav-link" href="/payments">
+        <a class="nav-link" href="/collections">
           <i class="fas fa-file-invoice-dollar"></i>
           <span>Collections</span></a>
       </li>

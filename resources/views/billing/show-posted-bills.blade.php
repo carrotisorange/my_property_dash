@@ -24,8 +24,7 @@
 
   <!-- Page Wrapper -->
   <div id="wrapper">
-
-     <!-- Sidebar -->
+   <!-- Sidebar -->
  <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     {{-- <!-- Sidebar - Brand -->
@@ -318,6 +317,12 @@
         </nav>
         <!-- End of Topbar -->
         <div class="container-fluid">
+
+          @foreach (['danger', 'warning', 'success', 'info'] as $key)
+          @if(Session::has($key))
+         <p class="alert alert-{{ $key }}"> <i class="fas fa-check-circle"></i> {{ Session::get($key) }}</p>
+          @endif
+          @endforeach
 
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Bills</h1>

@@ -23,145 +23,114 @@
   <!-- Page Wrapper -->
   <div id="wrapper">
 
-    <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-      {{-- <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
-        
-        <div class="sidebar-brand-text mx-5"> </div>
-      </a>
+    
+     <!-- Sidebar -->
+ <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-      <!-- Divider -->
-      <hr class="sidebar-divider my-0"> --}}
+    {{-- <!-- Sidebar - Brand -->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
+      
+      <div class="sidebar-brand-text mx-5"> </div>
+    </a>
 
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
-        <a class="nav-link" href="/">
-          {{-- <i class="fas fa-fw fa-tachometer-alt"></i> --}}
-          <span>The Property Manager</span></a>
-      </li>
+    <!-- Divider -->
+    <hr class="sidebar-divider my-0"> --}}
 
-      <!-- Divider -->
-      <hr class="sidebar-divider">
+    <!-- Nav Item - Dashboard -->
+    <li class="nav-item active">
+      <a class="nav-link" href="/">
+         <i class="fas fa-home"></i> 
+        <span>The Property Manager</span></a>
+    </li>
 
-      <!-- Heading -->
-      {{-- <div class="sidebar-heading">
-        Interface
-      </div> --}}
+    <!-- Divider -->
+    <hr class="sidebar-divider">
 
-       <!-- Nav Item - Pages Collapse Menu -->
-       <li class="nav-item">
-        <a class="nav-link" href="/">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a>
-      </li>
+    {{-- <!-- Heading -->
+     <div class="sidebar-heading">
+      Interface
+    </div>  --}}
 
-      <li class="nav-item active">
-        <a class="nav-link" href="/home">
-          <i class="fas fa-home"></i>
-          <span>Home</span></a>
-      </li>
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item">
+      <a class="nav-link" href="/">
+        <i class="fas fa-fw fa-tachometer-alt"></i>
+        <span>Dashboard</span></a>
+    </li>
 
-      {{-- <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-          <i class="fas fa-home fa-cog"></i>
-          <span>Leasing</span>
-          
-        </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            
-            @foreach ($units_per_building as $item)
-            <a class="collapse-item" href="/leasing">{{ $item->building }}</a>
-            @endforeach
-            
-          </div>
-        </div>
-      </li> --}}
+    @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' )
+    <li class="nav-item active">
+      <a class="nav-link" href="/home">
+        <i class="fas fa-home"></i>
+        <span>Home</span></a>
+    </li>
 
-      {{-- <li class="nav-item">
-        <a class="nav-link" href="/residential">
-          <i class="fas fa-home"></i>
-          <span>Residential</span></a>
-      </li> --}}
-      <!-- Divider -->
-      {{-- <hr class="sidebar-divider"> --}}
+    <li class="nav-item">
+      <a class="nav-link" href="/tenants">
+        <i class="fas fa-user fa-chart-area"></i>
+        <span>Tenants</span></a>
+    </li>
 
-      {{-- <!-- Heading -->
-      <div class="sidebar-heading">
-        Addons
-      </div> --}}
-
-      <!-- Nav Item - Pages Collapse Menu -->
-      {{-- <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-          <i class="fas fa-fw fa-folder"></i>
-          <span>Pages</span>
-        </a>
-        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Login Screens:</h6>
-            <a class="collapse-item" href="login.html">Login</a>
-            <a class="collapse-item" href="register.html">Register</a>
-            <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-            <div class="collapse-divider"></div>
-            <h6 class="collapse-header">Other Pages:</h6>
-            <a class="collapse-item" href="404.html">404 Page</a>
-            <a class="collapse-item" href="blank.html">Blank Page</a>
-          </div>
-        </div>
-      </li> --}}
-
-      <!-- Nav Item - Charts -->
-
-      <li class="nav-item">
-        <a class="nav-link" href="/tenants">
-          <i class="fas fa-user fa-chart-area"></i>
-          <span>Tenants</span></a>
-      </li>
+   @if(Auth::user()->property_ownership === 'Multiple Owners')
+  <!-- Nav Item - Tables -->
+  <li class="nav-item">
+      <a class="nav-link" href="/owners">
+      <i class="fas fa-user-tie"></i>
+      <span>Owners</span></a>
+  </li>
+   @endif
 
       <!-- Nav Item - Tables -->
-      <li class="nav-item">
-        <a class="nav-link" href="/owners">
-          <i class="fas fa-user-tie fa-table"></i>
-          <span>Unit Owners</span></a>
-      </li>
-
-       <!-- Nav Item - Tables -->
-       <li class="nav-item">
-        <a class="nav-link" href="/billing-and-collection">
-          <i class="fas fa-file-invoice-dollar fa-table"></i>
-          <span>Billing and collection</span></a>
-      </li>
-
-       <!-- Nav Item - Tables -->
-       <li class="nav-item">
+    <li class="nav-item">
         <a class="nav-link" href="/joborders">
           <i class="fas fa-tools fa-table"></i>
           <span>Job Orders</span></a>
       </li>
+    @endif
 
-       <!-- Nav Item - Tables -->
-       <li class="nav-item">
-        <a class="nav-link" href="/users">
-          <i class="fas fa-user-secret fa-table"></i>
-          <span>Users</span></a>
+     @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'manager')
+      <!-- Nav Item - Tables -->
+      <li class="nav-item">
+        <a class="nav-link" href="/bills">
+          <i class="fas fa-file-invoice-dollar fa-table"></i>
+          <span>Bills</span></a>
       </li>
-      
+     @endif
 
-      
+     @if(Auth::user()->user_type === 'treasury' || Auth::user()->user_type === 'manager')
+        <li class="nav-item">
+        <a class="nav-link" href="/collections">
+          <i class="fas fa-file-invoice-dollar"></i>
+          <span>Collections</span></a>
+      </li>
 
-      <!-- Divider -->
-      <hr class="sidebar-divider d-none d-md-block">
+      @endif
 
-      <!-- Sidebar Toggler (Sidebar) -->
-      <div class="text-center d-none d-md-inline">
-        <button class="rounded-circle border-0" id="sidebarToggle"></button>
-      </div>
+    @if(Auth::user()->user_type === 'manager')
+     <!-- Nav Item - Tables -->
+     <li class="nav-item">
+      <a class="nav-link" href="/users">
+        <i class="fas fa-user-secret fa-table"></i>
+        <span>Users</span></a>
+    </li>
+    @endif
+    
 
-    </ul>
-    <!-- End of Sidebar -->
+    <!-- Divider -->
+    <hr class="sidebar-divider d-none d-md-block">
+
+    <!-- Sidebar Toggler (Sidebar) -->
+    <div class="text-center d-none d-md-inline">
+      <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
+
+  </ul>
+  <!-- End of Sidebar -->
+
+
+  
+  
 
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
@@ -354,9 +323,11 @@
         <!-- End of Topbar -->
         <div class="container-fluid">
             <!-- Page Heading -->
-          <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Personal Information (1/4)</h1>
-          </div>
+    
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item active" aria-current="page">Data</li>
+            </ol>
+        
           @foreach (['danger', 'warning', 'success', 'info'] as $key)
           @if(Session::has($key))
          <p class="alert alert-{{ $key }}"> <i class="fas fa-times-circle"></i> {{ Session::get($key) }}</p>
@@ -464,8 +435,8 @@
             
             <br>
             <p class="text-right">   
-                <a href="/units/{{ session(Auth::user()->property.'unit_id') }}" class="btn btn-secondary"><i class="fas fa-times"></i> GO BACK TO UNIT</a>
-                <button type="submit" form="addTenantForm1" class="btn btn-primary" onclick="this.form.submit(); this.disabled = true;"><i class="fas fa-arrow-right" ></i> GO TO STEP 2</button>
+                <a href="/units/{{ session(Auth::user()->property.'unit_id') }}" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</a>
+                <button type="submit" form="addTenantForm1" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="this.form.submit(); this.disabled = true;"><i class="fas fa-arrow-right fa-sm text-white-50" ></i> Next</button>
             </p>
         
         
