@@ -489,14 +489,18 @@
                         <?php $numberFormatter = new NumberFormatter('en_US', NumberFormatter::ORDINAL) ?>
                         <td>
                             @for ($i = 1; $i < count($renewal_history); $i++)
-                               
                                {{ $numberFormatter->format($i-1) .' renewal: '.$renewal_history[$i] }}<br>
-                              
-                               
-                                
                             @endfor     
                         </td>
                     </tr>
+                    @if($tenant->tenant_status === 'inactive')
+                    <tr>
+                      <td>Actual Moveout Date</td>
+                      <td>
+                          {{ Carbon\Carbon::parse($tenant->actual_moveout_date)->format('M d Y')e }}
+                      </td>
+                  </tr>
+                    @endif
                     <tr>
                         <td>Note</td>
                         <td>
