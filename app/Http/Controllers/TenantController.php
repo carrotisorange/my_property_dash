@@ -235,7 +235,7 @@ class TenantController extends Controller
          DB::table('units')->where('unit_id', session(Auth::user()->property.'unit_id'))
              ->update(
                         [
-                            'status'=> 'occupied',
+                            'status'=> 'reserved',
                             'updated_at' => session(Auth::user()->property.'movein_date'),   
                         ]
                     );
