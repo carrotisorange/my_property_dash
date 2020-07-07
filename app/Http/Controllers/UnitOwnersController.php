@@ -97,26 +97,21 @@ class UnitOwnersController extends Controller
      */
     public function show($unit_id, $unit_owner_id)
     {
-        if(Auth::user()->status === 'unregistered'|| auth()->user()->user_type !== 'admin'){
+        if(Auth::user()->status === 'registered' || auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager'){
+            $investor = UnitOwner::findOrFail($unit_owner_id);
+
+            $investor_billings = DB::table('units')
+           ->join('unit_owners', 'unit_id', 'unit_unit_owner_id')
+           ->join('billings', 'unit_owner_id', 'billing_tenant_id')
+           ->get();
+   
+            return view('admin.show-investor', compact('investor'));
+        }else{
             return view('unregistered');
         }
 
-        $investor = UnitOwner::findOrFail($unit_owner_id);
-
-         $investor_billings = DB::table('units')
-        ->join('unit_owners', 'unit_id', 'unit_unit_owner_id')
-        ->join('billings', 'unit_owner_id', 'billing_tenant_id')
-        ->get();
-    
-
-        if(Auth::user()->user_type === 'admin'){
-
-            return view('admin.show-investor', compact('investor'));
-          
-        }elseif(Auth::user()->user_type === 'treasury'){
-
-            return view('treasury.accept-payment-investor', compact('investor'));
-        }
+       
+       
     }
 
     /**
