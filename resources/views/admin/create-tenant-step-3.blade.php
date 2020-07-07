@@ -376,7 +376,7 @@
         <div class="row">
             <div class="col">
               <small>Move-in date</small>
-              <input form="addTenantForm3" type="date" class="form-control" name="movein_date" id="movein_date" value={{date('Y-m-d')}} required>
+              <input form="addTenantForm3" type="date" class="form-control" name="movein_date" id="movein_date" value="{{ session(Auth::user()->property.'movein_date') }}" required>
             </div>
             <div class="col">
               <small>Move-out date</small>
