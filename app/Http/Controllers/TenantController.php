@@ -214,7 +214,7 @@ class TenantController extends Controller
                     'billing_date' => session(Auth::user()->property.'movein_date'),
                     'billing_desc' =>  $request->input('desc'.$i),
                     'billing_amt' =>  $request->input('amt'.$i),
-                    'billing_status' => 'paid'
+                    'billing_status' => 'unpaid'
                 ]);
 
                 // DB::table('payments')->insert([
