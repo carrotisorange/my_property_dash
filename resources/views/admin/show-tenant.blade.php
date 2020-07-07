@@ -328,10 +328,10 @@
                 @if(Auth::user()->user_type === 'manager')
                 <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/edit"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-user-edit fa-sm text-white-50"></i> Edit</a>  
                 @endif
-                @if(Auth::user()->user_type === 'billing')
+                @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'manager')
                 <a href="{{ route('show-billings',['unit_id' => $tenant->unit_tenant_id, 'tenant_id'=>$tenant->tenant_id]) }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-file-invoice-dollar fa-sm text-white-50"></i> Bills <span class="badge badge-light">{{ $billings->count() }}</span> </a>
                 @endif
-                @if(Auth::user()->user_type === 'treasury')
+                @if(Auth::user()->user_type === 'treasury' || Auth::user()->user_type === 'manager')
                 <a href="{{ route('show-payments',['unit_id' => $tenant->unit_tenant_id, 'tenant_id'=>$tenant->tenant_id]) }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-dollar-sign fa-sm text-white-50"></i> Payment History <span class="badge badge-light">{{ $payments->count() }}</span></a>
                 @endif
                 <span style="float:right;">
