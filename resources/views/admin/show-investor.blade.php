@@ -322,7 +322,7 @@
 
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Owners</h1>
-            <button type="button" class="class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"" data-toggle="modal" data-target="#editTenant" data-whatever="@mdo"><i class="fas fa-edit fa-sm text-white-50"></i>Edit</button>  
+            <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#editTenant" data-whatever="@mdo"><i class="fas fa-edit fa-sm text-white-50"></i>Edit</button>  
           </div>
         <!-- 404 Error Text -->
         <div class="table-responsive">
