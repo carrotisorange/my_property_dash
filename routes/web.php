@@ -1312,6 +1312,7 @@ Route::get('/', function(Request $request){
         ->where('billing_date', '<', Carbon::now()->addDays(7))
         ->groupBy('tenant_id')
         ->orderBy('total_bills', 'desc')
+        ->where('total_bills','<', 0)
         ->get();
     }
 
