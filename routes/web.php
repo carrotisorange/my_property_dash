@@ -1312,11 +1312,10 @@ Route::get('/', function(Request $request){
         ->where('billing_date', '<', Carbon::now()->addDays(7))
         ->groupBy('tenant_id')
         ->orderBy('total_bills', 'desc')
-        ->where('total_bills','<', 0)
+        ->where('total_bills','>', 0)
         ->get();
     }
-
-    return view('billing.dashboard', compact('expected_collection','actual_collection','uncollected_amount','delinquent_accounts'));
+        return view('billing.dashboard', compact('expected_collection','actual_collection','uncollected_amount','delinquent_accounts'));
     }else{
         return view('unregistered');
     }
