@@ -101,11 +101,11 @@ class UserController extends Controller
     {
         if($request->password === null){
             DB::table('users')
-            ->where('property', 'Front Door Realty')
+            ->where('user_id', $user_id)
             ->update(
                 [
-                    'property_type' => 'Dormitory',
-                    'property_ownership' => 'Single Owner',
+                    'name' => $request->name,
+                    'email' => $request->email,
                 ]
                 );
 
