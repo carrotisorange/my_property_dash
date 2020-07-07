@@ -426,7 +426,7 @@ class TenantController extends Controller
        return redirect('/units/'.$unit_id.'/tenants/'.$tenant_id)->with('success','Tenant information has been updated!');
     }
 
-    public function moveout(Request $request, $tenant_id){        
+    public function moveout(Request $request, $tenant_id){       
 
         $no_of_items = (int) $request->no_of_items; 
         
