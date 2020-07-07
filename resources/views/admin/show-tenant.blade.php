@@ -530,7 +530,7 @@
                     <div class=" row">
                         <div class="col">
                             <label for="moveout_date">MOVEOUT DATE</label>
-                            <input type="date" form="moveoutTenantForm" class="form-control" name="actual_move_out_date" id="actual_moveout_date" value={{date('Y-m-d')}} required>
+                            <input type="date" form="moveoutTenantForm" class="form-control" name="actual_move_out_date" id="actual_moveout_date" required>
                         </div>
                     </div>
                     <br>
