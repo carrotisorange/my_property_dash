@@ -206,7 +206,7 @@ class TenantController extends Controller
                     'billing_date' => session(Auth::user()->property.'movein_date'),
                     'billing_desc' =>  $request->input('desc'.$i),
                     'billing_amt' =>  $request->input('amt'.$i),
-                    'billing_status' => 'unpaid'
+                    'billing_status' => 'paid'
                 ]);
 
                 DB::table('payments')->insert([
@@ -651,9 +651,13 @@ class TenantController extends Controller
      */
     public function destroy($tenant_id)
     {
-        DB::table('payments')->where('payment_tenant_id', $tenant_id)->delete();
-        DB::table('billings')->where('billing_tenant_id', $tenant_id)->delete();
-        DB::table('tenants')->where('tenant_id', $tenant_id)->delete();
+        // DB::table('payments')->where('payment_tenant_id', $tenant_id)->delete();
+        // DB::table('billings')->where('billing_tenant_id', $tenant_id)->delete();
+        // DB::table('tenants')->where('tenant_id', $tenant_id)->delete();
+
+        DB::table('billings')->where('billing_tenant_id', $tenant_id)->update([
+            'billing_status' => 'paid'
+        ]);
 
         return back()->with('success', 'Tenant has been successfully deleted!');
     }
