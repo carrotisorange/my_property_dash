@@ -515,7 +515,7 @@
             <div class="modal-dialog modal-md" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">MOVEOUT </h5>
+                <h5 class="modal-title" id="exampleModalLabel">Moveout </h5>
         
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -529,14 +529,14 @@
                     <input type="hidden" form="moveoutTenantForm" id="tenant_id" name="tenant_id" value="{{ $tenant->tenant_id }}"required>
                     <div class=" row">
                         <div class="col">
-                            <label for="moveout_date">MOVEOUT DATE</label>
+                            <label for="moveout_date">Moveout date</label>
                             <input type="date" form="moveoutTenantForm" class="form-control" name="actual_move_out_date" id="actual_moveout_date" required>
                         </div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col">
-                            <label for="ex1">REASON FOR MOVING-OUT</label>
+                            <label for="ex1">Reason for moving out</label>
                               <select form="moveoutTenantForm" class="form-control" name="reason_for_moving_out" id="reason_for_moving_out" required>
                                   <option value="">Please select one</option>
                                   <option value="end of contract">end of contract</option>
@@ -551,13 +551,13 @@
                     <div class="row">
                         <div class="col">
                           
-                            DEPOSIT
+                            Deposit
                                 @foreach ($security_deposits as $item)
                                     <ul>
                                         <li>{{ $item->payment_note.' - '. number_format($item->amt_paid,2)}} </li>
                                     </ul>
                                 @endforeach
-                                MOVEOUT CHARGES
+                                Moveout Charges
                                 <a id='delete_row' class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-minus fa-sm text-white-50"></i></a>
                                 <a id="add_row" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i></a>     
                                 <br>
@@ -566,8 +566,8 @@
                             <table class = "table table-hover " id="tab_logic">
                                 <tr>
                                     <th class="text-center">#</th>
-                                    <th>DESCRIPTION</th>
-                                    <th>AMOUNT</th>
+                                    <th>Description</th>
+                                    <th>Amount</th>
                                 </tr>
                                     <input form="moveoutTenantForm" type="hidden" id="no_of_items" name="no_of_items" >
                                 <tr id='addr1'></tr>
@@ -576,8 +576,8 @@
                       </div>
         
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i> CANCEL</button>
-                    <button form="moveoutTenantForm" type="submit" class="btn btn-danger"  onclick="return confirm('Are you sure you want to delete this item?');"><i class="fas fa-check"></i> MOVEOUT</button>
+                    <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button>
+                    <button form="moveoutTenantForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"  onclick="return confirm('Are you sure you want to delete this item?');"><i class="fas fa-check fa-sm text-white-50"></i> Moveout</button>
                 </div>
             </div>
             </div>
@@ -589,7 +589,7 @@
             <div class="modal-dialog modal-md" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">EXTEND/RENEW</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Extend/Renew</h5>
         
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -602,7 +602,7 @@
         
                     <div class="row">
                         <div class="col">
-                            <label for="movein_date">ENTER THE NEW MOVEIN DATE</label>
+                            <label for="movein_date">Enter the new movein date</label>
                             <input type="date" form="extendTenantForm" class="form-control" name="movein_date" value="{{ $tenant->moveout_date }}" required>
                             {{-- <input type="text" form="" class="form-control" name="" value="{{ Carbon\Carbon::parse($tenant->moveout_date)->format('M d Y') }}" required readonly> --}}
                         </div>
@@ -610,7 +610,7 @@
                     <br>
                     <div class="row">
                         <div class="col">
-                            <label for="moveout_date">EXTEND CONTRACT TO </label>
+                            <label for="moveout_date">Extend contract to</label>
                             <input type="number" form="extendTenantForm" class="form-control" name="no_of_months" min="1" placeholder="enter no of months" required >
                             <input type="hidden" form="extendTenantForm" class="form-control" name="old_movein_date" value="{{ $tenant->movein_date }}" required>
                         </div>
@@ -620,8 +620,8 @@
                     <div class="row">
                         <div class="col">
                             
-                                ADDITIONAL CHARGES
-                                <small class="text-danger">(OPTIONAL)</small>
+                                Additonal Charges
+                                <small class="text-danger">(Optional)</small>
                                 <a id='remove_charges' class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-minus fa-sm text-white-50"></i></a>
                                 <a id="add_charges" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i></a>     
                                 <br>
@@ -630,8 +630,8 @@
                                 <table class = "table table-hover " id="extend_table">
                                     <tr>
                                         <th class="text-center">#</th>
-                                        <th>DESCRIPTION</th>
-                                        <th>AMOUNT</th>
+                                        <th>Description</th>
+                                        <th>Amount</th>
                                     </tr>
                                         <input form="extendTenantForm" type="hidden" id="no_of_row" name="no_of_row" >
                                         <input form="extendTenantForm" type="hidden" id="current_date" name="current_date" value="{{ date('Y-m-d') }}">
@@ -642,8 +642,8 @@
                       </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i> CANCEL</button>
-                    <button form="extendTenantForm" type="submit" class="btn btn-primary" onclick="return confirm('Are you sure you want to perform this action?');" ><i class="fas fa-check"></i> EXTEND/RENEW</button>
+                    <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button>
+                    <button form="extendTenantForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want to perform this action?');" ><i class="fas fa-check fa-sm text-white-50"></i> Extend/Renew</button>
                 </div>
             </div>
             </div>
@@ -654,7 +654,7 @@
             <div class="modal-dialog modal-md" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">CAN'T MOVEOUT TENANT.</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Can't Moveout Tenant</h5>
         
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -662,7 +662,7 @@
                 </div>
                 <div class="modal-body">
                    <p class="text-center">
-                       TENANT HAS A PENDING BALANCE OF <a title="click this to see the breakdown" >{{ number_format($pending_balance,2) }}</a>.
+                       Tenant has a pending balance of <a title="click this to see the breakdown" >{{ number_format($pending_balance,2) }}</a>.
                    </p>
                 </div>
             </div>
@@ -705,8 +705,8 @@
         </div>
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
         <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-danger" href="{{ route('logout') }}"
+          <button class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" type="button" data-dismiss="modal">Cancel</button>
+          <a class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm" href="{{ route('logout') }}"
                 onclick="event.preventDefault();
                 document.getElementById('logout-form').submit();">
               Logout

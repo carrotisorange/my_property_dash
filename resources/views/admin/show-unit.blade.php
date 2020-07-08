@@ -589,7 +589,7 @@
                                         <option value="{{ $item->building }}">{{ $item->building }}</option>
                                        @endforeach
                                     </select> --}}
-                                    </div>
+                                    <td>{{ Carbon\Carbon::parse($item->moveout_date)->format('M d Y') }}</td>              </div>
                                 <div class="form-group">
                                 <label for="message-text" class="col-form-label">ROOM TYPE</label>
                                 <select form="editUnitForm" id="type_of_units" name="type_of_units" class="form-control">
