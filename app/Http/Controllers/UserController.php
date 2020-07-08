@@ -124,10 +124,7 @@ class UserController extends Controller
             Auth::logout();
 
             return redirect('/login')->with('success', 'You have been logged out!');
-
-        }
-
-        
+        }   
     }
 
     /**

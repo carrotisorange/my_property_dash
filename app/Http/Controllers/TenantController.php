@@ -174,7 +174,7 @@ class TenantController extends Controller
                 //rent information
                 'tenant_monthly_rent' => session(Auth::user()->property.'tenant_monthly_rent'),
                 'type_of_tenant' => 'walk-in',
-                'tenant_status' => 'pending',
+                'tenant_status' => 'active',
                 'movein_date'=> session(Auth::user()->property.'movein_date'),
                 'moveout_date'=> session(Auth::user()->property.'moveout_date'),
         
@@ -209,25 +209,25 @@ class TenantController extends Controller
                     'billing_status' => 'unpaid'
                 ]);
 
-                // DB::table('payments')->insert([
-                //     'payment_tenant_id' => $tenant_id,
-                //     'payment_created' => session(Auth::user()->property.'movein_date'),
-                //     'amt_paid' => $request->input('amt'.$i),
-                //     'or_number' => $request->or_number,
-                //     'ar_number' => $request->ar_number,
-                //     'bank_name' => $request->bank_name,
-                //     'form_of_payment' => 'cash',
-                //     'check_no' => $request->check_no,
-                //     'date_deposited' => $request->date_deposited,
-                //     'payment_note' => $request->input('desc'.$i),
-                // ]);
+                DB::table('payments')->insert([
+                     'payment_tenant_id' => $tenant_id,
+                     'payment_created' => session(Auth::user()->property.'movein_date'),
+                     'amt_paid' => $request->input('amt'.$i),
+                     'or_number' => $request->or_number,
+                     'ar_number' => $request->ar_number,
+                     'bank_name' => $request->bank_name,
+                     'form_of_payment' => 'cash',
+                     'check_no' => $request->check_no,
+                     'date_deposited' => $request->date_deposited,
+                     'payment_note' => $request->input('desc'.$i),
+                 ]);
         }        
 
         //web unit status to occupied.
          DB::table('units')->where('unit_id', session(Auth::user()->property.'unit_id'))
              ->update(
                         [
-                            'status'=> 'reserved',
+                            'status'=> 'occupied',
                             'updated_at' => session(Auth::user()->property.'movein_date'),   
                         ]
                     );

@@ -75,6 +75,12 @@ class PaymentController extends Controller
         ->whereIn('billing_desc', ['Security Deposit (Utilities)', 'Security Deposit (Rent)', 'Advance Rent'])
         ->where('billing_status', 'unpaid')
         ->sum('billing_amt');
+		
+		$count_charges = DB::table('billings')
+        ->where('billing_tenant_id', $request->payment_tenant_id)
+        ->whereIn('billing_desc', ['Security Deposit (Utilities)', 'Security Deposit (Rent)', 'Advance Rent'])
+        ->where('billing_status', 'unpaid')
+        ->count();
 
         //payment for movein charges
        if($request->tenant_status === 'pending'){
