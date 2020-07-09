@@ -401,7 +401,7 @@
                <td>{{ $item->email }}</td>
                <td>{{ $item->user_type }}</td>
                <td>{{ $item->status }}</td>
-               <td>{{ ($item->last_login_at)->toRfc850String() }}</td>
+               <td>{{ $item->last_login_at }}</td>
                <td>{{ $item->last_login_ip }}</td>
                
                
