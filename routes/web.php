@@ -1322,7 +1322,7 @@ Route::get('/home', function(){
         $units = DB::table('units')
             ->where('unit_property', Auth::user()->property)
             ->where('status','!=', 'pulled out')
-            ->count();
+            ->get();
 
         $units_vacant= DB::table('units')
             ->where('unit_property', Auth::user()->property)
