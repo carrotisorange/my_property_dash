@@ -389,7 +389,8 @@
                 <th>EMAIL</th>
                 <th>USER TYPE</th>
                 <th>STATUS</th>
-                <th>PROPERTY NAME</th>
+                <th>LAST LOGIN AT</th>
+                <th>LAST LOGIN IP</th>
               </tr>
           </thead>
           <tbody>
@@ -400,7 +401,9 @@
                <td>{{ $item->email }}</td>
                <td>{{ $item->user_type }}</td>
                <td>{{ $item->status }}</td>
-               <td>{{ $item->property }}</td>
+               <td>{{ $item->last_login_at }}</td>
+               <td>{{ $item->last_login_ip }}</td>
+               
                
            </tr>
            @endforeach

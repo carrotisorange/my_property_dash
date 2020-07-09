@@ -38,6 +38,14 @@ class LoginController extends Controller
     //     }
     // }
 
+        function authenticated(Request $request, $user)
+        {
+            $user->update([
+                'last_login_at' => Carbon::now()->toDateTimeString(),
+                'last_login_ip' => $request->getClientIp()
+            ]);
+        }
+
     protected $redirectTo = '/';
 
     /**
