@@ -338,15 +338,15 @@
                     </form>
                     <div class="row">
                         <div class="col">
-                            <label for="recipient-name" class="col-form-label"><b>NAME</b></label>
+                            <label for="recipient-name" class="col-form-label"><b>Name</b></label>
                             <input form="addUserForm" type="text" class="form-control" name="name" required>
                         </div>
                         <div class="col">
-                            <label for="recipient-name" class="col-form-label"><b>EMAIL</b></label>
+                            <label for="recipient-name" class="col-form-label"><b>Email</b></label>
                             <input form="addUserForm" type="email" class="form-control" name="email" required>
                         </div>
                         <div class="col">
-                            <label for="recipient-name" class="col-form-label"><b>USER TYPE</b></label>
+                            <label for="recipient-name" class="col-form-label"><b>User Type</b></label>
                             <select class="form-control" form="addUserForm" name="user_type" required>
                                 <option value="">Please select one</option>
                                 <option value="admin">admin</option>
@@ -370,7 +370,7 @@
                     </div>
                     <br>
                       <p class="text-right">
-                        <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" type="submit" form="addUserForm"><i class="fas fa-check fa-sm text-white-50"></i> add</button>
+                        <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" type="submit" form="addUserForm"><i class="fas fa-check fa-sm text-white-50"></i> Add</button>
                       </p>
 
                 </div>

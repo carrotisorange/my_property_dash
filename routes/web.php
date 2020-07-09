@@ -2882,7 +2882,7 @@ Route::get('/joborders', function(){
 })->middleware('auth');
 
 Route::get('/collections', function(){
-    if(auth()->user()->status === 'registered' && (auth()->user()->user_type === 'billing' || auth()->user()->user_type === 'manager' || auth()->user()->user_type === 'trea')){
+    if(auth()->user()->status === 'registered' && (auth()->user()->user_type === 'billing' || auth()->user()->user_type === 'manager' || auth()->user()->user_type === 'treasury')){
         $property = explode(",", Auth::user()->property);
 
         if(count($property) > 1){
