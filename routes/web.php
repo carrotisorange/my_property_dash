@@ -45,602 +45,19 @@ Route::get('/', function(Request $request){
         return view('unregistered');
     }
 
-    $property = explode(",", Auth::user()->property);
 
     if(Auth::user()->user_type === 'admin'){
 
-        if(count($property) > 1){
-
-            $all_tenants = DB::table('tenants')
-            ->join('units', 'unit_id', 'unit_tenant_id')
-            ->whereIn('unit_property', [$property[0],$property[1]])
-            ->whereIn('tenant_status',['active', 'inactive'])
-            ->orderBy('movein_date', 'desc')
-            ->get();
-
-            $units = DB::table('units')
-            ->whereIn('unit_property', [$property[0],$property[1]])
-            ->where('status','!=', 'pulled out')
-            ->orderBy('building')
-            ->orderBy('floor_no')
-            ->orderBy('unit_no')
-            ->get();
-
-            $units_occupied = DB::table('units')
-            ->whereIn('unit_property', [$property[0],$property[1]])
-            ->where('status','occupied')
-            ->orderBy('building')
-            ->orderBy('floor_no')
-            ->orderBy('unit_no')
-            ->get();
-
-            $units_vacant = DB::table('units')
-            ->whereIn('unit_property', [$property[0],$property[1]])
-            ->where('status','vacant')
-            ->orderBy('building')
-            ->orderBy('floor_no')
-            ->orderBy('unit_no')
-            ->get();
-
-            $units_reserved = DB::table('units')
-            ->whereIn('unit_property', [$property[0],$property[1]])
-            ->where('status','reserved')
-            ->orderBy('building')
-            ->orderBy('floor_no')
-            ->orderBy('unit_no')
-            ->get();
-
-            $active_tenants = DB::table('tenants')
-            ->join('units', 'unit_id', 'unit_tenant_id')
-            ->whereIn('unit_property', [$property[0],$property[1]])
-            ->where('tenant_status', 'active')
-            ->orderBy('movein_date', 'desc')
-            ->get();
-
-                    
-            $inactive_tenants = DB::table('tenants')
-            ->join('units', 'unit_id', 'unit_tenant_id')
-            ->whereIn('unit_property', [$property[0],$property[1]])
-            ->where('tenant_status', 'inactive')
-            ->orderBy('movein_date', 'desc')
-            ->get();
-
-            $pending_tenants = DB::table('tenants')
-            ->join('units', 'unit_id', 'unit_tenant_id')
-            ->whereIn('unit_property', [$property[0],$property[1]])
-            ->where('tenant_status', 'pending')
-            ->orderBy('movein_date', 'desc')
-            ->get();
-
-            $owners = DB::table('units')
-            ->join('unit_owners', 'unit_unit_owner_id', 'unit_owner_id')
-            ->where('unit_property', $property[0])
-            ->get();
-
-            $movein_rate_1 = DB::table('tenants')
-            ->join('units', 'unit_id', 'unit_tenant_id')
-            ->where('movein_date', '>=', Carbon::now()->subMonths(11)->firstOfMonth())
-            ->where('movein_date', '<=', Carbon::now()->subMonths(11)->endOfMonth())
-            ->whereIn('unit_property', [$property[0],$property[1]])
-            ->whereIn('tenant_status',['active', 'inactive'])
-            
-            ->count();
-    
-            $movein_rate_2 = DB::table('tenants')
-            ->join('units', 'unit_id', 'unit_tenant_id')
-            ->where('movein_date', '>=', Carbon::now()->subMonths(10)->firstOfMonth())
-            ->where('movein_date', '<=', Carbon::now()->subMonths(10)->endOfMonth())
-            ->whereIn('unit_property', [$property[0],$property[1]])
-            ->whereIn('tenant_status',['active', 'inactive'])
-            
-            ->count();
-    
-            $movein_rate_3 = DB::table('tenants')
-            ->join('units', 'unit_id', 'unit_tenant_id')
-            ->where('movein_date', '>=', Carbon::now()->subMonths(9)->firstOfMonth())
-            ->where('movein_date', '<=', Carbon::now()->subMonths(9)->endOfMonth())
-            ->whereIn('unit_property', [$property[0],$property[1]])
-            ->whereIn('tenant_status',['active', 'inactive'])
-            
-            ->count();
-    
-            $movein_rate_4 = DB::table('tenants')
-            ->join('units', 'unit_id', 'unit_tenant_id')
-            ->where('movein_date', '>=', Carbon::now()->subMonths(8)->firstOfMonth())
-            ->where('movein_date', '<=', Carbon::now()->subMonths(8)->endOfMonth())
-            ->whereIn('unit_property', [$property[0],$property[1]])
-            ->whereIn('tenant_status',['active', 'inactive'])
-            
-            ->count();
-    
-            $movein_rate_5 = DB::table('tenants')
-            ->join('units', 'unit_id', 'unit_tenant_id')
-            ->where('movein_date', '>=', Carbon::now()->subMonths(7)->firstOfMonth())
-            ->where('movein_date', '<=', Carbon::now()->subMonths(7)->endOfMonth())
-            ->whereIn('unit_property', [$property[0],$property[1]])
-            ->whereIn('tenant_status',['active', 'inactive'])
-          
-            ->count();
-    
-    
-            $movein_rate_6 = DB::table('tenants')
-            ->join('units', 'unit_id', 'unit_tenant_id')
-            ->where('movein_date', '>=', Carbon::now()->subMonths(6)->firstOfMonth())
-            ->where('movein_date', '<=', Carbon::now()->subMonths(6)->endOfMonth())
-            ->whereIn('unit_property', [$property[0],$property[1]])
-            ->whereIn('tenant_status',['active', 'inactive'])
-            
-            ->count();
-    
-            $movein_rate_7 = DB::table('tenants')
-            ->join('units', 'unit_id', 'unit_tenant_id')
-            ->where('movein_date', '>=', Carbon::now()->subMonths(5)->firstOfMonth())
-            ->where('movein_date', '<=', Carbon::now()->subMonths(5)->endOfMonth())
-            ->whereIn('unit_property', [$property[0],$property[1]])
-            ->whereIn('tenant_status',['active', 'inactive'])
-           
-            ->count();
-    
-            $movein_rate_8 = DB::table('tenants')
-            ->join('units', 'unit_id', 'unit_tenant_id')
-            ->where('movein_date', '>=', Carbon::now()->subMonths(4)->firstOfMonth())
-            ->where('movein_date', '<=', Carbon::now()->subMonths(4)->endOfMonth())
-            ->whereIn('unit_property', [$property[0],$property[1]])
-            ->whereIn('tenant_status',['active', 'inactive'])
-            
-            ->count();
-            
-            $movein_rate_9 = DB::table('tenants')
-            ->join('units', 'unit_id', 'unit_tenant_id')
-            ->where('movein_date', '>=', Carbon::now()->subMonths(3)->firstOfMonth())
-            ->where('movein_date', '<=', Carbon::now()->subMonths(3)->endOfMonth())
-            ->whereIn('unit_property', [$property[0],$property[1]])
-            ->whereIn('tenant_status',['active', 'inactive'])
-            ->where('type_of_units', 'leasing')
-            ->count();
-    
-            $movein_rate_10 = DB::table('tenants')
-            ->join('units', 'unit_id', 'unit_tenant_id')
-            ->where('movein_date', '>=', Carbon::now()->subMonths(2)->firstOfMonth())
-            ->where('movein_date', '<=', Carbon::now()->subMonths(2)->endOfMonth())
-            ->whereIn('unit_property', [$property[0],$property[1]])
-            ->whereIn('tenant_status',['active', 'inactive'])
-           
-            ->count();
-    
-            $movein_rate_11 = DB::table('tenants')
-            ->join('units', 'unit_id', 'unit_tenant_id')
-            ->where('movein_date', '>=', Carbon::now()->subMonth()->firstOfMonth())
-            ->where('movein_date', '<=', Carbon::now()->subMonth()->endOfMonth())
-            ->whereIn('unit_property', [$property[0],$property[1]])
-            ->whereIn('tenant_status',['active', 'inactive'])
-            
-            ->count();
-    
-            $movein_rate_12 = DB::table('tenants')
-            ->join('units', 'unit_id', 'unit_tenant_id')
-            ->where('movein_date', '>=', Carbon::now()->firstOfMonth())
-            ->where('movein_date', '<=', Carbon::now()->endOfMonth())
-            ->whereIn('unit_property', [$property[0],$property[1]])
-            ->whereIn('tenant_status',['active', 'inactive'])
-          
-            ->count();
-
-            if($units->count() <= 0){
-                $movein_rate = new DashboardChart;
-                $movein_rate->barwidth(0.0);
-                $movein_rate->displaylegend(false);
-                $movein_rate->labels([Carbon::now()->subMonth(11)->format('M Y'),Carbon::now()->subMonth(10)->format('M Y'),Carbon::now()->subMonth(9)->format('M Y'),Carbon::now()->subMonth(8)->format('M Y'),Carbon::now()->subMonth(7)->format('M Y'),Carbon::now()->subMonth(6)->format('M Y'),Carbon::now()->subMonth(5)->format('M Y'),Carbon::now()->subMonth(4)->format('M Y'),Carbon::now()->subMonth(3)->format('M Y'),Carbon::now()->subMonths(2)->format('M Y'),Carbon::now()->subMonth()->format('M Y'),Carbon::now()->format('M Y')]);
-                $movein_rate->dataset('Occupancy Rate: ', 'line', [
-                                                    number_format(1,2),
-                                                    number_format(1,2),
-                                                    number_format(1,2),
-                                                    number_format(1,2),
-                                                    number_format(1,2),
-                                                    number_format(1,2),
-                                                    number_format(1,2),
-                                                    number_format(1,2),
-                                                    number_format(1,2),
-                                                    number_format(1,2),
-                                                    number_format(1,2),
-                                                    number_format(1,2),
-                                                    ])
-                ->color("#858796")
-                ->backgroundcolor("rgba(78, 115, 223, 0.05)")
-                ->fill(true)
-                ->linetension(0.3);
-            }else{
-                $movein_rate = new DashboardChart;
-                $movein_rate->barwidth(0.0);
-                $movein_rate->displaylegend(false);
-                $movein_rate->labels([Carbon::now()->subMonth(11)->format('M Y'),Carbon::now()->subMonth(10)->format('M Y'),Carbon::now()->subMonth(9)->format('M Y'),Carbon::now()->subMonth(8)->format('M Y'),Carbon::now()->subMonth(7)->format('M Y'),Carbon::now()->subMonth(6)->format('M Y'),Carbon::now()->subMonth(5)->format('M Y'),Carbon::now()->subMonth(4)->format('M Y'),Carbon::now()->subMonth(3)->format('M Y'),Carbon::now()->subMonths(2)->format('M Y'),Carbon::now()->subMonth()->format('M Y'),Carbon::now()->format('M Y')]);
-                $movein_rate->dataset('Occupancy Rate: ', 'line', [
-                                                    number_format(($all_tenants->count()-($movein_rate_2 + $movein_rate_3 + $movein_rate_4 + $movein_rate_5 + $movein_rate_6 + $movein_rate_7 + $movein_rate_8 + $movein_rate_9 + $movein_rate_10 + $movein_rate_11 + $movein_rate_12))/$leasing_units->count() * 100,2),
-                                                    number_format(($all_tenants->count()-($movein_rate_3 + $movein_rate_4 + $movein_rate_5 + $movein_rate_6 + $movein_rate_7 + $movein_rate_8 + $movein_rate_9 + $movein_rate_10 + $movein_rate_11 + $movein_rate_12))/$leasing_units->count() * 100,2),
-                                                    number_format(($all_tenants->count()-($movein_rate_4 + $movein_rate_5 + $movein_rate_6 + $movein_rate_7 + $movein_rate_8 + $movein_rate_9 + $movein_rate_10 + $movein_rate_11 + $movein_rate_12))/$leasing_units->count() * 100,2),
-                                                    number_format(($all_tenants->count()-($movein_rate_5 + $movein_rate_6 + $movein_rate_7 + $movein_rate_8 + $movein_rate_9 + $movein_rate_10 + $movein_rate_11 + $movein_rate_12))/$leasing_units->count() * 100,2),
-                                                    number_format(($all_tenants->count()-($movein_rate_6 + $movein_rate_7 + $movein_rate_8 + $movein_rate_9 + $movein_rate_10 + $movein_rate_11 + $movein_rate_12))/$leasing_units->count() * 100,2),
-                                                    number_format(($all_tenants->count()-($movein_rate_7 + $movein_rate_8 + $movein_rate_9 + $movein_rate_10 + $movein_rate_11 + $movein_rate_12))/$leasing_units->count() * 100,2),
-                                                    number_format(($all_tenants->count()-($movein_rate_8 + $movein_rate_9 + $movein_rate_10 + $movein_rate_11 + $movein_rate_12))/$leasing_units->count() * 100,2),
-                                                    number_format(($all_tenants->count()-($movein_rate_9 + $movein_rate_10 + $movein_rate_11 + $movein_rate_12))/$leasing_units->count() * 100,2),
-                                                    number_format(($all_tenants->count()-($movein_rate_10 + $movein_rate_11 + $movein_rate_12))/$leasing_units->count() * 100,2),
-                                                    number_format(($all_tenants->count()-($movein_rate_11 + $movein_rate_12))/$leasing_units->count() * 100,2),
-                                                    number_format(($all_tenants->count()-($movein_rate_12))/$leasing_units->count() * 100,2),
-                                                    number_format(($active_tenants->count()/$leasing_units->count()) * 100,2)
-                                                    ])
-                ->color("#858796")
-                ->backgroundcolor("rgba(78, 115, 223, 0.05)")
-                ->fill(true)
-                ->linetension(0.3);
-            }
-
-            $renewed_contracts = DB::table('tenants')
-            ->join('units', 'unit_id', 'unit_tenant_id')
-            ->whereIn('unit_property', [$property[0],$property[1]])
-            ->orderBy('movein_date', 'desc')
-            ->where('has_extended', 'renewed')
-            ->where('tenant_status', '!=', 'inactive')
-            ->get();
-        
-            $terminated_contracts = DB::table('tenants')
-            ->join('units', 'unit_id', 'unit_tenant_id')
-            ->whereIn('unit_property', [$property[0],$property[1]])
-            ->orderBy('movein_date', 'desc')
-            ->where('tenant_status', 'inactive')
-            ->get();
-
-            $overall_contract_termination = $renewed_contracts->count() + $terminated_contracts->count();
-
-            $renewed_chart = new DashboardChart;
-            $renewed_chart->displayAxes(false);
-            $renewed_chart->labels([ 'Renewed'.' ('.$renewed_contracts->count(). ')', 'Terminated'.' ('.$terminated_contracts->count(). ')', 'Total'.' ('.$overall_contract_termination. ')']);
-            $renewed_chart->dataset('', 'pie', [number_format(($overall_contract_termination == 0 ? 0 : $renewed_contracts->count()/$overall_contract_termination) * 100,1),number_format(($overall_contract_termination == 0 ? 0 :$terminated_contracts->count()/$overall_contract_termination) * 100,1)  ])
-            ->backgroundColor(['#008000', '#FF0000']);
-
-            $collection_rate_1 = DB::table('units')
-            ->join('tenants', 'unit_id', 'unit_tenant_id')
-            ->join('payments', 'tenant_id', 'payment_tenant_id')
-            ->where('payment_created', '>=', Carbon::now()->subMonths(11)->firstOfMonth())
-            ->where('payment_created', '<=', Carbon::now()->subMonths(11)->endOfMonth())
-            ->whereIn('unit_property', [$property[0],$property[1]])
-           
-            ->sum('amt_paid');
-    
-            $collection_rate_2 = DB::table('units')
-            ->join('tenants', 'unit_id', 'unit_tenant_id')
-            ->join('payments', 'tenant_id', 'payment_tenant_id')
-            ->where('payment_created', '>=', Carbon::now()->subMonths(10)->firstOfMonth())
-            ->where('payment_created', '<=', Carbon::now()->subMonths(10)->endOfMonth())
-            ->whereIn('unit_property', [$property[0],$property[1]])
-           
-            ->sum('amt_paid');
-    
-            $collection_rate_3 = DB::table('units')
-            ->join('tenants', 'unit_id', 'unit_tenant_id')
-            ->join('payments', 'tenant_id', 'payment_tenant_id')
-            ->where('payment_created', '>=', Carbon::now()->subMonths(9)->firstOfMonth())
-            ->where('payment_created', '<=', Carbon::now()->subMonths(9)->endOfMonth())
-            ->whereIn('unit_property', [$property[0],$property[1]])
-           
-            ->sum('amt_paid');
-    
-            $collection_rate_4 = DB::table('units')
-            ->join('tenants', 'unit_id', 'unit_tenant_id')
-            ->join('payments', 'tenant_id', 'payment_tenant_id')
-            ->where('payment_created', '>=', Carbon::now()->subMonths(8)->firstOfMonth())
-            ->where('payment_created', '<=', Carbon::now()->subMonths(8)->endOfMonth())
-            ->whereIn('unit_property', [$property[0],$property[1]])
-           
-            ->sum('amt_paid');
-    
-            $collection_rate_5 = DB::table('units')
-            ->join('tenants', 'unit_id', 'unit_tenant_id')
-            ->join('payments', 'tenant_id', 'payment_tenant_id')
-            ->where('payment_created', '>=', Carbon::now()->subMonths(7)->firstOfMonth())
-            ->where('payment_created', '<=', Carbon::now()->subMonths(7)->endOfMonth())
-            ->whereIn('unit_property', [$property[0],$property[1]])
-           
-            ->sum('amt_paid');
-    
-            $collection_rate_6 = DB::table('units')
-            ->join('tenants', 'unit_id', 'unit_tenant_id')
-            ->join('payments', 'tenant_id', 'payment_tenant_id')
-            ->where('payment_created', '>=', Carbon::now()->subMonths(6)->firstOfMonth())
-            ->where('payment_created', '<=', Carbon::now()->subMonths(6)->endOfMonth())
-            ->whereIn('unit_property', [$property[0],$property[1]])
-           
-            ->sum('amt_paid');
-        
-            $collection_rate_7 = DB::table('units')
-            ->join('tenants', 'unit_id', 'unit_tenant_id')
-            ->join('payments', 'tenant_id', 'payment_tenant_id')
-            ->where('payment_created', '>=', Carbon::now()->subMonths(5)->firstOfMonth())
-            ->where('payment_created', '<=', Carbon::now()->subMonths(5)->endOfMonth())
-            ->whereIn('unit_property', [$property[0],$property[1]])
-           
-            ->sum('amt_paid');
-        
-            $collection_rate_8 = DB::table('units')
-            ->join('tenants', 'unit_id', 'unit_tenant_id')
-            ->join('payments', 'tenant_id', 'payment_tenant_id')
-            ->where('payment_created', '>=', Carbon::now()->subMonths(4)->firstOfMonth())
-            ->where('payment_created', '<=', Carbon::now()->subMonths(4)->endOfMonth())
-            ->whereIn('unit_property', [$property[0],$property[1]])
-            ->whereRaw("payment_note like '%Rent%' ")
-            ->sum('amt_paid');
-        
-            $collection_rate_9 = DB::table('units')
-            ->join('tenants', 'unit_id', 'unit_tenant_id')
-            ->join('payments', 'tenant_id', 'payment_tenant_id')
-            ->where('payment_created', '>=', Carbon::now()->subMonths(3)->firstOfMonth())
-            ->where('payment_created', '<=', Carbon::now()->subMonths(3)->endOfMonth())
-            ->whereIn('unit_property', [$property[0],$property[1]])
-            
-            ->sum('amt_paid');
-        
-             $collection_rate_10 = DB::table('units')
-            ->join('tenants', 'unit_id', 'unit_tenant_id')
-            ->join('payments', 'tenant_id', 'payment_tenant_id')
-            ->where('payment_created', '>=', Carbon::now()->subMonths(2)->firstOfMonth())
-            ->where('payment_created', '<=', Carbon::now()->subMonths(2)->endOfMonth())
-            ->whereIn('unit_property', [$property[0],$property[1]])
-            ->sum('amt_paid');
-        
-             $collection_rate_11 = DB::table('units')
-            ->join('tenants', 'unit_id', 'unit_tenant_id')
-            ->join('payments', 'tenant_id', 'payment_tenant_id')
-            ->where('payment_created', '>=', Carbon::now()->subMonth()->firstOfMonth())
-            ->where('payment_created', '<=', Carbon::now()->subMonth()->firstOfMonth())
-            ->whereIn('unit_property', [$property[0],$property[1]])
-            ->sum('amt_paid');
-        
-             $collection_rate_12 = DB::table('units')
-            ->join('tenants', 'unit_id', 'unit_tenant_id')
-            ->join('payments', 'tenant_id', 'payment_tenant_id')
-            ->where('payment_created', '>=', Carbon::now()->firstOfMonth())
-            ->where('payment_created', '<=', Carbon::now()->endOfMonth())
-            ->whereIn('unit_property', [$property[0],$property[1]])
-            ->sum('amt_paid');
-
-            $collection_rate = new DashboardChart;
-
-            $collection_rate->barwidth(0.0);
-            $collection_rate->displaylegend(false);
-            $collection_rate->labels([Carbon::now()->subMonth(11)->format('M Y'),Carbon::now()->subMonth(10)->format('M Y'),Carbon::now()->subMonth(9)->format('M Y'),Carbon::now()->subMonth(8)->format('M Y'),Carbon::now()->subMonth(7)->format('M Y'),Carbon::now()->subMonth(6)->format('M Y'),Carbon::now()->subMonth(5)->format('M Y'),Carbon::now()->subMonth(4)->format('M Y'),Carbon::now()->subMonth(3)->format('M Y'),Carbon::now()->subMonths(2)->format('M Y'),Carbon::now()->subMonth()->format('M Y'),Carbon::now()->format('M Y')]);
-            $collection_rate->dataset('Total collection', 'line', [
-                $collection_rate_1,
-                $collection_rate_2,
-                $collection_rate_3,
-                $collection_rate_4,
-                $collection_rate_5,
-                $collection_rate_6,
-                $collection_rate_7,
-                $collection_rate_8,
-                $collection_rate_9,
-                $collection_rate_10,
-                $collection_rate_11,
-                $collection_rate_12,
-                                                                  ])
-            ->color("#858796")
-            ->backgroundcolor("rgba(78, 115, 223, 0.05)")
-            ->fill(true)
-            ->linetension(0.3);
-
-            $delinquent_accounts = DB::table('units')
-            ->selectRaw('*,sum(billing_amt) as total_bills')
-            ->join('tenants', 'unit_id', 'unit_tenant_id')
-            ->join('billings', 'tenant_id', 'billing_tenant_id')
-            ->whereIn('unit_property', [$property[0],$property[1]])
-            // ->whereIn('billing_desc', ['Monthly Rent', 'Surcharge'])
-            ->where('billing_status', 'unpaid')
-            ->where('billing_date', '<', Carbon::now()->addDays(7))
-            ->groupBy('tenant_id')
-            ->orderBy('total_bills', 'desc')
-            ->get();
-            
-            $tenants_to_watch_out = DB::table('tenants')
-            ->join('units', 'unit_id', 'unit_tenant_id')
-            ->whereIn('unit_property', [$property[0],$property[1]])
-            ->orderBy('moveout_date')
-            ->where('tenant_status', 'active')
-            ->get();
-
-            $moveout_rate_1 = DB::table('tenants')
-            ->join('units', 'unit_id', 'unit_tenant_id')
-            ->where('moveout_date', '>=', Carbon::now()->subMonths(11)->firstOfMonth())
-            ->where('moveout_date', '<=', Carbon::now()->subMonths(11)->endOfMonth())
-            ->whereIn('unit_property', [$property[0],$property[1]])
-            ->where('tenant_status','inactive')
-            ->where('type_of_units', 'leasing')
-            ->count();
-    
-            $moveout_rate_2 = DB::table('tenants')
-            ->join('units', 'unit_id', 'unit_tenant_id')
-            ->where('moveout_date', '>=', Carbon::now()->subMonths(10)->firstOfMonth())
-            ->where('moveout_date', '<=', Carbon::now()->subMonths(10)->endOfMonth())
-            ->whereIn('unit_property', [$property[0],$property[1]])
-            ->where('tenant_status','inactive')
-            ->where('type_of_units', 'leasing')
-            ->count();
-    
-            $moveout_rate_3 = DB::table('tenants')
-            ->join('units', 'unit_id', 'unit_tenant_id')
-            ->where('moveout_date', '>=', Carbon::now()->subMonths(9)->firstOfMonth())
-            ->where('moveout_date', '<=', Carbon::now()->subMonths(9)->endOfMonth())
-            ->whereIn('unit_property', [$property[0],$property[1]])
-            ->where('tenant_status','inactive')
-            ->where('type_of_units', 'leasing')
-            ->count();
-    
-            $moveout_rate_4 = DB::table('tenants')
-            ->join('units', 'unit_id', 'unit_tenant_id')
-            ->where('moveout_date', '>=', Carbon::now()->subMonths(8)->firstOfMonth())
-            ->where('moveout_date', '<=', Carbon::now()->subMonths(8)->endOfMonth())
-            ->whereIn('unit_property', [$property[0],$property[1]])
-            ->where('tenant_status','inactive')
-            ->where('type_of_units', 'leasing')
-            ->count();
-    
-            $moveout_rate_5 = DB::table('tenants')
-            ->join('units', 'unit_id', 'unit_tenant_id')
-            ->where('moveout_date', '>=', Carbon::now()->subMonths(7)->firstOfMonth())
-            ->where('moveout_date', '<=', Carbon::now()->subMonths(7)->endOfMonth())
-            ->whereIn('unit_property', [$property[0],$property[1]])
-            ->where('tenant_status','inactive')
-            ->where('type_of_units', 'leasing')
-            ->count();
-    
-            $moveout_rate_6 = DB::table('tenants')
-            ->join('units', 'unit_id', 'unit_tenant_id')
-            ->where('moveout_date', '>=', Carbon::now()->subMonths(6)->firstOfMonth())
-            ->where('moveout_date', '<=', Carbon::now()->subMonths(6)->endOfMonth())
-            ->whereIn('unit_property', [$property[0],$property[1]])
-            ->where('tenant_status','inactive')
-            ->where('type_of_units', 'leasing')
-            ->count();
-    
-            $moveout_rate_7 = DB::table('tenants')
-            ->join('units', 'unit_id', 'unit_tenant_id')
-            ->where('moveout_date', '>=', Carbon::now()->subMonths(5)->firstOfMonth())
-            ->where('moveout_date', '<=', Carbon::now()->subMonths(5)->endOfMonth())
-            ->whereIn('unit_property', [$property[0],$property[1]])
-            ->where('tenant_status','inactive')
-            ->where('type_of_units', 'leasing')
-            ->count();
-        
-            $moveout_rate_8 = DB::table('tenants')
-            ->join('units', 'unit_id', 'unit_tenant_id')
-            ->where('moveout_date', '>=', Carbon::now()->subMonths(4)->firstOfMonth())
-            ->where('moveout_date', '<=', Carbon::now()->subMonths(4)->endOfMonth())
-            ->whereIn('unit_property', [$property[0],$property[1]])
-            ->where('tenant_status','inactive')
-            ->where('type_of_units', 'leasing')
-            ->count();
-        
-            $moveout_rate_9= DB::table('tenants')
-            ->join('units', 'unit_id', 'unit_tenant_id')
-            ->where('moveout_date', '>=', Carbon::now()->subMonths(3)->firstOfMonth())
-            ->where('moveout_date', '<=', Carbon::now()->subMonths(3)->endOfMonth())
-            ->whereIn('unit_property', [$property[0],$property[1]])
-            ->where('tenant_status','inactive')
-            ->where('type_of_units', 'leasing')
-            ->count();
-        
-            $moveout_rate_10= DB::table('tenants')
-            ->join('units', 'unit_id', 'unit_tenant_id')
-            ->where('moveout_date', '>=', Carbon::now()->subMonths(2)->firstOfMonth())
-            ->where('moveout_date', '<=', Carbon::now()->subMonths(2)->endOfMonth())
-            ->whereIn('unit_property', [$property[0],$property[1]])
-            ->where('tenant_status','inactive')
-            ->where('type_of_units', 'leasing')
-            ->count();
-        
-            $moveout_rate_11 = DB::table('tenants')
-            ->join('units', 'unit_id', 'unit_tenant_id')
-            ->where('moveout_date', '>=', Carbon::now()->subMonth()->firstOfMonth())
-            ->where('moveout_date', '<=', Carbon::now()->subMonth()->endOfMonth())
-            ->whereIn('unit_property', [$property[0],$property[1]])
-            ->where('tenant_status','inactive')
-            ->where('type_of_units', 'leasing')
-            ->count();
-        
-            $moveout_rate_12 = DB::table('tenants')
-            ->join('units', 'unit_id', 'unit_tenant_id')
-            ->where('moveout_date', '>=', Carbon::now()->firstOfMonth())
-            ->where('moveout_date', '<=', Carbon::now()->endOfMonth())
-            ->whereIn('unit_property', [$property[0],$property[1]])
-            ->where('tenant_status','inactive')
-            ->where('type_of_units', 'leasing')
-            ->count();
-
-            $moveout_rate = new DashboardChart;
-            $moveout_rate->barwidth(0.0);
-            $moveout_rate->displaylegend(false);
-            $moveout_rate->labels([Carbon::now()->subMonth(11)->format('M Y'),Carbon::now()->subMonth(10)->format('M Y'),Carbon::now()->subMonth(9)->format('M Y'),Carbon::now()->subMonth(8)->format('M Y'),Carbon::now()->subMonth(7)->format('M Y'),Carbon::now()->subMonth(6)->format('M Y'),Carbon::now()->subMonth(5)->format('M Y'),Carbon::now()->subMonth(4)->format('M Y'),Carbon::now()->subMonth(3)->format('M Y'),Carbon::now()->subMonths(2)->format('M Y'),Carbon::now()->subMonth()->format('M Y'),Carbon::now()->format('M Y')]);
-            $moveout_rate->dataset('number of moveouts', 'line', [
-                                                            $moveout_rate_1,
-                                                            $moveout_rate_2,
-                                                            $moveout_rate_3,
-                                                            $moveout_rate_4,
-                                                            $moveout_rate_5,
-                                                            $moveout_rate_6,
-                                                            $moveout_rate_7,
-                                                            $moveout_rate_8,
-                                                            $moveout_rate_9,
-                                                            $moveout_rate_10,
-                                                            $moveout_rate_11,
-                                                            $moveout_rate_12
-                                                          ]
-                            )
-            ->color("#858796")
-            ->backgroundcolor("rgba(78, 115, 223, 0.05)")
-            ->fill(true)
-            ->linetension(0.3);
-
-            $end_of_contract = DB::table('tenants')
-            ->join('units', 'unit_id', 'unit_tenant_id')
-            ->whereIn('unit_property', [$property[0],$property[1]])
-            ->orderBy('movein_date', 'desc')
-            ->where('tenant_status', 'inactive')
-            ->where('reason_for_moving_out','end of contract')
-            ->get();
-    
-            $delinquent = DB::table('tenants')
-            ->join('units', 'unit_id', 'unit_tenant_id')
-            ->whereIn('unit_property', [$property[0],$property[1]])
-            ->orderBy('movein_date', 'desc')
-            ->where('tenant_status', 'inactive')
-            ->where('reason_for_moving_out','delinquent')
-            ->get();
-    
-            $force_majeure = DB::table('tenants')
-            ->join('units', 'unit_id', 'unit_tenant_id')
-            ->whereIn('unit_property', [$property[0],$property[1]])
-            ->orderBy('movein_date', 'desc')
-            ->where('tenant_status', 'inactive')
-            ->where('reason_for_moving_out','force_majeure')
-            ->get();
-    
-            $run_away = DB::table('tenants')
-            ->join('units', 'unit_id', 'unit_tenant_id')
-            ->whereIn('unit_property', [$property[0],$property[1]])
-            ->orderBy('movein_date', 'desc')
-            ->where('tenant_status', 'inactive')
-            ->where('reason_for_moving_out','run_away')
-            ->get();
-    
-            $force_majeure = DB::table('tenants')
-            ->join('units', 'unit_id', 'unit_tenant_id')
-            ->whereIn('unit_property', [$property[0],$property[1]])
-            ->orderBy('movein_date', 'desc')
-            ->where('tenant_status', 'inactive')
-            ->where('reason_for_moving_out','force_majeure')
-            ->get();
-        
-            $unruly = DB::table('tenants')
-            ->join('units', 'unit_id', 'unit_tenant_id')
-            ->whereIn('unit_property', [$property[0],$property[1]])
-            ->orderBy('movein_date', 'desc')
-            ->where('tenant_status', 'inactive')
-            ->where('reason_for_moving_out','unruly')
-            ->get();
-
-            $reason_for_moving_out_chart = new DashboardChart;
-            $reason_for_moving_out_chart->displayAxes(false);
-            $reason_for_moving_out_chart->labels([ 'End Of Contract'.' ('.$end_of_contract->count(). ')', 'Delinquent'.' ('.$delinquent->count(). ')', 'Force Majeure'.' ('.$force_majeure->count(). ')', 'Run Away'.' ('.$run_away->count(). ')', 'Unruly'.' ('.$unruly->count(). ')','Total'.' ('.$inactive_tenants->count(). ')']);
-            $reason_for_moving_out_chart->dataset('', 'pie', [number_format(($inactive_tenants->count() == 0 ? 0 : $end_of_contract->count()/$inactive_tenants->count()) * 100,1),number_format(($inactive_tenants->count() == 0 ? 0 : $delinquent->count()/$inactive_tenants->count()) * 100,1),number_format(($inactive_tenants->count() == 0 ? 0 : $force_majeure->count()/$inactive_tenants->count()) * 100,1),number_format(($inactive_tenants->count() == 0 ? 0 : $run_away->count()/$inactive_tenants->count()) * 100,1), number_format(($inactive_tenants->count() == 0 ? 0 : $unruly->count()/$inactive_tenants->count()) * 100,1),])
-            ->backgroundColor(['#008000', '#FF0000','#0E0601','#DE7835','#211979']);
-
-            }else{
+       
             $all_tenants = DB::table('tenants')
                 ->join('units', 'unit_id', 'unit_tenant_id')
-                ->where('unit_property', $property[0])
+                ->where('unit_property', Auth::user()->property)
                 ->whereIn('tenant_status',['active', 'inactive'])
                 ->orderBy('movein_date', 'desc')
                 ->get();                    
                 
             $units = DB::table('units')
-                ->where('unit_property', $property[0])
+                ->where('unit_property', Auth::user()->property)
                 ->where('status','!=', 'pulled out')
                 ->orderBy('building')
                 ->orderBy('floor_no')
@@ -648,7 +65,7 @@ Route::get('/', function(Request $request){
                 ->get();
     
              $units_occupied = DB::table('units')
-             ->where('unit_property', $property[0])
+                ->where('unit_property', Auth::user()->property)
                 ->where('status','occupied')
                 ->orderBy('building')
                 ->orderBy('floor_no')
@@ -656,7 +73,7 @@ Route::get('/', function(Request $request){
                 ->get();
     
                 $units_vacant = DB::table('units')
-                ->where('unit_property', $property[0])
+                ->where('unit_property', Auth::user()->property)
                 ->where('status','vacant')
                 ->orderBy('building')
                 ->orderBy('floor_no')
@@ -664,7 +81,7 @@ Route::get('/', function(Request $request){
                 ->get();
     
                 $units_reserved = DB::table('units')
-                ->where('unit_property', $property[0])
+                ->where('unit_property', Auth::user()->property)
                 ->where('status','reserved')
                 ->orderBy('building')
                 ->orderBy('floor_no')
@@ -673,35 +90,35 @@ Route::get('/', function(Request $request){
     
                 $active_tenants = DB::table('tenants')
                 ->join('units', 'unit_id', 'unit_tenant_id')
-                ->where('unit_property', $property[0])
+                ->where('unit_property', Auth::user()->property)
                 ->where('tenant_status', 'active')
                 ->orderBy('movein_date', 'desc')
                 ->get();
    
                 $inactive_tenants = DB::table('tenants')
                 ->join('units', 'unit_id', 'unit_tenant_id')
-                ->where('unit_property', $property[0])
+                ->where('unit_property', Auth::user()->property)
                 ->where('tenant_status', 'inactive')
                 ->orderBy('movein_date', 'desc')
                 ->get();
     
                 $pending_tenants = DB::table('tenants')
                 ->join('units', 'unit_id', 'unit_tenant_id')
-                ->where('unit_property', $property[0])
+                ->where('unit_property', Auth::user()->property)
                 ->where('tenant_status', 'pending')
                 ->orderBy('movein_date', 'desc')
                 ->get();
     
                 $owners = DB::table('units')
                 ->join('unit_owners', 'unit_unit_owner_id', 'unit_owner_id')
-                ->where('unit_property', $property[0])
+                ->where('unit_property', Auth::user()->property)
                 ->get();
     
                 $movein_rate_1 = DB::table('tenants')
                 ->join('units', 'unit_id', 'unit_tenant_id')
                 ->where('movein_date', '>=', Carbon::now()->subMonths(11)->firstOfMonth())
                 ->where('movein_date', '<=', Carbon::now()->subMonths(11)->endOfMonth())
-                ->where('unit_property', $property[0])
+                ->where('unit_property', Auth::user()->property)
                 ->whereIn('tenant_status',['active', 'inactive'])
                 ->where('type_of_units', 'leasing')
                 ->count();
@@ -710,7 +127,7 @@ Route::get('/', function(Request $request){
                 ->join('units', 'unit_id', 'unit_tenant_id')
                 ->where('movein_date', '>=', Carbon::now()->subMonths(10)->firstOfMonth())
                 ->where('movein_date', '<=', Carbon::now()->subMonths(10)->endOfMonth())
-                ->where('unit_property', $property[0])
+                ->where('unit_property', Auth::user()->property)
                 ->whereIn('tenant_status',['active', 'inactive'])
                 ->where('type_of_units', 'leasing')
                 ->count();
@@ -719,7 +136,7 @@ Route::get('/', function(Request $request){
                 ->join('units', 'unit_id', 'unit_tenant_id')
                 ->where('movein_date', '>=', Carbon::now()->subMonths(9)->firstOfMonth())
                 ->where('movein_date', '<=', Carbon::now()->subMonths(9)->endOfMonth())
-                ->where('unit_property', $property[0])
+                ->where('unit_property', Auth::user()->property)
                 ->whereIn('tenant_status',['active', 'inactive'])
                 ->where('type_of_units', 'leasing')
                 ->count();
@@ -728,7 +145,7 @@ Route::get('/', function(Request $request){
                 ->join('units', 'unit_id', 'unit_tenant_id')
                 ->where('movein_date', '>=', Carbon::now()->subMonths(8)->firstOfMonth())
                 ->where('movein_date', '<=', Carbon::now()->subMonths(8)->endOfMonth())
-                ->where('unit_property', $property[0])
+                ->where('unit_property', Auth::user()->property)
                 ->whereIn('tenant_status',['active', 'inactive'])
                 ->where('type_of_units', 'leasing')
                 ->count();
@@ -737,7 +154,7 @@ Route::get('/', function(Request $request){
                 ->join('units', 'unit_id', 'unit_tenant_id')
                 ->where('movein_date', '>=', Carbon::now()->subMonths(7)->firstOfMonth())
                 ->where('movein_date', '<=', Carbon::now()->subMonths(7)->endOfMonth())
-                ->where('unit_property', $property[0])
+                ->where('unit_property', Auth::user()->property)
                 ->whereIn('tenant_status',['active', 'inactive'])
                 ->where('type_of_units', 'leasing')
                 ->count();
@@ -747,7 +164,7 @@ Route::get('/', function(Request $request){
                 ->join('units', 'unit_id', 'unit_tenant_id')
                 ->where('movein_date', '>=', Carbon::now()->subMonths(6)->firstOfMonth())
                 ->where('movein_date', '<=', Carbon::now()->subMonths(6)->endOfMonth())
-                ->where('unit_property', $property[0])
+                ->where('unit_property', Auth::user()->property)
                 ->whereIn('tenant_status',['active', 'inactive'])
                 ->where('type_of_units', 'leasing')
                 ->count();
@@ -756,7 +173,7 @@ Route::get('/', function(Request $request){
                 ->join('units', 'unit_id', 'unit_tenant_id')
                 ->where('movein_date', '>=', Carbon::now()->subMonths(5)->firstOfMonth())
                 ->where('movein_date', '<=', Carbon::now()->subMonths(5)->endOfMonth())
-                ->where('unit_property', $property[0])
+                ->where('unit_property', Auth::user()->property)
                 ->whereIn('tenant_status',['active', 'inactive'])
                 ->where('type_of_units', 'leasing')
                 ->count();
@@ -765,7 +182,7 @@ Route::get('/', function(Request $request){
                 ->join('units', 'unit_id', 'unit_tenant_id')
                 ->where('movein_date', '>=', Carbon::now()->subMonths(4)->firstOfMonth())
                 ->where('movein_date', '<=', Carbon::now()->subMonths(4)->endOfMonth())
-                ->where('unit_property', $property[0])
+                ->where('unit_property', Auth::user()->property)
                 ->whereIn('tenant_status',['active', 'inactive'])
                 ->where('type_of_units', 'leasing')
                 ->count();
@@ -774,7 +191,7 @@ Route::get('/', function(Request $request){
                 ->join('units', 'unit_id', 'unit_tenant_id')
                 ->where('movein_date', '>=', Carbon::now()->subMonths(3)->firstOfMonth())
                 ->where('movein_date', '<=', Carbon::now()->subMonths(3)->endOfMonth())
-                ->where('unit_property', $property[0])
+                ->where('unit_property', Auth::user()->property)
                 ->whereIn('tenant_status',['active', 'inactive'])
                 ->where('type_of_units', 'leasing')
                 ->count();
@@ -783,7 +200,7 @@ Route::get('/', function(Request $request){
                 ->join('units', 'unit_id', 'unit_tenant_id')
                 ->where('movein_date', '>=', Carbon::now()->subMonths(2)->firstOfMonth())
                 ->where('movein_date', '<=', Carbon::now()->subMonths(2)->endOfMonth())
-                ->where('unit_property', $property[0])
+                ->where('unit_property', Auth::user()->property)
                 ->whereIn('tenant_status',['active', 'inactive'])
                 ->where('type_of_units', 'leasing')
                 ->count();
@@ -792,7 +209,7 @@ Route::get('/', function(Request $request){
                 ->join('units', 'unit_id', 'unit_tenant_id')
                 ->where('movein_date', '>=', Carbon::now()->subMonth()->firstOfMonth())
                 ->where('movein_date', '<=', Carbon::now()->subMonth()->endOfMonth())
-                ->where('unit_property', $property[0])
+                ->where('unit_property', Auth::user()->property)
                 ->whereIn('tenant_status',['active', 'inactive'])
                 ->where('type_of_units', 'leasing')
                 ->count();
@@ -801,7 +218,7 @@ Route::get('/', function(Request $request){
                 ->join('units', 'unit_id', 'unit_tenant_id')
                 ->where('movein_date', '>=', Carbon::now()->firstOfMonth())
                 ->where('movein_date', '<=', Carbon::now()->endOfMonth())
-                ->where('unit_property', $property[0])
+                ->where('unit_property', Auth::user()->property)
                 ->whereIn('tenant_status',['active', 'inactive'])
                 ->where('type_of_units', 'leasing')
                 ->count();
@@ -856,7 +273,7 @@ Route::get('/', function(Request $request){
     
                 $renewed_contracts = DB::table('tenants')
                 ->join('units', 'unit_id', 'unit_tenant_id')
-                ->where('unit_property', $property[0])
+                ->where('unit_property', Auth::user()->property)
                 ->orderBy('movein_date', 'desc')
                 ->where('has_extended', 'renewed')
                 ->where('tenant_status', '!=', 'inactive')
@@ -864,7 +281,7 @@ Route::get('/', function(Request $request){
             
                 $terminated_contracts = DB::table('tenants')
                 ->join('units', 'unit_id', 'unit_tenant_id')
-                ->where('unit_property', $property[0])
+                ->where('unit_property', Auth::user()->property)
                 ->orderBy('movein_date', 'desc')
                 ->where('tenant_status', 'inactive')
                 ->get();
@@ -882,7 +299,7 @@ Route::get('/', function(Request $request){
                 ->join('payments', 'tenant_id', 'payment_tenant_id')
                 ->where('payment_created', '>=', Carbon::now()->subMonths(11)->firstOfMonth())
                 ->where('payment_created', '<=', Carbon::now()->subMonths(11)->endOfMonth())
-                ->where('unit_property', $property[0])
+                ->where('unit_property', Auth::user()->property)
                
                 ->sum('amt_paid');
         
@@ -891,7 +308,7 @@ Route::get('/', function(Request $request){
                 ->join('payments', 'tenant_id', 'payment_tenant_id')
                 ->where('payment_created', '>=', Carbon::now()->subMonths(10)->firstOfMonth())
                 ->where('payment_created', '<=', Carbon::now()->subMonths(10)->endOfMonth())
-                ->where('unit_property', $property[0])
+                ->where('unit_property', Auth::user()->property)
                
                 ->sum('amt_paid');
         
@@ -900,7 +317,7 @@ Route::get('/', function(Request $request){
                 ->join('payments', 'tenant_id', 'payment_tenant_id')
                 ->where('payment_created', '>=', Carbon::now()->subMonths(9)->firstOfMonth())
                 ->where('payment_created', '<=', Carbon::now()->subMonths(9)->endOfMonth())
-                ->where('unit_property', $property[0])
+                ->where('unit_property', Auth::user()->property)
                
                 ->sum('amt_paid');
         
@@ -909,7 +326,7 @@ Route::get('/', function(Request $request){
                 ->join('payments', 'tenant_id', 'payment_tenant_id')
                 ->where('payment_created', '>=', Carbon::now()->subMonths(8)->firstOfMonth())
                 ->where('payment_created', '<=', Carbon::now()->subMonths(8)->endOfMonth())
-                ->where('unit_property', $property[0])
+                ->where('unit_property', Auth::user()->property)
                
                 ->sum('amt_paid');
         
@@ -918,7 +335,7 @@ Route::get('/', function(Request $request){
                 ->join('payments', 'tenant_id', 'payment_tenant_id')
                 ->where('payment_created', '>=', Carbon::now()->subMonths(7)->firstOfMonth())
                 ->where('payment_created', '<=', Carbon::now()->subMonths(7)->endOfMonth())
-                ->where('unit_property', $property[0])
+                ->where('unit_property', Auth::user()->property)
                
                 ->sum('amt_paid');
         
@@ -927,7 +344,7 @@ Route::get('/', function(Request $request){
                 ->join('payments', 'tenant_id', 'payment_tenant_id')
                 ->where('payment_created', '>=', Carbon::now()->subMonths(6)->firstOfMonth())
                 ->where('payment_created', '<=', Carbon::now()->subMonths(6)->endOfMonth())
-                ->where('unit_property', $property[0])
+                ->where('unit_property', Auth::user()->property)
                
                 ->sum('amt_paid');
             
@@ -936,7 +353,7 @@ Route::get('/', function(Request $request){
                 ->join('payments', 'tenant_id', 'payment_tenant_id')
                 ->where('payment_created', '>=', Carbon::now()->subMonths(5)->firstOfMonth())
                 ->where('payment_created', '<=', Carbon::now()->subMonths(5)->endOfMonth())
-                ->where('unit_property', $property[0])
+                ->where('unit_property', Auth::user()->property)
                
                 ->sum('amt_paid');
             
@@ -945,7 +362,7 @@ Route::get('/', function(Request $request){
                 ->join('payments', 'tenant_id', 'payment_tenant_id')
                 ->where('payment_created', '>=', Carbon::now()->subMonths(4)->firstOfMonth())
                 ->where('payment_created', '<=', Carbon::now()->subMonths(4)->endOfMonth())
-                ->where('unit_property', $property[0])
+                ->where('unit_property', Auth::user()->property)
                 ->whereRaw("payment_note like '%Rent%' ")
                 ->sum('amt_paid');
             
@@ -954,7 +371,7 @@ Route::get('/', function(Request $request){
                 ->join('payments', 'tenant_id', 'payment_tenant_id')
                 ->where('payment_created', '>=', Carbon::now()->subMonths(3)->firstOfMonth())
                 ->where('payment_created', '<=', Carbon::now()->subMonths(3)->endOfMonth())
-                ->where('unit_property', $property[0])
+                ->where('unit_property', Auth::user()->property)
                 
                 ->sum('amt_paid');
             
@@ -963,7 +380,7 @@ Route::get('/', function(Request $request){
                 ->join('payments', 'tenant_id', 'payment_tenant_id')
                 ->where('payment_created', '>=', Carbon::now()->subMonths(2)->firstOfMonth())
                 ->where('payment_created', '<=', Carbon::now()->subMonths(2)->endOfMonth())
-                ->where('unit_property', $property[0])
+                ->where('unit_property', Auth::user()->property)
                 ->sum('amt_paid');
             
                  $collection_rate_11 = DB::table('units')
@@ -971,7 +388,7 @@ Route::get('/', function(Request $request){
                 ->join('payments', 'tenant_id', 'payment_tenant_id')
                 ->where('payment_created', '>=', Carbon::now()->subMonth()->firstOfMonth())
                 ->where('payment_created', '<=', Carbon::now()->subMonth()->firstOfMonth())
-                ->where('unit_property', $property[0])
+                ->where('unit_property', Auth::user()->property)
                 ->sum('amt_paid');
             
                  $collection_rate_12 = DB::table('units')
@@ -979,7 +396,7 @@ Route::get('/', function(Request $request){
                 ->join('payments', 'tenant_id', 'payment_tenant_id')
                 ->where('payment_created', '>=', Carbon::now()->firstOfMonth())
                 ->where('payment_created', '<=', Carbon::now()->endOfMonth())
-                ->where('unit_property', $property[0])
+                ->where('unit_property', Auth::user()->property)
                 ->sum('amt_paid');
     
                 $collection_rate = new DashboardChart;
@@ -1010,7 +427,7 @@ Route::get('/', function(Request $request){
                 ->selectRaw('*,sum(billing_amt) as total_bills')
                 ->join('tenants', 'unit_id', 'unit_tenant_id')
                 ->join('billings', 'tenant_id', 'billing_tenant_id')
-                ->where('unit_property', $property[0])
+                ->where('unit_property', Auth::user()->property)
                 // ->whereIn('billing_desc', ['Monthly Rent', 'Surcharge'])
                 ->where('billing_status', 'unpaid')
                 ->where('billing_date', '<', Carbon::now()->addDays(7))
@@ -1020,7 +437,7 @@ Route::get('/', function(Request $request){
                 
                 $tenants_to_watch_out = DB::table('tenants')
                 ->join('units', 'unit_id', 'unit_tenant_id')
-                ->where('unit_property', $property[0])
+                ->where('unit_property', Auth::user()->property)
                 ->orderBy('moveout_date')
                 ->where('tenant_status', 'active')
                 ->get();
@@ -1029,7 +446,7 @@ Route::get('/', function(Request $request){
                 ->join('units', 'unit_id', 'unit_tenant_id')
                 ->where('moveout_date', '>=', Carbon::now()->subMonths(11)->firstOfMonth())
                 ->where('moveout_date', '<=', Carbon::now()->subMonths(11)->endOfMonth())
-                ->where('unit_property', $property[0])
+                ->where('unit_property', Auth::user()->property)
                 ->where('tenant_status','inactive')
                 ->where('type_of_units', 'leasing')
                 ->count();
@@ -1038,7 +455,7 @@ Route::get('/', function(Request $request){
                 ->join('units', 'unit_id', 'unit_tenant_id')
                 ->where('moveout_date', '>=', Carbon::now()->subMonths(10)->firstOfMonth())
                 ->where('moveout_date', '<=', Carbon::now()->subMonths(10)->endOfMonth())
-                ->where('unit_property', $property[0])
+                ->where('unit_property', Auth::user()->property)
                 ->where('tenant_status','inactive')
                 ->where('type_of_units', 'leasing')
                 ->count();
@@ -1047,7 +464,7 @@ Route::get('/', function(Request $request){
                 ->join('units', 'unit_id', 'unit_tenant_id')
                 ->where('moveout_date', '>=', Carbon::now()->subMonths(9)->firstOfMonth())
                 ->where('moveout_date', '<=', Carbon::now()->subMonths(9)->endOfMonth())
-                ->where('unit_property', $property[0])
+                ->where('unit_property', Auth::user()->property)
                 ->where('tenant_status','inactive')
                 ->where('type_of_units', 'leasing')
                 ->count();
@@ -1056,7 +473,7 @@ Route::get('/', function(Request $request){
                 ->join('units', 'unit_id', 'unit_tenant_id')
                 ->where('moveout_date', '>=', Carbon::now()->subMonths(8)->firstOfMonth())
                 ->where('moveout_date', '<=', Carbon::now()->subMonths(8)->endOfMonth())
-                ->where('unit_property', $property[0])
+                ->where('unit_property', Auth::user()->property)
                 ->where('tenant_status','inactive')
                 ->where('type_of_units', 'leasing')
                 ->count();
@@ -1065,7 +482,7 @@ Route::get('/', function(Request $request){
                 ->join('units', 'unit_id', 'unit_tenant_id')
                 ->where('moveout_date', '>=', Carbon::now()->subMonths(7)->firstOfMonth())
                 ->where('moveout_date', '<=', Carbon::now()->subMonths(7)->endOfMonth())
-                ->where('unit_property', $property[0])
+                ->where('unit_property', Auth::user()->property)
                 ->where('tenant_status','inactive')
                 ->where('type_of_units', 'leasing')
                 ->count();
@@ -1074,7 +491,7 @@ Route::get('/', function(Request $request){
                 ->join('units', 'unit_id', 'unit_tenant_id')
                 ->where('moveout_date', '>=', Carbon::now()->subMonths(6)->firstOfMonth())
                 ->where('moveout_date', '<=', Carbon::now()->subMonths(6)->endOfMonth())
-                ->where('unit_property', $property[0])
+                ->where('unit_property', Auth::user()->property)
                 ->where('tenant_status','inactive')
                 ->where('type_of_units', 'leasing')
                 ->count();
@@ -1083,7 +500,7 @@ Route::get('/', function(Request $request){
                 ->join('units', 'unit_id', 'unit_tenant_id')
                 ->where('moveout_date', '>=', Carbon::now()->subMonths(5)->firstOfMonth())
                 ->where('moveout_date', '<=', Carbon::now()->subMonths(5)->endOfMonth())
-                ->where('unit_property', $property[0])
+                ->where('unit_property', Auth::user()->property)
                 ->where('tenant_status','inactive')
                 ->where('type_of_units', 'leasing')
                 ->count();
@@ -1092,7 +509,7 @@ Route::get('/', function(Request $request){
                 ->join('units', 'unit_id', 'unit_tenant_id')
                 ->where('moveout_date', '>=', Carbon::now()->subMonths(4)->firstOfMonth())
                 ->where('moveout_date', '<=', Carbon::now()->subMonths(4)->endOfMonth())
-                ->where('unit_property', $property[0])
+                ->where('unit_property', Auth::user()->property)
                 ->where('tenant_status','inactive')
                 ->where('type_of_units', 'leasing')
                 ->count();
@@ -1101,7 +518,7 @@ Route::get('/', function(Request $request){
                 ->join('units', 'unit_id', 'unit_tenant_id')
                 ->where('moveout_date', '>=', Carbon::now()->subMonths(3)->firstOfMonth())
                 ->where('moveout_date', '<=', Carbon::now()->subMonths(3)->endOfMonth())
-                ->where('unit_property', $property[0])
+                ->where('unit_property', Auth::user()->property)
                 ->where('tenant_status','inactive')
                 ->where('type_of_units', 'leasing')
                 ->count();
@@ -1110,7 +527,7 @@ Route::get('/', function(Request $request){
                 ->join('units', 'unit_id', 'unit_tenant_id')
                 ->where('moveout_date', '>=', Carbon::now()->subMonths(2)->firstOfMonth())
                 ->where('moveout_date', '<=', Carbon::now()->subMonths(2)->endOfMonth())
-                ->where('unit_property', $property[0])
+                ->where('unit_property', Auth::user()->property)
                 ->where('tenant_status','inactive')
                 ->where('type_of_units', 'leasing')
                 ->count();
@@ -1119,7 +536,7 @@ Route::get('/', function(Request $request){
                 ->join('units', 'unit_id', 'unit_tenant_id')
                 ->where('moveout_date', '>=', Carbon::now()->subMonth()->firstOfMonth())
                 ->where('moveout_date', '<=', Carbon::now()->subMonth()->endOfMonth())
-                ->where('unit_property', $property[0])
+                ->where('unit_property', Auth::user()->property)
                 ->where('tenant_status','inactive')
                 ->where('type_of_units', 'leasing')
                 ->count();
@@ -1128,7 +545,7 @@ Route::get('/', function(Request $request){
                 ->join('units', 'unit_id', 'unit_tenant_id')
                 ->where('moveout_date', '>=', Carbon::now()->firstOfMonth())
                 ->where('moveout_date', '<=', Carbon::now()->endOfMonth())
-                ->where('unit_property', $property[0])
+                ->where('unit_property', Auth::user()->property)
                 ->where('tenant_status','inactive')
                 ->where('type_of_units', 'leasing')
                 ->count();
@@ -1159,7 +576,7 @@ Route::get('/', function(Request $request){
     
                 $end_of_contract = DB::table('tenants')
                 ->join('units', 'unit_id', 'unit_tenant_id')
-                ->where('unit_property', $property[0])
+                ->where('unit_property', Auth::user()->property)
                 ->orderBy('movein_date', 'desc')
                 ->where('tenant_status', 'inactive')
                 ->where('reason_for_moving_out','end of contract')
@@ -1167,7 +584,7 @@ Route::get('/', function(Request $request){
         
                 $delinquent = DB::table('tenants')
                 ->join('units', 'unit_id', 'unit_tenant_id')
-                ->where('unit_property', $property[0])
+                ->where('unit_property', Auth::user()->property)
                 ->orderBy('movein_date', 'desc')
                 ->where('tenant_status', 'inactive')
                 ->where('reason_for_moving_out','delinquent')
@@ -1175,7 +592,7 @@ Route::get('/', function(Request $request){
         
                 $force_majeure = DB::table('tenants')
                 ->join('units', 'unit_id', 'unit_tenant_id')
-                ->where('unit_property', $property[0])
+                ->where('unit_property', Auth::user()->property)
                 ->orderBy('movein_date', 'desc')
                 ->where('tenant_status', 'inactive')
                 ->where('reason_for_moving_out','force_majeure')
@@ -1183,7 +600,7 @@ Route::get('/', function(Request $request){
         
                 $run_away = DB::table('tenants')
                 ->join('units', 'unit_id', 'unit_tenant_id')
-                ->where('unit_property', $property[0])
+                ->where('unit_property', Auth::user()->property)
                 ->orderBy('movein_date', 'desc')
                 ->where('tenant_status', 'inactive')
                 ->where('reason_for_moving_out','run_away')
@@ -1191,7 +608,7 @@ Route::get('/', function(Request $request){
         
                 $force_majeure = DB::table('tenants')
                 ->join('units', 'unit_id', 'unit_tenant_id')
-                ->where('unit_property', $property[0])
+                ->where('unit_property', Auth::user()->property)
                 ->orderBy('movein_date', 'desc')
                 ->where('tenant_status', 'inactive')
                 ->where('reason_for_moving_out','force_majeure')
@@ -1199,7 +616,7 @@ Route::get('/', function(Request $request){
             
                 $unruly = DB::table('tenants')
                 ->join('units', 'unit_id', 'unit_tenant_id')
-                ->where('unit_property', $property[0])
+                ->where('unit_property', Auth::user()->property)
                 ->orderBy('movein_date', 'desc')
                 ->where('tenant_status', 'inactive')
                 ->where('reason_for_moving_out','unruly')
@@ -1210,7 +627,6 @@ Route::get('/', function(Request $request){
                 $reason_for_moving_out_chart->labels([ 'End Of Contract'.' ('.$end_of_contract->count(). ')', 'Delinquent'.' ('.$delinquent->count(). ')', 'Force Majeure'.' ('.$force_majeure->count(). ')', 'Run Away'.' ('.$run_away->count(). ')', 'Unruly'.' ('.$unruly->count(). ')','Total'.' ('.$inactive_tenants->count(). ')']);
                 $reason_for_moving_out_chart->dataset('', 'pie', [number_format(($inactive_tenants->count() == 0 ? 0 : $end_of_contract->count()/$inactive_tenants->count()) * 100,1),number_format(($inactive_tenants->count() == 0 ? 0 : $delinquent->count()/$inactive_tenants->count()) * 100,1),number_format(($inactive_tenants->count() == 0 ? 0 : $force_majeure->count()/$inactive_tenants->count()) * 100,1),number_format(($inactive_tenants->count() == 0 ? 0 : $run_away->count()/$inactive_tenants->count()) * 100,1), number_format(($inactive_tenants->count() == 0 ? 0 : $unruly->count()/$inactive_tenants->count()) * 100,1),])
                 ->backgroundColor(['#008000', '#FF0000','#0E0601','#DE7835','#211979']);
-            }
       
         return view('admin.dashboard', 
             compact(
@@ -1225,15 +641,13 @@ Route::get('/', function(Request $request){
     if(Auth::user()->user_type === 'billing'){
 
         if(auth()->user()->status === 'registered' || auth()->user()->user_type === 'billing'){
-            
-        //get all the units
-       if(count($property) > 1){
+
         $expected_collection = DB::table('units')
         ->join('tenants', 'unit_id', 'unit_tenant_id')
         ->join('billings', 'tenant_id', 'billing_tenant_id')
         ->whereMonth('billing_date', Carbon::today()->month)
         ->whereYear('billing_date', Carbon::today()->year)
-        ->whereIn('unit_property', [$property[0],$property[1]])
+        ->where('unit_property', Auth::user()->property)
         ->sum('billing_amt');
 
         $actual_collection = DB::table('units')
@@ -1241,19 +655,19 @@ Route::get('/', function(Request $request){
         ->join('payments', 'tenant_id', 'payment_tenant_id')
         ->whereMonth('payment_created', Carbon::today()->month)
         ->whereYear('payment_created', Carbon::today()->year)
-        ->whereIn('unit_property', [$property[0],$property[1]])
+        ->where('unit_property', Auth::user()->property)
         ->sum('amt_paid');
 
         $total_billings = DB::table('units')
         ->join('tenants', 'unit_id', 'unit_tenant_id')
         ->join('billings', 'tenant_id', 'billing_tenant_id')
-        ->whereIn('unit_property', [$property[0],$property[1]])
+        ->where('unit_property', Auth::user()->property)
         ->sum('billing_amt');
     
         $total_payments = DB::table('units')
         ->join('tenants', 'unit_id', 'unit_tenant_id')
         ->join('payments', 'tenant_id', 'payment_tenant_id')
-        ->whereIn('unit_property', [$property[0],$property[1]])
+        ->where('unit_property', Auth::user()->property)
         ->sum('amt_paid');
     
         $uncollected_amount = $total_billings-$total_payments;
@@ -1262,50 +676,7 @@ Route::get('/', function(Request $request){
         ->selectRaw('*,sum(billing_amt) as total_bills')
         ->join('tenants', 'unit_id', 'unit_tenant_id')
         ->join('billings', 'tenant_id', 'billing_tenant_id')
-        ->whereIn('unit_property', [$property[0],$property[1]])
-        // ->whereIn('billing_desc', ['Monthly Rent', 'Surcharge'])
-        ->where('billing_status', 'unpaid')
-        ->where('billing_date', '<', Carbon::now()->addDays(7))
-        ->groupBy('tenant_id')
-        ->orderBy('total_bills', 'desc')
-        ->get();
-        
-    }else{
-        $expected_collection = DB::table('units')
-        ->join('tenants', 'unit_id', 'unit_tenant_id')
-        ->join('billings', 'tenant_id', 'billing_tenant_id')
-        ->whereMonth('billing_date', Carbon::today()->month)
-        ->whereYear('billing_date', Carbon::today()->year)
-        ->where('unit_property', $property[0])
-        ->sum('billing_amt');
-
-        $actual_collection = DB::table('units')
-        ->join('tenants', 'unit_id', 'unit_tenant_id')
-        ->join('payments', 'tenant_id', 'payment_tenant_id')
-        ->whereMonth('payment_created', Carbon::today()->month)
-        ->whereYear('payment_created', Carbon::today()->year)
-        ->where('unit_property', $property[0])
-        ->sum('amt_paid');
-
-        $total_billings = DB::table('units')
-        ->join('tenants', 'unit_id', 'unit_tenant_id')
-        ->join('billings', 'tenant_id', 'billing_tenant_id')
-        ->where('unit_property', $property[0])
-        ->sum('billing_amt');
-    
-        $total_payments = DB::table('units')
-        ->join('tenants', 'unit_id', 'unit_tenant_id')
-        ->join('payments', 'tenant_id', 'payment_tenant_id')
-        ->where('unit_property', $property[0])
-        ->sum('amt_paid');
-    
-        $uncollected_amount = $total_billings-$total_payments;
-
-        $delinquent_accounts = DB::table('units')
-        ->selectRaw('*,sum(billing_amt) as total_bills')
-        ->join('tenants', 'unit_id', 'unit_tenant_id')
-        ->join('billings', 'tenant_id', 'billing_tenant_id')
-        ->where('unit_property', $property[0])
+        ->where('unit_property', Auth::user()->property)
         // ->whereIn('billing_desc', ['Monthly Rent', 'Surcharge'])
         ->where('billing_status', 'unpaid')
         ->where('billing_date', '<', Carbon::now()->addDays(7))
@@ -1314,7 +685,7 @@ Route::get('/', function(Request $request){
         ->orderBy('total_bills', 'desc')
         
         ->get();
-    }
+    
         return view('billing.dashboard', compact('expected_collection','actual_collection','uncollected_amount','delinquent_accounts'));
     }else{
         return view('unregistered');
