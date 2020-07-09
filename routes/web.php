@@ -889,7 +889,7 @@ Route::get('/', function(Request $request){
           
             ->count();
 
-            if($leasing_units->count() <= 0){
+            if($units->count() <= 0){
                 $movein_rate = new DashboardChart;
                 $movein_rate->barwidth(0.0);
                 $movein_rate->displaylegend(false);
@@ -929,7 +929,7 @@ Route::get('/', function(Request $request){
                                                     number_format(($all_tenants->count()-($movein_rate_10 + $movein_rate_11 + $movein_rate_12))/$units->count() * 100,2),
                                                     number_format(($all_tenants->count()-($movein_rate_11 + $movein_rate_12))/$units->count() * 100,2),
                                                     number_format(($all_tenants->count()-($movein_rate_12))/$units->count() * 100,2),
-                                                    number_format(($active_tenants->count()/$leasing_units->count()) * 100,2)
+                                                    number_format(($active_tenants->count()/$units->count()) * 100,2)
                                                     ])
                 ->color("#858796")
                 ->backgroundcolor("rgba(78, 115, 223, 0.05)")
@@ -1318,66 +1318,67 @@ Route::post('units/add-multiple', 'UnitsController@add_multiple_rooms')->middlew
 
 Route::get('/home', function(){
 
-    if(auth()->user()->status !== 'registered' && (auth()->user()->user_type !== 'manager' || auth()->user()->user_type !== 'admin') ){
-        return view('unregistered');
-    }
-
-    $units = DB::table('units')
+    if(auth()->user()->status === 'registered' && (auth()->user()->user_type === 'manager' || auth()->user()->user_type === 'admin') ){
+        $units = DB::table('units')
         ->where('unit_property', Auth::user()->property)
         ->where('status','!=', 'pulled out')
         ->count();
 
-    $units_per_building = DB::table('units')
-        ->select('building', 'status', DB::raw('count(*) as count'))
-        ->where('unit_property', Auth::user()->property)
-        ->groupBy('building')
-        ->where('status','!=', 'pulled out')
-        ->get('building', 'status','count');   
+        $units_per_building = DB::table('units')
+            ->select('building', 'status', DB::raw('count(*) as count'))
+            ->where('unit_property', Auth::user()->property)
+            ->groupBy('building')
+            ->where('status','!=', 'pulled out')
+            ->get('building', 'status','count');   
+            
+        $units= DB::table('units')
+            ->where('unit_property', Auth::user()->property)
         
-    $leasing_units= DB::table('units')
-        ->where('unit_property', Auth::user()->property)
-       
-        ->orderBy('building')
-        ->orderBy('floor_no')
-        ->orderBy('unit_no')
-        ->get();
+            ->orderBy('building')
+            ->orderBy('floor_no')
+            ->orderBy('unit_no')
+            ->get();
 
-        $leasing_units_vacant= DB::table('units')
-        ->where('unit_property', Auth::user()->property)
-       
-        ->where('status','vacant')
-        ->orderBy('building')
-        ->orderBy('floor_no')
-        ->orderBy('unit_no')
-        ->get();
-
-        $leasing_units_occupied= DB::table('units')
-        ->where('unit_property', Auth::user()->property)
+        $units_vacant= DB::table('units')
+            ->where('unit_property', Auth::user()->property)
         
-        ->where('status','occupied')
-        ->orderBy('building')
-        ->orderBy('floor_no')
-        ->orderBy('unit_no')
-        ->get();
+            ->where('status','vacant')
+            ->orderBy('building')
+            ->orderBy('floor_no')
+            ->orderBy('unit_no')
+            ->get();
 
-        $leasing_units_reserved= DB::table('units')
-        ->where('unit_property', Auth::user()->property)
+        $units_occupied= DB::table('units')
+            ->where('unit_property', Auth::user()->property)
+            
+            ->where('status','occupied')
+            ->orderBy('building')
+            ->orderBy('floor_no')
+            ->orderBy('unit_no')
+            ->get();
+
+        $units_reserved= DB::table('units')
+            ->where('unit_property', Auth::user()->property)
+            
+            ->where('status','reserved')
+            ->orderBy('building')
+            ->orderBy('floor_no')
+            ->orderBy('unit_no')
+            ->get();
+
+        $units_per_status = DB::table('units')
+            ->select('status',DB::raw('count(*) as count'))
+            ->where('unit_property', Auth::user()->property)
+            ->where('status','!=', 'pulled out')
+            ->groupBy('status')
+            ->get();
         
-        ->where('status','reserved')
-        ->orderBy('building')
-        ->orderBy('floor_no')
-        ->orderBy('unit_no')
-        ->get();
-
-    $units_per_status = DB::table('units')
-        ->select('status',DB::raw('count(*) as count'))
-        ->where('unit_property', Auth::user()->property)
-        ->where('status','!=', 'pulled out')
-        ->groupBy('status')
-        ->get();
-    
-    
-    return view('admin.home',compact('units','units_per_building','leasing_units','units_per_status'));
+        
+        return view('admin.home',compact('units','units_per_building','units','units_per_status'));
+        }else{
+            return view('unregistered');
+        }
+   
 })->middleware('auth');
 
 Route::get('/payments', function(){
