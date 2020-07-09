@@ -372,7 +372,7 @@
                 <tr>
                     <th class="text-center">{{ $ctr++ }}</th>
                     <td>{{ Carbon\Carbon::parse($item->billing_date)->format('M d Y') }}</td>
-                    <td>{{ $item->first_name.' '.$item->last_name }}</td>
+                    <td><a href="{{ route('show-billings',['unit_id' => $tenant->unit_tenant_id, 'tenant_id'=>$tenant->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a></td>
                     <td>{{ $item->building.' '.$item->unit_no }}</td>
                     <td>{{ $item->billing_desc.'-'.$item->details }}</td>
                    

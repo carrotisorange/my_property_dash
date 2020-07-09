@@ -492,7 +492,7 @@
                         </div>
 
                         <div class="col">
-                          <label for="">Payment Duration</label>
+                          <label for="">Period Covered</label>
                           <input form="acceptPaymentForm" class="form-control" name="or_number" value="{{ Carbon\Carbon::now()->startOfMonth()->format('M d') }}- {{ Carbon\Carbon::now()->endOfMonth()->format('d Y') }}" required>
                       </div>
                     </div>
