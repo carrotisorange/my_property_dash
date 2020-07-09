@@ -1453,6 +1453,7 @@ Route::get('/users', function(){
         if(Auth::user()->email === 'marthaleasingcourtyards@gmail.com'){
             $users = DB::table('users')
             
+            ->orderBy('property')
             ->orderBy('created_at')
             ->get();
         }else{
