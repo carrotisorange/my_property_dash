@@ -352,11 +352,12 @@
          <!-- Page Heading -->
          <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Edit Profile    
-               <form action="/users/{{ Auth::user()->id }}" method="POST">
+               {{-- <form action="/users/{{ Auth::user()->id }}" method="POST">
               {{ csrf_field() }}
               @method('delete')
               <button type="submit">Delete</button>
-          </form> </h1>
+          </form>--}}
+        </h1> 
           </div>
           <table class="table">
              <tr>
