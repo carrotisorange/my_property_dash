@@ -372,7 +372,7 @@
                                 <td> <a href="/units/{{ $item->unit_tenant_id }}/tenants/{{ $item->tenant_id }}/billings">{{ $item->first_name.' '.$item->last_name }}</a></td>
                                 <td>{{ $item->contact_no }}</td>
                                 <td>{{ $item->building.' '.$item->unit_no }}</td>
-                                <td>{{ number_format($item->total_bills, 2) }}</td>
+                                <td>{{ number_format($item->amt_paid, 2) }}</td>
                               </tr>
                              @endforeach
                            </tbody>

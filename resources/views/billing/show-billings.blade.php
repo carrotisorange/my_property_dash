@@ -498,8 +498,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i> CANCEL</button>
-                    <button form="acceptPaymentForm" type="submit" class="btn btn-primary" onclick="return confirm('Are you sure you want perform this action?');" ><i class="fas fa-check"></i> ADD</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i> Cancel</button>
+                    <button form="acceptPaymentForm" type="submit" class="btn btn-primary" onclick="return confirm('Are you sure you want perform this action?');" ><i class="fas fa-check"></i> Add Payment</button>
                 </div>
          
             </div>
