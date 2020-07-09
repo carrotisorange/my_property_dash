@@ -1372,41 +1372,41 @@ Route::get('/home', function(){
    
 })->middleware('auth');
 
-Route::get('/payments', function(){
+// Route::get('/payments', function(){
 
-    if(auth()->user()->status === 'unregistered' || auth()->user()->user_type !== 'treasury'){
-        return view('unregistered');
-    }
+//     if(auth()->user()->status === 'unregistered' || auth()->user()->user_type !== 'treasury'){
+//         return view('unregistered');
+//     }
 
-    $property = explode(",", Auth::user()->property);
+//     $property = explode(",", Auth::user()->property);
 
-     if(count($property) > 1){
-        $payments = DB::table('units')
-        ->select('*', DB::raw('sum(amt_paid) as total'))
-        ->join('tenants', 'unit_id', 'unit_tenant_id')
-        ->join('payments', 'tenant_id', 'payment_tenant_id')
-        ->groupBy('tenant_id')
-        ->groupBy('payment_created')
-        ->whereIn('unit_property', [$property[0],$property[1]])
-        ->orderBy('payment_created', 'desc')
+//      if(count($property) > 1){
+//         $payments = DB::table('units')
+//         ->select('*', DB::raw('sum(amt_paid) as total'))
+//         ->join('tenants', 'unit_id', 'unit_tenant_id')
+//         ->join('payments', 'tenant_id', 'payment_tenant_id')
+//         ->groupBy('tenant_id')
+//         ->groupBy('payment_created')
+//         ->whereIn('unit_property', [$property[0],$property[1]])
+//         ->orderBy('payment_created', 'desc')
    
-        ->get();
-     }else{
-        $payments = DB::table('units')
-        ->select('*', DB::raw('sum(amt_paid) as total'))
-        ->join('tenants', 'unit_id', 'unit_tenant_id')
-        ->join('payments', 'tenant_id', 'payment_tenant_id')
-        ->groupBy('tenant_id')
-        ->groupBy('payment_created')
-        ->where('unit_property', $property[0])
-        ->orderBy('payment_created', 'desc')
-        ->get();
+//         ->get();
+//      }else{
+//         $payments = DB::table('units')
+//         ->select('*', DB::raw('sum(amt_paid) as total'))
+//         ->join('tenants', 'unit_id', 'unit_tenant_id')
+//         ->join('payments', 'tenant_id', 'payment_tenant_id')
+//         ->groupBy('tenant_id')
+//         ->groupBy('payment_created')
+//         ->where('unit_property', $property[0])
+//         ->orderBy('payment_created', 'desc')
+//         ->get();
 
-     }
+//      }
 
-    return view('treasury.payments', compact('payments'));
+//     return view('treasury.payments', compact('payments'));
 
-})->middleware('auth');
+// })->middleware('auth');
 
 //routes for payments
 Route::get('units/{unit_id}/tenants/{tenant_id}/payments/{payment_id}', 'PaymentController@show')->name('show-payment')->middleware('auth');
@@ -1432,19 +1432,12 @@ Route::get('/tenants', function(){
 
     if(auth()->user()->status === 'registered' || auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager'){
         
-       if(count($property) > 1){
             $tenants = DB::table('tenants')
             ->join('units', 'unit_id', 'unit_tenant_id')
-            ->whereIn('unit_property', [$property[0],$property[1]])
+            ->where('unit_property', Auth::user()->property)
             ->orderBy('movein_date', 'desc')
             ->paginate(10);
-        }else{
-            $tenants = DB::table('tenants')
-            ->join('units', 'unit_id', 'unit_tenant_id')
-            ->where('unit_property', $property[0])
-            ->orderBy('movein_date','desc')
-            ->paginate(10);
-        }
+       
         return view('admin.tenants', compact('tenants'));
     }else{
         return view('unregistered');
@@ -1455,48 +1448,30 @@ Route::get('/tenants', function(){
 
 Route::get('/users', function(){
 
-    if(auth()->user()->status === 'unregistered'){
-        return view('unregistered');
-    }
-
-    if(auth()->user()->user_type !== 'manager'){
-        return view('unregistered');
-    }
-
-    $property = explode(",", Auth::user()->property);
-
-    //get all the units
-   if(count($property) > 1){
+    if(auth()->user()->status === 'registered' || auth()->user()->user_type === 'manager'){
         $users = DB::table('users')
-        ->whereIn('property', [$property[0],$property[1]])
+        ->where('unit_property', Auth::user()->property)
         ->orderBy('created_at')
         ->get();
+
+        return view('users.users', compact('users'));
+
     }else{
-        $users = DB::table('users')
-        ->where('property', $property[0])
-        ->orderBy('created_at')
-        ->get();
+        return view('unregistered');
     }
 
-    return view('users.users', compact('users'));
 })->middleware('auth');
 
 Route::get('/owners', function(){
 
     if(auth()->user()->status === 'registered' || auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager'){
         $property = explode(",", Auth::user()->property);
-        if(count($property) > 1){
+      
             $owners = DB::table('units')
             ->join('unit_owners', 'unit_unit_owner_id', 'unit_owner_id')
-            ->whereIn('unit_property', [$property[0],$property[1]])
+            ->where('unit_property', Auth::user()->property)
             ->paginate(10);
         
-        }else{
-            $owners = DB::table('units')
-            ->join('unit_owners', 'unit_unit_owner_id', 'unit_owner_id')
-            ->where('unit_property', $property[0])
-            ->paginate(10);
-        }
             return view('admin.owners', compact('owners'));
     }else{
             return view('unregistered');
@@ -1515,37 +1490,20 @@ Route::get('/joborders', function(){
 Route::get('/collections', function(){
     if(auth()->user()->status === 'registered' && (auth()->user()->user_type === 'billing' || auth()->user()->user_type === 'manager' || auth()->user()->user_type === 'treasury')){
         $property = explode(",", Auth::user()->property);
-
-        if(count($property) > 1){
             $collections = DB::table('units')
             ->select('*', DB::raw('sum(amt_paid) as total'))
             ->join('tenants', 'unit_id', 'unit_tenant_id')
             ->join('payments', 'tenant_id', 'payment_tenant_id')
             ->groupBy('tenant_id')
             ->groupBy('payment_created')
-            ->whereIn('unit_property', [$property[0],$property[1]])
-            ->orderBy('payment_created', 'desc')
-       
-            ->get();
-         }else{
-            $collections = DB::table('units')
-            ->select('*', DB::raw('sum(amt_paid) as total'))
-            ->join('tenants', 'unit_id', 'unit_tenant_id')
-            ->join('payments', 'tenant_id', 'payment_tenant_id')
-            ->groupBy('tenant_id')
-            ->groupBy('payment_created')
-            ->where('unit_property', $property[0])
+            ->where('unit_property', Auth::user()->property)
             ->orderBy('payment_created', 'desc')
             ->get();
-    
-         }
-    
         return view('billing.collections', compact('collections'));
     }else{
         return view('unregistered');
     }
    
-
 })->middleware('auth');
 
 
