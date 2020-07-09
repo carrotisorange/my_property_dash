@@ -422,12 +422,10 @@
                          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                            <thead>
                              <tr>
-                               
                                <th>TENANT</th>
                                {{-- <th>CONTACT</th>
                                <th>UNIT/ROOM </th> --}}
                                <th>STATUS</th>
-                               
                            </tr>
                            </thead>
                            <tbody>
@@ -438,12 +436,8 @@
                               ?>
                               @if($diffInDays <= 30 )
                               <tr>
-                                 
                                   <td>
-               
-                                      <a href="{{ route('show-tenant',['unit_id' => $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a>
-                                    
-                                     
+                                    <a href="{{ route('show-tenant',['unit_id' => $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a>  
                                   </td>
                                   {{-- <td>{{ $item->contact_no }}</td>
                                   <td>{{ $item->building.' '.$item->unit_no }}</td> --}}
@@ -454,7 +448,6 @@
                                       <span class="badge badge-warning">contract expires in {{ $diffInDays }} days </span>
                                        @endif
                                   </td>
-                                 
                              </tr>
                               @endif
                              @endforeach
