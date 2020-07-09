@@ -56,12 +56,10 @@ class LoginController extends Controller
      */
 
     public function logout(Request $request) {
-        function authenticated(Request $request, $user)
-        {
-            $user->update([
+      
+            DB::table(users)->update([
                 'last_logout_at' => Carbon::now(),
             ]);
-        }
 
         Auth::logout();
         return redirect('/login');
