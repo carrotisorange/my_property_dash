@@ -366,13 +366,14 @@
                     
                     <th>AMOUNT</th>
                     <th>STATUS</th>
+                    <th></th>
                 </tr>
                 <?php $ctr = 1;?> 
                 @foreach ($billings as $item)
                 <tr>
                     <th class="text-center">{{ $ctr++ }}</th>
                     <td>{{ Carbon\Carbon::parse($item->billing_date)->format('M d Y') }}</td>
-                    <td><a href="{{ route('show-billings',['unit_id' => $tenant->unit_tenant_id, 'tenant_id'=>$tenant->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a></td>
+                    <td><a href="units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}">{{ $item->first_name.' '.$item->last_name }}</a></td>
                     <td>{{ $item->building.' '.$item->unit_no }}</td>
                     <td>{{ $item->billing_desc.'-'.$item->details }}</td>
                    
@@ -384,6 +385,7 @@
                       <span class="badge badge-danger">{{ $item->billing_status }} </span>
                        @endif
                       </td>
+                      <td><a href="units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/billings">View</a></td>
                 </tr>
                 @endforeach
             </table>
