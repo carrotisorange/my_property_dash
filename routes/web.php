@@ -1297,7 +1297,7 @@ Route::get('/', function(Request $request){
       
         return view('manager.dashboard', 
             compact(
-            'units', 'units_occupied','units_vacant', 'units_reserved',
+            'units_occupied','units_vacant', 'units_reserved',
             'active_tenants', 'pending_tenants', 'owners', 
             'movein_rate','moveout_rate', 'renewed_chart', 'collection_rate', 'reason_for_moving_out_chart',
             'delinquent_accounts','tenants_to_watch_out'
