@@ -1330,14 +1330,6 @@ Route::get('/home', function(){
             ->groupBy('building')
             ->where('status','!=', 'pulled out')
             ->get('building', 'status','count');   
-            
-        $units= DB::table('units')
-            ->where('unit_property', Auth::user()->property)
-        
-            ->orderBy('building')
-            ->orderBy('floor_no')
-            ->orderBy('unit_no')
-            ->get();
 
         $units_vacant= DB::table('units')
             ->where('unit_property', Auth::user()->property)
