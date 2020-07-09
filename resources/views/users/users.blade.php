@@ -397,14 +397,17 @@
             @foreach ($users as $item)
            <tr>
               <th>{{ $ctr++ }}</th>
-               <td>{{ $item->name }}</></td>
+               <td>
+                 {{ $item->name }}
+                 @auth
+                 <div class="status-indicator bg-success"></div>
+                 @endauth
+                </td>
                <td>{{ $item->email }}</td>
                <td>{{ $item->user_type }}</td>
                <td>{{ $item->property }}</td>
                <td>{{ $item->last_login_at }}</td>
                <td>{{ $item->last_login_ip }}</td>
-               
-               
            </tr>
            @endforeach
           </tbody>
