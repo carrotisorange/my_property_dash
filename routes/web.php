@@ -889,7 +889,7 @@ Route::get('/', function(Request $request){
           
             ->count();
 
-            if($units->count() <= 0){
+            if($leasing_units->count() <= 0){
                 $movein_rate = new DashboardChart;
                 $movein_rate->barwidth(0.0);
                 $movein_rate->displaylegend(false);
