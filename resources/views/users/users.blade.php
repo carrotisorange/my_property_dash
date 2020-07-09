@@ -389,8 +389,8 @@
                 <th>EMAIL</th>
                 <th>TYPE</th>
                 <th>PROPERTY</th>
-                <th>LAST LOGIN</th>
-                <th>LAST LOGOUT</th>
+                <th>LAST LOGIN AT</th>
+                <th>LAST LOGOUT AT</th>
                 <th>IP</th>
               </tr>
           </thead>
