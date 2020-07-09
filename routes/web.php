@@ -1309,7 +1309,7 @@ Route::get('/', function(Request $request){
         // ->whereIn('billing_desc', ['Monthly Rent', 'Surcharge'])
         ->where('billing_status', 'unpaid')
         ->where('billing_date', '<', Carbon::now()->addDays(7))
-        ->where('total_bills','>', 0)
+        
         ->groupBy('tenant_id')
         ->orderBy('total_bills', 'desc')
         
