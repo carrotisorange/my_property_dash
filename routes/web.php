@@ -1459,6 +1459,7 @@ Route::get('/users', function(){
         }else{
             $users = DB::table('users')
             ->where('property', Auth::user()->property)
+          
             ->orderBy('created_at')
             ->get();
         }
