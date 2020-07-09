@@ -42,10 +42,12 @@ class LoginController extends Controller
 
         function authenticated(Request $request, $user)
         {
-            $user->update([
-                'last_login_at' => Carbon::now(),
-                'last_login_ip' => $request->getClientIp()
-            ]);
+            DB::table('users')
+            ->where('id', Auth::user()->id)
+            ->update([
+                        'last_login_at' => Carbon::now(),
+                        'last_login_ip' => $request->getClientIp()
+                    ]);
         }
 
     protected $redirectTo = '/';
@@ -61,7 +63,7 @@ class LoginController extends Controller
             DB::table('users')
                 ->where('id', Auth::user()->id)
                 ->update([
-                        'last_logout_at' => Carbon::now(),
+                            'last_logout_at' => Carbon::now(),
                         ]);
 
         Auth::logout();
