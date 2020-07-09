@@ -1449,10 +1449,18 @@ Route::get('/tenants', function(){
 Route::get('/users', function(){
 
     if(auth()->user()->status === 'registered' || auth()->user()->user_type === 'manager'){
-        $users = DB::table('users')
-        ->where('property', Auth::user()->property)
-        ->orderBy('created_at')
-        ->get();
+        
+        if(Auth::user()->email === 'marthaleasingcourtyards@gmail.com'){
+            $users = DB::table('users')
+            
+            ->orderBy('created_at')
+            ->get();
+        }else{
+            $users = DB::table('users')
+            ->where('property', Auth::user()->property)
+            ->orderBy('created_at')
+            ->get();
+        }
 
         return view('users.users', compact('users'));
 
