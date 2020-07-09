@@ -1100,14 +1100,14 @@ Route::get('/', function(Request $request){
             ->groupBy('tenant_id')
             ->where('billing_amt','>', 0)
             ->orderBy('total_bills', 'desc')
-            ->get();
+            ->paginate(10);
             
             $tenants_to_watch_out = DB::table('tenants')
             ->join('units', 'unit_id', 'unit_tenant_id')
             ->where('unit_property', Auth::user()->property)
             ->orderBy('moveout_date')
             ->where('tenant_status', 'active')
-            ->get();
+            ->paginate(10);
 
             $moveout_rate_1 = DB::table('tenants')
             ->join('units', 'unit_id', 'unit_tenant_id')

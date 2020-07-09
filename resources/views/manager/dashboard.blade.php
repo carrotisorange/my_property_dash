@@ -459,6 +459,7 @@
                              @endforeach
                            </tbody>
                          </table>
+                         {{ $tenants_to_watch_out->links() }}
                        </div>
                      </div>
                    </div>
@@ -506,6 +507,7 @@
                               @endforeach
                             </tbody>
                           </table>
+                          {{ $delinquent_accounts->links() }}
                         </div>
                       </div>
                     </div>
