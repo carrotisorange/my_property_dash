@@ -313,7 +313,7 @@
                 </a>
               </div>
             </li>
-
+f
           </ul>
 
         </nav>
@@ -347,7 +347,7 @@
                 <div class="tab-content" id="nav-tabContent">
                   <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                     <br>
-                    @foreach ($leasing_units as $item)
+                    @foreach ($units as $item)
                     @if($item->status === 'vacant')
                     <a title="{{ $item->type_of_units }}" href="/units/{{$item->unit_id}}" class="btn btn-secondary">
                         <i class="fas fa-home fa-2x"></i>
@@ -369,13 +369,13 @@
                 @endif        
                     @endforeach  
                   </div>
-                  @foreach ($leasing_units as $item)
+                  @foreach ($units as $item)
                     <div class="tab-pane fade show" id="nav-{{ $item->building }}" role="tabpanel" aria-labelledby="nav-{{ $item->building }}-tab">
                       <div class="table-responsive">
                       <table class=" table-borderless">
                         <tr>
                           <td>
-                            @foreach ($leasing_units as $unit_building)
+                            @foreach ($units as $unit_building)
                                @if($unit_building->building === $item->building)
                                   @if($unit_building->status === 'vacant')
                                       <a title="{{ $item->type_of_units }}" href="/units/{{$unit_building->unit_id}}" class="btn btn-secondary">
