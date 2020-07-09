@@ -410,7 +410,7 @@
                 <div class="row">
                   
                   <!-- Content Column -->
-                  <div class="col-lg-12 mb-4">
+                  <div class="col-lg-6 mb-4">
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                      <div class="card-header py-3">
@@ -424,8 +424,8 @@
                              <tr>
                                <th class="text-center">#</th>
                                <th>TENANT</th>
-                               <th>CONTACT</th>
-                               <th>UNIT/ROOM </th>
+                               {{-- <th>CONTACT</th>
+                               <th>UNIT/ROOM </th> --}}
                                <th colspan="3"></th>
                            </tr>
                            </thead>
@@ -444,8 +444,8 @@
                                     
                                      
                                   </td>
-                                  <td>{{ $item->contact_no }}</td>
-                                  <td>{{ $item->building.' '.$item->unit_no }}</td>
+                                  {{-- <td>{{ $item->contact_no }}</td>
+                                  <td>{{ $item->building.' '.$item->unit_no }}</td> --}}
                                   <td colspan="2">
                                       @if($diffInDays <= -1)
                                       <span class="badge badge-danger">contract has lapsed {{ $diffInDays*-1 }} days ago</span>
