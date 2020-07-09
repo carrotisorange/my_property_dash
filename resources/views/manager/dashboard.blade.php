@@ -427,7 +427,7 @@
                                {{-- <th>CONTACT</th>
                                <th>UNIT/ROOM </th> --}}
                                <th>STATUS</th>
-                               <th></th>
+                               
                            </tr>
                            </thead>
                            <tbody>
@@ -454,7 +454,7 @@
                                       <span class="badge badge-warning">contract expires in {{ $diffInDays }} days </span>
                                        @endif
                                   </td>
-                                  <td>{{ $item->tenants_note  }}</td>
+                                 
                              </tr>
                               @endif
                              @endforeach
