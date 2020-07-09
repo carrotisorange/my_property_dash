@@ -390,6 +390,7 @@
                 <th>TYPE</th>
                 <th>PROPERTY</th>
                 <th>LAST LOGIN AT</th>
+                <th>LAST LOGOUT AT</th>
                 <th>LAST LOGIN IP</th>
               </tr>
           </thead>
@@ -408,6 +409,7 @@
                <td>{{ $item->user_type }}</td>
                <td>{{ $item->property }}</td>
                <td>{{ $item->last_login_at }}</td>
+               <td>{{ $item->last_logout_at }}</td>
                <td>{{ $item->last_login_ip }}</td>
            </tr>
            @endforeach
