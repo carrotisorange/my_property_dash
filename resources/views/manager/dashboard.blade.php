@@ -415,14 +415,14 @@
                     <div class="card shadow mb-4">
                      <div class="card-header py-3">
                        <h6 class="m-0 font-weight-bold text-primary">TENANTS TO WATCH OUT</h6>
-                         <?php $ctr = 1; ?>
+                         
                      </div>
                      <div class="card-body">
                        <div class="table-responsive">
                          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                            <thead>
                              <tr>
-                               <th class="text-center">#</th>
+                               
                                <th>TENANT</th>
                                {{-- <th>CONTACT</th>
                                <th>UNIT/ROOM </th> --}}
@@ -437,7 +437,7 @@
                               ?>
                               @if($diffInDays <= 30 )
                               <tr>
-                                  <th class="text-center">{{ $ctr++ }}</th>
+                                 
                                   <td>
                
                                       <a href="{{ route('show-tenant',['unit_id' => $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a>
@@ -588,7 +588,7 @@
                 <div class="row">
       
                   <!-- Area Chart -->
-                  <div class="col-xl-6 col-lg-7">
+                  <div class="col-xl-12 col-lg-7">
                     <div class="card shadow mb-4">
                       <!-- Card Header - Dropdown -->
                       <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
