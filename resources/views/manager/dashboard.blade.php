@@ -427,6 +427,7 @@
                                {{-- <th>CONTACT</th>
                                <th>UNIT/ROOM </th> --}}
                                <th>STATUS</th>
+                               <th></th>
                            </tr>
                            </thead>
                            <tbody>
