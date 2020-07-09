@@ -387,8 +387,8 @@
               <td>#</td>
                 <th>USER</th>
                 <th>EMAIL</th>
-                <th>USER TYPE</th>
-                <th>STATUS</th>
+                <th>TYPE</th>
+               
                 <th>LAST LOGIN AT</th>
                 <th>LAST LOGIN IP</th>
               </tr>
@@ -399,7 +399,7 @@
               <th>{{ $ctr++ }}</th>
                <td>{{ $item->name }}</></td>
                <td>{{ $item->email }}</td>
-               <td>{{ $item->user_type }}</td>
+           
                <td>{{ $item->status }}</td>
                <td>{{ $item->last_login_at }}</td>
                <td>{{ $item->last_login_ip }}</td>
