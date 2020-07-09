@@ -399,8 +399,8 @@
               <th>{{ $ctr++ }}</th>
                <td>{{ $item->name }}</></td>
                <td>{{ $item->email }}</td>
-           
-               <td>{{ $item->status }}</td>
+               <td>{{ $item->user_type }}</td>
+               
                <td>{{ $item->last_login_at }}</td>
                <td>{{ $item->last_login_ip }}</td>
                
