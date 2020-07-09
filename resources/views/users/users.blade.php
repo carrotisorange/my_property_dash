@@ -399,9 +399,9 @@
               <th>{{ $ctr++ }}</th>
                <td>
                  {{ $item->name }}
-                 @auth
+                 @if(Auth::check($item->id))
                  <div class="status-indicator bg-success"></div>
-                 @endauth
+                 @endif
                 </td>
                <td>{{ $item->email }}</td>
                <td>{{ $item->user_type }}</td>
