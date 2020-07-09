@@ -398,9 +398,10 @@
            <tr>
               <th>{{ $ctr++ }}</th>
                <td>
-                
                  @if(Auth::check($item->id))
                  <span class="badge badge-success"> {{ $item->name }}</span>
+                 @else
+                 <span class="badge badge-secondary"> {{ $item->name }}</span>
                  @endif
                 </td>
                <td>{{ $item->email }}</td>
