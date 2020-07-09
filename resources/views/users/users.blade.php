@@ -399,7 +399,7 @@
            <tr>
               <th>{{ $ctr++ }}</th>
                <td>
-                 @if(Auth::check($item->id))
+                 @if($item->current_user_status === 'online')
                  <span class="badge badge-success"> {{ $item->name }}</span>
                  @else
                  <span class="badge badge-secondary"> {{ $item->name }}</span>

@@ -46,7 +46,8 @@ class LoginController extends Controller
             ->where('id', Auth::user()->id)
             ->update([
                         'last_login_at' => Carbon::now(),
-                        'last_login_ip' => $request->getClientIp()
+                        'last_login_ip' => $request->getClientIp(),
+                        'user_current_status' => 'online',
                     ]);
         }
 
@@ -64,6 +65,7 @@ class LoginController extends Controller
                 ->where('id', Auth::user()->id)
                 ->update([
                             'last_logout_at' => Carbon::now(),
+                            'user_current_status' => 'offline',
                         ]);
 
         Auth::logout();
