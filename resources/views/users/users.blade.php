@@ -400,7 +400,7 @@
                <td>
                  {{ $item->name }}
                  @if(Auth::check($item->id))
-                 asdasdasasd
+                 <div class="status-indicator bg-success"></div>
                  @endif
                 </td>
                <td>{{ $item->email }}</td>
