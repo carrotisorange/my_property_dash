@@ -1450,7 +1450,7 @@ Route::get('/users', function(){
 
     if(auth()->user()->status === 'registered' || auth()->user()->user_type === 'manager'){
         $users = DB::table('users')
-        ->where('unit_property', Auth::user()->property)
+        ->where('property', Auth::user()->property)
         ->orderBy('created_at')
         ->get();
 
