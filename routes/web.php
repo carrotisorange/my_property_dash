@@ -721,7 +721,7 @@ Route::get('/', function(Request $request){
             ->orderBy('movein_date', 'desc')
             ->get();
 
-            $leasing_units = DB::table('units')
+            $units = DB::table('units')
             ->where('unit_property', Auth::user()->property)
             ->where('status','!=', 'pulled out')
             ->orderBy('building')
@@ -918,17 +918,17 @@ Route::get('/', function(Request $request){
                 $movein_rate->displaylegend(false);
                 $movein_rate->labels([Carbon::now()->subMonth(11)->format('M Y'),Carbon::now()->subMonth(10)->format('M Y'),Carbon::now()->subMonth(9)->format('M Y'),Carbon::now()->subMonth(8)->format('M Y'),Carbon::now()->subMonth(7)->format('M Y'),Carbon::now()->subMonth(6)->format('M Y'),Carbon::now()->subMonth(5)->format('M Y'),Carbon::now()->subMonth(4)->format('M Y'),Carbon::now()->subMonth(3)->format('M Y'),Carbon::now()->subMonths(2)->format('M Y'),Carbon::now()->subMonth()->format('M Y'),Carbon::now()->format('M Y')]);
                 $movein_rate->dataset('Occupancy Rate: ', 'line', [
-                                                    number_format(($all_tenants->count()-($movein_rate_2 + $movein_rate_3 + $movein_rate_4 + $movein_rate_5 + $movein_rate_6 + $movein_rate_7 + $movein_rate_8 + $movein_rate_9 + $movein_rate_10 + $movein_rate_11 + $movein_rate_12))/$leasing_units->count() * 100,2),
-                                                    number_format(($all_tenants->count()-($movein_rate_3 + $movein_rate_4 + $movein_rate_5 + $movein_rate_6 + $movein_rate_7 + $movein_rate_8 + $movein_rate_9 + $movein_rate_10 + $movein_rate_11 + $movein_rate_12))/$leasing_units->count() * 100,2),
-                                                    number_format(($all_tenants->count()-($movein_rate_4 + $movein_rate_5 + $movein_rate_6 + $movein_rate_7 + $movein_rate_8 + $movein_rate_9 + $movein_rate_10 + $movein_rate_11 + $movein_rate_12))/$leasing_units->count() * 100,2),
-                                                    number_format(($all_tenants->count()-($movein_rate_5 + $movein_rate_6 + $movein_rate_7 + $movein_rate_8 + $movein_rate_9 + $movein_rate_10 + $movein_rate_11 + $movein_rate_12))/$leasing_units->count() * 100,2),
-                                                    number_format(($all_tenants->count()-($movein_rate_6 + $movein_rate_7 + $movein_rate_8 + $movein_rate_9 + $movein_rate_10 + $movein_rate_11 + $movein_rate_12))/$leasing_units->count() * 100,2),
-                                                    number_format(($all_tenants->count()-($movein_rate_7 + $movein_rate_8 + $movein_rate_9 + $movein_rate_10 + $movein_rate_11 + $movein_rate_12))/$leasing_units->count() * 100,2),
-                                                    number_format(($all_tenants->count()-($movein_rate_8 + $movein_rate_9 + $movein_rate_10 + $movein_rate_11 + $movein_rate_12))/$leasing_units->count() * 100,2),
-                                                    number_format(($all_tenants->count()-($movein_rate_9 + $movein_rate_10 + $movein_rate_11 + $movein_rate_12))/$leasing_units->count() * 100,2),
-                                                    number_format(($all_tenants->count()-($movein_rate_10 + $movein_rate_11 + $movein_rate_12))/$leasing_units->count() * 100,2),
-                                                    number_format(($all_tenants->count()-($movein_rate_11 + $movein_rate_12))/$leasing_units->count() * 100,2),
-                                                    number_format(($all_tenants->count()-($movein_rate_12))/$leasing_units->count() * 100,2),
+                                                    number_format(($all_tenants->count()-($movein_rate_2 + $movein_rate_3 + $movein_rate_4 + $movein_rate_5 + $movein_rate_6 + $movein_rate_7 + $movein_rate_8 + $movein_rate_9 + $movein_rate_10 + $movein_rate_11 + $movein_rate_12))/$units->count() * 100,2),
+                                                    number_format(($all_tenants->count()-($movein_rate_3 + $movein_rate_4 + $movein_rate_5 + $movein_rate_6 + $movein_rate_7 + $movein_rate_8 + $movein_rate_9 + $movein_rate_10 + $movein_rate_11 + $movein_rate_12))/$units->count() * 100,2),
+                                                    number_format(($all_tenants->count()-($movein_rate_4 + $movein_rate_5 + $movein_rate_6 + $movein_rate_7 + $movein_rate_8 + $movein_rate_9 + $movein_rate_10 + $movein_rate_11 + $movein_rate_12))/$units->count() * 100,2),
+                                                    number_format(($all_tenants->count()-($movein_rate_5 + $movein_rate_6 + $movein_rate_7 + $movein_rate_8 + $movein_rate_9 + $movein_rate_10 + $movein_rate_11 + $movein_rate_12))/$units->count() * 100,2),
+                                                    number_format(($all_tenants->count()-($movein_rate_6 + $movein_rate_7 + $movein_rate_8 + $movein_rate_9 + $movein_rate_10 + $movein_rate_11 + $movein_rate_12))/$units->count() * 100,2),
+                                                    number_format(($all_tenants->count()-($movein_rate_7 + $movein_rate_8 + $movein_rate_9 + $movein_rate_10 + $movein_rate_11 + $movein_rate_12))/$units->count() * 100,2),
+                                                    number_format(($all_tenants->count()-($movein_rate_8 + $movein_rate_9 + $movein_rate_10 + $movein_rate_11 + $movein_rate_12))/$units->count() * 100,2),
+                                                    number_format(($all_tenants->count()-($movein_rate_9 + $movein_rate_10 + $movein_rate_11 + $movein_rate_12))/$units->count() * 100,2),
+                                                    number_format(($all_tenants->count()-($movein_rate_10 + $movein_rate_11 + $movein_rate_12))/$units->count() * 100,2),
+                                                    number_format(($all_tenants->count()-($movein_rate_11 + $movein_rate_12))/$units->count() * 100,2),
+                                                    number_format(($all_tenants->count()-($movein_rate_12))/$units->count() * 100,2),
                                                     number_format(($active_tenants->count()/$leasing_units->count()) * 100,2)
                                                     ])
                 ->color("#858796")
@@ -1297,7 +1297,7 @@ Route::get('/', function(Request $request){
       
         return view('manager.dashboard', 
             compact(
-            'units_occupied','units_vacant', 'units_reserved',
+            'units', 'units_occupied','units_vacant', 'units_reserved',
             'active_tenants', 'pending_tenants', 'owners', 
             'movein_rate','moveout_rate', 'renewed_chart', 'collection_rate', 'reason_for_moving_out_chart',
             'delinquent_accounts','tenants_to_watch_out'
