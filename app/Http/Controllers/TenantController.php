@@ -285,7 +285,7 @@ class TenantController extends Controller
      */
     public function show($unit_id, $tenant_id)
     {
-        if(Auth::user()->status === 'registered'|| auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager'){
+        if(Auth::user()->status === 'registered'|| auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager' || auth()->user()->user_type === 'billing'){
             $tenant = Tenant::findOrFail($tenant_id);
 
             $payments = DB::table('payments')->where('payment_tenant_id', $tenant_id)->get();

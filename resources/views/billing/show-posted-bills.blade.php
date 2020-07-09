@@ -328,7 +328,7 @@
             <h1 class="h3 mb-0 text-gray-800">Bills</h1>
             <div class="dropdown show">
               <br>
-              <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-plus fa-sm text-white-50"></i> Post bills</a>
+              <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-plus fa-sm text-white-50"></i> Add Bills</a>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <button type="submit" form="billingRentForm" class="dropdown-item "> Rent</button>
                 <input type="hidden" form="billingRentForm" name="billing_option" value="rent">
@@ -366,13 +366,14 @@
                     
                     <th>AMOUNT</th>
                     <th>STATUS</th>
+                    <th></th>
                 </tr>
                 <?php $ctr = 1;?> 
                 @foreach ($billings as $item)
                 <tr>
                     <th class="text-center">{{ $ctr++ }}</th>
                     <td>{{ Carbon\Carbon::parse($item->billing_date)->format('M d Y') }}</td>
-                    <td>{{ $item->first_name.' '.$item->last_name }}</td>
+                    <a href="{{ route('show-tenant',['unit_id'=> $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a>
                     <td>{{ $item->building.' '.$item->unit_no }}</td>
                     <td>{{ $item->billing_desc.'-'.$item->details }}</td>
                    
@@ -384,6 +385,7 @@
                       <span class="badge badge-danger">{{ $item->billing_status }} </span>
                        @endif
                       </td>
+                      <td><a href="{{ route('show-billings',['unit_id' => $tenant->unit_tenant_id, 'tenant_id'=>$tenant->tenant_id]) }}">View</a></td>
                 </tr>
                 @endforeach
             </table>
