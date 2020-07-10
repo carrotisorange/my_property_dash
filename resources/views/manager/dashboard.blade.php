@@ -423,25 +423,19 @@
                            <thead>
                              <tr>
                                <th>TENANT</th>
-                               {{-- <th>CONTACT</th>
-                               <th>UNIT/ROOM </th> --}}
+                             
                                <th>STATUS</th>
                            </tr>
                            </thead>
                            <tbody>
                              @foreach($tenants_to_watch_out as $item)
-                             <?php
-                                      $diffInMonths =  number_format(Carbon\Carbon::now()->floatDiffInMonths(Carbon\Carbon::parse($item->moveout_date), false));
-                                      $diffInDays =  number_format(Carbon\Carbon::now()->DiffInDays(Carbon\Carbon::parse($item->moveout_date), false));
-                              ?>
-                              @if($diffInDays <= 30 )
+                             <?php $diffInDays =  number_format(Carbon\Carbon::now()->DiffInDays(Carbon\Carbon::parse($item->moveout_date), false)) ?>
                               <tr>
                                   <td>
                                     <a href="{{ route('show-tenant',['unit_id' => $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a>  
                                   </td>
-                                  {{-- <td>{{ $item->contact_no }}</td>
-                                  <td>{{ $item->building.' '.$item->unit_no }}</td> --}}
-                                  <td colspan="2">
+                                 
+                                  <td>
                                       @if($diffInDays <= -1)
                                       <span class="badge badge-danger">contract has lapsed {{ $diffInDays*-1 }} days ago</span>
                                        @else
@@ -449,7 +443,7 @@
                                        @endif
                                   </td>
                              </tr>
-                              @endif
+                            
                              @endforeach
                            </tbody>
                          </table>

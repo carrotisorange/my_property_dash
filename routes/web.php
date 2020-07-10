@@ -440,7 +440,8 @@ Route::get('/', function(Request $request){
                 ->where('unit_property', Auth::user()->property)
                 ->orderBy('moveout_date')
                 ->where('tenant_status', 'active')
-                ->get();
+                ->where('moveout_date', '<=', Carbon::now()->addMonth())
+                ->paginate(10);
     
                 $moveout_rate_1 = DB::table('tenants')
                 ->join('units', 'unit_id', 'unit_tenant_id')
@@ -1094,7 +1095,6 @@ Route::get('/', function(Request $request){
             ->join('tenants', 'unit_id', 'unit_tenant_id')
             ->join('billings', 'tenant_id', 'billing_tenant_id')
             ->where('unit_property', Auth::user()->property)
-            // ->whereIn('billing_desc', ['Monthly Rent', 'Surcharge'])
             ->where('billing_status', 'unpaid')
             ->where('billing_date', '<', Carbon::now()->addDays(7))
             ->groupBy('tenant_id')
@@ -1107,6 +1107,7 @@ Route::get('/', function(Request $request){
             ->where('unit_property', Auth::user()->property)
             ->orderBy('moveout_date')
             ->where('tenant_status', 'active')
+            ->where('moveout_date', '<=', Carbon::now()->addMonth())
             ->paginate(10);
 
             $moveout_rate_1 = DB::table('tenants')
@@ -1302,12 +1303,10 @@ Route::get('/', function(Request $request){
             'movein_rate','moveout_rate', 'renewed_chart', 'collection_rate', 'reason_for_moving_out_chart',
             'delinquent_accounts','tenants_to_watch_out'
                     )
-            );
-        
+            ); 
     }
 
     });
-
 
 //routes for units
 Route::get('units/{unit_id}', 'UnitsController@show')->middleware('auth');
@@ -1371,42 +1370,6 @@ Route::get('/home', function(){
         }
    
 })->middleware('auth');
-
-// Route::get('/payments', function(){
-
-//     if(auth()->user()->status === 'unregistered' || auth()->user()->user_type !== 'treasury'){
-//         return view('unregistered');
-//     }
-
-//     $property = explode(",", Auth::user()->property);
-
-//      if(count($property) > 1){
-//         $payments = DB::table('units')
-//         ->select('*', DB::raw('sum(amt_paid) as total'))
-//         ->join('tenants', 'unit_id', 'unit_tenant_id')
-//         ->join('payments', 'tenant_id', 'payment_tenant_id')
-//         ->groupBy('tenant_id')
-//         ->groupBy('payment_created')
-//         ->whereIn('unit_property', [$property[0],$property[1]])
-//         ->orderBy('payment_created', 'desc')
-   
-//         ->get();
-//      }else{
-//         $payments = DB::table('units')
-//         ->select('*', DB::raw('sum(amt_paid) as total'))
-//         ->join('tenants', 'unit_id', 'unit_tenant_id')
-//         ->join('payments', 'tenant_id', 'payment_tenant_id')
-//         ->groupBy('tenant_id')
-//         ->groupBy('payment_created')
-//         ->where('unit_property', $property[0])
-//         ->orderBy('payment_created', 'desc')
-//         ->get();
-
-//      }
-
-//     return view('treasury.payments', compact('payments'));
-
-// })->middleware('auth');
 
 //routes for payments
 Route::get('units/{unit_id}/tenants/{tenant_id}/payments/{payment_id}', 'PaymentController@show')->name('show-payment')->middleware('auth');
@@ -1473,7 +1436,6 @@ Route::get('/users', function(){
 })->middleware('auth');
 
 Route::get('/owners', function(){
-
     if(auth()->user()->status === 'registered' || auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager'){
         $property = explode(",", Auth::user()->property);
       
@@ -1516,6 +1478,26 @@ Route::get('/collections', function(){
    
 })->middleware('auth');
 
+Route::get('/bills', function(){
+    if(auth()->user()->status === 'registered' || auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager'){
+        
+        $bills = DB::table('units')
+        ->select('*', DB::raw('sum(billing_amt) as total'))
+        ->join('tenants', 'unit_id', 'unit_tenant_id')
+        ->join('billings', 'tenant_id', 'billing_tenant_id')
+        ->where('unit_property', Auth::user()->property)
+        ->groupBy('tenant_id')
+        ->groupBy('billing_date')
+        ->orderBy('billing_date', 'desc')
+        ->get();
+   
+        return view('billing.bills', compact('bills'));
+    }else{
+        return view('unregistered');
+    }
+   
+})->middleware('auth');
+
 
 
 //step1
@@ -1538,7 +1520,6 @@ Route::post('/units/{unit_id}/tenant-step4', 'TenantController@postTenantStep4')
 Route::get('/units/{unit_id}/tenants/{tenant_id}/billings', 'TenantController@show_billings')->name('show-billings')->middleware('auth');
 Route::post('/tenants/billings', 'TenantController@add_billings')->name("add-billings")->middleware('auth');
 Route::post('/tenants/billings-post', 'TenantController@post_billings')->middleware('auth');
-Route::get('/bills', 'TenantController@show_posted_bills')->name('show-posted-bills')->middleware('auth');
 
 
 Route::get('/units/{unit_id}/tenants/{tenant_id}/payments', 'TenantController@show_payments')->name('show-payments')->middleware('auth');
@@ -1562,13 +1543,7 @@ Route::get('/users/{user_id}/edit', 'UserController@edit')->middleware('auth');
 Route::put('users/{user_id}', 'UserController@update')->middleware('auth');
 Route::delete('/users/{user_id}', 'UserController@destroy')->middleware('auth');
 
-
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout')->middleware('auth');
-
-Route::get('/faq', function(){
-    return view('faq');
-});
-
 
 //step1
 Route::get('/units/{unit_id}/tenant-step1', 'TenantController@createTenantStep1')->middleware('auth');
@@ -1594,7 +1569,4 @@ Route::get('/{properties}/units','UnitsController@show_vacant_units');
 Route::get('/{properties}/units/{unit_id}', 'UnitsController@show_reservation_form');
 Route::get('/{properties}/units/{unit_id}/tenants/{tenant_id}/reserved', 'TenantController@get_reservation');
 
-Route::get('/sendemail', 'SendEmailController@index');
-
-Route::post('/sendemail/send', 'SendEmailController@send');
 

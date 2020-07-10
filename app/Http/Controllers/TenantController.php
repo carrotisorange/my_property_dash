@@ -613,36 +613,6 @@ class TenantController extends Controller
         return redirect('/bills')->with('success', ($i-1). ' bills has been posted!');
     }
 
-    public function show_posted_bills(){
-
-        $property = explode(",", Auth::user()->property);
-
-        if(auth()->user()->status === 'registered' || auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager'){
-            if(count($property) > 1){
-                $billings = DB::table('units')
-                ->join('tenants', 'unit_id', 'unit_tenant_id')
-                ->join('billings', 'tenant_id', 'billing_tenant_id')
-                ->whereIn('unit_property', [$property[0],$property[1]])
-             
-                ->orderBy('billing_date', 'desc')
-                ->get();
-             }else{
-                $billings = DB::table('units')
-                ->join('tenants', 'unit_id', 'unit_tenant_id')
-                ->join('billings', 'tenant_id', 'billing_tenant_id')
-                ->where('unit_property', $property[0])
-                
-                ->orderBy('billing_date', 'desc')
-                ->get();
-             }    
-            return view('billing.show-posted-bills', compact('billings'));
-        }else{
-            return view('unregistered');
-        }
-
-      
-    }
-
     /**
      * Remove the specified resource from storage.
      *

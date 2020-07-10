@@ -391,7 +391,7 @@
                 <th>PROPERTY</th>
                 <th>LAST LOGIN AT</th>
                 <th>LAST LOGOUT AT</th>
-                <th>IP</th>
+                
               </tr>
           </thead>
           <tbody>
@@ -410,7 +410,7 @@
                <td>{{ $item->property }}</td>
                <td>{{ $item->last_login_at }}</td>
                <td>{{ $item->last_logout_at }}</td>
-               <td>{{ $item->last_login_ip }}</td>
+               
            </tr>
            @endforeach
           </tbody>

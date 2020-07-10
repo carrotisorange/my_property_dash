@@ -420,41 +420,34 @@
                        </div>
                        <div class="card-body">
                          <div class="table-responsive">
-                           <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                             <thead>
+                          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                              <tr>
+                                <th>TENANT</th>
+                              
+                                <th>STATUS</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                              @foreach($tenants_to_watch_out as $item)
+                              <?php $diffInDays =  number_format(Carbon\Carbon::now()->DiffInDays(Carbon\Carbon::parse($item->moveout_date), false)) ?>
                                <tr>
-                                 <th class="text-center">#</th>
-                                 <th>TENANT</th>
-                                 <th>CONTACT</th>
-                                 <th>UNIT/ROOM </th>
-                                 <th colspan="2"></th>
-                             </tr>
-                             </thead>
-                             <tbody>
-                               @foreach($tenants_to_watch_out as $item)
-                               <?php
-                                        $diffInMonths =  number_format(Carbon\Carbon::now()->floatDiffInMonths(Carbon\Carbon::parse($item->moveout_date), false));
-                                        $diffInDays =  number_format(Carbon\Carbon::now()->DiffInDays(Carbon\Carbon::parse($item->moveout_date), false));
-                                ?>
-                                @if($diffInDays <= 30 )
-                                <tr>
-                                    <th class="text-center">{{ $ctr++ }}</th>
-                                    <td><a href="{{ route('show-tenant',['unit_id' => $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a></td>
-                                    <td>{{ $item->contact_no }}</td>
-                                    <td>{{ $item->building.' '.$item->unit_no }}</td>
-                                    <td>
-                                        @if($diffInDays <= -1)
-                                        <span class="badge badge-danger">contract has lapsed {{ $diffInDays*-1 }} days ago</span>
-                                         @else
-                                        <span class="badge badge-warning">contract expires in {{ $diffInDays }} days </span>
-                                         @endif
-                                    </td>
-                                    <td>{{ $item->tenants_note  }}</td>
-                               </tr>
-                                @endif
-                               @endforeach
-                             </tbody>
-                           </table>
+                                   <td>
+                                     <a href="{{ route('show-tenant',['unit_id' => $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a>  
+                                   </td>
+                                  
+                                   <td>
+                                       @if($diffInDays <= -1)
+                                       <span class="badge badge-danger">contract has lapsed {{ $diffInDays*-1 }} days ago</span>
+                                        @else
+                                       <span class="badge badge-warning">contract expires in {{ $diffInDays }} days </span>
+                                        @endif
+                                   </td>
+                              </tr>
+                             
+                              @endforeach
+                            </tbody>
+                          </table>
                          </div>
                        </div>
                      </div>
@@ -482,9 +475,7 @@
                       </div>
                       <!-- Card Body -->
                       <div class="card-body">
-                       
                           {!! $movein_rate->container() !!}
-                        
                       </div>
                     </div>
                   </div>
@@ -510,10 +501,8 @@
                       </div>
                       <!-- Card Body -->
                       <div class="card-body">
-                        
                           {!! $renewed_chart->container() !!}
-                        
-                        {{-- <div class="mt-4 text-center small">
+                         <div class="mt-4 text-center small">
                           <span class="mr-2">
                             <i class="fas fa-circle text-primary"></i> Direct
                           </span>
@@ -523,7 +512,7 @@
                           <span class="mr-2">
                             <i class="fas fa-circle text-info"></i> Referral
                           </span>
-                        </div> --}}
+                        </div> 
                       </div>
                     </div>
                   </div>
@@ -542,9 +531,6 @@
                           {!! $moveout_rate->container() !!}
                       </div>
                     </div>
-      
-                  
-      
                   </div>
       
                   <div class="col-lg-6 mb-4">
@@ -651,5 +637,4 @@
 {!! $collection_rate->script() !!}
 {!! $reason_for_moving_out_chart->script() !!}
 </body>
-
 </html>

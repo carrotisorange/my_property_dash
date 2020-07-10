@@ -369,7 +369,7 @@
                     <th></th>
                 </tr>
                 <?php $ctr = 1;?> 
-                @foreach ($billings as $item)
+                @foreach ($bills as $item)
                 <tr>
                     <th class="text-center">{{ $ctr++ }}</th>
                     <td>{{ Carbon\Carbon::parse($item->billing_date)->format('M d Y') }}</td>
@@ -377,7 +377,7 @@
                     <td>{{ $item->building.' '.$item->unit_no }}</td>
                     <td>{{ $item->billing_desc.'-'.$item->details }}</td>
                    
-                    <td>{{ number_format($item->billing_amt,2) }}</td>
+                    <td>{{ number_format($item->total,2) }}</td>
                     <td>
                       @if($item->billing_status === 'paid')
                       <span class="badge badge-success">{{ $item->billing_status }}</span>
