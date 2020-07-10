@@ -476,7 +476,7 @@
                             ({{ count($renewal_history)-1 }}x) 
                           </span>  
                          
-                            @if($diffInDays <= -1)
+                            @if($diffInDays < 0)
                             <span class="badge badge-danger">contract has lapsed {{ $diffInDays*-1 }} days ago</span> 
                              @else
                             <span class="badge badge-warning">contract expires in {{ $diffInDays }} days </span>
