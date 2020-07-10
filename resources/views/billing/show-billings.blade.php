@@ -325,7 +325,7 @@
           @endforeach
 
           @if(Auth::user()->user_type === 'treasury' || Auth::user()->user_type === 'manager')
-          <p class="text-right"><a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/payments" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-dollar-sign fa-sm text-white-50"></i> View Payment History</a></p>
+          <p class="text-right"><a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/payments" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-dollar-sign fa-sm text-white-50"></i> Payment History</a></p>
          @endif
 
           <div class="row">
