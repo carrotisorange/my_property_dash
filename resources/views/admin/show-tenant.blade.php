@@ -466,8 +466,7 @@
                     </tr>
                     <?php 
                         $renewal_history = explode(",", $tenant->renewal_history); 
-                        $diffInMonths =  number_format(Carbon\Carbon::now()->floatDiffInMonths(Carbon\Carbon::parse($tenant->moveout_date), false));
-                        $diffInDays =  number_format(Carbon\Carbon::now()->DiffInDays(Carbon\Carbon::parse($tenant->moveout_date), false));
+                        $diffInDays =  number_format(Carbon\Carbon::now()->DiffInDays(Carbon\Carbon::parse($tenant->moveout_date)));
                     ?>
                     <tr>
                         <td>Current Contract Period</td>
