@@ -323,103 +323,74 @@
          <p class="alert alert-{{ $key }}"> <i class="fas fa-check-circle"></i> {{ Session::get($key) }}</p>
           @endif
           @endforeach
-          
-        <!-- 404 Error Text -->
-            @if(Auth::user()->user_type === 'treasury' || Auth::user()->user_type === 'manager')
-            <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/payments" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-dollar-sign fa-sm text-white-50"></i> View Payment History</a>
-            <a href="#" data-toggle="modal" data-target="#acceptPayment" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Add Payment</a>
-            @endif
-            <br>
-            <br>
-            <h4 class="text-center text-primary">ACCOUNTING DEPARTMENT</h4>
-            <p class="text-center">
-                Bareng Drive, Purok 11 Bakakeng Sur, Baguio City, 2600 Philippines
-                <br>
-                E-mail add: marthagoshenland@yahoo.com.ph; CP No. 09467576159/ 09068758142
-            </p>
-            <h5 class="text-center">{{strToUpper( Auth::user()->property) }}</h5>
-            <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <tr>
-                    <td>To: <b>{{ $tenant->first_name.' '.$tenant->last_name }}</b></td>
-                    
-                    <td class="text-right" colspan="2">Date: <b>{{ Carbon\Carbon::now()->firstOfMonth()->format('M d Y') }}</b></td>
-                </tr>
-                <tr>
-                    <td>Unit/Room: 
-                        <b>
-                            @foreach($unit_no as $item)
-                            {{ $item->building.' '.$item->unit_no }}
-                            @endforeach
-                        </b>
-                    </td>
-                    <td colspan="2" class="text-right text-danger">Due Date: <b>{{ Carbon\Carbon::now()->firstOfMonth()->addDays(6)->format('M d Y') }}</b></td>
-                </tr>
-                <tr>
-                    <th class="text-center" colspan="3">STATEMENT OF ACCOUNT</th>
-                </tr>
-                <tr>
-                    <th class="text-right" colspan="3">Amount</th>
-                </tr>
-               
-                @foreach ($monthly_rent as $item)
-                <tr>
-                    <th>{{ $item->billing_desc }}</th>
-                    <td>{{ $item->details }}</td>
-                    <th class="text-right" colspan="3">{{ number_format($item->billing_amt,2) }}</th>
-                </tr>
-                @endforeach
-                
-                <tr>
-                    <th class="text-left" colspan="3">Other Charges</th>
-                    
-                </tr>
+
+          @if(Auth::user()->user_type === 'treasury' || Auth::user()->user_type === 'manager')
+          <p class="text-right"><a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/payments" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-dollar-sign fa-sm text-white-50"></i> View Payment History</a></p>
+         @endif
+
+          <div class="row">
+            <div class="col-md-12">
+              <h5 class="text-black-50">Statment of Accounts</h5>
+              {{-- <p class="text-right"> <b>AR #:</b> </p> --}}
+              <ul style="list-style-type: none">
+                <li><b>Date:</b> {{ Carbon\Carbon::now()->firstOfMonth()->format('M d Y') }}</li>
+                <li><b>To:</b> {{ $tenant->first_name.' '.$tenant->last_name }}</li>
+                <li><b>Unit/Room:</b>  <b>
+                  @foreach($unit_no as $item)
+                  {{ $item->building.' '.$item->unit_no }}
+                  @endforeach
+              </b> </li>
+              </ul>
+              <p class="text-right">{{ Auth::user()->property }}</p>
+                <table class="table text-right" width="100%" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <th>#</th>
+                    <th>Description</th>
+                    <th>Date</th>
+                    <th>Amount</th>
+                  </tr>
+                  <?php $ctr = 1; ?>
+                  @foreach ($monthly_rent as $item)
+                  <tr>
+                      <th>{{ $ctr++ }}</th>
+                      <td>{{ $item->billing_desc }}</td>
+                      <td>{{ $item->details }}</td>
+                      <th class="text-right" colspan="3">{{ number_format($item->billing_amt,2) }}</th>
+                  </tr>
+                  @endforeach
+                  <tr>Others</tr>
+                  @foreach ($other_charges as $item)
+                  <tr>
+                    <th>{{ $ctr++ }}</th>
+                      <td>{{ $item->billing_desc }}</td>
+                      <td>{{ $item->details }}</td>
+                      <th class="text-right" colspan="3">{{ number_format($item->billing_amt,2) }}</th>
+                  </tr>
+                  @endforeach
             
-                @foreach ($other_charges as $item)
+              </table>
+              <table class="table" width="100%" cellspacing="0">
                 <tr>
-                    <th>{{ $item->billing_desc }}</th>
-                    <td>{{ $item->details }}</td>
-                    <th class="text-right" colspan="3">{{ number_format($item->billing_amt,2) }}</th>
+                 <th>TOTAL AMOUNT PAYABLE</th>
+                 <th class="text-right">{{ number_format($total_bills,2) }} </th>
                 </tr>
-               
-                @endforeach
-                <tr class="text-primary" >
-                    <th colspan="2">TOTAL AMOUNT PAYABLE (If paid before due date)</th>
-                    <th class="text-right">
-                        {{ number_format($total_bills,2) }} 
-                    </th>
-                </tr>
-                {{-- <tr>
-                    <td colspan="2">ADD: 10% surcharge ON RENT if not paid on due date</td>
-                    <th class="text-right">
-                        {{ number_format($total_bills * .1,2) }}
-                    </th>
-                </tr> --}}
-                <tr class="text-danger" >
-                    <th colspan="2">TOTAL AMOUNT PAYABLE AFTER DUE DATE</th>
-                    <th class="text-right">
-                        {{ number_format($total_bills + ($total_bills * .1) ,2) }}
-                    </th>
-                </tr>
-            </table>
-            <br>
-            <div class="card">
-                <div class="card-body">
-                    <b>Notice to All Tenants: </b>
-                        <br>
-                        Failure to pay the amount due on 7th of the month there will be a 10% surcharge and subject your unit to DISCONNECTION of utilities (water & electric)
-                        <br>
-                        THIS SERVES AS YOUR INITIAL NOTICE (DEMAND LETTER)
-                        You can also deposit your cash/check payment to any BDO Branch:
-                        <br>
-                        <b>BDO Account</b>
-                        <br>
-                        Account Name: Martha GoshenLand Property Management Inc.
-                        <br>
-                        Account Number: 0009-4032-9085
-                </div>
+                <tr>
+                  <th class="text-danger">TOTAL AMOUNT PAYABLE AFTER DUE DATE (+10%)</th>
+                  <th class="text-right text-danger">{{ number_format($total_bills + ($total_bills * .1) ,2) }}</th>
+                 </tr>
+                 @if(Auth::user()->user_type === 'treasury' || Auth::user()->user_type === 'manager')
+                 <tr>
+                   <td colspan="2" class="text-right"><a href="#" data-toggle="modal" data-target="#acceptPayment" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Add Payment</a> </td>
+                 </tr>
+                 @endif     
+              </table>
+              <ul style="list-style-type: none">
+                <li><b>Posted by:</b> {{ Auth::user()->name }}</li>
+                <li>{{ Auth::user()->user_type.' of '. Auth::user()->property }}</li>
+              </ul>
+            
             </div>
-        </div>
+          </div>
         
         {{-- modal for adding payments. --}}
         
@@ -499,7 +470,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button>
-                    <button form="acceptPaymentForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want perform this action?');" ><i class="fas fa-check fa-sm text-white-50"></i> Add Payment</button>
+                    <button form="acceptPaymentForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want perform this action?');" ><i class="fas fa-check fa-sm text-white-50f"></i> Add Payment</button>
                 </div>
          
             </div>
