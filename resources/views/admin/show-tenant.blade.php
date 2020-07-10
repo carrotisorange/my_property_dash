@@ -466,7 +466,7 @@
                     </tr>
                     <?php 
                         $renewal_history = explode(",", $tenant->renewal_history); 
-                        $diffInDays =  number_format(Carbon\Carbon::now()->DiffInDays(Carbon\Carbon::parse($tenant->moveout_date)));
+                        <?php $diffInDays =  number_format(Carbon\Carbon::now()->DiffInDays(Carbon\Carbon::parse($item->moveout_date), false)) ?>
                     ?>
                     <tr>
                         <td>Current Contract Period</td>
@@ -476,11 +476,11 @@
                             ({{ count($renewal_history)-1 }}x) 
                           </span>  
                          
-                            @if($diffInDays < 0)
-                            <span class="badge badge-danger">contract has lapsed {{ $diffInDays*-1 }} days ago</span> 
-                             @else
-                            <span class="badge badge-warning">contract expires in {{ $diffInDays }} days </span>
-                             @endif
+                          @if($diffInDays <= -1)
+                          <span class="badge badge-danger">contract has lapsed {{ $diffInDays*-1 }} days ago</span>
+                           @else
+                          <span class="badge badge-warning">contract expires in {{ $diffInDays }} days </span>
+                           @endif
                         </td>
                     </tr>
                     <tr>
