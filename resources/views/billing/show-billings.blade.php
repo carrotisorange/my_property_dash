@@ -179,7 +179,7 @@
             </li> --}}
 
             <!-- Nav Item - Alerts -->
-            <li class="nav-item dropdown no-arrow mx-1">
+            {{-- <li class="nav-item dropdown no-arrow mx-1">
               <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-bell fa-fw"></i>
                 <!-- Counter - Alerts -->
@@ -281,7 +281,7 @@
                 </a>
                 <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
               </div>
-            </li>
+            </li> --}}
 
             <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -324,10 +324,12 @@
           @endif
           @endforeach
 
-          @if(Auth::user()->user_type === 'treasury' || Auth::user()->user_type === 'manager')
-          <p class="text-right"><a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/payments" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-dollar-sign fa-sm text-white-50"></i> Payment History</a></p>
-         @endif
+          <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/billings" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> Go Back to Tenant</a>
 
+          @if(Auth::user()->user_type === 'treasury' || Auth::user()->user_type === 'manager')
+          <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/payments" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-dollar-sign fa-sm text-white-50"></i> Payment History</a>
+         @endif
+          <br><br>
           <div class="row">
             <div class="col-md-12">
               <h5 class="text-black-50">Statment of Accounts</h5>
@@ -432,7 +434,9 @@
 
                       <div class="col">
                         <label for="">Period Covered</label>
-                        <input form="acceptPaymentForm" class="form-control" name="or_number" value="{{ Carbon\Carbon::now()->startOfMonth()->format('M d') }}- {{ Carbon\Carbon::now()->endOfMonth()->format('d Y') }}" required>
+                        <div class="col">
+                          <input form="acceptPaymentForm" class="form-control" name="or_number" value="{{ Carbon\Carbon::now()->startOfMonth()->format('M d') }}- {{ Carbon\Carbon::now()->endOfMonth()->format('d Y') }}" required>
+                        </div>
                     </div>
                   </div>
                   

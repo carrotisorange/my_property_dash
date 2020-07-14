@@ -24,6 +24,7 @@ class Unit extends Model
                             'discount',
                             'unit_property',
                             'building',
+                           
     ];
 
     public function unit_owner()

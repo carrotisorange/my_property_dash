@@ -331,7 +331,7 @@
                          <table class="table" id="dataTable" width="100%" cellspacing="0">
                           <tr>
                            <th>TOTAL</th>
-                           <th class="text-right">{{ number_format($payments->sum('amt_paid'),2) }}</th>
+                           <th class="text-right">{{ number_format($payments->sum('total'),2) }}</th>
                           </tr>
                         </table>
                        </div>

@@ -66,12 +66,13 @@
           <span>Home</span></a>
       </li>
 
+      @if(Auth::user()->user_type === 'treasury')
       <li class="nav-item">
         <a class="nav-link" href="/tenants">
           <i class="fas fa-user fa-chart-area"></i>
           <span>Tenants</span></a>
       </li>
-
+      @endif
       <!-- Nav Item - Tables -->
       <li class="nav-item">
         <a class="nav-link" href="/owners">
@@ -424,8 +425,9 @@
                             <thead>
                               <tr>
                                 <th>TENANT</th>
-                              
+                                <th>UNIT/ROOM</th>
                                 <th>STATUS</th>
+                                <th>NOTE</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -435,7 +437,7 @@
                                    <td>
                                      <a href="{{ route('show-tenant',['unit_id' => $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a>  
                                    </td>
-                                  
+                                  <td>{{ $item->building.' '.$item->unit_no }}</td>
                                    <td>
                                        @if($diffInDays <= -1)
                                        <span class="badge badge-danger">contract has lapsed {{ $diffInDays*-1 }} days ago</span>
@@ -443,6 +445,7 @@
                                        <span class="badge badge-warning">contract expires in {{ $diffInDays }} days </span>
                                         @endif
                                    </td>
+                                   <td>{{ $item->tenants_note }}</td>
                               </tr>
                              
                               @endforeach
@@ -502,7 +505,7 @@
                       <!-- Card Body -->
                       <div class="card-body">
                           {!! $renewed_chart->container() !!}
-                         <div class="mt-4 text-center small">
+                         {{-- <div class="mt-4 text-center small">
                           <span class="mr-2">
                             <i class="fas fa-circle text-primary"></i> Direct
                           </span>
@@ -512,7 +515,7 @@
                           <span class="mr-2">
                             <i class="fas fa-circle text-info"></i> Referral
                           </span>
-                        </div> 
+                        </div>  --}}
                       </div>
                     </div>
                   </div>

@@ -314,16 +314,16 @@ class TenantController extends Controller
             ->join('units', 'unit_id', 'unit_tenant_id')
             ->where('tenant_id', $tenant_id)
             ->get();
-
+    
             $payment_ctr = DB::table('units')
             ->join('tenants', 'unit_id', 'unit_tenant_id')
-            ->join('payments', 'tenant_id', 'payment_tenant_id')
+            ->join('billings', 'tenant_id', 'billing_tenant_id')
             ->where('unit_property', Auth::user()->property)
             ->count();
-    
+
             $payments = DB::table('payments')->where('payment_tenant_id', $tenant_id)->get();
     
-            $monthly_rent = DB::table('billings')->where('billing_tenant_id', $tenant_id)->where('billing_status', '    ')->where('billing_desc', 'Monthly Rent')->get();
+            $monthly_rent = DB::table('billings')->where('billing_tenant_id', $tenant_id)->where('billing_status', 'unpaid')->where('billing_desc', 'Monthly Rent')->get();
     
             $total_bills = DB::table('billings')->where('billing_tenant_id', $tenant_id)->where('billing_status', 'unpaid')->sum('billing_amt');
     

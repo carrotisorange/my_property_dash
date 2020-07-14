@@ -178,7 +178,7 @@
               </div>
             </li> --}}
 
-            <!-- Nav Item - Alerts -->
+            {{-- <!-- Nav Item - Alerts -->
             <li class="nav-item dropdown no-arrow mx-1">
               <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-bell fa-fw"></i>
@@ -281,7 +281,7 @@
                 </a>
                 <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
               </div>
-            </li>
+            </li> --}}
 
             <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -321,7 +321,7 @@
         <!-- 404 Error Text -->
         
         <div class="table-responsive">
-            <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/billings" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> GO BACK TO TENANT</a>
+            <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/billings" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> Go Back to Tenant</a>
             <br><br>
             
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -334,13 +334,11 @@
                    <th>DESCRIPTION</th>
                    <th>AMOUNT</th>
                    <th>ACTION</th>
-
                </tr>
-               <?php $ctr = 1; ?>
               <tbody>
                @foreach ($payments as $item)
                <tr>
-                   <th class="text-center">{{ $ctr++ }}</th>
+                   <th class="text-center">{{ $item->payment_id }}</th>
                    <td>{{ Carbon\Carbon::parse($item->payment_created)->format('M d Y') }}</td>
                    <td>{{ $item->first_name.' '.$item->last_name }}</td>
                    <td>{{ $item->building.' '.$item->unit_no }}</td>
