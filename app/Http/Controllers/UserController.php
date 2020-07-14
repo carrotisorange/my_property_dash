@@ -106,11 +106,11 @@ class UserController extends Controller
     {
         if($request->password === null){
             DB::table('users')
-           
+            ->where('id', $user_id)
             ->update(
                 [
-                    'account_type' => 'basic',
-                   
+                    'name' => $request->name,
+                    'email' => $request->email,
                 ]
                 );
 
