@@ -379,6 +379,10 @@
                <td>{{ $user->status }}</td>
             </tr>
             <tr>
+              <th>Account Type</th>
+              <td>{{ $user->account_type }}</td>
+           </tr>  
+            <tr>
                <th>Property Name</th>
                <td>{{ $user->property }}</td>
             </tr>
