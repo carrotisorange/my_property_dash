@@ -16,8 +16,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Auth::routes();
-
+Auth::routes(['verify' => true]);
 
 Route::get('/', function(Request $request){
 
@@ -44,7 +43,6 @@ Route::get('/', function(Request $request){
     if(auth()->user()->status === 'unregistered'){
         return view('unregistered');
     }
-
 
     if(Auth::user()->user_type === 'admin'){
 
@@ -1305,7 +1303,7 @@ Route::get('/', function(Request $request){
             ); 
     }
 
-    });
+    })->middleware(['auth', 'verified']);
 
 //routes for units
 Route::get('units/{unit_id}', 'UnitsController@show')->middleware('auth');
@@ -1567,5 +1565,11 @@ Route::get('/properties','UnitsController@show_property');
 Route::get('/{properties}/units','UnitsController@show_vacant_units');
 Route::get('/{properties}/units/{unit_id}', 'UnitsController@show_reservation_form');
 Route::get('/{properties}/units/{unit_id}/tenants/{tenant_id}/reserved', 'TenantController@get_reservation');
+
+Route::get('login/facebook', 'Auth\LoginController@redirectToProvider');
+Route::get('login/facebook/callback', 'Auth\LoginController@handleProviderCallback');
+
+Route::get('login/google', 'Auth\LoginController@google');
+Route::get('login/google/callback', 'Auth\LoginController@googleCallback');
 
 

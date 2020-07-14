@@ -8,10 +8,54 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use DB;
+use Laravel\Socialite\Facades\Socialite;
 
 use Illuminate\Http\Request;
 class LoginController extends Controller
 {
+
+    /**
+     * Redirect the user to the GitHub authentication page.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function redirectToProvider()
+    {
+        return Socialite::driver('facebook')->redirect();
+    }
+
+    /**
+     * Obtain the user information from GitHub.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function handleProviderCallback()
+    {
+        $user = Socialite::driver('facebook')->user();
+
+        // $user->token;
+    }
+
+
+    public function google()
+    {
+        return Socialite::driver('google')->redirect();
+    }
+
+    /**
+     * Obtain the user information from GitHub.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function googleCallback()
+    {
+        $user = Socialite::driver('google')->user();
+
+        // $user->token;
+    }
+
+    
+
     /*
     |--------------------------------------------------------------------------
     | Login Controller
