@@ -430,7 +430,7 @@ Route::get('/', function(Request $request){
                 ->where('unit_property', Auth::user()->property)
                 // ->whereIn('billing_desc', ['Monthly Rent', 'Surcharge'])
                 ->where('billing_status', 'unpaid')
-                ->where('billing_date', '<', Carbon::now()->starOfMonth()->addDays(7))
+                ->where('billing_date', '<', Carbon::now()->startOfMonth()->addDays(7))
                 ->groupBy('tenant_id')
                 ->orderBy('total_bills', 'desc')
                 ->get();
@@ -680,7 +680,7 @@ Route::get('/', function(Request $request){
         ->where('unit_property', Auth::user()->property)
         // ->whereIn('billing_desc', ['Monthly Rent', 'Surcharge'])
         ->where('billing_status', 'unpaid')
-        ->where('billing_date', '<', Carbon::now()->starOfMonth()->addDays(7))
+        ->where('billing_date', '<', Carbon::now()->startOfMonth()->addDays(7))
         ->groupBy('tenant_id')
         ->orderBy('total_bills', 'desc')
         
@@ -1095,7 +1095,7 @@ Route::get('/', function(Request $request){
             ->join('billings', 'tenant_id', 'billing_tenant_id')
             ->where('unit_property', Auth::user()->property)
             ->where('billing_status', 'unpaid')
-            ->where('billing_date', '<', Carbon::now()->starOfMonth()->addDays(7))
+              ->where('billing_date', '<', Carbon::now()->startOfMonth()->addDays(7))
             ->groupBy('tenant_id')
             ->where('billing_amt','>', 0)
             ->orderBy('total_bills', 'desc')
