@@ -109,7 +109,7 @@ class UserController extends Controller
            
             ->update(
                 [
-                    'acount_type' => 'basic',
+                    'account_type' => 'basic',
                    
                 ]
                 );
