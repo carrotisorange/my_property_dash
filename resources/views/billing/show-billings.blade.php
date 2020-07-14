@@ -352,7 +352,7 @@
                   <?php $ctr = 1; ?>
                   @foreach ($monthly_rent as $item)
                   <tr>
-                      <th>{{ $ctr++ }}</th>
+                      <th>{{ $item->billing_id }}</th>
                       <td>{{ $item->billing_desc }}</td>
                       <td>{{ $item->details }}</td>
                       <th class="text-right" colspan="3">{{ number_format($item->billing_amt,2) }}</th>
