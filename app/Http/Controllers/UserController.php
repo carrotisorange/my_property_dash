@@ -73,12 +73,12 @@ class UserController extends Controller
      */
     public function show($user_id)
     {
-        if($user_id === Auth::user()->id ){
+        // if($user_id === Auth::user()->id ){
             $user = User::findOrFail($user_id);
             return view('users.show-user', compact('user'));
-        }else{
-            return view('unregistered');
-        }
+        // }else{
+        //     return view('unregistered');
+        // }
        
     }
 
