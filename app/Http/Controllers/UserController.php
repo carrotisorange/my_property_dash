@@ -58,6 +58,7 @@ class UserController extends Controller
             'property_ownership' => Auth::user()->property_ownership,
             'password' => Hash::make(12345678),
             'created_at' => Carbon::now(),
+            'account_type' => 'basic',
         ]);
 
         return redirect('/users')->with('success', 'A new user has been added to the record!');
@@ -141,6 +142,6 @@ class UserController extends Controller
     {
         DB::table('users')->where('id', $id)->delete();
 
-        return redirect('/#users')->with('success', 'User has been successfully deleted!');
+        return redirect('/#users')->with('success', 'User has been deleted!');
     }
 }
