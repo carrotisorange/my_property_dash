@@ -82,6 +82,8 @@ class PaymentController extends Controller
         ->where('billing_status', 'unpaid')
         ->count();
 
+        return $payment_ctr = Payment::where('property')->count();
+
         //payment for movein charges
        if($request->tenant_status === 'pending'){
         if($movein_charges <= $request->amt_paid){

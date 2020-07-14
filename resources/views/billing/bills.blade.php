@@ -363,15 +363,15 @@
                     <th>TENANT</th>
                     <th>UNIT/ROOM</th>
                     <th>DESCRIPTION</th>
-                    
+
                     <th>AMOUNT</th>
                     <th>STATUS</th>
                     <th></th>
                 </tr>
-                <?php $ctr = 1;?> 
+                
                 @foreach ($bills as $item)
                 <tr>
-                    <th class="text-center">{{ $ctr++ }}</th>
+                    <th class="text-center">{{ $item->billing_id }}</th>
                     <td>{{ Carbon\Carbon::parse($item->billing_date)->format('M d Y') }}</td>
                     <td><a href="units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}">{{ $item->first_name.' '.$item->last_name }}</a></td>
                     <td>{{ $item->building.' '.$item->unit_no }}</td>

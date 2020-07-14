@@ -46,11 +46,11 @@
 
       <nav class="nav-menu d-none d-lg-block">
         <ul>
-          <li class="active"><a href="index.html">Home</a></li>
+          <li class="active"><a href="/">Home</a></li>
           <li><a href="#about">About</a></li>
           <li><a href="#services">Services</a></li>
-          <li><a href="#portfolio">Portfolio</a></li>
-          <li><a href="#team">Team</a></li>
+          {{-- <li><a href="#portfolio">Portfolio</a></li> --}}
+          {{-- <li><a href="#team">Team</a></li> --}}
           <li><a href="#pricing">Pricing</a></li>
           {{-- <li><a href="/foods">Foods</a></li> --}}
           <li><a href="#contact">Contact</a></li>
@@ -131,7 +131,7 @@
               <div class="col-md-6">
                 <i class="bx bx-cube-alt"></i>
                 <h4>Real Estate Rules and Regulations</h4>
-                <p>f you have questions about affordable housing programs, grants, leasing, repairs, or tax credits, rely on our property management services to ensure everything goes smoothly. Book a consultation today to get some answers.</p>
+                <p>If you have questions about affordable housing programs, grants, leasing, repairs, or tax credits, rely on our property management services to ensure everything goes smoothly. Book a consultation today to get some answers.</p>
               </div>
             </div>
           </div>
@@ -358,7 +358,7 @@
       </div>
     </section><!-- End Testimonials Section --> --}}
 
-    <!-- ======= Portfolio Section ======= -->
+    {{-- <!-- ======= Portfolio Section ======= -->
     <section id="portfolio" class="portfolio">
       <div class="container">
 
@@ -470,13 +470,13 @@
             </div>
           </div>
 
-        </div>--}}
+        </div>
 
       </div> 
-    </section><!-- End Portfolio Section -->
+    </section><!-- End Portfolio Section --> --}}
 
     <!-- ======= Team Section ======= -->
-    <section id="team" class="team section-bg">
+    {{-- <section id="team" class="team section-bg">
       <div class="container">
 
         <div class="section-title">
@@ -570,7 +570,7 @@
         </div>
 
       </div>
-    </section><!-- End Team Section -->
+    </section><!-- End Team Section --> --}}
 
     <!-- ======= Pricing Section ======= -->
     <section id="pricing" class="pricing">
@@ -590,9 +590,10 @@
               <ul>
                 <li>1 building </li>
                 <li>10 rooms</li>
-                <li>3 users</li>
-                <li class="na">Pharetra massa</li>
-                <li class="na">Massa ultricies mi</li>
+                <li>1 manager</li>
+                <li class="na">1 admin</li>
+                <li class="na">1 billing</li>
+                <li class="na">1 treasury</li>
               </ul>
               <div class="btn-wrap">
                 <a href="/register" class="btn-buy">Try for free</a>
@@ -607,9 +608,10 @@
               <ul>
                 <li>2-3 buildings</li>
                 <li>50 rooms</li>
-                <li>6 users</li>
-                <li>Pharetra massa</li>
-                <li class="na">Massa ultricies mi</li>
+                <li>1 manager</li>
+                <li>1 admin</li>
+                <li class="na">1 billing</li>
+                <li class="na">1 treasury</li>
               </ul>
               <div class="btn-wrap">
                 <a href="#" class="btn-buy">Buy Now</a>
@@ -622,11 +624,12 @@
               <h3>Large</h3>
               <h4><sup>$</sup>29<span> / month</span></h4>
               <ul>
-                <li>Aida dere</li>
-                <li>Nec feugiat nisl</li>
-                <li>Nulla at volutpat dola</li>
-                <li>Pharetra massa</li>
-                <li>Massa ultricies mi</li>
+                <li>3-4 buildings</li>
+                <li>100 rooms</li>
+                <li>1 manager</li>
+                <li>1 admin</li>
+                <li>1 billing</li>
+                <li class="na">1 treasury</li>
               </ul>
               <div class="btn-wrap">
                 <a href="#" class="btn-buy">Buy Now</a>
@@ -640,11 +643,12 @@
               <h3>Enterprise</h3>
               <h4><sup>$</sup>49<span> / month</span></h4>
               <ul>
-                <li>Aida dere</li>
-                <li>Nec feugiat nisl</li>
-                <li>Nulla at volutpat dola</li>
-                <li>Pharetra massa</li>
-                <li>Massa ultricies mi</li>
+                <li>Unlimited buildings</li>
+                <li>Unlimited rooms</li>
+                <li>1 manager</li>
+                <li>1 admin</li>
+                <li>1 billing</li>
+                <li>1 treasury</li>
               </ul>
               <div class="btn-wrap">
                 <a href="#" class="btn-buy">Buy Now</a>
@@ -657,7 +661,7 @@
       </div>
     </section><!-- End Pricing Section -->
 
-    <!-- ======= Frequently Asked Questions Section ======= -->
+    {{-- <!-- ======= Frequently Asked Questions Section ======= -->
     <section id="faq" class="faq section-bg">
       <div class="container">
 
@@ -717,7 +721,7 @@
         </div>
 
       </div>
-    </section><!-- End Frequently Asked Questions Section -->
+    </section><!-- End Frequently Asked Questions Section --> --}}
 
     <!-- ======= Contact Section ======= -->
     <section id="contact" class="contact">
@@ -725,7 +729,7 @@
 
         <div class="section-title">
           <h2>Contact</h2>
-          <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+          {{-- <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p> --}}
         </div>
 
         <div class="row">
