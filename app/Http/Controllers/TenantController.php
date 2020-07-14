@@ -289,7 +289,7 @@ class TenantController extends Controller
             $tenant = Tenant::findOrFail($tenant_id);
 
             $payments = DB::table('payments')->where('payment_tenant_id', $tenant_id)->where('amt_paid','>', 0)->get();
-    
+        
             $security_deposits = DB::table('payments')->where('payment_tenant_id', $tenant_id)->wherein('payment_note',['Security Deposit (Rent)', 'Security Deposit (Utilities)'])->get();
     
             $billings = DB::table('billings')->where('billing_tenant_id', $tenant_id)->where('billing_status', 'unpaid')->get();
@@ -314,10 +314,16 @@ class TenantController extends Controller
             ->join('units', 'unit_id', 'unit_tenant_id')
             ->where('tenant_id', $tenant_id)
             ->get();
+
+            $payment_ctr = DB::table('units')
+            ->join('tenants', 'unit_id', 'unit_tenant_id')
+            ->join('payments', 'tenant_id', 'payment_tenant_id')
+            ->where('unit_property', Auth::user()->property)
+            ->count();
     
             $payments = DB::table('payments')->where('payment_tenant_id', $tenant_id)->get();
     
-            $monthly_rent = DB::table('billings')->where('billing_tenant_id', $tenant_id)->where('billing_status', 'unpaid')->where('billing_desc', 'Monthly Rent')->get();
+            $monthly_rent = DB::table('billings')->where('billing_tenant_id', $tenant_id)->where('billing_status', '    ')->where('billing_desc', 'Monthly Rent')->get();
     
             $total_bills = DB::table('billings')->where('billing_tenant_id', $tenant_id)->where('billing_status', 'unpaid')->sum('billing_amt');
     
@@ -328,7 +334,7 @@ class TenantController extends Controller
     
             $pending_balance = $overall_bills - $overall_payments;
             
-                return view('billing.show-billings', compact('tenant', 'monthly_rent', 'pending_balance', 'unit_no', 'other_charges', 'total_bills'));  
+                return view('billing.show-billings', compact('tenant', 'monthly_rent', 'pending_balance', 'unit_no', 'other_charges', 'total_bills', 'payment_ctr'));  
         }else{
             return view('unregistered');
         }

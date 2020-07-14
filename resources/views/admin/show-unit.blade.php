@@ -388,6 +388,10 @@
                                         <td>{{ $unit->type_of_units }}</td>
                                    </tr>
                                    <tr>
+                                    <th>SIZE</th>
+                                    <td>{{ $unit->size }}</td>
+                               </tr>
+                                   <tr>
                                         <th>NO OF BEDS</th>
                                         <td>{{ $unit->beds }}</td>     
                                     </tr>

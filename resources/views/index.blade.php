@@ -74,21 +74,21 @@
 
   <main id="main">
 
-    {{-- <!-- ======= Clients Section ======= -->
+    <!-- ======= Clients Section ======= -->
     <section id="clients" class="clients section-bg">
       <div class="container">
 
         <div class="row">
 
           <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
-            <img src="{{ asset('index/assets/img/clients/client-1.png') }}" class="img-fluid" alt="">
+            <img src="{{ asset('index/assets/img/clients/client-1.png') }}" class="img" alt="">
           </div>
 
           <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
-            <img src="{{ asset('index/assets/img/clients/client-2.png') }}" class="img-fluid" alt="">
+            <img src="{{ asset('index/assets/img/clients/client-2.png') }}" class="img" alt="">
           </div>
 
-          <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+          {{-- <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
             <img src="{{ asset('index/assets/img/clients/client-3.png') }}" class="img-fluid" alt="">
           </div>
 
@@ -102,12 +102,12 @@
 
           <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
             <img src="{{ asset('index/assets/img/clients/client-6.png') }}" class="img-fluid" alt="">
-          </div>
+          </div> --}}
 
         </div>
 
       </div>
-    </section><!-- End Clients Section --> --}}
+    </section><!-- End Clients Section -->
 
     <!-- ======= About Section ======= -->
     <section id="about" class="about">
@@ -195,7 +195,7 @@
                 
               </div>
               <h4><a href="">Unit/Room Management</a></h4>
-              <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p>
+              {{-- <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p> --}}
             </div>
           </div>
 
@@ -205,7 +205,7 @@
                 <i class="bx bx-file"></i>
               </div>
               <h4><a href="">Billing and Collection</a></h4>
-              <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</p>
+              {{-- <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</p> --}}
             </div>
           </div>
 
@@ -215,7 +215,7 @@
                 <i class="bx bx-tachometer"></i>
               </div>
               <h4><a href="">Expense Tracker</a></h4>
-              <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia</p>
+              {{-- <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia</p> --}}
             </div>
           </div>
 
@@ -225,7 +225,7 @@
                 <i class="bx bx-layer"></i>
               </div>
               <h4><a href="">Online Payment</a></h4>
-              <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis</p>
+              {{-- <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis</p> --}}
             </div>
           </div>
 
@@ -235,7 +235,7 @@
                 <i class="bx bx-slideshow"></i>
               </div>
               <h4><a href="">Job Order</a></h4>
-              <p>Quis consequatur saepe eligendi voluptatem consequatur dolor consequuntur</p>
+              {{-- <p>Quis consequatur saepe eligendi voluptatem consequatur dolor consequuntur</p> --}}
             </div>
           </div>
 
@@ -245,7 +245,7 @@
                 <i class="bx bxl-dribbble"></i>
               </div>
               <h4><a href="">Landlord/Tenant Portal</a></h4>
-              <p>Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur</p>
+              {{-- <p>Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur</p> --}}
             </div>
           </div>
 
@@ -565,7 +565,7 @@
                 <span>Accountant</span>
               </div>
             </div>
-          </div> --}}
+          </div> 
 
         </div>
 
@@ -578,7 +578,7 @@
 
         <div class="section-title">
           <h2>Pricing</h2>
-          <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+          {{-- <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p> --}}
         </div>
 
         <div class="row">

@@ -349,7 +349,6 @@
                     <th>Date</th>
                     <th>Amount</th>
                   </tr>
-                  <?php $ctr = 1; ?>
                   @foreach ($monthly_rent as $item)
                   <tr>
                       <th>{{ $item->billing_id }}</th>
@@ -358,10 +357,10 @@
                       <th class="text-right" colspan="3">{{ number_format($item->billing_amt,2) }}</th>
                   </tr>
                   @endforeach
-                  <tr>Others</tr>
+                  
                   @foreach ($other_charges as $item)
                   <tr>
-                    <th>{{ $ctr++ }}</th>
+                    <th>{{ $item->billing_id }}</th>
                       <td>{{ $item->billing_desc }}</td>
                       <td>{{ $item->details }}</td>
                       <th class="text-right" colspan="3">{{ number_format($item->billing_amt,2) }}</th>
@@ -398,7 +397,7 @@
             <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add Payment</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Enter Payment Information</h5>
                 
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -410,63 +409,71 @@
                     </form>
                     
                     <div class="form-group row">
-                        <div class="col">
+                        <div class="col-md-9">
                             <label for="">Date</label>
                         <input form="acceptPaymentForm" type="date" class="form-control" name="payment_created" value={{date('Y-m-d')}} required>
                         </div>
+                        <div class="col-md-3">
+                          <label for="">AR #</label>
+                          <input form="acceptPaymentForm" type="text" class="form-control" id="" name="ar_number" value="{{ $payment_ctr+1 }}" required readonly>
+                      </div>
                     </div>
+                    <div class="form-group row">
+                      <div class="col">
+                          <label for="">Payment Description</label>
+                          <select form="acceptPaymentForm" class="form-control" name="payment_note" id="" required>
+                            <option value="" selected>Please select one</option>
+                              <option value="Rent">Rent</option>
+                              <option value="Water">Water</option>
+                              <option value="Electric">Electric</option>
+                              <option value="Others">Others</option>
+                          </select>
+                      </div>
+
+                      <div class="col">
+                        <label for="">Period Covered</label>
+                        <input form="acceptPaymentForm" class="form-control" name="or_number" value="{{ Carbon\Carbon::now()->startOfMonth()->format('M d') }}- {{ Carbon\Carbon::now()->endOfMonth()->format('d Y') }}" required>
+                    </div>
+                  </div>
                   
                     <div class="form-group row">
-                        <div class="col">
+                        <div class="col-md-8">
                             <label for="">Form of Payment</label>
                             <select form="acceptPaymentForm" class="form-control" name="form_of_payment" id="" required>
                               <option value="" selected>Please select one</option>
-                                <option value="cash">cash</option>
-                                <option value="bank deposit">bank deposit</option>
-                                <option value="cheque">cheque</option>
+                                <option value="Cash">cash</option>
+                                <option value="Bank Deposit">bank deposit</option>
+                                <option value="Cheque">cheque</option>
                             </select>
                         </div>
-                        <div class="col">
+                        <div class="col-md-4">
                             <label for="">Amount</label>
+                            @if(Carbon\Carbon::now()->startOfMonth()->addDays(7)->format('d') <= Carbon\Carbon::now()->format('d') )
+                            <input form="acceptPaymentForm" type="number" class="form-control" id="" min="1" name="amt_paid" value="{{ $total_bills+($total_bills*.1) }}" required>
+                            @else
                             <input form="acceptPaymentForm" type="number" class="form-control" id="" min="1" name="amt_paid" value="{{ $total_bills }}" required>
+                            @endif
+                           
                         </div>
                      
-                        <div class="col">
-                            <label for="">Acknowledgment Receipt No</label>
-                            <input form="acceptPaymentForm" type="text" class="form-control" id="" name="ar_number" required>
-
-          
-                        </div>
-                    </div>
-        
-                    <div class="form-group row">
-                        <div class="col">
-                            <label for="">Bank Name</label>
-                            <input form="acceptPaymentForm" class="form-control" type="text" name="bank_name">
-                            <small class="text-danger">For bank deposit only</small>
-                        </div>
-                        <div class="col">
-                            <label for="">Cheque No</label>
-                            <input form="acceptPaymentForm" class="form-control" type="text" name="cheque_no">
-                            <small class="text-danger">For cheque only</small>
-                        </div>
                     </div>
                  
                     <input type="hidden" form="acceptPaymentForm" id="payment_tenant_id" name="payment_tenant_id" value="{{ $tenant->tenant_id }}">
                     <input type="hidden" form="acceptPaymentForm" id="unit_tenant_id" name="unit_tenant_id" value="{{ $tenant->unit_tenant_id }}">
                     <input type="hidden" form="acceptPaymentForm" id="tenant_status" name="tenant_status" value="{{ $tenant->tenant_status }}">
+                
                     <div class="form-group row">
-                        <div class="col">
-                            <label for="">Payment Description</label>
-                            <input form="acceptPaymentForm" class="form-control" name="payment_note"  placeholder="(i.e. Rent, Utilities, Surcharge)" required>
-                           
-                        </div>
-
-                        <div class="col">
-                          <label for="">Period Covered</label>
-                          <input form="acceptPaymentForm" class="form-control" name="or_number" value="{{ Carbon\Carbon::now()->startOfMonth()->format('M d') }}- {{ Carbon\Carbon::now()->endOfMonth()->format('d Y') }}" required>
+                      <div class="col">
+                          <label for="">Bank Name</label>
+                          <input form="acceptPaymentForm" class="form-control" type="text" name="bank_name">
+                          <small class="text-danger">For bank deposit only</small>
                       </div>
-                    </div>
+                      <div class="col">
+                          <label for="">Cheque No</label>
+                          <input form="acceptPaymentForm" class="form-control" type="text" name="cheque_no">
+                          <small class="text-danger">For cheque only</small>
+                      </div>
+                  </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button>

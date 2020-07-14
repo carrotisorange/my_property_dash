@@ -362,13 +362,11 @@
                     <th>DATE BILLED</th>
                     <th>TENANT</th>
                     <th>UNIT/ROOM</th>
-                    <th>DESCRIPTION</th>
-
+                    <th>DESC</th>
                     <th>AMOUNT</th>
                     <th>STATUS</th>
                     <th></th>
                 </tr>
-                
                 @foreach ($bills as $item)
                 <tr>
                     <th class="text-center">{{ $item->billing_id }}</th>
