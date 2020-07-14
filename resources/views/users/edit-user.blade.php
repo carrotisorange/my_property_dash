@@ -386,6 +386,14 @@
                <th>Property Name</th>
                <td>{{ $user->property }}</td>
             </tr>
+            <tr>
+              <th>Property Ownership</th>
+              <td>{{ $user->property_ownership }}</td>
+           </tr>
+           <tr>
+              <th>Property Type</th>
+              <td>{{ $user->property_type }}</td>
+           </tr>  
             
           </table>
           <p class="text-right"><button form="editUserForm" type="submit" class="btn btn-primary"><i class="fas fa-check"></i> UPDATE PROFILE</button></p>
