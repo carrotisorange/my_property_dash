@@ -615,7 +615,7 @@
                 <li>1 treasury</li>
               </ul>
               <div class="btn-wrap">
-                <a href="#" class="btn-buy">Buy Now</a>
+                <a href="/register" class="btn-buy">Buy Now</a>
               </div>
             </div>
           </div>
@@ -633,7 +633,7 @@
                 <li>1 treasury</li>
               </ul>
               <div class="btn-wrap">
-                <a href="#" class="btn-buy">Buy Now</a>
+                <a href="/register" class="btn-buy">Buy Now</a>
               </div>
             </div>
           </div>
@@ -652,7 +652,7 @@
                 <li>1 treasury</li>
               </ul>
               <div class="btn-wrap">
-                <a href="#" class="btn-buy">Buy Now</a>
+                <a href="/register" class="btn-buy">Buy Now</a>
               </div>
             </div>
           </div>
