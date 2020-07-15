@@ -329,8 +329,7 @@
                             <th class="text-center">#</th>
                             <th>DATE PAID</th>
                             <th>NAME</th>
-                            <th>UNIT/ROOM</th>
-                            
+                            <th>UNIT/ROOM</th> 
                             <th>AMOUNT</th>
                             <th></th>
                         </tr>
