@@ -21,33 +21,18 @@ class PaymentController extends Controller
         $search = $request->search;
 
         $request->session()->put(Auth::user()->property.'search_payment', $search);
-
-        $property = explode(",", Auth::user()->property);
-
-        if(count($property) > 1){
+        
            $collections = DB::table('units')
            ->select('*', DB::raw('sum(amt_paid) as total'))
            ->join('tenants', 'unit_id', 'unit_tenant_id')
            ->join('payments', 'tenant_id', 'payment_tenant_id')
            ->groupBy('tenant_id')
            ->groupBy('payment_created')
-           ->whereIn('unit_property', [$property[0],$property[1]])
+           ->where('unit_property', Auth::user()->property)
            ->where('payment_created', $search)
            ->orderBy('payment_created', 'desc')
            ->get();
-        }else{
-           $collections = DB::table('units')
-           ->select('*', DB::raw('sum(amt_paid) as total'))
-           ->join('tenants', 'unit_id', 'unit_tenant_id')
-           ->join('payments', 'tenant_id', 'payment_tenant_id')
-           ->groupBy('tenant_id')
-           ->groupBy('payment_created')
-           ->where('unit_property', $property[0])
-           ->where('payment_created', $search)
-           ->orderBy('payment_created', 'desc')
-           ->get();
-        }
-
+    
        return view('billing.collections', compact('collections'));
     }
 
