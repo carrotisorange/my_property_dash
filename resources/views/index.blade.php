@@ -67,7 +67,7 @@
     <div class="container position-relative">
       <h1>Simplifying Property Management</h1>
       <h2>Online resource and tools for landlords and property managers. </h2>
-      <a href="#pricing" class="btn-get-started scrollto">START FREE TRIAL</a>
+      <a href="#pricing" class="btn-get-started scrollto">REGISTER FOR FREE</a>
       <a href="/login" class="btn-get-started scrollto">LOGIN</a>
     </div>
   </section><!-- End Hero -->
@@ -605,7 +605,7 @@
           <div class="col-lg-3 col-md-6 mt-4 mt-md-0">
             <div class="box featured">
               <h3>Medium</h3>
-              <h4><sup>$</sup>9<span> / month</span></h4>
+              <h4><sup>$</sup>19<span> / month</span></h4>
               <ul>
                 {{-- <li>2-3 buildings</li> --}}
                 <li>100 rooms</li>
@@ -623,7 +623,7 @@
           <div class="col-lg-3 col-md-6 mt-4 mt-lg-0">
             <div class="box">
               <h3>Large</h3>
-              <h4><sup>$</sup>19<span> / month</span></h4>
+              <h4><sup>$</sup>36<span> / month</span></h4>
               <ul>
                 {{-- <li>3-4 buildings</li> --}}
                 <li>200 rooms</li>
@@ -642,7 +642,7 @@
             <div class="box">
               <span class="advanced">Advanced</span>
               <h3>Enterprise</h3>
-              <h4><sup>$</sup>36<span> / month</span></h4>
+              <h4><sup>$</sup>48<span> / month</span></h4>
               <ul>
                 {{-- <li>Unlimited buildings</li> --}}
                 <li>Unlimited rooms</li>
