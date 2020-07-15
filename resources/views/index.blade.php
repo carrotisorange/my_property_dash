@@ -585,7 +585,7 @@
 
           <div class="col-lg-3 col-md-6">
             <div class="box">
-              <span class="advanced">TRIAL</span>
+              <span class="advanced">Trial</span>
               <h3>Basic</h3>
               <h4><sup>$</sup>0<span> / month</span></h4>
               <ul>
