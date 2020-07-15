@@ -338,7 +338,7 @@
               <tbody>
                @foreach ($payments as $item)
                <tr>
-                   <th class="text-center">{{ $item->payment_id }}</th>
+                   <th class="text-center">{{ $item->ar_number }}</th>
                    <td>{{ Carbon\Carbon::parse($item->payment_created)->format('M d Y') }}</td>
                    <td>{{ $item->first_name.' '.$item->last_name }}</td>
                    <td>{{ $item->building.' '.$item->unit_no }}</td>

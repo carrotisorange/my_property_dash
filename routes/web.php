@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Auth::routes(['verify' => true]);
+Auth::routes();
 
 Route::get('/', function(Request $request){
 
