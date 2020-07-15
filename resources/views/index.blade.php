@@ -67,7 +67,7 @@
     <div class="container position-relative">
       <h1>Simplifying Property Management</h1>
       <h2>Online resource and tools for landlords and property managers. </h2>
-      <a href="#pricing" class="btn-get-started scrollto">REGISTER FOR FREE</a>
+      <a href="#pricing" class="btn-get-started scrollto">TRY FOR FREE</a>
       <a href="/login" class="btn-get-started scrollto">LOGIN</a>
     </div>
   </section><!-- End Hero -->
@@ -597,7 +597,7 @@
                 <li>1 treasury</li>
               </ul>
               <div class="btn-wrap">
-                <a href="/register" class="btn-buy">Trial Plan</a>
+                <a href="/register" class="btn-buy">Try for Free</a>
               </div>
             </div>
           </div>
