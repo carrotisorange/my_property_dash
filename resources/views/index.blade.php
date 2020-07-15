@@ -623,7 +623,7 @@
           <div class="col-lg-3 col-md-6 mt-4 mt-lg-0">
             <div class="box">
               <h3>Large</h3>
-              <h4><sup>$</sup>29<span> / month</span></h4>
+              <h4><sup>$</sup>19<span> / month</span></h4>
               <ul>
                 {{-- <li>3-4 buildings</li> --}}
                 <li>200 rooms</li>
@@ -642,7 +642,7 @@
             <div class="box">
               <span class="advanced">Advanced</span>
               <h3>Enterprise</h3>
-              <h4><sup>$</sup>49<span> / month</span></h4>
+              <h4><sup>$</sup>36<span> / month</span></h4>
               <ul>
                 {{-- <li>Unlimited buildings</li> --}}
                 <li>Unlimited rooms</li>
