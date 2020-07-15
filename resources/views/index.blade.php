@@ -585,10 +585,11 @@
 
           <div class="col-lg-3 col-md-6">
             <div class="box">
-              <h3>Free</h3>
+              <span class="advanced">Trial Version </span>
+              <h3>Basic</h3>
               <h4><sup>$</sup>0<span> / month</span></h4>
               <ul>
-                <li>1 building </li>
+                {{-- <li>1 building </li> --}}
                 <li>20 rooms</li>
                 <li>1 manager</li>
                 <li>1 admin</li>
@@ -604,7 +605,7 @@
           <div class="col-lg-3 col-md-6 mt-4 mt-md-0">
             <div class="box featured">
               <h3>Medium</h3>
-              <h4><sup>$</sup>13<span> / month</span></h4>
+              <h4><sup>$</sup>9<span> / month</span></h4>
               <ul>
                 {{-- <li>2-3 buildings</li> --}}
                 <li>100 rooms</li>
@@ -643,7 +644,7 @@
               <h3>Enterprise</h3>
               <h4><sup>$</sup>49<span> / month</span></h4>
               <ul>
-                <li>Unlimited buildings</li>
+                {{-- <li>Unlimited buildings</li> --}}
                 <li>Unlimited rooms</li>
                 <li>1 manager</li>
                 <li>1 admin</li>
