@@ -234,7 +234,7 @@
               <div class="icon">
                 <i class="bx bx-slideshow"></i>
               </div>
-              <h4><a href="">Job Order &nbsp&nbsp&nbsp&nbspphp artisan make:migration add_store_id_to_users_table --table=users</a></h4>
+              <h4><a href="">Job Order &nbsp&nbsp</a></h4>
               {{-- <p>Quis consequatur saepe eligendi voluptatem consequatur dolor consequuntur</p> --}}
             </div>
           </div>
