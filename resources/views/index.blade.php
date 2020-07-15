@@ -589,11 +589,11 @@
               <h4><sup>$</sup>0<span> / month</span></h4>
               <ul>
                 <li>1 building </li>
-                <li>10 rooms</li>
+                <li>20 rooms</li>
                 <li>1 manager</li>
-                <li class="na">1 admin</li>
-                <li class="na">1 billing</li>
-                <li class="na">1 treasury</li>
+                <li>1 admin</li>
+                <li>1 billing</li>
+                <li>1 treasury</li>
               </ul>
               <div class="btn-wrap">
                 <a href="/register" class="btn-buy">Try for free</a>
@@ -606,12 +606,12 @@
               <h3>Medium</h3>
               <h4><sup>$</sup>13<span> / month</span></h4>
               <ul>
-                <li>2-3 buildings</li>
-                <li>50 rooms</li>
+                {{-- <li>2-3 buildings</li> --}}
+                <li>100 rooms</li>
                 <li>1 manager</li>
                 <li>1 admin</li>
-                <li class="na">1 billing</li>
-                <li class="na">1 treasury</li>
+                <li>1 billing</li>
+                <li>1 treasury</li>
               </ul>
               <div class="btn-wrap">
                 <a href="#" class="btn-buy">Buy Now</a>
@@ -624,12 +624,12 @@
               <h3>Large</h3>
               <h4><sup>$</sup>29<span> / month</span></h4>
               <ul>
-                <li>3-4 buildings</li>
-                <li>100 rooms</li>
+                {{-- <li>3-4 buildings</li> --}}
+                <li>200 rooms</li>
                 <li>1 manager</li>
                 <li>1 admin</li>
                 <li>1 billing</li>
-                <li class="na">1 treasury</li>
+                <li>1 treasury</li>
               </ul>
               <div class="btn-wrap">
                 <a href="#" class="btn-buy">Buy Now</a>
