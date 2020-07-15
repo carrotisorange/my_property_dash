@@ -16,8 +16,6 @@ use Illuminate\Http\Request;
 |
 */
 
-Auth::routes();
-
 Route::get('/', function(Request $request){
 
     if(Auth::guest()){
