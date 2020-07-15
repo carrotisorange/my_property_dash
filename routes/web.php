@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Auth::routes();
+Auth::routes(['register' => false]);
 
 Route::get('/', function(Request $request){
 
