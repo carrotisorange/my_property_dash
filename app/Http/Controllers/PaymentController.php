@@ -25,7 +25,7 @@ class PaymentController extends Controller
         $property = explode(",", Auth::user()->property);
 
         if(count($property) > 1){
-           $payments = DB::table('units')
+           $collections = DB::table('units')
            ->select('*', DB::raw('sum(amt_paid) as total'))
            ->join('tenants', 'unit_id', 'unit_tenant_id')
            ->join('payments', 'tenant_id', 'payment_tenant_id')
@@ -36,7 +36,7 @@ class PaymentController extends Controller
            ->orderBy('payment_created', 'desc')
            ->get();
         }else{
-           $payments = DB::table('units')
+           $collections = DB::table('units')
            ->select('*', DB::raw('sum(amt_paid) as total'))
            ->join('tenants', 'unit_id', 'unit_tenant_id')
            ->join('payments', 'tenant_id', 'payment_tenant_id')
@@ -48,7 +48,7 @@ class PaymentController extends Controller
            ->get();
         }
 
-       return view('treasury.payments', compact('payments'));
+       return view('billing.collections', compact('collections'));
     }
 
     /**
@@ -145,6 +145,7 @@ class PaymentController extends Controller
                     DB::table('billings')
                     ->where('billing_tenant_id', $request->payment_tenant_id)
                     ->whereRaw("billing_desc like '%$request->payment_note_%' ")
+                    ->whereRaw('billing_date')
                     ->where('billing_status', 'unpaid')
                     ->update(['billing_status' => 'paid']); 
                 }else{
