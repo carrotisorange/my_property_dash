@@ -597,7 +597,7 @@
                 <li>1 treasury</li>
               </ul>
               <div class="btn-wrap">
-                <a href="/register" class="btn-buy">Try for free</a>
+                <a href="/register" class="btn-buy">Trial Plan</a>
               </div>
             </div>
           </div>
