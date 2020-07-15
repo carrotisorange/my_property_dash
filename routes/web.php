@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Auth::routes(['verify'=>true]);
+Auth::routes();
 
 Route::get('/', function(Request $request){
 
@@ -1303,7 +1303,7 @@ Route::get('/', function(Request $request){
             ); 
     }
 
-    })->middleware(['auth', 'verified']);
+    })->middleware(['auth']);
 
 //routes for units
 Route::get('units/{unit_id}', 'UnitsController@show')->middleware('auth');
