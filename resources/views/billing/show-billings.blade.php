@@ -333,7 +333,7 @@
           <br><br>
           <div class="row">
             <div class="col-md-12">
-              <h5 class="text-black-50">Statment of Accounts</h5>
+              <h5 class="text-black-50">{{ Auth::user()->property }}</h5>
               {{-- <p class="text-right"> <b>AR #:</b> </p> --}}
               <ul style="list-style-type: none">
                 <li><b>Date:</b> {{ Carbon\Carbon::now()->firstOfMonth()->format('M d Y') }}</li>
@@ -345,7 +345,7 @@
                   @endforeach
               </b> </li>
               </ul>
-              <p class="text-right">{{ Auth::user()->property }}</p>
+              <p class="text-right">Statment of Accounts</p>
                 <table class="table text-right" width="100%" cellspacing="0" cellpadding="0">
                   <tr>
                     <th>#</th>
