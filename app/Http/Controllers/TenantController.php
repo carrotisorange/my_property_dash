@@ -345,6 +345,7 @@ class TenantController extends Controller
         $tenant = Tenant::findOrFail($tenant_id);
      
         $payments = DB::table('units')
+        
             ->join('tenants', 'unit_id', 'unit_tenant_id')
             ->join('payments', 'tenant_id', 'payment_tenant_id')
             ->where('payment_tenant_id', $tenant_id)
@@ -772,9 +773,9 @@ class TenantController extends Controller
 
         $rent_bills = DB::table('billings')->where('billing_tenant_id', $tenant_id)->where('billing_status', 'unpaid') ->where('billing_amt','>',0)->whereIn('billing_desc', ['Monthly Rent', 'Surcharges'])->get();
 
-        $other_bills = DB::table('billings')->where('billing_tenant_id', $tenant_id)->where('billing_status', 'unpaid') ->where('billing_amt','>',0)->where('billing_desc','!=','Monthly Rent')->where('billing_desc','!=','Surcharges')->get();
+         $other_bills = DB::table('billings')->where('billing_tenant_id', $tenant_id)->where('billing_status', 'unpaid') ->where('billing_amt','>',0)->where('billing_desc','!=','Monthly Rent')->where('billing_desc','!=','Surcharges')->get();
 
-        $total_bills = DB::table('billings')->where('billing_tenant_id', $tenant_id)->where('billing_status', 'unpaid')->sum('billing_amt');
+         $total_bills = DB::table('billings')->where('billing_tenant_id', $tenant_id)->where('billing_status', 'unpaid')->sum('billing_amt');
          
         $data = [
             

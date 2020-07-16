@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>{{ $tenant->first_name.' '.$tenant->last_name }}</title>
+   <title>{{ $tenant->first_name.' '.$tenant->last_name }}</title> 
 
   <!-- Custom fonts for this template-->
   <link href="{{ asset('dashboard/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -337,6 +337,7 @@
               {{-- <p class="text-right"> <b>AR #:</b> </p> --}}
               <ul style="list-style-type: none">
                 <li><b>Date:</b> {{ Carbon\Carbon::now()->firstOfMonth()->format('M d Y') }}</li>
+                <li class="text-danger"><b>Due Date:</b> {{ Carbon\Carbon::now()->firstOfMonth()->addDays(7)->format('M d Y') }}</li>
                 <li><b>To:</b> {{ $tenant->first_name.' '.$tenant->last_name }}</li>
                 <li><b>Unit/Room:</b>  <b>
                   @foreach($unit_no as $item)

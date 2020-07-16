@@ -18,14 +18,14 @@
     <div class="container">
       <div class="row">
         <div class="col-md-10">
-          <h5 class="text-black-50">Acknowledgment Receipt</h5>
+          <h5 class="text-black-50">{{ Auth::user()->property }}</h5>
           <p class="text-right"> <b>AR #:</b> {{ $payment_ar }}</p>
           <ul style="list-style-type: none">
             <li><b>Date:</b> {{ Carbon\Carbon::now()->format('M d Y') }}</li>
             <li><b>To:</b> {{ $tenant }}</li>
             <li><b>Unit/Room:</b> {{ $unit }} </li>
           </ul>
-          <p class="text-right">{{ Auth::user()->property }}</p>
+          <p class="text-right">Acknowledgment Receipt</p>
             <table class="table text-right" width="100%" cellspacing="0" cellpadding="0">
               <tr>
                 <th>#</th>
