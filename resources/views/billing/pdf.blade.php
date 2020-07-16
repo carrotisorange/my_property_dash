@@ -17,12 +17,12 @@
 
 </head>
 
-<body id="page-top">
+<body>
 
     <!-- End of Topbar -->
-    <div class="container-fluid">
+    <div class="container">
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-10">
           <h5 class="text-black-50">{{ Auth::user()->property }}</h5>
           {{-- <p class="text-right"> <b>AR #:</b> </p> --}}
           <ul style="list-style-type: none">
@@ -31,7 +31,7 @@
             <li><b>To:</b> {{ $tenant }}</li>
             <li><b>Unit/Room:</b> {{ $unit }}</li>
           </ul>
-          <p class="text-right">Statment of Accounts</p>
+          <p class="text-right">Statement of Accounts</p>
             <table class="table text-right" width="100%" cellspacing="0" cellpadding="0">
               <tr>
                 <th>#</th>
@@ -77,24 +77,11 @@
       </div>
 
     </div>
-</body>
-
-  <!-- Bootstrap core JavaScript-->
-  <script src="{{ asset('/dashboard/vendor/jquery/jquery.min.js') }}"></script>
-  <script src="{{ asset('/dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-
-  <!-- Core plugin JavaScript-->
-  <script src="{{ asset('/dashboard/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
-
-  <!-- Custom scripts for all pages-->
-  <script src="{{ asset('/dashboard/js/sb-admin-2.min.js') }}"></script>
-
-  <!-- Page level plugins -->
-  <script src="{{ asset('/dashboard/vendor/chart.js/Chart.min.js') }}"></script>
-
-  <!-- Page level custom scripts -->
-  <script src="{{ asset('/dashboard/js/demo/chart-area-demo.js') }}"></script>
-  <script src="{{ asset('/dashboard/js/demo/chart-pie-demo.js') }}"></script>
+     <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </body>
 
 </html>

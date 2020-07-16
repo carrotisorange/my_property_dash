@@ -345,7 +345,7 @@
                   @endforeach
               </b> </li>
               </ul>
-              <p class="text-right">Statment of Accounts</p>
+              <p class="text-right">Statement of Accounts</p>
               <p class="text-right"></p>
                 <table class="table text-right" width="100%" cellspacing="0" cellpadding="0">
                   <tr>
@@ -388,11 +388,6 @@
                  </tr>
                  @endif     
               </table>
-              <ul style="list-style-type: none">
-                <li><b>Posted by:</b> {{ Auth::user()->name }}</li>
-                <li>{{ Auth::user()->user_type.' of '. Auth::user()->property }}</li>
-              </ul>
-            
             </div>
           </div>
         
