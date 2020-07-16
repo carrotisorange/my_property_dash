@@ -345,7 +345,6 @@ class TenantController extends Controller
         $tenant = Tenant::findOrFail($tenant_id);
      
         $payments = DB::table('units')
-        
             ->join('tenants', 'unit_id', 'unit_tenant_id')
             ->join('payments', 'tenant_id', 'payment_tenant_id')
             ->where('payment_tenant_id', $tenant_id)
