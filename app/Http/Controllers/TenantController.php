@@ -321,20 +321,18 @@ class TenantController extends Controller
             ->where('unit_property', Auth::user()->property)
             ->count();
 
-            $payments = DB::table('payments')->where('payment_tenant_id', $tenant_id)->get();
+            $payments = DB::table('payments')->where('payment_tenant_id', $tenant_id)->where('amt_paid','>',0)->get();
     
-            $monthly_rent = DB::table('billings')->where('billing_tenant_id', $tenant_id)->where('billing_status', 'unpaid')->where('billing_desc', 'Monthly Rent')->get();
+            $monthly_rent = DB::table('billings')->where('billing_tenant_id', $tenant_id)->where('billing_status', 'unpaid') ->where('billing_amt','>',0)->whereIn('billing_desc', ['Monthly Rent', 'Surcharges'])->get();
     
             $total_bills = DB::table('billings')->where('billing_tenant_id', $tenant_id)->where('billing_status', 'unpaid')->sum('billing_amt');
     
-            $other_charges = DB::table('billings')->where('billing_tenant_id', $tenant_id)->where('billing_status', 'unpaid')->where('billing_desc','!=','Monthly Rent')->get();
+            $other_charges = DB::table('billings')->where('billing_tenant_id', $tenant_id)->where('billing_status', 'unpaid') ->where('billing_amt','>',0)->where('billing_desc','!=','Monthly Rent')->where('billing_desc','!=','Surcharges')->get();
     
             $overall_payments = DB::table('payments')->where('payment_tenant_id', $tenant_id)->sum('amt_paid');
-            $overall_bills = DB::table('billings')->where('billing_tenant_id', $tenant_id)->sum('billing_amt');
-    
-            $pending_balance = $overall_bills - $overall_payments;
+
             
-                return view('billing.show-billings', compact('tenant', 'monthly_rent', 'pending_balance', 'unit_no', 'other_charges', 'total_bills', 'payment_ctr'));  
+                return view('billing.show-billings', compact('tenant', 'monthly_rent', 'unit_no', 'other_charges', 'total_bills', 'payment_ctr','payments' ));  
         }else{
             return view('unregistered');
         }
@@ -345,16 +343,12 @@ class TenantController extends Controller
     public function show_payments($unit_id, $tenant_id){
 
         $tenant = Tenant::findOrFail($tenant_id);
-
-        $property = explode(",", Auth::user()->property);
      
         $payments = DB::table('units')
-            ->select('*', DB::raw('sum(amt_paid) as total'))
             ->join('tenants', 'unit_id', 'unit_tenant_id')
             ->join('payments', 'tenant_id', 'payment_tenant_id')
             ->where('payment_tenant_id', $tenant_id)
             ->where('amt_paid','>',0)
-            ->groupBy('payment_created')
             ->orderBy('payment_created', 'desc')
             ->get();
  
@@ -769,6 +763,37 @@ class TenantController extends Controller
       
             return $pdf->download($tenant->first_name.' '.$tenant->last_name.'.pdf');
     }
+
+    public function exportBills ($unit_id, $tenant_id){
+
+        $tenant = Tenant::findOrFail($tenant_id);
+
+        $unit = Unit::findOrFail($unit_id);
+
+        $rent_bills = DB::table('billings')->where('billing_tenant_id', $tenant_id)->where('billing_status', 'unpaid') ->where('billing_amt','>',0)->whereIn('billing_desc', ['Monthly Rent', 'Surcharges'])->get();
+
+        $other_bills = DB::table('billings')->where('billing_tenant_id', $tenant_id)->where('billing_status', 'unpaid') ->where('billing_amt','>',0)->where('billing_desc','!=','Monthly Rent')->where('billing_desc','!=','Surcharges')->get();
+
+        $total_bills = DB::table('billings')->where('billing_tenant_id', $tenant_id)->where('billing_status', 'unpaid')->sum('billing_amt');
+         
+        $data = [
+            
+            'tenant' => $tenant->first_name.' '.$tenant->last_name ,
+
+            'unit' => $unit->building.' '.$unit->unit_no,
+
+            'rent_bills' => $rent_bills,
+
+            'other_bills' => $other_bills,
+
+            'total_bills' => $total_bills,
+
+    ];
+
+        $pdf = \PDF::loadView('billing.pdf', $data)->setPaper('a4', 'portrait');
+  
+        return $pdf->download($tenant->first_name.' '.$tenant->last_name.'.pdf');
+}
 }
 
 

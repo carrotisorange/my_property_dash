@@ -1311,7 +1311,6 @@ Route::put('units/{unit_id}', 'UnitsController@update')->middleware('auth');
 Route::post('units/add', 'UnitsController@add_unit')->middleware('auth');
 Route::post('units/add-multiple', 'UnitsController@add_multiple_rooms')->middleware('auth');
 
-
 Route::get('/home', function(){
 
     if(auth()->user()->status === 'registered' && (auth()->user()->user_type === 'manager' || auth()->user()->user_type === 'admin') ){
@@ -1377,6 +1376,8 @@ Route::delete('/payments/{payment_id}', 'PaymentController@destroy')->middleware
 
 Route::get('/units/{unit_id}/tenants/{tenant_id}/payments/{payment_id}/dates/{payment_created}/export', 'TenantController@export')->middleware('auth');
 
+Route::get('/units/{unit_id}/tenants/{tenant_id}/billings/export', 'TenantController@exportBills')->middleware('auth');
+
 //routes for tenants
 Route::get('/units/{unit_id}/tenants/{tenant_id}', 'TenantController@show')->name('show-tenant')->middleware('auth');
 Route::post('/tenants', 'TenantController@store')->middleware('auth');
@@ -1387,8 +1388,6 @@ Route::post('/units/{unit_id}/tenants/{tenant_id}/renew', 'TenantController@rene
 Route::delete('/tenants/{tenant_id}', 'TenantController@destroy')->middleware('auth');
 
 Route::get('/tenants', function(){
-
-    $property = explode(",", Auth::user()->property);
 
     if(auth()->user()->status === 'registered' || auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager'){
         
@@ -1403,7 +1402,6 @@ Route::get('/tenants', function(){
         return view('unregistered');
     }
 
-  
 })->middleware('auth');
 
 Route::get('/users', function(){

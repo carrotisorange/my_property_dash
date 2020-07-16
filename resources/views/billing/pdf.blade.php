@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>{{ $tenant->first_name.' '.$tenant->last_name }}</title>
+  <title></title>
 
   <!-- Custom fonts for this template-->
   <link href="{{ asset('dashboard/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -318,31 +318,14 @@
         </nav>
         <!-- End of Topbar -->
         <div class="container-fluid">
-          @foreach (['danger', 'warning', 'success', 'info'] as $key)
-          @if(Session::has($key))
-         <p class="alert alert-{{ $key }}"> <i class="fas fa-check-circle"></i> {{ Session::get($key) }}</p>
-          @endif
-          @endforeach
-
-          <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> Go Back to Tenant</a>
-
-          @if(Auth::user()->user_type === 'treasury' || Auth::user()->user_type === 'manager')
-          <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/payments" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-dollar-sign fa-sm text-white-50"></i> Payment History <span class="badge badge-light">{{ $payments->count() }}</span></a>
-          <a  target="_blank" href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/billings/export" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Download Bills</span></a>
-         @endif
-          <br><br>
           <div class="row">
             <div class="col-md-12">
               <h5 class="text-black-50">Statment of Accounts</h5>
               {{-- <p class="text-right"> <b>AR #:</b> </p> --}}
               <ul style="list-style-type: none">
                 <li><b>Date:</b> {{ Carbon\Carbon::now()->firstOfMonth()->format('M d Y') }}</li>
-                <li><b>To:</b> {{ $tenant->first_name.' '.$tenant->last_name }}</li>
-                <li><b>Unit/Room:</b>  <b>
-                  @foreach($unit_no as $item)
-                  {{ $item->building.' '.$item->unit_no }}
-                  @endforeach
-              </b> </li>
+                <li><b>To:</b> {{ $tenant }}</li>
+                <li><b>Unit/Room:</b> </li>
               </ul>
               <p class="text-right">{{ Auth::user()->property }}</p>
                 <table class="table text-right" width="100%" cellspacing="0" cellpadding="0">
@@ -352,7 +335,7 @@
                     <th>Date</th>
                     <th>Amount</th>
                   </tr>
-                  @foreach ($monthly_rent as $item)
+                  @foreach ($rent_bills as $item)
                   <tr>
                       <th>{{ $item->billing_id }}</th>
                       <td>{{ $item->billing_desc }}</td>
@@ -361,7 +344,7 @@
                   </tr>
                   @endforeach
                   
-                  @foreach ($other_charges as $item)
+                  @foreach ($other_bills as $item)
                   <tr>
                     <th>{{ $item->billing_id }}</th>
                       <td>{{ $item->billing_desc }}</td>
@@ -393,100 +376,7 @@
             
             </div>
           </div>
-        
-        {{-- modal for adding payments. --}}
-        
-        <div class="modal fade" id="acceptPayment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Enter Payment Information</h5>
-                
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                </div>
-                <div class="modal-body">
-                    <form id="acceptPaymentForm" action="/payments" method="POST">
-                    {{ csrf_field() }}
-                    </form>
-                    
-                    <div class="form-group row">
-                        <div class="col-md-9">
-                            <label for="">Date</label>
-                        <input form="acceptPaymentForm" type="date" class="form-control" name="payment_created" value={{date('Y-m-d')}} required>
-                        </div>
-                        <div class="col-md-3">
-                          <label for="">AR #</label>
-                          <input form="acceptPaymentForm" type="text" class="form-control" id="" name="ar_number" value="{{ $payment_ctr+1 }}" required readonly>
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <div class="col">
-                          <label for="">Payment Description</label>
-                          <select form="acceptPaymentForm" class="form-control" name="payment_note" id="" required>
-                            <option value="" selected>Please select one</option>
-                              <option value="Rent">Rent</option>
-                              <option value="Water">Water</option>
-                              <option value="Electric">Electric</option>
-                              <option value="Others">Others</option>
-                          </select>
-                      </div>
-
-                      <div class="col">
-                        <label for="">Period Covered</label>
-                        <div class="col">
-                          <input form="acceptPaymentForm" class="form-control" name="or_number" value="{{ Carbon\Carbon::now()->startOfMonth()->format('M d') }}-{{ Carbon\Carbon::now()->endOfMonth()->format('d Y') }}" required>
-                        </div>
-                    </div>
-                  </div>
-                  
-                    <div class="form-group row">
-                        <div class="col-md-8">
-                            <label for="">Form of Payment</label>
-                            <select form="acceptPaymentForm" class="form-control" name="form_of_payment" id="" required>
-                              <option value="" selected>Please select one</option>
-                                <option value="Cash">cash</option>
-                                <option value="Bank Deposit">bank deposit</option>
-                                <option value="Cheque">cheque</option>
-                            </select>
-                        </div>
-                        <div class="col-md-4">
-                            <label for="">Amount</label>
-                            @if(Carbon\Carbon::now()->startOfMonth()->addDays(7)->format('d') <= Carbon\Carbon::now()->format('d') )
-                            <input form="acceptPaymentForm" type="number" class="form-control" id="" step="0.01" min="1" name="amt_paid" value="{{ $total_bills+($total_bills*.1) }}" required>
-                            @else
-                            <input form="acceptPaymentForm" type="number" class="form-control" id="" min="1" name="amt_paid" value="{{ $total_bills }}" required>
-                            @endif
-                        </div>
-                     
-                    </div>
-                 
-                    <input type="hidden" form="acceptPaymentForm" id="payment_tenant_id" name="payment_tenant_id" value="{{ $tenant->tenant_id }}">
-                    <input type="hidden" form="acceptPaymentForm" id="unit_tenant_id" name="unit_tenant_id" value="{{ $tenant->unit_tenant_id }}">
-                    <input type="hidden" form="acceptPaymentForm" id="tenant_status" name="tenant_status" value="{{ $tenant->tenant_status }}">
-                
-                    <div class="form-group row">
-                      <div class="col">
-                          <label for="">Bank Name</label>
-                          <input form="acceptPaymentForm" class="form-control" type="text" name="bank_name">
-                          <small class="text-danger">For bank deposit only</small>
-                      </div>
-                      <div class="col">
-                          <label for="">Cheque No</label>
-                          <input form="acceptPaymentForm" class="form-control" type="text" name="cheque_no">
-                          <small class="text-danger">For cheque only</small>
-                      </div>
-                  </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button>
-                    <button form="acceptPaymentForm" id ="addPaymentButton" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want perform this action?');" ><i class="fas fa-check fa-sm text-white-50f"></i> Add Payment</button>
-                </div>
-         
-            </div>
-            </div>
-        </div>
+    
         </div>
 
       </div>
