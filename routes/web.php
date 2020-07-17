@@ -16,7 +16,12 @@ use Illuminate\Http\Request;
 |
 */
 
+
 Auth::routes();
+
+Route::get('/resources', function(){
+    return view('landing-page.resources');
+});
 
 Route::get('/', function(Request $request){
 
@@ -37,7 +42,7 @@ Route::get('/', function(Request $request){
         ->where('tenant_status', 'active')
         ->count();
 
-        return view('index', compact('clients','properties', 'buildings', 'rooms', 'tenants'));
+        return view('landing-page.index', compact('clients','properties', 'buildings', 'rooms', 'tenants'));
     }
 
     if(auth()->user()->status === 'unregistered'){

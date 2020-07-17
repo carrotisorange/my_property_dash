@@ -47,11 +47,11 @@
       <nav class="nav-menu d-none d-lg-block">
         <ul>
           <li class="active"><a href="/">Home</a></li>
-          <li><a href="#about">About</a></li>
+          <li><a target="_blank" href="/resources">Resources</a></li>
           <li><a href="#services">Services</a></li>    
           <li><a href="#pricing">Pricing</a></li>
           <li><a href="#contact">Contact</a></li>
-
+          <li><a target="_blank" href="/login">Login</a></li>
         </ul>
       </nav><!-- .nav-menu -->
 
@@ -64,81 +64,15 @@
     <div class="container position-relative">
       <h1>Simplifying Property Management</h1>
       <h2>Online resource and tools for landlords and property managers. </h2>
-      <a href="#pricing" class="btn-get-started scrollto">TRY FOR FREE</a>
-      <a href="/login" class="btn-get-started scrollto">LOGIN</a>
+      <a href="#pricing" class="btn-get-started scrollto">REGISTER YOUR PROPERTY FOR FREE</a>
+      {{-- <a target="_blank" href="/login" class="btn-get-started scrollto">LOGIN</a> --}}
     </div>
   </section><!-- End Hero -->
 
   <main id="main">
 
-    <!-- ======= Clients Section ======= -->
-    <section id="clients" class="clients section-bg">
-      <div class="container">
-
-        <div class="row">
-
-          <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
-            <img src="{{ asset('index/assets/img/clients/client-1.png') }}" class="img" alt="">
-          </div>
-
-          <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
-            <img src="{{ asset('index/assets/img/clients/client-2.png') }}" class="img" alt="">
-          </div>
-
-          {{-- <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
-            <img src="{{ asset('index/assets/img/clients/client-3.png') }}" class="img-fluid" alt="">
-          </div>
-
-          <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
-            <img ssrc="{{ asset('index/assets/img/clients/client-4.png') }}" class="img-fluid" alt="">
-          </div>
-
-          <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
-            <img src="{{ asset('index/assets/img/clients/client-5.png') }}" class="img-fluid" alt="">
-          </div>
-
-          <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
-            <img src="{{ asset('index/assets/img/clients/client-6.png') }}" class="img-fluid" alt="">
-          </div> --}}
-
-        </div>
-
-      </div>
-    </section><!-- End Clients Section -->
-
-    <!-- ======= About Section ======= -->
-    <section id="about" class="about">
-      <div class="container">
-
-        <div class="row">
-          <div class="col-lg-6">
-            <img src="{{ asset('index/assets/img/about.jpg') }}" class="img-fluid" alt="">
-          </div>
-          <div class="col-lg-6 pt-4 pt-lg-0">
-            <h3>The Property Manager</h3>
-            <p>
-              We offer a full suite of property management tools to  rental property owners and landlords. Let us help you make your work simple so you can relax knowing your property is running smoothly.
-            </p>
-            <div class="row">
-              <div class="col-md-6">
-                <i class="bx bx-receipt"></i>
-                <h4>Property Management System</h4>
-                <p>Monitor tenants issues, bill and collect rent, handle maintenance and repairs, and qualify new tenants. You get peace of mind knowing your property and tenants are in good hands.  We have plans for all sizes of rental properties. <a href="#pricing">Start Free trial now</a>.</p>
-              </div>
-              <div class="col-md-6">
-                <i class="bx bx-cube-alt"></i>
-                <h4>Real Estate Rules and Regulations</h4>
-                <p>If you have questions about affordable housing programs, grants, leasing, repairs, or tax credits, rely on our property management services to ensure everything goes smoothly. Book a consultation today to get some answers.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section><!-- End About Section -->
-
     <!-- ======= Counts Section ======= -->
-    <section id="counts" class="counts section-bg">
+    <section id="counts" class="counts">
       <div class="container">
 
         <div class="row counters">
@@ -172,6 +106,41 @@
 
       </div>
     </section><!-- End Counts Section -->
+
+     <!-- ======= Clients Section ======= -->
+     <section id="clients" class="clients section-bg">
+      <div class="container">
+
+        <div class="row">
+
+          <div class="col-lg-3 col-md-4 col-6 d-flex align-items-center justify-content-center">
+            <img src="{{ asset('index/assets/img/clients/client-1.png') }}" class="img" alt="">
+          </div>
+
+          <div class="col-lg-3 col-md-4 col-6 d-flex align-items-center justify-content-center">
+            <img src="{{ asset('index/assets/img/clients/client-2.png') }}" class="img" alt="">
+          </div>
+
+          {{-- <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+            <img src="{{ asset('index/assets/img/clients/client-3.png') }}" class="img-fluid" alt="">
+          </div>
+
+          <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+            <img ssrc="{{ asset('index/assets/img/clients/client-4.png') }}" class="img-fluid" alt="">
+          </div>
+
+          <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+            <img src="{{ asset('index/assets/img/clients/client-5.png') }}" class="img-fluid" alt="">
+          </div>
+
+          <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+            <img src="{{ asset('index/assets/img/clients/client-6.png') }}" class="img-fluid" alt="">
+          </div> --}}
+
+        </div>
+
+      </div>
+    </section><!-- End Clients Section -->
 
     <!-- ======= Services Section ======= -->
     <section id="services" class="services">
@@ -570,7 +539,7 @@
     </section><!-- End Team Section --> --}}
 
     <!-- ======= Pricing Section ======= -->
-    <section id="pricing" class="pricing">
+    <section id="pricing" class="pricing ">
       <div class="container">
 
         <div class="section-title">
@@ -582,9 +551,8 @@
 
           <div class="col-lg-3 col-md-6">
             <div class="box">
-              <span class="advanced">Trial</span>
               <h3>Basic</h3>
-              <h4><sup>$</sup>0<span> / month</span></h4>
+              <h4><sup>$</sup>9<span> / month</span></h4>
               <ul>
                 {{-- <li>1 building </li> --}}
                 <li>20 rooms</li>
@@ -594,7 +562,7 @@
                 <li>1 treasury</li>
               </ul>
               <div class="btn-wrap">
-                <a href="/register" class="btn-buy">Try for Free</a>
+                <a href="/register" class="btn-buy">TRY FOR FREE</a>
               </div>
             </div>
           </div>
@@ -612,7 +580,7 @@
                 <li>1 treasury</li>
               </ul>
               <div class="btn-wrap">
-                <a href="/register" class="btn-buy">Buy Now</a>
+                <a href="/register" class="btn-buy">TRY FOR FREE</a>
               </div>
             </div>
           </div>
@@ -630,10 +598,11 @@
                 <li>1 treasury</li>
               </ul>
               <div class="btn-wrap">
-                <a href="/register" class="btn-buy">Buy Now</a>
+                <a href="/register" class="btn-buy">TRY FOR FREE</a>
               </div>
             </div>
           </div>
+          
 
           <div class="col-lg-3 col-md-6 mt-4 mt-lg-0">
             <div class="box">
@@ -649,7 +618,7 @@
                 <li>1 treasury</li>
               </ul>
               <div class="btn-wrap">
-                <a href="/register" class="btn-buy">Buy Now</a>
+                <a href="/register" class="btn-buy">TRY FOR FREE</a>
               </div>
             </div>
           </div>
@@ -730,37 +699,37 @@
           {{-- <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p> --}}
         </div>
 
-        <div class="row">
+        {{-- <div class="row">
 
-          <div class="col-lg-12">
+          - <div class="col-lg-12">
 
             <div class="row">
               <div class="col-md-12">
                 <div class="info-box">
                   <i class="bx bx-map"></i>
                   <h3>Our Address</h3>
-                  <p>Baguio City, PH, 2600</p>
+                <p>Baguio City, PH, 2600</p> -
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="info-box mt-4">
                   <i class="bx bx-envelope"></i>
                   <h3>Email Us</h3>
-                  <p>info@example.com<br>contact@example.com</p>
+                  <p>pamelatecson@thepropertymanager.online<br></p>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="info-box mt-4">
                   <i class="bx bx-phone-call"></i>
                   <h3>Call Us</h3>
-                  <p>+1 5589 55488 55<br>+1 6678 254445 41</p>
+                 <p>+1 5589 55488 55<br>+1 6678 254445 41</p> -
                 </div>
               </div>
             </div>
 
-          </div>
+          </div> --}}
 
-          {{-- <div class="col-lg-6">
+         <div class="col-lg-12">
             <form action="forms/contact.php" method="post" role="form" class="php-email-form">
               <div class="form-row">
                 <div class="col-md-6 form-group">
@@ -787,7 +756,7 @@
               </div>
               <div class="text-center"><button type="submit">Send Message</button></div>
             </form>
-          </div> --}}
+          </div> 
 
         </div>
 
@@ -799,7 +768,7 @@
   <!-- ======= Footer ======= -->
   <footer id="footer">
 
-    <div class="footer-top">
+    {{-- <div class="footer-top">
       <div class="container">
         <div class="row">
 
@@ -825,7 +794,7 @@
             </ul>
           </div>
 
-          <div class="col-lg-3 col-md-6 footer-links">
+        <div class="col-lg-3 col-md-6 footer-links">
             <h4>Our Services</h4>
             <ul>
               <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
@@ -834,19 +803,19 @@
               <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
               <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
             </ul>
-          </div>
+          </div> 
 
-          {{-- <div class="col-lg-4 col-md-6 footer-newsletter">
+          <div class="col-lg-4 col-md-6 footer-newsletter">
             <h4>Join Our Newsletter</h4>
             <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
             <form action="" method="post">
               <input type="email" name="email"><input type="submit" value="Subscribe">
             </form>
-          </div> --}}
+          </div> 
 
         </div>
       </div>
-    </div>
+    </div> --}}
 
     <div class="container d-md-flex py-4">
 
@@ -862,13 +831,13 @@
           Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
         </div>
       </div>
-      <div class="social-links text-center text-md-right pt-3 pt-md-0">
+      {{-- <div class="social-links text-center text-md-right pt-3 pt-md-0">
         <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
         <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
         <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
         <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
         <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
-      </div>
+      </div> --}}
     </div>
   </footer><!-- End Footer -->
 
