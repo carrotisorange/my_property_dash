@@ -128,17 +128,31 @@ class PaymentController extends Controller
                 
                
        }
+
+       DB::table('payments')->insertGetId([
+        'payment_tenant_id' => $request->payment_tenant_id,
+        'payment_created' => $request->payment_created,
+        'amt_paid' => $request->amt_paid,
+        'or_number' => $request->or_number,
+        'ar_number' => $request->ar_number,
+        'bank_name' => $request->bank_name,
+        'form_of_payment' => $request->form_of_payment,
+        'check_no' => $request->check_no,
+        'date_deposited' => $request->date_deposited,
+        'payment_note' => $request->payment_note
+    ]);
       
        
         DB::table('billings')
        ->where('billing_tenant_id', $request->payment_tenant_id)
-       ->whereRaw("billing_desc like '%$request->payment_note%' ")
-       ->where('billing_status', 'paid')
+       ->whereIn('billing_desc', ['Security Deposit (Rent)', 'Advance Rent'])
+    
+       ->where('billing_status', 'unpaid')
        ->whereRaw("billing_date like '%$request->or_number_%' ")
        ->update(
                 [
-                    'billing_status' => 'unpaid',
-                    'billing_amt' => 13000
+                    'billing_status' => 'paid',
+                    
                 ]
                 ); 
 
