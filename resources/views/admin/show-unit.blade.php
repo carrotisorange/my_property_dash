@@ -400,10 +400,10 @@
                                         <td>{{ number_format($unit->monthly_rent,2) }}</td>
             
                                         <?php 
-                                            session([Auth::user()->property.'tenant_monthly_rent'=> $unit->monthly_rent]);
-                                            session([Auth::user()->property.'unit_id'=> $unit->unit_id]);
-                                            session([Auth::user()->property.'unit_no'=> $unit->unit_no]);
-                                            session([Auth::user()->property.'building'=> $unit->building]);
+                                            session([Auth::user()->id.'tenant_monthly_rent'=> $unit->monthly_rent]);
+                                            session([Auth::user()->id.'unit_id'=> $unit->unit_id]);
+                                            session([Auth::user()->id.'unit_no'=> $unit->unit_no]);
+                                            session([Auth::user()->id.'building'=> $unit->building]);
                                         ?>
                                     </tr>
                                     @if ($unit_owner->count() > 0)
