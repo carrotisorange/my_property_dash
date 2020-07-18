@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>{{ session(Auth::user()->property.'building').' '.session(Auth::user()->property.'unit_no').' '.'(Step 3 of 4)' }}</title>
+  <title>{{ session(Auth::user()->id.'building').' '.session(Auth::user()->id.'unit_no').' '.'(Step 3 of 4)' }}</title>
 
   <!-- Custom fonts for this template-->
   <link href="{{ asset('dashboard/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -368,7 +368,7 @@
          <p class="alert alert-{{ $key }}"> <i class="fas fa-check-circle"></i> {{ Session::get($key) }}</p>
           @endif
           @endforeach
-          <form id="addTenantForm3" action="/units/{{ session(Auth::user()->property.'unit_id') }}/tenant-step3" method="POST">
+          <form id="addTenantForm3" action="/units/{{ session(Auth::user()->id.'unit_id') }}/tenant-step3" method="POST">
             {{ csrf_field() }}
         </form>
        
@@ -376,20 +376,20 @@
         <div class="row">
             <div class="col">
               <small>Move-in date</small>
-              <input form="addTenantForm3" type="date" class="form-control" name="movein_date" id="movein_date" value="{{ session(Auth::user()->property.'movein_date') }}" required>
+              <input form="addTenantForm3" type="date" class="form-control" name="movein_date" id="movein_date" value="{{ session(Auth::user()->id.'movein_date') }}" required>
             </div>
             <div class="col">
               <small>Move-out date</small>
-              <input onkeyup="duration()" form="addTenantForm3" type="date" class="form-control" name="moveout_date" value="{{ session(Auth::user()->property.'moveout_date') }}" id="moveout_date" required>
+              <input onkeyup="duration()" form="addTenantForm3" type="date" class="form-control" name="moveout_date" value="{{ session(Auth::user()->id.'moveout_date') }}" id="moveout_date" required>
             </div>
             <div class="col">
                 <small>Monthly rent</small>
-                <input form="addTenantForm3" type="number" class="form-control" name="tenant_monthly_rent" min="1" id="tenant_monthly_rent" value="{{ session(Auth::user()->property.'tenant_monthly_rent') }}" required>
+                <input form="addTenantForm3" type="number" class="form-control" name="tenant_monthly_rent" min="1" id="tenant_monthly_rent" value="{{ session(Auth::user()->id.'tenant_monthly_rent') }}" required>
             </div>
           </div>
             <br>
             <p class="text-right">   
-                <a href="/units/{{ session(Auth::user()->property.'unit_id') }}/tenant-step2" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> Back</a>
+                <a href="/units/{{ session(Auth::user()->id.'unit_id') }}/tenant-step2" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> Back</a>
                 <button type="submit" form="addTenantForm3" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" ><i class="fas fa-arrow-right fa-sm text-white-50"></i> Next</button>
             </p>
         

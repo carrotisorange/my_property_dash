@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>{{ session(Auth::user()->property.'building').' '.session(Auth::user()->property.'unit_no').' '.'(Step 4 of 4)' }}</title>
+  <title>{{ session(Auth::user()->id.'building').' '.session(Auth::user()->id.'unit_no').' '.'(Step 4 of 4)' }}</title>
 
   <!-- Custom fonts for this template-->
   <link href="{{ asset('dashboard/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -384,12 +384,12 @@
                      <tr id='addr0'>
                          <th>1</th>
                          <td><input form="addTenantForm4"  type="text" name='desc0' id='desc0' class="form-control col-md-8" value="Security Deposit (Rent)" readonly/></td>
-                         <td><input oninput="this.value = Math.abs(this.value)" form="addTenantForm4"  onkeyup="computeTotal()" type="number" name='amt0' id='amt0' class="form-control col-md-8" value="{{ session(Auth::user()->property.'tenant_monthly_rent') }}"/></td>
+                         <td><input oninput="this.value = Math.abs(this.value)" form="addTenantForm4"  onkeyup="computeTotal()" type="number" name='amt0' id='amt0' class="form-control col-md-8" value="{{ session(Auth::user()->id.'tenant_monthly_rent') }}"/></td>
                      </tr>
                      <tr>
                       <th>2</th>
                      <td><input form="addTenantForm4"  type="text" name='desc1' id='desc1' class="form-control col-md-8" value="Advance Rent" readonly/></td>
-                     <td><input oninput="this.value = Math.abs(this.value)" form="addTenantForm4"  onkeyup="computeTotal()" type="number" name='amt1' id='amt1' class="form-control col-md-8" value="{{ session(Auth::user()->property.'tenant_monthly_rent') }}"/></td>
+                     <td><input oninput="this.value = Math.abs(this.value)" form="addTenantForm4"  onkeyup="computeTotal()" type="number" name='amt1' id='amt1' class="form-control col-md-8" value="{{ session(Auth::user()->id.'tenant_monthly_rent') }}"/></td>
                     </tr>
                      <tr id='addr1'>
                         <th>3</th>
@@ -411,7 +411,7 @@
           </div>
     
             <p class="text-right">   
-                <a href="/units/{{ session(Auth::user()->property.'unit_id') }}/tenant-step3" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> Back</a>
+                <a href="/units/{{ session(Auth::user()->id.'unit_id') }}/tenant-step3" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> Back</a>
                 <button type="submit" form="addTenantForm4" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;"><i class="fas fa-check fa-sm text-white-50"></i> Submit</button>
             </p>
        
