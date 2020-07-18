@@ -340,7 +340,7 @@
             <input form="addTenantForm1" type="hidden" value="{{ session(Auth::user()->property.'unit_id') }}" name="unit_id"> 
             <div class="row">
                 <div class="col">
-                    <small class="">First Name <span class="text-danger">(required)</span></small>
+                    <small class="">First Name <span class="text-danger">*</span></small>
                     <input form="addTenantForm1" type="text" class="form-control" name="first_name" id="first_name" value="{{ session(Auth::user()->property.'first_name') }}" required>
                 </div>
                 <div class="col">
@@ -348,7 +348,7 @@
                     <input form="addTenantForm1" type="text" class="form-control" name="middle_name" id="middle_name" value="{{ session(Auth::user()->property.'middle_name') }}">
                 </div>
                 <div class="col">
-                    <small class="">Last Name  <span class="text-danger">(required)</span></small>
+                    <small class="">Last Name  <span class="text-danger">*</span></small>
                     <input form="addTenantForm1" type="text" class="form-control" name="last_name" id="last_name" value="{{ session(Auth::user()->property.'last_name') }}" required>
                 </div>
                 </div>
@@ -359,7 +359,7 @@
                     <input form="addTenantForm1" type="date" class="form-control" name="birthdate" id="birthdate" value="{{ session(Auth::user()->property.'birthdate') }}">
                 </div>
                 <div class="col">
-                    <small class="">Gender</small>
+                    <small class="">Gender<span class="text-danger">*</span></small>
                     <select form="addTenantForm1"  id="gender" name="gender" class="form-control" required >        
                         <option value="{{ session(Auth::user()->property.'gender') }}" selected>{{ session(Auth::user()->property.'gender') }}</option>
                         <option value="male">male</option>
@@ -382,7 +382,7 @@
             <br>
             <div class="row">
                 <div class="col">
-                    <small class="">Mobile <span class="text-danger">(required)</span></small>
+                    <small class="">Mobile <span class="text-danger">*</span></small>
                   <input form="addTenantForm1" type="text" class="form-control" name="contact_no" id="contact_no" value="{{ session(Auth::user()->property.'contact_no') }}" required >
                 </div>
                 <div class="col">

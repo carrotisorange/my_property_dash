@@ -174,7 +174,8 @@ class TenantController extends Controller
                 //rent information
                 'tenant_monthly_rent' => session(Auth::user()->property.'tenant_monthly_rent'),
                 'type_of_tenant' => 'walk-in',
-                'tenant_status' => 'active',
+                //change the tenant status to pending.
+                'tenant_status' => 'pending',
                 'movein_date'=> session(Auth::user()->property.'movein_date'),
                 'moveout_date'=> session(Auth::user()->property.'moveout_date'),
         
@@ -195,35 +196,20 @@ class TenantController extends Controller
             
         ]);
             
-        //insert billing information of tenant.
         
-       $no_of_items = (int) $request->no_of_items; 
-        
-        for($i = 0; $i<$no_of_items; $i++){
+       //create movein charges of the tenant.
+        for($i = 0; $i<3 ; $i++){
             DB::table('billings')->insert(
                 [
                     'billing_tenant_id' => $tenant_id,
                     'billing_date' => session(Auth::user()->property.'movein_date'),
                     'billing_desc' =>  $request->input('desc'.$i),
                     'billing_amt' =>  $request->input('amt'.$i),
-                    'billing_status' => 'paid'
+                    'billing_status' => 'unpaid'
                 ]);
-
-                DB::table('payments')->insert([
-                     'payment_tenant_id' => $tenant_id,
-                     'payment_created' => session(Auth::user()->property.'movein_date'),
-                     'amt_paid' => $request->input('amt'.$i),
-                     'or_number' => $request->or_number,
-                     'ar_number' => $request->ar_number,
-                     'bank_name' => $request->bank_name,
-                     'form_of_payment' => 'cash',
-                     'check_no' => $request->check_no,
-                     'date_deposited' => $request->date_deposited,
-                     'payment_note' => $request->input('desc'.$i),
-                 ]);
         }        
 
-        //web unit status to occupied.
+        //change the unit status to reserved
          DB::table('units')->where('unit_id', session(Auth::user()->property.'unit_id'))
              ->update(
                         [
@@ -321,6 +307,12 @@ class TenantController extends Controller
             ->where('unit_property', Auth::user()->property)
             ->count();
 
+            $movein_charges = DB::table('billings')
+            ->where('billing_tenant_id', $tenant_id)
+            ->where('billing_amt','>',0)
+            ->whereIn('billing_desc',['Security Deposit (Rent)', 'Advance Rent','Security Deposit (Utilities)','General Cleaning','Management Fee'])
+            ->get();
+
             $payments = DB::table('payments')->where('payment_tenant_id', $tenant_id)->where('amt_paid','>',0)->get();
     
             $monthly_rent = DB::table('billings')->where('billing_tenant_id', $tenant_id)->where('billing_status', 'unpaid') ->where('billing_amt','>',0)->whereIn('billing_desc', ['Monthly Rent', 'Surcharges'])->get();
@@ -332,7 +324,7 @@ class TenantController extends Controller
             $overall_payments = DB::table('payments')->where('payment_tenant_id', $tenant_id)->sum('amt_paid');
 
             
-                return view('billing.show-billings', compact('tenant', 'monthly_rent', 'unit_no', 'other_charges', 'total_bills', 'payment_ctr','payments' ));  
+                return view('billing.show-billings', compact('tenant', 'monthly_rent', 'unit_no', 'other_charges', 'total_bills', 'payment_ctr','payments', 'movein_charges'));  
         }else{
             return view('unregistered');
         }

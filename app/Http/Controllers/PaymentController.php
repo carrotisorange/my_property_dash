@@ -71,32 +71,36 @@ class PaymentController extends Controller
        if($request->tenant_status === 'pending'){
         if($movein_charges <= $request->amt_paid){
 
-            DB::table('payments')->insert([
-                'payment_tenant_id' => $request->payment_tenant_id,
-                'payment_created' => $request->payment_created,
-                'amt_paid' => $request->amt_paid,
-                'or_number' => $request->or_number,
-                'ar_number' => $request->ar_number,
-                'bank_name' => $request->bank_name,
-                'form_of_payment' => $request->form_of_payment,
-                'check_no' => $request->check_no,
-                'date_deposited' => $request->date_deposited,
-                'payment_note' => $request->payment_note,
-            ]);
-            
+            //marked move-in charges as paid
+            for($i = 0; $i<3 ; $i++){
+                DB::table('payments')->insert([
+                    'payment_tenant_id' => $request->payment_tenant_id,
+                    'payment_created' => $request->payment_created,
+                    'amt_paid' => $request->amt_paid,
+                    'or_number' => $request->or_number,
+                    'ar_number' => $request->ar_number,
+                    'bank_name' => $request->bank_name,
+                    'form_of_payment' => $request->form_of_payment,
+                    'check_no' => $request->check_no,
+                    'date_deposited' => $request->date_deposited,
+                    'payment_note' => $request->payment_note,
+                ]);
+            }  
+
             //change tenant's status to active.
             DB::table('tenants')
             ->where('tenant_id', $request->payment_tenant_id)
             ->update(
                         [
                             'tenant_status'=> 'active',
-                            'tenants_note' => ''
+                            'tenants_note' => 'new tenant'
                         ]
                     );
 
             //change the billing status to paid,
             DB::table('billings')
             ->where('billing_tenant_id', $request->payment_tenant_id)
+            ->where('billing_status', 'unpaid')
             ->update(['billing_status' => 'paid']);
             
             //change the unit status to occupied.
@@ -109,25 +113,8 @@ class PaymentController extends Controller
         }else{
             return back()->with('error','Payment has been rejected. Insufficient amount!');
         }
-    //    }else{
-    //          
-    
-                // $count_payment_note =  count(explode(',',$request->payment_note));
-
-                // if($count_payment_note >1){
-                //      //change the billing status to paid.
-                //     DB::table('billings')
-                //     ->where('billing_tenant_id', $request->payment_tenant_id)
-                //     ->whereRaw("billing_desc like '%$request->payment_note_%' ")
-                //     
-                //     ->where('billing_status', 'unpaid')
-                //     ->update(['billing_status' => 'paid']); 
-                // }else{
-                    //change the billing status to paid.
-                 
-                
-               
        }
+
        DB::table('payments')->insertGetId([
                          'payment_tenant_id' => $request->payment_tenant_id,
                          'payment_created' => $request->payment_created,
@@ -146,7 +133,7 @@ class PaymentController extends Controller
        ->whereRaw("billing_desc like '%$request->payment_note%' ")
        ->where('billing_status', 'unpaid')
        ->whereRaw("billing_date like '%$request->or_number_%' ")
-       ->update(['billing_status' => 'unpaid']); 
+       ->update(['billing_status' => 'paid']); 
 
        return back()->with('success','Payment has been recorded!');
     }

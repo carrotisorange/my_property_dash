@@ -398,7 +398,7 @@
                             <option value="Security Deposit (Utilities)" >Security Deposit (Utilities)</option>
                             <option value="General Cleaning" >General Cleaning</option>
                             <option value="Management Fee" >Management Fee</option>
-                            <option value="Others" >Others</option>
+                         
                           </select>
                         </td>
                         <td><input oninput="this.value = Math.abs(this.value)" form="addTenantForm4"  onkeyup="computeTotal()" type="number" name='amt2' id='amt2' class="form-control col-md-8" value="2000"/></td>

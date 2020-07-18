@@ -407,6 +407,14 @@
                     <form id="acceptPaymentForm" action="/payments" method="POST">
                     {{ csrf_field() }}
                     </form>
+
+                    @foreach ($movein_charges as $item)
+                        <input type="text" value="{{ $item->billing_amt }}">
+                    @endforeach
+
+                    {{-- @for ($i = 0; $i < 3; $i++)
+
+                    @endfor   --}}
                     
                     <div class="form-group row">
                         <div class="col-md-9">
