@@ -135,7 +135,12 @@ class PaymentController extends Controller
        ->whereRaw("billing_desc like '%$request->payment_note%' ")
        ->where('billing_status', 'unpaid')
        ->whereRaw("billing_date like '%$request->or_number_%' ")
-       ->update(['billing_status' => 'unpaid']); 
+       ->update(
+                [
+                    'billing_status' => 'unpaid',
+                    'billing_amt' => 13000
+                ]
+                ); 
 
        return back()->with('success','Payment has been recorded!');
     }
