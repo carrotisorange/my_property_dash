@@ -129,11 +129,11 @@ class PaymentController extends Controller
                
        }
       
-
+       
         DB::table('billings')
        ->where('billing_tenant_id', $request->payment_tenant_id)
        ->whereRaw("billing_desc like '%$request->payment_note%' ")
-       ->where('billing_status', 'unpaid')
+       ->where('billing_status', 'paid')
        ->whereRaw("billing_date like '%$request->or_number_%' ")
        ->update(
                 [
