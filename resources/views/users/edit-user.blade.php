@@ -318,9 +318,15 @@
         </nav>
         <!-- End of Topbar -->
         <div class="container-fluid">
+
+          
          <!-- Page Heading -->
          <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Edit Profile    
+              <form id="editUserForm" action="/users/{{ $user->id }}" method="POST">
+                @method('put')
+                {{ csrf_field() }}
+            </form>
                {{-- <form action="/users/{{ Auth::user()->id }}" method="POST">
               {{ csrf_field() }}
               @method('delete')
@@ -396,11 +402,11 @@
            </tr>  
             
           </table>
-          <p class="text-right"><button form="editUserForm" type="submit" class="btn btn-primary"><i class="fas fa-check"></i> UPDATE PROFILE</button></p>
-          <form id="editUserForm" action="/users/{{ $user->id }}" method="POST">
-             @method('put')
-             {{ csrf_field() }}
-         </form>
+          <p class="text-right">
+            <a href="/users/{{ Auth::user()->id }}" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</a>
+            <button form="editUserForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want perform this action?');"><i class="fas fa-check fa-sm text-white-50"></i> Update Profile</button>
+          </p>
+        
        
       </div>
       

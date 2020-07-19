@@ -333,6 +333,8 @@
                       @if(Auth::user()->user_type === 'manager' )
                         <button type="button" title="edit unit/room information." class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#editUnit" data-whatever="@mdo"><i class="fas fa-edit fa-sm text-white-50"></i> Edit Unit/Room</button> 
                       @endif 
+
+                      @if(Auth::user()->property_type !== 'Commercial Complex')
                         @if ($tenant_active->count() < $unit->beds)
                         <a href="/units/{{ $unit->unit_id }}/tenant-step1" title="{{ $unit->beds - $tenant_active->count() }} remaining tenant/s to be fully occupied." type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                             <i class="fas fa-user-plus fa-sm text-white-50"></i> Add Tenant <span class="badge badge-light">{{  $tenant_active->count() }}/{{ $unit->beds }} </a>
@@ -342,8 +344,13 @@
                             <i class="fas fa-user-plus fa-sm text-white-50"></i> Add Tenant <span class="badge badge-light">{{  $tenant_active->count() }}/{{ $unit->beds }} 
                           </a>
                         @endif
+                      @else
+                      <a href="/units/{{ $unit->unit_id }}/tenant-step1" type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                        <i class="fas fa-user-plus fa-sm text-white-50"></i> Add Occupant</a>
+                      @endif
                        
-                        @if(Auth::user()->property_ownership === 'Multiple Owners' && Auth::user()->user_type === 'manager' )
+                       
+                        @if(Auth::user()->property_ownership === 'Multiple Owners' && Auth::user()->user_type === 'manager' && Auth::user()->property_type !== 'Commercial Complex')
                           @if ($unit_owner->count() < 1)
                           <a href="#/" data-toggle="modal" data-target="#addInvestor" data-whatever="@mdo" type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                             <i class="fas fa-user-plus fa-sm text-white-50"></i> Add Owner
@@ -352,11 +359,18 @@
                         @endif
                         <br> <br>
                             <?php $numberFormatter = new NumberFormatter('en_US', NumberFormatter::ORDINAL) ?>
+
+                              <!-- DataTales Example -->
+                              <div class="card shadow mb-4">
+                               <div class="card-header py-3">
+                                 <h6 class="m-0 font-weight-bold text-primary">ROOM/UNIT INFORMATION</h6>
+                               </div>
+                               <div class="card-body">
+                                
+
                             <div class="table-responsive">
                               <table class="table table-bordered" width="100%" cellspacing="0">
-                                   <tr>
-                                       <th colspan="2" >ROOM/UNIT INFORMATION</th>
-                                   </tr>
+                                 
                                    <tr>
                                         <th>UNIT/ROOM NO</th>
                                         <td>{{ $unit->unit_no }}</td>
@@ -387,10 +401,12 @@
                                         <th>UNIT/ROOM TYPE</th>
                                         <td>{{ $unit->type_of_units }}</td>
                                    </tr>
+                                   @if(Auth::user()->property_type !== 'Commercial Complex')
                                    <tr>
-                                        <th>NO OF BEDS</th>
-                                        <td>{{ $unit->beds }}</td>     
-                                    </tr>
+                                    <th>NO OF BEDS</th>
+                                    <td>{{ $unit->beds }}</td>     
+                                  </tr>
+                                   @endif
                                     <tr>
                                         <th>STATUS</th>
                                         <td>{{ $unit->status }}</td>
@@ -435,6 +451,10 @@
                                     @endif
                                </table>
                               </div>
+                               </div>
+                             </div>
+                     
+
                     </div>
                 
                     
@@ -599,10 +619,13 @@
                                     <option value="residential">residential</option>
                                 </select>
                                 </div>
+                                @if(Auth::user()->property_type !== 'Commercial Complex')
                                 <div class="form-group">
-                                <label for="message-text" class="col-form-label">NO OF BEDS</label>
-                                <input form="editUnitForm" min="1" max="4" type="number" value="{{ $unit->beds }}" name="beds" class="form-control">
-                                </div>
+                                  <label for="message-text" class="col-form-label">NO OF BEDS</label>
+                                  <input form="editUnitForm" min="1" max="4" type="number" value="{{ $unit->beds }}" name="beds" class="form-control">
+                                  </div>
+                                @endif
+                               
                                 <div class="form-group">
                                 <label for="message-text" class="col-form-label">UNIT/ROOM STATUS</label>
                                 <select form="editUnitForm" id="status" name="status" class="form-control">

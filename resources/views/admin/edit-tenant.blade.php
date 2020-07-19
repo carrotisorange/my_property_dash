@@ -316,6 +316,7 @@
         </nav>
         <!-- End of Topbar -->
         <div class="container-fluid">
+          
         <!-- 404 Error Text -->
         <form id="editTenantForm" action="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}" method="POST">
             @method('put')

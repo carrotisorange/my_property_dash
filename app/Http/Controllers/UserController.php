@@ -113,7 +113,7 @@ class UserController extends Controller
                 ]
                 );
 
-                return redirect('/users/'.$user_id)->with('success', 'User information has been updated!');
+                return redirect('/users/'.$user_id)->with('success', 'User Profile has been updated!');
         }else{
             DB::table('users')
             ->where('id', $user_id)

@@ -317,46 +317,61 @@
         </nav>
         <!-- End of Topbar -->
         <div class="container-fluid">
+          @foreach (['danger', 'warning', 'success', 'info'] as $key)
+          @if(Session::has($key))
+         <p class="alert alert-{{ $key }}"> <i class="fas fa-check-circle"></i> {{ Session::get($key) }}</p>
+          @endif
+          @endforeach
+
+          <div class="col-lg-12 mb-4">
+            <!-- DataTales Example -->
+            <div class="card shadow mb-4">
+             <div class="card-header py-3">
+               <h6 class="m-0 font-weight-bold text-primary">PROFILE</h6>
+             </div>
+             <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered">
+                   <tr>
+                      <th>Name</th>
+                      <td>{{ $user->name }}&nbsp <a title="edit profile" href="/users/{{ $user->id }}/edit"><i class="fas fa-user-edit fa-fw"></i></a></td>
+                   </tr>
+                   <tr>
+                     <th>Email</th>
+                     <td>{{ $user->email }}</td>
+                  </tr>
+                  <tr>
+                     <th>User Type</th>
+                     <td>{{ $user->user_type }}</td>
+                  </tr>
+                  <tr>
+                     <th>Status</th>
+                     <td>{{ $user->status }}</td>
+                  </tr> 
+                  <tr>
+                   <th>Account Type</th>
+                   <td>{{ $user->account_type }}</td>
+                </tr>     
+                   <tr>
+                      <th>Property</th>
+                      <td>{{ $user->property }}</a></td>
+                   </tr>
+                   <tr>
+                     <th>Property Ownership</th>
+                     <td>{{ $user->property_ownership }}</td>
+                  </tr>
+                  <tr>
+                     <th>Property Type</th>
+                     <td>{{ $user->property_type }}</td>
+                  </tr>  
+                </table>
+                 </div>
+             </div>
+           </div>
+   
+               </div>
             <!-- Page Heading -->
-          <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Profile</h1>
-          </div>
-          <div class="table-responsive">
-         <table class="table table-bordered">
-            <tr>
-               <th>Name</th>
-               <td>{{ $user->name }}&nbsp <a title="edit profile" href="/users/{{ $user->id }}/edit"><i class="fas fa-user-edit fa-fw"></i></a></td>
-            </tr>
-            <tr>
-              <th>Email</th>
-              <td>{{ $user->email }}</td>
-           </tr>
-           <tr>
-              <th>User Type</th>
-              <td>{{ $user->user_type }}</td>
-           </tr>
-           <tr>
-              <th>Status</th>
-              <td>{{ $user->status }}</td>
-           </tr> 
-           <tr>
-            <th>Account Type</th>
-            <td>{{ $user->account_type }}</td>
-         </tr>     
-            <tr>
-               <th>Property</th>
-               <td>{{ $user->property }}</a></td>
-            </tr>
-            <tr>
-              <th>Property Ownership</th>
-              <td>{{ $user->property_ownership }}</td>
-           </tr>
-           <tr>
-              <th>Property Type</th>
-              <td>{{ $user->property_type }}</td>
-           </tr>  
-         </table>
-          </div>
+      
         </div>
 
         

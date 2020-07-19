@@ -352,162 +352,171 @@
                 </span>
             </h5>
             <br>
-            <div class="table-responsive">
-              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <tr>
-                        <th colspan="2">PERSONAL INFORMATION</th>
-                    </tr>
-                    <tr>
-                        <td>Full Name</td>
-                        <td>{{ $tenant->first_name.' '.$tenant->middle_name.' '.$tenant->last_name }} 
-                            @if($tenant->tenant_status === 'active')
-                                <span class="badge badge-primary">{{ $tenant->tenant_status }}</span>
-                            @elseif($tenant->tenant_status === 'pending')
-                                <span class="badge badge-warning">{{ $tenant->tenant_status }}</span>
-                            @else
-                                <span class="badge badge-danger">{{ $tenant->tenant_status }}</span>
-                            @endif
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Gender</td>
-                        <td>{{ $tenant->gender }}</td>
-                    </tr>
-                    <tr>
-                        <td>Birthdate</th>
-                        <td>{{ Carbon\Carbon::parse($tenant->birthdate)->format('M d Y') }}</td>
-                    </tr>
-                    <tr>
-                        <td>Civil Status</td>
-                        <td>{{ $tenant->civil_status }}</td>
-                    </tr>
-                    <tr>
-                        <td>ID/ID Number</td>
-                        <td>{{ $tenant->id_number }}</td>
-                    </tr>
-                    <tr>
-                        <td>Address</td>
-                        <td>{{ $tenant->barangay.', '.$tenant->city.', '.$tenant->province.', '.$tenant->country.', '.$tenant->zip_code }}</td>
-                    </tr>
-                    <tr>
-                        <th colspan="2">CONTACT INFORMATION</th
-                    </tr>
-                    <tr>
-                        <td>Contact No</td>
-                        <td>{{ $tenant->contact_no }}</td>
-                    </tr>
-                    <tr>
-                        <td>Email Address</td>
-                        <td>{{ $tenant->email_address }}</td>
-                    </tr>
-                    <tr>
-                        <th colspan="2">PERSON TO CONTACT IN CASE OF EMERGENCY</th>
-        
-                    </tr>
-                    <tr>
-                        <td>Name</td>
-                        <td>{{ $tenant->guardian }}</td>
-                    </tr>
-                    <tr>
-                        <td>Relationship with the tenant</td>
-                        <td>{{ $tenant->guardian_relationship }}</td>
-                    </tr>
-                    <tr>
-                        <td>Contact No</td>
-                        <td>{{ $tenant->guardian_contact_no }}</td>
-                    </tr>
-                    <tr>
-                      <th colspan="2">EDUCATIONAL BACKGROUND</th>
-                  </tr>
-                    <tr>
-                        <td>High School</td>
-                        <td>{{ $tenant->high_school.', '.$tenant->high_school_address }}</td>
-                    </tr>
-                    <tr>
-                        <td>College/University</td>
-                        <td>{{ $tenant->college_school.', '.$tenant->college_school_address }}</td>
-                    </tr>
-                    <tr>
-                        <td>Course/Year</td>
-                        <td>{{ $tenant->course.', '.$tenant->year_level }}</td>
-                    </tr>
-                  
-                    <tr>
-                      <th colspan="2">EMPLOYMENT BACKGROUND</th>
-      
-                  </tr>
-                    <tr>
-                        <td>Employer</td>
-                        <td>{{ $tenant->employer}}</td>
-                    </tr>
-                    <tr>
-                        <td>Address</td>
-                        <td>{{ $tenant->employer_address }}</td>
-                    </tr>
-                    <tr>
-                        <td>Contact No</td>
-                        <td>{{ $tenant->employer_contact_no }}</td>
-                    </tr>
-        
-                    <tr>
-                        <td>Job description</td>
-                        <td>{{ $tenant->job }}</td>
-                    </tr>
-                    <tr>
-                        <td>Years of employment</td>
-                        <td>{{ $tenant->years_of_employment }}</td>
-                    </tr>
-                    <tr>
-                      <th colspan="2">CONTRACT INFORMATION</th>
-                  </tr>
-                    <tr>
-                        <td>Monthly Rent</td>
-                        <td>{{ number_format($tenant->tenant_monthly_rent, 2) }}</td>
-                    </tr>
-                    <?php 
-                        $renewal_history = explode(",", $tenant->renewal_history); 
-                        $diffInDays =  number_format(Carbon\Carbon::now()->DiffInDays(Carbon\Carbon::parse($tenant->moveout_date))) 
-                    ?>
-                    <tr>
-                        <td>Current Contract Period</td>
-                        <td>{{ Carbon\Carbon::parse($tenant->movein_date)->format('M d Y').'-'.Carbon\Carbon::parse($tenant->moveout_date)->format('M d Y') }} 
-                          <span class="badge badge-primary">{{ $tenant->has_extended}} 
-                           
-                            ({{ count($renewal_history)-1 }}x) 
-                          </span>  
-                         
-                          @if($diffInDays <= -1)
-                            <span class="badge badge-danger">contract has lapsed {{ $diffInDays*-1 }} days ago</span> 
-                             @else
-                            <span class="badge badge-warning">contract expires in {{ $diffInDays }} days </span>
-                             @endif
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Previous Contracts</td>
-                        <?php $numberFormatter = new NumberFormatter('en_US', NumberFormatter::ORDINAL) ?>
-                        <td>
-                            @for ($i = 1; $i < count($renewal_history); $i++)
-                               {{ $numberFormatter->format($i-1) .' renewal: '.$renewal_history[$i] }}<br>
-                            @endfor     
-                        </td>
-                    </tr>
-                    {{-- @if($tenant->tenant_status === 'inactive')
-                    <tr>
-                      <td>Actual Moveout Date</td>
-                      <td>
-                          {{ Carbon\Carbon::parse($tenant->actual_moveout_date)->format('M d Y') }}
-                      </td>
-                  </tr>
-                    @endif --}}
-                    <tr>
-                        <td>Note</td>
-                        <td>
-                            {{ $tenant->tenants_note }}
-                        </td>
-                    </tr>
-                </table>
+
+              <!-- DataTales Example -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">TENANT INFORMATION</h6>
+                </div>
+                <div class="card-body">
+                 
+                  <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                          <tr>
+                              <td>Full Name</td>
+                              <td>{{ $tenant->first_name.' '.$tenant->middle_name.' '.$tenant->last_name }} 
+                                  @if($tenant->tenant_status === 'active')
+                                      <span class="badge badge-primary">{{ $tenant->tenant_status }}</span>
+                                  @elseif($tenant->tenant_status === 'pending')
+                                      <span class="badge badge-warning">{{ $tenant->tenant_status }}</span>
+                                  @else
+                                      <span class="badge badge-danger">{{ $tenant->tenant_status }}</span>
+                                  @endif
+                              </td>
+                          </tr>
+                          <tr>
+                              <td>Gender</td>
+                              <td>{{ $tenant->gender }}</td>
+                          </tr>
+                          <tr>
+                              <td>Birthdate</th>
+                              <td>{{ Carbon\Carbon::parse($tenant->birthdate)->format('M d Y') }}</td>
+                          </tr>
+                          <tr>
+                              <td>Civil Status</td>
+                              <td>{{ $tenant->civil_status }}</td>
+                          </tr>
+                          <tr>
+                              <td>ID/ID Number</td>
+                              <td>{{ $tenant->id_number }}</td>
+                          </tr>
+                          <tr>
+                              <td>Address</td>
+                              <td>{{ $tenant->barangay.', '.$tenant->city.', '.$tenant->province.', '.$tenant->country.', '.$tenant->zip_code }}</td>
+                          </tr>
+                          <tr>
+                              <th colspan="2">CONTACT INFORMATION</th
+                          </tr>
+                          <tr>
+                              <td>Contact No</td>
+                              <td>{{ $tenant->contact_no }}</td>
+                          </tr>
+                          <tr>
+                              <td>Email Address</td>
+                              <td>{{ $tenant->email_address }}</td>
+                          </tr>
+                          <tr>
+                              <th colspan="2">PERSON TO CONTACT IN CASE OF EMERGENCY</th>
+              
+                          </tr>
+                          <tr>
+                              <td>Name</td>
+                              <td>{{ $tenant->guardian }}</td>
+                          </tr>
+                          <tr>
+                              <td>Relationship with the tenant</td>
+                              <td>{{ $tenant->guardian_relationship }}</td>
+                          </tr>
+                          <tr>
+                              <td>Contact No</td>
+                              <td>{{ $tenant->guardian_contact_no }}</td>
+                          </tr>
+                          <tr>
+                            <th colspan="2">EDUCATIONAL BACKGROUND</th>
+                        </tr>
+                          <tr>
+                              <td>High School</td>
+                              <td>{{ $tenant->high_school.', '.$tenant->high_school_address }}</td>
+                          </tr>
+                          <tr>
+                              <td>College/University</td>
+                              <td>{{ $tenant->college_school.', '.$tenant->college_school_address }}</td>
+                          </tr>
+                          <tr>
+                              <td>Course/Year</td>
+                              <td>{{ $tenant->course.', '.$tenant->year_level }}</td>
+                          </tr>
+                        
+                          <tr>
+                            <th colspan="2">EMPLOYMENT BACKGROUND</th>
+            
+                        </tr>
+                          <tr>
+                              <td>Employer</td>
+                              <td>{{ $tenant->employer}}</td>
+                          </tr>
+                          <tr>
+                              <td>Address</td>
+                              <td>{{ $tenant->employer_address }}</td>
+                          </tr>
+                          <tr>
+                              <td>Contact No</td>
+                              <td>{{ $tenant->employer_contact_no }}</td>
+                          </tr>
+              
+                          <tr>
+                              <td>Job description</td>
+                              <td>{{ $tenant->job }}</td>
+                          </tr>
+                          <tr>
+                              <td>Years of employment</td>
+                              <td>{{ $tenant->years_of_employment }}</td>
+                          </tr>
+                          <tr>
+                            <th colspan="2">CONTRACT INFORMATION</th>
+                        </tr>
+                          <tr>
+                              <td>Monthly Rent</td>
+                              <td>{{ number_format($tenant->tenant_monthly_rent, 2) }}</td>
+                          </tr>
+                          <?php 
+                              $renewal_history = explode(",", $tenant->renewal_history); 
+                              $diffInDays =  number_format(Carbon\Carbon::now()->DiffInDays(Carbon\Carbon::parse($tenant->moveout_date))) 
+                          ?>
+                          <tr>
+                              <td>Current Contract Period</td>
+                              <td>{{ Carbon\Carbon::parse($tenant->movein_date)->format('M d Y').'-'.Carbon\Carbon::parse($tenant->moveout_date)->format('M d Y') }} 
+                                <span class="badge badge-primary">{{ $tenant->has_extended}} 
+                                 
+                                  ({{ count($renewal_history)-1 }}x) 
+                                </span>  
+                               
+                                @if($diffInDays <= -1)
+                                  <span class="badge badge-danger">contract has lapsed {{ $diffInDays*-1 }} days ago</span> 
+                                   @else
+                                  <span class="badge badge-warning">contract expires in {{ $diffInDays }} days </span>
+                                   @endif
+                              </td>
+                          </tr>
+                          <tr>
+                              <td>Previous Contracts</td>
+                              <?php $numberFormatter = new NumberFormatter('en_US', NumberFormatter::ORDINAL) ?>
+                              <td>
+                                  @for ($i = 1; $i < count($renewal_history); $i++)
+                                     {{ $numberFormatter->format($i-1) .' renewal: '.$renewal_history[$i] }}<br>
+                                  @endfor     
+                              </td>
+                          </tr>
+                          {{-- @if($tenant->tenant_status === 'inactive')
+                          <tr>
+                            <td>Actual Moveout Date</td>
+                            <td>
+                                {{ Carbon\Carbon::parse($tenant->actual_moveout_date)->format('M d Y') }}
+                            </td>
+                        </tr>
+                          @endif --}}
+                          <tr>
+                              <td>Note</td>
+                              <td>
+                                  {{ $tenant->tenants_note }}
+                              </td>
+                          </tr>
+                      </table>
+                    </div>
+                </div>
               </div>
+
+          
         </div>
         {{-- Modal to moveout tenant --}}
         <div class="modal fade" id="moveoutTenant" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
