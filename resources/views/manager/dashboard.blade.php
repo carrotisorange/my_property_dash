@@ -368,6 +368,7 @@
                     </div>
                   </div>
       
+                  @if(Auth::user()->property_type !== 'Commercial Complex')
                   <!-- Earnings (Monthly) Card Example -->
                   <div class="col-xl-3 col-md-6 mb-4">
                     <div class="card border-left-warning shadow h-100 py-2">
@@ -386,7 +387,7 @@
                       </div>
                     </div>
                   </div>
-      
+                  @endif
                   <!-- Pending Requests Card Example -->
                   <div class="col-xl-3 col-md-6 mb-4">
                     <div class="card border-left-danger shadow h-100 py-2">
