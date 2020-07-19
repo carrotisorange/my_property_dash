@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>{{ session(Auth::user()->property.'building').' '.session(Auth::user()->property.'unit_no').' '.'(Step 1 of 4)' }}</title>
+  <title>{{ session(Auth::user()->id.'building').' '.session(Auth::user()->id.'unit_no').' '.'(Step 1 of 4)' }}</title>
 
   <!-- Custom fonts for this template-->
   <link href="{{ asset('dashboard/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -333,35 +333,35 @@
          <p class="alert alert-{{ $key }}"> <i class="fas fa-times-circle"></i> {{ Session::get($key) }}</p>
           @endif
           @endforeach
-          <form id="addTenantForm1" action="/units/{{ session(Auth::user()->property.'unit_id') }}/tenant-step1" method="POST">
+          <form id="addTenantForm1" action="/units/{{ session(Auth::user()->id.'unit_id') }}/tenant-step1" method="POST">
             {{ csrf_field() }}
         </form>
     
-            <input form="addTenantForm1" type="hidden" value="{{ session(Auth::user()->property.'unit_id') }}" name="unit_id"> 
+            <input form="addTenantForm1" type="hidden" value="{{ session(Auth::user()->id.'unit_id') }}" name="unit_id"> 
             <div class="row">
                 <div class="col">
                     <small class="">First Name <span class="text-danger">*</span></small>
-                    <input form="addTenantForm1" type="text" class="form-control" name="first_name" id="first_name" value="{{ session(Auth::user()->property.'first_name') }}" required>
+                    <input form="addTenantForm1" type="text" class="form-control" name="first_name" id="first_name" value="{{ session(Auth::user()->id.'first_name') }}" required>
                 </div>
                 <div class="col">
                     <small class="">Middle Name</small>
-                    <input form="addTenantForm1" type="text" class="form-control" name="middle_name" id="middle_name" value="{{ session(Auth::user()->property.'middle_name') }}">
+                    <input form="addTenantForm1" type="text" class="form-control" name="middle_name" id="middle_name" value="{{ session(Auth::user()->id.'middle_name') }}">
                 </div>
                 <div class="col">
                     <small class="">Last Name  <span class="text-danger">*</span></small>
-                    <input form="addTenantForm1" type="text" class="form-control" name="last_name" id="last_name" value="{{ session(Auth::user()->property.'last_name') }}" required>
+                    <input form="addTenantForm1" type="text" class="form-control" name="last_name" id="last_name" value="{{ session(Auth::user()->id.'last_name') }}" required>
                 </div>
                 </div>
                 <br>
             <div class="row">
                 <div class="col">
                     <small class="">Birthdate</small>
-                    <input form="addTenantForm1" type="date" class="form-control" name="birthdate" id="birthdate" value="{{ session(Auth::user()->property.'birthdate') }}">
+                    <input form="addTenantForm1" type="date" class="form-control" name="birthdate" id="birthdate" value="{{ session(Auth::user()->id.'birthdate') }}">
                 </div>
                 <div class="col">
                     <small class="">Gender<span class="text-danger">*</span></small>
                     <select form="addTenantForm1"  id="gender" name="gender" class="form-control" required >        
-                        <option value="{{ session(Auth::user()->property.'gender') }}" selected>{{ session(Auth::user()->property.'gender') }}</option>
+                        <option value="{{ session(Auth::user()->id.'gender') }}" selected>{{ session(Auth::user()->id.'gender') }}</option>
                         <option value="male">male</option>
                         <option value="female">female</option>
                     </select>
@@ -369,51 +369,55 @@
                 <div class="col">
                     <small class="">Civil Status</small>
                     <select form="addTenantForm1"  id="civil_status" name="civil_status" class="form-control">
+<<<<<<< HEAD
                         <option value="{{ session('civil_status') }}" selected>{{ session(Auth::user()->property.'civil_status') }}</option>
+=======
+                        <option value="{{ session('civil_status') }}" selected>{{ session(Auth::user()->id.'civil_status') }}</option>
+>>>>>>> 2eb802f2452916fccb70c38f9cb597fcf370e351
                         <option value="single">single</option>
                         <option value="married">married</option>
                     </select>
                 </div>
                 <div class="col">
                     <small class="">ID/ID Number</small>
-                    <input form="addTenantForm1" type="text" class="form-control" name="id_number" id="id_number" value="{{ session(Auth::user()->property.'id_number') }}">
+                    <input form="addTenantForm1" type="text" class="form-control" name="id_number" id="id_number" value="{{ session(Auth::user()->id.'id_number') }}">
                 </div>
             </div>
             <br>
             <div class="row">
                 <div class="col">
                     <small class="">Mobile <span class="text-danger">*</span></small>
-                  <input form="addTenantForm1" type="text" class="form-control" name="contact_no" id="contact_no" value="{{ session(Auth::user()->property.'contact_no') }}" required >
+                  <input form="addTenantForm1" type="text" class="form-control" name="contact_no" id="contact_no" value="{{ session(Auth::user()->id.'contact_no') }}" required >
                 </div>
                 <div class="col">
                     <small class="">Email</small>
-                  <input form="addTenantForm1" type="email" class="form-control" name="email_address" id="email_address" value="{{ session(Auth::user()->property.'email_address') }}">
+                  <input form="addTenantForm1" type="email" class="form-control" name="email_address" id="email_address" value="{{ session(Auth::user()->id.'email_address') }}">
                 </div>
             </div>
             <br>
             <div class="row">
                 <div class="col">
                     <small class="">House No/Barangay</small>
-                    <input form="addTenantForm1" type="text" class="form-control" name="barangay" id="barangay" value="{{ session(Auth::user()->property.'barangay') }}">
+                    <input form="addTenantForm1" type="text" class="form-control" name="barangay" id="barangay" value="{{ session(Auth::user()->id.'barangay') }}">
                 </div>
                 <div class="col">
                     <small class="">City</small>
-                    <input form="addTenantForm1" type="text" class="form-control" name="city" id="city" value="{{ session(Auth::user()->property.'city') }}">
+                    <input form="addTenantForm1" type="text" class="form-control" name="city" id="city" value="{{ session(Auth::user()->id.'city') }}">
                 </div>
             </div>
             <br>
             <div class="row">
                 <div class="col">
                     <small class="">Province</small>
-                  <input form="addTenantForm1" type="text" class="form-control" name="province" id="province" value="{{ session(Auth::user()->property.'province') }}">
+                  <input form="addTenantForm1" type="text" class="form-control" name="province" id="province" value="{{ session(Auth::user()->id.'province') }}">
                 </div>
                 <div class="col">
                     <small class="">Country</small>
-                    <input form="addTenantForm1" type="text" class="form-control" name="country" id="country" value="{{ session(Auth::user()->property.'country') }}">
+                    <input form="addTenantForm1" type="text" class="form-control" name="country" id="country" value="{{ session(Auth::user()->id.'country') }}">
                 </div>
                 <div class="col">
                     <small class="">Zip Code</small>
-                    <input form="addTenantForm1" type="text" class="form-control" name="zip_code" id="zip_code" value="{{ session(Auth::user()->property.'zip_code') }}">
+                    <input form="addTenantForm1" type="text" class="form-control" name="zip_code" id="zip_code" value="{{ session(Auth::user()->id.'zip_code') }}">
                 </div>
             </div>
             <br>
@@ -421,21 +425,21 @@
             <div class="row">   
                 <div class="col">
                     <small class="">Name</small>
-                    <input form="addTenantForm1" type="text" class="form-control" name="guardian" id="guardian" value="{{ session(Auth::user()->property.'guardian') }}">
+                    <input form="addTenantForm1" type="text" class="form-control" name="guardian" id="guardian" value="{{ session(Auth::user()->id.'guardian') }}">
                 </div>
                 <div class="col">
                     <small class="">Relationship to the tenant</small>
-                    <input form="addTenantForm1" type="text" class="form-control" name="guardian_relationship" id="guardian_relationship" value="{{ session(Auth::user()->property.'guardian_relationship') }}">
+                    <input form="addTenantForm1" type="text" class="form-control" name="guardian_relationship" id="guardian_relationship" value="{{ session(Auth::user()->id.'guardian_relationship') }}">
                 </div>
                 <div class="col">
                     <small class="">Mobile</small>
-                    <input form="addTenantForm1" type="text" class="form-control" name="guardian_contact_no" id="guardian_contact_no" value="{{ session(Auth::user()->property.'guardian_contact_no') }}">
+                    <input form="addTenantForm1" type="text" class="form-control" name="guardian_contact_no" id="guardian_contact_no" value="{{ session(Auth::user()->id.'guardian_contact_no') }}">
                 </div>
            </div>
             
             <br>
             <p class="text-right">   
-                <a href="/units/{{ session(Auth::user()->property.'unit_id') }}" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</a>
+                <a href="/units/{{ session(Auth::user()->id.'unit_id') }}" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</a>
                 <button type="submit" form="addTenantForm1" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-arrow-right fa-sm text-white-50" ></i> Next</button>
             </p>
         

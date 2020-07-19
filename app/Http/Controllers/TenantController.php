@@ -68,24 +68,24 @@ class TenantController extends Controller
 
     public function postTenantStep1(Request $request, $unit_id){
         
-        $request->session()->put(Auth::user()->property.'type_of_tenant', 'student');
-        $request->session()->put(Auth::user()->property.'first_name', $request->first_name);
-        $request->session()->put(Auth::user()->property.'contact_no', $request->contact_no);
-        $request->session()->put(Auth::user()->property.'last_name', $request->last_name);
-        $request->session()->put(Auth::user()->property.'middle_name', $request->middle_name);
-        $request->session()->put(Auth::user()->property.'birthdate', $request->birthdate);
-        $request->session()->put(Auth::user()->property.'gender', $request->gender);
-        $request->session()->put(Auth::user()->property.'civil_status', $request->civil_status);
-        $request->session()->put(Auth::user()->property.'id_number', $request->id_number);
-        $request->session()->put(Auth::user()->property.'email_address', $request->email_address);
-        $request->session()->put(Auth::user()->property.'barangay', $request->barangay);
-        $request->session()->put(Auth::user()->property.'city', $request->city);
-        $request->session()->put(Auth::user()->property.'province', $request->province);
-        $request->session()->put(Auth::user()->property.'country', $request->country);
-        $request->session()->put(Auth::user()->property.'zip_code', $request->zip_code);
-        $request->session()->put(Auth::user()->property.'guardian', $request->guardian);
-        $request->session()->put(Auth::user()->property.'guardian_relationship', $request->guardian_relationship);
-        $request->session()->put(Auth::user()->property.'guardian_contact_no', $request->guardian_contact_no);
+        $request->session()->put(Auth::user()->id.'type_of_tenant', 'student');
+        $request->session()->put(Auth::user()->id.'first_name', $request->first_name);
+        $request->session()->put(Auth::user()->id.'contact_no', $request->contact_no);
+        $request->session()->put(Auth::user()->id.'last_name', $request->last_name);
+        $request->session()->put(Auth::user()->id.'middle_name', $request->middle_name);
+        $request->session()->put(Auth::user()->id.'birthdate', $request->birthdate);
+        $request->session()->put(Auth::user()->id.'gender', $request->gender);
+        $request->session()->put(Auth::user()->id.'civil_status', $request->civil_status);
+        $request->session()->put(Auth::user()->id.'id_number', $request->id_number);
+        $request->session()->put(Auth::user()->id.'email_address', $request->email_address);
+        $request->session()->put(Auth::user()->id.'barangay', $request->barangay);
+        $request->session()->put(Auth::user()->id.'city', $request->city);
+        $request->session()->put(Auth::user()->id.'province', $request->province);
+        $request->session()->put(Auth::user()->id.'country', $request->country);
+        $request->session()->put(Auth::user()->id.'zip_code', $request->zip_code);
+        $request->session()->put(Auth::user()->id.'guardian', $request->guardian);
+        $request->session()->put(Auth::user()->id.'guardian_relationship', $request->guardian_relationship);
+        $request->session()->put(Auth::user()->id.'guardian_contact_no', $request->guardian_contact_no);
 
         return redirect('/units/'.$unit_id.'/tenant-step2');
     }
@@ -97,17 +97,17 @@ class TenantController extends Controller
 
     public function postTenantStep2(Request $request, $unit_id){
 
-        $request->session()->put(Auth::user()->property.'high_school', $request->high_school);
-        $request->session()->put(Auth::user()->property.'high_school_address', $request->high_school_address);
-        $request->session()->put(Auth::user()->property.'college_school', $request->colleges_school);
-        $request->session()->put(Auth::user()->property.'college_school_address', $request->college_school_address);
-        $request->session()->put(Auth::user()->property.'course', $request->course);
-        $request->session()->put(Auth::user()->property.'year_level', $request->year_level);
-        $request->session()->put(Auth::user()->property.'employer', $request->employer);
-        $request->session()->put(Auth::user()->property.'employer_address', $request->employer_address);
-        $request->session()->put(Auth::user()->property.'job', $request->job);
-        $request->session()->put(Auth::user()->property.'years_of_employment', $request->years_of_employment);
-        $request->session()->put(Auth::user()->property.'employer_contact_no', $request->employer_contact_no);
+        $request->session()->put(Auth::user()->id.'high_school', $request->high_school);
+        $request->session()->put(Auth::user()->id.'high_school_address', $request->high_school_address);
+        $request->session()->put(Auth::user()->id.'college_school', $request->colleges_school);
+        $request->session()->put(Auth::user()->id.'college_school_address', $request->college_school_address);
+        $request->session()->put(Auth::user()->id.'course', $request->course);
+        $request->session()->put(Auth::user()->id.'year_level', $request->year_level);
+        $request->session()->put(Auth::user()->id.'employer', $request->employer);
+        $request->session()->put(Auth::user()->id.'employer_address', $request->employer_address);
+        $request->session()->put(Auth::user()->id.'job', $request->job);
+        $request->session()->put(Auth::user()->id.'years_of_employment', $request->years_of_employment);
+        $request->session()->put(Auth::user()->id.'employer_contact_no', $request->employer_contact_no);
 
         return redirect('/units/'.$unit_id.'/tenant-step3');
     }
@@ -123,9 +123,9 @@ class TenantController extends Controller
             return back()->with('danger', 'Invalid input. Make sure the moveout date is later than the movein date. ');
         }
 
-        $request->session()->put(Auth::user()->property.'movein_date', $request->movein_date);
-        $request->session()->put(Auth::user()->property.'moveout_date', $request->moveout_date);
-        $request->session()->put(Auth::user()->property.'tenant_monthly_rent', $request->tenant_monthly_rent);
+        $request->session()->put(Auth::user()->id.'movein_date', $request->movein_date);
+        $request->session()->put(Auth::user()->id.'moveout_date', $request->moveout_date);
+        $request->session()->put(Auth::user()->id.'tenant_monthly_rent', $request->tenant_monthly_rent);
 
         return redirect('/units/'.$unit_id.'/tenant-step4');
     }
@@ -146,53 +146,53 @@ class TenantController extends Controller
         //insert tenant to a specific unit
         $tenant_id = DB::table('tenants')->insertGetId(
             [
-                'unit_tenant_id' => session(Auth::user()->property.'unit_id'),
+                'unit_tenant_id' => session(Auth::user()->id.'unit_id'),
                 'tenant_unique_id' => '',
-                'first_name' => session(Auth::user()->property.'first_name'),
-                'middle_name' => session(Auth::user()->property.'middle_name'),
-                'last_name'=>session(Auth::user()->property.'last_name'),
-                'birthdate'=>session(Auth::user()->property.'birthdate'),
-                'gender' => session(Auth::user()->property.'gender'),
-                'civil_status'=>session(Auth::user()->property.'civil_status'),
-                'id_number' => session(Auth::user()->property.'id_number'),
+                'first_name' => session(Auth::user()->id.'first_name'),
+                'middle_name' => session(Auth::user()->id.'middle_name'),
+                'last_name'=>session(Auth::user()->id.'last_name'),
+                'birthdate'=>session(Auth::user()->id.'birthdate'),
+                'gender' => session(Auth::user()->id.'gender'),
+                'civil_status'=>session(Auth::user()->id.'civil_status'),
+                'id_number' => session(Auth::user()->id.'id_number'),
 
-                'country' => session(Auth::user()->property.'country'),
-                'province' => session(Auth::user()->property.'province'),
-                'city' => session(Auth::user()->property.'city'),
-                'barangay' => session(Auth::user()->property.'barangay'),
-                'zip_code' => session(Auth::user()->property.'zip_code'),
+                'country' => session(Auth::user()->id.'country'),
+                'province' => session(Auth::user()->id.'province'),
+                'city' => session(Auth::user()->id.'city'),
+                'barangay' => session(Auth::user()->id.'barangay'),
+                'zip_code' => session(Auth::user()->id.'zip_code'),
 
                 //contact number
-                'contact_no' => session(Auth::user()->property.'contact_no'),
-                'email_address' => session(Auth::user()->property.'email_address'),
+                'contact_no' => session(Auth::user()->id.'contact_no'),
+                'email_address' => session(Auth::user()->id.'email_address'),
 
                 //guardian information
-                'guardian' => session(Auth::user()->property.'guardian'),
-                'guardian_relationship' => session(Auth::user()->property.'guardian_relationship'),
-                'guardian_contact_no' => session(Auth::user()->property.'guardian_contact_no'),
+                'guardian' => session(Auth::user()->id.'guardian'),
+                'guardian_relationship' => session(Auth::user()->id.'guardian_relationship'),
+                'guardian_contact_no' => session(Auth::user()->id.'guardian_contact_no'),
 
                 //rent information
-                'tenant_monthly_rent' => session(Auth::user()->property.'tenant_monthly_rent'),
+                'tenant_monthly_rent' => session(Auth::user()->id.'tenant_monthly_rent'),
                 'type_of_tenant' => 'walk-in',
                 //change the tenant status to pending.
                 'tenant_status' => 'pending',
-                'movein_date'=> session(Auth::user()->property.'movein_date'),
-                'moveout_date'=> session(Auth::user()->property.'moveout_date'),
+                'movein_date'=> session(Auth::user()->id.'movein_date'),
+                'moveout_date'=> session(Auth::user()->id.'moveout_date'),
         
                 //information for student
-                'high_school' => session(Auth::user()->property.'high_school'),
-                'high_school_address' => session(Auth::user()->property.'high_school_address'),
-                'college_school' => session(Auth::user()->property.'college_school'),
-                'college_school_address' => session(Auth::user()->property.'college_school_address'),
-                'course' => session(Auth::user()->property.'course'),
-                'year_level' => session(Auth::user()->property.'year_level'),
+                'high_school' => session(Auth::user()->id.'high_school'),
+                'high_school_address' => session(Auth::user()->id.'high_school_address'),
+                'college_school' => session(Auth::user()->id.'college_school'),
+                'college_school_address' => session(Auth::user()->id.'college_school_address'),
+                'course' => session(Auth::user()->id.'course'),
+                'year_level' => session(Auth::user()->id.'year_level'),
              
                      //information for working
-                'employer' => session(Auth::user()->property.'employer'),
-                'employer_address' => session(Auth::user()->property.'employer_address'),
-                'job' => session(Auth::user()->property.'job'),
-                'employer_contact_no' => session(Auth::user()->property.'employer_contact_no'),
-                'years_of_employment' => session(Auth::user()->property.'years_of_employment'),
+                'employer' => session(Auth::user()->id.'employer'),
+                'employer_address' => session(Auth::user()->id.'employer_address'),
+                'job' => session(Auth::user()->id.'job'),
+                'employer_contact_no' => session(Auth::user()->id.'employer_contact_no'),
+                'years_of_employment' => session(Auth::user()->id.'years_of_employment'),
             
         ]);
             
@@ -202,7 +202,7 @@ class TenantController extends Controller
             DB::table('billings')->insert(
                 [
                     'billing_tenant_id' => $tenant_id,
-                    'billing_date' => session(Auth::user()->property.'movein_date'),
+                    'billing_date' => session(Auth::user()->id.'movein_date'),
                     'billing_desc' =>  $request->input('desc'.$i),
                     'billing_amt' =>  $request->input('amt'.$i),
                     'billing_status' => 'unpaid'
@@ -210,57 +210,57 @@ class TenantController extends Controller
         }        
 
         //change the unit status to reserved
-         DB::table('units')->where('unit_id', session(Auth::user()->property.'unit_id'))
+         DB::table('units')->where('unit_id', session(Auth::user()->id.'unit_id'))
              ->update(
                         [
                             'status'=> 'occupied',
-                            'updated_at' => session(Auth::user()->property.'movein_date'),   
+                            'updated_at' => session(Auth::user()->id.'movein_date'),   
                         ]
                     );
 
         //delete all the session created during the tenant's registration.
-        $request->session()->forget(Auth::user()->property.'first_name');
-        $request->session()->forget(Auth::user()->property.'middle_name');
-        $request->session()->forget(Auth::user()->property.'last_name');
-        $request->session()->forget(Auth::user()->property.'birthdate');
-        $request->session()->forget(Auth::user()->property.'gender');
-        $request->session()->forget(Auth::user()->property.'civil_status');
-        $request->session()->forget(Auth::user()->property.'id_number');
+        $request->session()->forget(Auth::user()->id.'first_name');
+        $request->session()->forget(Auth::user()->id.'middle_name');
+        $request->session()->forget(Auth::user()->id.'last_name');
+        $request->session()->forget(Auth::user()->id.'birthdate');
+        $request->session()->forget(Auth::user()->id.'gender');
+        $request->session()->forget(Auth::user()->id.'civil_status');
+        $request->session()->forget(Auth::user()->id.'id_number');
       
 
-        $request->session()->forget(Auth::user()->property.'zip_code');
-        $request->session()->forget(Auth::user()->property.'country');
-        $request->session()->forget(Auth::user()->property.'province');
-        $request->session()->forget(Auth::user()->property.'city');
-        $request->session()->forget(Auth::user()->property.'barangay');
+        $request->session()->forget(Auth::user()->id.'zip_code');
+        $request->session()->forget(Auth::user()->id.'country');
+        $request->session()->forget(Auth::user()->id.'province');
+        $request->session()->forget(Auth::user()->id.'city');
+        $request->session()->forget(Auth::user()->id.'barangay');
 
-        $request->session()->forget(Auth::user()->property.'contact_no');
-        $request->session()->forget(Auth::user()->property.'email_address');
+        $request->session()->forget(Auth::user()->id.'contact_no');
+        $request->session()->forget(Auth::user()->id.'email_address');
 
-        $request->session()->forget(Auth::user()->property.'guardian');
-        $request->session()->forget(Auth::user()->property.'guardian_relationship');
-        $request->session()->forget(Auth::user()->property.'guardian_contact_no');
+        $request->session()->forget(Auth::user()->id.'guardian');
+        $request->session()->forget(Auth::user()->id.'guardian_relationship');
+        $request->session()->forget(Auth::user()->id.'guardian_contact_no');
         
-        $request->session()->forget(Auth::user()->property.'tenant_monthly_rent');
-        $request->session()->forget(Auth::user()->property.'type_of_tenant');
+        $request->session()->forget(Auth::user()->id.'tenant_monthly_rent');
+        $request->session()->forget(Auth::user()->id.'type_of_tenant');
 
-        $request->session()->forget(Auth::user()->property.'movein_date');
-        $request->session()->forget(Auth::user()->property.'moveout_date');
+        $request->session()->forget(Auth::user()->id.'movein_date');
+        $request->session()->forget(Auth::user()->id.'moveout_date');
 
-        $request->session()->forget(Auth::user()->property.'high_school');
-        $request->session()->forget(Auth::user()->property.'high_school_address');
-        $request->session()->forget(Auth::user()->property.'college_school');
-        $request->session()->forget(Auth::user()->property.'college_school_address');
-        $request->session()->forget(Auth::user()->property.'course');
-        $request->session()->forget(Auth::user()->property.'year_level');
+        $request->session()->forget(Auth::user()->id.'high_school');
+        $request->session()->forget(Auth::user()->id.'high_school_address');
+        $request->session()->forget(Auth::user()->id.'college_school');
+        $request->session()->forget(Auth::user()->id.'college_school_address');
+        $request->session()->forget(Auth::user()->id.'course');
+        $request->session()->forget(Auth::user()->id.'year_level');
 
-        $request->session()->forget(Auth::user()->property.'employer');
-        $request->session()->forget(Auth::user()->property.'employer_address');
-        $request->session()->forget(Auth::user()->property.'job');
-        $request->session()->forget(Auth::user()->property.'years_of_employment');
-        $request->session()->forget(Auth::user()->property.'employer_contact_no');
+        $request->session()->forget(Auth::user()->id.'employer');
+        $request->session()->forget(Auth::user()->id.'employer_address');
+        $request->session()->forget(Auth::user()->id.'job');
+        $request->session()->forget(Auth::user()->id.'years_of_employment');
+        $request->session()->forget(Auth::user()->id.'employer_contact_no');
 
-        return redirect('/units/'.session(Auth::user()->property.'unit_id').'/tenants/'.$tenant_id)->with('success', 'New tenant has been added to the record!');
+        return redirect('/units/'.session(Auth::user()->id.'unit_id').'/tenants/'.$tenant_id)->with('success', 'New tenant has been added to the record!');
     }
 
     /**

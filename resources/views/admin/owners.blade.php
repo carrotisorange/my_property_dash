@@ -318,7 +318,7 @@
         </nav>
         <!-- End of Topbar -->
         <div class="container-fluid">
-          <form id="addTenantForm3" action="/units/{{ session(Auth::user()->property.'unit_id') }}/tenant-step3" method="POST">
+          <form id="addTenantForm3" action="/units/{{ session(Auth::user()->id.'unit_id') }}/tenant-step3" method="POST">
             {{ csrf_field() }}
         </form>
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -329,7 +329,7 @@
             {{-- <form action="/tenants/search" method="GET" >
                 @csrf
                 <div class="input-group">
-                    <input type="text" class="form-control" name="search" placeholder="enter tenant name" value="{{ session(Auth::user()->property.'search_tenant') }}">
+                    <input type="text" class="form-control" name="search" placeholder="enter tenant name" value="{{ session(Auth::user()->id.'search_tenant') }}">
                 </div>
             </form>
             <br>

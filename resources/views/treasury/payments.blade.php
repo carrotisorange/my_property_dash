@@ -278,7 +278,7 @@
             <form action="/payments/search" method="GET" >
               @csrf
               <div class="input-group">
-                  <input type="date" class="form-control" value="{{ session(Auth::user()->property.'search_payment') }}" name="search" onchange='this.form.submit()'>
+                  <input type="date" class="form-control" value="{{ session(Auth::user()->id.'search_payment') }}" name="search" onchange='this.form.submit()'>
               </div>
           </form>
           </div>
