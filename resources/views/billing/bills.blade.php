@@ -362,7 +362,7 @@
                     <th>DATE BILLED</th>
                     <th>TENANT</th>
                     <th>UNIT/ROOM</th>
-                    <th>DESC</th>
+                    <th>DESCIPTION</th>
                     <th>AMOUNT</th>
                     <th>STATUS</th>
                     <th></th>
