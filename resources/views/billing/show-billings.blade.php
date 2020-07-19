@@ -339,11 +339,11 @@
                 <li><b>Date:</b> {{ Carbon\Carbon::now()->firstOfMonth()->format('M d Y') }}</li>
                 <li class="text-danger"><b>Due Date:</b> {{ Carbon\Carbon::now()->firstOfMonth()->addDays(7)->format('M d Y') }}</li>
                 <li><b>To:</b> {{ $tenant->first_name.' '.$tenant->last_name }}</li>
-                <li><b>Unit/Room:</b>  <b>
+                <li><b>Unit/Room:</b>   
                   @foreach($unit_no as $item)
                   {{ $item->building.' '.$item->unit_no }}
                   @endforeach
-              </b> </li>
+               </li>
               </ul>
               <p class="text-right">Statement of Accounts</p>
               <p class="text-right"></p>
@@ -358,8 +358,14 @@
                   <tr>
                       <th>{{ $item->billing_id }}</th>
                       <td>{{ $item->billing_desc }}</td>
-                      <td>{{ $item->details }}</td>
-                      <th class="text-right" colspan="3">{{ number_format($item->billing_amt,2) }}</th>
+                      <td>
+                        @if($item->details === null)
+                        {{ $item->details }}
+                        @else
+                        -
+                        @endif
+                      </td>
+                      <td class="text-right" colspan="3">{{ number_format($item->billing_amt,2) }}</td>
                   </tr>
                   @endforeach
                   
@@ -367,8 +373,14 @@
                   <tr>
                     <th>{{ $item->billing_id }}</th>
                       <td>{{ $item->billing_desc }}</td>
-                      <td>{{ $item->details }}</td>
-                      <th class="text-right" colspan="3">{{ number_format($item->billing_amt,2) }}</th>
+                      <td>
+                        @if($item->details === null)
+                        {{ $item->details }}
+                        @else
+                         -
+                        @endif
+                      </td>
+                      <td class="text-right" colspan="3">{{ number_format($item->billing_amt,2) }}</td>
                   </tr>
                   @endforeach
             
@@ -378,10 +390,14 @@
                  <th>TOTAL AMOUNT PAYABLE</th>
                  <th class="text-right">{{ number_format($total_bills,2) }} </th>
                 </tr>
+                @if($tenant->tenant_status === 'pending')
+
+                @else
                 <tr>
                   <th class="text-danger">TOTAL AMOUNT PAYABLE AFTER DUE DATE (+10%)</th>
                   <th class="text-right text-danger">{{ number_format($total_bills + ($total_bills * .1) ,2) }}</th>
                  </tr>
+                @endif
                  @if(Auth::user()->user_type === 'treasury' || Auth::user()->user_type === 'manager')
                  <tr>
                    <td colspan="2" class="text-right"><a href="#" data-toggle="modal" data-target="#acceptPayment" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Add Payment</a> </td>
@@ -408,8 +424,17 @@
                     {{ csrf_field() }}
                     </form>
 
+                    <?php 
+                          $amt = 1;
+                          $desc = 1;
+                          $ctr =1;      
+                    ?>
+                    
+                    
                     @foreach ($movein_charges as $item)
-                        <input type="text" value="{{ $item->billing_amt }}">
+                        <input form="acceptPaymentForm"  type="hidden" name="ctr" value="{{ $ctr++ }}">
+                        <input form="acceptPaymentForm"  type="hidden" name="desc{{ $desc++ }}" value="{{ $item->billing_desc }}">
+                        <input form="acceptPaymentForm"  type="hidden" step="0.01" name="amt{{ $amt++ }}" value="{{ $item->billing_amt}}">
                     @endforeach
 
                     {{-- @for ($i = 0; $i < 3; $i++)
@@ -426,6 +451,9 @@
                           <input form="acceptPaymentForm" type="text" class="form-control" id="" name="ar_number" value="{{ $payment_ctr+1 }}" required readonly>
                       </div>
                     </div>
+                    @if($tenant->tenant_status === 'pending')
+
+                    @else
                     <div class="form-group row">
                       <div class="col">
                           <label for="">Payment Description</label>
@@ -445,6 +473,8 @@
                         </div>
                     </div>
                   </div>
+                    @endif
+                   
                   
                     <div class="form-group row">
                         <div class="col-md-8">
@@ -458,10 +488,10 @@
                         </div>
                         <div class="col-md-4">
                             <label for="">Amount</label>
-                            @if(Carbon\Carbon::now()->startOfMonth()->addDays(7)->format('d') <= Carbon\Carbon::now()->format('d') )
+                            @if(Carbon\Carbon::now()->startOfMonth()->addDays(7)->format('d') <= Carbon\Carbon::now()->format('d') && $tenant->tenant_status !== 'pending')
                             <input form="acceptPaymentForm" type="number" class="form-control" id="" step="0.01" min="1" name="amt_paid" value="{{ $total_bills+($total_bills*.1) }}" required>
                             @else
-                            <input form="acceptPaymentForm" type="number" class="form-control" id="" min="1" name="amt_paid" value="{{ $total_bills }}" required>
+                            <input form="acceptPaymentForm" type="number" class="form-control" id="" step="0.01" min="1" name="amt_paid" value="{{ $total_bills }}" required>
                             @endif
                         </div>
                      

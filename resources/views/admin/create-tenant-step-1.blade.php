@@ -370,7 +370,7 @@
                     <small class="">Civil Status</small>
                     <select form="addTenantForm1"  id="civil_status" name="civil_status" class="form-control">
                         <option value="{{ session('civil_status') }}" selected>{{ session(Auth::user()->property.'civil_status') }}</option>
-                        <option value="single" selected>single</option>
+                        <option value="single">single</option>
                         <option value="married">married</option>
                     </select>
                 </div>

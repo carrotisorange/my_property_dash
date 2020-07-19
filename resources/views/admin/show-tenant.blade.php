@@ -335,11 +335,11 @@
                 <a href="{{ route('show-payments',['unit_id' => $tenant->unit_tenant_id, 'tenant_id'=>$tenant->tenant_id]) }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-dollar-sign fa-sm text-white-50"></i> Payment History <span class="badge badge-light">{{ $payments->count() }}</span></a>
                 @endif
                 <span style="float:right;">
-                    -- <form action="/tenants/{{ $tenant->tenant_id }}" method="POST">
+                     {{-- <form action="/tenants/{{ $tenant->tenant_id }}" method="POST">
                         {{ csrf_field() }}
                         @method('delete')
                         <button type="submit">Delete</button>
-                    </form> 
+                    </form>  --}}
                 <span  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#extendTenant" data-whatever="@mdo"><i class="fas fa-external-link-alt fa-sm text-white-50"></i> Extend/Renew</span>
                 @if ($tenant->tenant_status === 'active' || $tenant->tenant_status === 'pending')
                     @if($pending_balance > 0)
@@ -758,7 +758,7 @@
 
         var j=1;
     $("#add_charges").click(function(){
-        $('#row'+j).html("<th class='text-center'>"+ (j) +"</th><td><select form='extendTenantForm' name='desc"+j+"' name='desc"+j+"' class='form-control' required><option value='Security Deposit (Rent)'>Security Deposit (Rent)</option><option value='Security Deposit (Utilities)'>Security Deposit (Utilities)</option><option value='Advance Rent'>Advance Rent</option></select></td><td><input form='extendTenantForm' name='amt"+j+"' type='number' min='1' class='form-control input-md' required></td>");
+        $('#row'+j).html("<th class='text-center'>"+ (j) +"</th><td><select form='extendTenantForm' name='desc"+j+"' name='desc"+j+"' class='form-control' required><option value='Security Deposit (Rent)'>Security Deposit (Rent)</option><option value='Security Deposit (Utilities)'>Security Deposit (Utilities)</option><option value='Advance Rent'>Advance Rent</option><option value='Genenral Cleaning'>General Cleaning<option value='Management Fee'>Management Fee</option></select></td><td><input form='extendTenantForm' name='amt"+j+"' type='number' min='1' class='form-control input-md' required></td>");
 
      $('#extend_table').append('<tr id="row'+(j+1)+'"></tr>');
      j++;

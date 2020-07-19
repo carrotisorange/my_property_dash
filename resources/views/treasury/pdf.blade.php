@@ -37,7 +37,12 @@
               <tr>
                 <th>{{ $item->payment_id }}</th>
                 <td>{{ $item->payment_note }}</td>
-                <td>{{  $item->or_number}}</td>
+                <td>
+                  @if($item->or_number === null)
+                  -
+                  @else
+                  {{ $item->or_number }}
+                  @endif
                 <td >{{ number_format($item->amt_paid,2) }}</td>
               </tr>
               @endforeach

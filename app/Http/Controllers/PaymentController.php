@@ -20,7 +20,7 @@ class PaymentController extends Controller
     {
         $search = $request->search;
 
-        $request->session()->put(Auth::user()->property.'search_payment', $search);
+        $request->session()->put(Auth::user()->id.'search_payment', $search);
         
            $collections = DB::table('units')
            ->select('*', DB::raw('sum(amt_paid) as total'))
@@ -52,40 +52,33 @@ class PaymentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {   
+    public function store(Request $request){   
 
         $movein_charges = DB::table('billings')
         ->where('billing_tenant_id', $request->payment_tenant_id)
-        ->whereIn('billing_desc', ['Security Deposit (Utilities)', 'Security Deposit (Rent)', 'Advance Rent'])
+        ->whereIn('billing_desc', ['Security Deposit (Utilities)', 'Security Deposit (Rent)', 'Advance Rent', 'Others', 'Management Fee', 'General Cleaning'])
         ->where('billing_status', 'unpaid')
         ->sum('billing_amt');
-		
-		$count_charges = DB::table('billings')
-        ->where('billing_tenant_id', $request->payment_tenant_id)
-        ->whereIn('billing_desc', ['Security Deposit (Utilities)', 'Security Deposit (Rent)', 'Advance Rent'])
-        ->where('billing_status', 'unpaid')
-        ->count();
 
         //payment for movein charges
        if($request->tenant_status === 'pending'){
         if($movein_charges <= $request->amt_paid){
 
-            //marked move-in charges as paid
-            for($i = 0; $i<3 ; $i++){
-                DB::table('payments')->insert([
-                    'payment_tenant_id' => $request->payment_tenant_id,
-                    'payment_created' => $request->payment_created,
-                    'amt_paid' => $request->amt_paid,
-                    'or_number' => $request->or_number,
-                    'ar_number' => $request->ar_number,
-                    'bank_name' => $request->bank_name,
-                    'form_of_payment' => $request->form_of_payment,
-                    'check_no' => $request->check_no,
-                    'date_deposited' => $request->date_deposited,
-                    'payment_note' => $request->payment_note,
-                ]);
-            }  
+            for($i = 1; $i<=$request->ctr; $i++){
+                DB::table('payments')->insert(
+                    [
+                        'payment_tenant_id' => $request->payment_tenant_id,
+                        'payment_created' => $request->payment_created,
+                        'amt_paid' => $request->input('amt'.$i),
+                        'or_number' => $request->or_number,
+                        'ar_number' => $request->ar_number,
+                        'bank_name' => $request->bank_name,
+                        'form_of_payment' => $request->form_of_payment,
+                        'check_no' => $request->check_no,
+                        'date_deposited' => $request->date_deposited,
+                        'payment_note' =>  $request->input('desc'.$i),
+                    ]);
+                }
 
             //change tenant's status to active.
             DB::table('tenants')
@@ -111,31 +104,31 @@ class PaymentController extends Controller
                         'updated_at' => Carbon::now(), 
                     ]);
         }else{
-            return back()->with('error','Payment has been rejected. Insufficient amount!');
+            return back()->with('danger','Payment has been rejected. Insufficient amount!');
         }
-       }
+       }       
 
-       DB::table('payments')->insertGetId([
-                         'payment_tenant_id' => $request->payment_tenant_id,
-                         'payment_created' => $request->payment_created,
-                         'amt_paid' => $request->amt_paid,
-                         'or_number' => $request->or_number,
-                         'ar_number' => $request->ar_number,
-                         'bank_name' => $request->bank_name,
-                         'form_of_payment' => $request->form_of_payment,
-                         'check_no' => $request->check_no,
-                         'date_deposited' => $request->date_deposited,
-                         'payment_note' => $request->payment_note
-                     ]);
+            DB::table('payments')->insert([
+                                'payment_tenant_id' => $request->payment_tenant_id,
+                                'payment_created' => $request->payment_created,
+                                'amt_paid' => $request->amt_paid,
+                                'or_number' => $request->or_number,
+                                'ar_number' => $request->ar_number,
+                                'bank_name' => $request->bank_name,
+                                'form_of_payment' => $request->form_of_payment,
+                                'check_no' => $request->check_no,
+                                'date_deposited' => $request->date_deposited,
+                                'payment_note' => $request->payment_note
+                            ]);
 
-        DB::table('billings')
-       ->where('billing_tenant_id', $request->payment_tenant_id)
-       ->whereRaw("billing_desc like '%$request->payment_note%' ")
-       ->where('billing_status', 'unpaid')
-       ->whereRaw("billing_date like '%$request->or_number_%' ")
-       ->update(['billing_status' => 'paid']); 
+                DB::table('billings')
+            ->where('billing_tenant_id', $request->payment_tenant_id)
+            ->whereRaw("billing_desc like '%$request->payment_note%' ")
+            ->where('billing_status', 'unpaid')
+            ->whereRaw("billing_date like '%$request->or_number_%' ")
+            ->update(['billing_status' => 'paid']); 
 
-       return back()->with('success','Payment has been recorded!');
+            return back()->with('success','Payment has been recorded!');
     }
 
     /**

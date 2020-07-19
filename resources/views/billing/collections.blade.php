@@ -318,45 +318,108 @@
         </nav>
         <!-- End of Topbar -->
         <div class="container-fluid">
+
+           <!-- Content Column -->
+           <div class="col-lg-12 mb-4">
+            <!-- DataTales Example -->
+            <div class="card shadow mb-4">
+             <div class="card-header py-3">
+               <h6 class="m-0 font-weight-bold text-primary">DAILY COLLECTION</h6>
+             </div>
+             <div class="card-body">
+               <div class="table-responsive">
+                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                   <thead>
+                    <tr>
+                        <th class="text-center">#</th>
+                        <th>TENANT</th>
+                        <th>UNIT/ROOM</th>
+                        <th>DESCRIPTION</th>
+                        <th>AMOUNT</th>
+                        <th></th>
+                    </tr>
+                    
+                  </thead>
+                   <tbody>
+                    @foreach ($collections_for_the_day as $item)
+                    <tr>
+                      <th class="text-center">{{ $item->ar_number }}</th>
+                       
+                        <td>{{ $item->first_name.' '.$item->last_name }}</td>
+                        <td>{{ $item->building.' '.$item->unit_no }}</td>
+                        <td>{{ $item->payment_note }}</td>
+                        
+                        <td>{{ number_format($item->total,2) }}</td>
+                        <td>
+                          <a title="export pdf" target="_blank" href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/payments/{{ $item->payment_id }}/dates/{{$item->payment_created}}/export" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i></a>
+                          {{-- <a id="" target="_blank" href="#" title="print invoice" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-print fa-sm text-white-50"></i></a>  --}}
+                          
+                        </td>
+                    </tr>
+                    @endforeach
+                   </tbody>
+                 </table>
+                 <table class="table" id="dataTable" width="100%" cellspacing="0">
+                  <tr>
+                   <th>TOTAL</th>
+                   <th class="text-right">{{ number_format($collections_for_the_day->sum('total'),2) }}</th>
+                  </tr>
+                </table>
+               </div>
+             </div>
+           </div>
+   
+               </div>
+
               
-          <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Collections</h1>
-          </div>
             <!-- 404 Error Text -->
-            <div class="table-responsive">
-                  <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                        <tr>
-                            <th class="text-center">#</th>
-                            <th>DATE PAID</th>
-                            <th>NAME</th>
-                            <th>UNIT/ROOM</th> 
-                            <th>AMOUNT</th>
-                            <th></th>
-                        </tr>
-                        @foreach ($collections as $item)
-                        <tr>
-                            <th class="text-center">{{ $item->ar_number }}</th>
-                            <td>{{ Carbon\Carbon::parse($item->payment_created)->format('M d Y') }}</td>
-                            <td>{{ $item->first_name.' '.$item->last_name }}</td>
-                            <td>{{ $item->building.' '.$item->unit_no }}</td>
-                            
-                            <td>{{ number_format($item->total,2) }}</td>
-                            <td>
-                              <a title="export pdf" target="_blank" href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/payments/{{ $item->payment_id }}/dates/{{$item->payment_created}}/export" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i></a>
-                              {{-- <a target="_blank" href="#" title="print invoice" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-print fa-sm text-white-50"></i></a> 
-                              --}}
-                            </td>
-                            {{-- <td>
-                                <form action="/payments/{{ $item->payment_id }}" method="POST">
-                                    @method('delete')
-                                    @csrf
-                                    <button type="submit" class="btn btn-danger">Delete</button>
-                                </form>
-                            </td> --}}
-                        </tr>
-                        @endforeach
-                    </table>
-            </div>
+           <div class="row">
+             <div class="col-md-12">
+              <h4 class="h3 mb-0 text-gray-800">Other Collections</h4>
+              <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                      <tr>
+                          <th class="text-center">#</th>
+                          <th>DATE PAID</th>
+                          <th>NAME</th>
+                          <th>UNIT/ROOM</th> 
+                          <th>AMOUNT</th>
+                          <th></th>
+                      </tr>
+                      @foreach ($collections as $item)
+                      <tr>
+                          <th class="text-center">{{ $item->ar_number }}</th>
+                          <td>{{ Carbon\Carbon::parse($item->payment_created)->format('M d Y') }}</td>
+                          <td>{{ $item->first_name.' '.$item->last_name }}</td>
+                          <td>{{ $item->building.' '.$item->unit_no }}</td>
+                          
+                          <td>{{ number_format($item->total,2) }}</td>
+                          <td>
+                            <a title="export pdf" target="_blank" href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/payments/{{ $item->payment_id }}/dates/{{$item->payment_created}}/export" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i></a>
+                            {{-- <a target="_blank" href="#" title="print invoice" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-print fa-sm text-white-50"></i></a> 
+                            --}}
+                          </td>
+                          {{-- <td>
+                              <form action="/payments/{{ $item->payment_id }}" method="POST">
+                                  @method('delete')
+                                  @csrf
+                                  <button type="submit" class="btn btn-danger">Delete</button>
+                              </form>
+                          </td> --}}
+                      </tr>
+                      @endforeach
+                  </table>
+                  <table class="table" id="dataTable" width="100%" cellspacing="0">
+                    <tr>
+                     <th>TOTAL</th>
+                     <th class="text-right">{{ number_format($collections->sum('total'),2) }}</th>
+                    </tr>
+                  </table>
+          </div>
+             </div>
+             </div>
+           </div>
             </div>
        
       </div>

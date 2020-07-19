@@ -303,14 +303,14 @@ class TenantController extends Controller
     
             $payment_ctr = DB::table('units')
             ->join('tenants', 'unit_id', 'unit_tenant_id')
-            ->join('billings', 'tenant_id', 'billing_tenant_id')
+            ->join('payments', 'tenant_id', 'payment_tenant_id')
             ->where('unit_property', Auth::user()->property)
             ->count();
 
             $movein_charges = DB::table('billings')
             ->where('billing_tenant_id', $tenant_id)
             ->where('billing_amt','>',0)
-            ->whereIn('billing_desc',['Security Deposit (Rent)', 'Advance Rent','Security Deposit (Utilities)','General Cleaning','Management Fee'])
+            ->whereIn('billing_desc', ['Security Deposit (Utilities)', 'Security Deposit (Rent)', 'Advance Rent', 'Others', 'Management Fee', 'General Cleaning'])
             ->get();
 
             $payments = DB::table('payments')->where('payment_tenant_id', $tenant_id)->where('amt_paid','>',0)->get();
@@ -586,7 +586,17 @@ class TenantController extends Controller
                         'billing_desc' =>  $request->input('desc'.$i),
                         'billing_amt' =>  $request->input('amt'.$i)
                     ]);
+
+                    DB::table('tenants')
+                    ->where('tenant_id', $request->input('tenant'.$i))
+                    ->where('tenant_status', 'active')
+                    ->update(
+                                [
+                                    'tenants_note' => ''
+                                ]
+                            );
             }
+            
         }
         else{
 
@@ -599,6 +609,15 @@ class TenantController extends Controller
                     'details' => $request->input('details'.$i),
                     'billing_amt' =>  $request->input('amt'.$i)
                 ]);
+
+                DB::table('tenants')
+                ->where('tenant_id', $request->input('tenant'.$i))
+                ->where('tenant_status', 'active')
+                ->update(
+                            [
+                                'tenants_note' => ''
+                            ]
+                        );
         }
     }
         
