@@ -549,7 +549,7 @@
 
         <div class="row">
 
-          <div class="col-lg-2 col-md-6">
+          <div class="col-lg-4 col-md-6">
             <div class="box">
               <h3>Basic</h3>
               <h4><sup>₱</sup>450<span> / month</span></h4>
@@ -567,7 +567,7 @@
             </div>
           </div>
 
-          <div class="col-lg-2 col-md-6 mt-4 mt-md-0">
+          <div class="col-lg-4 col-md-6 mt-4 mt-md-0">
             <div class="box featured">
               <h3>Medium</h3>
               <h4><sup>₱</sup>950<span> / month</span></h4>
@@ -585,7 +585,7 @@
             </div>
           </div>
 
-          <div class="col-lg-2 col-md-6 mt-4 mt-lg-0">
+          <div class="col-lg-4 col-md-6 mt-4 mt-lg-0">
             <div class="box">
               <h3>Large</h3>
               <h4><sup>₱</sup>1800<span> / month</span></h4>
@@ -602,9 +602,12 @@
               </div>
             </div>
           </div>
-          
+        </div>
 
-          <div class="col-lg-2 col-md-6 mt-4 mt-lg-0">
+        <div class="row">
+
+
+          <div class="col-lg-4 col-md-6 mt-4 mt-lg-0">
             <div class="box">
           
               <h3>Enterprise</h3>
@@ -623,7 +626,7 @@
             </div>
           </div>
 
-          <div class="col-lg-2 col-md-6 mt-4 mt-lg-0">
+          <div class="col-lg-4 col-md-6 mt-4 mt-lg-0">
             <div class="box">
               <span class="advanced">Advanced</span>
               <h3>Corporate</h3>
