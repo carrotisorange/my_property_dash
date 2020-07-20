@@ -52,7 +52,7 @@ class PaymentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request){   
+    public function store(Request $request){  
 
         $movein_charges = DB::table('billings')
         ->where('billing_tenant_id', $request->payment_tenant_id)
@@ -80,16 +80,6 @@ class PaymentController extends Controller
                     ]);
                 }
 
-            //change tenant's status to active.
-            DB::table('tenants')
-            ->where('tenant_id', $request->payment_tenant_id)
-            ->update(
-                        [
-                            'tenant_status'=> 'active',
-                            'tenants_note' => 'new tenant'
-                        ]
-                    );
-
             //change the billing status to paid,
             DB::table('billings')
             ->where('billing_tenant_id', $request->payment_tenant_id)
@@ -103,6 +93,19 @@ class PaymentController extends Controller
                         'status'=> 'occupied',
                         'updated_at' => Carbon::now(), 
                     ]);
+
+            
+            //change tenant's status to active.
+            DB::table('tenants')
+            ->where('tenant_id', $request->payment_tenant_id)
+            ->update(
+                        [
+                            'tenant_status'=> 'active',
+                            'tenants_note' => 'new tenant'
+                        ]
+                    );
+
+            return back()->with('success','Payment has been recorded!');
         }else{
             return back()->with('danger','Payment has been rejected. Insufficient amount!');
         }
