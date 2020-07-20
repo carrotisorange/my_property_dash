@@ -496,7 +496,7 @@
                               <?php $numberFormatter = new NumberFormatter('en_US', NumberFormatter::ORDINAL) ?>
                               <td>
                                   @for ($i = 1; $i < count($renewal_history); $i++)
-                                    @if($<0)
+                                    @if($i<0)
                                     @else
                                       {{ $numberFormatter->format($i-1) .' renewal: '.$renewal_history[$i] }}<br>
                                     @endif
