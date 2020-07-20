@@ -106,11 +106,11 @@ class UserController extends Controller
     {
         if($request->password === null){
             DB::table('users')
-            
+           -> where('property', Auth::user()->property)
             ->update(
-                [
-                   'account_type' => 'free'
-                ]
+                    [
+                        'account_type' => 'corporate'
+                    ]
                 );
 
                 return redirect('/users/'.$user_id)->with('success', 'User Profile has been updated!');
