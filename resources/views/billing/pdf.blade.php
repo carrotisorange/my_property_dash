@@ -44,10 +44,11 @@
                   <th>{{ $item->billing_id }}</th>
                   <td>{{ $item->billing_desc }}</td>
                   <td>
-                     @if($item->details === null)
-                    -
-                    @else
+                    @if($item->details === null)
                     {{ $item->details }}
+                    @else
+                     -
+                    @endif
                     @endif
                   </td>
                   <th class="text-right" colspan="3">{{ number_format($item->billing_amt,2) }}</th>
@@ -60,9 +61,9 @@
                   <td>{{ $item->billing_desc }}</td>
                   <td> 
                     @if($item->details === null)
-                    -
-                    @else
                     {{ $item->details }}
+                    @else
+                     -
                     @endif
                   </td>
                   <th class="text-right" colspan="3">{{ number_format($item->billing_amt,2) }}</th>
