@@ -63,10 +63,19 @@
              <th>TOTAL AMOUNT PAYABLE</th>
              <th class="text-right">{{ number_format($total_bills,2) }} </th>
             </tr>
+            @if($tenant_status === 'pending')
+
+            @else
             <tr>
               <th class="text-danger">TOTAL AMOUNT PAYABLE AFTER DUE DATE (+10%)</th>
               <th class="text-right text-danger">{{ number_format($total_bills + ($total_bills * .1) ,2) }}</th>
              </tr>
+            @endif
+             @if(Auth::user()->user_type === 'treasury' || Auth::user()->user_type === 'manager')
+             <tr>
+               <td colspan="2" class="text-right"><a href="#" data-toggle="modal" data-target="#acceptPayment" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Add Payment</a> </td>
+             </tr>
+             @endif     
           </table>
           <ul style="list-style-type: none">
             <li><b>Posted by:</b> {{ Auth::user()->name }}</li>
