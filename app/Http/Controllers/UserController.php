@@ -106,7 +106,7 @@ class UserController extends Controller
     {
         if($request->password === null){
             DB::table('users')
-           -> where('property', Auth::user()->property)
+            ->where('id', $user->id)
             ->update(
                     [
                         'account_type' => 'corporate'
