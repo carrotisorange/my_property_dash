@@ -482,13 +482,12 @@
                                 </span>  
                                
                                @if($tenant->tenant_status === 'pending')
-
                                @else
-                               @if($diffInDays <= -1)
-                               <span class="badge badge-danger">contract has lapsed {{ $diffInDays*-1 }} days ago</span> 
-                             @else
-                               <span class="badge badge-warning">contract expires in {{ $diffInDays }} days </span>
-                             @endif
+                                  @if($diffInDays <= -1)
+                                  <span class="badge badge-danger">contract has lapsed {{ $diffInDays*-1 }} days ago</span> 
+                                  @else
+                                  <span class="badge badge-warning">contract expires in {{ $diffInDays }} days </span>
+                                  @endif
                                @endif
                               </td>
                           </tr>
@@ -497,7 +496,10 @@
                               <?php $numberFormatter = new NumberFormatter('en_US', NumberFormatter::ORDINAL) ?>
                               <td>
                                   @for ($i = 1; $i < count($renewal_history); $i++)
-                                     {{ $numberFormatter->format($i-1) .' renewal: '.$renewal_history[$i] }}<br>
+                                    @if($<0)
+                                    @else
+                                      {{ $numberFormatter->format($i-1) .' renewal: '.$renewal_history[$i] }}<br>
+                                    @endif
                                   @endfor     
                               </td>
                           </tr>
