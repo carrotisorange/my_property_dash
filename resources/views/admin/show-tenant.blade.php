@@ -481,11 +481,15 @@
                                   ({{ count($renewal_history)-1 }}x) 
                                 </span>  
                                
-                                @if($diffInDays <= -1)
-                                  <span class="badge badge-danger">contract has lapsed {{ $diffInDays*-1 }} days ago</span> 
-                                   @else
-                                  <span class="badge badge-warning">contract expires in {{ $diffInDays }} days </span>
-                                   @endif
+                               @if($tenant->tenant_status === 'pending')
+
+                               @else
+                               @if($diffInDays <= -1)
+                               <span class="badge badge-danger">contract has lapsed {{ $diffInDays*-1 }} days ago</span> 
+                             @else
+                               <span class="badge badge-warning">contract expires in {{ $diffInDays }} days </span>
+                             @endif
+                               @endif
                               </td>
                           </tr>
                           <tr>
