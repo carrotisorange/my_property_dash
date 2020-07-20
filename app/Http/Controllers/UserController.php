@@ -109,7 +109,8 @@ class UserController extends Controller
             ->where('id', $user->id)
             ->update(
                     [
-                        'account_type' => 'corporate'
+                        'name' => $request->name,
+                        'email' => $request->email,
                     ]
                 );
 
