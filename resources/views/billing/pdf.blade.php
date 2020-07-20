@@ -43,7 +43,13 @@
               <tr>
                   <th>{{ $item->billing_id }}</th>
                   <td>{{ $item->billing_desc }}</td>
-                  <td>{{ $item->details }}</td>
+                  <td>
+                     @if($item->details === null)
+                    -
+                    @else
+                    {{ $item->details }}
+                    @endif
+                  </td>
                   <th class="text-right" colspan="3">{{ number_format($item->billing_amt,2) }}</th>
               </tr>
               @endforeach
@@ -52,7 +58,13 @@
               <tr>
                 <th>{{ $item->billing_id }}</th>
                   <td>{{ $item->billing_desc }}</td>
-                  <td>{{ $item->details }}</td>
+                  <td> 
+                    @if($item->details === null)
+                    -
+                    @else
+                    {{ $item->details }}
+                    @endif
+                  </td>
                   <th class="text-right" colspan="3">{{ number_format($item->billing_amt,2) }}</th>
               </tr>
               @endforeach
