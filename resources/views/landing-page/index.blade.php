@@ -549,17 +549,17 @@
 
         <div class="row">
 
-          <div class="col-lg-3 col-md-6">
+          <div class="col-lg-2 col-md-6">
             <div class="box">
               <h3>Basic</h3>
-              <h4><sup>$</sup>9<span> / month</span></h4>
+              <h4><sup>₱</sup>450<span> / month</span></h4>
               <ul>
                 {{-- <li>1 building </li> --}}
                 <li>20 rooms</li>
-                <li>1 manager</li>
-                <li>1 admin</li>
+                <li>1 user</li>
+                {{-- <li>1 admin</li>
                 <li>1 billing</li>
-                <li>1 treasury</li>
+                <li>1 treasury</li> --}}
               </ul>
               <div class="btn-wrap">
                 <a href="/register" class="btn-buy">TRY FOR FREE</a>
@@ -567,17 +567,17 @@
             </div>
           </div>
 
-          <div class="col-lg-3 col-md-6 mt-4 mt-md-0">
+          <div class="col-lg-2 col-md-6 mt-4 mt-md-0">
             <div class="box featured">
               <h3>Medium</h3>
-              <h4><sup>$</sup>19<span> / month</span></h4>
+              <h4><sup>₱</sup>950<span> / month</span></h4>
               <ul>
                 {{-- <li>2-3 buildings</li> --}}
-                <li>100 rooms</li>
-                <li>1 manager</li>
-                <li>1 admin</li>
+                <li>50 rooms</li>
+                <li>5 usersr</li>
+                {{-- <li>1 admin</li>
                 <li>1 billing</li>
-                <li>1 treasury</li>
+                <li>1 treasury</li> --}}
               </ul>
               <div class="btn-wrap">
                 <a href="/register" class="btn-buy">TRY FOR FREE</a>
@@ -585,17 +585,17 @@
             </div>
           </div>
 
-          <div class="col-lg-3 col-md-6 mt-4 mt-lg-0">
+          <div class="col-lg-2 col-md-6 mt-4 mt-lg-0">
             <div class="box">
               <h3>Large</h3>
-              <h4><sup>$</sup>36<span> / month</span></h4>
+              <h4><sup>₱</sup>1800<span> / month</span></h4>
               <ul>
                 {{-- <li>3-4 buildings</li> --}}
-                <li>200 rooms</li>
-                <li>1 manager</li>
-                <li>1 admin</li>
+                <li>100 rooms</li>
+                <li>10 users</li>
+                {{-- <li>1 admin</li>
                 <li>1 billing</li>
-                <li>1 treasury</li>
+                <li>1 treasury</li> --}}
               </ul>
               <div class="btn-wrap">
                 <a href="/register" class="btn-buy">TRY FOR FREE</a>
@@ -604,18 +604,37 @@
           </div>
           
 
-          <div class="col-lg-3 col-md-6 mt-4 mt-lg-0">
+          <div class="col-lg-2 col-md-6 mt-4 mt-lg-0">
             <div class="box">
-              <span class="advanced">Advanced</span>
+          
               <h3>Enterprise</h3>
-              <h4><sup>$</sup>48<span> / month</span></h4>
+              <h4><sup>₱</sup>2400<span> / month</span></h4>
               <ul>
                 {{-- <li>Unlimited buildings</li> --}}
-                <li>Unlimited rooms</li>
-                <li>1 manager</li>
-                <li>1 admin</li>
+                <li>200 rooms</li>
+                <li>Unlimited users manager</li>
+                {{-- <li>1 admin</li>
                 <li>1 billing</li>
-                <li>1 treasury</li>
+                <li>1 treasury</li> --}}
+              </ul>
+              <div class="btn-wrap">
+                <a href="/register" class="btn-buy">TRY FOR FREE</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-2 col-md-6 mt-4 mt-lg-0">
+            <div class="box">
+              <span class="advanced">Advanced</span>
+              <h3>Corporate</h3>
+              <h4><sup>₱</sup>4800<span> / month</span></h4>
+              <ul>
+                {{-- <li>Unlimited buildings</li> --}}
+                <li>500 rooms</li>
+                <li>Unlimited users</li>
+                {{-- <li>1 admin</li>
+                <li>1 billing</li>
+                <li>1 treasury</li> --}}
               </ul>
               <div class="btn-wrap">
                 <a href="/register" class="btn-buy">TRY FOR FREE</a>
