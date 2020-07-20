@@ -357,7 +357,7 @@
                                 <option value="billing">billing</option>
                                 <option value="manager">manager</option>
                                 <option value="treasury">treasury</option>
-                                <option value="root">root</option>
+                                
                             </select>
                         </div>
                         {{-- <div class="col">
@@ -374,7 +374,7 @@
                     </div>
                     <br>
                       <p class="text-right">
-                        <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" type="submit" form="addUserForm" onclick="return confirm('Are you sure you want perform this action?');" ><i class="fas fa-check fa-sm text-white-50"></i> Add</button>
+                        <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" type="submit" form="addUserForm" onclick="return confirm('Are you sure you want perform this action?');" ><i class="fas fa-check fa-sm text-white-50"></i> Add User</button>
                       </p>
 
                 </div>
