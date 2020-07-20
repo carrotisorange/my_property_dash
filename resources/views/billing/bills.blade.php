@@ -375,7 +375,7 @@
                     <td>{{ $item->building.' '.$item->unit_no }}</td>
                     <td>{{ $item->billing_desc.'-'.$item->details }}</td>
                    
-                    <td>{{ number_format($item->total,2) }}</td>
+                    <td>{{ number_format($item->billing_amt,2) }}</td>
                     <td>
                       @if($item->billing_status === 'paid')
                       <span class="badge badge-success">{{ $item->billing_status }}</span>

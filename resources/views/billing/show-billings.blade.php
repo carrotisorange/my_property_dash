@@ -360,9 +360,9 @@
                       <td>{{ $item->billing_desc }}</td>
                       <td>
                         @if($item->details === null)
-                        {{ $item->details }}
-                        @else
                         -
+                        @else
+                        {{ $item->details }}
                         @endif
                       </td>
                       <td class="text-right" colspan="3">{{ number_format($item->billing_amt,2) }}</td>
@@ -375,9 +375,9 @@
                       <td>{{ $item->billing_desc }}</td>
                       <td>
                         @if($item->details === null)
-                        {{ $item->details }}
+                        -
                         @else
-                         -
+                        {{ $item->details }}
                         @endif
                       </td>
                       <td class="text-right" colspan="3">{{ number_format($item->billing_amt,2) }}</td>
