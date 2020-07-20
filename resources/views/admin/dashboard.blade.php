@@ -520,6 +520,7 @@
                               @endforeach
                             </tbody>
                           </table>
+                          {{ $tenants_to_watch_out->links() }}
                          </div>
                        </div>
                      </div>
