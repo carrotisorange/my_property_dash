@@ -574,7 +574,7 @@
               <ul>
                 {{-- <li>2-3 buildings</li> --}}
                 <li>50 rooms</li>
-                <li>5 usersr</li>
+                <li>5 users</li>
                 {{-- <li>1 admin</li>
                 <li>1 billing</li>
                 <li>1 treasury</li> --}}
@@ -617,7 +617,7 @@
               <ul>
                 {{-- <li>Unlimited buildings</li> --}}
                 <li>200 rooms</li>
-                <li>Unlimited users manager</li>
+                <li>Unlimited users </li>
                 {{-- <li>1 admin</li>
                 <li>1 billing</li>
                 <li>1 treasury</li> --}}
