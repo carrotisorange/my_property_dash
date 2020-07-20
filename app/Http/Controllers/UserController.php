@@ -51,7 +51,7 @@ class UserController extends Controller
         DB::table('users')->insert([
             'name' => $request->name,
             'email' => $request->email,
-            'status' => $request->status,
+            'status' => 'registered',
             'user_type' => $request->user_type,
             'property' => Auth::user()->property,
             'property_type' => Auth::user()->property_type,
