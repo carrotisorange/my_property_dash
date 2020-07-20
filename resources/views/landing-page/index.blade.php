@@ -603,11 +603,13 @@
             </div>
           </div>
         </div>
+        
+        <br>
 
         <div class="row">
 
 
-          <div class="col-lg-4 col-md-6 mt-4 mt-lg-0">
+          <div class="col-lg-6 col-md-6 mt-4 mt-lg-0">
             <div class="box">
           
               <h3>Enterprise</h3>
@@ -626,7 +628,7 @@
             </div>
           </div>
 
-          <div class="col-lg-4 col-md-6 mt-4 mt-lg-0">
+          <div class="col-lg-6 col-md-6 mt-4 mt-lg-0">
             <div class="box">
               <span class="advanced">Advanced</span>
               <h3>Corporate</h3>
