@@ -758,8 +758,6 @@ class TenantController extends Controller
                 
                 'tenant' => $tenant->first_name.' '.$tenant->last_name ,
 
-                'tenant_status' => $tenant->tenant_status,
-
                 'unit' => $unit->building.' '.$unit->unit_no,
 
                 'payment_amt' => $payment_amt,
@@ -792,6 +790,8 @@ class TenantController extends Controller
         $data = [
             
             'tenant' => $tenant->first_name.' '.$tenant->last_name ,
+
+            'tenant_status' => $tenant->tenant_status,
 
             'unit' => $unit->building.' '.$unit->unit_no,
 
