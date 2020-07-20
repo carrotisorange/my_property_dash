@@ -383,7 +383,7 @@
                       <span class="badge badge-danger">{{ $item->billing_status }} </span>
                        @endif
                       </td>
-                      <td><a href="units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/billings">View</a></td>
+                      <td><a href="units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/billings"> <span class="badge badge-primary">View</span></a></td>
                 </tr>
                 @endforeach
             </table>
