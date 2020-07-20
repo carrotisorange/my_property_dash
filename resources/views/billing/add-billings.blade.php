@@ -356,7 +356,11 @@
               <th class="text-center" >{{ $col_ctr++ }}</th>
               <input class="form-control" type="hidden" form="add_billings" name="ctr" value="{{ $ctr++ }}" readonly>     
                 
-                <td>{{ $item->first_name.' '.$item->last_name }}<input type="hidden" form="add_billings" name="tenant{{ $id_ctr++ }}" value={{ $item->tenant_id }}></td>
+                <td>{{ $item->first_name.' '.$item->last_name }} 
+                  @if($item->tenants_note === 'new tenant')
+                  <span class="badge badge-success">{{ $item->tenants_note }}</span>
+                  @endif
+                  <input type="hidden" form="add_billings" name="tenant{{ $id_ctr++ }}" value={{ $item->tenant_id }}></td>
                 <td>{{ $item->building.' '.$item->unit_no }}</td>
                 <input class="form-control" type="hidden" form="add_billings" name="desc{{ $desc_ctr++ }}" value="Monthly Rent" readonly>
                 <td>
@@ -371,7 +375,7 @@
     
         <p class="text-right">
             <a href="/bills" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</a>
-            <button type="submit" form="add_billings" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"  onclick="return confirm('Are you sure you want perform this action?');"><i class="fas fa-check fa-sm text-white-50"></i> Submit</button>
+            <button type="submit" form="add_billings" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"  onclick="return confirm('Are you sure you want perform this action?');"><i class="fas fa-check fa-sm text-white-50"></i> Add Bills</button>
         </p>
         </div>
     </div>

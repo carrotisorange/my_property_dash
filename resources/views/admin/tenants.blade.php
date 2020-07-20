@@ -360,7 +360,11 @@
                                 @endif
                               </a>
                               @else
-                              <a href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/billings">{{ $item->first_name.' '.$item->last_name }}</a>
+                              <a href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/billings">{{ $item->first_name.' '.$item->last_name }}
+                                @if($item->tenants_note === 'new tenant')
+                                <span class="badge badge-success">{{ $item->tenants_note }}</span>
+                                @endif
+                              </a>
                               @endif
                           </td>
                           <td>{{ $item->building.' '.$item->unit_no }}</td>

@@ -101,7 +101,7 @@ class PaymentController extends Controller
             ->update(
                         [
                             'tenant_status'=> 'active',
-                            'tenants_note' => 'new tenant'
+                            'tenants_note' => 'new'
                         ]
                     );
 
