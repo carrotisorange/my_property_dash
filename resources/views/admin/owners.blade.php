@@ -340,7 +340,7 @@
                     <thead>
                         <tr>
                            <th>#</th>
-                           <th>NAME</th>
+                           <th>OWNER</th>
                            <th>UNIT/ROOM</th>
                            <th>MOBILE</th>
                            <th>CONTRACT PERIOD</th>
@@ -363,9 +363,6 @@
         
         </div>
 
-        
-        
-       
       </div>
       <!-- End of Main Content -->
 
