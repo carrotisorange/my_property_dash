@@ -324,7 +324,9 @@
                   {{-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> --}}
                 </div>
       
-                <!-- Content Row -->
+
+                @if(Auth::user()->property_type !== 'Commercial Complex' || Auth::user()->property_ownership === 'Multiple Owners')
+   <!-- Content Row -->
                 <div class="row">
       
                   <!-- Earnings (Monthly) Card Example -->
@@ -336,9 +338,9 @@
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">UNITS/ROOMS </div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $units->count() }}</div>
                             
-                            <small>OC ({{ $units_occupied->count() }})</small>
-                            <small>VC ({{ $units_vacant->count() }})</small>
-                            <small>RS ({{ $units_reserved->count() }})</small>
+                            <small>O ({{ $units_occupied->count() }})</small>
+                            <small>V ({{ $units_vacant->count() }})</small>
+                            <small>R ({{ $units_reserved->count() }})</small>
                             
                           </div>
                           <div class="col-auto">
@@ -357,7 +359,7 @@
                           <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">ACTIVE TENANTS </div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $active_tenants->count() }}</div>
-                            <small>PENDING ({{ $pending_tenants->count() }})</small>
+                            <small>P ({{ $pending_tenants->count() }})</small>
                             
                           </div>
                           <div class="col-auto">
@@ -368,13 +370,14 @@
                     </div>
                   </div>
       
+                
                   <!-- Earnings (Monthly) Card Example -->
                   <div class="col-xl-3 col-md-6 mb-4">
                     <div class="card border-left-warning shadow h-100 py-2">
                       <div class="card-body">
                         <div class="row no-gutters align-items-center">
                           <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">UNIT/ROOM OWNERS </div>
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">UNIT OWNERS </div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $owners->count() }}</div>
                             <small>|</small>
                             
@@ -386,7 +389,7 @@
                       </div>
                     </div>
                   </div>
-      
+                  
                   <!-- Pending Requests Card Example -->
                   <div class="col-xl-3 col-md-6 mb-4">
                     <div class="card border-left-danger shadow h-100 py-2">
@@ -405,6 +408,72 @@
                     </div>
                   </div>
                 </div>
+
+                @else
+   <!-- Content Row -->
+                <div class="row">
+      
+                  <!-- Earnings (Monthly) Card Example -->
+                  <div class="col-xl-4 col-md-6 mb-4">
+                    <div class="card border-left-primary shadow h-100 py-2">
+                      <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                          <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">UNITS/ROOMS </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $units->count() }}</div>
+                            
+                            <small>O ({{ $units_occupied->count() }})</small>
+                            <small>V ({{ $units_vacant->count() }})</small>
+                            <small>R ({{ $units_reserved->count() }})</small>
+                            
+                          </div>
+                          <div class="col-auto">
+                              <i class="fas fa-home fa-2x text-gray-300"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+      
+                  <!-- Earnings (Monthly) Card Example -->
+                  <div class="col-xl-4 col-md-6 mb-4">
+                    <div class="card border-left-success shadow h-100 py-2">
+                      <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                          <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">ACTIVE TENANTS </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $active_tenants->count() }}</div>
+                            <small>P ({{ $pending_tenants->count() }})</small>
+                            
+                          </div>
+                          <div class="col-auto">
+                            <i class="fas fa-user-check fa-2x text-gray-300"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- Pending Requests Card Example -->
+                  <div class="col-xl-4 col-md-6 mb-4">
+                    <div class="card border-left-danger shadow h-100 py-2">
+                      <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                          <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">PENDING JOB ORDERS</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+                            <small>|</small>
+                          </div>
+                          <div class="col-auto">
+                            <i class="fas fa-tools fa-2x text-gray-300"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                @endif
       
                 
                 <!-- Content Row -->
