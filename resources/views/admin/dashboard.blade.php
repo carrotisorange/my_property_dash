@@ -25,7 +25,7 @@
   <!-- Page Wrapper -->
   <div id="wrapper">
 
-    <!-- Sidebar -->
+  <!-- Sidebar -->
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       {{-- <!-- Sidebar - Brand -->
@@ -33,53 +33,54 @@
         
         <div class="sidebar-brand-text mx-5"> </div>
       </a>
-
+  
       <!-- Divider -->
       <hr class="sidebar-divider my-0"> --}}
-
+  
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
         <a class="nav-link" href="/">
-          {{-- <i class="fas fa-fw fa-tachometer-alt"></i> --}}
+           <i class="fas fa-home"></i> 
           <span>The Property Manager</span></a>
       </li>
-
+  
       <!-- Divider -->
       <hr class="sidebar-divider">
-
-      <!-- Heading -->
-      {{-- <div class="sidebar-heading">
+  
+      {{-- <!-- Heading -->
+       <div class="sidebar-heading">
         Interface
-      </div> --}}
-
+      </div>  --}}
+  
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item active">
         <a class="nav-link" href="/">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
-
-      @if(Auth::user()->user_type === 'admin')
+  
+      @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' )
       <li class="nav-item">
         <a class="nav-link" href="/home">
           <i class="fas fa-home"></i>
           <span>Home</span></a>
       </li>
-
-      @if(Auth::user()->user_type === 'treasury')
+  
       <li class="nav-item">
         <a class="nav-link" href="/tenants">
           <i class="fas fa-user fa-chart-area"></i>
           <span>Tenants</span></a>
       </li>
-      @endif
-      <!-- Nav Item - Tables -->
-      <li class="nav-item">
+  
+     @if(Auth::user()->property_ownership === 'Multiple Owners')
+    <!-- Nav Item - Tables -->
+    <li class="nav-item">
         <a class="nav-link" href="/owners">
-          <i class="fas fa-user-tie"></i>
-          <span>Owners</span></a>
-      </li>
-
+        <i class="fas fa-user-tie"></i>
+        <span>Owners</span></a>
+    </li>
+     @endif
+  
         <!-- Nav Item - Tables -->
       <li class="nav-item">
           <a class="nav-link" href="/joborders">
@@ -87,25 +88,25 @@
             <span>Job Orders</span></a>
         </li>
       @endif
-
-       @if(Auth::user()->user_type === 'billing')
+  
+       @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'manager')
         <!-- Nav Item - Tables -->
         <li class="nav-item">
-          <a class="nav-link" href="/billing-and-collection">
+          <a class="nav-link" href="/bills">
             <i class="fas fa-file-invoice-dollar fa-table"></i>
-            <span></span></a>
+            <span>Bills</span></a>
         </li>
        @endif
-
-       @if(Auth::user()->user_type === 'treasury')
+  
+       @if(Auth::user()->user_type === 'treasury' || Auth::user()->user_type === 'manager')
           <li class="nav-item">
-          <a class="nav-link" href="/payments">
+          <a class="nav-link" href="/collections">
             <i class="fas fa-file-invoice-dollar"></i>
             <span>Collections</span></a>
         </li>
-
+  
         @endif
-
+  
       @if(Auth::user()->user_type === 'manager')
        <!-- Nav Item - Tables -->
        <li class="nav-item">
@@ -115,15 +116,15 @@
       </li>
       @endif
       
-
+  
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
-
+  
       <!-- Sidebar Toggler (Sidebar) -->
       <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
       </div>
-
+  
     </ul>
     <!-- End of Sidebar -->
 
@@ -499,7 +500,25 @@
                                 <th>NOTE</th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbod @foreach($tenants_to_watch_out as $item)
+                              <?php $diffInDays =  number_format(Carbon\Carbon::now()->DiffInDays(Carbon\Carbon::parse($item->moveout_date), false)) ?>
+                               <tr>
+                                   <td>
+                                     <a href="{{ route('show-tenant',['unit_id' => $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a>  
+                                   </td>
+                                  <td>{{ $item->building.' '.$item->unit_no }}</td>
+                                   <td>
+                                       @if($diffInDays <= -1)
+                                       <span class="badge badge-danger">contract has lapsed {{ $diffInDays*-1 }} days ago</span>
+                                        @else
+                                       <span class="badge badge-warning">contract expires in {{ $diffInDays }} days </span>
+                                        @endif
+                                   </td>
+                                   <td>{{ $item->tenants_note }}</td>
+                              </tr>
+                             
+                              @endforeach
+                            </tbody>y>
                               @foreach($tenants_to_watch_out as $item)
                               <?php $diffInDays =  number_format(Carbon\Carbon::now()->DiffInDays(Carbon\Carbon::parse($item->moveout_date), false)) ?>
                                <tr>
