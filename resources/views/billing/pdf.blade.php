@@ -49,7 +49,6 @@
                     @else
                      -
                     @endif
-                    @endif
                   </td>
                   <th class="text-right" colspan="3">{{ number_format($item->billing_amt,2) }}</th>
               </tr>
