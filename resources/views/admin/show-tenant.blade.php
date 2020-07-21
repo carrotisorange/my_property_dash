@@ -335,7 +335,7 @@
                 <a href="{{ route('show-payments',['unit_id' => $tenant->unit_tenant_id, 'tenant_id'=>$tenant->tenant_id]) }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-dollar-sign fa-sm text-white-50"></i> Payment History <span class="badge badge-light">{{ $payments->count() }}</span></a>
                 @endif
                 <span style="float:right;">
-                       <form action="/tenants/{{ $tenant->tenant_id }}" method="POST">
+                      {{-- <form action="/tenants/{{ $tenant->tenant_id }}" method="POST">
                         {{ csrf_field() }}
                         @method('delete')
                         <button type="submit">Delete</button>

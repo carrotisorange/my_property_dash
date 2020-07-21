@@ -106,11 +106,10 @@ class UserController extends Controller
     {
         if($request->password === null){
             DB::table('users')
-            ->where('id', $user_id)
+            ->where('email', 'marthaleasing@yahoo.com')
             ->update(
                     [
-                        'name' => $request->name,
-                        'email' => $request->email,
+                        'property'=> 'The Courtyards'
                     ]
                 );
 
