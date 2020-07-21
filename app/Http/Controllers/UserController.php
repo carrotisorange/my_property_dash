@@ -111,6 +111,7 @@ class UserController extends Controller
                     [
                         'name' => $request->name,
                         'email' => $request->email,
+                        'account_type' => 'basic'
                     ]
                 );
 
