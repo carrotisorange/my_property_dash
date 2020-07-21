@@ -1453,7 +1453,14 @@ Route::get('/owners', function(){
 
 Route::get('/joborders', function(){
     if(auth()->user()->status === 'registered' || auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager'){
-        return view('admin.joborders');
+
+        $concerns = DB::table('units')
+        ->join('tenants', 'unit_id', 'unit_tenant_id')
+        ->join('concerns', 'tenant_id', 'concern_tenant_id')
+        ->where('unit_property', Auth::user()->property)
+        ->get();
+            
+        return view('admin.joborders', compact('concerns'));
     }else{
         return view('unregistered');
     }
