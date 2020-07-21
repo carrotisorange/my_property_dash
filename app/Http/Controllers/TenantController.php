@@ -632,9 +632,9 @@ class TenantController extends Controller
      */
     public function destroy($tenant_id)
     {
-        DB::table('payments')->whereIn('payment_tenant_id', ['290'. '291', '292', '293', '294', '295', '296'])->delete();
-        DB::table('billings')->whereIn('billing_tenant_id', ['290'. '291', '292', '293', '294', '295', '296'])->delete();
-        DB::table('tenants')->whereIn('tenant_id', ['290'. '291', '292', '293', '294', '295', '296'])->delete();
+        DB::table('payments')->whereIn('payment_tenant_id', ['290','291'])->delete();
+        DB::table('billings')->whereIn('billing_tenant_id', ['290', '291'])->delete();
+        DB::table('tenants')->whereIn('tenant_id', ['290', '291', '292'])->delete();
 
         return back()->with('success', 'Tenant has been successfully deleted!');
     }
