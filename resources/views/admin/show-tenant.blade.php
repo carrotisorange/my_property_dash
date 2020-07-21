@@ -324,12 +324,13 @@
           @endif
           @endforeach
             <h5 style="text-align:left;">
-                <a href="/units/{{ $tenant->unit_tenant_id }}"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-home fa-sm text-white-50"></i> Go back to the unit/room</a>
+                <a href="/units/{{ $tenant->unit_tenant_id }}"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> Back to room</a>
                 @if(Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'admin')
                 <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/edit"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-user-edit fa-sm text-white-50"></i> Edit</a>  
+                <span  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addConcern" data-whatever="@mdo"><i class="fas fa-plus fa-sm text-white-50"></i> Add Concern</span>  
                 @endif
                 @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'manager')
-                <a href="{{ route('show-billings',['unit_id' => $tenant->unit_tenant_id, 'tenant_id'=>$tenant->tenant_id]) }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-file-invoice-dollar fa-sm text-white-50"></i> Bills <span class="badge badge-light">{{ $billings->count() }}</span> </a>
+                <a href="{{ route('show-billings',['unit_id' => $tenant->unit_tenant_id, 'tenant_id'=>$tenant->tenant_id]) }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-file-invoice-dollar fa-sm text-white-50"></i> Show Bills <span class="badge badge-light">{{ $billings->count() }}</span> </a>
                 @endif
                 @if(Auth::user()->user_type === 'treasury' || Auth::user()->user_type === 'manager')
                 <a href="{{ route('show-payments',['unit_id' => $tenant->unit_tenant_id, 'tenant_id'=>$tenant->tenant_id]) }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-dollar-sign fa-sm text-white-50"></i> Payment History <span class="badge badge-light">{{ $payments->count() }}</span></a>
@@ -524,6 +525,130 @@
 
           
         </div>
+
+                {{-- Modal for renewing tenant --}}
+                <div class="modal fade" id="addConcern" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-md" role="document">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Enter Concern Information</h5>
+              
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                      </button>
+                      </div>
+                      <div class="modal-body">
+                          <form id="concernForm" action="/concerns" method="POST">
+                              {{ csrf_field() }}
+                          </form>
+
+                          <input type="hidden" form="concernForm" id="tenant_id" name="tenant_id" value="{{ $tenant->tenant_id }}"required>
+                          <div class="row">
+                            <div class="col">
+                                <label for="movein_date">Date Reported</label>
+                                <input type="date" form="concernForm" class="form-control" name="date_reported" required >
+                            </div>
+                        </div>
+                        <br>
+                          <div class="row">
+                              <div class="col">
+                                  <label for="movein_date">Type of Concern</label>
+                                  <select class="form-control" form="concernForm" name="concern_type" id="" required>
+                                    <option value="" selected>Please select one</option>
+                                    <option value="leasing">leasing</option>
+                                    <option value="accounting">accounting</option>
+                                  </select>
+                              </div>
+                          </div>
+                          <br>
+                          <div class="row">
+                            <div class="col">
+                                <label for="movein_date">Urgency</label>
+                                <select class="form-control" form="concernForm" name="concern_urgency" id="" required>
+                                  <option value="" selected>Please select one</option>
+                                  <option value="minor">minor</option>
+                                  <option value="major">major</option>
+                                  <option value="urgent">urgent</option>
+                                </select>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                          <div class="col">
+                              <label for="">Under Warranty</label>
+                              <select class="form-control" form="concernForm" name="is_warranty" id="" required>
+                                <option value="" selected>Please select one</option>
+                                <option value="yes">yes</option>
+                                <option value="no">no</option>
+                                <option value="na">na</option>
+                              </select>
+                          </div>
+                      </div>
+                      <br>
+                      <div class="row">
+                        <div class="col">
+                            <label for="movein_date">Item</label>
+                            <input type="text" form="concernForm" class="form-control" name="concern_item" required >
+                        </div>
+                      </div>  
+                      <br>
+                      <div class="row">
+                        <div class="col">
+                            <label for="movein_date">Quantity</label>
+                            <input type="number" form="concernForm" class="form-control" name="concern_qty" required >
+                        </div>
+                      </div>
+                      <br>
+                       <div class="row">
+                            <div class="col">
+                                <label for="movein_date">Concern/Request <span class="text-danger">(Please provide full details.)</span></label>
+                                <textarea form="concernForm" class="form-control" name="concern_desc" required></textarea>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                          <div class="col">
+                              <label for="movein_date">Assign concern to</label>
+                              <select class="form-control" form="concernForm" name="concern_personnel_id" id="" >
+                                <option value="" selected>Please select one</option>
+                               
+                              </select>
+                          </div>
+                      </div>
+
+                          {{-- <div class="row">
+                              <div class="col">
+                                  
+                                      Expenses
+                                      <small class="text-danger">(Optional)</small>
+                                      <a id='remove_charges' class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-minus fa-sm text-white-50"></i></a>
+                                      <a id="add_charges" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i></a>     
+                                      <br>
+                                  
+                                  <br>
+                                      <table class = "table table-hover " id="extend_table">
+                                          <tr>
+                                              <th class="text-center">#</th>
+                                              <th>Description</th>
+                                              <th>Amount</th>
+                                          </tr>
+                                              <input form="extendTenantForm" type="hidden" id="no_of_row" name="no_of_row" >
+                                              <input form="extendTenantForm" type="hidden" id="current_date" name="current_date" value="{{ date('Y-m-d') }}">
+                                          
+                                          <tr id='row1'></tr>
+                                      </table>
+                              </div>
+                            </div> --}}
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button>
+                          <button form="concernForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want to perform this action?');" ><i class="fas fa-check fa-sm text-white-50"></i> Submit</button>
+                      </div>
+                  </div>
+                  </div>
+              </div>
+
+
         {{-- Modal to moveout tenant --}}
         <div class="modal fade" id="moveoutTenant" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-md" role="document">

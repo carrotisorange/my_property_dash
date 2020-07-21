@@ -56,4 +56,5 @@ class Tenant extends Model
     {
         return $this->hasMany('App\Tenant', 'unit_tenant_id');
     }
+    
 }

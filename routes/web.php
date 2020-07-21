@@ -1570,6 +1570,10 @@ Route::post('/units/{unit_id}/tenant-step3', 'TenantController@postTenantStep3')
 Route::get('/units/{unit_id}/tenant-step4', 'TenantController@createTenantStep4')->middleware('auth');
 Route::post('/units/{unit_id}/tenant-step4', 'TenantController@postTenantStep4')->middleware('auth');
 
+//concerns
+Route::post('/concerns', 'ConcernController@store')->middleware('auth');
+
+
 
 //tenant's online reservation
 Route::post('/reservation','TenantController@post_reservation');
