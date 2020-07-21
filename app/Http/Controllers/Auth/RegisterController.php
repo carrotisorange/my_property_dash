@@ -84,6 +84,7 @@ class RegisterController extends Controller
             'user_type' => 'manager',
             'status' => 'registered',
             'property' => $data['property'],
+            'account_type' => 'basic',
             'property_ownership' => $data['property_ownership'],
             'property_type' => $data['property_type'],
             'password' => Hash::make($data['password']),
