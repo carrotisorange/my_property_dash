@@ -339,7 +339,7 @@
                         {{ csrf_field() }}
                         @method('delete')
                         <button type="submit">Delete</button>
-                    </form>   
+                    </form>   --}}
                 <span  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#extendTenant" data-whatever="@mdo"><i class="fas fa-external-link-alt fa-sm text-white-50"></i> Extend/Renew</span>
                 @if ($tenant->tenant_status === 'active' || $tenant->tenant_status === 'pending')
                     @if($pending_balance > 0)
