@@ -632,9 +632,9 @@ class TenantController extends Controller
      */
     public function destroy($tenant_id)
     {
-        DB::table('payments')->where('payment_tenant_id', '285')->delete();
-        DB::table('billings')->where('billing_tenant_id', '285')->delete();
-        DB::table('tenants')->where('tenant_id', '285')->delete();
+        DB::table('payments')->where('payment_tenant_id', '286')->delete();
+        DB::table('billings')->where('billing_tenant_id', '286')->delete();
+        DB::table('tenants')->where('tenant_id', '286')->delete();
 
         return back()->with('success', 'Tenant has been successfully deleted!');
     }
