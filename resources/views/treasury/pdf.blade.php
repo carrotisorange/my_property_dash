@@ -28,7 +28,7 @@
           <p class="text-right">Acknowledgment Receipt</p>
             <table class="table text-right" width="100%" cellspacing="0" cellpadding="0">
               <tr>
-                <th>AR No</th>
+              
                 <th>Billing No</th>
                 <th>Description</th>
                 <th>Date</th>
@@ -36,7 +36,7 @@
               </tr>
               @foreach ($payment_breakdown as $item)
               <tr>
-                <th>{{ $item->ar_number }}</th>
+                
                 <th>{{ $item->payment_billing_no }}</th>
                 <td>{{ $item->payment_note }}</td>
                 <td>
