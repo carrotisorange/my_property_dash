@@ -319,64 +319,11 @@
         <!-- End of Topbar -->
         <div class="container-fluid">
 
-           <!-- Content Column -->
-           <div class="col-lg-12 mb-4">
-            <!-- DataTales Example -->
-            <div class="card shadow mb-4">
-             <div class="card-header py-3">
-               <h6 class="m-0 font-weight-bold text-primary">DAILY COLLECTION</h6>
-             </div>
-             <div class="card-body">
-               <div class="table-responsive">
-                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                   <thead>
-                    <tr>
-                        <th>AR NO</th>
-                        <th>BILL NO</th>
-                        <th>TENANT</th>
-                        <th>UNIT/ROOM</th>
-                        
-                        <th>AMOUNT</th>
-                        <th></th>
-                    </tr>
-                    
-                  </thead>
-                   <tbody>
-                    @foreach ($collections_for_the_day as $item)
-                    <tr>
-                      <td>{{ $item->ar_number }}</td>
-                       <td>{{ $item->payment_billing_no }}</td>
-                        <td>{{ $item->first_name.' '.$item->last_name }}</td>
-                        <td>{{ $item->building.' '.$item->unit_no }}</td>
-                        
-                        
-                        <td>{{ number_format($item->total,2) }}</td>
-                        <td>
-                          <a title="export pdf" target="_blank" href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/payments/{{ $item->payment_id }}/dates/{{$item->payment_created}}/export" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i></a>
-                          {{-- <a id="" target="_blank" href="#" title="print invoice" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-print fa-sm text-white-50"></i></a>  --}}
-                          
-                        </td>
-                    </tr>
-                    @endforeach
-                   </tbody>
-                 </table>
-                 <table class="table" id="dataTable" width="100%" cellspacing="0">
-                  <tr>
-                   <th>TOTAL</th>
-                   <th class="text-right">{{ number_format($collections_for_the_day->sum('total'),2) }}</th>
-                  </tr>
-                </table>
-               </div>
-             </div>
-           </div>
-   
-               </div>
 
-              
             <!-- 404 Error Text -->
            <div class="row">
              <div class="col-md-12">
-              <h4 class="h3 mb-0 text-gray-800">Other Collections</h4>
+              <h4 class="h3 mb-0 text-gray-800">Collections</h4>
               <div class="card-body">
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
