@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Post Rental Bill</title>
+  <title>Add Rental Bill</title>
 
   <!-- Custom fonts for this template-->
   <link href="{{ asset('dashboard/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -179,7 +179,7 @@
             </li> --}}
 
             <!-- Nav Item - Alerts -->
-            <li class="nav-item dropdown no-arrow mx-1">
+            {{-- <li class="nav-item dropdown no-arrow mx-1">
               <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-bell fa-fw"></i>
                 <!-- Counter - Alerts -->
@@ -281,7 +281,7 @@
                 </a>
                 <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
               </div>
-            </li>
+            </li> --}}
 
             <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -324,7 +324,7 @@
           @endif
           @endforeach
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Post Rental Bill</h1>
+            <h1 class="h3 mb-0 text-gray-800">Rental Bill for {{ Carbon\Carbon::now()->format('M d Y')}}</h1>
             {{-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> --}}
           </div>
 
@@ -336,38 +336,39 @@
             
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <tr>
-                <th  class="text-center">#</th>
+                <th  class="text-center">BILL NO</th>
                 <th>NAME</th>
                 <th>UNIT/ROOM</th>   
                 
-                <th>DETAILS</th>     
+                <th>PERIOD COVERED</th>     
                 <th>AMOUNT</th>
             </tr>
            <?php
              $ctr = 1;
-             $col_ctr = 1;
+             $billing_no_ctr = 1;
              $desc_ctr = 1;
              $amt_ctr = 1;
              $id_ctr = 1;
              $details_ctr = 1;
            ?>   
            @foreach($active_tenants as $item)
+
+           <input class="col-md-4" type="hidden" form="add_billings" name="billing_no{{ $billing_no_ctr++ }}" value="{{ $billing_ctr++ }}" required>
+           <input class="form-control" type="hidden" form="add_billings" name="ctr" value="{{ $ctr++ }}" readonly>     
+            <input type="hidden" form="add_billings" name="tenant{{ $id_ctr++ }}" value={{ $item->tenant_id }}></td>
+            <input class="form-control" type="hidden" form="add_billings" name="desc{{ $desc_ctr++ }}" value="Rent" readonly>
             <tr>
-              <th class="text-center" >{{ $col_ctr++ }}</th>
-              <input class="form-control" type="hidden" form="add_billings" name="ctr" value="{{ $ctr++ }}" readonly>     
-                
-                <td>{{ $item->first_name.' '.$item->last_name }} 
+              <th class="text-center" >{{ $current_bill_no++ }}</th>
+              <td>{{ $item->first_name.' '.$item->last_name }} 
                   @if($item->tenants_note === 'new tenant' || $item->tenants_note === 'new' )
                   <span class="badge badge-success">{{ $item->tenants_note }}</span>
                   @endif
-                  <input type="hidden" form="add_billings" name="tenant{{ $id_ctr++ }}" value={{ $item->tenant_id }}></td>
                 <td>{{ $item->building.' '.$item->unit_no }}</td>
-                <input class="form-control" type="hidden" form="add_billings" name="desc{{ $desc_ctr++ }}" value="Monthly Rent" readonly>
                 <td>
-                    <input form="add_billings" type="text" class='form-control' name="details{{ $details_ctr++  }}" value="{{ Carbon\Carbon::now()->startOfMonth()->format('M d') }}- {{ Carbon\Carbon::now()->endOfMonth()->format('d Y') }} " >
+                    <input form="add_billings" type="text" class='col-md-8' name="details{{ $details_ctr++  }}" value="{{ Carbon\Carbon::now()->startOfMonth()->format('M d') }}-{{ Carbon\Carbon::now()->endOfMonth()->format('d Y') }} " >
                 </td>
                 <td>
-                    <input form="add_billings" class="form-control" type="number" name="amt{{ $amt_ctr++ }}" value="{{ $item->tenant_monthly_rent }}" oninput="this.value = Math.abs(this.value)">
+                    <input form="add_billings" class="col-md-6" type="number" name="amt{{ $amt_ctr++ }}" value="{{ $item->tenant_monthly_rent }}" oninput="this.value = Math.abs(this.value)">
                 </td>
            </tr>
            @endforeach

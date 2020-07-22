@@ -358,7 +358,7 @@
         <div class="table-responsive">
           <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <tr>
-                    <th class="text-center">#</th>
+                    <th class="text-center">BILL NO</th>
                     <th>DATE BILLED</th>
                     <th>TENANT</th>
                     <th>UNIT/ROOM</th>
@@ -369,7 +369,7 @@
                 </tr>
                 @foreach ($bills as $item)
                 <tr>
-                    <th class="text-center">{{ $item->billing_id }}</th>
+                    <th class="text-center">{{ $item->billing_no }}</th>
                     <td>{{ Carbon\Carbon::parse($item->billing_date)->format('M d Y') }}</td>
                     <td><a href="units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}">{{ $item->first_name.' '.$item->last_name }}</a></td>
                     <td>{{ $item->building.' '.$item->unit_no }}</td>

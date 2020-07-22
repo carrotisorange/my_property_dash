@@ -327,7 +327,7 @@
           <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> Go Back to Tenant</a>
 
           @if(Auth::user()->user_type === 'treasury' || Auth::user()->user_type === 'manager')
-          <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/payments" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-dollar-sign fa-sm text-white-50"></i> Payment History <span class="badge badge-light">{{ $payments->count() }}</span></a>
+          <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/payments" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-dollar-sign fa-sm text-white-50"></i> Payment History <span class="badge badge-light">{{ $payments }}</span></a>
           <a  target="_blank" href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/billings/export" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Download Bills</span></a>
          @endif
           <br><br>
@@ -354,24 +354,9 @@
                     <th>Date</th>
                     <th>Amount</th>
                   </tr>
-                  @foreach ($monthly_rent as $item)
+                  @foreach ($bills as $item)
                   <tr>
-                      <th>{{ $item->billing_id }}</th>
-                      <td>{{ $item->billing_desc }}</td>
-                      <td>
-                        @if($item->details === null)
-                        -
-                        @else
-                        {{ $item->details }}
-                        @endif
-                      </td>
-                      <td class="text-right" colspan="3">{{ number_format($item->billing_amt,2) }}</td>
-                  </tr>
-                  @endforeach
-                  
-                  @foreach ($other_charges as $item)
-                  <tr>
-                    <th>{{ $item->billing_id }}</th>
+                      <th>{{ $item->billing_no }}</th>
                       <td>{{ $item->billing_desc }}</td>
                       <td>
                         @if($item->details === null)
@@ -459,10 +444,10 @@
                           <label for="">Payment Description</label>
                           <select form="acceptPaymentForm" class="form-control" name="payment_note" id="" required>
                             <option value="" selected>Please select one</option>
+                            <option value="Electric">Electric</option>
                               <option value="Rent">Rent</option>
+                              <option value="Surcharge">Surcharge</option>
                               <option value="Water">Water</option>
-                              <option value="Electric">Electric</option>
-                              <option value="Others">Others</option>
                           </select>
                       </div>
 
@@ -475,7 +460,6 @@
                   </div>
                     @endif
                    
-                  
                     <div class="form-group row">
                         <div class="col-md-8">
                             <label for="">Form of Payment</label>

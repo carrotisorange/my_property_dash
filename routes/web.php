@@ -1098,7 +1098,7 @@ Route::get('/', function(Request $request){
             ->join('billings', 'tenant_id', 'billing_tenant_id')
             ->where('unit_property', Auth::user()->property)
             ->where('billing_status', 'unpaid')
-              ->where('billing_date', '<', Carbon::now()->startOfMonth()->addDays(7))
+            ->where('billing_date', '<', Carbon::now()->startOfMonth()->addDays(7))
             ->groupBy('tenant_id')
             ->where('billing_amt','>', 0)
             ->orderBy('total_bills', 'desc')
@@ -1504,7 +1504,7 @@ Route::get('/bills', function(){
         ->join('billings', 'tenant_id', 'billing_tenant_id')
         ->where('unit_property', Auth::user()->property)
         ->where('billing_amt','>',0)
-        ->orderBy('billing_date', 'desc')
+        ->orderBy('billing_no', 'desc')
         ->get();
    
         return view('billing.bills', compact('bills'));

@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Post Surcharge Bill</title>
+  <title>Add Surcharge</title>
 
   <!-- Custom fonts for this template-->
   <link href="{{ asset('dashboard/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -324,7 +324,7 @@
           @endif
           @endforeach
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Surcharge Bill</h1>
+            <h1 class="h3 mb-0 text-gray-800">Surcharge Bill for {{ Carbon\Carbon::now()->format('M d Y')}}</h1>
             {{-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> --}}
           </div>
         <!-- 404 Error Text -->
@@ -335,43 +335,36 @@
             <div class="table-responsive">
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <tr>
-                <th  class="text-center">#</th>
+                <th  class="text-center">BILL NO</th>
                 <th>NAME</th>
                 <th>UNIT/ROOM</th>   
                 {{-- <th>DESCRIPTION</th>   --}}
-                <th>PREVIOUS</th>     
-                <th>AMOUNT</th>
+                <th>PREVIOUS BILL</th>     
+                <th>SURCHARGE (+10%)</th>
             </tr>
            <?php
              $ctr = 1;
-             $col_ctr = 1;
+           
              $desc_ctr = 1;
              $amt_ctr = 1;
              $id_ctr = 1;
              $details_ctr = 1;
            ?>   
            @foreach($delinquent_tenants as $item)
-            <tr>
-                <th class="text-center" >{{ $col_ctr++ }}</th>
-                  <input class="form-control" type="hidden" form="add_billings" name="ctr" value="{{ $ctr++ }}" readonly>   
-               
-                <td>{{ $item->first_name.' '.$item->last_name }}<
-                  @if($item->tenants_note === 'new tenant' || $item->tenants_note === 'new' )
-                  <span class="badge badge-success">{{ $item->tenants_note }}</span>
-                  @endif
-                  input type="hidden" form="add_billings" name="tenant{{ $id_ctr++ }}" value={{ $item->tenant_id }}></td>
-                <td>{{ $item->building.' '.$item->unit_no }}</td>
-                <input class="form-control" type="hidden" form="add_billings" name="desc{{ $desc_ctr++ }}" value="Surcharge" readonly>
-                
-                    <input form="add_billings" type="hidden" class='form-control' name="details{{ $details_ctr++  }}" value="{{ Carbon\Carbon::now()->startOfMonth()->format('M d') }}- {{ Carbon\Carbon::now()->endOfMonth()->format('d Y') }} " >
-                
-                <td>
-                  <input form="add_billings" type="number" class="form-control" value="{{ $item->total_bills }}">
-              </td>
-                <td>
-                    <input form="add_billings" class="form-control" type="number" name="amt{{ $amt_ctr++ }}" value="{{ $item->total_bills * .1 }}" oninput="this.value = Math.abs(this.value)">
-                </td>
-           </tr>
+            <input class="form-control" type="hidden" form="add_billings" name="ctr" value="{{ $ctr++ }}" readonly>   
+            <input class="form-control" type="hidden" form="add_billings" name="desc{{ $desc_ctr++ }}" value="Surcharge" readonly>
+                  <input form="add_billings" type="hidden" class='form-control' name="details{{ $details_ctr++  }}" value="{{ Carbon\Carbon::now()->startOfMonth()->format('M d') }}-{{ Carbon\Carbon::now()->endOfMonth()->format('d Y') }} " >
+              <tr>
+                  <th class="text-center" >{{ $billing_ctr++ }}</th> 
+                  <td>{{ $item->first_name.' '.$item->last_name }}
+                    @if($item->tenants_note === 'new tenant' || $item->tenants_note === 'new' )
+                    <span class="badge badge-success">{{ $item->tenants_note }}</span>
+                    @endif
+                    <input type="hidden" form="add_billings" name="tenant{{ $id_ctr++ }}" value={{ $item->tenant_id }}></td>
+                  <td>{{ $item->building.' '.$item->unit_no }}</td>
+                  <td>{{ number_format($item->total_bills,2) }}</td>
+                  <td><input form="add_billings" class=" col-md-6" type="number" name="amt{{ $amt_ctr++ }}" value="{{ $item->total_bills * .1 }}" oninput="this.value = Math.abs(this.value)"></td>
+            </tr>
            @endforeach
         </table>
             </div>

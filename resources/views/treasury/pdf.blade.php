@@ -28,14 +28,16 @@
           <p class="text-right">Acknowledgment Receipt</p>
             <table class="table text-right" width="100%" cellspacing="0" cellpadding="0">
               <tr>
-                <th>#</th>
+                <th>AR No</th>
+                <th>Billing No</th>
                 <th>Description</th>
                 <th>Date</th>
                 <th>Amount</th>
               </tr>
               @foreach ($payment_breakdown as $item)
               <tr>
-                <th>{{ $item->payment_id }}</th>
+                <th>{{ $item->ar_number }}</th>
+                <th>{{ $item->payment_billing_no }}</th>
                 <td>{{ $item->payment_note }}</td>
                 <td>
                   @if($item->or_number === null)
