@@ -34,14 +34,14 @@
           <p class="text-right">Statement of Accounts</p>
             <table class="table text-right" width="100%" cellspacing="0" cellpadding="0">
               <tr>
-                <th>#</th>
+                <th>Billing No</th>
                 <th>Description</th>
                 <th>Date</th>
                 <th>Amount</th>
               </tr>
               @foreach ($rent_bills as $item)
               <tr>
-                  <th>{{ $item->billing_id }}</th>
+                  <th>{{ $item->billing_no }}</th>
                   <td>{{ $item->billing_desc }}</td>
                   <td>
                     @if($item->details === null)

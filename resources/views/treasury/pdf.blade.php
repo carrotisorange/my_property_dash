@@ -19,7 +19,7 @@
       <div class="row">
         <div class="col-md-10">
           <h5 class="text-black-50">{{ Auth::user()->property }}</h5>
-          <p class="text-right"> <b>AR #:</b> {{ $payment_ar }}</p>
+          <p class="text-right"> <b>AR No:</b> {{ $payment_ar }}</p>
           <ul style="list-style-type: none">
             <li><b>Date:</b> {{ Carbon\Carbon::now()->format('M d Y') }}</li>
             <li><b>To:</b> {{ $tenant }}</li>
