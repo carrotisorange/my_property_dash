@@ -353,13 +353,13 @@
                             {{-- <a target="_blank" href="#" title="print invoice" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-print fa-sm text-white-50"></i></a> 
                             --}}
                           </td>
-                          {{-- <td>
+                          {<td>
                               <form action="/payments/{{ $item->payment_id }}" method="POST">
                                   @method('delete')
                                   @csrf
                                   <button type="submit" class="btn btn-danger">Delete</button>
                               </form>
-                          </td> --}}
+                          </td> 
                       </tr>
                       @endforeach
                   </table>
