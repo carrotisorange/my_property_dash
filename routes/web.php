@@ -840,10 +840,10 @@ Route::get('/bills', function(){
         ->where('unit_property', Auth::user()->property)
         ->where('billing_amt','>',0)
         ->whereIn('billing_desc',['Rent', 'Monthly Rent', 'Electricity', 'Water', 'Surcharge'])
-        ->orderBy('billing_date', 'desc')
+        ->orderBy('details', 'desc')
         ->get()
         ->groupBy(function($item) {
-            return \Carbon\Carbon::parse($item->billing_date)->timestamp;
+            return ($item->details);
         });
    
         return view('billing.bills', compact('bills'));
