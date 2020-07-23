@@ -373,7 +373,7 @@
                     <td>{{ Carbon\Carbon::parse($item->billing_date)->format('M d Y') }}</td>
                     <td><a href="units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}">{{ $item->first_name.' '.$item->last_name }}</a></td>
                     <td>{{ $item->building.' '.$item->unit_no }}</td>
-                    <td>{{ $item->billing_desc.'-'.$item->details }}</td>
+                    <td>{{ $item->billing_desc }}</td>
                    
                     <td>{{ number_format($item->billing_amt,2) }}</td>
                     <td>

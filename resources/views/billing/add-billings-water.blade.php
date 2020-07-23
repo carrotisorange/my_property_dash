@@ -345,17 +345,19 @@
             </tr>
            <?php
              $ctr = 1;
+             $billing_no_ctr = 1;
              $desc_ctr = 1;
              $amt_ctr = 1;
              $id_ctr = 1;
              $details_ctr = 1;
            ?>   
            @foreach($active_tenants as $item)
-           <input class="form-control" type="hidden" form="add_billings" name="ctr" value="{{ $ctr++ }}" readonly>  
-           <input type="hidden" form="add_billings" name="tenant{{ $id_ctr++ }}" value={{ $item->tenant_id }}></td>
-           <input class="form-control" type="hidden" form="add_billings" name="desc{{ $desc_ctr++ }}" value="Water" readonly>
+           <input class="col-md-4" type="hidden" form="add_billings" name="billing_no{{ $billing_no_ctr++ }}" value="{{ $billing_ctr++ }}" required>
+           <input class="form-control" type="hidden" form="add_billings" name="ctr" value="{{ $ctr++ }}" readonly>     
+            <input type="hidden" form="add_billings" name="tenant{{ $id_ctr++ }}" value="{{ $item->tenant_id }}">
+            <input class="form-control" type="hidden" form="add_billings" name="desc{{ $desc_ctr++ }}" value="Water" readonly>
             <tr>
-              <th class="text-center" >{{ $billing_ctr++ }}</th>
+              <th class="text-center" >{{ $current_bill_no++ }}</th>
                 <td>{{ $item->first_name.' '.$item->last_name }}
                   @if($item->tenants_note === 'new tenant' || $item->tenants_note === 'new' )
                   <span class="badge badge-success">{{ $item->tenants_note }}</span>
@@ -365,7 +367,7 @@
                     <input form="add_billings" type="text" class='col-md-8' name="details{{ $details_ctr++  }}" value="{{ Carbon\Carbon::now()->startOfMonth()->format('M d') }}-{{ Carbon\Carbon::now()->endOfMonth()->format('d Y') }} " >
                 </td>
                 <td>
-                    <input form="add_billings" class="col-md-6" type="number" name="amt{{ $amt_ctr++ }}" value="0" oninput="this.value = Math.abs(this.value)">
+                    <input form="add_billings" class="col-md-6" type="number" name="amt{{ $amt_ctr++ }}" value="0" step="0.01" show-billingsoninput="this.value = Math.abs(this.value)">
                 </td>
            </tr>
            @endforeach
@@ -373,7 +375,7 @@
             </div>
         <p class="text-right">
             <a href="/bills" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</a>
-            <button type="submit" form="add_billings" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"  onclick="return confirm('Are you sure you want to perform this action?');"><i class="fas fa-check fa-sm text-white-50"></i> Submit</button>
+            <button type="submit" form="add_billings" id="addBillsButton" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"  onclick="return confirm('Are you sure you want to perform this action?');"><i class="fas fa-check fa-sm text-white-50"></i> Submit</button>
         </p>
     </div>
         </div>
@@ -445,6 +447,20 @@
   <script src="{{ asset('/dashboard/js/demo/chart-area-demo.js') }}"></script>
   <script src="{{ asset('/dashboard/js/demo/chart-pie-demo.js') }}"></script>
 
+
+  <script>
+    $(document).ready(function () {
+
+        $("#addBilssButton").submit(function (e) {
+
+            //disable the submit button
+            $("#addBillsButton").attr("disabled", true);
+         
+            return true;
+
+        });
+    });
+  </script>
 </body>
 
 </html>

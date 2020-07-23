@@ -566,15 +566,15 @@ class TenantController extends Controller
         }
 
         if($request->billing_option === 'electric'){
-            return view('billing.add-billings-electric', compact('active_tenants', 'billing_ctr'));
+            return view('billing.add-billings-electric', compact('active_tenants', 'billing_ctr','current_bill_no'));
         }
 
         if($request->billing_option === 'water'){
-            return view('billing.add-billings-water', compact('active_tenants', 'billing_ctr'));
+            return view('billing.add-billings-water', compact('active_tenants', 'billing_ctr','current_bill_no'));
         }
 
         if($request->billing_option === 'surcharge'){
-            return view('billing.add-billings-surcharge', compact('delinquent_tenants', 'billing_ctr'));
+            return view('billing.add-billings-surcharge', compact('delinquent_tenants', 'billing_ctr','current_bill_no'));
         }
         
     }
@@ -586,11 +586,12 @@ class TenantController extends Controller
             for($i = 1; $i<=$request->ctr; $i++){
                 DB::table('billings')->insert(
                     [
-                        'billing_no' => $request->input('billing_no',$i),
+                        'billing_no' => $request->input('billing_no'.$i),
                         'billing_tenant_id' => $request->input('tenant'.$i),
                         'billing_date' => Carbon::now()->addDays(7),
                         'billing_desc' =>  $request->input('desc'.$i),
-                        'billing_amt' =>  $request->input('amt'.$i)
+                        'billing_amt' =>  $request->input('amt'.$i),
+                        'details' => $request->input('details'.$i),
                     ]);
 
                 DB::table('tenants')
@@ -602,6 +603,8 @@ class TenantController extends Controller
                                 ]
                             );
             }
+
+            return redirect('/bills')->with('success', ($i-1).' '.$request->desc1.' bills has been posted!');
             
         }
         else{
@@ -628,7 +631,7 @@ class TenantController extends Controller
         }
     }
         
-        return redirect('/bills')->with('success', ($i-1). ' bills has been posted!');
+        return redirect('/bills')->with('success', ($i-1).' '.$request->desc1.' bills has been posted!');
     }
 
     /**

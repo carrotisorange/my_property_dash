@@ -351,7 +351,7 @@
                   <tr>
                     <th>Billing No</th>
                     <th>Description</th>
-                    <th>Date</th>
+                    <th>Period Covered</th>
                     <th>Amount</th>
                   </tr>
                   @foreach ($bills as $item)
@@ -408,14 +408,11 @@
                     <form id="acceptPaymentForm" action="/payments" method="POST">
                     {{ csrf_field() }}
                     </form>
-
                     <?php 
                           $amt = 1;
                           $desc = 1;
                           $ctr =1;      
                     ?>
-                    
-                    
                     @foreach ($movein_charges as $item)
                         <input form="acceptPaymentForm"  type="hidden" name="ctr" value="{{ $ctr++ }}">
                         <input form="acceptPaymentForm"  type="hidden" name="desc{{ $desc++ }}" value="{{ $item->billing_desc }}">
@@ -575,10 +572,10 @@
   <script src="{{ asset('/dashboard/js/demo/chart-area-demo.js') }}"></script>
   <script src="{{ asset('/dashboard/js/demo/chart-pie-demo.js') }}"></script>
 
-  <script>
+<script>
     $(document).ready(function () {
 
-        $("#acceptPayment").submit(function (e) {
+        $("#addPaymentButton").submit(function (e) {
 
             //disable the submit button
             $("#addPaymentButton").attr("disabled", true);

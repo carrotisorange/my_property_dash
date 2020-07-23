@@ -179,7 +179,7 @@
             </li> --}}
 
             <!-- Nav Item - Alerts -->
-            <li class="nav-item dropdown no-arrow mx-1">
+            {{-- <li class="nav-item dropdown no-arrow mx-1">
               <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-bell fa-fw"></i>
                 <!-- Counter - Alerts -->
@@ -281,7 +281,7 @@
                 </a>
                 <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
               </div>
-            </li>
+            </li> --}}
 
             <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -344,33 +344,34 @@
             </tr>
            <?php
              $ctr = 1;
-           
+             $billing_no_ctr = 1;
              $desc_ctr = 1;
              $amt_ctr = 1;
              $id_ctr = 1;
              $details_ctr = 1;
            ?>   
            @foreach($delinquent_tenants as $item)
-            <input class="form-control" type="hidden" form="add_billings" name="ctr" value="{{ $ctr++ }}" readonly>   
+           <input class="col-md-4" type="hidden" form="add_billings" name="billing_no{{ $billing_no_ctr++ }}" value="{{ $billing_ctr++ }}" required>
+           <input class="form-control" type="hidden" form="add_billings" name="ctr" value="{{ $ctr++ }}" readonly>     
+            <input type="hidden" form="add_billings" name="tenant{{ $id_ctr++ }}" value="{{ $item->tenant_id }}"">
             <input class="form-control" type="hidden" form="add_billings" name="desc{{ $desc_ctr++ }}" value="Surcharge" readonly>
-                  <input form="add_billings" type="hidden" class='form-control' name="details{{ $details_ctr++  }}" value="{{ Carbon\Carbon::now()->startOfMonth()->format('M d') }}-{{ Carbon\Carbon::now()->endOfMonth()->format('d Y') }} " >
+            <input form="add_billings" type="hidden" class='form-control' name="details{{ $details_ctr++  }}" value="{{ Carbon\Carbon::now()->startOfMonth()->format('M d') }}-{{ Carbon\Carbon::now()->endOfMonth()->format('d Y') }} " >
               <tr>
-                  <th class="text-center" >{{ $billing_ctr++ }}</th> 
+                <th class="text-center" >{{ $current_bill_no++ }}</th>
                   <td>{{ $item->first_name.' '.$item->last_name }}
                     @if($item->tenants_note === 'new tenant' || $item->tenants_note === 'new' )
                     <span class="badge badge-success">{{ $item->tenants_note }}</span>
                     @endif
-                    <input type="hidden" form="add_billings" name="tenant{{ $id_ctr++ }}" value={{ $item->tenant_id }}></td>
                   <td>{{ $item->building.' '.$item->unit_no }}</td>
                   <td>{{ number_format($item->total_bills,2) }}</td>
-                  <td><input form="add_billings" class=" col-md-6" type="number" name="amt{{ $amt_ctr++ }}" value="{{ $item->total_bills * .1 }}" oninput="this.value = Math.abs(this.value)"></td>
+                  <td><input form="add_billings" class=" col-md-6" type="number" name="amt{{ $amt_ctr++ }}" step="0.01" value="{{ $item->total_bills * .1 }}" oninput="this.value = Math.abs(this.value)"></td>
             </tr>
            @endforeach
         </table>
             </div>
         <p class="text-right">
             <a href="/bills" class="bd-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm"><i class="fas fa-times"></i> Cancel</a>
-            <button type="submit" form="add_billings" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"  onclick="return confirm('Are you sure you want to delete this item?');"><i class="fas fa-check"></i> Submit</button>
+            <button type="submit" form="add_billings" id="addBillsButton" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"  onclick="return confirm('Are you sure you want to delete this item?');"><i class="fas fa-check"></i> Submit</button>
         </p>
     </div>
         </div>
@@ -441,6 +442,20 @@
   <!-- Page level custom scripts -->
   <script src="{{ asset('/dashboard/js/demo/chart-area-demo.js') }}"></script>
   <script src="{{ asset('/dashboard/js/demo/chart-pie-demo.js') }}"></script>
+
+  <script>
+    $(document).ready(function () {
+
+        $("#addBillsButton").submit(function (e) {
+
+            //disable the submit button
+            $("#addBillsButton").attr("disabled", true);
+         
+            return true;
+
+        });
+    });
+  </script>
 
 </body>
 

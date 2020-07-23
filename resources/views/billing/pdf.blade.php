@@ -36,7 +36,7 @@
               <tr>
                 <th>Billing No</th>
                 <th>Description</th>
-                <th>Date</th>
+                <th>Period Covered</th>
                 <th>Amount</th>
               </tr>
               @foreach ($rent_bills as $item)
