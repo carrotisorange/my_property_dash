@@ -357,9 +357,14 @@
         <!-- 404 Error Text -->
         <div class="table-responsive">
           <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <tr>
+                
+                @foreach ($bills as $day => $bills_list)
+                  <tr>
+                      <th colspan="8">{{ Carbon\Carbon::parse($day)->format('M d Y') }}: {{ $bills_list->count()}} BILLS POSTED</th>
+                  </tr>
+                  <tr>
                     <th class="text-center">BILL NO</th>
-                    <th>DATE BILLED</th>
+
                     <th>TENANT</th>
                     <th>UNIT/ROOM</th>
                     <th>DESCRIPTION</th>
@@ -367,25 +372,26 @@
                     <th>STATUS</th>
                     <th></th>
                 </tr>
-                @foreach ($bills as $item)
-                <tr>
-                    <th class="text-center">{{ $item->billing_no }}</th>
-                    <td>{{ Carbon\Carbon::parse($item->billing_date)->format('M d Y') }}</td>
-                    <td><a href="units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}">{{ $item->first_name.' '.$item->last_name }}</a></td>
-                    <td>{{ $item->building.' '.$item->unit_no }}</td>
-                    <td>{{ $item->billing_desc }}</td>
+                  @foreach ($bills_list as $bill)
+                  <tr>
+                    <th class="text-center">{{ $bill->billing_no }}</th>
+                    <td><a href="units/{{ $bill->unit_id }}/tenants/{{ $bill->tenant_id }}">{{ $bill->first_name.' '.$bill->last_name }}</a></td>
+                    <td>{{ $bill->building.' '.$bill->unit_no }}</td>
+                    <td>{{ $bill->billing_desc }}</td>
                    
-                    <td>{{ number_format($item->billing_amt,2) }}</td>
+                    <td>{{ number_format($bill->billing_amt,2) }}</td>
                     <td>
-                      @if($item->billing_status === 'paid')
-                      <span class="badge badge-success">{{ $item->billing_status }}</span>
+                      @if($bill->billing_status === 'paid')
+                      <span class="badge badge-success">{{ $bill->billing_status }}</span>
                        @else
-                      <span class="badge badge-danger">{{ $item->billing_status }} </span>
+                      <span class="badge badge-danger">{{ $bill->billing_status }} </span>
                        @endif
                       </td>
-                      <td><a href="units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/billings"> <span class="badge badge-primary">View</span></a></td>
-                </tr>
+                      <td><a href="units/{{ $bill->unit_id }}/tenants/{{ $bill->tenant_id }}/billings"> <span class="badge badge-primary">View</span></a></td>
+                    </tr>
+                  @endforeach
                 @endforeach
+               
             </table>
         </div>
         </div>

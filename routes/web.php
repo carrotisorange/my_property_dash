@@ -658,6 +658,8 @@ Route::get('/home', function(){
             ->where('status','!=', 'pulled out')
             ->get();
 
+            
+
         $units_vacant= DB::table('units')
             ->where('unit_property', Auth::user()->property)
         
@@ -814,7 +816,6 @@ Route::get('/collections', function(){
             ->orderBy('payment_created', 'desc')
             ->get();
 
-            
             $collections_for_the_day = DB::table('units')
             ->select('*', DB::raw('sum(amt_paid) as total'))
             ->join('tenants', 'unit_id', 'unit_tenant_id')
@@ -838,8 +839,11 @@ Route::get('/bills', function(){
         ->join('billings', 'tenant_id', 'billing_tenant_id')
         ->where('unit_property', Auth::user()->property)
         ->where('billing_amt','>',0)
-        ->orderBy('billing_no', 'desc')
-        ->get();
+        ->orderBy('billing_date')
+        ->get()
+        ->groupBy(function($item) {
+            return \Carbon\Carbon::parse($item->billing_date)->timestamp;
+        });
    
         return view('billing.bills', compact('bills'));
     }else{
@@ -847,7 +851,6 @@ Route::get('/bills', function(){
     }
    
 })->middleware('auth');
-
 
 
 //step1
@@ -913,8 +916,6 @@ Route::post('/units/{unit_id}/tenant-step4', 'TenantController@postTenantStep4')
 
 //concerns
 Route::post('/concerns', 'ConcernController@store')->middleware('auth');
-
-
 
 //tenant's online reservation
 Route::post('/reservation','TenantController@post_reservation');

@@ -323,7 +323,6 @@
          <p class="alert alert-{{ $key }}"> <i class="fas fa-check-circle"></i> {{ Session::get($key) }}</p>
           @endif
           @endforeach
-          
                  <div class="d-sm-flex align-items-center justify-content-between mb-4">
                   <h1 class="h3 mb-0 text-gray-800">Home</h1>
                  @if(Auth::user()->user_type === 'manager')
@@ -333,43 +332,42 @@
                 <span class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" ><i class="fas fa-home fa-sm text-white-50"></i> OCCUPIED</span>
                 <span class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" ><i class="fas fa-home fa-sm text-white-50"></i> VACANT</span>
                 <span class="d-none d-sm-inline-block btn btn-sm btn-warning shadow-sm" ><i class="fas fa-home fa-sm text-white-50"></i> RESERVED</span>
-               
                 <br><br>
                 <nav>
                   <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">All<span class="badge badge-light">{{ $units->count() }}</span></a>
+                    <a class="nav-item nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">All<span class="badge badge-light">{{ $units->count() }}</span></a>
                     @foreach ($units_per_building as $item)
-                    <a class="nav-item nav-link" id="nav-{{ $item->building }}-tab" data-toggle="tab" href="#nav-{{ $item->building }}" role="tab" aria-controls="nav-{{ $item->building }}" aria-selected="false">{{ $item->building }}<span class="badge badge-light">{{ $item->count }}</span></a>
+                    <a class="nav-item nav-link" id="{{ $item->building }}-tab" data-toggle="tab" href="#{{ $item->building }}" role="tab" aria-controls="{{ $item->building }}" aria-selected="false">{{ $item->building }}<span class="badge badge-light">{{ $item->count }}</span></a>
                     @endforeach
                   </div>
                 </nav>
-                <div class="tab-content" id="nav-tabContent">
-                  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                <div class="tab-content" id="">
+                  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <br>
                     @foreach ($units as $item)
-                    @if($item->status === 'vacant')
-                    <a title="{{ $item->type_of_units }}" href="/units/{{$item->unit_id}}" class="btn btn-secondary">
-                        <i class="fas fa-home fa-2x"></i>
-                        <br>
-                        <font size="-3" >{{ $item->unit_no }} </font>
-                    </a>
-                @elseif($item->status=== 'reserved')
-                    <a title="{{ $item->type_of_units }}" href="/units/{{$item->unit_id}}" class="btn btn-warning">
-                        <i class="fas fa-home fa-2x"></i>
-                        <br>
-                        <font size="-3">{{ $item->unit_no }} </font>
-                    </a>
-                @elseif($item->status=== 'occupied')
-                    <a title="{{ $item->type_of_units }}" href="/units/{{$item->unit_id}}" class="btn btn-primary">
-                        <i class="fas fa-home fa-2x"></i>
-                        <br>
-                        <font size="-3">{{ $item->unit_no }} </font>
-                    </a>
-                @endif        
+                      @if($item->status === 'vacant')
+                      <a title="{{ $item->type_of_units }}" href="/units/{{$item->unit_id}}" class="btn btn-secondary">
+                          <i class="fas fa-home fa-2x"></i>
+                          <br>
+                          <font size="-3" >{{ $item->unit_no }} </font>
+                      </a>
+                      @elseif($item->status=== 'reserved')
+                      <a title="{{ $item->type_of_units }}" href="/units/{{$item->unit_id}}" class="btn btn-warning">
+                          <i class="fas fa-home fa-2x"></i>
+                          <br>
+                          <font size="-3">{{ $item->unit_no }} </font>
+                        </a>
+                      @elseif($item->status=== 'occupied')
+                        <a title="{{ $item->type_of_units }}" href="/units/{{$item->unit_id}}" class="btn btn-primary">
+                          <i class="fas fa-home fa-2x"></i>
+                          <br>
+                          <font size="-3">{{ $item->unit_no }} </font>
+                          </a>
+                      @endif        
                     @endforeach  
                   </div>
                   @foreach ($units as $item)
-                    <div class="tab-pane fade show" id="nav-{{ $item->building }}" role="tabpanel" aria-labelledby="nav-{{ $item->building }}-tab">
+                    <div class="tab-pane fade show" id="{{ $item->building }}" role="tabpanel" aria-labelledby="{{ $item->building }}-tab">
                       <div class="table-responsive">
                       <table class=" table-borderless">
                         <tr>
