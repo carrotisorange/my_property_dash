@@ -451,7 +451,12 @@
                       <div class="col">
                         <label for="">Period Covered</label>
                         <div class="col">
-                          <input form="acceptPaymentForm" class="form-control" name="or_number" value="{{ Carbon\Carbon::now()->startOfMonth()->format('M d') }}-{{ Carbon\Carbon::now()->endOfMonth()->format('d Y') }}" required>
+                          <select form="acceptPaymentForm" class="form-control" name="details" required>
+                            @foreach ($bills as $item)
+                            <option value="{{ $item->details }}">{{ $item->details }}</option>
+                            @endforeach
+                          </select>
+                         
                         </div>
                     </div>
                   </div>

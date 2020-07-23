@@ -121,7 +121,7 @@ class PaymentController extends Controller
        ->where('billing_tenant_id', $request->payment_tenant_id)
        ->where('billing_desc', $request->payment_note)
        ->where('billing_status', 'unpaid')
-       ->where('details', $request->or_number)
+       ->where('details', $request->details)
        ->update(
                    [
                        'billing_status' => 'paid',
@@ -134,7 +134,7 @@ class PaymentController extends Controller
         ->first();
 
 
-            DB::table('payments')
+        DB::table('payments')
                 ->insert(
                             [
                                 'payment_tenant_id' => $request->payment_tenant_id,
