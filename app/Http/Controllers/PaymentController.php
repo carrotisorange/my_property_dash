@@ -118,7 +118,7 @@ class PaymentController extends Controller
        }       
 
        
-       DB::table('billings')
+       $billing_no =  DB::table('billings')
        ->where('billing_tenant_id', $request->payment_tenant_id)
        ->where('billing_desc', $request->payment_note)
        ->where('billing_status', 'unpaid')
@@ -128,12 +128,7 @@ class PaymentController extends Controller
                        'billing_status' => 'paid',
                        'created_at' => Carbon::now(),
                    ]
-               ); 
-
-        $billing_no = Billing::where('billing_tenant_id', $request->payment_tenant_id)
-        ->latest('created_at')
-        ->first();
-
+               );
 
         DB::table('payments')
                 ->insert(
