@@ -843,7 +843,7 @@ Route::get('/bills', function(){
         ->orderBy('details', 'desc')
         ->get()
         ->groupBy(function($item) {
-            return ($item->details);
+            return \Carbon\Carbon::parse($item->details)->timestamp;
         });
    
         return view('billing.bills', compact('bills'));
