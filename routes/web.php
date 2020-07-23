@@ -839,7 +839,7 @@ Route::get('/bills', function(){
         ->join('billings', 'tenant_id', 'billing_tenant_id')
         ->where('unit_property', Auth::user()->property)
         ->where('billing_amt','>',0)
-        ->orderBy('billing_date')
+        ->orderBy('billing_date', 'desc')
         ->get()
         ->groupBy(function($item) {
             return \Carbon\Carbon::parse($item->billing_date)->timestamp;
