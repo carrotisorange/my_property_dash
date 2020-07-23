@@ -195,6 +195,13 @@ class TenantController extends Controller
                 'years_of_employment' => session(Auth::user()->id.'years_of_employment'),
             
         ]);
+
+          //get the number of last added bills
+          $current_bill_no = DB::table('units')
+          ->join('tenants', 'unit_id', 'unit_tenant_id')
+          ->join('billings', 'tenant_id', 'billing_tenant_id')
+          ->where('unit_property', Auth::user()->property)
+          ->count();
             
         
        //create movein charges of the tenant.
@@ -202,6 +209,7 @@ class TenantController extends Controller
             DB::table('billings')->insert(
                 [
                     'billing_tenant_id' => $tenant_id,
+                'billing_no' => $current_bill_no++,
                     'billing_date' => session(Auth::user()->id.'movein_date'),
                     'billing_desc' =>  $request->input('desc'.$i),
                     'billing_amt' =>  $request->input('amt'.$i),
@@ -213,7 +221,7 @@ class TenantController extends Controller
          DB::table('units')->where('unit_id', session(Auth::user()->id.'unit_id'))
              ->update(
                         [
-                            'status'=> 'occupied',
+                            'status'=> 'reserved',
                             'updated_at' => session(Auth::user()->id.'movein_date'),   
                         ]
                     );
@@ -435,11 +443,19 @@ class TenantController extends Controller
     public function moveout(Request $request, $tenant_id){       
 
         $no_of_items = (int) $request->no_of_items; 
+
+          //get the number of last added bills
+          $current_bill_no = DB::table('units')
+          ->join('tenants', 'unit_id', 'unit_tenant_id')
+          ->join('billings', 'tenant_id', 'billing_tenant_id')
+          ->where('unit_property', Auth::user()->property)
+          ->count();
         
         for($i = 1; $i<$no_of_items; $i++){
             DB::table('billings')->insert(
                 [
                     'billing_tenant_id' => $request->tenant_id,
+                    'billing_no' => $current_bill_no++,
                     'billing_date' => $request->actual_move_out_date,
                     'billing_desc' =>  $request->input('desc'.$i),
                     'billing_amt' =>  $request->input('amt'.$i)
@@ -472,8 +488,16 @@ class TenantController extends Controller
     }
 
     public function renew(Request $request, $unit_id, $tenant_id){
+        
 
         $renewal_history = Tenant::findOrFail($tenant_id);
+
+          //get the number of last added bills
+          $current_bill_no = DB::table('units')
+          ->join('tenants', 'unit_id', 'unit_tenant_id')
+          ->join('billings', 'tenant_id', 'billing_tenant_id')
+          ->where('unit_property', Auth::user()->property)
+          ->count();
 
         //retrieve the number of dynamically created.
        $no_of_row = (int) $request->no_of_row; 
@@ -499,6 +523,7 @@ class TenantController extends Controller
                 DB::table('billings')->insert(
                     [
                         'billing_tenant_id' => $tenant_id,
+                        'billing_no' => $current_bill_no++,
                         'billing_date' => Carbon::now(),
                         'billing_desc' =>  $request->input('desc'.$i),
                         'billing_amt' =>  $request->input('amt'.$i)

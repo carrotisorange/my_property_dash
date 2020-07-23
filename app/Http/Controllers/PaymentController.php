@@ -66,6 +66,7 @@ class PaymentController extends Controller
             DB::table('payments')->insert(
                 [
                     'payment_tenant_id' => $request->payment_tenant_id,
+                    'payment_billing_no' => $request->input('billno'.$i),
                     'payment_created' => $request->payment_created,
                     'amt_paid' => $request->input('amt'.$i),
                     'or_number' => $request->or_number,

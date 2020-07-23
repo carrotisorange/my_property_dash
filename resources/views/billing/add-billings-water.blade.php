@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Add Surcharge</title>
+  <title>Add Water Bill</title>
 
   <!-- Custom fonts for this template-->
   <link href="{{ asset('dashboard/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">

@@ -409,6 +409,7 @@
                     {{ csrf_field() }}
                     </form>
                     <?php 
+                          $billno = 1;
                           $amt = 1;
                           $desc = 1;
                           $ctr =1;      
@@ -416,6 +417,7 @@
                     @foreach ($movein_charges as $item)
                         <input form="acceptPaymentForm"  type="hidden" name="ctr" value="{{ $ctr++ }}">
                         <input form="acceptPaymentForm"  type="hidden" name="desc{{ $desc++ }}" value="{{ $item->billing_desc }}">
+                        <input form="acceptPaymentForm"  type="hidden" name="billno{{ $billno++ }}" value="{{ $item->billing_no }}">
                         <input form="acceptPaymentForm"  type="hidden" step="0.01" name="amt{{ $amt++ }}" value="{{ $item->billing_amt}}">
                     @endforeach
 
