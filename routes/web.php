@@ -590,7 +590,7 @@ Route::get('/', function(Request $request){
             ->where('unit_property', Auth::user()->property)
             ->orderBy('movein_date', 'desc')
             ->where('tenant_status', 'inactive')
-            ->where('reason_for_moving_out','force_majeure')
+            ->where('reason_for_moving_out','force majeure')
             ->get();
     
             $run_away = DB::table('tenants')
@@ -598,7 +598,7 @@ Route::get('/', function(Request $request){
             ->where('unit_property', Auth::user()->property)
             ->orderBy('movein_date', 'desc')
             ->where('tenant_status', 'inactive')
-            ->where('reason_for_moving_out','run_away')
+            ->where('reason_for_moving_out','run away')
             ->get();
     
             $force_majeure = DB::table('tenants')
@@ -606,7 +606,7 @@ Route::get('/', function(Request $request){
             ->where('unit_property', Auth::user()->property)
             ->orderBy('movein_date', 'desc')
             ->where('tenant_status', 'inactive')
-            ->where('reason_for_moving_out','force_majeure')
+            ->where('reason_for_moving_out','force majeure')
             ->get();
         
             $unruly = DB::table('tenants')
