@@ -839,7 +839,7 @@ Route::get('/bills', function(){
         ->join('billings', 'tenant_id', 'billing_tenant_id')
         ->where('unit_property', Auth::user()->property)
         ->where('billing_amt','>',0)
-        ->where('billing_desc','!=','Security Deposit (Rent)', 'Advance Rent', 'Security Deposit (Utilities)', 'General Cleaning', 'Management Fee')
+        ->where('billing_desc','Rent', 'Monthly Rent', 'Electricity', 'Water', 'Surcharge')
         ->orderBy('billing_date', 'desc')
         ->get()
         ->groupBy(function($item) {
