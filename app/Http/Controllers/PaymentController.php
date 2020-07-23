@@ -126,7 +126,7 @@ class PaymentController extends Controller
        ->get();
 
     
-       if($billing_no <=0){
+       if($billing_no->count() <=0){
         return back()->with('error','Payment has been rejected. Bill was not found!');
        }else{
            
