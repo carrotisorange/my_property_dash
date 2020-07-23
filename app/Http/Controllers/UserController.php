@@ -110,7 +110,6 @@ class UserController extends Controller
             ->join('billings', 'tenant_id', 'billing_tenant_id')
             ->where('unit_property', Auth::user()->property)
             ->where('billing_desc','Rent')
-            ->where('tenant_id', '!-', 212)
             ->update([
                 'billing_status' => 'unpaid',
             ]);
