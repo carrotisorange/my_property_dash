@@ -117,8 +117,20 @@ class PaymentController extends Controller
         }
        }       
 
-       
+
        $billing_no =  DB::table('billings')
+       ->where('billing_tenant_id', $request->payment_tenant_id)
+       ->where('billing_desc', $request->payment_note)
+       ->where('billing_status', 'unpaid')
+       ->where('details', $request->details)
+       ->get();
+
+    
+       if($billing_no <=0){
+        return back()->with('error','Payment has been rejected. Bill was not found!');
+       }else{
+           
+       DB::table('billings')
        ->where('billing_tenant_id', $request->payment_tenant_id)
        ->where('billing_desc', $request->payment_note)
        ->where('billing_status', 'unpaid')
@@ -149,6 +161,7 @@ class PaymentController extends Controller
 
 
             return back()->with('success','Payment has been recorded!');
+       }
     }
 
     /**
