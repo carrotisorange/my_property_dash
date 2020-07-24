@@ -59,13 +59,13 @@
     </li>
 
     @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'treasury' )
-      <li class="nav-item">
+      <li class="nav-item active">
       <a class="nav-link" href="/tenants/search">
         <i class="fas fa-user"></i>
         <span>Tenants</span></a>
     </li>
     @endif
-    
+
     @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' )
     <li class="nav-item">
       <a class="nav-link" href="/home">
