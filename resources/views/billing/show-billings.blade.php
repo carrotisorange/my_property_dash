@@ -58,6 +58,14 @@
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
+
+      @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'treasury' )
+      <li class="nav-item">
+      <a class="nav-link" href="/tenants/search">
+        <i class="fas fa-user"></i>
+        <span>Tenants</span></a>
+      </li>
+      @endif
   
       @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' )
       <li class="nav-item">
@@ -324,7 +332,12 @@
           @endif
           @endforeach
 
+          @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'treasury')
+          <a href="/bills" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> Go Back to Tenants</a>
+          @else
           <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> Go Back to Tenant</a>
+          @endif
+        
 
           @if(Auth::user()->user_type === 'treasury' || Auth::user()->user_type === 'manager')
           <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/payments" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-dollar-sign fa-sm text-white-50"></i> Payment History <span class="badge badge-light">{{ $payments }}</span></a>
