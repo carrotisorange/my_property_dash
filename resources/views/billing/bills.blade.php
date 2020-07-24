@@ -59,13 +59,13 @@
     </li>
 
     @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'treasury' )
-      <li class="nav-item active">
+      <li class="nav-item">
       <a class="nav-link" href="/tenants/search">
         <i class="fas fa-user"></i>
         <span>Tenants</span></a>
     </li>
     @endif
-
+    
     @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' )
     <li class="nav-item">
       <a class="nav-link" href="/home">
@@ -383,7 +383,13 @@
                   @foreach ($bills_list as $bill)
                   <tr>
                     <th class="text-center">{{ $bill->billing_no }}</th>
-                    <td><a href="units/{{ $bill->unit_id }}/tenants/{{ $bill->tenant_id }}">{{ $bill->first_name.' '.$bill->last_name }}</a></td>
+                    <td>
+                      @if(Auth::user()->user_type === 'billing')
+                        {{ $bill->first_name.' '.$bill->last_name }}
+                      @else
+                        <a href="units/{{ $bill->unit_id }}/tenants/{{ $bill->tenant_id }}">{{ $bill->first_name.' '.$bill->last_name }}</a>
+                      @endif
+                    </td>
                     <td>{{ $bill->building.' '.$bill->unit_no }}</td>
                     <td>{{ $bill->billing_desc }}</td>
                    
