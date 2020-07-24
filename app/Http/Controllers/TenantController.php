@@ -351,9 +351,7 @@ class TenantController extends Controller
         }else{
             return view('unregistered');
         }
-       
     }
-
 
     public function show_payments($unit_id, $tenant_id){
 

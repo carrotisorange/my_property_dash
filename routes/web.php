@@ -918,6 +918,8 @@ Route::post('/units/{unit_id}/tenant-step4', 'TenantController@postTenantStep4')
 //concerns
 Route::post('/concerns', 'ConcernController@store')->middleware('auth');
 
+Route::post('/billings', 'BillingController@store')->middleware('auth');
+
 //tenant's online reservation
 Route::post('/reservation','TenantController@post_reservation');
 Route::get('/properties','UnitsController@show_property');

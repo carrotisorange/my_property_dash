@@ -187,7 +187,7 @@
             </li> --}}
 
             <!-- Nav Item - Alerts -->
-            <li class="nav-item dropdown no-arrow mx-1">
+            {{-- <li class="nav-item dropdown no-arrow mx-1">
               <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-bell fa-fw"></i>
                 <!-- Counter - Alerts -->
@@ -289,7 +289,7 @@
                 </a>
                 <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
               </div>
-            </li>
+            </li> --}}
 
             <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -369,7 +369,7 @@
                <th>New Password</th>
                <td> 
                   <input form="editUserForm" id="password" type="password" class="form-control form-control-user @error('password') is-invalid @enderror" name="password" autocomplete="password">
-                  <small class="text-danger">Changing your password will log you out to the application.</small>
+                  <small class="text-danger">Changing your password will log you out of the application.</small>
                   @error('password')
                       <span class="invalid-feedback" role="alert">
                           <strong>{{ $message }}</strong>
