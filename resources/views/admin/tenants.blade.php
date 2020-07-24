@@ -345,7 +345,7 @@
                           <th>STATUS</th>
                           <th>MOBILE</th>
                           <th>EMAIL</th>
-                          <th>RENT</th>
+                         
                           <th>CONTRACT PERIOD</th>    
                      </tr>
                     </thead>
@@ -380,7 +380,7 @@
                           </td>
                           <td>{{ $item->contact_no }}</td>
                           <td>{{ $item->email_address }}</td>
-                          <td>{{ number_format($item->tenant_monthly_rent,2) }}</td>
+                        
                           <td>{{ Carbon\Carbon::parse($item->movein_date)->format('M d Y').' - '.Carbon\Carbon::parse($item->moveout_date)->format('M d Y') }}</td>
                           {{-- <td title="months before move-out">{{ number_format(Carbon\Carbon::now()->diffInDays(Carbon\Carbon::parse($item->moveout_date), false)/30,1) }} mon</td> --}}
                       </tr>

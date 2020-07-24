@@ -72,7 +72,6 @@ class CreateTenantsTable extends Migration
                 ->on('units');
         });
     }
-
     /**
      * Reverse the migrations.
      *
