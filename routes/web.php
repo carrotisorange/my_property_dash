@@ -730,7 +730,7 @@ Route::delete('/tenants/{tenant_id}', 'TenantController@destroy')->middleware('a
 
 Route::get('/tenants', function(){
 
-    if(auth()->user()->status === 'registered' || auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager'){
+    if(auth()->user()->status === 'registered' || auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager' || auth()->user()->user_type === 'treasury' || auth()->user()->user_type === 'billing'){
         
             $tenants = DB::table('tenants')
             ->join('units', 'unit_id', 'unit_tenant_id')

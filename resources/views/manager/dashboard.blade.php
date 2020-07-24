@@ -59,7 +59,7 @@
         <span>Dashboard</span></a>
     </li>
 
-    @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' )
+    @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'billing' )
     <li class="nav-item">
       <a class="nav-link" href="/home">
         <i class="fas fa-home"></i>
