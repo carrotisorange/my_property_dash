@@ -59,6 +59,14 @@
         <span>Dashboard</span></a>
     </li>
 
+    @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'treasury' )
+    <li class="nav-item">
+    <a class="nav-link" href="/tenants/search">
+      <i class="fas fa-user"></i>
+      <span>Tenants</span></a>
+    </li>
+    @endif
+
     @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' )
     <li class="nav-item">
       <a class="nav-link" href="/home">
@@ -361,6 +369,7 @@
                <th>New Password</th>
                <td> 
                   <input form="editUserForm" id="password" type="password" class="form-control form-control-user @error('password') is-invalid @enderror" name="password" autocomplete="password">
+                  <small class="text-danger">Changing your password will log you out to the application.</small>
                   @error('password')
                       <span class="invalid-feedback" role="alert">
                           <strong>{{ $message }}</strong>
