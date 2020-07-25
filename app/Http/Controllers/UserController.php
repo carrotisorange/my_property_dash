@@ -105,18 +105,15 @@ class UserController extends Controller
     public function update(Request $request, $user_id)
     {
         if($request->password === null){
-
-             DB::table('units')
-            ->join('tenants', 'unit_id', 'unit_tenant_id')
-            ->join('payments', 'tenant_id', 'payment_tenant_id')
-            ->where('unit_property', Auth::user()->property)
-            ->where('payments.created_at', '2020-01-26 00:00:00')
-            ->where('payment_note', 'Rent')
+            DB::table('users')
+            ->where('id', $user_id)
             ->update(
-                [
-                    'payment_created' => '2020-01-26 00:00:00',
-                ]
-            );
+                    [
+                        'name' => $request->name,
+                        'email' => $request->email,
+                       
+                    ]
+                );
 
                 return redirect('/users/'.$user_id)->with('success', 'User Profile has been updated!');
         }else{
