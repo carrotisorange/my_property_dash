@@ -327,7 +327,7 @@
               <div class="input-group">
                 <input type="date" class="form-control" name="search" value="{{ session(Auth::user()->id.'search_payment') }}">
                 <div class="input-group-append">
-                  <button class="btn btn-primary" type="button">
+                  <button class="btn btn-primary" type="submit">
                     <i class="fas fa-search fa-sm"></i>
                   </button>
                 </div>
