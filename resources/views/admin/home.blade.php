@@ -346,15 +346,13 @@
                   <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <br>
                   
-                  <?php 
-                    $vacant = 1;
-                  ?>
                 @foreach ($units as $floor_no => $floor_no_list)
+                <p class="text-center">
+                {{ $numberFormatter->format($floor_no).' floor  ('.$floor_no_list->count().')' }} 
+                </p>
+              
                 @foreach ($floor_no_list as $item)
                   @if($item->status === 'vacant')
-                  <p class="text-center">
-                    {{ $numberFormatter->format($floor_no).' floor  ('.$vacant++.')' }} 
-                    </p>
                       <a title="{{ $item->type_of_units }}" href="/units/{{$item->unit_id}}" class="btn btn-secondary">
                           <i class="fas fa-home fa-3x"></i>
                           <br>
