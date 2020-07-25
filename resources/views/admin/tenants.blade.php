@@ -341,13 +341,11 @@
               </div>
           </form>
           </div>
-            <?php $ctr=1; ?>
-
               <div class="table-responsive">
-                <table class="table table-bordered" width="100%" cellspacing="0">
+                <table class="table table-borderless" width="100%" cellspacing="0">
                   <tr>
-                    <td colspan="3">Showing <b>{{ $tenants->count() }} </b> of {{ $count_tenants }} tenants </td>
-                    <td colspan="3"><p class="text-right" >{{ $tenants->links() }}</p> </td>
+                    <td colspan="6">Showing <b>{{ $tenants->count() }} </b> of {{ $count_tenants }} tenants </td>
+                    <
                   </tr>
                 </table>
                   <table class="table table-bordered" width="100%" cellspacing="0">
@@ -398,14 +396,12 @@
                       @endforeach
                     </tbody>
                   </table>
-                 
+                  {{ $tenants->links() }}
                   
                 </div>
           
           </div>
         <!-- /.container-fluid -->
-
-        
         
        
       </div>
