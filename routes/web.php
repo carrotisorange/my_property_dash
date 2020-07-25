@@ -816,7 +816,7 @@ Route::get('/collections', function(){
             ->orderBy('payment_created', 'desc')
             ->get();
 
-        return view('billing.collections', compact('collections','collections_for_the_day'));
+        return view('billing.collections', compact('collections'));
     }else{
         return view('unregistered');
     }
