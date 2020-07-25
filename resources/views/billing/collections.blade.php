@@ -333,23 +333,23 @@
                       <th colspan="8">{{ Carbon\Carbon::parse($day)->format('M d Y') }} </th>
                   </tr>
                   <tr>
-                    <th class="text-center">BILL NO</th>
+                    <th>AR NO</th>
+                    <th>BILL NO</th>
                     <th>TENANT</th>
                     <th>UNIT/ROOM</th>
                     <th>DESCRIPTION</th>
                     <th>AMOUNT</th>
-                    <th>STATUS</th>
+                    
                     <th></th>
-                </tr>
+                </tr> 
                   @foreach ($collections_list as $item)
                   <tr>
-                    <td>{{ Carbon\Carbon::parse($item->payment_created)->format('M d Y') }}</td>
-                      <td class="text-center">{{ $item->ar_number }}</td>
-                      <td>{{ $item->payment_billing_no }}</td>
-                      
-                      <td>{{ $item->first_name.' '.$item->last_name }}</td>
+                    <td>{{ $item->ar_number }}</td>
+                    <td>{{ $item->payment_billing_no }}</td>
+                    <td>{{ $item->first_name.' '.$item->last_name }}</td>
+                         
                       <td>{{ $item->building.' '.$item->unit_no }}</td>
-                      
+                      <td>{{ $item->payment_note }}</td>
                       <td>{{ number_format($item->total,2) }}</td>
                       <td>
                         <a title="export pdf" target="_blank" href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/payments/{{ $item->payment_id }}/dates/{{$item->payment_created}}/export" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i></a>
