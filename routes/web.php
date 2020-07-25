@@ -812,18 +812,10 @@ Route::get('/collections', function(){
             ->groupBy('tenant_id')
             ->groupBy('payment_created')
             ->where('unit_property', Auth::user()->property)
-            ->where('payment_created','!=',Carbon::today())
+            ->whereIn('billing_desc',['Rent', 'Electricity', 'Water', 'Surcharge'])
             ->orderBy('payment_created', 'desc')
             ->get();
 
-            $collections_for_the_day = DB::table('units')
-            ->select('*', DB::raw('sum(amt_paid) as total'))
-            ->join('tenants', 'unit_id', 'unit_tenant_id')
-            ->join('payments', 'tenant_id', 'payment_tenant_id')
-            ->groupBy('tenant_id')
-            ->where('unit_property', Auth::user()->property)
-            ->where('payment_created', Carbon::today())
-            ->get();
         return view('billing.collections', compact('collections','collections_for_the_day'));
     }else{
         return view('unregistered');
@@ -839,7 +831,7 @@ Route::get('/bills', function(){
         ->join('billings', 'tenant_id', 'billing_tenant_id')
         ->where('unit_property', Auth::user()->property)
         ->where('billing_amt','>',0)
-        ->whereIn('billing_desc',['Rent', 'Monthly Rent', 'Electricity', 'Water', 'Surcharge'])
+        ->whereIn('billing_desc',['Rent', 'Electricity', 'Water', 'Surcharge'])
         ->orderBy('billing_date', 'desc')
         ->get()
         ->groupBy(function($item) {

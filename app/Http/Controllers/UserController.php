@@ -105,12 +105,12 @@ class UserController extends Controller
     public function update(Request $request, $user_id)
     {
         if($request->password === null){
-            DB::table('users')
-            ->where('id', $user_id)
+            DB::table('payments')
+            ->where('payment_note', 'Monthly Rent')
             ->update(
                     [
-                        'name' => $request->name,
-                        'email' => $request->email,
+                        'payment_note' => 'Rent',
+                        
                        
                     ]
                 );
