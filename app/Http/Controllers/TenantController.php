@@ -28,7 +28,7 @@ class TenantController extends Controller
         $property = explode(",", Auth::user()->property);
 
         //create session for the search
-        $request->session()->put(Auth::user()->property.'search_tenant', $search);
+        $request->session()->put(Auth::user()->id.'search_tenant', $search);
 
         $tenants = DB::table('tenants')
                 ->join('units', 'unit_id', 'unit_tenant_id')
