@@ -325,7 +325,7 @@
             <form  action="/tenants/search" method="GET" >
               @csrf
               <div class="input-group">
-                <input type="text" class="form-control" name="search" placeholder="Search for tenant..." value="{{ session(Auth::user()->id.'search_payment') }}" onchange="this.form.submit()">
+                <input type="date" class="form-control" name="search" placeholder="Search for tenant..." value="{{ session(Auth::user()->id.'search_payment') }}" onchange="this.form.submit()">
                 <div class="input-group-append">
                   <button class="btn btn-primary" type="button">
                     <i class="fas fa-search fa-sm"></i>
@@ -350,7 +350,7 @@
                       @foreach ($collections as $item)
                       <tr>
                         <td>{{ Carbon\Carbon::parse($item->payment_created)->format('M d Y') }}</td>
-                          <th class="text-center">{{ $item->ar_number }}</th>
+                          <th>{{ $item->ar_number }}</th>
                           <td>{{ $item->payment_billing_no }}</td>
                           
                           <td>{{ $item->first_name.' '.$item->last_name }}</td>
