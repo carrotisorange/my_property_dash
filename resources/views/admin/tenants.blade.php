@@ -329,7 +329,6 @@
           
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Tenants</h1>
-  
             <form  action="/tenants/search" method="GET" >
               @csrf
               <div class="input-group">
@@ -343,11 +342,15 @@
           </form>
           </div>
             <?php $ctr=1; ?>
+
               <div class="table-responsive">
                   <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <tr>
+                      <td colspan="6">Showing <b>{{ $tenants->count() }} </b> of {{ $count_tenants }} tenants</td>
+                    </tr>
                     <thead>
                       <tr>
-                          <th class="text-center">#</th>
+                         
                           <th>TENANT</th>
                           <th>UNIT/ROOM</th>
                           <th>STATUS</th>
@@ -360,7 +363,7 @@
                     <tbody>
                       @foreach ($tenants as $item)
                       <tr>
-                          <th class="text-center">{{ $ctr++ }}</th>
+                         
                           <td>
                               @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager')
                               <a href="{{ route('show-tenant',['unit_id'=> $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}
@@ -396,11 +399,7 @@
                     </tbody>
                   </table>
                   {{ $tenants->links() }}
-                  @foreach (['danger', 'warning', 'success', 'info'] as $key)
-                  @if(Session::has($key))
-                 <p class="text-center alert alert-{{ $key }}"> <i class="fas fa-check-circle"></i> {{ Session::get($key) }}</p>
-                  @endif
-                  @endforeach
+                
                 </div>
           
           </div>

@@ -46,13 +46,11 @@ class TenantController extends Controller
                 ->paginate(10);
          }
 
-         if($tenants->count() > 0 ){
-            $request->session()->flash('success', $tenants->count().' tenants found in the record!');
-         }else{
-            $request->session()->flash('danger', $tenants->count().' tenants found in the record!');
-         }
+         
+        $count_tenants = DB::table('tenants')
+        ->count();
 
-        return view('admin.tenants', compact('tenants'));
+        return view('admin.tenants', compact('tenants', 'count_tenants'));
 
     }
 
