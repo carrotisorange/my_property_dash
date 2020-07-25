@@ -336,72 +336,82 @@
                 <nav>
                   <div class="nav nav-tabs" id="nav-tab" role="tablist">
                     <a class="nav-item nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">All<span class="badge badge-light">{{ $units->count() }}</span></a>
-                    @foreach ($units_per_building as $item)
-                    <a class="nav-item nav-link" id="{{ $item->building }}-tab" data-toggle="tab" href="#{{ $item->building }}" role="tab" aria-controls="{{ $item->building }}" aria-selected="false">{{ $item->building }}<span class="badge badge-light">{{ $item->count }}</span></a>
+                    @foreach ($buildings as $building)
+                    <a class="nav-item nav-link" id="{{ $building->building }}-tab" data-toggle="tab" href="#{{ $building->building }}" role="tab" aria-controls="{{ $building->building }}" aria-selected="false">{{ $building->building }}<span class="badge badge-light">{{ $building  ->count }}</span></a>
                     @endforeach
                   </div>
                 </nav>
                 <div class="tab-content" id="">
+                  <?php $numberFormatter = new NumberFormatter('en_US', NumberFormatter::ORDINAL) ?>
                   <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <br>
-                    @foreach ($units as $item)
-                      @if($item->status === 'vacant')
+                  
+                @foreach ($units as $floor_no => $floor_no_list)
+                <p class="text-center">
+                {{ $numberFormatter->format($floor_no).' floor  ('.$floor_no_list->count().')' }} 
+                </p>
+              
+                @foreach ($floor_no_list as $item)
+                  @if($item->status === 'vacant')
                       <a title="{{ $item->type_of_units }}" href="/units/{{$item->unit_id}}" class="btn btn-secondary">
-                          <i class="fas fa-home fa-2x"></i>
+                          <i class="fas fa-home fa-3x"></i>
                           <br>
-                          <font size="-3" >{{ $item->unit_no }} </font>
+                          {{ $item->unit_no }}
                       </a>
                       @elseif($item->status=== 'reserved')
                       <a title="{{ $item->type_of_units }}" href="/units/{{$item->unit_id}}" class="btn btn-warning">
-                          <i class="fas fa-home fa-2x"></i>
+                          <i class="fas fa-home fa-3x"></i>
                           <br>
-                          <font size="-3">{{ $item->unit_no }} </font>
+                         {{ $item->unit_no }}
                         </a>
                       @elseif($item->status=== 'occupied')
                         <a title="{{ $item->type_of_units }}" href="/units/{{$item->unit_id}}" class="btn btn-primary">
-                          <i class="fas fa-home fa-2x"></i>
+                          <i class="fas fa-home fa-3x"></i>
                           <br>
-                          <font size="-3">{{ $item->unit_no }} </font>
+                          {{ $item->unit_no }}
                           </a>
-                      @endif        
-                    @endforeach  
+                      @endif   
+                @endforeach
+                <hr>
+              @endforeach
+            
                   </div>
-                  @foreach ($units as $item)
-                    <div class="tab-pane fade show" id="{{ $item->building }}" role="tabpanel" aria-labelledby="{{ $item->building }}-tab">
-                      <div class="table-responsive">
-                      <table class=" table-borderless">
-                        <tr>
-                          <td>
-                            @foreach ($units as $unit_building)
-                               @if($unit_building->building === $item->building)
-                                  @if($unit_building->status === 'vacant')
-                                      <a title="{{ $item->type_of_units }}" href="/units/{{$unit_building->unit_id}}" class="btn btn-secondary">
-                                          <i class="fas fa-home fa-2x"></i>
-                                          <br>
-                                          <font size="-3" >{{ $unit_building->unit_no }} </font>
-                                      </a>
-                                  @elseif($unit_building->status=== 'reserved')
-                                      <a title="{{ $item->type_of_units }}" href="/units/{{$unit_building->unit_id}}" class="btn btn-warning">
-                                          <i class="fas fa-home fa-2x"></i>
-                                          <br>
-                                          <font size="-3">{{ $unit_building->unit_no }} </font>
-                                      </a>
-                                  @elseif($unit_building->status=== 'occupied')
-                                      <a title="{{ $item->type_of_units }}" href="/units/{{$unit_building->unit_id}}" class="btn btn-primary">
-                                          <i class="fas fa-home fa-2x"></i>
-                                          <br>
-                                          <font size="-3">{{ $unit_building->unit_no }} </font>
-                                      </a>
-                                  @endif
-                               @endif
-                            @endforeach
-                        </td>
-                            <br>
-                        </tr>
-                    </table>
+                   @foreach ($buildings as $building)
+                    <div class="tab-pane fade show" id="{{ $building->building }}" role="tabpanel" aria-labelledby="{{ $building->building }}-tab">
+                      <br>
+                  
+                      @foreach ($units as $floor_no => $floor_no_list)
+                      <p class="text-center">
+                      {{ $numberFormatter->format($floor_no).' floor  ('.$floor_no_list->count().')' }} 
+                      </p>
+                    
+                      @foreach ($floor_no_list as $item)
+                      @if($building->building === $item->building)
+                        @if($item->status === 'vacant')
+                            <a title="{{ $item->type_of_units }}" href="/units/{{$item->unit_id}}" class="btn btn-secondary">
+                                <i class="fas fa-home fa-3x"></i>
+                                <br>
+                                {{ $item->unit_no }}
+                            </a>
+                            @elseif($item->status=== 'reserved')
+                            <a title="{{ $item->type_of_units }}" href="/units/{{$item->unit_id}}" class="btn btn-warning">
+                                <i class="fas fa-home fa-3x"></i>
+                                <br>
+                               {{ $item->unit_no }}
+                              </a>
+                            @elseif($item->status=== 'occupied')
+                              <a title="{{ $item->type_of_units }}" href="/units/{{$item->unit_id}}" class="btn btn-primary">
+                                <i class="fas fa-home fa-3x"></i>
+                                <br>
+                                {{ $item->unit_no }}
+                                </a>
+                            @endif   
+                          @endif
+                      @endforeach
+                      <hr>
+                    @endforeach
                     </div>
-                    </div>
-                  @endforeach
+                  @endforeach 
                 </div>
               
         </div>

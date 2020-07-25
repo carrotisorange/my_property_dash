@@ -653,10 +653,15 @@ Route::post('units/add-multiple', 'UnitsController@add_multiple_rooms')->middlew
 Route::get('/home', function(){
 
     if(auth()->user()->status === 'registered' && (auth()->user()->user_type === 'manager' || auth()->user()->user_type === 'admin') ){
+
         $units = DB::table('units')
             ->where('unit_property', Auth::user()->property)
             ->where('status','!=', 'pulled out')
-            ->get();
+            ->orderBy('floor_no', 'asc')
+            ->get()
+            ->groupBy(function($item) {
+            return $item->floor_no;
+        });
 
             
 
@@ -686,7 +691,7 @@ Route::get('/home', function(){
             ->orderBy('unit_no')
             ->get();
 
-        $units_per_building = DB::table('units')
+        $buildings = DB::table('units')
             ->select('building', 'status', DB::raw('count(*) as count'))
             ->where('unit_property', Auth::user()->property)
             ->groupBy('building')
@@ -701,7 +706,7 @@ Route::get('/home', function(){
             ->groupBy('status')
             ->get();
         
-        return view('admin.home',compact('units','units_per_building','units','units_per_status'));
+        return view('admin.home',compact('units','buildings','units','units_per_status'));
         }else{
             return view('unregistered');
         }
