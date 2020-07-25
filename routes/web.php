@@ -810,11 +810,13 @@ Route::get('/collections', function(){
             ->join('tenants', 'unit_id', 'unit_tenant_id')
             ->join('payments', 'tenant_id', 'payment_tenant_id')
             ->groupBy('tenant_id')
-            ->groupBy('payment_created')
             ->where('unit_property', Auth::user()->property)
             ->whereIn('payment_note',['Rent', 'Electricity', 'Water', 'Surcharge'])
             ->orderBy('payment_created', 'desc')
-            ->get();
+            ->get()
+            ->groupBy(function($item) {
+                return \Carbon\Carbon::parse($item->payment_created)->timestamp;
+            });
 
         return view('billing.collections', compact('collections'));
     }else{
