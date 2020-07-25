@@ -317,29 +317,27 @@
 
         </nav>
         <!-- End of Topbar -->
-        <div class="container-fluid">
-
-
-            <!-- 404 Error Text -->
-           <div class="row">
-             <div class="col-md-12">
-              <h4 class="h3 mb-0 text-gray-800">Collections</h4> 
-              <form  action="/payments/search" method="GET" >
-                @csrf
-                <div class="input-group">
-                    <input type="text" class="form-control" name="search" placeholder="Search for tenant..." value="{{ session(Auth::user()->id.'search_payment') }}" onchange="this.form.submit()">
-                    <div class="input-group-append">
-                      <button class="btn btn-primary" type="button">
-                        <i class="fas fa-search fa-sm"></i>
-                      </button>
-                    </div>
+        <div class="container-fluid">  <!-- 404 Error Text -->
+        
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Collections</h1>
+  
+            <form  action="/tenants/search" method="GET" >
+              @csrf
+              <div class="input-group">
+                <input type="text" class="form-control" name="search" placeholder="Search for tenant..." value="{{ session(Auth::user()->id.'search_payment') }}" onchange="this.form.submit()">
+                <div class="input-group-append">
+                  <button class="btn btn-primary" type="button">
+                    <i class="fas fa-search fa-sm"></i>
+                  </button>
                 </div>
-            </form>
+            </div>
+          </form>
+          </div>
               <div class="card-body">
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                       <tr>
-                          
                           <th>DATE PAID</th>
                           <th>AR NO</th>
                           <th>BILL NO</th>
@@ -359,7 +357,7 @@
                           <td>{{ $item->building.' '.$item->unit_no }}</td>
                           
                           <td>{{ number_format($item->total,2) }}</td>
-                          <td>
+                          <td class="text-center">
                             <a title="export pdf" target="_blank" href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/payments/{{ $item->payment_id }}/dates/{{$item->payment_created}}/export" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i></a>
                             {{-- <a target="_blank" href="#" title="print invoice" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-print fa-sm text-white-50"></i></a> 
                             --}}
@@ -382,8 +380,6 @@
                   </table>
           </div>
              </div>
-             </div>
-           </div>
             </div>
        
       </div>
