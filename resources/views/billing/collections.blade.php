@@ -324,6 +324,12 @@
            <div class="row">
              <div class="col-md-12">
               <h4 class="h3 mb-0 text-gray-800">Collections</h4>
+              <form action="/payments/search" method="GET" >
+                @csrf
+                <div class="input-group">
+                    <input type="date" class="form-control" value="{{ session(Auth::user()->id.'search_payment') }}" name="search" onchange='this.form.submit()'>
+                </div>
+            </form>
               <div class="card-body">
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
