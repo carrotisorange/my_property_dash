@@ -791,7 +791,7 @@ Route::get('/collections', function(){
     if(auth()->user()->status === 'registered' && (auth()->user()->user_type === 'billing' || auth()->user()->user_type === 'manager' || auth()->user()->user_type === 'treasury')){
         $property = explode(",", Auth::user()->property);
             $collections = DB::table('units')
-            ->select('*', DB::raw('sum(amt_paid) as total'))
+            ->select('*','payments.created_at as created_at', DB::raw('sum(amt_paid) as total'))
             ->join('tenants', 'unit_id', 'unit_tenant_id')
             ->join('payments', 'tenant_id', 'payment_tenant_id')
             ->groupBy('tenant_id')
