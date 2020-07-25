@@ -345,7 +345,7 @@
                 <table class="table table-borderless" width="100%" cellspacing="0">
                   <tr>
                     <td colspan="6">Showing <b>{{ $tenants->count() }} </b> of {{ $count_tenants }} tenants </td>
-                    <
+                    
                   </tr>
                 </table>
                   <table class="table table-bordered" width="100%" cellspacing="0">
@@ -397,7 +397,6 @@
                     </tbody>
                   </table>
                   {{ $tenants->links() }}
-                  
                 </div>
           
           </div>
