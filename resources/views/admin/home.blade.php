@@ -346,9 +346,10 @@
                   <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <br>
                   
+                  <?php 
+                    $vacant = 1;
+                  ?>
                 @foreach ($units as $floor_no => $floor_no_list)
-              
-              
                 @foreach ($floor_no_list as $item)
                   @if($item->status === 'vacant')
                   <p class="text-center">
