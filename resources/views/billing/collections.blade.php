@@ -351,7 +351,7 @@
                       @foreach ($collections as $item)
                       <tr>
                           <td>{{ Carbon\Carbon::parse($item->payment_created)->format('M d Y') }}</td>
-                          <td>{{ Carbon\Carbon::parse($item->created_at)->format('M d Y') }}</td>
+                          <td>{{ $item->created_at }}</td>
                           <th>{{ $item->ar_number }}</th>
                           <td>{{ $item->payment_billing_no }}</td>
                           
