@@ -336,7 +336,7 @@
       
              
 
-                @if(Auth::user()->property_ownership === 'Single Owner')
+                @if(Auth::user()->property_ownership === 'Multiple Owners')
    <!-- Content Row -->
                 <div class="row">
       
