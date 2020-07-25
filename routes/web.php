@@ -737,8 +737,11 @@ Route::get('/tenants', function(){
             ->where('unit_property', Auth::user()->property)
             ->orderBy('movein_date', 'desc')
             ->paginate(10);
+
+            $count_tenants = DB::table('tenants')
+            ->count();
        
-        return view('admin.tenants', compact('tenants'));
+        return view('admin.tenants', compact('tenants', 'count_tenants'));
     }else{
         return view('unregistered');
     }
