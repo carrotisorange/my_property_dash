@@ -344,12 +344,14 @@
             <?php $ctr=1; ?>
 
               <div class="table-responsive">
-                  <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered" width="100%" cellspacing="0">
+                  <tr>
+                    <td colspan="3">Showing <b>{{ $tenants->count() }} </b> of {{ $count_tenants }} tenants </td>
+                    <td colspan="3"><p class="text-right" >{{ $tenants->links() }}</p> </td>
+                  </tr>
+                </table>
+                  <table class="table table-bordered" width="100%" cellspacing="0">
                     <thead>
-                      <tr>
-                        <td class="text-left" colspan="3">Showing <b>{{ $tenants->count() }} </b> of {{ $count_tenants }} tenants </td>
-                        <td class="text-right" colspan="3">{{ $tenants->links() }} </td>
-                      </tr>
                       <tr>
                           <th>TENANT</th>
                           <th>UNIT/ROOM</th>
