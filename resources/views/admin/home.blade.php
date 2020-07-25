@@ -492,16 +492,16 @@
                 <label for="recipient-name" class="col-form-label">ENTER THE FLOOR NO</label>
                 <select class="form-control" form="addUnitForm" name="floor_no" id="floor_no" onkeyup="getFloorNo()" required>
                     <option value="" selected>Please select one</option>
-                    <option value="G">Ground floor</option>
-                    <option value="1">1st floor</option>
-                    <option value="2">2nd floor</option>
-                    <option value="3">3rd floor</option>
-                    <option value="4">4th floor</option>
-                    <option value="5">5ht floor</option>
-                    <option value="6">6th floor</option>
-                    <option value="7">7th floor</option>
-                    <option value="8">8th floor</option>
-                    <option value="9">9th floor</option>
+                    <option value="3B">3B</option>
+                    <option value="2B">2B</option>
+                    <option value="1B">1B</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">5</option>
+                    <option value="5">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
                 </select>
             </div>
 

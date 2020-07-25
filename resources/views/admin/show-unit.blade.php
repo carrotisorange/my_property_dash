@@ -591,6 +591,9 @@
                                 <label for="message-text" class="col-form-label">FLOOR NO:</label>
                                 <select form="editUnitForm" id="floor_no" name="floor_no" class="form-control">
                                     <option value="{{ $unit->floor_no }}" readonly selected class="bg-primary">{{ $unit->floor_no }}</option>
+                                    <option value="3B">3B</option>
+                                    <option value="2B">2B</option>
+                                    <option value="1B">1B</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
