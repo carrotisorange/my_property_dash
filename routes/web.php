@@ -654,6 +654,11 @@ Route::get('/home', function(){
 
     if(auth()->user()->status === 'registered' && (auth()->user()->user_type === 'manager' || auth()->user()->user_type === 'admin') ){
 
+        $units_count = DB::table('units')
+            ->where('unit_property', Auth::user()->property)
+            ->where('status','!=', 'pulled out')
+            ->count();
+
         $units = DB::table('units')
             ->where('unit_property', Auth::user()->property)
             ->where('status','!=', 'pulled out')
@@ -663,34 +668,6 @@ Route::get('/home', function(){
             return $item->floor_no;
         });
 
-            
-
-        $units_vacant= DB::table('units')
-            ->where('unit_property', Auth::user()->property)
-        
-            ->where('status','vacant')
-            ->orderBy('building')
-            ->orderBy('floor_no')
-            ->orderBy('unit_no')
-            ->get();
-
-        $units_occupied= DB::table('units')
-            ->where('unit_property', Auth::user()->property)
-            
-            ->where('status','occupied')
-            ->orderBy('building')
-            ->orderBy('floor_no')
-            ->orderBy('unit_no')
-            ->get();
-
-        $units_reserved= DB::table('units')
-            ->where('unit_property', Auth::user()->property)
-            ->where('status','reserved')
-            ->orderBy('building')
-            ->orderBy('floor_no')
-            ->orderBy('unit_no')
-            ->get();
-
         $buildings = DB::table('units')
             ->select('building', 'status', DB::raw('count(*) as count'))
             ->where('unit_property', Auth::user()->property)
@@ -699,14 +676,14 @@ Route::get('/home', function(){
             ->get('building', 'status','count');   
 
             
-        $units_per_status = DB::table('units')
-            ->select('status',DB::raw('count(*) as count'))
-            ->where('unit_property', Auth::user()->property)
-            ->where('status','!=', 'pulled out')
-            ->groupBy('status')
-            ->get();
+        // $units_per_status = DB::table('units')
+        //     ->select('status',DB::raw('count(*) as count'))
+        //     ->where('unit_property', Auth::user()->property)
+        //     ->where('status','!=', 'pulled out')
+        //     ->groupBy('status')
+        //     ->get();
         
-        return view('admin.home',compact('units','buildings','units','units_per_status'));
+        return view('admin.home',compact('units','buildings', 'units_count'));
         }else{
             return view('unregistered');
         }

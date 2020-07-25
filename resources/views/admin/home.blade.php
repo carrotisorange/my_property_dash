@@ -335,24 +335,30 @@
                 <br><br>
                 <nav>
                   <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                    <a class="nav-item nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">All<span class="badge badge-light">{{ $units->count() }}</span></a>
+                    <a class="nav-item nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">All<span class="badge badge-light">{{ $units_count }}</span></a>
                     @foreach ($buildings as $building)
                     <a class="nav-item nav-link" id="{{ $building->building }}-tab" data-toggle="tab" href="#{{ $building->building }}" role="tab" aria-controls="{{ $building->building }}" aria-selected="false">{{ $building->building }}<span class="badge badge-light">{{ $building  ->count }}</span></a>
                     @endforeach
                   </div>
                 </nav>
                 <div class="tab-content" id="">
-                  <?php $numberFormatter = new NumberFormatter('en_US', NumberFormatter::ORDINAL) ?>
+                  <?php 
+                      $numberFormatter = new NumberFormatter('en_US', NumberFormatter::ORDINAL)
+                      $vacant = 1;
+                      $occupied = 1;
+                      $reserved = 1; 
+                    ?>
                   <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <br>
                   
                 @foreach ($units as $floor_no => $floor_no_list)
-                <p class="text-center">
-                {{ $numberFormatter->format($floor_no).' floor  ('.$floor_no_list->count().')' }} 
-                </p>
+              
               
                 @foreach ($floor_no_list as $item)
                   @if($item->status === 'vacant')
+                  <p class="text-center">
+                    {{ $numberFormatter->format($floor_no).' floor  ('.$vacant++.')' }} 
+                    </p>
                       <a title="{{ $item->type_of_units }}" href="/units/{{$item->unit_id}}" class="btn btn-secondary">
                           <i class="fas fa-home fa-3x"></i>
                           <br>
