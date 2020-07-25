@@ -67,7 +67,7 @@ class PaymentController extends Controller
                 [
                     'payment_tenant_id' => $request->payment_tenant_id,
                     'payment_billing_no' => $request->input('billno'.$i),
-                    // 'payment_created' => $request->payment_created,
+                    'payment_created' => $request->payment_created,
                     'amt_paid' => $request->input('amt'.$i),
                     'or_number' => $request->or_number,
                     'ar_number' => $request->ar_number,
@@ -76,7 +76,7 @@ class PaymentController extends Controller
                     'check_no' => $request->check_no,
                     'date_deposited' => $request->date_deposited,
                     'payment_note' =>  $request->input('desc'.$i),
-                    'created_at' => $request->payment_created,
+                    'created_at' => Carbon::now(),
                 ]
             );
             }
@@ -153,7 +153,7 @@ class PaymentController extends Controller
                              [
                                  'payment_tenant_id' => $request->payment_tenant_id,
                                  'payment_billing_no' => $billing_no->billing_no,
-                                //  'payment_created' => $request->payment_created,
+                                 'payment_created' => $request->payment_created,
                                  'amt_paid' => $request->amt_paid,
                                  'or_number' => $request->or_number, //period covered
                                  'ar_number' => $request->ar_number,
@@ -162,7 +162,7 @@ class PaymentController extends Controller
                                  'check_no' => $request->check_no,
                                  'date_deposited' => $request->date_deposited,
                                  'payment_note' => $request->payment_note, //payment description
-                                 'created_at' => $request->payment_created,
+                                 'created_at' => Carbon::now(),
                              ]
                          );
  
