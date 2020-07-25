@@ -347,7 +347,8 @@
                   <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                       <tr>
-                        <td colspan="6">Showing <b>{{ $tenants->count() }} </b> of {{ $count_tenants }} tenants </td>
+                        <td class="text-left" colspan="3">Showing <b>{{ $tenants->count() }} </b> of {{ $count_tenants }} tenants </td>
+                        <td class="text-right" colspan="3">{{ $tenants->links() }} </td>
                       </tr>
                       <tr>
                           <th>TENANT</th>
@@ -396,7 +397,7 @@
                     </tbody>
                   </table>
                  
-                  {{ $tenants->links() }}
+                  
                 </div>
           
           </div>
