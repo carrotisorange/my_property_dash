@@ -110,7 +110,7 @@ class UserController extends Controller
             ->join('tenants', 'unit_id', 'unit_tenant_id')
             ->join('payments', 'tenant_id', 'payment_tenant_id')
             ->where('unit_property', Auth::user()->property)
-            ->where('payments.created_at', '')
+            ->whereNull('payments.created_at')
             ->where('payment_note', 'Rent')
             ->update(
                 [
