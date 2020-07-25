@@ -329,6 +329,9 @@
           
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Tenants</h1>
+            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm dropdown-toggle"aria-haspopup="true" aria-expanded="false"> Showing <b>{{ $tenants->count() }} </b> of {{ $count_tenants }} tenants </a>
+            
+            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm dropdown-toggle"aria-haspopup="true" aria-expanded="false"> {{ $tenants->links() }}</a>
             <form  action="/tenants/search" method="GET" >
               @csrf
               <div class="input-group">
@@ -346,9 +349,7 @@
               <div class="table-responsive">
                   <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
-                      <tr>
-                        <td colspan="6">Showing <b>{{ $tenants->count() }} </b> of {{ $count_tenants }} tenants  {{ $tenants->links() }}</td>
-                      </tr>
+                     
                       <tr>
                           <th>TENANT</th>
                           <th>UNIT/ROOM</th>
