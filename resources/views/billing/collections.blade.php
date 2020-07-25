@@ -322,10 +322,10 @@
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Collections</h1>
   
-            <form  action="/tenants/search" method="GET" >
+            <form  action="/payments/search" method="GET" >
               @csrf
               <div class="input-group">
-                <input type="date" class="form-control" name="search" placeholder="Search for tenant..." value="{{ session(Auth::user()->id.'search_payment') }}" onchange="this.form.submit()">
+                <input type="date" class="form-control" name="search" value="{{ session(Auth::user()->id.'search_payment') }}">
                 <div class="input-group-append">
                   <button class="btn btn-primary" type="button">
                     <i class="fas fa-search fa-sm"></i>
