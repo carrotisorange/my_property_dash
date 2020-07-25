@@ -30,25 +30,18 @@ class TenantController extends Controller
         //create session for the search
         $request->session()->put(Auth::user()->property.'search_tenant', $search);
 
-        if(count($property) > 1){
-            $tenants = DB::table('tenants')
+        $tenants = DB::table('tenants')
                 ->join('units', 'unit_id', 'unit_tenant_id')
-                ->whereIn('unit_property', [$property[0],$property[1]])
+                ->where('unit_property', Auth::user()->property)
                 ->whereRaw("concat(first_name, ' ', last_name) like '%$search%' ")
                 ->orderBy('movein_date', 'desc')
                 ->paginate(10);
-         }else{
-            $tenants = DB::table('tenants')
-                ->join('units', 'unit_id', 'unit_tenant_id')
-                ->where('unit_property', $property[0])
-                ->whereRaw("concat(first_name, ' ', last_name) like '%$search%' ")
-                ->orderBy('movein_date', 'desc')
-                ->paginate(10);
-         }
-
-         
-        $count_tenants = DB::table('tenants')
-        ->count();
+    
+        
+         $count_tenants = DB::table('tenants')
+         ->join('units', 'unit_id', 'unit_tenant_id')
+         ->where('unit_property', Auth::user()->property)
+         ->count();
 
         return view('admin.tenants', compact('tenants', 'count_tenants'));
 
