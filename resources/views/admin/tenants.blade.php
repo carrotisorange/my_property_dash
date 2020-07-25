@@ -345,18 +345,16 @@
 
               <div class="table-responsive">
                   <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                    <tr>
-                      <td colspan="6">Showing <b>{{ $tenants->count() }} </b> of {{ $count_tenants }} tenants</td>
-                    </tr>
                     <thead>
                       <tr>
-                         
+                        <td colspan="6">Showing <b>{{ $tenants->count() }} </b> of {{ $count_tenants }} tenants</td>
+                      </tr>
+                      <tr>
                           <th>TENANT</th>
                           <th>UNIT/ROOM</th>
                           <th>STATUS</th>
                           <th>MOBILE</th>
                           <th>EMAIL</th>
-                         
                           <th>CONTRACT PERIOD</th>    
                      </tr>
                     </thead>
