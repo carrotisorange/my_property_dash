@@ -798,7 +798,7 @@ Route::get('/collections', function(){
             ->groupBy('payment_created')
             ->where('unit_property', Auth::user()->property)
             ->whereIn('payment_note',['Rent', 'Electricity', 'Water', 'Surcharge'])
-            ->orderBy('payment_created', 'asc')
+            ->orderBy('ar_no', 'desc')
             ->get();
 
         return view('billing.collections', compact('collections'));
