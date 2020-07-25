@@ -106,7 +106,7 @@ class UserController extends Controller
     {
         if($request->password === null){
             DB::table('payments')
-            ->where('payment_note', 'Monthly Rent')
+            ->where('payment_note', 'rent')
             ->update(
                     [
                         'payment_note' => 'Rent',
