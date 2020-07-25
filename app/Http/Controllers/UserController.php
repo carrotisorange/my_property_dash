@@ -110,11 +110,11 @@ class UserController extends Controller
             ->join('tenants', 'unit_id', 'unit_tenant_id')
             ->join('payments', 'tenant_id', 'payment_tenant_id')
             ->where('unit_property', Auth::user()->property)
-            ->where('payments.created_at', '2020-01-25 00:00:00')
+            ->where('payments.created_at', '2020-02-25 00:00:00')
             ->where('payment_note', 'Rent')
             ->update(
                 [
-                    'payment_created' => '2020-01-25 00:00:00',
+                    'payment_created' => '2020-02-25 00:00:00',
                 ]
             );
 

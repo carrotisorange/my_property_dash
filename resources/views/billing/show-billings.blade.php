@@ -450,7 +450,7 @@
                         </div>
                         <div class="col-md-3">
                           <label for="">AR #</label>
-                          <input form="acceptPaymentForm" type="text" class="form-control" id="" name="ar_number" value="{{ $payment_ctr }}" required readonly>
+                          <input form="acceptPaymentForm" type="text" class="form-control" id="" name="ar_number" value="{{ $payment_ctr+1 }}" required readonly>
                       </div>
                     </div>
                     @if($tenant->tenant_status === 'pending')
