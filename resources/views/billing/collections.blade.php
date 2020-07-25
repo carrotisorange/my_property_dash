@@ -338,7 +338,7 @@
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                       <tr>
-                          <th>DATE PAID</th>
+                          <th>DATE</th>
                          
                           <th>AR NO</th>
                           <th>BILL NO</th>
