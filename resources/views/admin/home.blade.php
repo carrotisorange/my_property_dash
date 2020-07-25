@@ -342,12 +342,7 @@
                   </div>
                 </nav>
                 <div class="tab-content" id="">
-                  <?php 
-                      $numberFormatter = new NumberFormatter('en_US', NumberFormatter::ORDINAL)
-                      $vacant = 1;
-                      $occupied = 1;
-                      $reserved = 1; 
-                    ?>
+                  <?php $numberFormatter = new NumberFormatter('en_US', NumberFormatter::ORDINAL) ?>
                   <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <br>
                   
