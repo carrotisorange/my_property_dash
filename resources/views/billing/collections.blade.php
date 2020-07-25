@@ -327,45 +327,47 @@
               <div class="card-body">
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-
-                  @foreach ($collections as $day => $collections_list)
-                  <tr>
-                      <th colspan="8">{{ Carbon\Carbon::parse($day)->format('M d Y') }} </th>
-                  </tr>
-                  <tr>
-                    <th>AR NO</th>
-                    <th>BILL NO</th>
-                    <th>TENANT</th>
-                    <th>UNIT/ROOM</th>
-                    <th>DESCRIPTION</th>
-                    <th>AMOUNT</th>
-                    
-                    <th></th>
-                </tr> 
-                  @foreach ($collections_list as $item)
-                  <tr>
-                    <td>{{ $item->ar_number }}</td>
-                    <td>{{ $item->payment_billing_no }}</td>
-                    <td>{{ $item->first_name.' '.$item->last_name }}</td>
-                         
-                      <td>{{ $item->building.' '.$item->unit_no }}</td>
-                      <td>{{ $item->payment_note }}</td>
-                      <td>{{ number_format($item->total,2) }}</td>
-                      <td>
-                        <a title="export pdf" target="_blank" href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/payments/{{ $item->payment_id }}/dates/{{$item->payment_created}}/export" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i></a>
-                        {{-- <a target="_blank" href="#" title="print invoice" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-print fa-sm text-white-50"></i></a> 
-                        --}}
-                      </td>
-                      {{-- <td>
-                          <form action="/payments/{{ $item->payment_id }}" method="POST">
-                              @method('delete')
-                              @csrf
-                              <button type="submit" class="btn btn-danger">Delete</button>
-                          </form>
-                      </td> --}}
-                  </tr>
-                  @endforeach
-                @endforeach
+                      <tr>
+                          
+                          <th>DATE PAID</th>
+                          <th>AR NO</th>
+                          <th>BILL NO</th>
+                          <th>TENANT</th>
+                          <th>UNIT/ROOM</th>
+                          
+                          <th>AMOUNT</th>
+                          <th></th>
+                      </tr>
+                      @foreach ($collections as $item)
+                      <tr>
+                        <td>{{ Carbon\Carbon::parse($item->payment_created)->format('M d Y') }}</td>
+                          <th class="text-center">{{ $item->ar_number }}</th>
+                          <td>{{ $item->payment_billing_no }}</td>
+                          
+                          <td>{{ $item->first_name.' '.$item->last_name }}</td>
+                          <td>{{ $item->building.' '.$item->unit_no }}</td>
+                          
+                          <td>{{ number_format($item->total,2) }}</td>
+                          <td>
+                            <a title="export pdf" target="_blank" href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/payments/{{ $item->payment_id }}/dates/{{$item->payment_created}}/export" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i></a>
+                            {{-- <a target="_blank" href="#" title="print invoice" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-print fa-sm text-white-50"></i></a> 
+                            --}}
+                          </td>
+                          {{-- <td>
+                              <form action="/payments/{{ $item->payment_id }}" method="POST">
+                                  @method('delete')
+                                  @csrf
+                                  <button type="submit" class="btn btn-danger">Delete</button>
+                              </form>
+                          </td> --}}
+                      </tr>
+                      @endforeach
+                  </table>
+                  <table class="table" id="dataTable" width="100%" cellspacing="0">
+                    <tr>
+                     <th>TOTAL</th>
+                     <th class="text-right">{{ number_format($collections->sum('total'),2) }}</th>
+                    </tr>
                   </table>
           </div>
              </div>
