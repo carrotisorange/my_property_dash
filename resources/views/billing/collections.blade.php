@@ -352,7 +352,7 @@
                       <tr>
                           <td>{{ Carbon\Carbon::parse($item->payment_created)->format('M d Y') }}</td>
                          
-                          <th>{{ $item->ar_number }}</th>
+                          <td>{{ $item->ar_number }}</td>
                           <td>{{ $item->payment_billing_no }}</td>
                           
                           <td>{{ $item->first_name.' '.$item->last_name }}</td>

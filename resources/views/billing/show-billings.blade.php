@@ -374,7 +374,7 @@
                   </tr>
                   @foreach ($bills as $item)
                   <tr>
-                      <th>{{ $item->billing_no }}</th>
+                      <td>{{ $item->billing_no }}</td>
                       <td>{{ $item->billing_desc }}</td>
                       <td>
                         @if($item->details === null)
