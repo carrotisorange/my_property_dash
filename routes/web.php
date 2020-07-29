@@ -769,9 +769,9 @@ Route::get('/personnels', function(){
     if(auth()->user()->status === 'registered' || auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager' || auth()->user()->user_type === 'treasury' || auth()->user()->user_type === 'billing'){
         
               $personnels = DB::table('personnels')
-             ->select('*', DB::raw('count(concern_id) as total_concerns'))
-             ->leftJoin('concerns', 'personnel_id', 'concern_personnel_id')
-             
+             ->select('*', DB::raw('count(personnel_id) as total_concerns'))
+             ->leftJoin('concerns', 'personnel_id', '=', 'concern_personnel_id')
+             ->where('concern_status', 'pending')
              ->get();
        
         return view('admin.personnels', compact('personnels'));
