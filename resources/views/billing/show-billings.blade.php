@@ -419,7 +419,7 @@
           </div>
           <div class="row">
           <div class="card-body">
-          <p class="text-right"><a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" ><i class="fas fa-user-edit fa-sm text-white-50"></i> Edit</button></p>
+          <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" ><i class="fas fa-user-edit fa-sm text-white-50"></i> Edit</a>
             <p>
                   {{ Auth::user()->note }}
             </p>
