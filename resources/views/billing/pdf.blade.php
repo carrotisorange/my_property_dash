@@ -86,13 +86,11 @@
           </table>
           <b>NOTE:</b>
           <div class="row">
-         <div class="card">
-         <div class="card-body">
+          <div class="card-body">
             <p class="text-center">
                   {{ Auth::user()->note }}
             </p>
           </div>
-         </div>
           </div>
           <ul style="list-style-type: none">
             <li><b>Posted by:</b> {{ Auth::user()->name }}</li>
