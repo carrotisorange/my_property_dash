@@ -339,7 +339,7 @@
                 <div class="row">
                     <div class="col-md-6">
                       @if(Auth::user()->user_type === 'manager' )
-                        <button type="button" title="edit ROOM information." class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#editUnit" data-whatever="@mdo"><i class="fas fa-edit fa-sm text-white-50"></i> Edit ROOM</button> 
+                        <button type="button" title="edit room" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#editUnit" data-whatever="@mdo"><i class="fas fa-edit fa-sm text-white-50"></i> Edit Room</button> 
                       @endif 
 
                       @if(Auth::user()->property_type !== 'Commercial Complex')
