@@ -49,9 +49,19 @@ Route::get('/', function(Request $request){
         return view('unregistered');
     }
 
-            $pending_concerns = DB::table('concerns')->where('concern_status', 'pending')->count();
+            $pending_concerns = DB::table('tenants')
+            ->join('units', 'unit_id', 'unit_tenant_id')
+            ->join('concerns', 'tenant_id', 'concern_tenant_id')
+            ->where('concern_status', 'pending')
+            ->where('unit_property', Auth::user()->property)
+            ->get();
 
-            $active_concerns = DB::table('concerns')->where('concern_status', 'active')->count();
+            $active_concerns = DB::table('tenants')
+            ->join('units', 'unit_id', 'unit_tenant_id')
+            ->join('concerns', 'tenant_id', 'concern_tenant_id')
+            ->where('concern_status', 'active')
+            ->where('unit_property', Auth::user()->property)
+            ->get();
 
             $all_tenants = DB::table('tenants')
             ->join('units', 'unit_id', 'unit_tenant_id')
