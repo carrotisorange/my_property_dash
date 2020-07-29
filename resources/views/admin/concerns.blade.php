@@ -357,6 +357,7 @@
                           <th>TENANT</th>
                           <th>ROOM</th>
                           <th>TYPE</th>
+                          <th>DESCRIPTION</th>
                           <th>URGENCY</th>
                           <th>STATUS</th>
                           <th></th> 
@@ -377,6 +378,7 @@
                               <span class="badge badge-danger">{{ $item->concern_type }}</span>
                               @endif
                           </td>
+                          <td>{{ $item->concern_desc }}</td>
                           <td>
                               @if($item->concern_urgency === 'minor')
                               <span class="badge badge-primary">{{ $item->concern_urgency }}</span>

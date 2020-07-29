@@ -594,7 +594,7 @@
                       <br>
                       <div class="row">
                         <div class="col">
-                            <label for="movein_date">Item</label>
+                            <label for="movein_date">Description</label>
                             <input type="text" form="concernForm" class="form-control" name="concern_item" required >
                         </div>
                       </div>  
@@ -602,7 +602,7 @@
                       <div class="row">
                         <div class="col">
                             <label for="movein_date">Quantity</label>
-                            <input type="number" form="concernForm" class="form-control" name="concern_qty" required >
+                            <input type="number" oninput="this.value = Math.abs(this.value)" form="concernForm" class="form-control" name="concern_qty" required >
                         </div>
                       </div>
                       <br>
