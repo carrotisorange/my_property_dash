@@ -47,6 +47,7 @@ class ConcernController extends Controller
                 'concern_status' => 'pending',
                 'concern_desc' => $request->concern_desc,
                 'concern_personnel_id' => 1,
+                'is_paid' => 'unpaid',
             ]);
 
             return back()->with('success', 'Concern has been added to the record!');
