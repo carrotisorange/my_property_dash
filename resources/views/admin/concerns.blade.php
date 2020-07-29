@@ -384,7 +384,7 @@
                               <span class="badge badge-warning">{{ $item->concern_status }}</span>
                               @endif
                           </td>
-                         <td><a href="#">View</a></td> 
+                         <td><a title="{{ $item->concern_desc }}" href="#"><i class="fas fa-edit"></i></a></td> 
                       </tr>
                       @endforeach
                     </tbody>
