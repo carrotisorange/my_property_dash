@@ -740,7 +740,7 @@ Route::get('/concerns', function(){
             ->where('unit_property', Auth::user()->property)
             ->get();
        
-        return view('admin.personnels', compact('concerns'));
+        return view('admin.concerns', compact('concerns'));
     }else{
         return view('unregistered');
     }
