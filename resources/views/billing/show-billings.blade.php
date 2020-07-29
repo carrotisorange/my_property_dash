@@ -438,8 +438,20 @@
                 </button>
                 </div>
                 <div class="modal-body">
-                   
+                   <form id="editPaymentFooterForm" action="/users" method="POST">
+                    @method('put')
+                    {{ csrf_field() }}
+                   </form>
+                    <textarea form="editPaymentFooterForm" class="form-control" name="note" id="" cols="30" rows="10">
+                    {{ Auth::user()->note }}
+                    </textarea>
+                   <button>
+                   </button>
                 </div>
+                <div class="modal-footer">
+                      <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button>
+                      <button form="editPaymentFooterForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want to perform this action?');" ><i class="fas fa-check fa-sm text-white-50"></i> Submit</button>
+                  </div>
             </div>
             </div>
         
