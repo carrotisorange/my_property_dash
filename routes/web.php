@@ -730,6 +730,23 @@ Route::get('/tenants', function(){
 
 })->middleware('auth');
 
+Route::get('/concerns', function(){
+
+    if(auth()->user()->status === 'registered' || auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager' || auth()->user()->user_type === 'treasury' || auth()->user()->user_type === 'billing'){
+        
+            $concerns = DB::table('tenants')
+            ->join('units', 'unit_id', 'unit_tenant_id')
+            ->join('concerns', 'tenant_id', 'concerns_tenant_id')
+            ->where('unit_property', Auth::user()->property)
+            ->get();
+       
+        return view('admin.personnels', compact('concerns'));
+    }else{
+        return view('unregistered');
+    }
+
+})->middleware('auth');
+
 Route::get('/users', function(){
 
     if(auth()->user()->status === 'registered' || auth()->user()->user_type === 'manager'){

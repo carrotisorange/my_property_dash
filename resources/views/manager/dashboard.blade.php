@@ -99,9 +99,9 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" href="/personnels">
+        <a class="nav-link" href="/concerns">
           <i class="fas fa-tools fa-table"></i>
-          <span>Personnels</span></a>
+          <span>Concerns</span></a>
       </li>
     @endif
 
