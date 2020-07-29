@@ -351,7 +351,7 @@
                           <th>TYPE</th>
                           <th>URGENCY</th>
                           <th>STATUS</th>
-                          <th>ASSIGNED TO</th> 
+                          <th></th> 
                      </tr>
                     </thead>
                     <tbody>
@@ -384,7 +384,7 @@
                               <span class="badge badge-warning">{{ $item->concern_status }}</span>
                               @endif
                           </td>
-                         <td>{{ $item->concern_personnel_id }}</td> 
+                         <td><a href="#">View</a></td> 
                       </tr>
                       @endforeach
                     </tbody>
