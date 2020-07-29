@@ -64,10 +64,10 @@
                         <!-- Authentication Links -->
                         @guest
                          {{-- <li class="nav-item">
-                                <h5><a class="nav-link  btn" href="/register">Register your property <i class="fas fa-user-circle"></i></a></h5>
+                                <h5><a class="nav-link  btn" href="/register">Register your property <i class="fas fa-users-circle"></i></a></h5>
                             </li>
                             {{-- <li class="nav-item">
-                                <h5><a class="nav-link  btn" href="/register">Register your property <i class="fas fa-user-circle"></i></a></h5>
+                                <h5><a class="nav-link  btn" href="/register">Register your property <i class="fas fa-users-circle"></i></a></h5>
                             </li>
                             <li class="nav-item">
                                 <h5><a class="nav-link  btn" href="/properties">Make a reservation <i class="far fa-calendar-check"></i></a></h5>

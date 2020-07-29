@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Owners</title>
+  <title>Personnels</title>
 
   <!-- Custom fonts for this template-->
   <link href="{{ asset('dashboard/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -24,7 +24,6 @@
 
   <!-- Page Wrapper -->
   <div id="wrapper">
-
     <!-- Sidebar -->
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
@@ -58,6 +57,14 @@
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
+
+      @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'treasury' )
+      <li class="nav-item">
+      <a class="nav-link" href="/tenants/search">
+        <i class="fas fa-users"></i>
+        <span>Tenants</span></a>
+      </li>
+      @endif
   
       @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' )
       <li class="nav-item">
@@ -74,7 +81,7 @@
   
      @if(Auth::user()->property_ownership === 'Multiple Owners')
     <!-- Nav Item - Tables -->
-    <li class="nav-item active">
+    <li class="nav-item">
         <a class="nav-link" href="/owners">
         <i class="fas fa-users-tie"></i>
         <span>Owners</span></a>
@@ -87,6 +94,14 @@
             <i class="fas fa-tools fa-table"></i>
             <span>Concerns</span></a>
         </li>
+
+            <!-- Nav Item - Tables -->
+        <li class="nav-item active">
+            <a class="nav-link" href="/personnels">
+            <i class="fas fa-user-cog"></i>
+                <span>Personnels</span></a>
+        </li>
+
       @endif
   
        @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'manager')
@@ -127,6 +142,7 @@
   
     </ul>
     <!-- End of Sidebar -->
+  
 
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
@@ -316,53 +332,50 @@
           </ul>
 
         </nav>
-        <!-- End of Topbar -->
+        <!-- Begin Page Content -->
         <div class="container-fluid">
-          <form id="addTenantForm3" action="/units/{{ session(Auth::user()->id.'unit_id') }}/tenant-step3" method="POST">
-            {{ csrf_field() }}
-        </form>
-        <div class="d-sm-flex align-items-center justify-content-between mb-4">
-          <h1 class="h3 mb-0 text-gray-800">Owners</h1>
-        </div>
-        
-    
-            {{-- <form action="/tenants/search" method="GET" >
-                @csrf
-                <div class="input-group">
-                    <input type="text" class="form-control" name="search" placeholder="enter tenant name" value="{{ session(Auth::user()->id.'search_tenant') }}">
-                </div>
-            </form>
-            <br>
-            <p class="text-center"><small ><b>{{ $tenants->count() }}</b> tenants found.</small></p> --}}
-            <?php $ctr=1; ?>
-            <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                           <th>#</th>
-                           <th>OWNER</th>
-                           <th>UNIT/ROOM</th>
-                           <th>MOBILE</th>
-                           <th>CONTRACT PERIOD</th>
-                       </tr>
-                    </thead>   
-                       <tbody>
-                       @foreach ($owners as $item)
-                       <tr>
-                           <th>{{ $ctr++ }}</th>
-                           <td><a href="{{ route('show-investor',['unit_id'=> $item->unit_id, 'unit_owner_id'=>$item->unit_owner_id]) }}">{{ $item->unit_owner }} </a></td>
-                           <td>{{ $item->building.' '.$item->unit_no }}</td>
-                           <td>{{ $item->investor_contact_no }}</td>
-                           <td>{{ Carbon\Carbon::parse($item->contract_start)->format('M d Y').' - '.Carbon\Carbon::parse($item->contract_end)->format('M d Y') }}</td>
-                       </tr>
-                       @endforeach
-                       </tbody>
-                </table>
-                {{ $owners->links() }}
+          
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Personnels</h1>
+            <form  action="/tenants/search" method="GET" >
+              @csrf
+              <div class="input-group">
+                  <input type="text" class="form-control" name="search" placeholder="Search for tenant..." value="{{ session(Auth::user()->id.'search_tenant') }}">
+                  <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit">
+                      <i class="fas fa-search fa-sm"></i>
+                    </button>
+                  </div>
               </div>
+          </form>
+          </div>
+              <div class="table-responsive">
+               
+                  <table class="table table-bordered" width="100%" cellspacing="0">
+                    <thead>
+                      <tr>
+                          <th>PERSONNEL</th>
+                          <th>CONTACT NO</th>
+                          <th>AVAILABILITY</th>
+                     </tr>
+                    </thead>
+                    <tbody>
+                      @foreach ($concerns as $item)
+                    <tr>
+                        <td>{{ $item->personnel_name }}</td>
+                        <td>{{ $item->personnel_contact_no }}</td>
+                        <td>{{ $item->personnel_availability }}</td>
+                    </tr>
+                      @endforeach
+                    </tbody>
+                  </table>
+                  
+                </div>
+          
+          </div>
+        <!-- /.container-fluid -->
         
-        </div>
-
+       
       </div>
       <!-- End of Main Content -->
 

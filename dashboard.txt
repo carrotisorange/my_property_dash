@@ -7,7 +7,7 @@
           <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
             <a class="nav-link active" id="v-pills-dashboard-tab" data-toggle="pill" href="#dashboard" role="tab" aria-controls="v-pills-dashboard" aria-selected="true"><i class="fas fa-tachometer-alt"></i>&nbsp&nbspDashboard</a>
             @if(Auth::user()->user_type === 'admin')
-            <a class="nav-link" id="v-pills-users-tab" data-toggle="pill" href="#users" role="tab" aria-controls="v-pills-users" aria-selected="false"><i class="fas fa-user-secret"></i>&nbsp&nbspUsers</a>
+            <a class="nav-link" id="v-pills-users-tab" data-toggle="pill" href="#users" role="tab" aria-controls="v-pills-users" aria-selected="false"><i class="fas fa-users-secret"></i>&nbsp&nbspUsers</a>
             <input type="hidden" id="count_units" value="{{ $units->count() }}">
             <input type="hidden" id="current_user" value="{{ Auth::user()->user_type }}">
             <a class="nav-link" id="v-pills-residential-units-tab" data-toggle="pill" href="#residential-units" role="tab" aria-controls="v-pills-residential-units" aria-selected="false"><i class="fas fa-house-user"></i>&nbsp&nbspResidential Units <span class="badge badge-light">{{ $residential_units->count() }}</span></a>
@@ -15,15 +15,15 @@
             @foreach ($units_per_building as $item)
             <a class="nav-link" id="pills-{{ $item->building }}-tab" data-toggle="pill" href="#{{ $item->building }}" role="tab" aria-controls="pills-{{ $item->building }}" aria-selected="false">&nbsp&nbsp&nbsp&nbsp - {{ $item->building }} <span class="badge badge-light">{{ $item->count }}</span> </a>
             @endforeach
-            <a class="nav-link" id="v-pills-tenants-tab" data-toggle="pill" href="#tenants" role="tab" aria-controls="v-pills-tenants" aria-selected="false"><i class="fas fa-user"></i>&nbsp&nbspTenants  <span class="badge badge-light">{{ $tenants->count() }}</span></a>
-            <a class="nav-link" id="v-pills-investors-tab" data-toggle="pill" href="#investors" role="tab" aria-controls="v-pills-investors" aria-selected="false"><i class="fas fa-user-tie"></i>&nbsp&nbspUnit Owners <span class="badge badge-light">{{ $investors->count() }}</span> </a>
+            <a class="nav-link" id="v-pills-tenants-tab" data-toggle="pill" href="#tenants" role="tab" aria-controls="v-pills-tenants" aria-selected="false"><i class="fas fa-users"></i>&nbsp&nbspTenants  <span class="badge badge-light">{{ $tenants->count() }}</span></a>
+            <a class="nav-link" id="v-pills-investors-tab" data-toggle="pill" href="#investors" role="tab" aria-controls="v-pills-investors" aria-selected="false"><i class="fas fa-users-tie"></i>&nbsp&nbspUnit Owners <span class="badge badge-light">{{ $investors->count() }}</span> </a>
             <a class="nav-link" id="v-pills-joborders-tab" data-toggle="pill" href="#joborders" role="tab" aria-controls="v-pills-joborders" aria-selected="false"><i class="fas fa-tools"></i>&nbspJob Orders</a>
             @else
-            <a href="#" onclick="return false;" class="nav-link" id="v-pills-users-tab" data-toggle="pill" href="#users" role="tab" aria-controls="v-pills-users" aria-selected="false"> <i class="fas fa-user-secret"></i>&nbsp&nbspUsers</a>
+            <a href="#" onclick="return false;" class="nav-link" id="v-pills-users-tab" data-toggle="pill" href="#users" role="tab" aria-controls="v-pills-users" aria-selected="false"> <i class="fas fa-users-secret"></i>&nbsp&nbspUsers</a>
             <a href="#" onclick="return false;" class="nav-link" id="v-pills-units-tab" data-toggle="pill" href="#units" role="tab" aria-controls="v-pills-units" aria-selected="false"> <i class="fas fa-house-user"></i>&nbsp&nbspResidential Units</a>
             <a href="#" onclick="return false;" class="nav-link" id="v-pills-units-tab" data-toggle="pill" href="#units" role="tab" aria-controls="v-pills-units" aria-selected="false"> <i class="fas fa-laptop-house"></i>&nbsp&nbspLeasing Units</a>
-            <a href="#" onclick="return false;" class="nav-link" id="v-pills-investors-tab" data-toggle="pill" href="#investors" role="tab" aria-controls="v-pills-investors" aria-selected="false"><i class="fas fa-user-tie"></i>&nbsp&nbspInvestors</a>
-            <a href="#" onclick="return false;" class="nav-link" id="v-pills-tenants-tab" data-toggle="pill" href="#tenants" role="tab" aria-controls="v-pills-tenants" aria-selected="false"><i class="fas fa-user"></i>&nbsp&nbspTenants</a>
+            <a href="#" onclick="return false;" class="nav-link" id="v-pills-investors-tab" data-toggle="pill" href="#investors" role="tab" aria-controls="v-pills-investors" aria-selected="false"><i class="fas fa-users-tie"></i>&nbsp&nbspInvestors</a>
+            <a href="#" onclick="return false;" class="nav-link" id="v-pills-tenants-tab" data-toggle="pill" href="#tenants" role="tab" aria-controls="v-pills-tenants" aria-selected="false"><i class="fas fa-users"></i>&nbsp&nbspTenants</a>
             <a href="#" onclick="return false;" class="nav-link" id="v-pills-joborders-tab" data-toggle="pill" href="#joborders" role="tab" aria-controls="v-pills-joborders" aria-selected="false"><i class="fas fa-tools"></i>&nbspJob Orders</a>
             @endif
             @if(Auth::user()->user_type === 'billing')
@@ -116,7 +116,7 @@
                                     </div>
                                     <div class="card-body">
                                     <h1 class="text-center">{{ $active_tenants->count() }}
-                                            <span class="text-right"><p><i class="fas fa-user-check"></i></p></span>
+                                            <span class="text-right"><p><i class="fas fa-users-check"></i></p></span>
                                         </h1>
                                     </div>
                                 </div>
@@ -128,7 +128,7 @@
                                     </div>
                                     <div class="card-body">
                                     <h1 class="text-center">{{ $pending_tenants->count() }}
-                                            <span class="text-right"><p><i class="fas fa-user-clock"></i></p></span>
+                                            <span class="text-right"><p><i class="fas fa-users-clock"></i></p></span>
                                         </h1>
                                     </div>
                                 </div>
@@ -140,7 +140,7 @@
                                     </div>
                                     <div class="card-body">
                                     <h1 class="text-center">{{ $investors->count() }}
-                                            <span class="text-right"><p><i class="fas fa-user-tie"></i></p></span>
+                                            <span class="text-right"><p><i class="fas fa-users-tie"></i></p></span>
                                         </h1>
                                     </div>
                                 </div>
@@ -634,7 +634,7 @@
             <div class="tab-pane fade" id="tenants" role="tabpanel" aria-labelledby="v-pills-tenants-tab">
                 <div class="card">
                     <div class="card-body">
-                        <h4>Tenants <i class="fas fa-user"></i></h4>
+                        <h4>Tenants <i class="fas fa-users"></i></h4>
                         <br>
                         <div class="justify-content-center">
                             <form action="tenants/search" method="GET" >
@@ -685,7 +685,7 @@
             <div class="tab-pane fade" id="investors" role="tabpanel" aria-labelledby="v-pills-investors-tab">
                 <div class="card">
                     <div class="card-body">
-                        <h4>Unit Owners <i class="fas fa-user-tie"></i></h4>
+                        <h4>Unit Owners <i class="fas fa-users-tie"></i></h4>
                         <br>
                         <div class="justify-content-center">
                             <form action="/unit_owners/search" method="GET" >
@@ -998,15 +998,15 @@
              <div class="tab-pane fade" id="users" role="tabpanel" aria-labelledby="v-pills-users-tab">
                 <div class="card">
                     <div class="card-body">
-                        <h4>Users <i class="fas fa-user-secret"></i></h4>
+                        <h4>Users <i class="fas fa-users-secret"></i></h4>
                         <div class="row">
                             <div class="col">
 
                                <p class="text-right">
                                 @if($users->count() > 3)
-                                <a href="#" title="Reach the limit for creating users. You can only add 4 users per property. " class="btn btn-primary"> <i class="fas fa-user-plus"></i> user</a>
+                                <a href="#" title="Reach the limit for creating users. You can only add 4 users per property. " class="btn btn-primary"> <i class="fas fa-users-plus"></i> user</a>
                                 @else
-                                <a class="btn btn-primary" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1"> <i class="fas fa-user-plus"></i> user</a>
+                                <a class="btn btn-primary" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1"> <i class="fas fa-users-plus"></i> user</a>
                                 @endif
                                </p>
 

@@ -67,7 +67,7 @@
 
           <li class="nav-item">
             <a class="nav-link" href="/tenants">
-              <i class="fas fa-user fa-chart-area"></i>
+              <i class="fas fa-users fa-chart-area"></i>
               <span>Tenants</span></a>
           </li>
 
@@ -75,7 +75,7 @@
         <!-- Nav Item - Tables -->
         <li class="nav-item">
             <a class="nav-link" href="/owners">
-            <i class="fas fa-user-tie"></i>
+            <i class="fas fa-users-tie"></i>
             <span>Owners</span></a>
         </li>
         @endif
@@ -110,7 +110,7 @@
           <!-- Nav Item - Tables -->
           <li class="nav-item">
             <a class="nav-link" href="/users">
-              <i class="fas fa-user-secret fa-table"></i>
+              <i class="fas fa-users-secret fa-table"></i>
               <span>Users</span></a>
           </li>
           @endif
@@ -289,12 +289,12 @@
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name }}</span>
-                <i class="fas fa-user-circle"></i> 
+                <i class="fas fa-users-circle"></i> 
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                 <a class="dropdown-item" href="/users/{{ Auth::user()->id }}">
-                  <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                  <i class="fas fa-users fa-sm fa-fw mr-2 text-gray-400"></i>
                   Profile
                 </a>
                 {{-- <a class="dropdown-item" href="#">
@@ -337,23 +337,23 @@
                       @if(Auth::user()->property_type !== 'Commercial Complex')
                         @if ($tenant_active->count() < $unit->beds)
                         <a href="/units/{{ $unit->unit_id }}/tenant-step1" title="{{ $unit->beds - $tenant_active->count() }} remaining tenant/s to be fully occupied." type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                            <i class="fas fa-user-plus fa-sm text-white-50"></i> Add Tenant <span class="badge badge-light">{{  $tenant_active->count() }}/{{ $unit->beds }} </a>
+                            <i class="fas fa-users-plus fa-sm text-white-50"></i> Add Tenant <span class="badge badge-light">{{  $tenant_active->count() }}/{{ $unit->beds }} </a>
 
                         @else
                         <a href="#/" title="{{ $unit->beds - $tenant_active->count() }} remaining tenant/s to be fully occupied." data-toggle="modal" data-target="#warningTenant" data-whatever="@mdo" type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                            <i class="fas fa-user-plus fa-sm text-white-50"></i> Add Tenant <span class="badge badge-light">{{  $tenant_active->count() }}/{{ $unit->beds }} 
+                            <i class="fas fa-users-plus fa-sm text-white-50"></i> Add Tenant <span class="badge badge-light">{{  $tenant_active->count() }}/{{ $unit->beds }} 
                           </a>
                         @endif
                       @else
                       <a href="/units/{{ $unit->unit_id }}/tenant-step1" type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                        <i class="fas fa-user-plus fa-sm text-white-50"></i> Add Tenant</a>
+                        <i class="fas fa-users-plus fa-sm text-white-50"></i> Add Tenant</a>
                       @endif
                        
                        
                         @if(Auth::user()->property_ownership === 'Multiple Owners' && Auth::user()->user_type === 'manager' && Auth::user()->property_type !== 'Commercial Complex')
                           @if ($unit_owner->count() < 1)
                           <a href="#/" data-toggle="modal" data-target="#addInvestor" data-whatever="@mdo" type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                            <i class="fas fa-user-plus fa-sm text-white-50"></i> Add Owner
+                            <i class="fas fa-users-plus fa-sm text-white-50"></i> Add Owner
                           </a>   
                           @endif
                         @endif
@@ -461,9 +461,9 @@
                     <div class="col-md-6">
                       <nav>
                         <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                          <a class="nav-item nav-link active" data-toggle="tab" href="#active" role="tab" aria-controls="nav-home" aria-selected="true"><i class="fas fa-user-check fa-sm text-50"></i>&nbsp&nbspACTIVE  <span class="badge badge-light">{{ $tenant_active->count() }}</span></a>
-                          <a class="nav-item nav-link"  data-toggle="tab" href="#reserved" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="fas fa-user-clock fa-sm text-50"></i>&nbsp&nbspRESERVED <span class="badge badge-light">{{ $tenant_reservations->count() }}</a>
-                          <a class="nav-item nav-link"  data-toggle="tab" href="#inactive" role="tab" aria-controls="nav-contact" aria-selected="false"><i class="fas fa-user-times fa-sm text-50"></i>&nbsp&nbspINACTIVE <span class="badge badge-light">{{ $tenant_inactive->count() }}</a>
+                          <a class="nav-item nav-link active" data-toggle="tab" href="#active" role="tab" aria-controls="nav-home" aria-selected="true"><i class="fas fa-users-check fa-sm text-50"></i>&nbsp&nbspACTIVE  <span class="badge badge-light">{{ $tenant_active->count() }}</span></a>
+                          <a class="nav-item nav-link"  data-toggle="tab" href="#reserved" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="fas fa-users-clock fa-sm text-50"></i>&nbsp&nbspRESERVED <span class="badge badge-light">{{ $tenant_reservations->count() }}</a>
+                          <a class="nav-item nav-link"  data-toggle="tab" href="#inactive" role="tab" aria-controls="nav-contact" aria-selected="false"><i class="fas fa-users-times fa-sm text-50"></i>&nbsp&nbspINACTIVE <span class="badge badge-light">{{ $tenant_inactive->count() }}</a>
                         </div>
                       </nav>
                       <div class="tab-content" id="nav-tabContent">

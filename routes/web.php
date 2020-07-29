@@ -744,10 +744,24 @@ Route::get('/concerns', function(){
             
             ->where('unit_property', Auth::user()->property)
             ->get();
-
-            //  DB::table('personnels')->get();
        
         return view('admin.concerns', compact('concerns'));
+    }else{
+        return view('unregistered');
+    }
+
+})->middleware('auth');
+
+Route::get('/personnels', function(){
+
+    if(auth()->user()->status === 'registered' || auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager' || auth()->user()->user_type === 'treasury' || auth()->user()->user_type === 'billing'){
+        
+             $concerns = DB::table('personnels')
+           
+            
+            ->get();
+       
+        return view('admin.personnels', compact('personnels'));
     }else{
         return view('unregistered');
     }
