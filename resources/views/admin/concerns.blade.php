@@ -348,9 +348,10 @@
                       <tr>
                           <th>TENANT</th>
                           <th>UNIT/ROOM</th>
+                          <th>TYPE</th>
+                          <th>URGENCY</th>
                           <th>STATUS</th>
-                          <th>MOBILE</th>
-                          <th>EMAIL</th>
+                          <th>ASSIGNED TO</th>
                              
                      </tr>
                     </thead>
@@ -362,6 +363,20 @@
                           </td>
                           <td>{{ $item->building.' '.$item->unit_no }}</td>
                           <td>
+                              @if($item->concern_type === 'leasing')
+                              <span class="badge badge-primary">{{ $item->concern_type }}</span>
+                              @else
+                              <span class="badge badge-danger">{{ $item->concern_type }}</span>
+                              @endif
+                          </td>
+                          <td>
+                              @if($item->concern_urgency === 'minor')
+                              <span class="badge badge-primary">{{ $item->concern_urgency }}</span>
+                              @else
+                              <span class="badge badge-danger">{{ $item->concern_urgency }}</span>
+                              @endif
+                          </td>
+                          <td>
                               @if($item->concern_status === 'pending')
                               <span class="badge badge-warning">{{ $item->concern_status }}</span>
                               @elseif($item->tenant_status === 'active')
@@ -370,8 +385,8 @@
                               <span class="badge badge-warning">{{ $item->concern_status }}</span>
                               @endif
                           </td>
-                          <td>{{ $item->contact_no }}</td>
-                          <td>{{ $item->email_address }}</td>
+                          <td>{{ $item->personnel_name }}</td>
+                          
             
                       </tr>
                       @endforeach
