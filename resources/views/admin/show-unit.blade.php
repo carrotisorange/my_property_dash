@@ -349,7 +349,7 @@
 
                         @else
                         <a href="#/" title="{{ $unit->beds - $tenant_active->count() }} remaining tenant/s to be fully occupied." data-toggle="modal" data-target="#warningTenant" data-whatever="@mdo" type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                            <i class="fas fa-users-plus fa-sm text-white-50"></i> Add Tenant <span class="badge badge-light">{{  $tenant_active->count() }}/{{ $unit->beds }} 
+                            <i class="fas fa-user-plus fa-sm text-white-50"></i> Add Tenant <span class="badge badge-light">{{  $tenant_active->count() }}/{{ $unit->beds }} 
                           </a>
                         @endif
                       @else
