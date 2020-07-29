@@ -36,10 +36,9 @@ class PersonnelController extends Controller
      */
     public function store(Request $request)
     {
-        DB::table('personnels')->insert([
-            'personnel_name' => $request->personnel_name,
-            'personnel_contact_no' => $request->personnel_contact_no,
-            'personnel_availability' => 'open'
+        DB::table('personnels')
+        ->update([
+            'personnel_property' => Auth::user()->property
         ]);
 
         return back()->with('success', 'Personnel has been added to the record!');
