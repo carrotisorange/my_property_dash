@@ -352,7 +352,6 @@
                           <th>URGENCY</th>
                           <th>STATUS</th>
                           <th>ASSIGNED TO</th>
-                             
                      </tr>
                     </thead>
                     <tbody>
@@ -386,8 +385,6 @@
                               @endif
                           </td>
                           <td>{{ $item->personnel_name }}</td>
-                          
-            
                       </tr>
                       @endforeach
                     </tbody>
