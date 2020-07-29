@@ -756,7 +756,7 @@ Route::get('/personnels', function(){
 
     if(auth()->user()->status === 'registered' || auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager' || auth()->user()->user_type === 'treasury' || auth()->user()->user_type === 'billing'){
         
-             $concerns = DB::table('personnels')
+             $personnels = DB::table('personnels')
            
             
             ->get();
