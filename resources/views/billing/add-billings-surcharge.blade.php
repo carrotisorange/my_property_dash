@@ -76,7 +76,7 @@
       <!-- Nav Item - Tables -->
       <li class="nav-item">
           <a class="nav-link" href="/owners">
-          <i class="fas fa-users-tie"></i>
+          <i class="fas fa-user-tie"></i>
           <span>Owners</span></a>
       </li>
        @endif

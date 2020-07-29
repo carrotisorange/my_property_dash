@@ -129,7 +129,7 @@
       <!-- Nav Item - Tables -->
       <li class="nav-item">
         <a class="nav-link" href="/owners">
-          <i class="fas fa-users-tie fa-table"></i>
+          <i class="fas fa-user-tie fa-table"></i>
           <span>Unit Owners</span></a>
       </li>
 

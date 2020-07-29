@@ -86,7 +86,7 @@
   <!-- Nav Item - Tables -->
   <li class="nav-item">
       <a class="nav-link" href="/owners">
-      <i class="fas fa-users-tie"></i>
+      <i class="fas fa-user-tie"></i>
       <span>Owners</span></a>
   </li>
    @endif
@@ -403,7 +403,7 @@
                             
                           </div>
                           <div class="col-auto">
-                            <i class="fas fa-users-tie fa-2x text-gray-300"></i>
+                            <i class="fas fa-user-tie fa-2x text-gray-300"></i>
                           </div>
                         </div>
                       </div>
