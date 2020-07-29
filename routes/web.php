@@ -659,13 +659,6 @@ Route::get('/home', function(){
             ->where('status','!=', 'pulled out')
             ->count();
 
-        return $units_count_per_building_per_florr = DB::table('units')
-            ->where('unit_property', Auth::user()->property)
-            ->where('status','!=', 'pulled out')
-            ->groupBy('building')
-            ->groupBy('floor_no')
-            ->count();
-
         $units = DB::table('units')
             ->where('unit_property', Auth::user()->property)
             ->where('status','!=', 'pulled out')
