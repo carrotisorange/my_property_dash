@@ -111,7 +111,7 @@ class UserController extends Controller
                     [
                         'name' => $request->name,
                         'email' => $request->email,
-                        'note' => 'Thank you for payment',
+                        'note' => $request->note,
                        
                     ]
                 );
