@@ -349,6 +349,41 @@
               </div>
           </form>
           </div>
+          <div class="row">
+            <div class="col">
+              <div class="collapse multi-collapse" id="multiCollapseExample1">
+                <div class="card card-body">
+                    <form id="addPersonnelForm" action="/personnels" method="POST">
+                        {{ csrf_field() }}
+                    </form>
+                    <div class="row">
+                        <div class="col">
+                            <label for="recipient-name" class="col-form-label"><b>Name</b></label>
+                            <input form="addPersonnelForm" type="text" class="form-control" name="personnel_name" required>
+                        </div>
+                        <div class="col">
+                            <label for="recipient-name" class="col-form-label"><b>Contact No</b></label>
+                            <input form="addPersonnelForm" type="email" class="form-control" name="personnel_contact_no" required>
+                        </div>
+                        <div class="col">
+                            <label for="recipient-name" class="col-form-label"><b>Availability</b></label>
+                            <select class="form-control" form="addPersonnelForm" name="personnel_availability" required>
+                                <option value="">Please select one</option>
+                                <option value="full">full</option>
+                                <option value="accepting">accepting</option>                                
+                            </select>
+                        </div>
+                       
+                    </div>
+                    <br>
+                      <p class="text-right">
+                        <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" type="submit" form="addPersonnelForm" onclick="return confirm('Are you sure you want perform this action?');" ><i class="fas fa-check fa-sm text-white-50"></i> Add User</button>
+                      </p>
+
+                </div>
+              </div>
+            </div>
+        </div>
               <div class="table-responsive">
                
                   <table class="table table-bordered" width="100%" cellspacing="0">

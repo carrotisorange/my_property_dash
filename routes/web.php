@@ -933,6 +933,10 @@ Route::post('/concerns', 'ConcernController@store')->middleware('auth');
 
 Route::post('/billings', 'BillingController@store')->middleware('auth');
 
+
+//routes for personnels
+Route::post('/personnels', 'PersonnelController@store')->middleware('auth');
+
 //tenant's online reservation
 Route::post('/reservation','TenantController@post_reservation');
 Route::get('/properties','UnitsController@show_property');
