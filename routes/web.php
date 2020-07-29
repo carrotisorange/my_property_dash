@@ -766,8 +766,8 @@ Route::get('/personnels', function(){
 
     if(auth()->user()->status === 'registered' || auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager' || auth()->user()->user_type === 'treasury' || auth()->user()->user_type === 'billing'){
         
-             return $personnels = DB::table('concerns')
-             ->join('personnels', 'concern_id', 'concern_personnel_id')
+             return $personnels = DB::table('personnels')
+             ->join('concerns', 'personnel_id', 'concern_personnel_id')
              ->select('*', DB::raw('count(personnel_id) as total_concerns'))
              ->get();
        
