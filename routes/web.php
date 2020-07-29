@@ -23,32 +23,27 @@ Route::get('/resources', function(){
     return view('landing-page.resources');
 });
 
-Route::get('/', function(Request $request){
+Route::get('/', function(){
+    $properties = Unit::distinct()
+    ->count('unit_property');
+  
+    $buildings = Unit::distinct()
+    ->count('building');
 
-    if(Auth::guest()){
+    $rooms = Unit::distinct()
+    ->count('unit_no');
 
-        $clients = DB::table('users')
-        ->select('')
-        ->where('user_type', 'admin')
-        ->count();
+    $tenants = Tenant::where('tenant_status', 'active')
+    ->count();
 
-        $properties = Unit::distinct()->count('unit_property');
-      
-        $buildings = Unit::distinct()->count('building');
+    return view('landing-page.index', compact('properties', 'buildings', 'rooms', 'tenants'));
+ 
+});
 
-        $rooms = Unit::distinct()->count('unit_no');
-
-        $tenants = DB::table('tenants')
-        ->where('tenant_status', 'active')
-        ->count();
-
-        return view('landing-page.index', compact('clients','properties', 'buildings', 'rooms', 'tenants'));
-    }
-
+Route::get('/dashboard', function(){
     if(auth()->user()->status === 'unregistered'){
         return view('unregistered');
     }
-
             $all_tenants = DB::table('tenants')
             ->join('units', 'unit_id', 'unit_tenant_id')
             ->where('unit_property', Auth::user()->property)
@@ -642,7 +637,7 @@ Route::get('/', function(Request $request){
                     )
             );
 
-    });
+    })->middleware('auth');
 
 //routes for units
 Route::get('units/{unit_id}', 'UnitsController@show')->middleware('auth');
@@ -674,14 +669,6 @@ Route::get('/home', function(){
             ->groupBy('building')
             ->where('status','!=', 'pulled out')
             ->get('building', 'status','count');   
-
-            
-        // $units_per_status = DB::table('units')
-        //     ->select('status',DB::raw('count(*) as count'))
-        //     ->where('unit_property', Auth::user()->property)
-        //     ->where('status','!=', 'pulled out')
-        //     ->groupBy('status')
-        //     ->get();
         
         return view('admin.home',compact('units','buildings', 'units_count'));
         }else{
