@@ -766,10 +766,10 @@ Route::get('/personnels', function(){
 
     if(auth()->user()->status === 'registered' || auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager' || auth()->user()->user_type === 'treasury' || auth()->user()->user_type === 'billing'){
         
-             $personnels = DB::table('personnels')
-           
-            
-            ->get();
+             return $personnels = DB::table('concerns')
+             ->join('personnels', 'concern_id', 'personnel_concern_id')
+             ->select('*', DB::raw('count(personnel_id) as total_concerns'))
+             ->get();
        
         return view('admin.personnels', compact('personnels'));
     }else{
