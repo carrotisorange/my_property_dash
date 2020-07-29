@@ -274,7 +274,7 @@ class TenantController extends Controller
         if(Auth::user()->status === 'registered'|| auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager' || auth()->user()->user_type === 'billing'){
             $tenant = Tenant::findOrFail($tenant_id);
 
-            $personnels = DB::table('personnels')->where('personnel_porperty', Auth::user()->property)->get();
+            $personnels = DB::table('personnels')->where('personnel_property', Auth::user()->property)->get();
 
             $payments = DB::table('payments')->where('payment_tenant_id', $tenant_id)->where('amt_paid','>', 0)->get();
         
