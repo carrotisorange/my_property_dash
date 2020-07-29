@@ -734,7 +734,7 @@ Route::get('/concerns', function(){
 
     if(auth()->user()->status === 'registered' || auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager' || auth()->user()->user_type === 'treasury' || auth()->user()->user_type === 'billing'){
         
-            $concerns = DB::table('tenants')
+            return $concerns = DB::table('tenants')
             ->join('units', 'unit_id', 'unit_tenant_id')
             ->join('concerns', 'tenant_id', 'concern_tenant_id')
             // ->join('personnels', 'concern_id', 'concern_tenant_id')
