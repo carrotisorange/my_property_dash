@@ -417,7 +417,14 @@
               </table>
             </div>
           </div>
-        
+          <div class="row">
+          <div class="card-body">
+            <p>
+                  {{ Auth::user()->note }}
+            </p>
+          </div>
+          </div>
+
         {{-- modal for adding payments. --}}
         
         <div class="modal fade" id="acceptPayment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
