@@ -381,7 +381,7 @@
                           <th>CONTACT NO</th>
                           <th>AVAILABILITY</th>
                           <th>ACTIVE CONCERNS</th>
-                          <th>PROPERTY</th>
+                         
                      </tr>
                     </thead>
                     <tbody>
@@ -391,7 +391,7 @@
                         <td>{{ $item->personnel_contact_no }}</td>
                         <td>{{ $item->personnel_availability }}</td>
                         <td>{{ $item->total_concerns }}</td>
-                        <td>{{ $item->personnel_property }}</td>
+                        
                     </tr>
                       @endforeach
                     </tbody>

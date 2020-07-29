@@ -751,7 +751,6 @@ Route::get('/concerns', function(){
              $concerns = DB::table('tenants')
             ->join('units', 'unit_id', 'unit_tenant_id')
             ->join('concerns', 'tenant_id', 'concern_tenant_id')
-            
             ->where('unit_property', Auth::user()->property)
             ->orderBy('date_reported', 'desc')
             ->orderBy('concern_urgency')
@@ -771,7 +770,7 @@ Route::get('/personnels', function(){
               $personnels = DB::table('personnels')
              ->select('*', DB::raw('count(concern_id) as total_concerns'))
              ->leftJoin('concerns', 'personnel_id', '=', 'concern_personnel_id')
-           
+            ->where('personnel_propert', Auth::user()->property)
              ->get();
        
         return view('admin.personnels', compact('personnels'));
