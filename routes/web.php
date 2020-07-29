@@ -49,6 +49,8 @@ Route::get('/', function(Request $request){
         return view('unregistered');
     }
 
+            $pending_concerns = DB::table('concerns')->where('concern_status', 'pending')->count();
+
             $all_tenants = DB::table('tenants')
             ->join('units', 'unit_id', 'unit_tenant_id')
             ->where('unit_property', Auth::user()->property)
@@ -638,7 +640,7 @@ Route::get('/', function(Request $request){
             'active_tenants', 'pending_tenants', 'owners', 
             'movein_rate','moveout_rate', 'renewed_chart', 'collection_rate', 'reason_for_moving_out_chart',
             'delinquent_accounts','tenants_to_watch_out',
-            'collections_for_the_day'
+            'collections_for_the_day','pending_concerns'
                     )
             );
 

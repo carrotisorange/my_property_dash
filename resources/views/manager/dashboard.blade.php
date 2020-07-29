@@ -409,9 +409,9 @@
                       <div class="card-body">
                         <div class="row no-gutters align-items-center">
                           <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">PENDING JOB ORDERS</div>
+                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">PENDING CONCERNS</div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
-                            <small>|</small>
+                            <small>{{ $pending_concerns }}</small>
                           </div>
                           <div class="col-auto">
                             <i class="fas fa-tools fa-2x text-gray-300"></i>
@@ -473,9 +473,9 @@
                       <div class="card-body">
                         <div class="row no-gutters align-items-center">
                           <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">PENDING JOB ORDERS</div>
+                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">PENDING CONCERNS</div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
-                            <small>|</small>
+                            <small>{{ $pending_concerns }}</small>
                           </div>
                           <div class="col-auto">
                             <i class="fas fa-tools fa-2x text-gray-300"></i>
