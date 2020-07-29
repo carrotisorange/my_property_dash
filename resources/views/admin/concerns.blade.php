@@ -358,7 +358,7 @@
                       @foreach ($concerns as $item)
                       <tr>
                           <td>
-                              <a href="">{{ $item->first_name.' '.$item->last_name }}
+                              <a href="">{{ $item->first_name.' '.$item->last_name }}</a>
                           </td>
                           <td>{{ $item->building.' '.$item->unit_no }}</td>
                           <td>
