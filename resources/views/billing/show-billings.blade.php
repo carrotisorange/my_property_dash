@@ -438,15 +438,15 @@
                 </button>
                 </div>
                 <div class="modal-body">
-                   <form id="editPaymentFooterForm" action="/users" method="POST">
+                   <form id="editPaymentFooterForm" action="/users/{{ Auth::user()-property->id }}" method="POST">
                     @method('put')
                     {{ csrf_field() }}
                    </form>
                     <textarea form="editPaymentFooterForm" class="form-control" name="note" id="" cols="30" rows="10">
                     {{ Auth::user()->note }}
                     </textarea>
-                  <input form="editPaymentFooterForm" type="text" name="name" value="{{ Auth::user()->name }}">
-                  <input form="editPaymentFooterForm" type="text" name="email" value="{{ Auth::user()->email }}">
+                  <input form="editPaymentFooterForm" type="hidden" name="name" value="{{ Auth::user()->name }}">
+                  <input form="editPaymentFooterForm" type="hidden" name="email" value="{{ Auth::user()->email }}">
                 </div>
                 <div class="modal-footer">
                       <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button>
