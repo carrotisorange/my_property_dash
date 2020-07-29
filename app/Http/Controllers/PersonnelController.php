@@ -42,7 +42,7 @@ class PersonnelController extends Controller
 
         return back()->with('success', 'Personnel has been added to the record!');
     }
-    }
+    
 
     /**
      * Display the specified resource.
