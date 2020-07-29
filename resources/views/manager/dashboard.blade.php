@@ -97,6 +97,12 @@
           <i class="fas fa-tools fa-table"></i>
           <span>Job Orders</span></a>
       </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="/personnels">
+          <i class="fas fa-tools fa-table"></i>
+          <span>Personnels</span></a>
+      </li>
     @endif
 
      @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'manager')

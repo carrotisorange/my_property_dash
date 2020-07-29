@@ -612,7 +612,7 @@
                               <select class="form-control" form="concernForm" name="concern_personnel_id">
                                 <option value="" selected>Please select one</option>
                                 @foreach($personnels as $personnel)
-                                <option value="{{ $personnel->personnel_id }">{{ $personnel->personnel_name }}</option>
+                                <option value="{{ $personnel->personnel_id }}">{{ $personnel->personnel_name }}</option>
                                 @endforeach
                                
                               </select>
