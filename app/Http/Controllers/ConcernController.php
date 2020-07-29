@@ -35,6 +35,9 @@ class ConcernController extends Controller
      */
     public function store(Request $request)
     {
+
+        return $request->all();
+        
         DB::table('concerns')->insert(
             [
                 'concern_tenant_id' => $request->tenant_id,
@@ -46,7 +49,7 @@ class ConcernController extends Controller
                 'concern_qty' => $request->concern_qty,
                 'concern_status' => 'pending',
                 'concern_desc' => $request->concern_desc,
-                'concern_personnel_id' => 1,
+                'concern_personnel_id' => $request->concern_personne_id,
                 'is_paid' => 'unpaid',
             ]);
 
