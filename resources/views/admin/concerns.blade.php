@@ -384,7 +384,7 @@
                               <span class="badge badge-warning">{{ $item->concern_status }}</span>
                               @endif
                           </td>
-                          <td>{{ $item->personnel_name }}</td>
+                          <!-- <td>{{ $item->personnel_name }}</td> -->
                       </tr>
                       @endforeach
                     </tbody>

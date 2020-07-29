@@ -795,7 +795,7 @@ Route::get('/joborders', function(){
         $concerns = DB::table('units')
         ->join('tenants', 'unit_id', 'unit_tenant_id')
         ->join('concerns', 'tenant_id', 'concern_tenant_id')
-        ->join('personnels', 'concern_id', 'concern_tenant_id')
+        // ->join('personnels', 'concern_id', 'concern_tenant_id')
         ->where('unit_property', Auth::user()->property)
         ->get();
             
