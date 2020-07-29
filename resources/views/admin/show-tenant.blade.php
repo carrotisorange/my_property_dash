@@ -611,7 +611,9 @@
                               <label for="movein_date">Assign concern to</label>
                               <select class="form-control" form="concernForm" name="concern_personnel_id">
                                 <option value="" selected>Please select one</option>
-                                <option value="1">Juan</option>
+                                @foreach($personnels as $personnel)
+                                <option value="{{ $personnel->personnel_id }">{{ $personnel->personnel_name }}</option>
+                                @endforeach
                                
                               </select>
                           </div>

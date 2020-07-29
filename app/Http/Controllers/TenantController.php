@@ -273,6 +273,8 @@ class TenantController extends Controller
         if(Auth::user()->status === 'registered'|| auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager' || auth()->user()->user_type === 'billing'){
             $tenant = Tenant::findOrFail($tenant_id);
 
+            $personnels = Personnel::all();
+
             $payments = DB::table('payments')->where('payment_tenant_id', $tenant_id)->where('amt_paid','>', 0)->get();
         
             $security_deposits = DB::table('payments')->where('payment_tenant_id', $tenant_id)->wherein('payment_note',['Security Deposit (Rent)', 'Security Deposit (Utilities)'])->get();
@@ -284,7 +286,7 @@ class TenantController extends Controller
     
             $pending_balance = $overall_bills - $overall_payments;
             
-                return view('admin.show-tenant', compact('tenant', 'billings', 'payments', 'pending_balance','security_deposits'));  
+                return view('admin.show-tenant', compact('tenant','personnels' ,'billings', 'payments', 'pending_balance','security_deposits'));  
         }else{
                 return view('unregistered');
         }
