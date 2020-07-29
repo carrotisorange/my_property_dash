@@ -357,7 +357,7 @@
                 <li><b>Date:</b> {{ Carbon\Carbon::now()->firstOfMonth()->format('M d Y') }}</li>
                 <li class="text-danger"><b>Due Date:</b> {{ Carbon\Carbon::now()->firstOfMonth()->addDays(7)->format('M d Y') }}</li>
                 <li><b>To:</b> {{ $tenant->first_name.' '.$tenant->last_name }}</li>
-                <li><b>Unit/Room:</b>   
+                <li><b>ROOM:</b>   
                   @foreach($unit_no as $item)
                   {{ $item->building.' '.$item->unit_no }}
                   @endforeach

@@ -337,7 +337,7 @@
             <tr>
                 <th  class="text-center">BILL NO</th>
                 <th>NAME</th>
-                <th>UNIT/ROOM</th>   
+                <th>ROOM</th>   
                 {{-- <th>DESCRIPTION</th>   --}}
                 <th>PREVIOUS BILL</th>     
                 <th>SURCHARGE (+10%)</th>

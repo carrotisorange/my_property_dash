@@ -332,7 +332,7 @@
                           <th class="text-center">#</th>
                           <th>DATE REPORTED</th>
                           <th>TENANT</th>
-                          <th>UNIT/ROOM</th>
+                          <th>ROOM</th>
                           <th>TYPE</th>
                           <th>URGENCY</th>
                           <th>STATUS</th>

@@ -343,7 +343,7 @@
                           <th>AR NO</th>
                           <th>BILL NO</th>
                           <th>TENANT</th>
-                          <th>UNIT/ROOM</th>
+                          <th>ROOM</th>
                           <th>DESCRIPTION</th>
                           <th>AMOUNT</th>
                           <th></th>

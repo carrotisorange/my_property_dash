@@ -471,7 +471,7 @@
     <div class="modal-dialog modal-md" role="document">
     <div class="modal-content">
         <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">ADD UNIT/ROOM</h5>
+        <h5 class="modal-title" id="exampleModalLabel">ADD ROOM</h5>
 
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -507,7 +507,7 @@
 
           
             <div class="form-group">
-                <label for="recipient-name" class="col-form-label">SELECT THE UNIT/ROOM TYPE</label>
+                <label for="recipient-name" class="col-form-label">SELECT THE ROOM TYPE</label>
                 <select form="addUnitForm" class="form-control" name="type_of_units" id="type_of_units" required>
                     <option value="" selected>Please select one</option>
                     <option value="leasing">leasing</option>
@@ -581,7 +581,7 @@
           {{-- <input form="addUMultipleUnitForm" type="hidden" class="form-control" name="type_of_units" value="leasing" required> --}}
 
            <div class="form-group">
-              <label for="recipient-name" class="col-form-label">SELECT THE UNIT/ROOM TYPE</label>
+              <label for="recipient-name" class="col-form-label">SELECT THE ROOM TYPE</label>
               <select form="addUMultipleUnitForm" class="form-control" name="type_of_units" required>
                   <option value="" selected>Please select one</option>
                   <option value="leasing">leasing</option>

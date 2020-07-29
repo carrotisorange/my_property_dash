@@ -347,7 +347,7 @@
                     <thead>
                       <tr>
                           <th>TENANT</th>
-                          <th>UNIT/ROOM</th>
+                          <th>ROOM</th>
                           <th>TYPE</th>
                           <th>URGENCY</th>
                           <th>STATUS</th>

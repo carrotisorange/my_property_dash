@@ -29,7 +29,7 @@
             <li><b>Date:</b> {{ Carbon\Carbon::now()->firstOfMonth()->format('M d Y') }}</li>
             <li class="text-danger"><b>Due Date:</b> {{ Carbon\Carbon::now()->firstOfMonth()->addDays(7)->format('M d Y') }}</li>
             <li><b>To:</b> {{ $tenant }}</li>
-            <li><b>Unit/Room:</b> {{ $unit }}</li>
+            <li><b>ROOM:</b> {{ $unit }}</li>
           </ul>
           <p class="text-right">Statement of Accounts</p>
             <table class="table text-right" width="100%" cellspacing="0" cellpadding="0">

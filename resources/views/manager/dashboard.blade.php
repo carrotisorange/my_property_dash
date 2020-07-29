@@ -514,7 +514,7 @@
                            <thead>
                              <tr>
                                <th>TENANT</th>
-                               <th>UNIT/ROOM</th>
+                               <th>ROOM</th>
                                <th>STATUS</th>
                            </tr>
                            </thead>
@@ -575,7 +575,7 @@
                             <thead>
                               <tr>
                                 <th>TENANT</th>
-                                <th>UNIT/ROOM</th>
+                                <th>ROOM</th>
                                 <th>AMOUNT</th>
                                
                             </tr>
@@ -619,7 +619,7 @@
                         <th>AR NO</th>
                         <th>BILL NO</th>
                         <th>TENANT</th>
-                        <th>UNIT/ROOM</th>
+                        <th>ROOM</th>
                         
                         <th>AMOUNT</th>
                         <th></th>

@@ -160,7 +160,7 @@
                 <i class="bx bx-arch"></i>
                 
               </div>
-              <h4><a href="">Unit/Room Management</a></h4>
+              <h4><a href="">ROOM Management</a></h4>
               {{-- <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p> --}}
             </div>
           </div>

@@ -341,7 +341,7 @@
                         <tr>
                            <th>#</th>
                            <th>OWNER</th>
-                           <th>UNIT/ROOM</th>
+                           <th>ROOM</th>
                            <th>MOBILE</th>
                            <th>CONTRACT PERIOD</th>
                        </tr>

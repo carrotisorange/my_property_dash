@@ -336,7 +336,7 @@
             <tr>
                 <th  class="text-center">BILL NO</th>
                 <th>NAME</th>
-                <th>UNIT/ROOM</th>
+                <th>ROOM</th>
                 {{-- <th>DESCRIPTION</th> --}}
                 <th>PERIOD COVERED</th>
                 <th>AMOUNT</th>

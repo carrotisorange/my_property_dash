@@ -352,7 +352,7 @@
                     <thead>
                       <tr>
                           <th>TENANT</th>
-                          <th>UNIT/ROOM</th>
+                          <th>ROOM</th>
                           <th>STATUS</th>
                           <th>MOBILE</th>
                           <th>EMAIL</th>

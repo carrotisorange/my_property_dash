@@ -291,7 +291,7 @@
                                 <th class="text-center">#</th>
                                 <th>DATE PAID</th>
                                 <th>TENANT</th>
-                                <th>UNIT/ROOM</th>
+                                <th>ROOM</th>
                                 <th>DESCRIPTION</th>
                                 <th>AMOUNT</th>
                                 <th>ACTION</th>

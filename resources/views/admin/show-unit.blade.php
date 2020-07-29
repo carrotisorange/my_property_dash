@@ -331,7 +331,7 @@
                 <div class="row">
                     <div class="col-md-6">
                       @if(Auth::user()->user_type === 'manager' )
-                        <button type="button" title="edit unit/room information." class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#editUnit" data-whatever="@mdo"><i class="fas fa-edit fa-sm text-white-50"></i> Edit Unit/Room</button> 
+                        <button type="button" title="edit ROOM information." class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#editUnit" data-whatever="@mdo"><i class="fas fa-edit fa-sm text-white-50"></i> Edit ROOM</button> 
                       @endif 
 
                       @if(Auth::user()->property_type !== 'Commercial Complex')
@@ -372,7 +372,7 @@
                               <table class="table table-bordered" width="100%" cellspacing="0">
                                  
                                    <tr>
-                                        <th>UNIT/ROOM NO</th>
+                                        <th>ROOM NO</th>
                                         <td>{{ $unit->unit_no }}</td>
                                    </tr>
                                    {{-- <tr>
@@ -398,7 +398,7 @@
                                         <td>{{ $numberFormatter->format($unit->floor_no) }}</td>
                                    </tr>
                                    <tr>
-                                        <th>UNIT/ROOM TYPE</th>
+                                        <th>ROOM TYPE</th>
                                         <td>{{ $unit->type_of_units }}</td>
                                    </tr>
                                    @if(Auth::user()->property_type !== 'Commercial Complex')
@@ -572,7 +572,7 @@
                         <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">EDIT UNIT/ROOM</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">EDIT ROOM</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -584,7 +584,7 @@
                             <div class="modal-body">
                             <form>
                                 <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">UNIT/ROOM NO</label>
+                                <label for="recipient-name" class="col-form-label">ROOM NO</label>
                                 <input form="editUnitForm" type="text" value="{{ $unit->unit_no }}" name="unit_no" class="form-control" id="unit_no" >
                                 </div>
                                 <div class="form-group">
@@ -630,7 +630,7 @@
                                 @endif
                                
                                 <div class="form-group">
-                                <label for="message-text" class="col-form-label">UNIT/ROOM STATUS</label>
+                                <label for="message-text" class="col-form-label">ROOM STATUS</label>
                                 <select form="editUnitForm" id="status" name="status" class="form-control">
                                     <option value="{{ $unit->status }}" readonly selected class="bg-primary">{{ $unit->status }}</option>
                                     <option value="vacant">vacant</option>
@@ -647,7 +647,7 @@
                             </div>
                             <div class="modal-footer">
                             <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button>
-                            <button form="editUnitForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="this.form.submit(); this.disabled = true;"><i class="fas fa-check fa-sm text-white-50"></i> Update Unit/Room</button>
+                            <button form="editUnitForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="this.form.submit(); this.disabled = true;"><i class="fas fa-check fa-sm text-white-50"></i> Update ROOM</button>
                             </div>
                         </div>
                         </div>
@@ -746,7 +746,7 @@
                                     </div>
                                     <div class="modal-body">
                                        <p class="text-center">
-                                            THE UNIT/ROOM IS FULLY OCCUPIED!
+                                            THE ROOM IS FULLY OCCUPIED!
                                        </p>
                                     </div>
                                     

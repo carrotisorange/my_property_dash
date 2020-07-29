@@ -23,7 +23,7 @@
           <ul style="list-style-type: none">
             <li><b>Date:</b> {{ Carbon\Carbon::now()->format('M d Y') }}</li>
             <li><b>To:</b> {{ $tenant }}</li>
-            <li><b>Unit/Room:</b> {{ $unit }} </li>
+            <li><b>ROOM:</b> {{ $unit }} </li>
           </ul>
           <p class="text-right">Acknowledgment Receipt</p>
             <table class="table text-right" width="100%" cellspacing="0" cellpadding="0">
