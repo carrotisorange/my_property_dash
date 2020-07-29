@@ -337,6 +337,7 @@
           
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Personnels</h1>
+            <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls=""> <i class="fas fa-users-plus  fa-sm text-white-50"></i> Personnel</a> 
             <form  action="/personnels/search" method="GET" >
               @csrf
               <div class="input-group">
@@ -349,6 +350,9 @@
               </div>
           </form>
           </div>
+
+
+
           <div class="row">
             <div class="col">
               <div class="collapse multi-collapse" id="multiCollapseExample1">
