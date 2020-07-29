@@ -94,7 +94,7 @@ class LoginController extends Controller
                     ]);
         }
 
-    protected $redirectTo = '/';
+    protected $redirectTo = '/manager';
 
     /**
      * Create a new controller instance.

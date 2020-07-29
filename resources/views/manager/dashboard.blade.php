@@ -29,7 +29,7 @@
  <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     {{-- <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/dashboard">
       
       <div class="sidebar-brand-text mx-5"> </div>
     </a>
@@ -39,7 +39,7 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item active">
-      <a class="nav-link" href="/">
+      <a class="nav-link" href="/dashboard">
          <i class="fas fa-home"></i> 
         <span>The Property Manager</span></a>
     </li>
@@ -54,7 +54,7 @@
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item active">
-      <a class="nav-link" href="/">
+      <a class="nav-link" href="/dashboard">
         <i class="fas fa-fw fa-tachometer-alt"></i>
         <span>Dashboard</span></a>
     </li>
