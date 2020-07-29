@@ -419,7 +419,7 @@
           </div>
           <div class="row">
           <div class="card-body">
-          <a data-toggle="modal" data-target="#editPaymentFooter" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" ><i class="fas fa-edit fa-sm text-white-50"></i>Edit Payment Footer Message</a>
+          <button data-toggle="modal" data-target="#editPaymentFooter" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" ><i class="fas fa-edit fa-sm text-white-50"></i> Edit Payment Footer Message</button>
             <p class="text-center">
                   {{ Auth::user()->note }}
             </p>
