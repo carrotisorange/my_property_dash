@@ -36,8 +36,6 @@ class ConcernController extends Controller
     public function store(Request $request)
     {
 
-        return $request->all();
-
         DB::table('concerns')->insert(
             [
                 'concern_tenant_id' => $request->tenant_id,
