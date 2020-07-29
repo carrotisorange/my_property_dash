@@ -51,7 +51,7 @@ Route::get('/', function(Request $request){
 
             $pending_concerns = DB::table('concerns')->where('concern_status', 'pending')->count();
 
-            $active_concerns = DB::table('concerns')->where('concern_status', 'pending')->count();
+            $active_concerns = DB::table('concerns')->where('concern_status', 'active')->count();
 
             $all_tenants = DB::table('tenants')
             ->join('units', 'unit_id', 'unit_tenant_id')
