@@ -792,7 +792,7 @@ Route::get('/owners', function(){
 Route::get('/joborders', function(){
     if(auth()->user()->status === 'registered' || auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager'){
 
-        $concerns = DB::table('units')
+        return $concerns = DB::table('units')
         ->join('tenants', 'unit_id', 'unit_tenant_id')
         ->join('concerns', 'tenant_id', 'concern_tenant_id')
         // ->join('personnels', 'concern_id', 'concern_tenant_id')
