@@ -13,4 +13,9 @@ class Personnel extends Model
                 'personnel_contact_no',
                 'personnel_availability',
     ];
+
+    public function tenant()
+    {
+        return $this->belongsTo('App\UnitOwner', 'unit_owner_id');
+    }
 }

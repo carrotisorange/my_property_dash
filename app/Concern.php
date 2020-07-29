@@ -26,7 +26,7 @@ class Concern extends Model
 
     ];
 
-     public function tenant()
+    public function tenant()
     {
     return $this->belongsTo('App\Tenant', 'concern_tenant_id');
     }

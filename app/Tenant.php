@@ -56,5 +56,10 @@ class Tenant extends Model
     {
         return $this->hasMany('App\Tenant', 'unit_tenant_id');
     }
+
+    public function concerns()
+    {
+        return $this->hasMany('App\Concern', 'concern_id');
+    }
     
 }
