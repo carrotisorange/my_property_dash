@@ -385,8 +385,8 @@
                               @endif
                           </td>
                          <td>
-                            <a title="{{ $item->concern_desc }}" href="#"><i class="fas fa-info-circle"></i> </a>
-                            <a href="#"><i class="fas fa-edit"></i></a>
+                         <a title="{{ $item->concern_desc }}" href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-info-circle fa-sm text-white-50"></i></a>
+                         <a title="edit" href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-edit fa-sm text-white-50"></i></a>
                           </td> 
                       </tr>
                       @endforeach
