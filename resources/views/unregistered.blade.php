@@ -89,7 +89,7 @@
       </li>
 
             <!-- Nav Item - Tables -->
-        <li class="nav-item active">
+        <li class="nav-item">
             <a class="nav-link" href="/personnels">
             <i class="fas fa-user-cog"></i>
                 <span>Personnels</span></a>
