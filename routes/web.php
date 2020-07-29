@@ -771,7 +771,7 @@ Route::get('/personnels', function(){
               $personnels = DB::table('personnels')
              ->select('*', DB::raw('count(concern_id) as total_concerns'))
              ->leftJoin('concerns', 'personnel_id', 'concern_personnel_id')
-             ->where('concern_status', 'pending')
+             
              ->get();
        
         return view('admin.personnels', compact('personnels'));
