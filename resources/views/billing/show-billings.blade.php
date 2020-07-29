@@ -419,7 +419,7 @@
           </div>
           <div class="row">
           <div class="card-body">
-         <p class="text-right"> <a title="edit payment footer" data-toggle="modal" data-target="#editPaymentFooter" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" ><i class="fas fa-edit fa-sm text-white-50"></i></a></p>
+         <p class="text-right"> <a data-toggle="modal" data-target="#editPaymentFooter" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" ><i class="fas fa-edit fa-sm text-white-50"></i>Edit Payment Footer Message</a></p>
             <p class="text-center">
                   {{ Auth::user()->note }}
             </p>
@@ -431,7 +431,7 @@
             <div class="modal-dialog modal-md" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Payment Footer</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Payment Footer Message</h5>
         
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
