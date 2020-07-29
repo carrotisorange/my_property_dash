@@ -337,21 +337,9 @@
           
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Personnels</h1>
-            <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls=""> <i class="fas fa-users-plus  fa-sm text-white-50"></i> Personnel</a> 
-            <form  action="/personnels/search" method="GET" >
-              @csrf
-              <div class="input-group">
-                  <input type="text" class="form-control" name="search" placeholder="Search for personnels..." value="{{ session(Auth::user()->id.'search_tenant') }}">
-                  <div class="input-group-append">
-                    <button class="btn btn-primary" type="submit">
-                      <i class="fas fa-search fa-sm"></i>
-                    </button>
-                  </div>
-              </div>
-          </form>
+            <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls=""> <i class="fas fa-user-plus  fa-sm text-white-50"></i> Personnel</a> 
+            
           </div>
-
-
 
           <div class="row">
             <div class="col">
@@ -367,15 +355,7 @@
                         </div>
                         <div class="col">
                             <label for="recipient-name" class="col-form-label"><b>Contact No</b></label>
-                            <input form="addPersonnelForm" type="email" class="form-control" name="personnel_contact_no" required>
-                        </div>
-                        <div class="col">
-                            <label for="recipient-name" class="col-form-label"><b>Availability</b></label>
-                            <select class="form-control" form="addPersonnelForm" name="personnel_availability" required>
-                                <option value="">Please select one</option>
-                                <option value="full">full</option>
-                                <option value="accepting">accepting</option>                                
-                            </select>
+                            <input form="addPersonnelForm" type="text" class="form-control" name="personnel_contact_no" required>
                         </div>
                        
                     </div>
