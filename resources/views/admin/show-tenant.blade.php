@@ -616,7 +616,7 @@
                         <div class="row">
                           <div class="col">
                               <label for="movein_date">Assign concern to</label>
-                              <select class="form-control" form="concernForm" name="concern_personnel_id">
+                              <select class="form-control" form="concernForm" name="concern_personnel_id" required>
                                 <option value="" selected>Please select one</option>
                                 @foreach($personnels as $personnel)
                                 <option value="{{ $personnel->personnel_id }}">{{ $personnel->personnel_name }}</option>
