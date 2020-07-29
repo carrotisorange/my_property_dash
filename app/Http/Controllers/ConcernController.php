@@ -36,20 +36,26 @@ class ConcernController extends Controller
     public function store(Request $request)
     {
 
-        DB::table('concerns')->insert(
-            [
-                'concern_tenant_id' => $request->tenant_id,
-                'date_reported' => $request->date_reported,
-                'concern_type'=> $request->concern_type,
-                'concern_urgency' => $request->concern_urgency,
-                'is_warranty' => $request->is_warranty,
-                'concern_item' => $request->concern_item,
-                'concern_qty' => $request->concern_qty,
-                'concern_status' => 'pending',
-                'concern_desc' => $request->concern_desc,
-                'concern_personnel_id' => $request->concern_personnel_id,
-                'is_paid' => 'unpaid',
-            ]);
+        DB::table('personnels')->insert([
+            'personnel_name' => 'Juan',
+            'personnel_contact_no' => '123123123',
+            'personnel_availability' => 'yes'
+        ]);
+
+        // DB::table('concerns')->insert(
+        //     [
+        //         'concern_tenant_id' => $request->tenant_id,
+        //         'date_reported' => $request->date_reported,
+        //         'concern_type'=> $request->concern_type,
+        //         'concern_urgency' => $request->concern_urgency,
+        //         'is_warranty' => $request->is_warranty,
+        //         'concern_item' => $request->concern_item,
+        //         'concern_qty' => $request->concern_qty,
+        //         'concern_status' => 'pending',
+        //         'concern_desc' => $request->concern_desc,
+        //         'concern_personnel_id' => $request->concern_personnel_id,
+        //         'is_paid' => 'unpaid',
+        //     ]);
 
             return back()->with('success', 'Concern has been added to the record!');
     }
