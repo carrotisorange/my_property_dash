@@ -34,7 +34,14 @@ class PersonnelController extends Controller
      */
     public function store(Request $request)
     {
-        return $request->all();
+        DB::table('personnels')->insert([
+            'personal_name' => $request->personnel_name,
+            'personnel_contact_no' => $request->personnel_contact_no,
+            'personnel_availabale' => 'yes'
+        ]);
+
+        return back()->with('success', 'Personnel has been added to the record!');
+    }
     }
 
     /**

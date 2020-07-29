@@ -334,7 +334,11 @@
         </nav>
         <!-- Begin Page Content -->
         <div class="container-fluid">
-          
+        @foreach (['danger', 'warning', 'success', 'info'] as $key)
+          @if(Session::has($key))
+         <p class="alert alert-{{ $key }}"> <i class="fas fa-check-circle"></i> {{ Session::get($key) }}</p>
+          @endif
+          @endforeach
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Personnels</h1>
             <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls=""> <i class="fas fa-user-plus  fa-sm text-white-50"></i> Personnel</a> 
@@ -361,7 +365,7 @@
                     </div>
                     <br>
                       <p class="text-right">
-                        <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" type="submit" form="addPersonnelForm" onclick="return confirm('Are you sure you want perform this action?');" ><i class="fas fa-check fa-sm text-white-50"></i> Add User</button>
+                        <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" type="submit" form="addPersonnelForm" onclick="return confirm('Are you sure you want perform this action?');" ><i class="fas fa-check fa-sm text-white-50"></i> Add Personnel</button>
                       </p>
 
                 </div>
