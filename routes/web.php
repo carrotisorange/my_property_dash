@@ -741,7 +741,7 @@ Route::get('/concerns', function(){
             ->where('unit_property', Auth::user()->property)
             ->get();
 
-            return DB::table('personnels')->get();
+            //  DB::table('personnels')->get();
        
         return view('admin.concerns', compact('concerns'));
     }else{

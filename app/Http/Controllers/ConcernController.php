@@ -36,11 +36,11 @@ class ConcernController extends Controller
     public function store(Request $request)
     {
 
-        DB::table('personnels')->insert([
-            'personnel_name' => 'Juan',
-            'personnel_contact_no' => '123123123',
-            'personnel_availability' => 'yes'
-        ]);
+        // DB::table('personnels')->insert([
+        //     'personnel_name' => 'Juan',
+        //     'personnel_contact_no' => '123123123',
+        //     'personnel_availability' => 'yes'
+        // ]);
 
         DB::table('concerns')->insert(
             [
