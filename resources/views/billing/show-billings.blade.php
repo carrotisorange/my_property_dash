@@ -420,7 +420,7 @@
           <div class="row">
           <div class="card-body">
           <button data-toggle="modal" data-target="#editPaymentFooter" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" ><i class="fas fa-edit fa-sm text-white-50"></i> Edit Payment Footer Message</button>
-            <br><b>NOTE:</b>
+           
             <p class="text-center">
                   {{ Auth::user()->note }}
             </p>
