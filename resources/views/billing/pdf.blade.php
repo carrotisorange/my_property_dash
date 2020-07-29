@@ -84,6 +84,7 @@
              </tr>
             @endif  
           </table>
+          <br><b>NOTE:</b>
           <div class="row">
           <div class="card-body">
             <p class="text-center">
