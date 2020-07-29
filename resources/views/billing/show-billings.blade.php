@@ -367,7 +367,7 @@
               <p class="text-right"></p>
                 <table class="table text-right" width="100%" cellspacing="0" cellpadding="0">
                   <tr>
-                    <th>Billing No</th>
+                    <th>Bill No</th>
                     <th>Description</th>
                     <th>Period Covered</th>
                     <th>Amount</th>
