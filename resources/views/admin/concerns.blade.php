@@ -378,7 +378,7 @@
                               <span class="badge badge-danger">{{ $item->concern_type }}</span>
                               @endif
                           </td>
-                          <td>{{ $item->concern_desc }}</td>
+                          <td>{{ $item->concern_item }}</td>
                           <td>
                               @if($item->concern_urgency === 'minor')
                               <span class="badge badge-primary">{{ $item->concern_urgency }}</span>
