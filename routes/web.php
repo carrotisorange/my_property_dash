@@ -737,7 +737,7 @@ Route::get('/concerns', function(){
             $concerns = DB::table('tenants')
             ->join('units', 'unit_id', 'tenant_id')
             ->join('concerns', 'tenant_id', 'tenant_id')
-            ->join('personnels', 'concern_id', 'tenant_id')
+            // ->join('personnels', 'concern_id', 'tenant_id')
             ->where('unit_property', Auth::user()->property)
             ->get();
        
