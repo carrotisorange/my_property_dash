@@ -378,13 +378,13 @@
                           <td>
                               @if($item->concern_status === 'pending')
                               <span class="badge badge-warning">{{ $item->concern_status }}</span>
-                              @elseif($item->tenant_status === 'active')
+                              @elseif($item->concern_status === 'active')
                               <span class="badge badge-primary">{{ $item->concern_status }}</span>
                               @else
                               <span class="badge badge-warning">{{ $item->concern_status }}</span>
                               @endif
                           </td>
-                          <!-- <td>{{ $item->personnel_name }}</td> -->
+                          <td>{{ $item->personnel_name }}</td>
                       </tr>
                       @endforeach
                     </tbody>
