@@ -357,6 +357,7 @@
                           <th>PERSONNEL</th>
                           <th>CONTACT NO</th>
                           <th>AVAILABILITY</th>
+                          <th>ACTIVE CONCERNS</th>
                      </tr>
                     </thead>
                     <tbody>
@@ -365,6 +366,7 @@
                         <td>{{ $item->personnel_name }}</td>
                         <td>{{ $item->personnel_contact_no }}</td>
                         <td>{{ $item->personnel_availability }}</td>
+                        <td>{{ $item->total_concerns }}</td>
                     </tr>
                       @endforeach
                     </tbody>
