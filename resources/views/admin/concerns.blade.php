@@ -346,6 +346,7 @@
                   <table class="table table-bordered" width="100%" cellspacing="0">
                     <thead>
                       <tr>
+                          <th>DATE REPORTED</th>
                           <th>TENANT</th>
                           <th>ROOM</th>
                           <th>TYPE</th>
@@ -357,6 +358,7 @@
                     <tbody>
                       @foreach ($concerns as $item)
                       <tr>
+                        <td>{{ Carbon\Carbon::parse($item->date_reported)->format('M d Y') }}</td>
                           <td>
                               <a href="">{{ $item->first_name.' '.$item->last_name }}</a>
                           </td>
