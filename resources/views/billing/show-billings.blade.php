@@ -438,7 +438,7 @@
                 </button>
                 </div>
                 <div class="modal-body">
-                   <form id="editPaymentFooterForm" action="/users/{{ Auth::user()-property->id }}" method="POST">
+                   <form id="editPaymentFooterForm" action="/users/{{ Auth::user()->id }}" method="POST">
                     @method('put')
                     {{ csrf_field() }}
                    </form>
