@@ -37,7 +37,7 @@ class PersonnelController extends Controller
         DB::table('personnels')->insert([
             'personal_name' => $request->personnel_name,
             'personnel_contact_no' => $request->personnel_contact_no,
-            'personnel_availabale' => 'yes'
+            'personnel_availability' => 'open'
         ]);
 
         return back()->with('success', 'Personnel has been added to the record!');
