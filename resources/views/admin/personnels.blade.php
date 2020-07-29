@@ -360,7 +360,7 @@
                      </tr>
                     </thead>
                     <tbody>
-                      @foreach ($concerns as $item)
+                      @foreach ($personnels as $item)
                     <tr>
                         <td>{{ $item->personnel_name }}</td>
                         <td>{{ $item->personnel_contact_no }}</td>
