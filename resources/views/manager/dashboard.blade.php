@@ -93,16 +93,12 @@
 
       <!-- Nav Item - Tables -->
     <li class="nav-item">
-        <a class="nav-link" href="/joborders">
-          <i class="fas fa-tools fa-table"></i>
-          <span>Job Orders</span></a>
-      </li>
-
-      <li class="nav-item">
         <a class="nav-link" href="/concerns">
           <i class="fas fa-tools fa-table"></i>
           <span>Concerns</span></a>
       </li>
+
+     
     @endif
 
      @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'manager')

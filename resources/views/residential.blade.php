@@ -142,9 +142,9 @@
 
        <!-- Nav Item - Tables -->
        <li class="nav-item">
-        <a class="nav-link" href="/joborders">
+        <a class="nav-link" href="/concerns">
           <i class="fas fa-tools fa-table"></i>
-          <span>Job Orders</span></a>
+          <span>Concerns</span></a>
       </li>
 
        <!-- Nav Item - Tables -->

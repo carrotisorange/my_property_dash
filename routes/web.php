@@ -792,21 +792,6 @@ Route::get('/owners', function(){
     
 })->middleware('auth');
 
-Route::get('/joborders', function(){
-    if(auth()->user()->status === 'registered' || auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager'){
-
-        $concerns = DB::table('units')
-        ->join('tenants', 'unit_id', 'unit_tenant_id')
-        ->join('concerns', 'tenant_id', 'concern_tenant_id')
-        ->where('unit_property', Auth::user()->property)
-        ->get();
-            
-        return view('admin.joborders', compact('joborders'));
-    }else{
-        return view('unregistered');
-    }
-})->middleware('auth');
-
 Route::get('/collections', function(){
     if(auth()->user()->status === 'registered' && (auth()->user()->user_type === 'billing' || auth()->user()->user_type === 'manager' || auth()->user()->user_type === 'treasury')){
         $property = explode(",", Auth::user()->property);
