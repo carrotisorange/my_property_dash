@@ -831,7 +831,8 @@ Route::get('/collections', function(){
             ->join('payments', 'tenant_id', 'payment_tenant_id')
             ->where('unit_property', Auth::user()->property)
             // ->whereIn('payment_note',['Rent', 'Electricity', 'Water', 'Surcharge'])
-            ->orderBy('ar_number', 'desc')
+            ->orderBy('payment_created', 'desc')
+            ->orderBy('payment_created', 'desc')
             ->get()
             ->groupBy(function($item) {
                 return \Carbon\Carbon::parse($item->payment_created)->timestamp;
