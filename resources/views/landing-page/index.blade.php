@@ -52,7 +52,7 @@
               <li><a target="_blank" href="/resources#guidelines-during-covid-19">Guidelines During COVID-19</a></li>
               <li class="drop-down"><a href="#">Articles</a>
                 <ul>
-                  <li><a target="_blank" href="/resources/navigating-to-new-normal">Navigating to New Normal</a></li>
+                  <li><a target="_blank" href="/resources/#navigating-to-new-normal">Navigating to New Normal</a></li>
                   <!-- <li><a href="#">Deep Drop Down 2</a></li>
                   <li><a href="#">Deep Drop Down 3</a></li>
                   <li><a href="#">Deep Drop Down 4</a></li>
