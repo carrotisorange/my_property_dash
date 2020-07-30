@@ -47,7 +47,23 @@
       <nav class="nav-menu d-none d-lg-block">
         <ul>
           <li class="active"><a href="/">Home</a></li>
-          <li><a target="_blank" href="/resources">Resources</a></li>
+          <li class="drop-down"><a href="">Resources</a>
+            <ul>
+              <li><a target="_blank" href="/resources#guidelines-during-covid-19">Guidelines During COVID-19</a></li>
+              <li class="drop-down"><a href="#">Articles</a>
+                <ul>
+                  <li><a target="_blank" href="/resources/navigating-to-new-normal">Navigating to New Normal</a></li>
+                  <!-- <li><a href="#">Deep Drop Down 2</a></li>
+                  <li><a href="#">Deep Drop Down 3</a></li>
+                  <li><a href="#">Deep Drop Down 4</a></li>
+                  <li><a href="#">Deep Drop Down 5</a></li> -->
+                </ul>
+              </li>
+              <!-- <li><a href="#">Drop Down 2</a></li>
+              <li><a href="#">Drop Down 3</a></li>
+              <li><a href="#">Drop Down 4</a></li> -->
+            </ul>
+          </li>
           <li><a href="#services">Services</a></li>    
           <li><a href="#pricing">Pricing</a></li>
           <li><a href="#contact">Contact</a></li>

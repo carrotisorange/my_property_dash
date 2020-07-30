@@ -110,7 +110,7 @@
 
     <section class="inner-page">
       <div class="container">
-        <h4>Navigating the New Normal in Property Management</h4>
+        <h4 id="navigating-to-new-normal">Navigating the New Normal in Property Management</h4>
       
         <p>
           Never let a crisis go to waste. In a pandemic, there are opportunities. We need to take advantage of this pandemic to become innovative, to experiment, 
