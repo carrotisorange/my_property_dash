@@ -402,7 +402,7 @@
                 <th>TYPE</th>
                 <th>PROPERTY</th>
                 <th>LAST LOGIN AT</th>
-                <th>LAST LOGOUT AT</th>
+                <th>SESSION ACTIVE</th>
                 
               </tr>
           </thead>
@@ -421,8 +421,7 @@
                <td>{{ $item->user_type }}</td>
                <td>{{ $item->property }}</td>
                <td>{{ $item->last_login_at }}</td>
-               <td>{{ $item->last_logout_at }}</td>
-               
+               <td>{{ Carbon::parse($item->last_logout_at)->diffInHours() }}</td>      
            </tr>
            @endforeach
           </tbody>
