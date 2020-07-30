@@ -125,7 +125,7 @@
      <!-- Nav Item - Tables -->
      <li class="nav-item active">
       <a class="nav-link" href="/users">
-        <i class="fas fa-users-secret fa-table"></i>
+        <i class="fas fa-user-circle"></i>
         <span>Users</span></a>
     </li>
     @endif
