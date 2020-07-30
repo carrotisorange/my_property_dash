@@ -790,6 +790,8 @@ class TenantController extends Controller
 
                 'payment_amt' => $payment_amt,
 
+                'payment_date' => $payment->payment_created,
+
                 'payment_ar' => $payment->ar_number,
 
                 'payment_breakdown' => $payment_breakdown,
