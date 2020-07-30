@@ -26,7 +26,8 @@ class PaymentController extends Controller
             ->where('unit_property', Auth::user()->property)
             // ->whereIn('payment_note',['Rent', 'Electricity', 'Water', 'Surcharge'])
             ->where('payment_created', $search)
-            ->orderBy('ar_number', 'desc')
+            ->orderBy('payment_created', 'desc')
+            ->orderBy('payment_created', 'desc')
             ->get()
             ->groupBy(function($item) {
                 return \Carbon\Carbon::parse($item->payment_created)->timestamp;
