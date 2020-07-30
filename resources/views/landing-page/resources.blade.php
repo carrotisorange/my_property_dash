@@ -127,9 +127,9 @@
     <section class="inner-page">
       <div class="container">
       <br>
-      <h4 id="guidelines-during-covid-19">Guidelines on Concessions on Residential and Commercial Rents During Covid 19 in the Philippines</h4>
+      <h4>Guidelines on Concessions on Residential and Commercial Rents During Covid 19 in the Philippines</h4>
       
-      <p>
+      <p id="guidelines-during-covid-19">
       Republic Act 11469 known as the Bayanihan to Heal as One Act declared as a policy during the Covid 19 pandemic to provide for
        a minimum thirty (30) day grace period on residential and commercial rents for MSMEs falling due within the period 
        of the Enhance Community Quarantine (ECQ), Modified Enhanced Community Quarantine (MECQ), General Community Quarantine 
@@ -183,9 +183,9 @@
       </p>
 
     <br>
-        <h4 id="navigating-to-new-normal">Navigating the New Normal in Property Management</h4>
+        <h4 >Navigating the New Normal in Property Management</h4>
       
-        <p>
+        <p id="navigating-to-new-normal">
           Never let a crisis go to waste. In a pandemic, there are opportunities. We need to take advantage of this pandemic to become innovative, to experiment, 
           and to optimize. This health crisis allows us the time in the property management industry to digitally transform our businesses and to use technology as
            a strategy to expand our business and increase the number of properties managed even during any crisis. A Property Management System is essential 
@@ -198,9 +198,9 @@
              We need to evolve and update our mindsets, our knowledge, our skills, and our systems to navigate this new normal. 
         </p>
     <br>
-        <h4 id="why-did-your-start-property-manager-online">Why did you start thepropertymanager.online?</h4>
+        <h4 >Why did you start thepropertymanager.online?</h4>
       
-        <p>
+        <p id="why-did-your-start-property-manager-online">
           We are property managers with about a thousand listings, we were using traditional marketing and many steps of leasing procedures, 
           paper and pen to sign up tenant info sheets, contracts, billing statements and receipts. We monitor transactions through spreadsheets 
           and it takes a day to process a report. At one point, our operations are so wrapped up into administrative work that we are spending less 
@@ -210,9 +210,9 @@
         </p>
     <br>
 
-        <h4 id="is-property-management-right-for-me">Is a property management system right for me?</h4>
+        <h4 >Is a property management system right for me?</h4>
       
-        <p>
+        <p id="is-property-management-right-for-me">
           Renting out a room or a few number of rooms to tenants is a good source of passive income if you are not doing the property management work. 
           But if you factor in the work of looking for tenants, interviewing tenants, explaining house rules, closing contracts, then managing tenants,
            billing and collecting rent, and every work in between, the number of hours spent is actual working hours spent to manage and operate a rental property. 
