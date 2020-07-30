@@ -354,7 +354,7 @@
                           <th>TENANT</th>
                           <th>ROOM</th>
                           <th>DESCRIPTION</th>
-                          <th>AMOUNT</th>
+                          <th class="text-right">AMOUNT</th>
                           <th></th>
                       </tr>
                 </tr>
@@ -365,7 +365,7 @@
                           <td>{{ $item->first_name.' '.$item->last_name }}</td>
                           <td>{{ $item->building.' '.$item->unit_no }}</td>
                           <td>{{ $item->payment_note }}</td>
-                          <td>{{ number_format($item->amt_paid,2) }}</td>
+                          <td class="text-right">{{ number_format($item->amt_paid,2) }}</td>
                           <td class="text-center">
                             <a title="export pdf" target="_blank" href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/payments/{{ $item->payment_id }}/dates/{{$item->payment_created}}/export" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i></a>
                             {{-- <a target="_blank" href="#" title="print invoice" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-print fa-sm text-white-50"></i></a> 
@@ -382,7 +382,7 @@
                   @endforeach
                       <tr>
                         <th>TOTAL</th>
-                        <th colspan="4" class="text-right">{{ number_format($collection_list->sum('amt_paid'),2) }}</th>
+                        <th colspan="5" class="text-right">{{ number_format($collection_list->sum('amt_paid'),2) }}</th>
                       </tr>
                 @endforeach
             </table>
