@@ -365,7 +365,7 @@
                 </tr>
                   @foreach ($collection_list as $item)
                   <tr>
-                          <td>{{ Carbon\Carbon::parse($item->payment_created)->format('M d Y') }}</td>
+                          <td>{{ Carbon\Carbon::parse($item->payment_created)->addDay()->format('M d Y') }}</td>
                          
                           <td>{{ $item->ar_number }}</td>
                           <td>{{ $item->payment_billing_no }}</td>
