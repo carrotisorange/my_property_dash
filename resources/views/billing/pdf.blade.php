@@ -94,7 +94,7 @@
           
           <ul style="list-style-type: none">
             <li><b>Posted by:</b> {{ Auth::user()->name }}</li>
-            <li>{{ Auth::user()->user_type.' of '. Auth::user()->property }}</li>
+            <li>{{ ucfirst(Auth::user()->user_type).' of '. Auth::user()->property }}</li>
           </ul>
         
         </div>
