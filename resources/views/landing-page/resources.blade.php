@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>The Property Manager </title>
+  <title>The Property Manager - Resources </title>
   <meta content="" name="descriptison">
   <meta content="" name="keywords">
 
@@ -110,6 +110,63 @@
 
     <section class="inner-page">
       <div class="container">
+
+      <h4 id="guidelines-during-covid-19">Guidelines on Concessions on Residential and Commercial Rents During Covid 19 in the Philippines</h4>
+      
+      <p>
+      Republic Act 11469 known as the Bayanihan to Heal as One Act declared as a policy during the Covid 19 pandemic to provide for
+       a minimum thirty (30) day grace period on residential and commercial rents for MSMEs falling due within the period 
+       of the Enhance Community Quarantine (ECQ), Modified Enhanced Community Quarantine (MECQ), General Community Quarantine 
+       (GCQ) or until such a time that the community quarantine is lifted, without incurring interests, penalties, fees, and 
+       other charges. 
+      </p>
+       
+      <p>
+      The grant for a minimum 30 day grace period shall commence from the lifting of the covered community quarantine or from the 
+      date that the tenant is allowed to resume employment or business operation, whichever comes first, without incurring interests, 
+      penalties, fees, and other charges.
+      </p>
+
+      <p>
+      The grace period may be availed of the residential or commercial lessees who have lost their income during any 
+      of the community quarantines, or whose employer or businesses where not allowed to operate by law/regulations/ordinances 
+      relevant to any covered community quarantine. The commencement of the grace period shall be from the date that the employer 
+      or business was allowed to resume operations regardless of whether or not the lessee opts to go back to work or resume business 
+      operations. 
+      </p>
+
+      <p>
+      Cumulative amounts of rents falling due within any of the covered community quarantine, shall be equally amortized in six (6) 
+      months following the end of the 30 day minimum grace period, without interests, penalties, fees and other charges, which amount 
+      shall be added to the monthly rent due. To avail of the 6-month concession, the lessee shall provide the lessor a signed 
+      Promissory Note of letter, undertaking to pay the deferred rent/s in accordance herewith, and failure thereof shall make 
+      such deferred rents due and demandable immediately following the end of the minimum 30 days grace period. 
+      </p>
+
+      <p>
+      Lessors are not obliged to refund residential and commercial rents paid by the lessees before or during the period of
+       ECQ or any version thereof. 
+      </p>
+
+      <p>
+      Lessors of commercial rent for MSMEs who wish to extend greater generosity may totally or partially waive the 
+      commercial rents that are falling due during the covered community quarantine; grant reprieve or discounted 
+      amount of commercial rents due after the covered community quarantine; open for renegotiation the Lease Term 
+      Agreements with the lessees; or use other recourse to mitigate the
+       impact of a covered community quarantine to the MSMEs. 
+      </p>
+
+      <p>
+      No eviction for failure to pay the residential or commercial rent due may be enforced from May 17, 2020 when ECQ took 
+      effect until the end of the grace period granted by the lessor to a lessee. 
+      </p>
+
+      <p>
+      Lessors may be held criminally, civilly, or administratively liable for failure to abide by relevant laws, regulations and/ 
+      or ordinances. The same applies to lessees who fail to pay their obligations and abide by the terms of their promissory note.
+      </p>
+
+
         <h4 id="navigating-to-new-normal">Navigating the New Normal in Property Management</h4>
       
         <p>
@@ -125,7 +182,7 @@
              We need to evolve and update our mindsets, our knowledge, our skills, and our systems to navigate this new normal. 
         </p>
 
-        <h4>Why did you start thepropertymanager.online?</h4>
+        <h4 id="why-did-your-start-property-manager-online">Why did you start thepropertymanager.online?</h4>
       
         <p>
           We are property managers with about a thousand listings, we were using traditional marketing and many steps of leasing procedures, 
@@ -136,7 +193,7 @@
           aspects of the business like providing good customer service experience while maintaining efficient operations and that’s how thepropertymanager.online was born. - The Founders.
         </p>
 
-        <h4>Is a property management system right for me?</h4>
+        <h4 id="is-property-management-right-for-me">Is a property management system right for me?</h4>
       
         <p>
           Renting out a room or a few number of rooms to tenants is a good source of passive income if you are not doing the property management work. 
