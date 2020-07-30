@@ -159,7 +159,7 @@ class UnitsController extends Controller
             'created_at'=> Carbon::now(),
         ]);
 
-        return redirect('/units/'.$id)->with('success', '1 room/unit has been added to the record!');
+        return redirect('/units/'.$id)->with('success', '1 room has been added to the record!');
     }
 
     public function add_multiple_rooms(Request $request){
@@ -178,7 +178,7 @@ class UnitsController extends Controller
          ]);
         }
  
-         return back()->with('success', $request->no_of_rooms.' rooms/units have been added to the record!');
+         return back()->with('success', $request->no_of_rooms.' rooms have been added to the record!');
      }
 
 
@@ -214,7 +214,7 @@ class UnitsController extends Controller
                 'monthly_rent' => $request->monthly_rent
             ]);
         
-        return back()->with('success', 'Unit information has been updated!');
+        return back()->with('success', 'Room information has been updated!');
     }
 
     public function show_vacant_units($property){
@@ -276,6 +276,6 @@ class UnitsController extends Controller
     {
          DB::table('units')->where('unit_id',$id )->delete();
 
-        return back()->with('success', 'Unit information has been deleted!');
+        return back()->with('success', 'Room has been deleted!');
     }
 }
