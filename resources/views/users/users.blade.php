@@ -390,12 +390,11 @@
         </div>
       
         <br>
-        <?php $ctr=1; ?>
         <div class="table-responsive">
         <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
           <thead>
             <tr>
-              <td>#</td>
+              <th>#</th>
                 <th>USER</th>
                 <th>EMAIL</th>
                 <th>TYPE</th>
@@ -408,7 +407,7 @@
           <tbody>
             @foreach ($users as $item)
            <tr>
-              <th>{{ $ctr++ }}</th>
+              <th>{{ $item->id }}</th>
                <td>
                  {{ $item->name }}
                 </td>
