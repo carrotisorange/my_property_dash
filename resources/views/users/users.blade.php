@@ -399,7 +399,7 @@
                 <th>EMAIL</th>
                 <th>TYPE</th>
                 <th>PROPERTY</th>
-                <th>LAST LOGIN AT</th>
+                <th>LAST LOGIN</th>
                 <th>SESSION</th>
                 
               </tr>
