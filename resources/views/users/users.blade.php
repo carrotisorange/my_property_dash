@@ -402,7 +402,7 @@
                 <th>TYPE</th>
                 <th>PROPERTY</th>
                 <th>LAST LOGIN AT</th>
-                <th>SESSION ACTIVE</th>
+                <th>SESSION</th>
                 
               </tr>
           </thead>
@@ -427,11 +427,11 @@
                  <span class="badge badge-success"> online</span>
                  @else
                   @if($diffInMinutes < 60)
-                  <span class="badge badge-secondary"> {{ $diffInMinutes }}minutes ago</span> 
+                  <span class="badge badge-secondary"> {{ $diffInMinutes }} minutes ago</span> 
                     @elseif($diffInHours > 24)
-                    <span class="badge badge-secondary"> {{ $diffInDays }}days ago</span>
+                    <span class="badge badge-secondary"> {{ $diffInDays }} days ago</span>
                     @else
-                    <span class="badge badge-secondary">  {{ $diffInHours }}hours ago</span>
+                    <span class="badge badge-secondary">  {{ $diffInHours }} hours ago</span>
                     @endif
                  @endif
                 </td>      
