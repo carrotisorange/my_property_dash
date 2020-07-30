@@ -122,8 +122,6 @@ class UserController extends Controller
                     [
                         'name' => $request->name,
                         'email' => $request->email,
-                        'note' => $request->note,
-                       
                     ]
                 );
 
