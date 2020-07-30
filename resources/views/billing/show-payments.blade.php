@@ -347,7 +347,7 @@
                   <tr>
                           <th>AR NO</th>
                           <th>BILL NO</th>
-                          <th>TENANT</th>
+                          
                           <th>ROOM</th>
                           <th>DESCRIPTION</th>
                           <th>AMOUNT</th>
@@ -358,7 +358,7 @@
                   <tr>
                           <td>{{ $item->ar_number }}</td>
                           <td>{{ $item->payment_billing_no }}</td>
-                          <td>{{ $item->first_name.' '.$item->last_name }}</td>
+                          
                           <td>{{ $item->building.' '.$item->unit_no }}</td>
                           <td>{{ $item->payment_note }}</td>
                           <td>{{ number_format($item->amt_paid,2) }}</td>
@@ -376,14 +376,12 @@
                           </td> --}}
                       </tr>
                   @endforeach
+                      <tr>
+                        <th>TOTAL</th>
+                        <th class="text-right">{{ number_format($collections->sum('amt_paid'),2) }}</th>
+                      </tr>
                 @endforeach
             </table>
-              <table class="table" id="dataTable" width="100%" cellspacing="0">
-                <tr>
-                 <th>TOTAL</th>
-                 <th class="text-right">{{ number_format($collections->sum('amt_paid'),2) }}</th>
-                </tr>
-              </table>
           </div>
            </div>
          </div>
