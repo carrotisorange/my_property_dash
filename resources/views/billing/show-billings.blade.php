@@ -446,8 +446,7 @@
                     <textarea form="editPaymentFooterForm" class="form-control" name="note" id="" cols="30" rows="10">
                     {{ Auth::user()->note }}
                     </textarea>
-                  <input form="editPaymentFooterForm" type="hidden" name="name" value="{{ Auth::user()->name }}">
-                  <input form="editPaymentFooterForm" type="hidden" name="email" value="{{ Auth::user()->email }}">
+                  <input form="editPaymentFooterForm" type="hidden" name="action" value="change_footer_message">
                 </div>
                 <div class="modal-footer">
                       <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button>
