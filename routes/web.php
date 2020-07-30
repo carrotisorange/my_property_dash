@@ -830,7 +830,7 @@ Route::get('/collections', function(){
             ->join('tenants', 'unit_id', 'unit_tenant_id')
             ->join('payments', 'tenant_id', 'payment_tenant_id')
             ->where('unit_property', Auth::user()->property)
-            ->whereIn('payment_note',['Rent', 'Electricity', 'Water', 'Surcharge'])
+            // ->whereIn('payment_note',['Rent', 'Electricity', 'Water', 'Surcharge'])
             ->orderBy('ar_number', 'desc')
             ->get()
             ->groupBy(function($item) {
