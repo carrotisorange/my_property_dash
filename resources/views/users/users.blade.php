@@ -394,7 +394,7 @@
         <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
           <thead>
             <tr>
-              <th>#</th>
+              <th>USER ID</th>
                 <th>USER</th>
                 <th>EMAIL</th>
                 <th>TYPE</th>
