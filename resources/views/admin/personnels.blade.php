@@ -372,6 +372,7 @@
               </div>
             </div>
         </div>
+        <br>
               <div class="table-responsive">
                
                   <table class="table table-bordered" width="100%" cellspacing="0">
@@ -391,7 +392,7 @@
                         <td>{{ $item->personnel_contact_no }}</td>
                         <td>{{ $item->personnel_availability }}</td>
                       
-                        
+
                     </tr>
                       @endforeach
                     </tbody>
