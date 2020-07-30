@@ -432,11 +432,6 @@
                                     </tr>
                                     @if ($unit_owner->count() > 0)
                                         @foreach ($unit_owner as $item)
-                                    
-                                    <tr>
-                                        <th colspan="2">OWNER INFORMATION</th>
-                                        
-                                    </tr>
                                     <tr>
                                         <th>OWNER </th>
                                         <td><a href="{{ route('show-investor',['unit_id'=> $item->unit_id, 'unit_owner_id'=>$item->unit_owner_id]) }}">{{ $item->unit_owner }} </a></td>
