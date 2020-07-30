@@ -411,11 +411,7 @@
            <tr>
               <th>{{ $ctr++ }}</th>
                <td>
-                 @if($item->user_current_status === 'online')
-                 <span class="badge badge-success"> {{ $item->name }}</span>
-                 @else
-                 <span class="badge badge-secondary"> {{ $item->name }}</span>
-                 @endif
+                 {{ $item->name }}
                 </td>
                <td>{{ $item->email }}</td>
                <td>{{ $item->user_type }}</td>
@@ -427,13 +423,17 @@
                   $diffInDays = Carbon\Carbon::parse($item->last_logout_at)->diffInDays()
                ?>
                <td>
+                  @if($item->user_current_status === 'online')
+                 <span class="badge badge-success"> online</span>
+                 @else
                   @if($diffInMinutes < 60)
-                     {{ $diffInMinutes }}M ago
-                  @elseif($diffInHours > 24)
-                      {{ $diffInDays }}D ago
-                  @else
-                      {{ $diffInHours }}H ago
-                  @endif
+                  <span class="badge badge-secondary"> {{ $diffInMinutes }}minutes ago</span> 
+                    @elseif($diffInHours > 24)
+                    <span class="badge badge-secondary"> {{ $diffInDays }}days ago</span>
+                    @else
+                    <span class="badge badge-secondary">  {{ $diffInHours }}hours ago</span>
+                    @endif
+                 @endif
                 </td>      
            </tr>
            @endforeach
