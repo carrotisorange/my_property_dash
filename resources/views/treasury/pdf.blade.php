@@ -29,7 +29,7 @@
             <table class="table text-right" width="100%" cellspacing="0" cellpadding="0">
               <tr>
               
-                <th>Billing No</th>
+                <th>Bill No</th>
                 <th>Description</th>
                 <th>Date</th>
                 <th>Amount</th>
@@ -61,7 +61,7 @@
           </table>
           <ul style="list-style-type: none">
             <li><b>Issued by:</b> {{ Auth::user()->name }}</li>
-            <li>{{ Auth::user()->user_type.' of '. Auth::user()->property }}</li>
+            <li>{{ ucfirst(Auth::user()->user_type).' of '. Auth::user()->property }}</li>
           </ul>
         
         </div>
