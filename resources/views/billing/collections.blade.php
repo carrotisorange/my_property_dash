@@ -333,7 +333,7 @@
             <form  action="/payments/search" method="GET" >
               @csrf
               <div class="input-group">
-                <input type="date" class="form-control" name="search" value="{{ session(Auth::user()->id.'search_payment') }}">
+                <input type="date" class="form-control" name="search" value="{{ session(Auth::user()->id.'search_payment') }}" required>
                 <div class="input-group-append">
                   <button class="btn btn-primary" type="submit">
                     <i class="fas fa-search fa-sm"></i>
