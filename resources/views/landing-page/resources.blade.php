@@ -126,7 +126,6 @@
 
     <section class="inner-page">
       <div class="container">
-      <br>
       <h4>Guidelines on Concessions on Residential and Commercial Rents During Covid 19 in the Philippines</h4>
       
       <p id="guidelines-during-covid-19">
