@@ -351,15 +351,18 @@ class TenantController extends Controller
 
         $tenant = Tenant::findOrFail($tenant_id);
      
-        $payments = DB::table('units')
-            ->join('tenants', 'unit_id', 'unit_tenant_id')
-            ->join('payments', 'tenant_id', 'payment_tenant_id')
-            ->where('payment_tenant_id', $tenant_id)
-            ->where('amt_paid','>',0)
-            ->orderBy('payment_id', 'desc')
-            ->get();
+        $collections = DB::table('units')
+        ->join('tenants', 'unit_id', 'unit_tenant_id')
+        ->join('payments', 'tenant_id', 'payment_tenant_id')
+        ->where('unit_property', Auth::user()->property)
+        // ->whereIn('payment_note',['Rent', 'Electricity', 'Water', 'Surcharge'])
+        ->orderBy('ar_number', 'desc')
+        ->get()
+        ->groupBy(function($item) {
+            return \Carbon\Carbon::parse($item->payment_created)->timestamp;
+        });
  
-        return view('billing.show-payments', compact('payments', 'tenant'));
+        return view('billing.show-payments', compact('collections', 'tenant'));
     }
 
 

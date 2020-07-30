@@ -339,37 +339,45 @@
             </div>
            <div class="card-body">
             <div class="table-responsive">
-              
-              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
-                 <tr>
-                     <th class="text-center">AR NO</th>
-                     <th>BILL NO</th>
-                     <th>DATE PAID</th>
-                     <th>TENANT</th>
-                     <th>ROOM</th>
-                     <th>DESCRIPTION</th>
-                     <th>AMOUNT</th>
-                     
-                 </tr>
-                <tbody>
-                 @foreach ($payments as $item)
-                 <tr>
-                     <th>{{ $item->ar_number }}</th>
-                     <th>{{ $item->payment_billing_no }}</th>
-                     <td>{{ Carbon\Carbon::parse($item->payment_created)->format('M d Y') }}</td>
-                     <td>{{ $item->first_name.' '.$item->last_name }}</td>
-                     <td>{{ $item->building.' '.$item->unit_no }}</td>
-                     <td>{{ $item->payment_note }}</td>
-                     <td>{{ number_format($item->amt_paid,2) }}</td>
-                     {{-- <td>
-                      <a title="export pdf" target="_blank" href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/payments/{{ $item->payment_id }}/dates/{{$item->payment_created}}/export" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i></a>
-                       - <a target="_blank" href="#" title="print invoice" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-print fa-sm text-white-50"></i></a>  
-                     </td> --}}
-                 </tr>
-                 @endforeach
-                </tbody>
-              </table>
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                @foreach ($collections as $day => $collection_list)
+                  <tr>
+                      <th colspan="8">{{ Carbon\Carbon::parse($day)->addDay()->format('M d Y') }} ({{ $collection_list->count()}})</th>
+                  </tr>
+                  <tr>
+                          <th>AR NO</th>
+                          <th>BILL NO</th>
+                          <th>TENANT</th>
+                          <th>ROOM</th>
+                          <th>DESCRIPTION</th>
+                          <th>AMOUNT</th>
+                          <th></th>
+                      </tr>
+                </tr>
+                  @foreach ($collection_list as $item)
+                  <tr>
+                          <td>{{ $item->ar_number }}</td>
+                          <td>{{ $item->payment_billing_no }}</td>
+                          <td>{{ $item->first_name.' '.$item->last_name }}</td>
+                          <td>{{ $item->building.' '.$item->unit_no }}</td>
+                          <td>{{ $item->payment_note }}</td>
+                          <td>{{ number_format($item->amt_paid,2) }}</td>
+                          <td class="text-center">
+                            <a title="export pdf" target="_blank" href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/payments/{{ $item->payment_id }}/dates/{{$item->payment_created}}/export" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i></a>
+                            {{-- <a target="_blank" href="#" title="print invoice" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-print fa-sm text-white-50"></i></a> 
+                            --}}
+                          </td>
+                          {{-- <td>
+                              <form action="/payments/{{ $item->payment_id }}" method="POST">
+                                  @method('delete')
+                                  @csrf
+                                  <button type="submit" class="btn btn-danger">Delete</button>
+                              </form>
+                          </td> --}}
+                      </tr>
+                  @endforeach
+                @endforeach
+            </table>
               <table class="table" id="dataTable" width="100%" cellspacing="0">
                 <tr>
                  <th>TOTAL</th>
