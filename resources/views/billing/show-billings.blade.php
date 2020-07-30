@@ -424,13 +424,15 @@
             </p>
           </div>
           </div>
-          <button data-toggle="modal" data-target="#editPaymentFooter" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" ><i class="fas fa-edit fa-sm text-white-50"></i> Edit Payment Footer Message</button>
+          @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'manager')
+          <button data-toggle="modal" data-target="#editPaymentFooter" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" ><i class="fas fa-edit fa-sm text-white-50"></i> Edit Footer Message</button>
+          @endif
           {{-- Modal for editing payment footer message --}}
         <div class="modal fade" id="editPaymentFooter" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-md" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Payment Footer Message</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Footer Message</h5>
         
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
