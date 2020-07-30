@@ -343,17 +343,12 @@
           </form>
           </div>
               <div class="table-responsive">
-
-
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                
                 @foreach ($collections as $day => $collection_list)
                   <tr>
                       <th colspan="8">{{ Carbon\Carbon::parse($day)->addDay()->format('M d Y') }} ({{ $collection_list->count()}})</th>
                   </tr>
                   <tr>
-                          <th>DATE</th>
-                         
                           <th>AR NO</th>
                           <th>BILL NO</th>
                           <th>TENANT</th>
@@ -365,11 +360,8 @@
                 </tr>
                   @foreach ($collection_list as $item)
                   <tr>
-                          <td>{{ Carbon\Carbon::parse($item->payment_created)->format('M d Y') }}</td>
-                         
                           <td>{{ $item->ar_number }}</td>
                           <td>{{ $item->payment_billing_no }}</td>
-                          
                           <td>{{ $item->first_name.' '.$item->last_name }}</td>
                           <td>{{ $item->building.' '.$item->unit_no }}</td>
                           <td>{{ $item->payment_note }}</td>
@@ -389,12 +381,9 @@
                       </tr>
                   @endforeach
                 @endforeach
-               
             </table>
-                  
              </div>
             </div>
-       
       </div>
       <!-- End of Main Content -->
 
