@@ -274,9 +274,7 @@ class UnitsController extends Controller
      */
     public function destroy($id)
     {
-         DB::table('units')->where('unit_property','Bayani Hall' )->delete();
-
-         DB::table('users')->where('property','Bayani Hall' )->delete();
+         DB::table('units')->where('unit_id',$id )->delete();
 
         return back()->with('success', 'Room has been deleted!');
     }
