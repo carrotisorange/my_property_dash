@@ -53,10 +53,9 @@
                   <th class="text-right" colspan="3">{{ number_format($item->billing_amt,2) }}</th>
               </tr>
               @endforeach
-              
               @foreach ($other_bills as $item)
               <tr>
-                <th>{{ $item->billing_id }}</th>
+                <th>{{ $item->billing_no }}</th>
                   <td>{{ $item->billing_desc }}</td>
                   <td> 
                     @if($item->details === null)
