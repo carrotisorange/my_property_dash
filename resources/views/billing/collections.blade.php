@@ -385,7 +385,7 @@
                         <th colspan="5" class="text-right">{{ number_format($collection_list->sum('amt_paid'),2) }}</th>
                       </tr>
                       <tr>
-                            <th></th>
+                          <th colspan="7"></th>
                       </tr>
                 @endforeach
             </table>

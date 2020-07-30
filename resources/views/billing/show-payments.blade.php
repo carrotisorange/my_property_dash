@@ -380,6 +380,9 @@
                         <th>TOTAL</th>
                         <th colspan="4" class="text-right">{{ number_format($collection_list->sum('amt_paid'),2) }}</th>
                       </tr>
+                      <tr>
+                          <th colspan="6"></th>
+                      </tr>
                 @endforeach
             </table>
           </div>
