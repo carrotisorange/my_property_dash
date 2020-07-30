@@ -356,7 +356,7 @@
                   
                 @foreach ($units as $floor_no => $floor_no_list)
                 <p class="text-center">
-                {{ $numberFormatter->format($floor_no).' floor  ('.$floor_no_list->count().')' }} 
+                {{($floor_no.' floor  ('.$floor_no_list->count().')' }} 
                 </p>
               
                 @foreach ($floor_no_list as $item)
@@ -390,7 +390,7 @@
                   
                       @foreach ($units as $floor_no => $floor_no_list)
                       <p class="text-center">
-                      {{ $numberFormatter->format($floor_no).' floor  ('.$floor_no_list->count().')' }} 
+                      {{ $floor_no.' floor  ('.$floor_no_list->count().')' }} 
                       </p>
                     
                       @foreach ($floor_no_list as $item)
