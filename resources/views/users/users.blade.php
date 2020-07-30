@@ -422,13 +422,15 @@
                <td>{{ $item->property }}</td>
                <td>{{ $item->last_login_at }}</td>
                <?php  
+                  $diffInMinutes = Carbon\Carbon::parse($item->last_logout_at)->diffInMinutes();
                   $diffInHours = Carbon\Carbon::parse($item->last_logout_at)->diffInHours();
-
                   $diffInDays = Carbon\Carbon::parse($item->last_logout_at)->diffInDays()
                ?>
                <td>
-                  @if($diffInHours > 24)
-                        {{ $diffInDays }}D ago
+                  @if($diffInMinutes < 60)
+                     {{ $diffInMinutes }}M ago
+                  @elseif($diffInHours > 24)
+                      {{ $diffInDays }}D ago
                   @else
                       {{ $diffInHours }}H ago
                   @endif
