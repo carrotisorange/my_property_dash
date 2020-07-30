@@ -47,7 +47,23 @@
       <nav class="nav-menu d-none d-lg-block">
         <ul>
           <li><a href="/">Home</a></li>
-          <li class="active"><a target="_blank" href="/resources">Resources</a></li>
+          <li class="drop-down"><a href="">Resources</a>
+            <ul>
+              <li><a target="_blank" href="/resources#guidelines-during-covid-19">Guidelines During COVID-19</a></li>
+              <li class="drop-down"><a href="#">Articles</a>
+                <ul>
+                  <li><a target="_blank" href="/resources/#navigating-to-new-normal">Navigating to New Normal</a></li>
+                  <li><a target="_blank" href="/resources/#is-property-management-right-for-me">Is Property Management right for me?</a></li>
+                  <li><a target="_blank" href="/resources/#why-did-your-start-property-manager-online" href="#">Why did you start thepropertymanager.online?</a></li>
+                  <!-- <li><a href="#">Deep Drop Down 4</a></li>
+                  <li><a href="#">Deep Drop Down 5</a></li> -->
+                </ul>
+              </li>
+              <!-- <li><a href="#">Drop Down 2</a></li>
+              <li><a href="#">Drop Down 3</a></li>
+              <li><a href="#">Drop Down 4</a></li> -->
+            </ul>
+          </li>
           <li><a href="/#services">Services</a></li>    
           <li><a href="/#pricing">Pricing</a></li>
           <li><a href="/#contact">Contact</a></li>
@@ -110,7 +126,7 @@
 
     <section class="inner-page">
       <div class="container">
-
+      <br>
       <h4 id="guidelines-during-covid-19">Guidelines on Concessions on Residential and Commercial Rents During Covid 19 in the Philippines</h4>
       
       <p>
@@ -166,7 +182,7 @@
       or ordinances. The same applies to lessees who fail to pay their obligations and abide by the terms of their promissory note.
       </p>
 
-
+    <br>
         <h4 id="navigating-to-new-normal">Navigating the New Normal in Property Management</h4>
       
         <p>
@@ -181,7 +197,7 @@
              A property management system is teaching our workforce new skills and once they appreciate how a system makes their work easier, they have more time to learn other skillsets. 
              We need to evolve and update our mindsets, our knowledge, our skills, and our systems to navigate this new normal. 
         </p>
-
+    <br>
         <h4 id="why-did-your-start-property-manager-online">Why did you start thepropertymanager.online?</h4>
       
         <p>
@@ -192,6 +208,7 @@
           We realize that if we want to stay in this business and grow, we need to automate our processes so we can focus on the more important 
           aspects of the business like providing good customer service experience while maintaining efficient operations and that’s how thepropertymanager.online was born. - The Founders.
         </p>
+    <br>
 
         <h4 id="is-property-management-right-for-me">Is a property management system right for me?</h4>
       
