@@ -332,7 +332,6 @@ class TenantController extends Controller
             ->where('billing_status', 'unpaid')
             ->where('billing_amt','>',0)
             ->distinct()
-            ->orderBy('')
             ->get();
 
             //get the sum of all the unpaid bills
