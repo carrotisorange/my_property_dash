@@ -21,16 +21,16 @@ class PaymentController extends Controller
 
         $request->session()->put(Auth::user()->id.'search_payment', $search);
         
-           $collections = DB::table('units')
-           ->select('*', DB::raw('sum(amt_paid) as total'))
-           ->join('tenants', 'unit_id', 'unit_tenant_id')
-           ->join('payments', 'tenant_id', 'payment_tenant_id')
-           ->groupBy('tenant_id')
-           ->groupBy('payment_created')
-           ->where('unit_property', Auth::user()->property)
-           ->where('payment_created', $search)
-           ->orderBy('payment_created', 'desc')
-           ->get();
+        $collections = DB::table('units')
+        ->join('tenants', 'unit_id', 'unit_tenant_id')
+        ->join('payments', 'tenant_id', 'payment_tenant_id')
+        ->where('unit_property', Auth::user()->property)
+        ->whereIn('payment_note',['Rent', 'Electricity', 'Water', 'Surcharge'])
+        ->orderBy('ar_number', 'desc')
+        ->get()
+        ->groupBy(function($item) {
+            return \Carbon\Carbon::parse($item->payment_created)->timestamp;
+        });
     
        return view('billing.collections', compact('collections'));
     }
