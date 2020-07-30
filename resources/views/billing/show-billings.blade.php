@@ -359,13 +359,11 @@
           <br><br>
           <div class="row">
             <div class="col-md-12">
-              <h5 class="text-black-50">{{ Auth::user()->property }}</h5>
-              {{-- <p class="text-right"> <b>AR #:</b> </p> --}}
               <ul style="list-style-type: none">
                 <li><b>Date:</b> {{ Carbon\Carbon::now()->firstOfMonth()->format('M d Y') }}</li>
                 <li class="text-danger"><b>Due Date:</b> {{ Carbon\Carbon::now()->firstOfMonth()->addDays(7)->format('M d Y') }}</li>
                 <li><b>To:</b> {{ $tenant->first_name.' '.$tenant->last_name }}</li>
-                <li><b>ROOM:</b>   
+                <li><b>Room:</b>   
                   @foreach($unit_no as $item)
                   {{ $item->building.' '.$item->unit_no }}
                   @endforeach
