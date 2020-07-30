@@ -342,10 +342,16 @@
             </div>
           </form>
           </div>
-              <div class="card-body">
               <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                      <tr>
+
+
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                
+                @foreach ($collections as $day => $collection_list)
+                  <tr>
+                      <th colspan="8">{{ Carbon\Carbon::parse($day)->format('M d Y') }} ({{ $collection_list->count()}})</th>
+                  </tr>
+                  <tr>
                           <th>DATE</th>
                          
                           <th>AR NO</th>
@@ -356,8 +362,9 @@
                           <th>AMOUNT</th>
                           <th></th>
                       </tr>
-                      @foreach ($collections as $item)
-                      <tr>
+                </tr>
+                  @foreach ($collection_list as $item)
+                  <tr>
                           <td>{{ Carbon\Carbon::parse($item->payment_created)->format('M d Y') }}</td>
                          
                           <td>{{ $item->ar_number }}</td>
@@ -380,15 +387,11 @@
                               </form>
                           </td> --}}
                       </tr>
-                      @endforeach
-                  </table>
-                  <table class="table" id="dataTable" width="100%" cellspacing="0">
-                    <tr>
-                     <th>TOTAL</th>
-                     <th class="text-right">{{ number_format($collections->sum('total'),2) }}</th>
-                    </tr>
-                  </table>
-          </div>
+                  @endforeach
+                @endforeach
+               
+            </table>
+                  
              </div>
             </div>
        

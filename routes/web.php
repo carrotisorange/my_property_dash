@@ -825,16 +825,28 @@ Route::get('/owners', function(){
 Route::get('/collections', function(){
     if(auth()->user()->status === 'registered' && (auth()->user()->user_type === 'billing' || auth()->user()->user_type === 'manager' || auth()->user()->user_type === 'treasury')){
         $property = explode(",", Auth::user()->property);
+
             $collections = DB::table('units')
-            ->select('*','payments.created_at as created_at', DB::raw('sum(amt_paid) as total'))
             ->join('tenants', 'unit_id', 'unit_tenant_id')
             ->join('payments', 'tenant_id', 'payment_tenant_id')
-            ->groupBy('tenant_id')
-            ->groupBy('payment_created')
             ->where('unit_property', Auth::user()->property)
             ->whereIn('payment_note',['Rent', 'Electricity', 'Water', 'Surcharge'])
             ->orderBy('ar_number', 'desc')
-            ->get();
+            ->get()
+            ->groupBy(function($item) {
+                return \Carbon\Carbon::parse($item->payment_created)->timestamp;
+            });
+
+            // $collections = DB::table('units')
+            // ->select('*','payments.created_at as created_at', DB::raw('sum(amt_paid) as total'))
+            // ->join('tenants', 'unit_id', 'unit_tenant_id')
+            // ->join('payments', 'tenant_id', 'payment_tenant_id')
+            // ->groupBy('tenant_id')
+            // ->groupBy('payment_created')
+            // ->where('unit_property', Auth::user()->property)
+            // ->whereIn('payment_note',['Rent', 'Electricity', 'Water', 'Surcharge'])
+            // ->orderBy('ar_number', 'desc')
+            // ->get();
 
         return view('billing.collections', compact('collections'));
     }else{
