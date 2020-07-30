@@ -40,7 +40,6 @@
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
         <a class="nav-link" href="/">
-           <i class="fas fa-home"></i> 
           <span>The Property Manager</span></a>
       </li>
   
