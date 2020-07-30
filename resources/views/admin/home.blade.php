@@ -333,7 +333,7 @@
                  <div class="d-sm-flex align-items-center justify-content-between mb-4">
                   <h1 class="h3 mb-0 text-gray-800">Home</h1>
                  @if(Auth::user()->user_type === 'manager')
-                 <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addMultipleUnits" data-whatever="@mdo"><i class="fas fa-plus fa-sm text-white-50"></i> Add Multiple Units/Rooms</a>
+                 <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addMultipleUnits" data-whatever="@mdo"><i class="fas fa-plus fa-sm text-white-50"></i> Add Multiple ROOMS</a>
                  @endif
                 </div>
                 <span class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" ><i class="fas fa-home fa-sm text-white-50"></i> OCCUPIED</span>
@@ -551,7 +551,7 @@
   <div class="modal-dialog modal-md" role="document">
   <div class="modal-content">
       <div class="modal-header">
-      <h5 class="modal-title" id="exampleModalLabel" >ADD MULTIPLE UNITS/ROOMS</h5>
+      <h5 class="modal-title" id="exampleModalLabel" >ADD MULTIPLE ROOMS</h5>
 
       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -603,12 +603,12 @@
           </div>
 
           <div class="form-group">
-              <label for="recipient-name" class="col-form-label">ENTER THE NO OF UNITS/ROOMS YOU WANT TO CREATE</label>
+              <label for="recipient-name" class="col-form-label">ENTER THE NO OF ROOMS YOU WANT TO CREATE</label>
               <input form="addUMultipleUnitForm" type="number" class="form-control" name="no_of_rooms"required>
           </div>
 
           <div class="form-group">
-              <label for="recipient-name" class="col-form-label">ENTER THE INITIAL NAME OF THE UNITS/ROOMS </label>
+              <label for="recipient-name" class="col-form-label">ENTER THE INITIAL NAME OF THE ROOMS </label>
               <input form="addUMultipleUnitForm" type="text" class="form-control" name="unit_no" id="unit_no" required>
           </div>
 
@@ -619,7 +619,7 @@
 
       </div>
       <div class="modal-footer">
-          <button form="addUMultipleUnitForm" type="submit" class="btn btn-primary" onclick="this.form.submit(); this.disabled = true;><i class="fas fa-check"></i> CREATE UNITS/ROOMS</button>
+          <button form="addUMultipleUnitForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="this.form.submit(); this.disabled = true;"><i class="fas fa-check"></i> CREATE ROOMS</button>
           </div>
   </div>
   </div>
