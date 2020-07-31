@@ -421,7 +421,7 @@
                ?>
                <td>
                   @if($item->user_current_status === 'online')
-                 <span class="badge badge-success"> online</span>
+                 <span class="badge badge-success"> {{ $item->user_current_status }}</span>
                  @else
                   @if($diffInMinutes < 60)
                   <span class="badge badge-secondary"> {{ $diffInMinutes }} minutes ago</span> 

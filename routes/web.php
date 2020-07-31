@@ -786,13 +786,13 @@ Route::get('/users', function(){
         
         if(Auth::user()->email === 'marthaleasingcourtyards@gmail.com'){
             $users = DB::table('users')
-            
+            ->orderBy('user_current_status')
             ->orderBy('last_login_at', 'desc')
             ->get();
         }else{
             $users = DB::table('users')
             ->where('property', Auth::user()->property)
-          
+            ->orderBy('user_current_status')
             ->orderBy('last_login_at', 'desc')
             ->get();
         }
