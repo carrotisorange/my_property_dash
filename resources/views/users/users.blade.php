@@ -401,7 +401,6 @@
                 <th>PROPERTY</th>
                 <th>LAST LOGIN</th>
                 <th>SESSION</th>
-                
               </tr>
           </thead>
           <tbody>
