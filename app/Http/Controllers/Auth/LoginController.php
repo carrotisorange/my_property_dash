@@ -89,7 +89,7 @@ class LoginController extends Controller
             ->where('id', Auth::user()->id)
             ->update([
                         'last_login_at' => Carbon::now(),
-                        'last_login_ip' => $request()->ip(),
+                        'last_login_ip' => request()->ip(),
                         'user_current_status' => 'online',
                     ]);
         }
