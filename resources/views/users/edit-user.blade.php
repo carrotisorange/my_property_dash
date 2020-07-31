@@ -384,13 +384,13 @@
                   @enderror
                </td>
             </tr>
-             <tr>
+            {{-- <tr>
                <th>Repeat Password</th>
                <td> 
                   <input form="editUserForm" id="password-confirm" type="password" class="form-control form-control-user" name="password_confirmation" autocomplete="new-password" >
                  
                </td>
-            </tr> 
+            </tr> --}} 
           </table>
           <p class="text-right">
             <a href="/users/{{ Auth::user()->id }}" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</a>
