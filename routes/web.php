@@ -865,6 +865,7 @@ Route::get('/bills', function(){
         ->where('billing_amt','>',0)
         ->whereIn('billing_desc',['Rent', 'Electricity', 'Water', 'Surcharge'])
         ->orderBy('billing_date', 'desc')
+        ->orderBy('billing_no')
         ->get()
         ->groupBy(function($item) {
             return \Carbon\Carbon::parse($item->billing_date)->timestamp;

@@ -375,7 +375,7 @@
                 
                 @foreach ($bills as $day => $bills_list)
                   <tr>
-                      <th colspan="8">{{ Carbon\Carbon::parse($day)->format('M d Y') }} ({{ $bills_list->count()}} BILLS POSTED)</th>
+                      <th colspan="8">{{ Carbon\Carbon::parse($day)->addDay()->format('M d Y') }} ({{ $bills_list->count()}} BILLS POSTED)</th>
                   </tr>
                   <tr>
                     <th class="text-center">BILL NO</th>
