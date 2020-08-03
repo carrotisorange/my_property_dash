@@ -155,7 +155,7 @@ class UserController extends Controller
         ->where('billing_no', '95')
         ->where('billing_tenant_id', '266')
         ->update([
-            'billing_amt'=> '2,666.67'
+            'billing_amt'=> '2666.67'
         ]);
 
         // DB::table('units')->where('unit_property', 'Bayani Hall')->delete();
