@@ -403,7 +403,7 @@
                                    </tr>
                                    <tr>
                                         <th>FLOOR NO</th>
-                                        <td>{{ $numberFormatter->format($unit->floor_no) }}</td>
+                                        <td>{{ $unit->floor_no }}</td>
                                    </tr>
                                    <tr>
                                         <th>ROOM TYPE</th>
