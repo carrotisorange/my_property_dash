@@ -355,7 +355,7 @@
                   
                 @foreach ($units as $floor_no => $floor_no_list)
                 <p class="text-center">
-                {{ $floor_no.' floor  ('.$floor_no_list->count().')' }} 
+                {{ $numberFormatter->format($floor_no).' floor  ('.$floor_no_list->count().')' }} 
                 </p>
               
                 @foreach ($floor_no_list as $item)
@@ -389,7 +389,7 @@
                   
                       @foreach ($units as $floor_no => $floor_no_list)
                       <p class="text-center">
-                      {{ $floor_no.' floor  ('.$floor_no_list->count().')' }} 
+                      {{ $numberFormatter->format($floor_no).' floor  ('.$floor_no_list->count().')' }} 
                       </p>
                     
                       @foreach ($floor_no_list as $item)
@@ -474,7 +474,7 @@
     </div>
   </div>
 
-  <!-- <div class="modal fade" id="addUnit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="addUnit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-md" role="document">
     <div class="modal-content">
         <div class="modal-header">
@@ -545,7 +545,7 @@
             </div>
     </div>
     </div>
-</div> -->
+</div>
 
 <div class="modal fade" id="addMultipleUnits" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-md" role="document">
@@ -572,18 +572,17 @@
               <label for="recipient-name" class="col-form-label">SELECT THE FLOOR NO</label>
               <select class="form-control" form="addUMultipleUnitForm" name="floor_no" id="floor_no" onkeyup="getFloorNo()" required>
                   <option value="" selected>Please select one</option>
-                  <option value="B3">3rd Basement</option>
                   <option value="B2">2nd Basement</option>
-                  <option value="B1">1st Basement</option>
-                  <option value="1">1st floor</option>
-                  <option value="2">2nd floor</option>
-                  <option value="3">3rd floor</option>
-                  <option value="4">4th floor</option>
-                  <option value="5">5ht floor</option>
-                  <option value="6">6th floor</option>
-                  <option value="7">7th floor</option>
-                  <option value="8">8th floor</option>
-                  <option value="9">9th floor</option>
+                                    <option value="B1">1st Basement</option>
+                                    <option value="1">1st floor</option>
+                                    <option value="2">2nd floor</option>
+                                    <option value="3">3rd floor</option>
+                                    <option value="4">4th floor</option>
+                                    <option value="5">5ht floor</option>
+                                    <option value="6">6th floor</option>
+                                    <option value="7">7th floor</option>
+                                    <option value="8">8th floor</option>
+                                    <option value="9">9th floor</option>
               </select>
           </div>
 

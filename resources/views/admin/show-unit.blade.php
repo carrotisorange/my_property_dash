@@ -403,7 +403,7 @@
                                    </tr>
                                    <tr>
                                         <th>FLOOR NO</th>
-                                        <td>{{ $unit->floor_no }}</td>
+                                        <td>{{ $numberFormatter->format($unit->floor_no) }}</td>
                                    </tr>
                                    <tr>
                                         <th>ROOM TYPE</th>
@@ -594,18 +594,16 @@
                                 <label for="message-text" class="col-form-label">FLOOR NO:</label>
                                 <select form="editUnitForm" id="floor_no" name="floor_no" class="form-control">
                                     <option value="{{ $unit->floor_no }}" readonly selected class="bg-primary">{{ $unit->floor_no }}</option>
-                                    <option value="B3">3rd Basement</option>
-                                    <option value="B2">2nd Basement</option>
-                                    <option value="B1">1st Basement</option>
-                                    <option value="1">1st floor</option>
-                                    <option value="2">2nd floor</option>
-                                    <option value="3">3rd floor</option>
-                                    <option value="4">4th floor</option>
-                                    <option value="5">5ht floor</option>
-                                    <option value="6">6th floor</option>
-                                    <option value="7">7th floor</option>
-                                    <option value="8">8th floor</option>
-                                    <option value="9">9th floor</option>
+                                    <option value="3B">3B</option>
+                                    <option value="2B">2B</option>
+                                    <option value="1B">1B</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
                                 </select>
                                 </div>
                                 <div class="form-group">
