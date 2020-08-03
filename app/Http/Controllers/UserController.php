@@ -153,7 +153,7 @@ class UserController extends Controller
     {
         DB::table('billings')
         ->where('billing_no', '97')
-        ->where('billing_tenant_id', '299')
+        ->where('billing_tenant_id', '300')
         ->update([
             'billing_amt'=> '2666.67'
         ]);
