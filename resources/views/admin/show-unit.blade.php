@@ -597,13 +597,15 @@
                                     <option value="-2">-2</option>
                                     <option value="-1">-1</option>
                                     <option value="0">0</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
+                                    <option value="1">1st floor</option>
+                                    <option value="2">2nd floor</option>
+                                    <option value="3">3rd floor</option>
+                                    <option value="4">4th floor</option>
+                                    <option value="5">5ht floor</option>
+                                    <option value="6">6th floor</option>
+                                    <option value="7">7th floor</option>
+                                    <option value="8">8th floor</option>
+                                    <option value="9">9th floor</option>
                                 </select>
                                 </div>
                                 <div class="form-group">
