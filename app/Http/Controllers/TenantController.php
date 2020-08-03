@@ -359,7 +359,7 @@ class TenantController extends Controller
         ->where('amt_paid','>',0)
         // ->whereIn('payment_note',['Rent', 'Electricity', 'Water', 'Surcharge'])
         ->orderBy('payment_created', 'desc')
-        
+        ->orderBy('billing_no', 'asc')
         ->get()
         ->groupBy(function($item) {
             return \Carbon\Carbon::parse($item->payment_created)->timestamp;
