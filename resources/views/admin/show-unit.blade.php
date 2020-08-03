@@ -416,7 +416,7 @@
                                   </tr>
                                    @endif
                                    @if($unit->status === 'occupied')
-                                    <tr class="table-secondary">
+                                    <tr class="table-primary">
                                         <th>STATUS</th>
                                         <td>{{ $unit->status }}</td>
                                     </tr>
