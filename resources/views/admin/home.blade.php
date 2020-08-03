@@ -400,7 +400,18 @@
                   
                       @foreach ($units as $floor_no => $floor_no_list)
                       <p class="text-center">
-                      {{ $numberFormatter->format($floor_no).' floor  ('.$floor_no_list->count().')' }} 
+                      @if($floor_no >= 1)
+                      {{ $numberFormatter->format($floor_no).' floor  ('.$floor_no_list->count().')' }}
+                      @else
+                        @if($floor_no >= -1)
+                        {{ '1st basement ('.$floor_no_list->count().')' }} 
+                        @elseif($floor_no >= -2)
+                        {{ '2nd basement ('.$floor_no_list->count().')' }} 
+                        @elseif($floor_no >= -3)
+                        {{ '3rd basement ('.$floor_no_list->count().')' }} 
+                        @endif
+                      @endif
+                      
                       </p>
                     
                       @foreach ($floor_no_list as $item)
