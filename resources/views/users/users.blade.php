@@ -432,6 +432,15 @@
                     @endif
                  @endif
                 </td>      
+                <td>
+                <th>
+                  <form action="/users/{{ $item->id }}" method="POST">
+                        @csrf
+                        @method('delete')
+                        <button type="submit">Delete</button>
+                    </form> 
+                </th>
+                </td>
            </tr>
            @endforeach
           </tbody>
