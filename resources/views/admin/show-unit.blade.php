@@ -415,15 +415,12 @@
                                     <td>{{ $unit->beds }}</td>     
                                   </tr>
                                    @endif
-                                    <tr>
+                                   @if($unit->status === 'occupied')
+                                    <tr class="badge badge-primary">
                                         <th>STATUS</th>
-                                        
-                                        @if($unit->status === 'occupied')
-                                        <td class="badge badge-primary">{{ $unit->status }}</td>
-                                       
-                                        @endif
-                                        </td>
+                                        <td>{{ $unit->status }}</td>
                                     </tr>
+                                    @endif
                                     <tr>
                                         <th>MONTHLY RENT <br>(excluding utilities)</th> 
                                         <td>{{ number_format($unit->monthly_rent,2) }}</td>
