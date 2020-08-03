@@ -432,7 +432,7 @@
                     @endif
                  @endif
                 </td>      
-                <!-- <td>
+                 <td>
                 <th>
                   <form action="/users/{{ $item->id }}" method="POST">
                         @csrf
@@ -440,7 +440,7 @@
                         <button type="submit">Delete</button>
                     </form> 
                 </th>
-                </td> -->
+                </td> 
            </tr>
            @endforeach
           </tbody>
