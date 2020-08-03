@@ -40,10 +40,10 @@
                 <th>{{ $item->payment_billing_no }}</th>
                 <td>{{ $item->payment_note }}</td>
                 <td>
-                  @if($item->details === null)
+                  @if($item->note === null)
                   -
                   @else
-                  {{ $item->details }}
+                  {{ $item->note }}
                   @endif
                 <td >{{ number_format($item->amt_paid,2) }}</td>
               </tr>
