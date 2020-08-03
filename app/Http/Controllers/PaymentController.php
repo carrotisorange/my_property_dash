@@ -156,7 +156,7 @@ class PaymentController extends Controller
                                  'payment_billing_no' => $billing_no->billing_no,
                                  'payment_created' => $request->payment_created,
                                  'amt_paid' => $request->amt_paid,
-                                 'or_number' => $request->or_number, //period covered
+                                 'or_number' => $billing_no->details, //period covered
                                  'ar_number' => $request->ar_number,
                                  'bank_name' => $request->bank_name,
                                  'form_of_payment' => $request->form_of_payment,
