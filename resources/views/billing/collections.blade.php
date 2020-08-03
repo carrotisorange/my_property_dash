@@ -72,7 +72,7 @@
           <span>Home</span></a>
       </li>
   
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="/tenants">
           <i class="fas fa-users fa-chart-area"></i>
           <span>Tenants</span></a>
