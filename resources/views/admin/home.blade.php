@@ -572,8 +572,9 @@
               <label for="recipient-name" class="col-form-label">SELECT THE FLOOR NO</label>
               <select class="form-control" form="addUMultipleUnitForm" name="floor_no" id="floor_no" onkeyup="getFloorNo()" required>
                   <option value="" selected>Please select one</option>
-                  <option value="B2">2nd Basement</option>
-                                    <option value="B1">1st Basement</option>
+                                    <option value="-2">-2</option>
+                                    <option value="-1">-1</option>
+                                    <option value="0">0</option>
                                     <option value="1">1st floor</option>
                                     <option value="2">2nd floor</option>
                                     <option value="3">3rd floor</option>
