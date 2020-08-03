@@ -417,13 +417,10 @@
                                    @endif
                                     <tr>
                                         <th>STATUS</th>
-                                        <td>
+                                        
                                         @if($unit->status === 'occupied')
-                                        <span class="badge badge-primary">{{ $unit->status }}</span>
-                                        @elseif($unit->status === 'reserved')
-                                            <span class="badge badge-warning">{{ $unit->status}} </span>
-                                        @else
-                                            <span class="badge badge-secondary">{{ $unit->status }}</span>
+                                        <td  class="badge badge-primary"><span>{{ $unit->status }}</span></td>
+                                       
                                         @endif
                                         </td>
                                     </tr>
