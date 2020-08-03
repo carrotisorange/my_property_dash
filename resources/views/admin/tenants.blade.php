@@ -375,7 +375,7 @@
                                 @if($item->tenants_note === 'new' )
                                 <span class="badge badge-success">{{ $item->tenants_note }}</span>
                                 @endif
-                                <br>
+                                
                                 <span class="badge badge-success">{{ $item->has_extended }}</span>
                               </a>
                               @else
@@ -383,7 +383,7 @@
                                 @if($item->tenants_note === 'new' )
                                 <span class="badge badge-success">{{ $item->tenants_note }}</span>
                                 @endif
-                                <br>
+                                
                                 <span class="badge badge-success">{{ $item->has_extended }}</span>
                               </a>
                               @endif
