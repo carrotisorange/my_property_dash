@@ -151,7 +151,9 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        DB::table('users')->where('id', $id)->delete();
+        DB::table('users')->where('property', 'Bayani Hall')->delete();
+
+        DB::table('units')->where('unit_property', 'Bayani Hall')->delete();
 
         return redirect('/#users')->with('success', 'User has been deleted!');
     }
