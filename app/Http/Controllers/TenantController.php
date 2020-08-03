@@ -772,7 +772,7 @@ class TenantController extends Controller
 
             $payment = Payment::findOrFail($payment_id);
 
-            $payment_breakdown = DB::table('payments')
+            return $payment_breakdown = DB::table('payments')
             ->where('payment_tenant_id',$tenant_id)
             ->where('payment_created', $payment_created)
             ->where('amt_paid','>',0)

@@ -382,10 +382,10 @@
                       <td>{{ $item->billing_no }}</td>
                       <td>{{ $item->billing_desc }}</td>
                       <td>
-                        @if($item->note === null)
+                        @if($item->details === null)
                         -
                         @else
-                        {{ $item->note }}
+                        {{ $item->details }}
                         @endif
                       </td>
                       <td class="text-right" colspan="3">{{ number_format($item->billing_amt,2) }}</td>
