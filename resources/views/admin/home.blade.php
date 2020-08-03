@@ -358,7 +358,9 @@
                 @if($floor_no >= 1)
                 {{ $numberFormatter->format($floor_no).' floor  ('.$floor_no_list->count().')' }}
                 @else
-
+                  @if($floor_no <= -1)
+                  {{ '1st basement'  ('.$floor_no_list->count().')' }} 
+                  @endif
                 @endif
                 
                 </p>
