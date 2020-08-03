@@ -594,15 +594,15 @@
                                 <label for="message-text" class="col-form-label">FLOOR NO:</label>
                                 <select form="editUnitForm" id="floor_no" name="floor_no" class="form-control">
                                     <option value="{{ $unit->floor_no }}" readonly selected class="bg-primary">{{ $unit->floor_no }}</option>
-                                    <option value="-3">-3 floor</option>
-                                    <option value="-2">-2 floor</option>
-                                    <option value="-1">-1 floor</option>
+                                    <option value="-3">-3rd floor</option>
+                                    <option value="-2">-2nd floor</option>
+                                    <option value="-1">-1st floor</option>
                                     
                                     <option value="1">1st floor</option>
                                     <option value="2">2nd floor</option>
                                     <option value="3">3rd floor</option>
                                     <option value="4">4th floor</option>
-                                    <option value="5">5ht floor</option>
+                                    <option value="5">5th floor</option>
                                     <option value="6">6th floor</option>
                                     <option value="7">7th floor</option>
                                     <option value="8">8th floor</option>
