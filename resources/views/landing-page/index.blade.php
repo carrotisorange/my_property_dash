@@ -93,15 +93,15 @@
 
         <div class="row counters">
 
-         <div class="col-lg-2 col-6 text-center">
+          {{-- <div class="col-lg-2 col-6 text-center">
             <span data-toggle="counter-up">{{ number_format($clients,0) }}</span>
             <p>Clients</p>
-          </div>
+          </div> --}}
 
-          <!-- <div class="col-lg-3 col-6 text-center">
+          <div class="col-lg-3 col-6 text-center">
             <span data-toggle="counter-up">{{ number_format($properties,0) }}</span>
             <p>Properties</p>
-          </div> -->
+          </div>
 
           <div class="col-lg-3 col-6 text-center">
             <span data-toggle="counter-up">{{ number_format($buildings,0) }}</span>
