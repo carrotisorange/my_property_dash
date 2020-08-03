@@ -419,7 +419,7 @@
                                         <th>STATUS</th>
                                         
                                         @if($unit->status === 'occupied')
-                                        <td  class="badge badge-primary"><span>{{ $unit->status }}</span></td>
+                                        <td class="badge badge-primary">{{ $unit->status }}</td>
                                        
                                         @endif
                                         </td>
