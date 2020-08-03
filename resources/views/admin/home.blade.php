@@ -360,6 +360,10 @@
                 @else
                   @if($floor_no >= -1)
                   {{ '1st basement ('.$floor_no_list->count().')' }} 
+                  @elseif($floor_no >= -2)
+                  {{ '2nd basement ('.$floor_no_list->count().')' }} 
+                  @elseif($floor_no >= -3)
+                  {{ '3rd basement ('.$floor_no_list->count().')' }} 
                   @endif
                 @endif
                 
