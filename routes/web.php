@@ -28,8 +28,7 @@ Route::get('/', function(Request $request){
     if(Auth::guest()){
 
         $clients = DB::table('users')
-        ->select('')
-        ->where('user_type', 'admin')
+        ->where('user_type', 'manager')
         ->count();
 
         $properties = Unit::distinct()->count('unit_property');
