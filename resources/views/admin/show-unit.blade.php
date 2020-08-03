@@ -417,6 +417,7 @@
                                    @endif
                                     <tr>
                                         <th>STATUS</th>
+                                        <td>
                                         @if($unit->status === 'occupied')
                                         <span class="badge badge-primary">{{ $unit->status }}</span>
                                         @elseif($unit->status === 'reserved')
@@ -424,6 +425,7 @@
                                         @else
                                             <span class="badge badge-secondary">{{ $unit->status }}</span>
                                         @endif
+                                        </td>
                                     </tr>
                                     <tr>
                                         <th>MONTHLY RENT <br>(excluding utilities)</th> 
