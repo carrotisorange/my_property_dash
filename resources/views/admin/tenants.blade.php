@@ -372,15 +372,17 @@
                           <td>
                               @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager')
                               <a href="{{ route('show-tenant',['unit_id'=> $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}
-                                @if($item->tenants_note === 'new tenant' || $item->tenants_note === 'new' )
+                                @if($item->tenants_note === 'new' )
                                 <span class="badge badge-success">{{ $item->tenants_note }}</span>
                                 @endif
+                                <span class="badge badge-success">{{ $item->has_extended }}</span>
                               </a>
                               @else
                               <a href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/billings">{{ $item->first_name.' '.$item->last_name }}
-                                @if($item->tenants_note === 'new tenant' || $item->tenants_note === 'new' )
+                                @if($item->tenants_note === 'new' )
                                 <span class="badge badge-success">{{ $item->tenants_note }}</span>
                                 @endif
+                                <span class="badge badge-success">{{ $item->has_extended }}</span>
                               </a>
                               @endif
                           </td>
