@@ -152,7 +152,7 @@ class UserController extends Controller
     public function destroy($id)
     {
         DB::table('billings')
-        ->where('billing_no', '96')
+        ->where('billing_no', '97')
         ->where('billing_tenant_id', '299')
         ->update([
             'billing_amt'=> '2666.67'
