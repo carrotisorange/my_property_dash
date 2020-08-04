@@ -203,19 +203,19 @@
                             <div class="table-responsive">
                               <table class="table table-bordered" width="100%" cellspacing="0">
                                    <tr>
-                                        <th>Tenant</th>
+                                        <th>TENANT</th>
                                         <td>{{ $tenant->first_name.' '.$tenant->last_name }}</td>
                                    </tr>
                                    <tr>
-                                        <th>Mobile</th>
+                                        <th>MOBILE</th>
                                         <td>{{ $tenant->contact_no }}</td>
                                    </tr>
                                    <tr>
-                                        <th>Email</th>
+                                        <th>EMAIL</th>
                                         <td>{{ $tenant->email_address}}</td>
                                    </tr>
                                    <tr>
-                                        <th>Room</th>
+                                        <th>ROOM</th>
                                         <td>{{ $unit->building.' '.$unit->unit_no }}</td>
                                    </tr>
                                </table>
@@ -235,7 +235,7 @@
                               <table class="table table-bordered" width="100%" cellspacing="0">
                                     <tr>
                                         <th>DATE REPORTED</th>
-                                        <td>{{ $concern->date_reported }}</td>
+                                        <td>{{ Carbon\Carbon::parse($concern->date_reported)->format('M d Y') }}</td>
                                    </tr>
                                    <tr>
                                         <th>TYPE OF CONCERN</th>
