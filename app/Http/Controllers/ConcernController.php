@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use DB, App\Tenant, App\Unit, Auth;
+use DB, App\Tenant, App\Unit, App\Concern, Auth;
 
 class ConcernController extends Controller
 {
