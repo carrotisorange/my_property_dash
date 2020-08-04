@@ -117,8 +117,18 @@ class UnitsController extends Controller
             ->where('tenant_status', 'pending')
             ->get();
 
+            
+            $unit_bills = DB::table('units')
+            ->join('tenants', 'unit_id', 'unit_tenant_id')
+            ->join('billings', 'tenant_id', 'billing_tenant_id')
+            ->where('unit_id', $unit_id)
+            ->where('unit_property', Auth::user()->property)
+            ->where('billing_amt','>', 0)
+            ->orderBy('ar_number', 'desc')
+            ->get();
+
              
-                return view('admin.show-unit',compact('unit', 'unit_owner', 'tenant_active', 'tenant_inactive', 'tenant_reservations'));
+                return view('admin.show-unit',compact('unit', 'unit_owner', 'tenant_active', 'tenant_inactive', 'tenant_reservations', 'unit_bills'));
         }else{
                 return view('unregistered');
         }

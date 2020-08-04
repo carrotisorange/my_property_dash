@@ -582,10 +582,29 @@
             </div>
            <div class="card-body">
             <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-               
-                  
-            </table>
+            <table class="table text-right" width="100%" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <th>Bill No</th>
+                    <th>Description</th>
+                    <th>Period Covered</th>
+                    <th>Amount</th>
+                  </tr>
+                  @foreach ($unit_bills as $item)
+                  <tr>
+                      <td>{{ $item->billing_no }}</td>
+                      <td>{{ $item->billing_desc }}</td>
+                      <td>
+                        @if($item->details === null)
+                        -
+                        @else
+                        {{ $item->details }}
+                        @endif
+                      </td>
+                      <td class="text-right" colspan="3">{{ number_format($item->billing_amt,2) }}</td>
+                  </tr>
+                  @endforeach
+            
+              </table>
           </div>
            </div>
          </div>
