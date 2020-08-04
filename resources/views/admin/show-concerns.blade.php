@@ -203,6 +203,14 @@
                 <small>Tenant</small>
                 <p>{{ $tenant->first_name.' '.$tenant->last_name }}</p>
             </div>
+            <div class="col">
+                <small>Mobile</small>
+                <p>{{ $tenant->contact_no }}</p>
+            </div>
+            <div class="col">
+                <small>Room</small>
+                <p>{{ $unit->building.' '.$tenant->unit_no }}</p>
+            </div>
          </div>
           </div>
         <!-- /.container-fluid -->
