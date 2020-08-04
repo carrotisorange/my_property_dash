@@ -594,7 +594,7 @@
                       <div class="row">
                         <div class="col">
                             <label for="movein_date">Short Description</label>
-                            <small class="text-danger">(What your concern is all about?)</small>
+                            <small class="text-danger">(What is your concern all about?)</small>
                             <input type="text" form="concernForm" class="form-control" name="concern_item" required >
                         </div>
                       </div>  
