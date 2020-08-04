@@ -244,11 +244,7 @@
                                    <tr>
                                         <th>TYPE</th>
                                         <td>
-                                            @if($concern->concern_type === 'leasing')
-                                            <span class="badge badge-primary">{{ $concern->concern_type }}</span>
-                                            @else
-                                            <span class="badge badge-danger">{{ $concern->concern_type }}</span>
-                                            @endif
+                                          {{ $concern->concern_type }}
                                         </td>
                                    </tr>
                                    <tr>

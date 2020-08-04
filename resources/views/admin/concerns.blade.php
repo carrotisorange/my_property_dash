@@ -373,11 +373,9 @@
                           </td>
                           <td>{{ $item->building.' '.$item->unit_no }}</td>
                           <td>
-                              @if($item->concern_type === 'leasing')
-                              <span class="badge badge-primary">{{ $item->concern_type }}</span>
-                              @else
-                              <span class="badge badge-danger">{{ $item->concern_type }}</span>
-                              @endif
+                            
+                              {{ $item->concern_type }}
+                              
                           </td>
                           <td title="{{ $item->concern_desc }}">{{ $item->concern_item }}</td>
                           <td>
