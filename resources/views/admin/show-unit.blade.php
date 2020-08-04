@@ -655,14 +655,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="message-text" class="col-form-label">BUILDING:</label>
-                                    <input form="editUnitForm" type="text" value="{{ $unit->building }}" name="building" class="form-control">
-                                    {{-- <select form="editUnitForm" id="building" name="building" class="form-control">
-                                        <option value="{{ $unit->building }}" readonly selected class="bg-primary">{{ $unit->building }}</option>
-                                        @foreach ($units_per_building as $item)
-                                        <option value="{{ $item->building }}">{{ $item->building }}</option>
-                                       @endforeach
-                                    </select> --}}
-                                                 </div>
+                                    <input form="editUnitForm" type="text" value="{{ $unit->building }}" name="building" class="form-control"> 
+                                  </div>
                                 <div class="form-group">
                                 <label for="message-text" class="col-form-label">ROOM TYPE</label>
                                 <select form="editUnitForm" id="type_of_units" name="type_of_units" class="form-control">
