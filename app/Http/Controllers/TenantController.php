@@ -331,6 +331,7 @@ class TenantController extends Controller
             ->where('billing_tenant_id', $tenant_id)
             ->where('billing_status', 'unpaid')
             ->where('billing_amt','>',0)
+            ->orderBy('billing_no')
             ->distinct()
             ->get();
 
