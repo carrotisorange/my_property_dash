@@ -151,7 +151,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-      DB::tables('concerns')->delete();
+      DB::table('concerns')->delete();
 
         // DB::table('units')->where('unit_property', 'Bayani Hall')->delete();
 
