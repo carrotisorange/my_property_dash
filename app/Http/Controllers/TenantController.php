@@ -201,7 +201,7 @@ class TenantController extends Controller
             DB::table('billings')->insert(
                 [
                     'billing_tenant_id' => $tenant_id,
-                'billing_no' => $current_bill_no++,
+                    'billing_no' => $current_bill_no++,
                     'billing_date' => session(Auth::user()->id.'movein_date'),
                     'billing_desc' =>  $request->input('desc'.$i),
                     'billing_amt' =>  $request->input('amt'.$i),

@@ -124,6 +124,7 @@ class UnitsController extends Controller
             ->where('unit_id', $unit_id)
             ->where('unit_property', Auth::user()->property)
             ->where('billing_amt','>', 0)
+            ->orderBy('billing_date', 'desc')
             ->orderBy('billing_no', 'desc')
             ->get();
 
