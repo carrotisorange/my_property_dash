@@ -48,7 +48,7 @@ class ConcernController extends Controller
                 'date_reported' => $request->date_reported,
                 'concern_type'=> $request->concern_type,
                 'concern_urgency' => $request->concern_urgency,
-                'is_warranty' => $request->is_warranty,
+                'is_warranty' => 'na',
                 'concern_item' => $request->concern_item,
                 'concern_qty' => $request->concern_qty,
                 'concern_status' => 'pending',
