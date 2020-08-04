@@ -379,10 +379,12 @@
                           </td>
                           <td title="{{ $item->concern_desc }}">{{ $item->concern_item }}</td>
                           <td>
-                              @if($item->concern_urgency === 'minor')
-                              <span class="badge badge-primary">{{ $item->concern_urgency }}</span>
-                              @else
+                              @if($item->concern_urgency === 'urgent')
                               <span class="badge badge-danger">{{ $item->concern_urgency }}</span>
+                              @elseif($item->concern_urgency === 'major')
+                              <span class="badge badge-warning">{{ $item->concern_urgency }}</span>
+                              @else
+                              <span class="badge badge-primary">{{ $item->concern_urgency }}</span>
                               @endif
                           </td>
                           <td>
