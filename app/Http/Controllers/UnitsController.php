@@ -128,7 +128,6 @@ class UnitsController extends Controller
             ->orderBy('billing_no', 'desc')
             ->get();
 
-             
                 return view('admin.show-unit',compact('unit', 'unit_owner', 'tenant_active', 'tenant_inactive', 'tenant_reservations', 'unit_bills'));
         }else{
                 return view('unregistered');
