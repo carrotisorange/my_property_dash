@@ -68,7 +68,24 @@ class ConcernController extends Controller
      */
     public function show($unit_id, $tenant_id, $concern_id)
     {
-        return $concern_id;
+        if(auth()->user()->status === 'registered' || auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager' || auth()->user()->user_type === 'treasury' || auth()->user()->user_type === 'billing'){
+        
+            $tenant = Tenant::findOrFail($tenant_id);
+
+            $unit = Unit::findOrFail($unit_id);
+
+            $concerns = DB::table('tenants')
+           ->join('units', 'unit_id', 'unit_tenant_id')
+           ->join('concerns', 'tenant_id', 'concern_tenant_id')
+           ->where('unit_property', Auth::user()->property)
+           ->where('concern_id', $concern_id)
+           ->get();
+      
+       return view('admin.show-concerns', compact('tenant','unit','concerns'));
+   }else{
+       return view('unregistered');
+   }
+
     }
 
     /**
