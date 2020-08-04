@@ -284,10 +284,10 @@
                              </div>
                      
                 </div>
-
-                <div class="row">
                 
-                <div class="col-md-12">
+            </div>
+            
+            <div class="col-md-6">
                             <div class="card shadow mb-4">
                                <div class="card-header py-3">
                                  <h6 class="m-0 font-weight-bold text-primary">CONCERN INFORMATION</h6>
@@ -347,8 +347,6 @@
                              </div>
                      
                 </div>
-                </div>
-            </div>
           </div>
         <!-- /.container-fluid -->
         
