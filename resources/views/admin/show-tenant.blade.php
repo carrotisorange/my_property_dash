@@ -593,7 +593,8 @@
                       <br> -->
                       <div class="row">
                         <div class="col">
-                            <label for="movein_date">Description</label>
+                            <label for="movein_date">Short Description</label>
+                            <small>What your concern is all about?</small>
                             <input type="text" form="concernForm" class="form-control" name="concern_item" required >
                         </div>
                       </div>  
