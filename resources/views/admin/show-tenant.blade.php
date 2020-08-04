@@ -598,13 +598,13 @@
                         </div>
                       </div>  
                       <br>
-                      <div class="row">
+                      <!-- <div class="row">
                         <div class="col">
                             <label for="movein_date">Quantity</label>
                             <input type="number" oninput="this.value = Math.abs(this.value)" form="concernForm" class="form-control" name="concern_qty" required >
                         </div>
                       </div>
-                      <br>
+                      <br> -->
                        <div class="row">
                             <div class="col">
                                 <label for="movein_date">Concern/Request <span class="text-danger">(Please provide full details.)</span></label>
@@ -612,7 +612,7 @@
                             </div>
                         </div>
                         <br>
-                        <div class="row">
+                        <!-- <div class="row">
                           <div class="col">
                               <label for="movein_date">Assign concern to</label>
                               <select class="form-control" form="concernForm" name="concern_personnel_id" required>
@@ -622,7 +622,7 @@
                                 @endforeach
                                
                               </select>
-                          </div>
+                          </div> -->
                       </div>
 
                           {{-- <div class="row">

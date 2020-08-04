@@ -376,6 +376,7 @@
                   <table class="table table-bordered" width="100%" cellspacing="0">
                     <thead>
                       <tr>
+                          <th>ID</th>
                           <th>PERSONNEL</th>
                           <th>CONTACT NO</th>
                           <th>AVAILABILITY</th>
@@ -386,6 +387,7 @@
                     <tbody>
                       @foreach ($personnels as $item)
                     <tr>
+                      <td>{{ $item->personnel_id }}</td>
                         <td>{{ $item->personnel_name }}</td>
                         <td>{{ $item->personnel_contact_no }}</td>
                         <td>{{ $item->personnel_availability }}</td>
