@@ -238,6 +238,10 @@
                                         <td>{{ Carbon\Carbon::parse($concern->date_reported)->format('M d Y') }}</td>
                                    </tr>
                                    <tr>
+                                        <th>DESCRIPTIOIN</th>
+                                        <td>{{ $concern->concern_desc }}</td>
+                                   </tr>
+                                   <tr>
                                         <th>TYPE</th>
                                         <td>
                                             @if($concern->concern_type === 'leasing')
