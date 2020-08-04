@@ -612,7 +612,7 @@
                             </div>
                         </div>
                         <br>
-                        <!-- <div class="row">
+                        <div class="row">
                           <div class="col">
                               <label for="movein_date">Assign concern to</label>
                               <select class="form-control" form="concernForm" name="concern_personnel_id" required>
@@ -622,7 +622,7 @@
                                 @endforeach
                                
                               </select>
-                          </div> -->
+                          </div>
                       </div>
 
                           {{-- <div class="row">

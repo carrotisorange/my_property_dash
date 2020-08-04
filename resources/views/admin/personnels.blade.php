@@ -380,8 +380,6 @@
                           <th>PERSONNEL</th>
                           <th>CONTACT NO</th>
                           <th>AVAILABILITY</th>
-                    
-                         
                      </tr>
                     </thead>
                     <tbody>
