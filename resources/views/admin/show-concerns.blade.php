@@ -294,9 +294,7 @@
                                  
                                </div>
                                <div class="card-body">
-                                    <textarea class="form-control" name="concern_desc" id="" cols="30" rows="10">
-                                        {{ $concern_desc }}
-                                    </textarea>
+                                    <p>{{ $concern->concern_desc }}</p>
                                </div>
                              </div>
                      
