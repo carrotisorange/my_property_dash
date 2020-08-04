@@ -238,12 +238,20 @@
                                         <td>{{ Carbon\Carbon::parse($concern->date_reported)->format('M d Y') }}</td>
                                    </tr>
                                    <tr>
-                                        <th>TYPE OF CONCERN</th>
+                                        <th>TYPE</th>
                                         <td>{{ $concern->concern_type }}</td>
                                    </tr>
                                    <tr>
                                         <th>UNDER WARRANTY</th>
                                         <td>{{ $concern->is_warranty }}</td>
+                                   </tr>
+                                   <tr>
+                                        <th>URGENT</th>
+                                        <td>{{ $concern->concern_urgency }}</td>
+                                   </tr>
+                                   <tr>
+                                        <th>STATUS</th>
+                                        <td>{{ $concern->concern_status }}</td>
                                    </tr>
                                   
                                </table>
