@@ -228,27 +228,24 @@
                 <div class="col-md-6">
                             <div class="card shadow mb-4">
                                <div class="card-header py-3">
-                                 <h6 class="m-0 font-weight-bold text-primary">TENANT INFORMATION</h6>
+                                 <h6 class="m-0 font-weight-bold text-primary">CONCERN INFORMATION</h6>
                                </div>
                                <div class="card-body">
                             <div class="table-responsive">
                               <table class="table table-bordered" width="100%" cellspacing="0">
-                                   <tr>
-                                        <th>Tenant</th>
-                                        <td>{{ $tenant->first_name.' '.$tenant->last_name }}</td>
+                                    <tr>
+                                        <th>DATE REPORTED</th>
+                                        <td>{{ $concern->date_reported }}</td>
                                    </tr>
                                    <tr>
-                                        <th>Mobile</th>
-                                        <td>{{ $tenant->contact_no }}</td>
+                                        <th>TYPE OF CONCERN</th>
+                                        <td>{{ $concern->concern_type }}</td>
                                    </tr>
                                    <tr>
-                                        <th>Email</th>
-                                        <td>{{ $tenant->email_address}}</td>
+                                        <th>UNDER WARRANTY</th>
+                                        <td>{{ $concern->is_warranty }}</td>
                                    </tr>
-                                   <tr>
-                                        <th>Room</th>
-                                        <td>{{ $unit->building.' '.$unit->unit_no }}</td>
-                                   </tr>
+                                  
                                </table>
                               </div>
                                </div>
