@@ -561,8 +561,15 @@
                                   <label for="movein_date">Type of Concern</label>
                                   <select class="form-control" form="concernForm" name="concern_type" id="" required>
                                     <option value="" selected>Please select one</option>
-                                    <option value="leasing">leasing</option>
-                                    <option value="accounting">accounting</option>
+                                    <option value="billing">billing</option>
+                                    <option value="employee">employee</option>
+                                    <option value="neighbour">neighbour</option>
+                                    <option value="noise">noise</option>
+                                    <option value="odours">odours</option>
+                                    <option value="parking">parking</option>
+                                    <option value="pets">pets</option>
+                                    <option value="repair">repair</option>
+                                    <option value="others">others</option>
                                   </select>
                               </div>
                           </div>
