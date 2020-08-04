@@ -93,7 +93,7 @@ class UnitsController extends Controller
     public function show(Request $request, $unit_id)
     {
         if(Auth::user()->status === 'registered'|| Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager'){
-            $unit = Unit::where('unit_property', Auth::user()->property);
+           return $unit = Unit::where('unit_property', Auth::user()->property);
 
             $unit_owner = DB::table('units')
             ->join('unit_owners', 'unit_unit_owner_id', 'unit_owner_id')
