@@ -197,7 +197,11 @@
          <div class="form-group">
             <div class="col">
                 <small>Date reported</small>
-            <p>{{Carbon\Carbon::parse($concern->date_reported)->format('M d Y').'@'. Carbon\Carbon::parse($concern->date_reported)->format('h:i:s') }}</p>
+                <p>{{Carbon\Carbon::parse($concern->date_reported)->format('M d Y').' @ '. Carbon\Carbon::parse($concern->date_reported)->format('h:i:s') }}</p>
+            </div>
+            <div class="col">
+                <small>Tenant</small>
+                <p>{{ $tenant->first_name.' '.$tenant->last_name }}</p>
             </div>
          </div>
           </div>
