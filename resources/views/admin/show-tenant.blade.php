@@ -579,7 +579,7 @@
                             </div>
                         </div>
                         <br>
-                        <div class="row">
+                        <!-- <div class="row">
                           <div class="col">
                               <label for="">Under Warranty</label>
                               <select class="form-control" form="concernForm" name="is_warranty" id="" required>
@@ -590,7 +590,7 @@
                               </select>
                           </div>
                       </div>
-                      <br>
+                      <br> -->
                       <div class="row">
                         <div class="col">
                             <label for="movein_date">Description</label>
@@ -612,7 +612,7 @@
                             </div>
                         </div>
                         <br>
-                        <div class="row">
+                        <!-- <div class="row">
                           <div class="col">
                               <label for="movein_date">Assign concern to</label>
                               <select class="form-control" form="concernForm" name="concern_personnel_id" required>
@@ -623,31 +623,7 @@
                                
                               </select>
                           </div>
-                      </div>
-
-                          {{-- <div class="row">
-                              <div class="col">
-                                  
-                                      Expenses
-                                      <small class="text-danger">(Optional)</small>
-                                      <a id='remove_charges' class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-minus fa-sm text-white-50"></i></a>
-                                      <a id="add_charges" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i></a>     
-                                      <br>
-                                  
-                                  <br>
-                                      <table class = "table table-hover " id="extend_table">
-                                          <tr>
-                                              <th class="text-center">#</th>
-                                              <th>Description</th>
-                                              <th>Amount</th>
-                                          </tr>
-                                              <input form="extendTenantForm" type="hidden" id="no_of_row" name="no_of_row" >
-                                              <input form="extendTenantForm" type="hidden" id="current_date" name="current_date" value="{{ date('Y-m-d') }}">
-                                          
-                                          <tr id='row1'></tr>
-                                      </table>
-                              </div>
-                            </div> --}}
+                      </div> -->
                       </div>
                       <div class="modal-footer">
                           <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button>
