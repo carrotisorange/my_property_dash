@@ -239,7 +239,13 @@
                                    </tr>
                                    <tr>
                                         <th>TYPE</th>
-                                        <td>{{ $concern->concern_type }}</td>
+                                        <td>
+                                            @if($concern->concern_type === 'leasing')
+                                            <span class="badge badge-primary">{{ $concern->concern_type }}</span>
+                                            @else
+                                            <span class="badge badge-danger">{{ $concern->concern_type }}</span>
+                                            @endif
+                                        </td>
                                    </tr>
                                    <tr>
                                         <th>UNDER WARRANTY</th>
@@ -247,11 +253,25 @@
                                    </tr>
                                    <tr>
                                         <th>URGENT</th>
-                                        <td>{{ $concern->concern_urgency }}</td>
+                                        <td>
+                                            @if($concern->concern_urgency === 'minor')
+                                            <span class="badge badge-primary">{{ $concern->concern_urgency }}</span>
+                                            @else
+                                            <span class="badge badge-danger">{{ $concern->concern_urgency }}</span>
+                                            @endif
+                                        </td>
                                    </tr>
                                    <tr>
                                         <th>STATUS</th>
-                                        <td>{{ $concern->concern_status }}</td>
+                                        <td>
+                                            @if($concern->concern_status === 'pending')
+                                            <span class="badge badge-warning">{{ $concern->concern_status }}</span>
+                                            @elseif($item->concern_status === 'active')
+                                            <span class="badge badge-primary">{{ $concern->concern_status }}</span>
+                                            @else
+                                            <span class="badge badge-warning">{{ $concern->concern_status }}</span>
+                                            @endif
+                                        </td>
                                    </tr>
                                   
                                </table>
