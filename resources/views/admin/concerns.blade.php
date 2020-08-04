@@ -352,6 +352,7 @@
                   <table class="table table-bordered" width="100%" cellspacing="0">
                     <thead>
                       <tr>
+                          <th>ID</th>
                           <th>DATE REPORTED</th>
                           <th>TENANT</th>
                           <th>ROOM</th>
@@ -365,6 +366,7 @@
                     <tbody>
                       @foreach ($concerns as $item)
                       <tr>
+                      <td>{{ $item->concern_id }}</td>
                         <td>{{ Carbon\Carbon::parse($item->date_reported)->format('M d Y') }}</td>
                           <td>
                               <a href="{{ route('show-tenant',['unit_id'=> $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a>
