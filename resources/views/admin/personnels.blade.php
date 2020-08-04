@@ -121,16 +121,15 @@
   
         @endif
   
-      @if(Auth::user()->user_type === 'manager')
+        @if(Auth::user()->user_type === 'manager')
        <!-- Nav Item - Tables -->
        <li class="nav-item">
         <a class="nav-link" href="/users">
-          <i class="fas fa-users-secret fa-table"></i>
+          <i class="fas fa-user-circle"></i>
           <span>Users</span></a>
       </li>
       @endif
-      
-  
+    
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
   
