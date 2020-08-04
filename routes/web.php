@@ -946,6 +946,9 @@ Route::post('/units/{unit_id}/tenant-step4', 'TenantController@postTenantStep4')
 //concerns
 Route::post('/concerns', 'ConcernController@store')->middleware('auth');
 
+//show concerns 
+Route::get('/units/{unit_id}/tenants/{tenant_id}/concerns/{concern_id}', 'ConcernController@show')->middleware('auth');
+
 Route::post('/billings', 'BillingController@store')->middleware('auth');
 
 

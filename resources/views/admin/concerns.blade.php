@@ -394,7 +394,7 @@
                               <span class="badge badge-warning">{{ $item->concern_status }}</span>
                               @endif
                           </td>
-                          <td><a href="#"> <span class="badge badge-primary">View</span></a></td>
+                          <td><a href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/concerns/{{ $item->concern_id }"> <span class="badge badge-primary">View</span></a></td>
                       </tr>
                       @endforeach
                     </tbody>
