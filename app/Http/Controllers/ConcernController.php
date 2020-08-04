@@ -76,7 +76,7 @@ class ConcernController extends Controller
 
             $concern = Concern::findOrFail($concern_id);
       
-       return view('admin.show-concerns', compact('tenant','unit','concerns'));
+       return view('admin.show-concerns', compact('tenant','unit','concern'));
    }else{
        return view('unregistered');
    }
