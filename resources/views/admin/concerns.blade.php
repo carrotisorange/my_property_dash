@@ -338,7 +338,7 @@
             <form  action="/concerns/search" method="GET" >
               @csrf
               <div class="input-group">
-                  <input type="text" class="form-control" name="search" placeholder="Search for tenants, rooms..." value="{{ session(Auth::user()->id.'search_tenant') }}">
+                  <input type="text" class="form-control" name="search" placeholder="Search for tenants, rooms..." value="">
                   <div class="input-group-append">
                     <button class="btn btn-primary" type="submit">
                       <i class="fas fa-search fa-sm"></i>
