@@ -194,7 +194,12 @@
             <h1 class="h3 mb-0 text-gray-800">Concern ID: {{ $concern->concern_id }}</h1>
           </div>
              
-          
+         <div class="form-group">
+            <div class="col">
+                <small>Tenant</small>
+                <p>{{ $tenant->first_name.' '.$tenant->last_name }}</p>
+            </div>
+         </div>
           </div>
         <!-- /.container-fluid -->
         
