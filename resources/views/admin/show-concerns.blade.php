@@ -189,7 +189,6 @@
         </nav>
         <!-- Begin Page Content -->
         <div class="container-fluid">
-          
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Concern ID: {{ $concern->concern_id }}</h1>
           </div>
@@ -229,18 +228,7 @@
                             <div class="card shadow mb-4">
                                <div class="card-header py-3">
                                  <h6 class="m-0 font-weight-bold text-primary">CONCERN INFORMATION</h6>
-                                 <div class="dropdown no-arrow">
-                          <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                          </a>
-                          {{-- <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                            <div class="dropdown-header">Dropdown Header:</div>
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                          </div> --}}
-                        </div>
+                                 
                                </div>
                                <div class="card-body">
                             <div class="table-responsive">
@@ -295,6 +283,70 @@
                                </div>
                              </div>
                      
+                </div>
+
+                <div class="row">
+                
+                <div class="col-md-6">
+                            <div class="card shadow mb-4">
+                               <div class="card-header py-3">
+                                 <h6 class="m-0 font-weight-bold text-primary">CONCERN INFORMATION</h6>
+                                 
+                               </div>
+                               <div class="card-body">
+                            <div class="table-responsive">
+                              <table class="table table-bordered" width="100%" cellspacing="0">
+                                    <tr>
+                                        <th>DATE REPORTED</th>
+                                        <td>{{ Carbon\Carbon::parse($concern->date_reported)->format('M d Y') }}</td>
+                                   </tr>
+                                   <tr>
+                                        <th>DESCRIPTIOIN</th>
+                                        <td>{{ $concern->concern_item }}</td>
+                                   </tr>
+                                   <tr>
+                                        <th>TYPE</th>
+                                        <td>
+                                            @if($concern->concern_type === 'leasing')
+                                            <span class="badge badge-primary">{{ $concern->concern_type }}</span>
+                                            @else
+                                            <span class="badge badge-danger">{{ $concern->concern_type }}</span>
+                                            @endif
+                                        </td>
+                                   </tr>
+                                   <tr>
+                                        <th>UNDER WARRANTY</th>
+                                        <td>{{ $concern->is_warranty }}</td>
+                                   </tr>
+                                   <tr>
+                                        <th>URGENT</th>
+                                        <td>
+                                            @if($concern->concern_urgency === 'minor')
+                                            <span class="badge badge-primary">{{ $concern->concern_urgency }}</span>
+                                            @else
+                                            <span class="badge badge-danger">{{ $concern->concern_urgency }}</span>
+                                            @endif
+                                        </td>
+                                   </tr>
+                                   <tr>
+                                        <th>STATUS</th>
+                                        <td>
+                                            @if($concern->concern_status === 'pending')
+                                            <span class="badge badge-warning">{{ $concern->concern_status }}</span>
+                                            @elseif($item->concern_status === 'active')
+                                            <span class="badge badge-primary">{{ $concern->concern_status }}</span>
+                                            @else
+                                            <span class="badge badge-warning">{{ $concern->concern_status }}</span>
+                                            @endif
+                                        </td>
+                                   </tr>
+                                  
+                               </table>
+                              </div>
+                               </div>
+                             </div>
+                     
+                </div>
                 </div>
             </div>
           </div>
