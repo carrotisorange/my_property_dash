@@ -619,7 +619,7 @@
                         {{ $item->details }}
                         @endif
                       </td>
-                      <td class="text-right" colspan="3">{{ number_format($item->billing_amt,2) }}</td>
+                      <td>{{ number_format($item->billing_amt,2) }}</td>
                       <td>
                       @if($item->billing_status === 'paid')
                       <span class="badge badge-success">{{ $item->billing_status }}</span>
