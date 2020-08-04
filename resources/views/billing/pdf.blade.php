@@ -41,7 +41,7 @@
               </tr>
               @foreach ($rent_bills as $item)
               <tr>
-                  <th>{{ $item->billing_no }}</th>
+                  <td>{{ $item->billing_no }}</th>
                   <td>{{ $item->billing_desc }}</td>
                   <td>
                     @if($item->details === null)
@@ -55,7 +55,7 @@
               @endforeach
               @foreach ($other_bills as $item)
               <tr>
-                <th>{{ $item->billing_no }}</th>
+                <td>{{ $item->billing_no }}</th>
                   <td>{{ $item->billing_desc }}</td>
                   <td> 
                     @if($item->details === null)

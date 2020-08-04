@@ -37,7 +37,7 @@
               @foreach ($payment_breakdown as $item)
               <tr>
                 
-                <th>{{ $item->payment_billing_no }}</th>
+                <td>{{ $item->payment_billing_no }}</th>
                 <td>{{ $item->payment_note }}</td>
                 <td>
                   @if($item->or_number === null)
