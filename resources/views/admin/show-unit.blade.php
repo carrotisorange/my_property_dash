@@ -606,6 +606,7 @@
                     <th>Description</th>
                     <th>Period Covered</th>
                     <th>Amount</th>
+                    <th>Status</th>
                   </tr>
                   @foreach ($unit_bills as $item)
                   <tr>
@@ -619,6 +620,13 @@
                         @endif
                       </td>
                       <td class="text-right" colspan="3">{{ number_format($item->billing_amt,2) }}</td>
+                      <td>
+                      @if($item->billing_status === 'paid')
+                      <span class="badge badge-success">{{ $item->billing_status }}</span>
+                       @else
+                      <span class="badge badge-danger">{{ $item->billing_status }} </span>
+                       @endif
+                       </td>
                   </tr>
                   @endforeach
             
