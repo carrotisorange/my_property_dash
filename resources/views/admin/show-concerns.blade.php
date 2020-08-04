@@ -239,7 +239,7 @@
                                    </tr>
                                    <tr>
                                         <th>DESCRIPTIOIN</th>
-                                        <td>{{ $concern->concern_desc }}</td>
+                                        <td>{{ $concern->concern_item }}</td>
                                    </tr>
                                    <tr>
                                         <th>TYPE</th>
