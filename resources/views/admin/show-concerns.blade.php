@@ -191,18 +191,7 @@
         <div class="container-fluid">
           
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Concerns</h1>
-            <form  action="/concerns/search" method="GET" >
-              @csrf
-              <div class="input-group">
-                  <input type="text" class="form-control" name="search" placeholder="Search for tenants, rooms..." value="{{ session(Auth::user()->id.'search_tenant') }}">
-                  <div class="input-group-append">
-                    <button class="btn btn-primary" type="submit">
-                      <i class="fas fa-search fa-sm"></i>
-                    </button>
-                  </div>
-              </div>
-          </form>
+            <h1 class="h3 mb-0 text-gray-800">Concern ID: {{ $concern->concern_id }}</h1>
           </div>
               <div class="table-responsive">
                
