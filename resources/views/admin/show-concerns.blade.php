@@ -193,60 +193,7 @@
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Concern ID: {{ $concern->concern_id }}</h1>
           </div>
-              <div class="table-responsive">
-               
-                  <table class="table table-bordered" width="100%" cellspacing="0">
-                    <thead>
-                      <tr>
-                          <th>DATE REPORTED</th>
-                          <th>TENANT</th>
-                          <th>ROOM</th>
-                          <th>TYPE</th>
-                          <th>DESCRIPTION</th>
-                          <th>URGENCY</th>
-                          <th>STATUS</th>
-                          <th></th> 
-                     </tr>
-                    </thead>
-                    <tbody>
-                      @foreach ($concerns as $item)
-                      <tr>
-                        <td>{{ Carbon\Carbon::parse($item->date_reported)->format('M d Y') }}</td>
-                          <td>
-                              <a href="{{ route('show-tenant',['unit_id'=> $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a>
-                          </td>
-                          <td>{{ $item->building.' '.$item->unit_no }}</td>
-                          <td>
-                              @if($item->concern_type === 'leasing')
-                              <span class="badge badge-primary">{{ $item->concern_type }}</span>
-                              @else
-                              <span class="badge badge-danger">{{ $item->concern_type }}</span>
-                              @endif
-                          </td>
-                          <td title="{{ $item->concern_desc }}">{{ $item->concern_item }}</td>
-                          <td>
-                              @if($item->concern_urgency === 'minor')
-                              <span class="badge badge-primary">{{ $item->concern_urgency }}</span>
-                              @else
-                              <span class="badge badge-danger">{{ $item->concern_urgency }}</span>
-                              @endif
-                          </td>
-                          <td>
-                              @if($item->concern_status === 'pending')
-                              <span class="badge badge-warning">{{ $item->concern_status }}</span>
-                              @elseif($item->concern_status === 'active')
-                              <span class="badge badge-primary">{{ $item->concern_status }}</span>
-                              @else
-                              <span class="badge badge-warning">{{ $item->concern_status }}</span>
-                              @endif
-                          </td>
-                          <td><a href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/concerns/{{ $item->concern_id }}"> <span class="badge badge-primary">View</span></a></td>
-                      </tr>
-                      @endforeach
-                    </tbody>
-                  </table>
-                  
-                </div>
+             
           
           </div>
         <!-- /.container-fluid -->
