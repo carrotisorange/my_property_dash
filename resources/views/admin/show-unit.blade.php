@@ -612,7 +612,7 @@
                   @foreach ($unit_bills as $item)
                   <tr>
                       <td>{{ $item->billing_no }}</td>
-                      <td> <a href="units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}">{{ $item->first_name.' '.$item->last_name }}</a></td>
+                      <td> <a href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}">{{ $item->first_name.' '.$item->last_name }}</a></td>
                       <td>{{ $item->billing_desc }}</td>
                       <td>
                         @if($item->details === null)
