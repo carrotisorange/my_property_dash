@@ -204,19 +204,19 @@
                             <div class="table-responsive">
                               <table class="table table-bordered" width="100%" cellspacing="0">
                                    <tr>
-                                        <td>Tenant</td>
+                                        <th>Tenant</th>
                                         <td>{{ $tenant->first_name.' '.$tenant->last_name }}</td>
                                    </tr>
                                    <tr>
-                                        <td>Mobile</td>
+                                        <th>Mobile</th>
                                         <td>{{ $tenant->contact_no }}</td>
                                    </tr>
                                    <tr>
-                                        <td>Email</td>
+                                        <th>Email</th>
                                         <td>{{ $tenant->email_address}}</td>
                                    </tr>
                                    <tr>
-                                        <td>Room</td>
+                                        <th>Room</th>
                                         <td>{{ $unit->building.' '.$unit->unit_no }}</td>
                                    </tr>
                                </table>
