@@ -378,8 +378,7 @@
                       <th colspan="8">{{ Carbon\Carbon::parse($day)->addDay()->format('M d Y') }} ({{ $bills_list->count()}} BILLS POSTED)</th>
                   </tr>
                   <tr>
-                    <th class="text-center">BILL NO</th>
-
+                    <th>BILL NO</th>
                     <th>TENANT</th>
                     <th>ROOM</th>
                     <th>DESCRIPTION</th>
@@ -389,7 +388,7 @@
                 </tr>
                   @foreach ($bills_list as $bill)
                   <tr>
-                    <th class="text-center">{{ $bill->billing_no }}</th>
+                    <td>{{ $bill->billing_no }}</th>
                     <td>
                       @if(Auth::user()->user_type === 'billing')
                         {{ $bill->first_name.' '.$bill->last_name }}
@@ -399,7 +398,6 @@
                     </td>
                     <td>{{ $bill->building.' '.$bill->unit_no }}</td>
                     <td>{{ $bill->billing_desc }}</td>
-                   
                     <td>{{ number_format($bill->billing_amt,2) }}</td>
                     <td>
                       @if($bill->billing_status === 'paid')
@@ -412,11 +410,9 @@
                     </tr>
                   @endforeach
                 @endforeach
-               
             </table>
         </div>
         </div>
-
       </div>
       <!-- End of Main Content -->
 
