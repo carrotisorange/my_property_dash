@@ -194,7 +194,7 @@
             <h1 class="h3 mb-0 text-gray-800">Concern ID: {{ $concern->concern_id }}</h1>
           </div>
              
-         <div class="form-group">
+         <div class="form-group row">
             <div class="col">
                 <small>Date reported</small>
                 <p>{{Carbon\Carbon::parse($concern->date_reported)->format('M d Y').' @ '. Carbon\Carbon::parse($concern->date_reported)->format('h:i:s') }}</p>
