@@ -92,8 +92,13 @@ class UnitsController extends Controller
      */
     public function show(Request $request, $unit_id)
     {
-        if(Auth::user()->status === 'registered'|| Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager'){
-           return $unit = Unit::where('unit_property', Auth::user()->property);
+        if(Auth::user()->status === 'registered'|| auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager'){
+            $property = explode(",", Auth::user()->property);
+            if(count($property) > 1){
+                $unit = Unit::whereIn('unit_property', [$property[0],$property[1]])->findOrFail($unit_id);
+             }else{
+                $unit = Unit::where('unit_property', $property[0])->findOrFail($unit_id);
+             }
 
             $unit_owner = DB::table('units')
             ->join('unit_owners', 'unit_unit_owner_id', 'unit_owner_id')
@@ -117,10 +122,27 @@ class UnitsController extends Controller
             ->where('tenant_status', 'pending')
             ->get();
 
-                return view('admin.show-unit',compact('unit', 'unit_owner', 'tenant_active', 'tenant_inactive', 'tenant_reservations'));
+            if(count($property) > 1){
+                $units_per_building = DB::table('units')
+                ->select('building',DB::raw('count(*) as count'))
+                ->whereIn('unit_property', [$property[0],$property[1]])
+                ->groupBy('building')
+                ->get('building', 'count');
+             }else{
+                $units_per_building = DB::table('units')
+                ->select('building',DB::raw('count(*) as count'))
+                ->where('unit_property', $property[0])
+                ->groupBy('building')
+                ->get('building', 'count');
+             }
+                return view('admin.show-unit',compact('unit', 'unit_owner', 'tenant_active', 'tenant_inactive', 'tenant_reservations','units_per_building'));
         }else{
                 return view('unregistered');
-        }   
+        }
+        
+            
+        
+        
     }
 
     public function add_unit(Request $request){
