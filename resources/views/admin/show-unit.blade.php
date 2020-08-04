@@ -374,11 +374,8 @@
                                  <h6 class="m-0 font-weight-bold text-primary">ROOM INFORMATION</h6>
                                </div>
                                <div class="card-body">
-                                
-
                             <div class="table-responsive">
                               <table class="table table-bordered" width="100%" cellspacing="0">
-                                 
                                    <tr>
                                         <th>ROOM NO</th>
                                         <td>{{ $unit->unit_no }}</td>

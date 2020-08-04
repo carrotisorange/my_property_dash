@@ -193,25 +193,27 @@
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Concern ID: {{ $concern->concern_id }}</h1>
           </div>
-             
-         <div class="form-group row">
-            <div class="col">
-                <small>Date reported</small>
-                <p>{{Carbon\Carbon::parse($concern->date_reported)->format('M d Y').' @ '. Carbon\Carbon::parse($concern->date_reported)->format('h:i:s') }}</p>
+            <div class="row">
+                <div class="col-md-6">
+                                                  <!-- DataTales Example -->
+                                                  <div class="card shadow mb-4">
+                               <div class="card-header py-3">
+                                 <h6 class="m-0 font-weight-bold text-primary">TENANT INFORMATION</h6>
+                               </div>
+                               <div class="card-body">
+                            <div class="table-responsive">
+                              <table class="table table-bordered" width="100%" cellspacing="0">
+                                   <tr>
+                                        <td>Tenant</td>
+                                        <td>{{ $tenant->first_name.' '.$tenant->last_name }}</td>
+                                   </tr>
+                               </table>
+                              </div>
+                               </div>
+                             </div>
+                     
+                </div>
             </div>
-            <div class="col">
-                <small>Tenant</small>
-                <p>{{ $tenant->first_name.' '.$tenant->last_name }}</p>
-            </div>
-            <div class="col">
-                <small>Mobile</small>
-                <p>{{ $tenant->contact_no }}</p>
-            </div>
-            <div class="col">
-                <small>Room</small>
-                <p>{{ $unit->building.' '.$tenant->unit_no }}</p>
-            </div>
-         </div>
           </div>
         <!-- /.container-fluid -->
         
