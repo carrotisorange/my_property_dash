@@ -389,6 +389,7 @@
                   @foreach ($bills_list as $bill)
                   <tr>
                     <td>{{ $bill->billing_no }}</th>
+                    
                     <td>
                       @if(Auth::user()->user_type === 'billing')
                         {{ $bill->first_name.' '.$bill->last_name }}
