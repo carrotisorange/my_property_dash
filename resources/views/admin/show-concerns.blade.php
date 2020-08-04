@@ -207,6 +207,18 @@
                                         <td>Tenant</td>
                                         <td>{{ $tenant->first_name.' '.$tenant->last_name }}</td>
                                    </tr>
+                                   <tr>
+                                        <td>Mobile</td>
+                                        <td>{{ $tenant->contact_no }}</td>
+                                   </tr>
+                                   <tr>
+                                        <td>Email</td>
+                                        <td>{{ $tenant->email_address}}</td>
+                                   </tr>
+                                   <tr>
+                                        <td>Room</td>
+                                        <td>{{ $unit->building.' '.$unit->unit_no }}</td>
+                                   </tr>
                                </table>
                               </div>
                                </div>
