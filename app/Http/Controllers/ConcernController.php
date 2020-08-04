@@ -66,9 +66,9 @@ class ConcernController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($unit_id, $tenant_id, $concern_id)
     {
-        //
+        return $concern_id;
     }
 
     /**
