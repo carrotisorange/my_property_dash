@@ -594,7 +594,7 @@
                       <div class="row">
                         <div class="col">
                             <label for="movein_date">Short Description</label>
-                            <small>What your concern is all about?</small>
+                            <small class="text-danger">(What your concern is all about?)</small>
                             <input type="text" form="concernForm" class="form-control" name="concern_item" required >
                         </div>
                       </div>  
@@ -608,7 +608,7 @@
                       <br> -->
                        <div class="row">
                             <div class="col">
-                                <label for="movein_date">Concern/Request <span class="text-danger">(Please provide full details.)</span></label>
+                                <label for="movein_date">Concern/Request <small class="text-danger">(Please provide full details.)</small></label>
                                 <textarea form="concernForm" class="form-control" name="concern_desc" required></textarea>
                             </div>
                         </div>
