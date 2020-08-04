@@ -609,7 +609,8 @@
                        <div class="row">
                             <div class="col">
                                 <label for="movein_date">Concern/Request <small class="text-danger">(Please provide full details.)</small></label>
-                                <textarea form="concernForm" class="form-control" name="concern_desc" required></textarea>
+                                
+                                <textarea form="concernForm" rows="10" class="form-control" name="concern_desc" required></textarea>
                             </div>
                         </div>
                         <br>
