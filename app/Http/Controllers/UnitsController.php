@@ -92,7 +92,7 @@ class UnitsController extends Controller
      */
     public function show(Request $request, $unit_id)
     {
-        if(Auth::user()->status === 'registered'|| auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager'){
+        if(Auth::user()->status === 'registered'|| Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager'){
             $unit = Unit::where('unit_property', Auth::user()->property);
 
             $unit_owner = DB::table('units')
@@ -120,11 +120,7 @@ class UnitsController extends Controller
                 return view('admin.show-unit',compact('unit', 'unit_owner', 'tenant_active', 'tenant_inactive', 'tenant_reservations'));
         }else{
                 return view('unregistered');
-        }
-        
-            
-        
-        
+        }   
     }
 
     public function add_unit(Request $request){
