@@ -405,25 +405,22 @@
                                         <th>BUILDING</th>
                                         <td>{{ $unit->building }}</td>
                                    </tr>
-                                   @if(Auth::user()->property_type === 'Condominium Associations')
-                                    
-                                    @else
-                                    <tr>
+                                   <tr>
                                         <th>FLOOR NO</th>
                                         <td>{{ $numberFormatter->format($unit->floor_no) }}</td>
                                    </tr>
-                                    @endif
                                    <tr>
                                         <th>ROOM TYPE</th>
                                         <td>{{ $unit->type_of_units }}</td>
                                    </tr>
-                                   @if(Auth::user()->property_type !== 'Commercial Complex' && Auth::user()->property_type === 'Condominium Associations')
+                                    @if(Auth::user()->property_type !== 'Condominium Complex' && Auth::user()->property_type !== 'Condominium Associations')
                                    <tr>
                                     <th>NO OF BEDS</th>
                                     <td>{{ $unit->beds }}</td>     
                                   </tr>
                                    @endif
-                                    <tr>
+                                  @if(Auth::user()->property_type !== 'Condominium Associations')
+                                  <tr>
                                         <th>STATUS</th>
                                         <td>
                                         @if($unit->status === 'occupied')
@@ -446,6 +443,7 @@
                                             session([Auth::user()->id.'building'=> $unit->building]);
                                         ?>
                                     </tr>
+                                    @endif
                                     @if ($unit_owner->count() > 0)
                                         @foreach ($unit_owner as $item)
                                     <tr>
