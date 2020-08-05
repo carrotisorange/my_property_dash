@@ -285,7 +285,7 @@ class TenantController extends Controller
     
             $pending_balance = $overall_bills - $overall_payments;
 
-            $concerns = DB::table('tenants')
+           return $concerns = DB::table('tenants')
             ->join('units', 'unit_id', 'unit_tenant_id')
             ->join('concerns', 'tenant_id', 'concern_tenant_id')
             ->where('unit_property', Auth::user()->property)
