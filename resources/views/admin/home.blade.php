@@ -510,84 +510,6 @@
     </div>
   </div>
 
-  <div class="modal fade" id="addUnit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-md" role="document">
-    <div class="modal-content">
-        <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">ADD ROOM</h5>
-
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-        </div>
-        <div class="modal-body">
-            <form id="addUnitForm" action="/units/add" method="POST">
-                {{ csrf_field() }}
-            </form>
-
-            <div class="form-group">
-                <label for="recipient-name" class="col-form-label">ENTER THE NAME OF THE BUILDING</label>
-                <input form="addUnitForm" type="text" class="form-control" name="building" placeholder="Building-A" required>
-                <small class="text-danger">please put hyphen(-) between spaces</small>
-            </div>
-
-            <div class="form-group">
-                <label for="recipient-name" class="col-form-label">ENTER THE FLOOR NO</label>
-                <select class="form-control" form="addUnitForm" name="floor_no" id="floor_no" onkeyup="getFloorNo()" required>
-                    <option value="" selected>Please select one</option>
-                    <option value="3B">3B</option>
-                    <option value="2B">2B</option>
-                    <option value="1B">1B</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">5</option>
-                    <option value="5">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                </select>
-            </div>
-
-          
-            <div class="form-group">
-                <label for="recipient-name" class="col-form-label">SELECT THE ROOM TYPE</label>
-                <select form="addUnitForm" class="form-control" name="type_of_units" id="type_of_units" required>
-                    <option value="" selected>Please select one</option>
-                    <option value="leasing">leasing</option>
-                    <option value="commercial">commercial</option>
-                    <option value="residential">residential</option>
-                </select>
-            </div> 
-
-            <div class="form-group">
-                <label for="recipient-name" class="col-form-label">ENTER THE UNIT NO</label>
-                <input form="addUnitForm" type="text" class="form-control" name="unit_no" required>
-            </div>
-
-
-            <div class="form-group">
-                <label for="recipient-name" class="col-form-label">ENTER THE NO OF BEDS</label>
-                <input form="addUnitForm" type="text" class="form-control" name="beds" required>
-            </div>
-
-            @if(Auth::user()->property_ownership === 'Condominium Associations')
-                <input form="addUnitForm" type="hidden" min="1" class="form-control" name="monthly_rent" id="monthly_rent" value="0" required>
-            @else
-            <div class="form-group">
-                <label for="recipient-name" class="col-form-label">ENTER THE RENT/MONTH</label>
-                <input form="addUnitForm" type="number" min="1" class="form-control" name="monthly_rent" id="monthly_rent" required>
-            </div>
-            @endif
-           
-
-        </div>
-        <div class="modal-footer">
-            <button form="addUnitForm" type="submit" class="btn btn-primary" onclick="this.form.submit(); this.disabled = true;><i class="fas fa-check"></i> CREATE ROOM</button>
-            </div>
-    </div>
-    </div>
-</div>
-
 <div class="modal fade" id="addMultipleUnits" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-md" role="document">
   <div class="modal-content">
@@ -656,10 +578,14 @@
               <input form="addUMultipleUnitForm" type="text" class="form-control" name="unit_no" id="unit_no" required>
           </div>
 
-          <div class="form-group">
-              <label for="recipient-name" class="col-form-label">ENTER THE RENT/MONTH</label>
-              <input form="addUMultipleUnitForm" type="number" min="1" class="form-control" name="monthly_rent" required>
-          </div>
+          @if(Auth::user()->property_ownership === 'Condominium Associations')
+                <input form="addUnitForm" type="hidden" min="1" class="form-control" name="monthly_rent" id="monthly_rent" value="0" required>
+            @else
+            <div class="form-group">
+                <label for="recipient-name" class="col-form-label">ENTER THE RENT/MONTH</label>
+                <input form="addUnitForm" type="number" min="1" class="form-control" name="monthly_rent" id="monthly_rent" required>
+            </div>
+            @endif
 
       </div>
       <div class="modal-footer">
