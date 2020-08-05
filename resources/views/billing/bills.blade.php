@@ -112,14 +112,22 @@
       </li>
      @endif
 
-     @if(Auth::user()->user_type === 'treasury' || Auth::user()->user_type === 'manager')
-        <li class="nav-item">
-        <a class="nav-link" href="/collections">
-          <i class="fas fa-file-invoice-dollar"></i>
-          <span>Collections</span></a>
-      </li>
-
-      @endif
+        @if(Auth::user()->user_type === 'treasury' || Auth::user()->user_type === 'manager')
+          <li class="nav-item">
+          <a class="nav-link" href="/collections">
+            <i class="fas fa-file-invoice-dollar"></i>
+            <span>Collections</span></a>
+        </li>
+  
+        @endif
+  
+      @if(Auth::user()->user_type === 'manager')
+      <li class="nav-item">
+      <a class="nav-link" href="/account-payables">
+      <i class="fas fa-hand-holding-usd"></i>
+        <span>Account Payables</span></a>
+    </li>
+    @endif
 
     @if(Auth::user()->user_type === 'manager')
      <!-- Nav Item - Tables -->
@@ -129,7 +137,6 @@
         <span>Users</span></a>
     </li>
     @endif
-    
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
