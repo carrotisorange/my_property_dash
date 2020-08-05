@@ -526,13 +526,13 @@
           </form>
 
           <div class="form-group">
-              <small >ENTER THE NAME OF BUILDING</small>
+              <small >Enter the name of the building</small>
               <input form="addUMultipleUnitForm" type="text" class="form-control" name="building" placeholder="Building-A" required>
               <small class="text-danger">please put hyphen(-) between spaces</small>
           </div>
 
           <div class="form-group">
-              <small>SELECT THE FLOOR NO</small>
+              <small>Select floor no</small>
               <select class="form-control" form="addUMultipleUnitForm" name="floor_no" id="floor_no" onkeyup="getFloorNo()" required>
                   <option value="" selected>Please select one</option>
                                     <option value="-3">3rd basement</option>
@@ -552,7 +552,7 @@
           </div>
 
            <div class="form-group">
-              <label for="recipient-name" class="col-form-label">SELECT THE ROOM TYPE</label>
+              <small>Select room type</small>
               <select form="addUMultipleUnitForm" class="form-control" name="type_of_units" required>
                   <option value="" selected>Please select one</option>
                   @if(Auth::user()->property_type === 'Condominium Associations')
@@ -569,19 +569,19 @@
                 <input form="addUMultipleUnitForm" type="hidden" class="form-control" name="beds" value="0" required> 
             @else
               <div class="form-group">
-                <label for="recipient-name" class="col-form-label">ENTER THE NO OF BED</label>
+                <small>Enter the number of bed</small>
                 <input form="addUMultipleUnitForm" type="number" class="form-control" name="beds" required>
             </div>
             @endif
 
 
           <div class="form-group">
-              <label for="recipient-name" class="col-form-label">ENTER THE NO OF ROOMS YOU WANT TO CREATE</label>
-              <input form="addUMultipleUnitForm" type="number" class="form-control" name="no_of_rooms"required>
+              <small>Enter the number of rooms you want to create</small>
+              <input form="addUMultipleUnitForm" type="number" min="1" class="form-control" name="no_of_rooms"required>
           </div>
 
           <div class="form-group">
-              <label for="recipient-name" class="col-form-label">ENTER THE INITIAL NAME OF THE ROOMS </label>
+              <small>Enter the initial name of the rooms</small>
               <input form="addUMultipleUnitForm" type="text" class="form-control" name="unit_no" id="unit_no" required>
           </div>
 
@@ -589,7 +589,7 @@
                 <input form="addUnitForm" type="hidden" min="1" class="form-control" name="monthly_rent" id="monthly_rent" value="0" required>
             @else
             <div class="form-group">
-                <label for="recipient-name" class="col-form-label">ENTER THE RENT/MONTH</label>
+                <small>Enter the rent of the room per month</small>
                 <input form="addUnitForm" type="number" min="1" class="form-control" name="monthly_rent" id="monthly_rent" required>
             </div>
             @endif
