@@ -570,10 +570,18 @@
                 <input form="addUnitForm" type="text" class="form-control" name="beds" required>
             </div>
 
+            @if(Auth::user()->property_ownership === 'Condominium Associations')
+            <div class="form-group">
+                <label for="recipient-name" class="col-form-label">ENTER THE RENT/MONTH</label>
+                <input form="addUnitForm" type="number" min="1" class="form-control" name="monthly_rent" id="monthly_rent" value="0" required>
+            </div>
+            @else
             <div class="form-group">
                 <label for="recipient-name" class="col-form-label">ENTER THE RENT/MONTH</label>
                 <input form="addUnitForm" type="number" min="1" class="form-control" name="monthly_rent" id="monthly_rent" required>
             </div>
+            @endif
+           
 
         </div>
         <div class="modal-footer">
