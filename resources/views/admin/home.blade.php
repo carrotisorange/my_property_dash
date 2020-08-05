@@ -338,6 +338,11 @@
 
         </nav>
         <!-- End of Topbar -->
+        @if(Auth::user()->property_type === 'Condominium Associations')
+
+
+        @else
+
         <div class="container-fluid">
           @foreach (['danger', 'warning', 'success', 'info'] as $key)
           @if(Session::has($key))
@@ -350,13 +355,11 @@
                  <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addMultipleUnits" data-whatever="@mdo"><i class="fas fa-plus fa-sm text-white-50"></i> Add multiple rooms</a>
                  @endif
                 </div>
-                @if(Auth::user()->property_type === 'Condominium Associations')
-                @else
+               
                 <span class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" ><i class="fas fa-home fa-sm text-white-50"></i> OCCUPIED</span>
                 <span class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" ><i class="fas fa-home fa-sm text-white-50"></i> VACANT</span>
                 <span class="d-none d-sm-inline-block btn btn-sm btn-warning shadow-sm" ><i class="fas fa-home fa-sm text-white-50"></i> RESERVED</span>
                 <br><br>
-                @endif
                 
                 <nav>
                   <div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -462,6 +465,7 @@
                 </div>
               
         </div>
+        @endif
         
       </div>
      
@@ -536,7 +540,7 @@
           </div>
 
           <div class="form-group">
-              <small>Select floor no</small>
+              <small>Select the floor number</small>
               <select class="form-control" form="addUMultipleUnitForm" name="floor_no" id="floor_no" onkeyup="getFloorNo()" required>
                   <option value="" selected>Please select one</option>
                                     <option value="-3">3rd basement</option>
@@ -556,7 +560,7 @@
           </div>
 
            <div class="form-group">
-              <small>Select room type</small>
+              <small>Select the room type</small>
               <select form="addUMultipleUnitForm" class="form-control" name="type_of_units" required>
                   <option value="" selected>Please select one</option>
                   @if(Auth::user()->property_type === 'Condominium Associations')
