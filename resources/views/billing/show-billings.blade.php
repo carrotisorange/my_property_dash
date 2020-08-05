@@ -605,7 +605,7 @@
                 </button>
                 </div>
                 <div class="modal-body">
-                <form id="editConcernDetailsForm" action="/concerns/{{ $concern->concern_id }}" method="POST">
+                <form id="addBillForm" action="/billings" method="POST">
                   @method('put')
                   {{ csrf_field() }}
                 </form>
@@ -614,7 +614,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button>
-                    <button form="editConcernDetailsForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want to perform this action?');" ><i class="fas fa-check fa-sm text-white-50"></i> Update</button>
+                    <button form="addBillForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want to perform this action?');" ><i class="fas fa-check fa-sm text-white-50"></i> Update</button>
                 </div>
             </div>
             </div>
