@@ -399,7 +399,7 @@
     
             <p class="text-right">   
                 <a href="/units/{{ session(Auth::user()->id.'unit_id') }}/tenant-step3" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> Back</a>
-                <button type="submit" form="addTenantForm4" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;"><i class="fas fa-check fa-sm text-white-50"></i> Submit</button>
+                <button type="submit" form="addTenantForm4" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;"><i class="fas fa-check fa-sm text-white-50"></i> Add Tenant</button>
             </p>
        
           </div>
