@@ -115,13 +115,21 @@
         @endif
   
       @if(Auth::user()->user_type === 'manager')
-       <!-- Nav Item - Tables -->
-       <li class="nav-item">
-        <a class="nav-link" href="/users">
-          <i class="fas fa-user-circle"></i>
-          <span>Users</span></a>
-      </li>
-      @endif
+      <li class="nav-item active">
+      <a class="nav-link" href="/account-payables">
+      <i class="fas fa-hand-holding-usd"></i>
+        <span>Account Payables</span></a>
+    </li>
+    @endif
+
+    @if(Auth::user()->user_type === 'manager')
+     <!-- Nav Item - Tables -->
+     <li class="nav-item">
+      <a class="nav-link" href="/users">
+        <i class="fas fa-user-circle"></i>
+        <span>Users</span></a>
+    </li>
+    @endif
       
   
       <!-- Divider -->
