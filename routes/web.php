@@ -766,23 +766,6 @@ Route::get('/concerns', function(){
 
 })->middleware('auth');
 
-Route::get('/personnels', function(){
-
-    if(auth()->user()->status === 'registered' || auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager' || auth()->user()->user_type === 'treasury' || auth()->user()->user_type === 'billing'){
-        
-              $personnels = DB::table('personnels')
-            //  ->select('*', DB::raw('count(concern_id) as total_concerns'))
-            //  ->leftJoin('concerns', 'personnel_id', '=', 'concern_personnel_id')
-            ->where('personnel_property', Auth::user()->property)
-             ->get();
-       
-        return view('admin.personnels', compact('personnels'));
-    }else{
-        return view('unregistered');
-    }
-
-})->middleware('auth');
-
 Route::get('/users', function(){
 
     if(auth()->user()->status === 'registered' || auth()->user()->user_type === 'manager'){
@@ -892,7 +875,13 @@ Route::get('/account-payables', function(){
 
 Route::get('/housekeeping', function(){
     if(auth()->user()->status === 'registered' || auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager'){
-        return view('admin.housekeeping');
+
+        $housekeeping = DB::table('personnels')
+        ->where('personnel_property', Auth::user()->property)
+        ->where('personnel_type', 'housekeeping')
+        ->get();
+
+        return view('admin.housekeeping', compact('housekeeping'));
     }else{
         return view('unregistered');
     }

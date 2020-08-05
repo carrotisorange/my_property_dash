@@ -389,10 +389,19 @@
                           <th>PERSONNEL</th>
                           <th>CONTACT NO</th>
                           <th>AVAILABILITY</th>
+                          <th>PERSONNEL TYPE</th>
                      </tr>
                     </thead>
                     <tbody>
-                     
+                    @foreach ($housekeeping as $item)
+                    <tr>
+                      <td>{{ $item->personnel_id }}</td>
+                        <td>{{ $item->personnel_name }}</td>
+                        <td>{{ $item->personnel_contact_no }}</td>
+                        <td>{{ $item->personnel_availability }}</td>
+                        <td>{{ $item->personnel_type }}</td>
+                    </tr>
+                      @endforeach
                     </tbody>
                   </table>
                   
