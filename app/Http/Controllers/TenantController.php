@@ -26,8 +26,6 @@ class TenantController extends Controller
     public function search(Request $request){   
         $search = $request->get('search');
 
-        $property = explode(",", Auth::user()->property);
-
         //create session for the search
         $request->session()->put(Auth::user()->id.'search_tenant', $search);
 

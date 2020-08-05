@@ -335,7 +335,7 @@
           
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Concerns</h1>
-            <form  action="/concerns/search" method="GET" >
+            <!-- <form  action="/concerns/search" method="GET" >
               @csrf
               <div class="input-group">
                   <input type="text" class="form-control" name="search" placeholder="Search for tenants, rooms..." value="">
@@ -345,7 +345,7 @@
                     </button>
                   </div>
               </div>
-          </form>
+          </form> -->
           </div>
               <div class="table-responsive">
                
