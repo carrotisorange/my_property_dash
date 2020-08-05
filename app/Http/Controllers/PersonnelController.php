@@ -41,11 +41,11 @@ class PersonnelController extends Controller
             'personnel_contact_no' => $request->personnel_contact_no,
             'personnel_availability' => 'open',
             'personnel_property' => Auth::user()->property,
+            'personnel_type' => $request->personnel_type,
         ]);
 
-        return back()->with('success', 'Personnel has been added to the record!');
+        return back()->with('success', $request->personnel_type. ' has been added to the record!');
     }
-    
 
     /**
      * Display the specified resource.

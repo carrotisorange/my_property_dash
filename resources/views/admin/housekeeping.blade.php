@@ -347,7 +347,7 @@
           @endforeach
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Housekeeping</h1>
-            <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls=""> <i class="fas fa-user-plus  fa-sm text-white-50"></i> Personnel</a> 
+            <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls=""> <i class="fas fa-user-plus  fa-sm text-white-50"></i> Add Housekeeping</a> 
             
           </div>
 
@@ -362,6 +362,7 @@
                         <div class="col">
                             <label for="recipient-name" class="col-form-label"><b>Name</b></label>
                             <input form="addPersonnelForm" type="text" class="form-control" name="personnel_name" required>
+                            <input form="addPersonnelForm" type="hidden" class="form-control" name="personnel_type" value="housekeeping" required>
                         </div>
                         <div class="col">
                             <label for="recipient-name" class="col-form-label"><b>Contact No</b></label>
@@ -371,7 +372,7 @@
                     </div>
                     <br>
                       <p class="text-right">
-                        <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" type="submit" form="addPersonnelForm" onclick="return confirm('Are you sure you want perform this action?');" ><i class="fas fa-check fa-sm text-white-50"></i> Add Personnel</button>
+                        <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" type="submit" form="addPersonnelForm" onclick="return confirm('Are you sure you want perform this action?');" ><i class="fas fa-check fa-sm text-white-50"></i> Add Housekeeping</button>
                       </p>
 
                 </div>
