@@ -253,7 +253,7 @@
                                 <h6 class="m-0 font-weight-bold text-primary">CONCERN INFORMATION</h6>
                                 <!-- start -->
                                 <div class="dropdown no-arrow">
-                                  <a class="dropdown-toggle" data-toggle="modal" data-target="#editConcernDetails" >
+                                  <a href="#" class="dropdown-toggle" data-toggle="modal" data-target="#editConcernDetails" >
                                   <i class="fas fa-edit fa-sm fa-fw text-gray-400"></i>
                                   </a>
                                   <!-- <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
