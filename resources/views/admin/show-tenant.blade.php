@@ -618,14 +618,59 @@
             </div>
 
             <!-- start -->
-            <div class="row">
+            <div class="row" id="payment-history">
                 <div class="col-md-12">
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">ACTION THAT HAS BEEN TAKEN TO ADDRESS THE CONCERN</h6>            
+                            <h6 class="m-0 font-weight-bold text-primary">PAYMENT HISTORY</h6>            
                         </div>
                         <div class="card-body">
-                           
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                @foreach ($payments as $day => $collection_list)
+                  <tr>
+                      <th colspan="8">{{ Carbon\Carbon::parse($day)->addDay()->format('M d Y') }} ({{ $collection_list->count()}})</th>
+                  </tr>
+                  <tr>
+                          <th>AR NO</th>
+                          <th>BILL NO</th>
+                          
+                          <th>ROOM</th>
+                          <th>DESCRIPTION</th>
+                          <th class="text-right">AMOUNT</th>
+                          <th></th>
+                      </tr>
+                </tr>
+                  @foreach ($collection_list as $item)
+                  <tr>
+                          <td>{{ $item->ar_number }}</td>
+                          <td>{{ $item->payment_billing_no }}</td>
+                          
+                          <td>{{ $item->building.' '.$item->unit_no }}</td>
+                          <td>{{ $item->payment_note }}</td>
+                          <td class="text-right">{{ number_format($item->amt_paid,2) }}</td>
+                          <td class="text-center">
+                            <a title="export pdf" target="_blank" href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/payments/{{ $item->payment_id }}/dates/{{$item->payment_created}}/export" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i></a>
+                            {{-- <a target="_blank" href="#" title="print invoice" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-print fa-sm text-white-50"></i></a> 
+                            --}}
+                          </td>
+                          {{-- <td>
+                              <form action="/payments/{{ $item->payment_id }}" method="POST">
+                                  @method('delete')
+                                  @csrf
+                                  <button type="submit" class="btn btn-danger">Delete</button>
+                              </form>
+                          </td> --}}
+                      </tr>
+                  @endforeach
+                      <tr>
+                        <th>TOTAL</th>
+                        <th colspan="4" class="text-right">{{ number_format($collection_list->sum('amt_paid'),2) }}</th>
+                      </tr>
+                      <tr>
+                          <th colspan="6"></th>
+                      </tr>
+                @endforeach
+            </table>
                         </div>
                     </div>    
                 </div>
