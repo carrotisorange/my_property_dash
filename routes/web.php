@@ -903,6 +903,15 @@ Route::get('/maintenance', function(){
    
 })->middleware('auth');
 
+Route::get('/job-orders', function(){
+    if(auth()->user()->status === 'registered' || auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager'){
+
+        return view('admin.job-orders');
+    }else{
+        return view('unregistered');
+    }
+   
+})->middleware('auth');
 
 //step1
 Route::get('/units/{unit_id}/tenant-step1', 'TenantController@createTenantStep1')->middleware('auth');
