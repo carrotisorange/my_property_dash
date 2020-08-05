@@ -125,7 +125,7 @@
           <!-- Nav Item - Tables -->
           <li class="nav-item">
             <a class="nav-link" href="/users">
-              <i class="fa-users-circle"></i>
+              <i class="fa-user-circle"></i>
               <span>Users</span></a>
           </li>
           @endif
@@ -405,15 +405,19 @@
                                         <th>BUILDING</th>
                                         <td>{{ $unit->building }}</td>
                                    </tr>
-                                   <tr>
+                                   @if(Auth::user()->property_type === 'Condominium Associations')
+                                    
+                                    @else
+                                    <tr>
                                         <th>FLOOR NO</th>
                                         <td>{{ $numberFormatter->format($unit->floor_no) }}</td>
                                    </tr>
+                                    @endif
                                    <tr>
                                         <th>ROOM TYPE</th>
                                         <td>{{ $unit->type_of_units }}</td>
                                    </tr>
-                                   @if(Auth::user()->property_type !== 'Commercial Complex')
+                                   @if(Auth::user()->property_type !== 'Commercial Complex' && Auth::user()->property_type === 'Condominium Associations')
                                    <tr>
                                     <th>NO OF BEDS</th>
                                     <td>{{ $unit->beds }}</td>     
