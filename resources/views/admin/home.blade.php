@@ -351,11 +351,6 @@
                  <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addMultipleUnits" data-whatever="@mdo"><i class="fas fa-plus fa-sm text-white-50"></i> Add multiple rooms</a>
                  @endif
                 </div>
-               
-                <span class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" ><i class="fas fa-home fa-sm text-white-50"></i> OCCUPIED</span>
-                <span class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" ><i class="fas fa-home fa-sm text-white-50"></i> VACANT</span>
-                <span class="d-none d-sm-inline-block btn btn-sm btn-warning shadow-sm" ><i class="fas fa-home fa-sm text-white-50"></i> RESERVED</span>
-                <br><br>
                 
                 <nav>
                   <div class="nav nav-tabs" id="nav-tab" role="tablist">
