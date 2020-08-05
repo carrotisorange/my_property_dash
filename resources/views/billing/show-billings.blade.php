@@ -97,11 +97,18 @@
 
         
               <!-- Nav Item - Tables -->
-              <li class="nav-item">
-            <a class="nav-link" href="/personnels">
-            <i class="fas fa-user-cog"></i>
-                <span>Personnels</span></a>
-        </li>
+               <li class="nav-item">
+        <a class="nav-link collapsed" href="/personnels" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+        <i class="fas fa-user-cog"></i>
+          <span>Personnels</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="/housekeeping">Housekeeping</a>
+            <a class="collapse-item" href="/maintenance">Maintenance</a>
+          </div>
+        </div>
+      </li>
       @endif
   
        @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'manager')
