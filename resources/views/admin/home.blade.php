@@ -550,9 +550,7 @@
                                     <option value="9">9th floor</option>
               </select>
           </div>
-
-          {{-- <input form="addUMultipleUnitForm" type="hidden" class="form-control" name="type_of_units" value="leasing" required> --}}
-
+          
            <div class="form-group">
               <label for="recipient-name" class="col-form-label">SELECT THE ROOM TYPE</label>
               <select form="addUMultipleUnitForm" class="form-control" name="type_of_units" required>
