@@ -273,8 +273,6 @@ class TenantController extends Controller
             $tenant = Tenant::findOrFail($tenant_id);
 
             $personnels = DB::table('personnels')->where('personnel_property', Auth::user()->property)->get();
-
-            $payments = DB::table('payments')->where('payment_tenant_id', $tenant_id)->where('amt_paid','>', 0)->get();
         
             $security_deposits = DB::table('payments')->where('payment_tenant_id', $tenant_id)->wherein('payment_note',['Security Deposit (Rent)', 'Security Deposit (Utilities)'])->get();
     
@@ -293,6 +291,20 @@ class TenantController extends Controller
             ->orderBy('concern_id', 'desc')
             ->orderBy('concern_urgency')
             ->get();
+
+            $payments = DB::table('units')
+            ->join('tenants', 'unit_id', 'unit_tenant_id')
+            ->join('payments', 'tenant_id', 'payment_tenant_id')
+            ->where('unit_property', Auth::user()->property)
+            ->where('tenant_id', $tenant_id)
+            ->where('amt_paid','>',0)
+            // ->whereIn('payment_note',['Rent', 'Electricity', 'Water', 'Surcharge'])
+            
+            ->orderBy('ar_number', 'desc')
+            ->get()
+            ->groupBy(function($item) {
+                return \Carbon\Carbon::parse($item->payment_created)->timestamp;
+            });
             
                 return view('admin.show-tenant', compact('tenant','personnels' ,'billings', 'payments', 'pending_balance','security_deposits','concerns'));  
         }else{

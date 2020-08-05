@@ -361,7 +361,7 @@
                 <a href="{{ route('show-billings',['unit_id' => $tenant->unit_tenant_id, 'tenant_id'=>$tenant->tenant_id]) }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-file-invoice-dollar fa-sm text-white-50"></i> Show Bills <span class="badge badge-light">{{ $billings->count() }}</span> </a>
                 @endif
                 @if(Auth::user()->user_type === 'treasury' || Auth::user()->user_type === 'manager')
-                <a href="{{ route('show-payments',['unit_id' => $tenant->unit_tenant_id, 'tenant_id'=>$tenant->tenant_id]) }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-dollar-sign fa-sm text-white-50"></i> Payment History <span class="badge badge-light">{{ $payments->count() }}</span></a>
+                <a href="#payment-history" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-dollar-sign fa-sm text-white-50"></i> Payment History</a>
                 @endif
                 <span style="float:right;">
                       {{-- <form action="/tenants/{{ $tenant->tenant_id }}" method="POST">
@@ -617,7 +617,21 @@
                 </div>
             </div>
 
-          
+            <!-- start -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">ACTION THAT HAS BEEN TAKEN TO ADDRESS THE CONCERN</h6>            
+                        </div>
+                        <div class="card-body">
+                           
+                        </div>
+                    </div>    
+                </div>
+            </div>
+
+          <!-- end -->
         </div>
 
                 {{-- Modal for renewing tenant --}}
