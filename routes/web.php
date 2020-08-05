@@ -890,7 +890,13 @@ Route::get('/housekeeping', function(){
 
 Route::get('/maintenance', function(){
     if(auth()->user()->status === 'registered' || auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager'){
-        return view('admin.maintenance');
+
+        $housekeeping = DB::table('personnels')
+        ->where('personnel_property', Auth::user()->property)
+        ->where('personnel_type', 'manitenance')
+        ->get();
+
+        return view('admin.maintenance', compact('maintenance'));
     }else{
         return view('unregistered');
     }
