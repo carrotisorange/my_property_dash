@@ -589,7 +589,7 @@
                             <tbody>
                               @foreach($delinquent_accounts as $item)
                               <tr>
-                                <td>
+                                <td title="{{ $item->tenants_note }}">
                                   @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'treasury' )
                                   <a href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/billings">{{ $item->first_name.' '.$item->last_name }}
                                   @else
