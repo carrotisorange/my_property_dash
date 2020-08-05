@@ -269,10 +269,10 @@
                                           {{ $concern->concern_type }}
                                         </td>
                                    </tr>
-                                   <tr>
+                                   <!-- <tr>
                                         <th>UNDER WARRANTY</th>
                                         <td>{{ $concern->is_warranty }}</td>
-                                   </tr>
+                                   </tr> -->
                                    <tr>
                                         <th>URGENT</th>
                                         <td>
