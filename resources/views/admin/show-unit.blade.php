@@ -125,7 +125,7 @@
           <!-- Nav Item - Tables -->
           <li class="nav-item">
             <a class="nav-link" href="/users">
-              <i class="fas fa-users-secret fa-table"></i>
+              <i class="fa-users-circle"></i>
               <span>Users</span></a>
           </li>
           @endif
@@ -368,7 +368,7 @@
                         @if(Auth::user()->property_ownership === 'Multiple Owners' && Auth::user()->user_type === 'manager' && Auth::user()->property_type !== 'Commercial Complex')
                           @if ($unit_owner->count() < 1)
                           <a href="#/" data-toggle="modal" data-target="#addInvestor" data-whatever="@mdo" type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                            <i class="fas fa-users-plus fa-sm text-white-50"></i> Add Owner
+                            <i class="fas fa-user-plus fa-sm text-white-50"></i> Add Owner
                           </a>   
                           @endif
                         @endif
