@@ -562,7 +562,7 @@
           </div> 
 
           @if(Auth::user()->property_type === 'Condominium Associations')
-                <input form="addUMultipleUnitForm" type="number" class="form-control" name="beds" value="0" required> 
+                <input form="addUMultipleUnitForm" type="hidden" class="form-control" name="beds" value="0" required> 
             @else
               <div class="form-group">
                 <label for="recipient-name" class="col-form-label">ENTER THE NO OF BED</label>
