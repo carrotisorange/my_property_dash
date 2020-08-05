@@ -82,10 +82,16 @@
   
         <!-- Nav Item - Tables -->
       <li class="nav-item">
-          <a class="nav-link" href="/concerns">
-            <i class="fas fa-tools fa-table"></i>
-            <span>Concerns</span></a>
-        </li>
+      <a class="nav-link" href="/concerns">
+        <i class="fas fa-tools fa-table"></i>
+        <span>Concerns</span></a>
+  </li>
+
+  <li class="nav-item">
+      <a class="nav-link" href="/job-orders">
+        <i class="fas fa-tools fa-table"></i>
+        <span>Job Orders</span></a>
+  </li>
 
         
               <!-- Nav Item - Tables -->
