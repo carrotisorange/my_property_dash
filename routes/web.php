@@ -891,7 +891,7 @@ Route::get('/housekeeping', function(){
 Route::get('/maintenance', function(){
     if(auth()->user()->status === 'registered' || auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager'){
 
-        $maintenance = DB::table('personnels')
+        return $maintenance = DB::table('personnels')
         ->where('personnel_property', Auth::user()->property)
         ->where('personnel_type', 'manitenance')
         ->get();
