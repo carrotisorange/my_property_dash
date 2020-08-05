@@ -56,6 +56,14 @@ Route::get('/', function(Request $request){
             ->where('unit_property', Auth::user()->property)
             ->get();
 
+            $concerns = DB::table('tenants')
+            ->join('units', 'unit_id', 'unit_tenant_id')
+            ->join('concerns', 'tenant_id', 'concern_tenant_id')
+            ->where('unit_property', Auth::user()->property)
+            ->orderBy('concern_id', 'desc')
+            ->orderBy('concern_urgency')
+            ->get();
+
             $active_concerns = DB::table('tenants')
             ->join('units', 'unit_id', 'unit_tenant_id')
             ->join('concerns', 'tenant_id', 'concern_tenant_id')
@@ -652,7 +660,7 @@ Route::get('/', function(Request $request){
             'active_tenants', 'pending_tenants', 'owners', 
             'movein_rate','moveout_rate', 'renewed_chart', 'collection_rate', 'reason_for_moving_out_chart',
             'delinquent_accounts','tenants_to_watch_out',
-            'collections_for_the_day','pending_concerns','active_concerns'
+            'collections_for_the_day','pending_concerns','active_concerns','concerns'
                     )
             );
 

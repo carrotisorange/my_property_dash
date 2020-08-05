@@ -663,6 +663,74 @@
    
                </div>
                 </div>
+
+                <div class="row">
+                <div class="col-md-12">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">CONCERNS</h6>            
+                        </div>
+                        <div class="card-body">
+                        <div class="table-responsive">
+               
+               <table class="table table-bordered" width="100%" cellspacing="0">
+                 <thead>
+                   <tr>
+                          <th>ID</th>
+                          <th>DATE REPORTED</th>
+                          <th>TENANT</th>
+                          <th>ROOM</th>
+                          <th>TYPE</th>
+                          <th>DESCRIPTION</th>
+                          <th>URGENCY</th>
+                          <th>STATUS</th>
+                         
+                     </tr>
+                 </thead>
+                 <tbody>
+                      @foreach ($concerns as $item)
+                      <tr>
+                      <td>{{ $item->concern_id }}</td>
+                        <td>{{ Carbon\Carbon::parse($item->date_reported)->format('M d Y') }}</td>
+                          <td>
+                              <a href="{{ route('show-tenant',['unit_id'=> $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a>
+                          </td>
+                          <td>{{ $item->building.' '.$item->unit_no }}</td>
+                          <td>
+                            
+                              {{ $item->concern_type }}
+                              
+                          </td>
+                          <td ><a title="{{ $item->concern_desc }}" href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/concerns/{{ $item->concern_id }}">{{ $item->concern_item }}</a></td>
+                          <td>
+                              @if($item->concern_urgency === 'urgent')
+                              <span class="badge badge-danger">{{ $item->concern_urgency }}</span>
+                              @elseif($item->concern_urgency === 'major')
+                              <span class="badge badge-warning">{{ $item->concern_urgency }}</span>
+                              @else
+                              <span class="badge badge-primary">{{ $item->concern_urgency }}</span>
+                              @endif
+                          </td>
+                          <td>
+                              @if($item->concern_status === 'pending')
+                              <span class="badge badge-warning">{{ $item->concern_status }}</span>
+                              @elseif($item->concern_status === 'active')
+                              <span class="badge badge-primary">{{ $item->concern_status }}</span>
+                              @else
+                              <span class="badge badge-warning">{{ $item->concern_status }}</span>
+                              @endif
+                          </td>
+                        
+                      </tr>
+                      @endforeach
+                 </tbody>
+               </table>
+               
+             </div>
+                        </div>
+                    </div>    
+                </div>
+            </div>
                 
                 <div class="row">
       
