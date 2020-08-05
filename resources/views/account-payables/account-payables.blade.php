@@ -73,7 +73,7 @@
   
      @if(Auth::user()->property_ownership === 'Multiple Owners')
     <!-- Nav Item - Tables -->
-    <li class="nav-item active">
+    <li class="nav-item">
         <a class="nav-link" href="/owners">
         <i class="fas fa-user-tie"></i>
         <span>Owners</span></a>
