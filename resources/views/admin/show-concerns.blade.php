@@ -89,7 +89,7 @@
   
         <!-- Nav Item - Tables -->
            <!-- Nav Item - Tables -->
-      <li class="nav-item">
+      <li class="nav-item active">
       <a class="nav-link" href="/concerns">
         <i class="fas fa-tools fa-table"></i>
         <span>Concerns</span></a>
