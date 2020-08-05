@@ -253,7 +253,7 @@
                                 <h6 class="m-0 font-weight-bold text-primary">CONCERN INFORMATION</h6>
                                 <!-- start -->
                                 <div class="dropdown no-arrow">
-                                  <a class="dropdown-toggle" href="#" data-toggle="modal" data-target="#addMultipleUnits" >
+                                  <a class="dropdown-toggle" data-toggle="modal" data-target="#editConcernDetails" >
                                   <i class="fas fa-edit fa-sm fa-fw text-gray-400"></i>
                                   </a>
                                   <!-- <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
@@ -364,7 +364,23 @@
           </div>
         <!-- /.container-fluid -->
         
-       
+        <div class="modal fade" id="editConcernDetails" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Concern Information</h5>
+        
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                  
+                </div>
+            </div>
+            </div>
+        
+        </div>
       </div>
       <!-- End of Main Content -->
 
