@@ -550,7 +550,7 @@
                                     <option value="9">9th floor</option>
               </select>
           </div>
-          
+
            <div class="form-group">
               <label for="recipient-name" class="col-form-label">SELECT THE ROOM TYPE</label>
               <select form="addUMultipleUnitForm" class="form-control" name="type_of_units" required>
@@ -576,7 +576,7 @@
               <input form="addUMultipleUnitForm" type="text" class="form-control" name="unit_no" id="unit_no" required>
           </div>
 
-          @if(Auth::user()->property_ownership === 'Condominium Associations')
+          @if(Auth::user()->property_type === 'Condominium Associations')
                 <input form="addUnitForm" type="hidden" min="1" class="form-control" name="monthly_rent" id="monthly_rent" value="0" required>
             @else
             <div class="form-group">
