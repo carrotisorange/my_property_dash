@@ -374,7 +374,7 @@
                 </button>
                 </div>
                 <div class="modal-body">
-                <form id="editConcernDetailsForm" action="/concerns/{{ $concern->concern_id }" method="POST">
+                <form id="editConcernDetailsForm" action="/concerns/{{ $concern->concern_id }}" method="POST">
                   @method('put')
                   {{ csrf_field() }}
                 </form>
