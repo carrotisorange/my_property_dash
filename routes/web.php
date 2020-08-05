@@ -62,7 +62,7 @@ Route::get('/', function(Request $request){
             ->where('unit_property', Auth::user()->property)
             ->orderBy('concern_id', 'desc')
             ->orderBy('concern_urgency')
-            ->get();
+            ->paginate(10);
 
             $active_concerns = DB::table('tenants')
             ->join('units', 'unit_id', 'unit_tenant_id')
