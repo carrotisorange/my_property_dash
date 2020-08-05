@@ -350,7 +350,6 @@
             <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls=""> <i class="fas fa-user-plus  fa-sm text-white-50"></i> Add Housekeeping</a> 
             
           </div>
-
         
     </div>
       </div>
