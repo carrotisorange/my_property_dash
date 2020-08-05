@@ -345,99 +345,7 @@
           </ul>
 
         </nav>
-        <!-- End of Topbar -->
-        @if(Auth::user()->property_type === 'Condominium Associations')
-        <div class="container-fluid">
-          @foreach (['danger', 'warning', 'success', 'info'] as $key)
-          @if(Session::has($key))
-         <p class="alert alert-{{ $key }}"> <i class="fas fa-check-circle"></i> {{ Session::get($key) }}</p>
-          @endif
-          @endforeach
-                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                  <h1 class="h3 mb-0 text-gray-800">Home</h1>
-                 @if(Auth::user()->user_type === 'manager')
-                 <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addMultipleUnits" data-whatever="@mdo"><i class="fas fa-plus fa-sm text-white-50"></i> Add multiple rooms</a>
-                 @endif
-                </div>
-                
-                <nav>
-                  <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                    <a class="nav-item nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">All<span class="badge badge-light">{{ $units_count }}</span></a>
-                    @foreach ($buildings as $building)
-                    <a class="nav-item nav-link" id="{{ $building->building }}-tab" data-toggle="tab" href="#{{ $building->building }}" role="tab" aria-controls="{{ $building->building }}" aria-selected="false">{{ $building->building }}<span class="badge badge-light">{{ $building  ->count }}</span></a>
-                    @endforeach
-                  </div>
-                </nav>
-                <div class="tab-content" id="">
-                  <?php $numberFormatter = new NumberFormatter('en_US', NumberFormatter::ORDINAL) ?>
-                  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                    <br>
-                  
-                @foreach ($units as $floor_no => $floor_no_list)
-                <p class="text-center">
-                @if($floor_no >= 1)
-                {{ $numberFormatter->format($floor_no).' floor  ('.$floor_no_list->count().')' }}
-                @else
-                  @if($floor_no >= -1)
-                  {{ '1st basement ('.$floor_no_list->count().')' }} 
-                  @elseif($floor_no >= -2)
-                  {{ '2nd basement ('.$floor_no_list->count().')' }} 
-                  @elseif($floor_no >= -3)
-                  {{ '3rd basement ('.$floor_no_list->count().')' }} 
-                  @endif
-                @endif
-                
-                </p>
-              
-                @foreach ($floor_no_list as $item)
-                <a title="{{ $item->type_of_units }}" href="/units/{{$item->unit_id}}" class="btn btn-primary">
-                            <i class="fas fa-home fa-3x"></i>
-                            <br>
-                            {{ $item->unit_no }}
-                        </a>    
-                @endforeach
-                <hr>
-              @endforeach
-            
-                  </div>
-                   @foreach ($buildings as $building)
-                    <div class="tab-pane fade show" id="{{ $building->building }}" role="tabpanel" aria-labelledby="{{ $building->building }}-tab">
-                      <br>
-                  
-                      @foreach ($units as $floor_no => $floor_no_list)
-                      <p class="text-center">
-                      @if($floor_no >= 1)
-                      {{ $numberFormatter->format($floor_no).' floor  ('.$floor_no_list->count().')' }}
-                      @else
-                        @if($floor_no >= -1)
-                        {{ '1st basement ('.$floor_no_list->count().')' }} 
-                        @elseif($floor_no >= -2)
-                        {{ '2nd basement ('.$floor_no_list->count().')' }} 
-                        @elseif($floor_no >= -3)
-                        {{ '3rd basement ('.$floor_no_list->count().')' }} 
-                        @endif
-                      @endif
-                      
-                      </p>
-                    
-                      @foreach ($floor_no_list as $item)
-                      @if($building->building === $item->building)
-                        <a title="{{ $item->type_of_units }}" href="/units/{{$item->unit_id}}" class="btn btn-primary">
-                            <i class="fas fa-home fa-3x"></i>
-                            <br>
-                            {{ $item->unit_no }}
-                        </a>  
-                      @endif
-                      @endforeach
-                      <hr>
-                    @endforeach
-                    </div>
-                  @endforeach 
-                </div>
-              
-        </div>
-
-        @else
+       
 
         <div class="container-fluid">
           @foreach (['danger', 'warning', 'success', 'info'] as $key)
@@ -561,7 +469,6 @@
                 </div>
               
         </div>
-        @endif
         
       </div>
      
