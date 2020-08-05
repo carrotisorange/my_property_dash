@@ -561,10 +561,16 @@
               </select>
           </div> 
 
-          <div class="form-group">
-              <label for="recipient-name" class="col-form-label">ENTER THE NO OF BED</label>
-              <input form="addUMultipleUnitForm" type="number" class="form-control" name="beds" required>
-          </div>
+          @if(Auth::user()->property_type === 'Condominium Associations')
+                <input form="addUMultipleUnitForm" type="number" class="form-control" name="beds" value="0" required> 
+            @else
+              <div class="form-group">
+                <label for="recipient-name" class="col-form-label">ENTER THE NO OF BED</label>
+                <input form="addUMultipleUnitForm" type="number" class="form-control" name="beds" required>
+            </div>
+            @endif
+
+          
 
           <div class="form-group">
               <label for="recipient-name" class="col-form-label">ENTER THE NO OF ROOMS YOU WANT TO CREATE</label>
