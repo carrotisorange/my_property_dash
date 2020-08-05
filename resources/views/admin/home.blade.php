@@ -355,8 +355,9 @@
                 <span class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" ><i class="fas fa-home fa-sm text-white-50"></i> OCCUPIED</span>
                 <span class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" ><i class="fas fa-home fa-sm text-white-50"></i> VACANT</span>
                 <span class="d-none d-sm-inline-block btn btn-sm btn-warning shadow-sm" ><i class="fas fa-home fa-sm text-white-50"></i> RESERVED</span>
-                @endif
                 <br><br>
+                @endif
+                
                 <nav>
                   <div class="nav nav-tabs" id="nav-tab" role="tablist">
                     <a class="nav-item nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">All<span class="badge badge-light">{{ $units_count }}</span></a>
