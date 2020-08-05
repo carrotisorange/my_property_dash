@@ -347,39 +347,6 @@
                     </div>    
                 </div>
             </div>
-
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">EXPENSES</h6>            
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" width="100%" cellspacing="0">
-                                    <tr>
-                                        <th>BILL NO</th>
-                                        <th>TENANT</th>
-                                        <th>ROOM</th>
-                                        <th>DESCRIPTION</th>
-                                        <th>AMOUNT</th>
-                                        <th>STATUS</th>
-                                        <th></th>
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
-                    </div>    
-                </div>
-            </div>
           </div>
         <!-- /.container-fluid -->
         
