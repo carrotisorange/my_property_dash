@@ -360,7 +360,7 @@
                           <th>DESCRIPTION</th>
                           <th>URGENCY</th>
                           <th>STATUS</th>
-                          <th></th> 
+                         
                      </tr>
                     </thead>
                     <tbody>
@@ -377,7 +377,7 @@
                               {{ $item->concern_type }}
                               
                           </td>
-                          <td title="{{ $item->concern_desc }}">{{ $item->concern_item }}</td>
+                          <td ><a title="{{ $item->concern_desc }}" href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/concerns/{{ $item->concern_id }}">{{ $item->concern_item }}</a></td>
                           <td>
                               @if($item->concern_urgency === 'urgent')
                               <span class="badge badge-danger">{{ $item->concern_urgency }}</span>
@@ -396,7 +396,7 @@
                               <span class="badge badge-warning">{{ $item->concern_status }}</span>
                               @endif
                           </td>
-                          <td><a href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/concerns/{{ $item->concern_id }}"> <span class="badge badge-primary">View</span></a></td>
+                        
                       </tr>
                       @endforeach
                     </tbody>
