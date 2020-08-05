@@ -555,7 +555,11 @@
               <label for="recipient-name" class="col-form-label">SELECT THE ROOM TYPE</label>
               <select form="addUMultipleUnitForm" class="form-control" name="type_of_units" required>
                   <option value="" selected>Please select one</option>
-                  <option value="leasing">leasing</option>
+                  @if(Auth::user()->property_type !== 'Condominium Associations')
+                  <option value="commercial">commercial</option>
+                  <option value="residential">residential</option>
+                  @endif
+                  <option value="leasing">leasing</option> 
                   <option value="commercial">commercial</option>
                   <option value="residential">residential</option>
               </select>
@@ -570,7 +574,6 @@
             </div>
             @endif
 
-          
 
           <div class="form-group">
               <label for="recipient-name" class="col-form-label">ENTER THE NO OF ROOMS YOU WANT TO CREATE</label>
