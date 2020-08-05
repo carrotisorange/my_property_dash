@@ -94,7 +94,7 @@
         <i class="fas fa-user-cog"></i>
           <span>Personnels</span>
         </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item active" href="/housekeeping">Housekeeping</a>
             <a class="collapse-item" href="/maintenance">Maintenance</a>
