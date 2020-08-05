@@ -526,13 +526,13 @@
           </form>
 
           <div class="form-group">
-              <label for="recipient-name" class="col-form-label">ENTER THE NAME OF BUILDING</label>
+              <small >ENTER THE NAME OF BUILDING</small>
               <input form="addUMultipleUnitForm" type="text" class="form-control" name="building" placeholder="Building-A" required>
               <small class="text-danger">please put hyphen(-) between spaces</small>
           </div>
 
           <div class="form-group">
-              <label for="recipient-name" class="col-form-label">SELECT THE FLOOR NO</label>
+              <small>SELECT THE FLOOR NO</small>
               <select class="form-control" form="addUMultipleUnitForm" name="floor_no" id="floor_no" onkeyup="getFloorNo()" required>
                   <option value="" selected>Please select one</option>
                                     <option value="-3">3rd basement</option>
@@ -555,7 +555,7 @@
               <label for="recipient-name" class="col-form-label">SELECT THE ROOM TYPE</label>
               <select form="addUMultipleUnitForm" class="form-control" name="type_of_units" required>
                   <option value="" selected>Please select one</option>
-                  @if(Auth::user()->property_type !== 'Condominium Associations')
+                  @if(Auth::user()->property_type === 'Condominium Associations')
                   <option value="commercial">commercial</option>
                   <option value="residential">residential</option>
                   @endif
