@@ -106,7 +106,7 @@ class ConcernController extends Controller
     public function update(Request $request, $concern_id)
     {
         DB::table('concerns')
-        ->where('concern_id', $concern_id)
+        ->where('concern_id', '18')
         ->get();
     }
 
