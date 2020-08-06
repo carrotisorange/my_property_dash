@@ -372,7 +372,7 @@
                       <div class="card-body">
                         <div class="row no-gutters align-items-center">
                           <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">ROOMS </div>
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"><a class="text-primary" href="/home">  ROOMS</a> </div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $units->count() }}</div>
                             
                             <small>O ({{ $units_occupied->count() }})</small>
@@ -394,7 +394,7 @@
                       <div class="card-body">
                         <div class="row no-gutters align-items-center">
                           <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">ACTIVE TENANTS </div>
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1"><a class="text-success" href="/tenants">  ACTIVE TENANTS</a></div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $active_tenants->count() }}</div>
                             <small>PENDING ({{ $pending_tenants->count() }})</small>
                             
@@ -414,7 +414,7 @@
                       <div class="card-body">
                         <div class="row no-gutters align-items-center">
                           <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">OWNERS </div>
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1"><a class="text-warning" href="/owners">  OWNERS</a> </div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $owners->count() }}</div>
                             <small>|</small>
                             
@@ -457,7 +457,7 @@
                       <div class="card-body">
                         <div class="row no-gutters align-items-center">
                           <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">ROOMS </div>
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"><a class="text-primary" href="/home">  ROOMS</a></div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $units->count() }}</div>
                             
                             <small>O ({{ $units_occupied->count() }})</small>
@@ -479,7 +479,7 @@
                       <div class="card-body">
                         <div class="row no-gutters align-items-center">
                           <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1" >ACTIVE TENANTS</div>
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1" ><a class="text-success" href="/tenants">  ACTIVE TENANTS</a></div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $active_tenants->count() }}</div>
                             <small>PENDING ({{ $pending_tenants->count() }})</small>
                             
