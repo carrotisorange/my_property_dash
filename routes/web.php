@@ -989,6 +989,9 @@ Route::post('/concerns', 'ConcernController@store')->middleware('auth');
 //show concerns 
 Route::get('/units/{unit_id}/tenants/{tenant_id}/concerns/{concern_id}', 'ConcernController@show')->middleware('auth');
 
+//update concerns
+Route::put('/cocerns/{concern_id}', 'ConcernController@update')->middleware('auth');
+
 Route::post('/billings', 'BillingController@store')->middleware('auth');
 
 

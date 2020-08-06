@@ -374,12 +374,12 @@
                   @method('put')
                   {{ csrf_field() }}
                 </form>
-                <div class="row">
-                        <div class="col">
-                            <small>Date reported for moving out</small>
-                             <input type="date" class="form-control" value="{{ $concern->date_reported }}">
-                          </div>
-                    </div>
+                  <div class="row">
+                      <div class="col">
+                          <small>Date reported</small>
+                          <input type="date" form="editConcernDetailsForm" class="form-control" value="{{ $concern->date_reported }}">
+                      </div>
+                  </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button>
