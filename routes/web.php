@@ -652,7 +652,7 @@ Route::get('/', function(Request $request){
             'active_tenants', 'pending_tenants', 'owners', 
             'movein_rate','moveout_rate', 'renewed_chart', 'collection_rate', 'reason_for_moving_out_chart',
             'delinquent_accounts','tenants_to_watch_out',
-            'collections_for_the_day','pending_concerns','active_concerns','concerns'
+            'collections_for_the_day','pending_concerns','active_concerns'
                     )
             );
 
