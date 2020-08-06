@@ -384,7 +384,7 @@
                   <div class="row">
                       <div class="col">
                           <small>Description</small>
-                          <input type="text" form="editConcernDetailsForm" class="form-control" name="concern_desc" value="{{ $concern->concern_desc }}" required>
+                          <input type="text" form="editConcernDetailsForm" class="form-control" name="concern_item" value="{{ $concern->concern_item }}" required>
                       </div>
                   </div>
 
