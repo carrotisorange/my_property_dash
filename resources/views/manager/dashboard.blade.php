@@ -433,8 +433,8 @@
                       <div class="card-body">
                         <div class="row no-gutters align-items-center">
                           <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">CONCERNS</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $pending_concerns->count()+$active_concerns->count() }}</div>
+                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">ACTIVE CONCERNS</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $active_concerns->count() }}</div>
                             <small>A ({{ $active_concerns->count() }})</small>
                             <small>P ({{ $pending_concerns->count() }})</small>
                           </div>
@@ -498,8 +498,8 @@
                       <div class="card-body">
                         <div class="row no-gutters align-items-center">
                           <div class="col mr-2">
-                          <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">CONCERNS</div>
-                          <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $pending_concerns->count()+$active_concerns->count() }}</div>
+                          <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">ACTIVE CONCERNS</div>
+                          <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $active_concerns->count() }}</div>
                             <small>A ({{ $active_concerns->count() }})</small>
                             <small>P ({{ $pending_concerns->count() }})</small>
                           </div>
@@ -668,7 +668,7 @@
                 <div class="col-md-12">
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">CONCERNS</h6>            
+                            <h6 class="m-0 font-weight-bold text-primary">ACTIVE CONCERNS</h6>            
                         </div>
                         <div class="card-body">
                         <div class="table-responsive">
@@ -688,7 +688,7 @@
                      </tr>
                  </thead>
                  <tbody>
-                      @foreach ($concerns as $item)
+                      @foreach ($active_concerns as $item)
                       <tr>
                       <td>{{ $item->concern_id }}</td>
                         <td>{{ Carbon\Carbon::parse($item->date_reported)->format('M d Y') }}</td>
