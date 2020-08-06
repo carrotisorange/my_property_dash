@@ -131,8 +131,9 @@ class UnitsController extends Controller
             ->join('units', 'unit_id', 'unit_tenant_id')
             ->join('concerns', 'tenant_id', 'concern_tenant_id')
             ->where('unit_id', $unit_id)
-            ->orderBy('concern_urgency', 'desc')
             ->orderBy('date_reported', 'desc')
+            ->orderBy('concern_urgency', 'desc')
+            ->orderBy('concern_status', 'desc')
             ->get();
 
                 return view('admin.show-unit',compact('unit', 'unit_owner', 'tenant_active', 'tenant_inactive', 'tenant_reservations', 'unit_bills', 'concerns'));

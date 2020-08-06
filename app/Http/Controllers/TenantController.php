@@ -288,8 +288,9 @@ class TenantController extends Controller
             ->join('concerns', 'tenant_id', 'concern_tenant_id')
             ->where('unit_property', Auth::user()->property)
             ->where('tenant_id', $tenant_id)
-            ->orderBy('concern_urgency', 'desc')
             ->orderBy('date_reported', 'desc')
+            ->orderBy('concern_urgency', 'desc')
+            ->orderBy('concern_status', 'desc')
             ->get();
 
             $payments = DB::table('units')
