@@ -52,6 +52,7 @@
               <li><a target="_blank" href="/resources#guidelines-during-covid-19">Guidelines During COVID-19</a></li>
               <li class="drop-down"><a href="#">Articles</a>
                 <ul>
+                <li><a target="_blank" href="/resources/#being-customer-centric">Being Customer Centric</a></li>
                   <li><a target="_blank" href="/resources/#navigating-to-new-normal">Navigating to New Normal</a></li>
                   <li><a target="_blank" href="/resources/#is-property-management-right-for-me">Is Property Management right for me?</a></li>
                   <li><a target="_blank" href="/resources/#why-did-your-start-property-manager-online" href="#">Why did you start thepropertymanager.online?</a></li>
