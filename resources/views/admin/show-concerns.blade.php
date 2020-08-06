@@ -377,7 +377,7 @@
                   <div class="row">
                       <div class="col">
                           <small>Date reported</small>
-                          <input type="date" form="editConcernDetailsForm" class="form-control" value="{{ $concern->date_reported }}">
+                          <input type="date" form="editConcernDetailsForm" class="form-control" name="date_reported" value="{{ $concern->date_reported }}">
                       </div>
                   </div>
                 </div>
