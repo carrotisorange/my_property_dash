@@ -377,9 +377,35 @@
                   <div class="row">
                       <div class="col">
                           <small>Date reported</small>
-                          <input type="date" form="editConcernDetailsForm" class="form-control" name="date_reported" value="{{ $concern->date_reported }}">
+                          <input type="date" form="editConcernDetailsForm" class="form-control" name="date_reported" value="{{ $concern->date_reported }}" required>
                       </div>
                   </div>
+
+                  <div class="row">
+                      <div class="col">
+                          <small>Description</small>
+                          <input type="text" form="editConcernDetailsForm" class="form-control" name="concern_desc" value="{{ $concern->concern_desc }}" required>
+                      </div>
+                  </div>
+
+                  <div class="row">
+                      <div class="col">
+                          <small>Type</small>
+                          <select class="form-control" form="editConcernDetailsForm" name="concern_type" id="" required>
+                              <option value="{{ $concern->concern_desc }}" readonly selected></option>
+                              <option value="billing">billing</option>
+                              <option value="employee">employee</option>
+                              <option value="neighbour">neighbour</option>
+                              <option value="noise">noise</option>
+                              <option value="odours">odours</option>
+                              <option value="parking">parking</option>
+                              <option value="pets">pets</option>
+                              <option value="repair">repair</option>
+                              <option value="others">others</option>
+                          </select>
+                      </div>
+                  </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button>
