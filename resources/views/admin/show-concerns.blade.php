@@ -333,7 +333,7 @@
                               <h6 class="m-0 font-weight-bold text-primary">DETAILS OF THE CONCERN</h6>
                                 <!-- start -->
                                 <div class="dropdown no-arrow">
-                                  <a href="#" class="dropdown-toggle" data-toggle="modal" data-target="#editFullDetailsConcern" >
+                                  <a href="#" class="dropdown-toggle" data-toggle="modal" data-target="#editConcernDetails" >
                                   <i class="fas fa-edit fa-sm fa-fw text-gray-400"></i>
                                   </a>
                                   <!-- <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
@@ -494,26 +494,7 @@
         
         </div>
       </div>
-
-      <div class="modal fade" id="editFullDetailsConcern" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-md" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Can't Moveout Tenant</h5>
-        
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                </div>
-                <div class="modal-body">
-                   
-                </div>
-            </div>
-            </div>
-        
-        </div>
-      </div>
-     
+      
       <!-- End of Main Content -->
 
       <!-- Footer -->
