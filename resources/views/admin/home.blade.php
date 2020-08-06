@@ -566,26 +566,22 @@
               <small>Select the room type</small>
               <select form="addUMultipleUnitForm" class="form-control" name="type_of_units" required>
                   <option value="" selected>Please select one</option>
-                  @if(Auth::user()->property_type === 'Condominium Associations')
-                  <option value="commercial">commercial</option>
-                  <option value="residential">residential</option>
-                  @else
+                 
+                 
                   <option value="leasing">leasing</option> 
                   <option value="commercial">commercial</option>
                   <option value="residential">residential</option>
-                  @endif
+              
                  
               </select>
           </div> 
 
-          @if(Auth::user()->property_type === 'Condominium Associations')
-                <input form="addUMultipleUnitForm" type="hidden" class="form-control" name="beds" value="1" required> 
-            @else
+          
               <div class="form-group">
                 <small>Enter the number of bed</small>
                 <input form="addUMultipleUnitForm" type="number" class="form-control" name="beds" required>
             </div>
-            @endif
+       
 
 
           <div class="form-group">
@@ -598,14 +594,12 @@
               <input form="addUMultipleUnitForm" type="text" class="form-control" name="unit_no" id="unit_no" required>
           </div>
 
-          @if(Auth::user()->property_type === 'Condominium Associations')
-                <input form="addUMultipleUnitForm" type="hidden" min="1" class="form-control" name="monthly_rent" id="monthly_rent" value="0" required>
-            @else
+         
             <div class="form-group">
                 <small>Enter the rent of the room per month</small>
                 <input form="addUMultipleUnitForm" type="number" min="1" class="form-control" name="monthly_rent" id="monthly_rent" required>
             </div>
-            @endif
+          
 
       </div>
       <div class="modal-footer">
