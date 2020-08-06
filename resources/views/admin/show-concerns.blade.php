@@ -533,7 +533,7 @@
                   <div class="row">
                       <div class="col">
                           <small></small>
-                          <textarea form="editConcernDetailsForm" class="form-control" name="concern_desc" cols="30" rows="10">{{ $concern->actionTaken }}</textarea>
+                          <textarea form="editConcernDetailsForm" class="form-control" name="action_taken" cols="30" rows="10">{{ $concern->action_taken }}</textarea>
                       </div>
                   </div>
                 </div>
@@ -563,7 +563,7 @@
                   <div class="row">
                       <div class="col">
                           <small></small>
-                          <textarea form="editConcernDetailsForm" class="form-control" name="concern_desc" cols="30" rows="10">{{ $concern->feedback }}</textarea>
+                          <textarea form="editConcernDetailsForm" class="form-control" name="feedback" cols="30" rows="10">{{ $concern->feedback }}</textarea>
                       </div>
                   </div>
                 </div>
