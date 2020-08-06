@@ -710,6 +710,7 @@
                                     <option value="" selected>Please select one</option>
                                     <option value="billing">billing</option>
                                     <option value="employee">employee</option>
+                                    <option value="internet">internet</option>
                                     <option value="neighbour">neighbour</option>
                                     <option value="noise">noise</option>
                                     <option value="odours">odours</option>

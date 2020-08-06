@@ -441,6 +441,7 @@
                           <select class="form-control" form="editConcernDetailsForm" name="concern_type" id="" required>
                               <option value="{{ $concern->concern_type }}" readonly selected class="bg-primary">{{ $concern->concern_type }}</option>
                               <option value="billing">billing</option>
+                              <option value="internet">internet</option>
                               <option value="employee">employee</option>
                               <option value="neighbour">neighbour</option>
                               <option value="noise">noise</option>
