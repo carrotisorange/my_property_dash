@@ -128,8 +128,11 @@
       <div class="container">
 
       <div class="card">
+      <div class="card-header">
+      <h4 >Being Customer Centric.</h4>
+      </div>
         <div class="card-body">
-        <h4 >Being Customer Centric.</h4>
+        
       
         <p id="being-customer-centric">
           <ol>
