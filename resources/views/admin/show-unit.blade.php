@@ -706,14 +706,14 @@
                                     <option value="residential">residential</option>
                                 </select>
                                 </div>
-                                @if(Auth::user()->property_type !== 'Commercial Complex' && Auth::user()->property_type !== 'Condominium Associations')
+                                @if(Auth::user()->property_type !== 'Commercial Complex')
                                 <div class="form-group">
                                   <label for="message-text" class="col-form-label">NO OF BEDS</label>
                                   <input form="editUnitForm" min="1" max="4" type="number" value="{{ $unit->beds }}" name="beds" class="form-control">
                                   </div>
                                 @endif
                                
-                                @if(Auth::user()->property_type !== 'Condominium Associations')
+                               
                                 <div class="form-group">
                                 <label for="message-text" class="col-form-label">ROOM STATUS</label>
                                 <select form="editUnitForm" id="status" name="status" class="form-control">
@@ -728,7 +728,7 @@
                                     <label for="message-text" class="col-form-label">MONTHLY RENT</label>
                                     <input form="editUnitForm" min="1" type="number" value="{{ $unit->monthly_rent }}" name="monthly_rent" class="form-control">
                                     </div>
-                                @endif
+                               
                             </form>
                             </div>
                             <div class="modal-footer">
