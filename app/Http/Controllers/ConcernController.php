@@ -112,7 +112,8 @@ class ConcernController extends Controller
             'concern_item' => $request->concern_item,
             'concern_type' => $request->concern_type,
             'concern_urgency' => $request->concern_urgency,
-            'concern_status' => $request->concern_status
+            'concern_status' => $request->concern_status,
+            'concern_desc' => $request->concern_desc
         ]);
 
         return back()->with('success', 'Concern information has been updated!');
