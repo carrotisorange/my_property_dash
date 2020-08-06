@@ -126,6 +126,35 @@
 
     <section class="inner-page">
       <div class="container">
+
+      <h4 >Being Customer Centric.</h4>
+      
+        <p id="being-customer-centric">
+          <ol>
+              <li>Differentiation. How we differentiate ourselves in a sea of sameness will make us stand out in the market. 
+              Our products or services may be the same as our competitors but the customer experience is different each time. 
+              Today's economy and market in a pandemic may not be something that we can control but the experience we give to 
+              our customers is directly impacted by us. The ability to capture that customer is in how we provide that experience 
+              for our customer that differentiates us from others. 
+              </li>
+              <li>
+              Add Value. Doing a little bit extra for the customer will be the decisive factor in the perspective of the
+               customer that we serve.
+               It does not have to take too much or cost too much. It could be a warm greeting and a small gift. 
+               Research shows that a warm greeting and a small gift has a 46% increase in the revenue the customer brings. 
+              </li>
+              <li>
+              Reduce maintenance. Immediate improvement of the experience we provide the customer can be immediately achieved by 
+              reducing waiting time, being responsive, and being accessible. It is not a one time experience but must be consistent. 
+              It has to be a part of our DNA, our purpose, to make it easier for our customers
+              </li>
+          </ol> 
+
+          <p>
+          Technology can help us be customer-centric by automating processes, we reduce waiting and be more responsive to our customers needs. Data gives us the information that we need to cater to the special needs of our customers and provides valuable insights that can help us differentiate ourselves, to add value to our services,  and reduce maintenance.
+          </p>
+        </p>
+
       <h4>Guidelines on Concessions on Residential and Commercial Rents During Covid 19 in the Philippines</h4>
       
       <p id="guidelines-during-covid-19">

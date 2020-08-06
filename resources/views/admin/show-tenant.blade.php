@@ -602,7 +602,7 @@
                            @elseif($item->concern_status === 'active')
                            <span class="badge badge-primary">{{ $item->concern_status }}</span>
                            @else
-                           <span class="badge badge-warning">{{ $item->concern_status }}</span>
+                           <span class="badge badge-secondary">{{ $item->concern_status }}</span>
                            @endif
                        </td>
                      
