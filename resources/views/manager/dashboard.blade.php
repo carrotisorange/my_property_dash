@@ -433,7 +433,7 @@
                       <div class="card-body">
                         <div class="row no-gutters align-items-center">
                           <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1"><a  href="#active-concerns">  ACTIVE CONCERNS</a></div>
+                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1"><a class="text-danger"  href="#active-concerns">  ACTIVE CONCERNS</a></div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $active_concerns->count() }}</div>
                            
                             <small>PENDING ({{ $pending_concerns->count() }})</small>
@@ -498,7 +498,7 @@
                       <div class="card-body">
                         <div class="row no-gutters align-items-center">
                           <div class="col mr-2">
-                          <div class="text-xs font-weight-bold text-danger text-uppercase mb-1" ><a  href="#active-concerns">  ACTIVE CONCERNS</a></div>
+                          <div class="text-xs font-weight-bold text-danger text-uppercase mb-1" ><a class="text-danger" href="#active-concerns">  ACTIVE CONCERNS</a></div>
                           <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $active_concerns->count() }}</div>
                            
                             <small>PENDING ({{ $pending_concerns->count() }})</small>
