@@ -330,7 +330,7 @@
                 <div class="col-md-12">
                     <div class="card shadow mb-4">
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                <h6 class="m-0 font-weight-bold text-primary">DETAILS OF THE CONCERN<</h6>
+                              <h6 class="m-0 font-weight-bold text-primary">DETAILS OF THE CONCERN</h6>
                                 <!-- start -->
                                 <div class="dropdown no-arrow">
                                   <a href="#" class="dropdown-toggle" data-toggle="modal" data-target="#editConcernDetails" >
@@ -356,14 +356,30 @@
 
             <div class="row">
                 <div class="col-md-12">
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">ACTION THAT HAS BEEN TAKEN TO ADDRESS THE CONCERN</h6>            
-                        </div>
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                              <h6 class="m-0 font-weight-bold text-primary">ACTION THAT HAS BEEN TAKEN TO ADDRESS THE CONCERN</h6>
+                                <!-- start -->
+                                <div class="dropdown no-arrow">
+                                  <a href="#" class="dropdown-toggle" data-toggle="modal" data-target="#editConcernDetails" >
+                                  <i class="fas fa-edit fa-sm fa-fw text-gray-400"></i>
+                                  </a>
+                                  <!-- <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                                    <div class="dropdown-header">Dropdown Header:</div>
+                                    <a class="dropdown-item" href="#">Action</a>
+                                    <a class="dropdown-item" href="#">Another action</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">Something else here</a>
+                                  </div> -->
+                                </div>
+                                <!-- end -->
+                              </div>
+                    
                         <div class="card-body">
-                            <p>{{ $concern->action_taken }}</p>
+                        <p>{{ $concern->action_taken }}</p>
                         </div>
-                    </div>    
+                    </div>   
+                      
                 </div>
             </div>
 
