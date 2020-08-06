@@ -295,11 +295,13 @@
                                    <tr>
                                         <th>URGENT</th>
                                         <td>
-                                            @if($concern->concern_urgency === 'minor')
-                                            <span class="badge badge-primary">{{ $concern->concern_urgency }}</span>
-                                            @else
-                                            <span class="badge badge-danger">{{ $concern->concern_urgency }}</span>
-                                            @endif
+                                          @if($concern->concern_urgency === 'urgent')
+                                          <span class="badge badge-danger">{{ $concern->concern_urgency }}</span>
+                                          @elseif($concern->concern_urgency === 'major')
+                                          <span class="badge badge-warning">{{ $concern->concern_urgency }}</span>
+                                          @else
+                                          <span class="badge badge-primary">{{ $concern->concern_urgency }}</span>
+                                          @endif
                                         </td>
                                    </tr>
                                    <tr>
@@ -307,7 +309,7 @@
                                         <td>
                                             @if($concern->concern_status === 'pending')
                                             <span class="badge badge-warning">{{ $concern->concern_status }}</span>
-                                            @elseif($item->concern_status === 'active')
+                                            @elseif($concern->concern_status === 'active')
                                             <span class="badge badge-primary">{{ $concern->concern_status }}</span>
                                             @else
                                             <span class="badge badge-warning">{{ $concern->concern_status }}</span>
