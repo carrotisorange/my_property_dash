@@ -127,7 +127,9 @@
     <section class="inner-page">
       <div class="container">
 
-      <h4 >Being Customer Centric.</h4>
+      <div class="card">
+        <div class="card-body">
+        <h4 >Being Customer Centric.</h4>
       
         <p id="being-customer-centric">
           <ol>
@@ -154,6 +156,8 @@
           Technology can help us be customer-centric by automating processes, we reduce waiting and be more responsive to our customers needs. Data gives us the information that we need to cater to the special needs of our customers and provides valuable insights that can help us differentiate ourselves, to add value to our services,  and reduce maintenance.
           </p>
         </p>
+        </div>
+      </div>
 
       <h4>Guidelines on Concessions on Residential and Commercial Rents During Covid 19 in the Philippines</h4>
       
