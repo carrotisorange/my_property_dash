@@ -410,7 +410,7 @@
                       <div class="col">
                           <small>Urgency</small>
                           <select class="form-control" form="editConcernDetailsForm" name="concern_urgency" id="" required>
-                              <option value="{{ $concern->urgency }}" readonly selected class="bg-primary">{{ $concern->urgency }}</option>
+                              <option value="{{ $concern->concern_urgency }}" readonly selected class="bg-primary">{{ $concern->concern_urgency }}</option>
                              <option value="minor">minor</option>
                              <option value="major">major</option>
                              <option value="urgent">urgent</option>
@@ -422,7 +422,7 @@
                       <div class="col">
                           <small>Status</small>
                           <select class="form-control" form="editConcernDetailsForm" name="concern_status" id="" required>
-                              <option value="{{ $concern->status }}" readonly selected class="bg-primary">{{ $concern->status }}</option>
+                              <option value="{{ $concern->concern_status }}" readonly selected class="bg-primary">{{ $concern->concern_status }}</option>
                              <option value="pending">pending</option>
                              <option value="active">active</option>
                              <option value="closed">closed</option>
