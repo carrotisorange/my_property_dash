@@ -132,7 +132,7 @@ class UnitsController extends Controller
             ->join('units', 'unit_id', 'unit_tenant_id')
             ->join('concerns', 'tenant_id', 'concern_tenant_id')
             ->where('unit_property', Auth::user()->property)
-            ->where('unit_id', $unit)
+            ->where('unit_id', $unit_id)
             ->orderBy('concern_urgency', 'desc')
             ->orderBy('date_reported', 'desc')
             ->get();
