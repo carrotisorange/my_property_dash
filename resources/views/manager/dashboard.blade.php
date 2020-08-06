@@ -725,7 +725,7 @@
                       @endforeach
                  </tbody>
                </table>
-               {{ $concerns->links() }}
+               {{ $active_concerns->links() }}
                
              </div>
                         </div>
