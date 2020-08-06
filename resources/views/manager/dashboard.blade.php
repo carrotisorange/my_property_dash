@@ -396,7 +396,7 @@
                           <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">ACTIVE TENANTS </div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $active_tenants->count() }}</div>
-                            <small>P ({{ $pending_tenants->count() }})</small>
+                            <small>PENDING ({{ $pending_tenants->count() }})</small>
                             
                           </div>
                           <div class="col-auto">
@@ -435,8 +435,8 @@
                           <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">ACTIVE CONCERNS</div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $active_concerns->count() }}</div>
-                            <small>A ({{ $active_concerns->count() }})</small>
-                            <small>P ({{ $pending_concerns->count() }})</small>
+                           
+                            <small>PENDING ({{ $pending_concerns->count() }})</small>
                           </div>
                           <div class="col-auto">
                             <i class="fas fa-tools fa-2x text-gray-300"></i>
@@ -481,7 +481,7 @@
                           <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">ACTIVE TENANTS </div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $active_tenants->count() }}</div>
-                            <small>P ({{ $pending_tenants->count() }})</small>
+                            <small>PENDING ({{ $pending_tenants->count() }})</small>
                             
                           </div>
                           <div class="col-auto">
@@ -500,8 +500,8 @@
                           <div class="col mr-2">
                           <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">ACTIVE CONCERNS</div>
                           <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $active_concerns->count() }}</div>
-                            <small>A ({{ $active_concerns->count() }})</small>
-                            <small>P ({{ $pending_concerns->count() }})</small>
+                           
+                            <small>PENDING ({{ $pending_concerns->count() }})</small>
                           </div>
                           <div class="col-auto">
                             <i class="fas fa-tools fa-2x text-gray-300"></i>
