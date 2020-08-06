@@ -413,13 +413,13 @@
                                         <th>ROOM TYPE</th>
                                         <td>{{ $unit->type_of_units }}</td>
                                    </tr>
-                                    @if(Auth::user()->property_type !== 'Condominium Complex' && Auth::user()->property_type !== 'Condominium Associations')
+                                    @if(Auth::user()->property_type !== 'Condominium Complex')
                                    <tr>
                                     <th>NO OF BEDS</th>
                                     <td>{{ $unit->beds }}</td>     
                                   </tr>
                                    @endif
-                                  @if(Auth::user()->property_type !== 'Condominium Associations')
+                                 
                                   <tr>
                                         <th>STATUS</th>
                                         <td>
@@ -443,7 +443,7 @@
                                             session([Auth::user()->id.'building'=> $unit->building]);
                                         ?>
                                     </tr>
-                                    @endif
+                                  
                                     @if ($unit_owner->count() > 0)
                                         @foreach ($unit_owner as $item)
                                     <tr>
