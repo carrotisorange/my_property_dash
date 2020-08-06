@@ -125,7 +125,7 @@
     </section><!-- End About Section -->
 
     <section class="inner-page">
-      <div class="container">
+      <div class="container-fluid">
 
       <div class="card">
       <div class="card-header">
@@ -162,7 +162,11 @@
         </div>
       </div>
 
+      <div class="card">
+      <div class="card-header">
       <h4>Guidelines on Concessions on Residential and Commercial Rents During Covid 19 in the Philippines</h4>
+      </div>
+      <div class="card-body">
       
       <p id="guidelines-during-covid-19">
       Republic Act 11469 known as the Bayanihan to Heal as One Act declared as a policy during the Covid 19 pandemic to provide for
@@ -216,36 +220,59 @@
       Lessors may be held criminally, civilly, or administratively liable for failure to abide by relevant laws, regulations and/ 
       or ordinances. The same applies to lessees who fail to pay their obligations and abide by the terms of their promissory note.
       </p>
+      </div>
+      </div>
 
     <br>
-        <h4 >Navigating the New Normal in Property Management</h4>
+       <div class="card">
+       <div class="card-header">
+       <h4 >Navigating the New Normal in Property Management</h4>
+       </div>
+       <div class="card-body">
+       
       
-        <p id="navigating-to-new-normal">
-          Never let a crisis go to waste. In a pandemic, there are opportunities. We need to take advantage of this pandemic to become innovative, to experiment, 
-          and to optimize. This health crisis allows us the time in the property management industry to digitally transform our businesses and to use technology as
-           a strategy to expand our business and increase the number of properties managed even during any crisis. A Property Management System is essential 
-           especially during a crisis, when we have to manage our properties remotely. Our customers may be the same but their behaviors and their needs have changed.
-            We need to adapt and continue to remain relevant in this new normal. Let us reinvent our business models to become digitally savvy property managers to answer 
-            the changing needs of our tenants and property owners. This crisis has pushed us to face our broken systems. We realize that these problems are existing even 
-            before the pandemic. Let us use tech tools available that will help us fix these problems. There are solutions out there and they require ingenuity, quality, 
-            technology, agility, and leadership. Furthermore, using technology encourages us to reskill our workforces. Our biggest asset goes home with a new thing they learned.
-             A property management system is teaching our workforce new skills and once they appreciate how a system makes their work easier, they have more time to learn other skillsets. 
-             We need to evolve and update our mindsets, our knowledge, our skills, and our systems to navigate this new normal. 
-        </p>
+      <p id="navigating-to-new-normal">
+        Never let a crisis go to waste. In a pandemic, there are opportunities. We need to take advantage of this pandemic to become innovative, to experiment, 
+        and to optimize. This health crisis allows us the time in the property management industry to digitally transform our businesses and to use technology as
+         a strategy to expand our business and increase the number of properties managed even during any crisis. A Property Management System is essential 
+         especially during a crisis, when we have to manage our properties remotely. Our customers may be the same but their behaviors and their needs have changed.
+          We need to adapt and continue to remain relevant in this new normal. Let us reinvent our business models to become digitally savvy property managers to answer 
+          the changing needs of our tenants and property owners. This crisis has pushed us to face our broken systems. We realize that these problems are existing even 
+          before the pandemic. Let us use tech tools available that will help us fix these problems. There are solutions out there and they require ingenuity, quality, 
+          technology, agility, and leadership. Furthermore, using technology encourages us to reskill our workforces. Our biggest asset goes home with a new thing they learned.
+           A property management system is teaching our workforce new skills and once they appreciate how a system makes their work easier, they have more time to learn other skillsets. 
+           We need to evolve and update our mindsets, our knowledge, our skills, and our systems to navigate this new normal. 
+      </p>
+       </div>
+       </div>
     <br>
-        <h4 >Why did you start thepropertymanager.online?</h4>
+       <div class="card">
+       <div class="card-header">
+       <h4 >Why did you start thepropertymanager.online?</h4>
+       </div>
+
+       <div class="card-body">
       
-        <p id="why-did-your-start-property-manager-online">
-          We are property managers with about a thousand listings, we were using traditional marketing and many steps of leasing procedures, 
-          paper and pen to sign up tenant info sheets, contracts, billing statements and receipts. We monitor transactions through spreadsheets 
-          and it takes a day to process a report. At one point, our operations are so wrapped up into administrative work that we are spending less 
-          time strengthening our customer relations. We spend so much time looking for documents and less time on satisfying customer requests. 
-          We realize that if we want to stay in this business and grow, we need to automate our processes so we can focus on the more important 
-          aspects of the business like providing good customer service experience while maintaining efficient operations and that’s how thepropertymanager.online was born. - The Founders.
-        </p>
+      
+      <p id="why-did-your-start-property-manager-online">
+        We are property managers with about a thousand listings, we were using traditional marketing and many steps of leasing procedures, 
+        paper and pen to sign up tenant info sheets, contracts, billing statements and receipts. We monitor transactions through spreadsheets 
+        and it takes a day to process a report. At one point, our operations are so wrapped up into administrative work that we are spending less 
+        time strengthening our customer relations. We spend so much time looking for documents and less time on satisfying customer requests. 
+        We realize that if we want to stay in this business and grow, we need to automate our processes so we can focus on the more important 
+        aspects of the business like providing good customer service experience while maintaining efficient operations and that’s how thepropertymanager.online was born. - The Founders.
+      </p>
+       
+       </div>
+       </div>
     <br>
 
+        <div class="card">
+        <div class="card-header">
         <h4 >Is a property management system right for me?</h4>
+        </div>
+        <div class="card-body">
+      
       
         <p id="is-property-management-right-for-me">
           Renting out a room or a few number of rooms to tenants is a good source of passive income if you are not doing the property management work. 
@@ -255,6 +282,8 @@
            Even if you are not yet looking to expand your business, a property management system is still a good investment as it saves you hours of work that can be done in minutes. 
            Work that is a function of 3 persons can be done by 1 person with a good property management system. This savings in time and people is good for the bottom line. 
         </p>
+        </div>
+        </div>
       </div>
     </section>
 
