@@ -125,7 +125,7 @@
     </section><!-- End About Section -->
 
     <section class="inner-page">
-      <div class="container-fluid">
+      <div class="container">
 
       <div class="card">
       <div class="card-header">
@@ -161,7 +161,7 @@
         </p>
         </div>
       </div>
-
+  <br>
       <div class="card">
       <div class="card-header">
       <h4>Guidelines on Concessions on Residential and Commercial Rents During Covid 19 in the Philippines</h4>
