@@ -413,12 +413,12 @@
                                         <th>ROOM TYPE</th>
                                         <td>{{ $unit->type_of_units }}</td>
                                    </tr>
-                                    @if(Auth::user()->property_type !== 'Condominium Complex')
+                                  
                                    <tr>
                                     <th>NO OF BEDS</th>
                                     <td>{{ $unit->beds }}</td>     
                                   </tr>
-                                   @endif
+                                  
                                  
                                   <tr>
                                         <th>STATUS</th>
