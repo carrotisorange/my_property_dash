@@ -392,7 +392,7 @@
                       <div class="col">
                           <small>Type</small>
                           <select class="form-control" form="editConcernDetailsForm" name="concern_type" id="" required>
-                              <option value="{{ $concern->concern_desc }}" readonly selected></option>
+                              <option value="{{ $concern->concern_type }}" readonly selected>{{ $concern->concern_type }}</option>
                               <option value="billing">billing</option>
                               <option value="employee">employee</option>
                               <option value="neighbour">neighbour</option>
