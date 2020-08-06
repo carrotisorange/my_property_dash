@@ -688,7 +688,7 @@
                      </tr>
                  </thead>
                  <tbody>
-                      @foreach ($active_concerns as $item)
+                      @foreach ($concerns as $item)
                       <tr>
                       <td>{{ $item->concern_id }}</td>
                         <td>{{ Carbon\Carbon::parse($item->date_reported)->format('M d Y') }}</td>
@@ -725,7 +725,7 @@
                       @endforeach
                  </tbody>
                </table>
-               {{ $active_concerns->links() }}
+               {{ $concerns->links() }}
                
              </div>
                         </div>
