@@ -274,7 +274,7 @@
                                         <td>{{ Carbon\Carbon::parse($concern->date_reported)->format('M d Y') }}</td>
                                    </tr>
                                    <tr>
-                                        <th>DESCRIPTIOIN</th>
+                                        <th>DESCRIPTION</th>
                                         <td>{{ $concern->concern_item }}</td>
                                    </tr>
                                    <tr>
@@ -402,6 +402,30 @@
                               <option value="pets">pets</option>
                               <option value="repair">repair</option>
                               <option value="others">others</option>
+                          </select>
+                      </div>
+                  </div>
+
+                  <div class="row">
+                      <div class="col">
+                          <small>Urgency</small>
+                          <select class="form-control" form="editConcernDetailsForm" name="concern_urgency" id="" required>
+                              <option value="{{ $concern->urgency }}" readonly selected class="bg-primary">{{ $concern->urgency }}</option>
+                             <option value="minor">minor</option>
+                             <option value="major">major</option>
+                             <option value="urgent">urgent</option>
+                          </select>
+                      </div>
+                  </div>
+
+                  <div class="row">
+                      <div class="col">
+                          <small>Status</small>
+                          <select class="form-control" form="editConcernDetailsForm" name="concern_status" id="" required>
+                              <option value="{{ $concern->status }}" readonly selected class="bg-primary">{{ $concern->status }}</option>
+                             <option value="pending">pending</option>
+                             <option value="active">active</option>
+                             <option value="closed">closed</option>
                           </select>
                       </div>
                   </div>
