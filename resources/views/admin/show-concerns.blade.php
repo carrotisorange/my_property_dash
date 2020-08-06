@@ -311,7 +311,7 @@
                                             @elseif($concern->concern_status === 'active')
                                             <span class="badge badge-primary">{{ $concern->concern_status }}</span>
                                             @else
-                                            <span class="badge badge-secondary">{{ $concern->concern_status }}</span>
+                                            <span class="badge badge-secondary">{{ $concern->concern_status }}</span> on {{Carbon::parse($concern->updated_at)->format('M d Y')}}
                                             @endif
                                         </td>
                                    </tr>
