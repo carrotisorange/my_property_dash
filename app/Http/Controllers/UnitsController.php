@@ -128,7 +128,16 @@ class UnitsController extends Controller
             ->orderBy('billing_no', 'desc')
             ->get();
 
-                return view('admin.show-unit',compact('unit', 'unit_owner', 'tenant_active', 'tenant_inactive', 'tenant_reservations', 'unit_bills'));
+            $concerns = DB::table('tenants')
+            ->join('units', 'unit_id', 'unit_tenant_id')
+            ->join('concerns', 'tenant_id', 'concern_tenant_id')
+            ->where('unit_property', Auth::user()->property)
+            ->where('unit_id', $unit)
+            ->orderBy('concern_urgency', 'desc')
+            ->orderBy('date_reported', 'desc')
+            ->get();
+
+                return view('admin.show-unit',compact('unit', 'unit_owner', 'tenant_active', 'tenant_inactive', 'tenant_reservations', 'unit_bills', 'concerns'));
         }else{
                 return view('unregistered');
         }

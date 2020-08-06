@@ -642,9 +642,57 @@
             </div>
            <div class="card-body">
             <div class="table-responsive">
-            <table class="table text-right" width="100%" cellspacing="0" cellpadding="0">
-                  
-              </table>
+            
+            <table class="table table-bordered" width="100%" cellspacing="0">
+                 <thead>
+                   <tr>
+                       <th>ID</th>
+                       <th>DATE REPORTED</th>
+                      
+                       <th>ROOM</th>
+                       <th>TYPE</th>
+                       <th>DESCRIPTION</th>
+                       <th>URGENCY</th>
+                       <th>STATUS</th>
+                      
+                  </tr>
+                 </thead>
+                 <tbody>
+                   @foreach ($concerns as $item)
+                   <tr>
+                   <td>{{ $item->concern_id }}</td>
+                     <td>{{ Carbon\Carbon::parse($item->date_reported)->format('M d Y') }}</td>
+                       
+                       <td>{{ $item->building.' '.$item->unit_no }}</td>
+                       <td>
+                         
+                           {{ $item->concern_type }}
+                           
+                       </td>
+                       <td ><a title="{{ $item->concern_desc }}" href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/concerns/{{ $item->concern_id }}">{{ $item->concern_item }}</a></td>
+                       <td>
+                           @if($item->concern_urgency === 'urgent')
+                           <span class="badge badge-danger">{{ $item->concern_urgency }}</span>
+                           @elseif($item->concern_urgency === 'major')
+                           <span class="badge badge-warning">{{ $item->concern_urgency }}</span>
+                           @else
+                           <span class="badge badge-primary">{{ $item->concern_urgency }}</span>
+                           @endif
+                       </td>
+                       <td>
+                           @if($item->concern_status === 'pending')
+                           <span class="badge badge-warning">{{ $item->concern_status }}</span>
+                           @elseif($item->concern_status === 'active')
+                           <span class="badge badge-primary">{{ $item->concern_status }}</span>
+                           @else
+                           <span class="badge badge-warning">{{ $item->concern_status }}</span>
+                           @endif
+                       </td>
+                     
+                   </tr>
+                   @endforeach
+                 </tbody>
+               </table>
           </div>
            </div>
          </div>
