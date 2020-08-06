@@ -380,19 +380,19 @@
                           <input type="date" form="editConcernDetailsForm" class="form-control" name="date_reported" value="{{ $concern->date_reported }}" required>
                       </div>
                   </div>
-                  <br>
+                  
                   <div class="row">
                       <div class="col">
                           <small>Description</small>
                           <input type="text" form="editConcernDetailsForm" class="form-control" name="concern_item" value="{{ $concern->concern_item }}" required>
                       </div>
                   </div>
-                  <br>
+                
                   <div class="row">
                       <div class="col">
                           <small>Type</small>
                           <select class="form-control" form="editConcernDetailsForm" name="concern_type" id="" required>
-                              <option value="{{ $concern->concern_type }}" readonly selected>{{ $concern->concern_type }}</option>
+                              <option value="{{ $concern->concern_type }}" readonly selected class="bg-primary">{{ $concern->concern_type }}</option>
                               <option value="billing">billing</option>
                               <option value="employee">employee</option>
                               <option value="neighbour">neighbour</option>
