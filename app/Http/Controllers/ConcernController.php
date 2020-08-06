@@ -103,9 +103,11 @@ class ConcernController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $concern_id)
     {
-        return $request->all();
+        DB::table('concerns')
+        ->where('concern_id', $concern_id)
+        ->get();
     }
 
     /**
