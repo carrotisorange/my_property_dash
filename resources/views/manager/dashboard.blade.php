@@ -479,7 +479,7 @@
                       <div class="card-body">
                         <div class="row no-gutters align-items-center">
                           <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">ACTIVE TENANTS </div>
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1" ><a href="#active-concerns">ACTIVE TENANTS</a> </div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $active_tenants->count() }}</div>
                             <small>PENDING ({{ $pending_tenants->count() }})</small>
                             
@@ -664,7 +664,7 @@
                </div>
                 </div>
 
-                <div class="row">
+                <div class="row" id="active-concerns">
                 <div class="col-md-12">
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
