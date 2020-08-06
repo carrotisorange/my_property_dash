@@ -105,10 +105,7 @@ class ConcernController extends Controller
      */
     public function update(Request $request, $concern_id)
     {
-
-        return $request->all();
-
-         DB::table('concerns')
+        DB::table('concerns')
         ->where('concern_id', $concern_id)
         ->update([
             'date_reported' => $request->date_reported,
