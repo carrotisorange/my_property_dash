@@ -684,6 +684,7 @@ Route::get('/home', function(){
         $units = DB::table('units')
             ->where('unit_property', Auth::user()->property)
             ->where('status','!=', 'pulled out')
+            ->orderBy('floor_no', 'asc')
             ->orderBy('unit_no', 'asc')
             ->get()
             ->groupBy(function($item) {
