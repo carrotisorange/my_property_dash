@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use DB, App\Tenant, App\Unit, App\Concern, Auth;
+use DB, App\Tenant, App\Unit, App\Concern, Auth, Carbon\Carbon;
 
 class ConcernController extends Controller
 {
@@ -115,7 +115,8 @@ class ConcernController extends Controller
             'concern_status' => $request->concern_status,
             'concern_desc' => $request->concern_desc, 
             'action_taken' => $request->action_taken,
-            'feedback' => $request->feedback
+            'feedback' => $request->feedback,
+            'updated_at' => Carbon::now(),
         ]);
 
         return back()->with('success', 'Concern information has been updated!');
