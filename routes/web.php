@@ -765,8 +765,8 @@ Route::get('/concerns', function(){
             ->join('units', 'unit_id', 'unit_tenant_id')
             ->join('concerns', 'tenant_id', 'concern_tenant_id')
             ->where('unit_property', Auth::user()->property)
-            ->orderBy('concern_id', 'desc')
-            ->orderBy('concern_urgency')
+            ->orderBy('concern_urgency', 'desc')
+            ->orderBy('date_reported', 'desc')
             ->get();
        
         return view('admin.concerns', compact('concerns'));
