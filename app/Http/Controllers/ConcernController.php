@@ -107,7 +107,7 @@ class ConcernController extends Controller
     {
 
         return $request->all();
-        
+
          DB::table('concerns')
         ->where('concern_id', $concern_id)
         ->update([
