@@ -105,9 +105,16 @@ class ConcernController extends Controller
      */
     public function update(Request $request, $concern_id)
     {
-       return DB::table('concerns')
+         DB::table('concerns')
         ->where('concern_id', $concern_id)
-        ->get();
+        ->update([
+            'date_reported' => $request->date_reported,
+            'concern_item' => $request->concern_item,
+            'concern_type' => $request->concern_type,
+            'concern_urgency' => $request->concern_urgency,
+        ]);
+
+        return back()->with('success', 'Concern information has been updated!');
     }
 
     /**
