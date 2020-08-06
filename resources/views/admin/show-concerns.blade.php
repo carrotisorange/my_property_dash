@@ -506,9 +506,7 @@
                 </button>
                 </div>
                 <div class="modal-body">
-                   <p class="text-center">
-                       Tenant has a pending balance of <a title="click this to see the breakdown" >{{ number_format($pending_balance,2) }}</a>.
-                   </p>
+                   
                 </div>
             </div>
             </div>
