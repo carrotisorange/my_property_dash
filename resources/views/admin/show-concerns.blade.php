@@ -309,9 +309,9 @@
                                             @if($concern->concern_status === 'pending')
                                             <span class="badge badge-warning">{{ $concern->concern_status }}</span>
                                             @elseif($concern->concern_status === 'active')
-                                            <span class="badge badge-primary">{{ $concern->concern_status }}</span> for {{ number_format(Carbon\Carbon::now()->DiffInDays(Carbon\Carbon::parse($concern->date_reported)), 0) }} days
+                                            <span class="badge badge-primary">{{ $concern->concern_status }}</span> for {{ number_format(Carbon\Carbon::now()->DiffInDays(Carbon\Carbon::parse($concern->date_reported), false), 0) }} days
                                             @else
-                                            <span class="badge badge-secondary">{{ $concern->concern_status }}</span> on {{Carbon\Carbon::parse($concern->updated_at)->format('M d Y')}}
+                                            <span class="badge badge-secondary">{{ $concern->concern_status }}</span> on {{ Carbon\Carbon::parse($concern->updated_at)->format('M d Y')}}
                                             @endif
                                         </td>
                                    </tr>
