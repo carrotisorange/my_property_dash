@@ -819,11 +819,11 @@
                                 </div>
                                 <div class="form-group">
                                     <small>Email</small>
-                                    <input form="addInvestorForm" type="email" class="form-control" name="investor_email_address" id="investor_email_address">
+                                    <input form="addInvestorForm" type="email" class="form-control" name="investor_email_address" id="investor_email_address" required>
                                 </div>
                                 <div class="form-group">
                                     <small>Mobile</small>
-                                    <input form="addInvestorForm" type="text" class="form-control" name="contact_no" id="contact_no">
+                                    <input form="addInvestorForm" type="text" class="form-control" name="contact_no" id="contact_no" required>
                                 </div>
                                 <div class="form-group">
                                     <small>Address</small>
