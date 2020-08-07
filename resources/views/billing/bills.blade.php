@@ -406,7 +406,7 @@
                     <th>DESCRIPTION</th>
                     <th>AMOUNT</th>
                     <th>STATUS</th>
-                    <th></th>
+                  
                 </tr>
                   @foreach ($bills_list as $bill)
                   <tr>
