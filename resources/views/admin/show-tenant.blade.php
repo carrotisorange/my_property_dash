@@ -610,7 +610,7 @@
                    @endforeach
                  </tbody>
                </table>
-               
+               {{ $concerns->links() }}
              </div>
                         </div>
                     </div>    

@@ -627,6 +627,8 @@
             
                   
             </table>
+
+            {{ $units_bills->links() }}
           </div>
            </div>
          </div>
@@ -695,6 +697,8 @@
                    @endforeach
                  </tbody>
                </table>
+
+               {{ $concerns->links() }}
           </div>
            </div>
          </div>

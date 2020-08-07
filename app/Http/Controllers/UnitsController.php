@@ -125,7 +125,7 @@ class UnitsController extends Controller
             ->where('billing_amt','>', 0)
             ->orderBy('billing_date', 'desc')
             ->orderBy('billing_no', 'desc')
-            ->get();
+            ->paginate(10);
 
             $concerns = DB::table('tenants')
             ->join('units', 'unit_id', 'unit_tenant_id')
@@ -134,7 +134,7 @@ class UnitsController extends Controller
             ->orderBy('date_reported', 'desc')
             ->orderBy('concern_urgency', 'desc')
             ->orderBy('concern_status', 'desc')
-            ->get();
+            ->paginate(10);
 
                 return view('admin.show-unit',compact('unit', 'unit_owner', 'tenant_active', 'tenant_inactive', 'tenant_reservations', 'unit_bills', 'concerns'));
         }else{

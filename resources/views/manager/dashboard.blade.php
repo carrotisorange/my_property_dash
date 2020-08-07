@@ -583,7 +583,6 @@
                                 <th>TENANT</th>
                                 <th>ROOM</th>
                                 <th>AMOUNT</th>
-                               
                             </tr>
                             </thead>
                             <tbody>

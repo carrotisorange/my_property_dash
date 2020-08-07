@@ -291,7 +291,7 @@ class TenantController extends Controller
             ->orderBy('date_reported', 'desc')
             ->orderBy('concern_urgency', 'desc')
             ->orderBy('concern_status', 'desc')
-            ->get();
+            ->paginate(10);
 
             $payments = DB::table('units')
             ->join('tenants', 'unit_id', 'unit_tenant_id')
