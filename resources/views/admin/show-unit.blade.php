@@ -628,7 +628,7 @@
                   
             </table>
 
-            {{ $units_bills->links() }}
+            {{ $unit_bills->links() }}
           </div>
            </div>
          </div>
