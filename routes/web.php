@@ -137,6 +137,7 @@ Route::get('/', function(Request $request){
             $owners = DB::table('units')
             ->join('unit_owners', 'unit_unit_owner_id', 'unit_owner_id')
             ->where('unit_property', Auth::user()->property)
+            ->where('status', '!=', 'pulled out')
             ->get();
 
             $movein_rate_1 = DB::table('tenants')
@@ -810,6 +811,7 @@ Route::get('/owners', function(){
             $owners = DB::table('units')
             ->join('unit_owners', 'unit_unit_owner_id', 'unit_owner_id')
             ->where('unit_property', Auth::user()->property)
+            ->where('status','!=','pulled out')
             ->paginate(10);
         
             return view('admin.owners', compact('owners'));
