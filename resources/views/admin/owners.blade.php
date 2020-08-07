@@ -380,7 +380,7 @@
                            <th>{{ $item->owner_id }}</th>
                            <td><a href="{{ route('show-investor',['unit_id'=> $item->unit_id, 'unit_owner_id'=>$item->unit_owner_id]) }}">{{ $item->unit_owner }} </a></td>
                            <td>{{ $item->building.' '.$item->unit_no }}</td>
-                           <td>{{ $item-> investor_email}}</td>
+                           <td>{{ $item-> investor_email_address}}</td>
                            <td>{{ $item->investor_contact_no }}</td>
                            <td>{{ Carbon\Carbon::parse($item->contract_start)->format('M d Y').' - '.Carbon\Carbon::parse($item->contract_end)->format('M d Y') }}</td>
                        </tr>
