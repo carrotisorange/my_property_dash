@@ -361,7 +361,7 @@
             </form>
             <br>
             <p class="text-center"><small ><b>{{ $tenants->count() }}</b> tenants found.</small></p> --}}
-            <?php $ctr=1; ?>
+          
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
@@ -377,7 +377,7 @@
                        <tbody>
                        @foreach ($owners as $item)
                        <tr>
-                           <th>{{ $ctr++ }}</th>
+                           <th>{{ $item->owner_id }}</th>
                            <td><a href="{{ route('show-investor',['unit_id'=> $item->unit_id, 'unit_owner_id'=>$item->unit_owner_id]) }}">{{ $item->unit_owner }} </a></td>
                            <td>{{ $item->building.' '.$item->unit_no }}</td>
                            <td>{{ $item-> investor_email}}</td>
