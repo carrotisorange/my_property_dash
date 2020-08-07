@@ -814,59 +814,59 @@
                                 </div> --}}
             
                                 <div class="form-group">
-                                <label for="message-text" class="col-form-label">NAME</label>
+                                <small>Name</small>
                                 <input form="addInvestorForm" type="text"  value="{{ $unit->unit_owner }}" class="form-control" name="unit_owner" id="unit_owner" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="recipient-name" class="col-form-label">EMAIL</label>
+                                    <small>Email</small>
                                     <input form="addInvestorForm" type="email" class="form-control" name="investor_email_address" id="investor_email_address">
                                 </div>
                                 <div class="form-group">
-                                    <label for="recipient-name" class="col-form-label">MOBILE</label>
+                                    <small>Mobile</small>
                                     <input form="addInvestorForm" type="text" class="form-control" name="contact_no" id="contact_no">
                                 </div>
                                 <div class="form-group">
-                                    <label for="recipient-name" class="col-form-label">ADDRESS</label>
+                                    <small>Address</small>
                                     <input form="addInvestorForm" type="text" class="form-control" name="investor_address" id="investor_address"    >
                                 </div>
                                 <div class="form-group">
-                                    <label for="recipient-name" class="col-form-label">REPRESENTATIVE</label>
+                                    <small>Representative</small>
                                     <input form="addInvestorForm" type="text" class="form-control" name="investor_representative" id="investor_representative">
                                 </div>
                                 <div class="form-group">
-                                    <label for="recipient-name" class="col-form-label"><b>CONTRACT PERIOD</b></label>
+                                    <small>Contract Period</small>
                                 </div>
                                 <div class="row">
                                     <div class="col">
-                                        <label for="recipient-name" class="col-form-label">START</label>
+                                        <small>Start</small>
                                         <input form="addInvestorForm" type="date" class="form-control" name="contract_start" id="contract_start">
                                     </div>
                                     <div class="col">
-                                        <label for="recipient-name" class="col-form-label">END</label>
+                                        <small>End</small>
                                         <input form="addInvestorForm" type="date" class="form-control" name="contract_end" id="contract_end">
                                     </div>
                                 </div>
                              <br>
                                 <div class="form-group">
-                                    <label for="recipient-name" class="col-form-label"><b>BANK DETAILS</b></label>
+                                    <small>Bank Details</small>
                                 </div>
                                 <div class="form-group">
-                                    <label for="recipient-name" class="col-form-label">BANK NAME</label>
+                                    <small>Bank</small>
                                     <input form="addInvestorForm" type="text" class="form-control" name="bank_name" id="bank_name">
                                 </div>
                                 <div class="form-group">
-                                    <label for="recipient-name" class="col-form-label">ACCOUNT NAME</label>
+                                    <small>Account Name</small>
                                     <input form="addInvestorForm" type="text" class="form-control" name="account_name" id="account_name">
                                 </div>
                                 <div class="form-group">
-                                    <label for="recipient-name" class="col-form-label">ACCOUNT NUMBER</label>
+                                    <small>Account Number</small>
                                     <input form="addInvestorForm" type="text" class="form-control" name="account_number" id="account_number">
                                 </div>
             
                             </div>
                             <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i> CLOSE</button>
-                            <button form="addInvestorForm" type="submit" class="btn btn-primary" ><i class="fas fa-check"></i> SAVE</button>
+                            <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button>
+                            <button form="addInvestorForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="this.form.submit(); this.disabled = true;"><i class="fas fa-check fa-sm text-white-50"></i> Update Room</button>
                             </div>
                         </div>
                         </div>
