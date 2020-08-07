@@ -421,7 +421,7 @@
                     </td>
                     <td>{{ $bill->building.' '.$bill->unit_no }}</td>
                     <td>{{ $bill->billing_desc }}</td>
-                    <td>{{ number_format($bill->billing_amt,2) }}</td>
+                    <td><a href="units/{{ $bill->unit_id }}/tenants/{{ $bill->tenant_id }}/billings">{{ number_format($bill->billing_amt,2) }}</a></td>
                     <td>
                       @if($bill->billing_status === 'paid')
                       <span class="badge badge-success">{{ $bill->billing_status }}</span>
@@ -429,7 +429,6 @@
                       <span class="badge badge-danger">{{ $bill->billing_status }} </span>
                        @endif
                       </td>
-                      <td><a href="units/{{ $bill->unit_id }}/tenants/{{ $bill->tenant_id }}/billings"> <span class="badge badge-primary">View</span></a></td>
                     </tr>
                   @endforeach
                 @endforeach
