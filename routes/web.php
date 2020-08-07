@@ -769,7 +769,7 @@ Route::get('/concerns', function(){
             ->orderBy('date_reported', 'desc')
             ->orderBy('concern_urgency', 'desc')
             ->orderBy('concern_status', 'desc')
-            ->get();
+            ->paginate(10);
        
         return view('admin.concerns', compact('concerns'));
     }else{
