@@ -246,7 +246,7 @@
             </tr>
             <tr>
               <th>Representative</th>
-              <td>{{ $investor->investor_contact_no }}</td>
+              <td>{{ $investor->investor_representative }}</td>
           </tr>
           <tr>
             <th>Address</th>
@@ -254,7 +254,7 @@
           </tr>
             <tr>
               <th>Bank Name</th>
-              <td>{{ $investor->investor_contact_no }}</td>
+              <td>{{ $investor->bank_name }}</td>
           </tr>
           <tr>
             <th>Account Name</th>

@@ -63,7 +63,6 @@ class UnitsController extends Controller
                 'investor_representative' =>$request->investor_representative,
                 'investor_email_address' => $request->investor_email_address,
                 'investor_contact_no' => $request->investor_contact_no,
-                'account_number' => $request->contact_no,
                 'account_name' => $request->account_name,
                 'bank_name' => $request->bank_name,
                 'investor_address' =>$request->investor_address,

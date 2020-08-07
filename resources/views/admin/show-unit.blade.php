@@ -823,7 +823,7 @@
                                 </div>
                                 <div class="form-group">
                                     <small>Mobile</small>
-                                    <input form="addInvestorForm" type="text" class="form-control" name="contact_no" id="contact_no" required>
+                                    <input form="addInvestorForm" type="text" class="form-control" name="investor_contact_no" id="contact_no" required>
                                 </div>
                                 <div class="form-group">
                                     <small>Address</small>
