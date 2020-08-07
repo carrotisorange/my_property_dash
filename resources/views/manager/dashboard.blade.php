@@ -596,7 +596,7 @@
                                   <a href="{{ route('show-tenant',['unit_id' => $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a>
                                   @endif
                                 </td>
-                                <td>{{ $item->building.' '.$item->unit_no }}</td>
+                                <td><a href="/units/{{ $item->unit_id }}">{{ $item->building.' '.$item->unit_no }}</a></td>
                                 <td>{{ number_format($item->total_bills,2) }}</td>
                               </tr>
                               @endforeach
