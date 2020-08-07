@@ -229,7 +229,7 @@
                               <table class="table table-bordered" width="100%" cellspacing="0">
                                    <tr>
                                         <th>TENANT</th>
-                                        <td>{{ $tenant->first_name.' '.$tenant->last_name }}</td>
+                                        <td><a href="units/{{ $unit->unit_id }}/tenants/{{ $tenant->tenant_id }}/">{{ $tenant->first_name.' '.$tenant->last_name }}</a></td>
                                    </tr>
                                    <tr>
                                         <th>MOBILE</th>
