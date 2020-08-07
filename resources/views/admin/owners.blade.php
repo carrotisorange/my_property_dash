@@ -377,7 +377,7 @@
                        <tbody>
                        @foreach ($owners as $item)
                        <tr>
-                           <th>{{ $item->owner_id }}</th>
+                           <th>{{ $item->unit_owner_id }}</th>
                            <td><a href="{{ route('show-investor',['unit_id'=> $item->unit_id, 'unit_owner_id'=>$item->unit_owner_id]) }}">{{ $item->unit_owner }} </a></td>
                            <td>{{ $item->building.' '.$item->unit_no }}</td>
                            <td>{{ $item-> investor_email_address}}</td>
