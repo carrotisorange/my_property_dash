@@ -358,20 +358,25 @@
             <div class="card shadow mb-4">
              <div class="card-header py-3">
                <h6 class="m-0 font-weight-bold text-primary">PROFILE</h6>
+               <div class="dropdown no-arrow">
+                    <a title="edit profile" href="/users/{{ $user->id }}/edit"><i class="fas fa-user-edit fa-fw"></i>
+                                  <i class="fas fa-edit fa-sm fa-fw text-gray-400"></i>
+                      </a>
+              </div>
              </div>
              <div class="card-body">
               <div class="table-responsive">
                 <table class="table table-bordered">
                    <tr>
                       <th>Name</th>
-                      <td>{{ $user->name }}&nbsp <a title="edit profile" href="/users/{{ $user->id }}/edit"><i class="fas fa-user-edit fa-fw"></i></a></td>
+                      <td>{{ $user->name }}</td>
                    </tr>
                    <tr>
                      <th>Email</th>
                      <td>{{ $user->email }}</td>
                   </tr>
                   <tr>
-                     <th>User Type</th>
+                     <th>User type</th>
                      <td>{{ $user->user_type }}</td>
                   </tr>
                   <tr>
@@ -379,7 +384,7 @@
                      <td>{{ $user->status }}</td>
                   </tr> 
                   <tr>
-                   <th>Account Type</th>
+                   <th>Account type</th>
                    <td>{{ $user->account_type }}</td>
                 </tr>     
                    <tr>
@@ -387,15 +392,15 @@
                       <td>{{ $user->property }}</a></td>
                    </tr>
                    <tr>
-                     <th>Property Ownership</th>
+                     <th>Property ownership</th>
                      <td>{{ $user->property_ownership }}</td>
                   </tr>
                   <tr>
-                     <th>Property Type</th>
+                     <th>Property type</th>
                      <td>{{ $user->property_type }}</td>
                   </tr>
                   <tr>
-                     <th>Account Created</th>
+                     <th>Email verified at</th>
                      <td>{{ $user->email_verified_at }}</td>
                   </tr>  
                 </table>

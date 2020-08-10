@@ -117,11 +117,11 @@ class UserController extends Controller
         }
         if($request->password === null){
             DB::table('users')
-           
+            ->where('id', $user_id)
             ->update(
                     [
-                  
-                        'email_verified_at' => Carbon::now()
+                        'name' => $request->name,
+                        'email' => $request->email,
                     ]
                 );
 
