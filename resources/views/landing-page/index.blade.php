@@ -177,8 +177,8 @@
                 <i class="bx bx-arch"></i>
                 
               </div>
-              <h4><a href="">ROOM Management</a></h4>
-              {{-- <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p> --}}
+              <h4><a href="">Room Management</a></h4>
+              <p></p>
             </div>
           </div>
 
@@ -188,7 +188,7 @@
                 <i class="bx bx-file"></i>
               </div>
               <h4><a href="">Billing and Collection</a></h4>
-              {{-- <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</p> --}}
+              <p></p>
             </div>
           </div>
 
@@ -198,7 +198,7 @@
                 <i class="bx bx-tachometer"></i>
               </div>
               <h4><a href="">Expense Tracker</a></h4>
-              {{-- <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia</p> --}}
+              <p></p>
             </div>
           </div>
 
@@ -208,7 +208,7 @@
                 <i class="bx bx-layer"></i>
               </div>
               <h4><a href="">Online Payment</a></h4>
-              {{-- <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis</p> --}}
+              <p></p>
             </div>
           </div>
 
@@ -217,22 +217,12 @@
               <div class="icon">
                 <i class="bx bx-slideshow"></i>
               </div>
-              <h4><a href="">Job Order &nbsp&nbsp</a></h4>
-              {{-- <p>Quis consequatur saepe eligendi voluptatem consequatur dolor consequuntur</p> --}}
+              <h4><a href="">Job Order</a></h4>
+              <p></p>
             </div>
           </div>
 
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
-            <div class="icon-box iconbox-blue">
-              <div class="icon">
-                <i class="bx bxl-dribbble"></i>
-              </div>
-              <h4><a href="">Landlord/Tenant Portal</a></h4>
-              {{-- <p>Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur</p> --}}
-            </div>
-          </div>
-
-          {{-- <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
+           <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
             <div class="icon-box iconbox-blue">
               <div class="icon">
                 <i class="bx bxl-dribbble"></i>
@@ -260,7 +250,7 @@
               <h4><a href="">Tenant Portal</a></h4>
               <p>Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur</p>
             </div>
-          </div> --}}
+          </div> 
 
         </div>
 
