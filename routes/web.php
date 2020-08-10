@@ -16,6 +16,8 @@ use Illuminate\Http\Request;
 |
 */
 
+Auth::routes(['verify' => true]);
+
 Route::get('/resources', function(){
     return view('landing-page.resources');
 });
