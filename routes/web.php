@@ -16,9 +16,6 @@ use Illuminate\Http\Request;
 |
 */
 
-
-Auth::routes(['verify' => true]);
-
 Route::get('/resources', function(){
     return view('landing-page.resources');
 });
@@ -669,7 +666,7 @@ Route::get('/board', function(Request $request){
                     )
             );
 
-    })->middleware('auth');
+    })->middleware('auth', 'verified');
 
 //routes for units
 Route::get('units/{unit_id}', 'UnitsController@show')->middleware('auth');
