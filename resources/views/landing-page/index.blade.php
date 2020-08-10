@@ -279,8 +279,11 @@
           
         </div>
 
-        
-        <img src="{{ asset('index/assets/img/guide.png') }}" class="img" alt="">
+        <div class="row">
+            <div class="col-md-12">
+              <img src="{{ asset('index/assets/img/guide.png') }}" class="img" alt="">  
+            </div>
+        </div>
       
 
       </div>
