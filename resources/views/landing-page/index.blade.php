@@ -68,7 +68,7 @@
           <li><a class="btn" href="#services">Services</a></li>    
           <li><a class="btn" href="#pricing">Pricing</a></li>
           <li><a class="btn" href="#contact">Contact</a></li>
-          <li><a class="btn btn-info" target="_blank" href="/login">Login</a></li>
+          <li><a class="btn btn-warning" target="_blank" href="/login">Login</a></li>
         </ul>
       </nav><!-- .nav-menu -->
 
