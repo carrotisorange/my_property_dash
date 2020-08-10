@@ -104,43 +104,15 @@ class UserController extends Controller
      */
     public function update(Request $request, $user_id)
     {
-        if($request->action === 'change_footer_message' ){
-            DB::table('users')
-            ->where('id', $user_id)
-            ->update(
-                    [
-                        'email_verified_at' => Carbon::now(),
-                    ]
-                );
-
-                return back()->with('success', 'Footer message has been updated!');
-        }
-        if($request->password === null){
-            DB::table('users')
-            ->where('id', $user_id)
-            ->update(
-                    [
-                        'name' => $request->name,
-                        'email' => $request->email,
-                    ]
-                );
-
-                return redirect('/users/'.$user_id)->with('success', 'User Profile has been updated!');
-        }else{
-            DB::table('users')
-            ->where('id', $user_id)
-            ->update(
+        DB::table('users')
+        
+        ->update(
                 [
-                    'name' => $request->name,
-                    'email' => $request->email,
-                    'password' => Hash::make($request->password),
+                    'email_verified_at' => Carbon::now(),
                 ]
-                );
+            );
 
-            Auth::logout();
-
-            return redirect('/login')->with('success', 'You have been logged out!');
-        }   
+    return back()->with('success', 'Footer message has been updated!'); 
     }
 
     /**
