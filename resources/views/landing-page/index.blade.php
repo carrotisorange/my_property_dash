@@ -174,11 +174,11 @@
             
               <div class="icon-box iconbox-teal">
               <div class="icon">
-                <i class="bx bx-arch"></i>
+                <i class="bx bx-building-house"></i>
                 
               </div>
               <h4><a href="">Room Management</a></h4>
-              <p></p>
+              <p hidden>Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur</p>
             </div>
           </div>
 
