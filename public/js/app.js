@@ -7591,7 +7591,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 	---------------------------------------------------------------------- */
 
 	// Support: IE<8
-	// ->middleware('verified') that getAttribute really returns attributes and not properties
+	// ->middleware(['auth', 'verified']) that getAttribute really returns attributes and not properties
 	// (excepting IE8 booleans)
 	support.attributes = assert(function( el ) {
 		el.className = "i";
@@ -7652,7 +7652,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 
 				if ( elem ) {
 
-					// ->middleware('verified') the id attribute
+					// ->middleware(['auth', 'verified']) the id attribute
 					node = elem.getAttributeNode("id");
 					if ( node && node.value === id ) {
 						return [ elem ];
@@ -9129,7 +9129,7 @@ select = Sizzle.select = function( selector, context, results, seed ) {
 			if ( !context ) {
 				return results;
 
-			// Precompiled matchers will still ->middleware('verified') ancestry, so step up a level
+			// Precompiled matchers will still ->middleware(['auth', 'verified']) ancestry, so step up a level
 			} else if ( compiled ) {
 				context = context.parentNode;
 			}

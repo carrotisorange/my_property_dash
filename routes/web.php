@@ -667,13 +667,13 @@ Route::get('/board', function(Request $request){
                     )
             );
 
-    })->middleware('verified');
+    })->middleware(['auth', 'verified']);
 
 //routes for units
-Route::get('units/{unit_id}', 'UnitsController@show')->middleware('verified');
-Route::put('units/{unit_id}', 'UnitsController@update')->middleware('verified');
-Route::post('units/add', 'UnitsController@add_unit')->middleware('verified');
-Route::post('units/add-multiple', 'UnitsController@add_multiple_rooms')->middleware('verified');
+Route::get('units/{unit_id}', 'UnitsController@show')->middleware(['auth', 'verified']);
+Route::put('units/{unit_id}', 'UnitsController@update')->middleware(['auth', 'verified']);
+Route::post('units/add', 'UnitsController@add_unit')->middleware(['auth', 'verified']);
+Route::post('units/add-multiple', 'UnitsController@add_multiple_rooms')->middleware(['auth', 'verified']);
 
 Route::get('/home', function(){
 
@@ -714,27 +714,27 @@ Route::get('/home', function(){
             return view('unregistered');
         }
    
-})->middleware('verified');
+})->middleware(['auth', 'verified']);
 
 //routes for payments
-Route::get('units/{unit_id}/tenants/{tenant_id}/payments/{payment_id}', 'PaymentController@show')->name('show-payment')->middleware('verified');
-Route::post('/payments', 'PaymentController@store')->middleware('verified');
-Route::get('/payments/all', 'PaymentController@index')->name('show-all-payments')->middleware('verified');
-Route::get('/payments/search', 'PaymentController@index')->middleware('verified');
-Route::delete('/payments/{payment_id}', 'PaymentController@destroy')->middleware('verified');
+Route::get('units/{unit_id}/tenants/{tenant_id}/payments/{payment_id}', 'PaymentController@show')->name('show-payment')->middleware(['auth', 'verified']);
+Route::post('/payments', 'PaymentController@store')->middleware(['auth', 'verified']);
+Route::get('/payments/all', 'PaymentController@index')->name('show-all-payments')->middleware(['auth', 'verified']);
+Route::get('/payments/search', 'PaymentController@index')->middleware(['auth', 'verified']);
+Route::delete('/payments/{payment_id}', 'PaymentController@destroy')->middleware(['auth', 'verified']);
 
-Route::get('/units/{unit_id}/tenants/{tenant_id}/payments/{payment_id}/dates/{payment_created}/export', 'TenantController@export')->middleware('verified');
+Route::get('/units/{unit_id}/tenants/{tenant_id}/payments/{payment_id}/dates/{payment_created}/export', 'TenantController@export')->middleware(['auth', 'verified']);
 
-Route::get('/units/{unit_id}/tenants/{tenant_id}/billings/export', 'TenantController@exportBills')->middleware('verified');
+Route::get('/units/{unit_id}/tenants/{tenant_id}/billings/export', 'TenantController@exportBills')->middleware(['auth', 'verified']);
 
 //routes for tenants
-Route::get('/units/{unit_id}/tenants/{tenant_id}', 'TenantController@show')->name('show-tenant')->middleware('verified');
-Route::post('/tenants', 'TenantController@store')->middleware('verified');
-Route::get('/units/{unit_id}/tenants/{tenant_id}/edit', 'TenantController@edit')->middleware('verified');
-Route::put('/units/{unit_id}/tenants/{tenant_id}/', 'TenantController@update')->middleware('verified');
-Route::post('/units/{unit_id}/tenants/{tenant_id}', 'TenantController@moveout')->middleware('verified');
-Route::post('/units/{unit_id}/tenants/{tenant_id}/renew', 'TenantController@renew')->middleware('verified');
-Route::delete('/tenants/{tenant_id}', 'TenantController@destroy')->middleware('verified');
+Route::get('/units/{unit_id}/tenants/{tenant_id}', 'TenantController@show')->name('show-tenant')->middleware(['auth', 'verified']);
+Route::post('/tenants', 'TenantController@store')->middleware(['auth', 'verified']);
+Route::get('/units/{unit_id}/tenants/{tenant_id}/edit', 'TenantController@edit')->middleware(['auth', 'verified']);
+Route::put('/units/{unit_id}/tenants/{tenant_id}/', 'TenantController@update')->middleware(['auth', 'verified']);
+Route::post('/units/{unit_id}/tenants/{tenant_id}', 'TenantController@moveout')->middleware(['auth', 'verified']);
+Route::post('/units/{unit_id}/tenants/{tenant_id}/renew', 'TenantController@renew')->middleware(['auth', 'verified']);
+Route::delete('/tenants/{tenant_id}', 'TenantController@destroy')->middleware(['auth', 'verified']);
 
 Route::get('/tenants', function(){
 
@@ -777,7 +777,7 @@ Route::get('/concerns', function(){
         return view('unregistered');
     }
 
-})->middleware('verified');
+})->middleware(['auth', 'verified']);
 
 Route::get('/users', function(){
 
@@ -802,7 +802,7 @@ Route::get('/users', function(){
         return view('unregistered');
     }
 
-})->middleware('verified');
+})->middleware(['auth', 'verified']);
 
 Route::get('/owners', function(){
     if(auth()->user()->status === 'registered' || auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager'){
@@ -819,7 +819,7 @@ Route::get('/owners', function(){
             return view('unregistered');
     }
     
-})->middleware('verified');
+})->middleware(['auth', 'verified']);
 
 Route::get('/collections', function(){
     if(auth()->user()->status === 'registered' && (auth()->user()->user_type === 'billing' || auth()->user()->user_type === 'manager' || auth()->user()->user_type === 'treasury')){
@@ -853,7 +853,7 @@ Route::get('/collections', function(){
         return view('unregistered');
     }
    
-})->middleware('verified');
+})->middleware(['auth', 'verified']);
 
 Route::get('/bills', function(){
     if(auth()->user()->status === 'registered' || auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager'){
@@ -876,7 +876,7 @@ Route::get('/bills', function(){
         return view('unregistered');
     }
    
-})->middleware('verified');
+})->middleware(['auth', 'verified']);
 
 Route::get('/account-payables', function(){
     if(auth()->user()->status === 'registered' || auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager'){
@@ -885,7 +885,7 @@ Route::get('/account-payables', function(){
         return view('unregistered');
     }
    
-})->middleware('verified');
+})->middleware(['auth', 'verified']);
 
 Route::get('/housekeeping', function(){
     if(auth()->user()->status === 'registered' || auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager'){
@@ -900,7 +900,7 @@ Route::get('/housekeeping', function(){
         return view('unregistered');
     }
    
-})->middleware('verified');
+})->middleware(['auth', 'verified']);
 
 Route::get('/maintenance', function(){
     if(auth()->user()->status === 'registered' || auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager'){
@@ -915,7 +915,7 @@ Route::get('/maintenance', function(){
         return view('unregistered');
     }
    
-})->middleware('verified');
+})->middleware(['auth', 'verified']);
 
 Route::get('/job-orders', function(){
     if(auth()->user()->status === 'registered' || auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager'){
@@ -925,83 +925,83 @@ Route::get('/job-orders', function(){
         return view('unregistered');
     }
    
-})->middleware('verified');
+})->middleware(['auth', 'verified']);
 
 //step1
-Route::get('/units/{unit_id}/tenant-step1', 'TenantController@createTenantStep1')->middleware('verified');
-Route::post('/units/{unit_id}/tenant-step1', 'TenantController@postTenantStep1')->middleware('verified');
+Route::get('/units/{unit_id}/tenant-step1', 'TenantController@createTenantStep1')->middleware(['auth', 'verified']);
+Route::post('/units/{unit_id}/tenant-step1', 'TenantController@postTenantStep1')->middleware(['auth', 'verified']);
 
 //step2
-Route::get('/units/{unit_id}/tenant-step2', 'TenantController@createTenantStep2')->middleware('verified');
-Route::post('/units/{unit_id}/tenant-step2', 'TenantController@postTenantStep2')->middleware('verified');
+Route::get('/units/{unit_id}/tenant-step2', 'TenantController@createTenantStep2')->middleware(['auth', 'verified']);
+Route::post('/units/{unit_id}/tenant-step2', 'TenantController@postTenantStep2')->middleware(['auth', 'verified']);
 
 //step3
-Route::get('/units/{unit_id}/tenant-step3', 'TenantController@createTenantStep3')->middleware('verified');
-Route::post('/units/{unit_id}/tenant-step3', 'TenantController@postTenantStep3')->middleware('verified');
+Route::get('/units/{unit_id}/tenant-step3', 'TenantController@createTenantStep3')->middleware(['auth', 'verified']);
+Route::post('/units/{unit_id}/tenant-step3', 'TenantController@postTenantStep3')->middleware(['auth', 'verified']);
 
 //step-4
-Route::get('/units/{unit_id}/tenant-step4', 'TenantController@createTenantStep4')->middleware('verified');
-Route::post('/units/{unit_id}/tenant-step4', 'TenantController@postTenantStep4')->middleware('verified');
+Route::get('/units/{unit_id}/tenant-step4', 'TenantController@createTenantStep4')->middleware(['auth', 'verified']);
+Route::post('/units/{unit_id}/tenant-step4', 'TenantController@postTenantStep4')->middleware(['auth', 'verified']);
 
 //routes for billings
-Route::get('/units/{unit_id}/tenants/{tenant_id}/billings', 'TenantController@show_billings')->name('show-billings')->middleware('verified');
-Route::post('/tenants/billings', 'TenantController@add_billings')->name("add-billings")->middleware('verified');
-Route::post('/tenants/billings-post', 'TenantController@post_billings')->middleware('verified');
+Route::get('/units/{unit_id}/tenants/{tenant_id}/billings', 'TenantController@show_billings')->name('show-billings')->middleware(['auth', 'verified']);
+Route::post('/tenants/billings', 'TenantController@add_billings')->name("add-billings")->middleware(['auth', 'verified']);
+Route::post('/tenants/billings-post', 'TenantController@post_billings')->middleware(['auth', 'verified']);
 
 
-Route::get('/units/{unit_id}/tenants/{tenant_id}/payments', 'TenantController@show_payments')->name('show-payments')->middleware('verified');
+Route::get('/units/{unit_id}/tenants/{tenant_id}/payments', 'TenantController@show_payments')->name('show-payments')->middleware(['auth', 'verified']);
 
 //route for searching tenant
-Route::get('/tenants/search', 'TenantController@search')->middleware('verified');
+Route::get('/tenants/search', 'TenantController@search')->middleware(['auth', 'verified']);
 
 //routes for investors
-Route::get('/units/{unit_id}/unit_owners/{unit_owner_id}', 'UnitOwnersController@show')->name('show-investor')->middleware('verified');
-Route::post('/units', 'UnitsController@store')->middleware('verified');
-Route::delete('/units/{$unit_id}', 'UnitsController@destroy')->middleware('verified');
+Route::get('/units/{unit_id}/unit_owners/{unit_owner_id}', 'UnitOwnersController@show')->name('show-investor')->middleware(['auth', 'verified']);
+Route::post('/units', 'UnitsController@store')->middleware(['auth', 'verified']);
+Route::delete('/units/{$unit_id}', 'UnitsController@destroy')->middleware(['auth', 'verified']);
 
 //route for searching investors
-Route::get('/unit_owners/{unit_owner_id}', 'UnitOwnersController@search')->middleware('verified');
+Route::get('/unit_owners/{unit_owner_id}', 'UnitOwnersController@search')->middleware(['auth', 'verified']);
 
 //route for users
-Route::get('/users/search', 'UserController@search')->middleware('verified');
-Route::get('/users/{user_id}', 'UserController@show')->middleware('verified');
-Route::post('/users', 'UserController@store')->middleware('verified');
-Route::get('/users/{user_id}/edit', 'UserController@edit')->middleware('verified');
-Route::put('users/{user_id}', 'UserController@update')->middleware('verified');
-Route::delete('/users/{user_id}', 'UserController@destroy')->middleware('verified');
+Route::get('/users/search', 'UserController@search')->middleware(['auth', 'verified']);
+Route::get('/users/{user_id}', 'UserController@show')->middleware(['auth', 'verified']);
+Route::post('/users', 'UserController@store')->middleware(['auth', 'verified']);
+Route::get('/users/{user_id}/edit', 'UserController@edit')->middleware(['auth', 'verified']);
+Route::put('users/{user_id}', 'UserController@update')->middleware(['auth', 'verified']);
+Route::delete('/users/{user_id}', 'UserController@destroy')->middleware(['auth', 'verified']);
 
-Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout')->middleware('verified');
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout')->middleware(['auth', 'verified']);
 
 //step1
-Route::get('/units/{unit_id}/tenant-step1', 'TenantController@createTenantStep1')->middleware('verified');
-Route::post('/units/{unit_id}/tenant-step1', 'TenantController@postTenantStep1')->middleware('verified');
+Route::get('/units/{unit_id}/tenant-step1', 'TenantController@createTenantStep1')->middleware(['auth', 'verified']);
+Route::post('/units/{unit_id}/tenant-step1', 'TenantController@postTenantStep1')->middleware(['auth', 'verified']);
 
 //step2
-Route::get('/units/{unit_id}/tenant-step2', 'TenantController@createTenantStep2')->middleware('verified');
-Route::post('/units/{unit_id}/tenant-step2', 'TenantController@postTenantStep2')->middleware('verified');
+Route::get('/units/{unit_id}/tenant-step2', 'TenantController@createTenantStep2')->middleware(['auth', 'verified']);
+Route::post('/units/{unit_id}/tenant-step2', 'TenantController@postTenantStep2')->middleware(['auth', 'verified']);
 
 //step3
-Route::get('/units/{unit_id}/tenant-step3', 'TenantController@createTenantStep3')->middleware('verified');
-Route::post('/units/{unit_id}/tenant-step3', 'TenantController@postTenantStep3')->middleware('verified');
+Route::get('/units/{unit_id}/tenant-step3', 'TenantController@createTenantStep3')->middleware(['auth', 'verified']);
+Route::post('/units/{unit_id}/tenant-step3', 'TenantController@postTenantStep3')->middleware(['auth', 'verified']);
 
 //step-4
-Route::get('/units/{unit_id}/tenant-step4', 'TenantController@createTenantStep4')->middleware('verified');
-Route::post('/units/{unit_id}/tenant-step4', 'TenantController@postTenantStep4')->middleware('verified');
+Route::get('/units/{unit_id}/tenant-step4', 'TenantController@createTenantStep4')->middleware(['auth', 'verified']);
+Route::post('/units/{unit_id}/tenant-step4', 'TenantController@postTenantStep4')->middleware(['auth', 'verified']);
 
 //concerns
-Route::post('/concerns', 'ConcernController@store')->middleware('verified');
+Route::post('/concerns', 'ConcernController@store')->middleware(['auth', 'verified']);
 
 //show concerns 
-Route::get('/units/{unit_id}/tenants/{tenant_id}/concerns/{concern_id}', 'ConcernController@show')->middleware('verified');
+Route::get('/units/{unit_id}/tenants/{tenant_id}/concerns/{concern_id}', 'ConcernController@show')->middleware(['auth', 'verified']);
 
 //update concerns
-Route::put('/concerns/{concern_id}', 'ConcernController@update')->middleware('verified');
+Route::put('/concerns/{concern_id}', 'ConcernController@update')->middleware(['auth', 'verified']);
 
-Route::post('/billings', 'BillingController@store')->middleware('verified');
+Route::post('/billings', 'BillingController@store')->middleware(['auth', 'verified']);
 
 
 //routes for personnels
-Route::post('/personnels', 'PersonnelController@store')->middleware('verified');
+Route::post('/personnels', 'PersonnelController@store')->middleware(['auth', 'verified']);
 
 //tenant's online reservation
 Route::post('/reservation','TenantController@post_reservation');
