@@ -670,7 +670,7 @@
     </section><!-- End Frequently Asked Questions Section --> --}}
 
     <!-- ======= Contact Section ======= -->
-    <section id="contact" class="contact section-bg" >
+    <section id="contact" class="contact" >
       <div class="container">
 
         <div class="section-title">
