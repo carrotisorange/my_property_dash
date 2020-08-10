@@ -279,9 +279,9 @@
           
         </div>
 
-        <div class="owl-carousel testimonials-carousel">
+        
         <img src="{{ asset('index/assets/img/guide.png') }}" class="img" alt="">
-        </div>
+      
 
       </div>
     </section><!-- End Testimonials Section --> 
