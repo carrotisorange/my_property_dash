@@ -964,9 +964,9 @@ Route::get('/unit_owners/{unit_owner_id}', 'UnitOwnersController@search')->middl
 
 //route for users
 Route::get('/users/search', 'UserController@search')->middleware(['auth', 'verified']);
-Route::get('/users/{user_id}', 'UserController@show')->middleware('auth');
+Route::get('/users/{user_id}', 'UserController@show')->middleware(['auth', 'verified']);
 Route::post('/users', 'UserController@store')->middleware(['auth', 'verified']);
-Route::get('/users/{user_id}/edit', 'UserController@edit')->middleware(['auth', 'verified']);
+Route::get('/users/{user_id}/edit', 'UserController@edit')->middleware('auth');
 Route::put('users/{user_id}', 'UserController@update')->middleware(['auth', 'verified']);
 Route::delete('/users/{user_id}', 'UserController@destroy')->middleware(['auth', 'verified']);
 
