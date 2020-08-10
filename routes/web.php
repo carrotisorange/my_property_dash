@@ -757,7 +757,7 @@ Route::get('/tenants', function(){
         return view('unregistered');
     }
 
-})->middleware('auth');
+})->middleware(['auth', 'verified']);
 
 Route::get('/concerns', function(){
 
