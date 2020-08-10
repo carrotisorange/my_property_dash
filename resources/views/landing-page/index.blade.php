@@ -261,7 +261,7 @@
    
 
     <!-- ======= Testimonials Section ======= -->
-     <section id="testimonials" class="testimonials">
+     <section id="testimonials" class="testimonials section-bg">
       <div class="container">
 
         <div class="section-title">
