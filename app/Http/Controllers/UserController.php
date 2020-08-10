@@ -117,7 +117,6 @@ class UserController extends Controller
         }
         if($request->password === null){
             DB::table('users')
-         
             ->update(
                     [
                         'name' => $request->name,
