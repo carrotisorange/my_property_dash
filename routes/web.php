@@ -24,25 +24,25 @@ Route::get('/resources', function(){
 });
 
 Route::get('/', function(){
-    if(Auth::guest()){
+    $clients = DB::table('users')
+    ->select('')
+    ->where('user_type', 'admin')
+    ->count();
 
-        $clients = DB::table('users')
-        ->select('')
-        ->where('user_type', 'admin')
-        ->count();
-
-        $properties = Unit::distinct()->count('unit_property');
+    $properties = Unit::distinct()
+    ->count('unit_property');
       
-        $buildings = Unit::distinct()->count('building');
+    $buildings = Unit::distinct()
+    ->count('building');
 
-        $rooms = Unit::distinct()->count('unit_no');
+    $rooms = Unit::distinct()
+    ->count('unit_no');
 
-        $tenants = DB::table('tenants')
-        ->where('tenant_status', 'active')
-        ->count();
+    $tenants = DB::table('tenants')
+    ->where('tenant_status', 'active')
+    ->count();
 
-        return view('landing-page.index', compact('clients','properties', 'buildings', 'rooms', 'tenants'));
-    }
+    return view('landing-page.index', compact('clients','properties', 'buildings', 'rooms', 'tenants'));
 }); 
 
 Route::get('/board', function(Request $request){
