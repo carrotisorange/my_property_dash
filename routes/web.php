@@ -714,7 +714,7 @@ Route::get('/home', function(){
             return view('unregistered');
         }
    
-})->middleware('auth');
+})->middleware('auth', 'verified');
 
 //routes for payments
 Route::get('units/{unit_id}/tenants/{tenant_id}/payments/{payment_id}', 'PaymentController@show')->name('show-payment')->middleware('auth');
