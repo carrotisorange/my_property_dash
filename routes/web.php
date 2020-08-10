@@ -23,8 +23,7 @@ Route::get('/resources', function(){
     return view('landing-page.resources');
 });
 
-Route::get('/', function(Request $request){
-
+Route::get('/', function(){
     if(Auth::guest()){
 
         $clients = DB::table('users')
@@ -44,6 +43,9 @@ Route::get('/', function(Request $request){
 
         return view('landing-page.index', compact('clients','properties', 'buildings', 'rooms', 'tenants'));
     }
+}); 
+
+Route::get('/board', function(Request $request){
 
     if(auth()->user()->status === 'unregistered'){
         return view('unregistered');
