@@ -967,7 +967,7 @@ Route::get('/users/search', 'UserController@search')->middleware(['auth', 'verif
 Route::get('/users/{user_id}', 'UserController@show')->middleware('auth');
 Route::post('/users', 'UserController@store')->middleware(['auth', 'verified']);
 Route::get('/users/{user_id}/edit', 'UserController@edit')->middleware('auth');
-Route::put('users/{user_id}', 'UserController@update')->middleware(['auth', 'verified']);
+Route::put('users/{user_id}', 'UserController@update')->middleware('auth');
 Route::delete('/users/{user_id}', 'UserController@destroy')->middleware(['auth', 'verified']);
 
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout')->middleware(['auth', 'verified']);
