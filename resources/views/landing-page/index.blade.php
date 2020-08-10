@@ -170,7 +170,7 @@
 
         <div class="row">
 
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+          <div class="col-lg-4 col-md-6 d-flex" data-aos="zoom-in" data-aos-delay="100">
             
               <div class="icon-box iconbox-teal">
               <div class="icon">
@@ -182,7 +182,7 @@
             </div>
           </div>
 
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in" data-aos-delay="200">
+          <div class="col-lg-4 col-md-6 d-flex mt-4 mt-md-0" data-aos="zoom-in" data-aos-delay="200">
             <div class="icon-box iconbox-orange ">
               <div class="icon">
                 <i class="bx bx-file"></i>
@@ -192,7 +192,7 @@
             </div>
           </div>
 
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0" data-aos="zoom-in" data-aos-delay="300">
+          <div class="col-lg-4 col-md-6 d-flex mt-4 mt-lg-0" data-aos="zoom-in" data-aos-delay="300">
             <div class="icon-box iconbox-pink">
               <div class="icon">
                 <i class="bx bx-tachometer"></i>
@@ -202,17 +202,17 @@
             </div>
           </div>
 
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="100">
+          <div class="col-lg-4 col-md-6 d-flex mt-4" data-aos="zoom-in" data-aos-delay="100">
             <div class="icon-box iconbox-yellow">
               <div class="icon">
-                <i class="bx credit-card"></i>
+                <i class="bx bx-credit-card"></i>
               </div>
               <h4><a href="">Online Payment</a></h4>
               <p hidden>Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur. Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur</p>
             </div>
           </div>
 
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="200">
+          <div class="col-lg-4 col-md-6 d-flex mt-4" data-aos="zoom-in" data-aos-delay="200">
             <div class="icon-box iconbox-red">
               <div class="icon">
                 <i class="bx bx-wrench"></i>
@@ -222,30 +222,30 @@
             </div>
           </div>
 
-           <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
+           <div class="col-lg-4 col-md-6 d-flex mt-4" data-aos="zoom-in" data-aos-delay="300">
             <div class="icon-box iconbox-blue">
               <div class="icon">
-                <i class="bx bxl-user"></i>
+                <i class="bx bx-user"></i>
               </div>
               <h4><a href="">Landlord Portal</a></h4>
               <p hidden>Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur. Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur</p>
             </div>
           </div>
 
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
+          <div class="col-lg-4 col-md-6 d-flex mt-4" data-aos="zoom-in" data-aos-delay="300">
             <div class="icon-box iconbox-blue">
               <div class="icon">
-                <i class="bx user-circle"></i>
+                <i class="bx bx-user-circle"></i>
               </div>
               <h4><a href="">Tenant Portal</a></h4>
               <p hidden>Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur. Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur</p>
             </div>
           </div>
 
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
+          <div class="col-lg-4 col-md-6 d-flex mt-4" data-aos="zoom-in" data-aos-delay="300">
             <div class="icon-box iconbox-blue">
               <div class="icon">
-                <i class="bx user-voice"></i>
+                <i class="bx bx-user-voice"></i>
               </div>
               <h4><a href="">Concierge</a></h4>
               <p hidden>Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur. Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur</p>
