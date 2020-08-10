@@ -358,17 +358,13 @@
             <div class="card shadow mb-4">
              <div class="card-header py-3">
                <h6 class="m-0 font-weight-bold text-primary">PROFILE</h6>
-               <div class="dropdown no-arrow">
-                    <a title="edit profile" href="/users/{{ $user->id }}/edit"><i class="fas fa-user-edit fa-fw"></i>
-                    </a>
-              </div>
              </div>
              <div class="card-body">
               <div class="table-responsive">
                 <table class="table table-bordered">
                    <tr>
                       <th>Name</th>
-                      <td>{{ $user->name }}</td>
+                      <td>{{ $user->name }}&nbsp <a title="edit profile" href="/users/{{ $user->id }}/edit"><i class="fas fa-user-edit fa-fw"></i></a></td>
                    </tr>
                    <tr>
                      <th>Email</th>
