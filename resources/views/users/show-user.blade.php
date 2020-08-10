@@ -360,8 +360,7 @@
                <h6 class="m-0 font-weight-bold text-primary">PROFILE</h6>
                <div class="dropdown no-arrow">
                     <a title="edit profile" href="/users/{{ $user->id }}/edit"><i class="fas fa-user-edit fa-fw"></i>
-                                  <i class="fas fa-edit fa-sm fa-fw text-gray-400"></i>
-                      </a>
+                    </a>
               </div>
              </div>
              <div class="card-body">
