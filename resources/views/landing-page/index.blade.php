@@ -68,7 +68,7 @@
           <li><a href="#services">Services</a></li>    
           <li><a href="#pricing">Pricing</a></li>
           <li><a href="#contact">Contact</a></li>
-          <li><a class="btn" target="_blank" href="/login">Login</a></li>
+          <li><a class="btn-get-started" target="_blank" href="/login">Login</a></li>
         </ul>
       </nav><!-- .nav-menu -->
 
