@@ -279,7 +279,7 @@
           
         </div>
 
-        <div class="row">
+        <div class="row text-center">
             <div class="col-md-12">
               <img src="{{ asset('index/assets/img/guide.png') }}" class="img" alt="">  
             </div>
