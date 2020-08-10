@@ -669,7 +669,7 @@ Route::get('/board', function(Request $request){
                     )
             );
 
-    });
+    })->middleware('auth', 'verify');
 
 //routes for units
 Route::get('units/{unit_id}', 'UnitsController@show')->middleware('auth');
