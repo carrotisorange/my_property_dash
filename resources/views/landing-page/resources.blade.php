@@ -129,10 +129,6 @@
       <div class="container">
 
       <div class="card">
-      <img src="{{ asset('index/assets/img/guide.png') }}" class="img" alt="">
-      </div>
-
-      <div class="card">
       <div class="card-header">
       <h4 >Being Customer Centric.</h4>
       </div>
