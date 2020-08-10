@@ -22,7 +22,6 @@ Route::get('/resources', function(){
 
 Route::get('/', function(){
     $clients = DB::table('users')
-    ->select('')
     ->where('user_type', 'admin')
     ->count();
 
@@ -666,7 +665,7 @@ Route::get('/board', function(Request $request){
                     )
             );
 
-    })->middleware('auth', 'verified');
+    })->middleware('verified');
 
 //routes for units
 Route::get('units/{unit_id}', 'UnitsController@show')->middleware('auth');
