@@ -52,7 +52,7 @@
     </div>  --}}
 
     <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item">
+    <li class="nav-item active">
         <a class="nav-link" href="/board">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
