@@ -46,13 +46,13 @@
 
       <nav class="nav-menu d-none d-lg-block">
         <ul>
-          <li><a href="/">Home</a></li>
-          <li class="drop-down"><a href="">Resources</a>
+          <li><a class="btn" href="/">Home</a></li>
+          <li class="drop-down active"><a class="btn" href="">Resources</a>
             <ul>
               <li><a target="_blank" href="/resources#guidelines-during-covid-19">Guidelines During COVID-19</a></li>
               <li class="drop-down"><a href="#">Articles</a>
                 <ul>
-                <li><a target="_blank" href="/resources/#being-customer-centric">Being Customer Centric</a></li>
+                  <li><a target="_blank" href="/resources/#being-customer-centric">Being Customer Centric</a></li>
                   <li><a target="_blank" href="/resources/#navigating-to-new-normal">Navigating to New Normal</a></li>
                   <li><a target="_blank" href="/resources/#is-property-management-right-for-me">Is Property Management right for me?</a></li>
                   <li><a target="_blank" href="/resources/#why-did-your-start-property-manager-online" href="#">Why did you start thepropertymanager.online?</a></li>
@@ -65,10 +65,10 @@
               <li><a href="#">Drop Down 4</a></li> -->
             </ul>
           </li>
-          <li><a href="/#services">Services</a></li>    
-          <li><a href="/#pricing">Pricing</a></li>
-          <li><a href="/#contact">Contact</a></li>
-          <li><a target="_blank" href="/login">Login</a></li>
+          <li><a class="btn" href="#services">Services</a></li>    
+          <li><a class="btn" href="#pricing">Pricing</a></li>
+          <li><a class="btn" href="#contact">Contact</a></li>
+          <li><a class="btn btn-warning" target="_blank" href="/login">Login</a></li>
         </ul>
       </nav><!-- .nav-menu -->
 
