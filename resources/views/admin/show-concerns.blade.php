@@ -89,7 +89,7 @@
         <!-- Nav Item - Tables -->
            <!-- Nav Item - Tables -->
   <li class="nav-item">
-      <a class="nav-link" href="/concerns">
+      <a class="nav-link active" href="/concerns">
     <i class="far fa-comment-dots"></i>
         <span>Concerns</span></a>
   </li>
