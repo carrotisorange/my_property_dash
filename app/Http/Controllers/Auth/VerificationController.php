@@ -27,7 +27,7 @@ class VerificationController extends Controller
      *
      * @var string
      */
-     protected $redirectTo = '/';
+     protected $redirectTo = '/board';
     // protected function authenticated(Request $request, $user)
     // {
     //     if($user->status === 'unregistered'){
@@ -44,7 +44,7 @@ class VerificationController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth', 'verified');
+        $this->middleware('verified');
         $this->middleware('signed')->only('verify');
         $this->middleware('throttle:6,1')->only('verify', 'resend');
     }
