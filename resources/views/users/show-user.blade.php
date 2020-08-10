@@ -393,6 +393,10 @@
                   <tr>
                      <th>Property Type</th>
                      <td>{{ $user->property_type }}</td>
+                  </tr>
+                  <tr>
+                     <th>Account Created</th>
+                     <td>{{ $user->email_verified_at }}</td>
                   </tr>  
                 </table>
                  </div>
