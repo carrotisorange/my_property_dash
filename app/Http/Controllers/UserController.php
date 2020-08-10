@@ -120,7 +120,7 @@ class UserController extends Controller
            
             ->update(
                     [
-                        'email_verified_at' = Carbon\Carbon::now();
+                        'email_verified_at' => Carbon\Carbon::now(),
                     ]
                 );
 
