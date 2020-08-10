@@ -178,7 +178,7 @@
                 
               </div>
               <h4><a href="">Room Management</a></h4>
-              <p hidden>Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur. Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur</p>
+              <p>Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur. Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur</p>
             </div>
           </div>
 
@@ -188,7 +188,7 @@
                 <i class="bx bx-file"></i>
               </div>
               <h4><a href="">Billing and Collection</a></h4>
-              <p hidden>Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur. Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur</p>
+              <p >Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur. Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur</p>
             </div>
           </div>
 
@@ -198,7 +198,7 @@
                 <i class="bx bx-tachometer"></i>
               </div>
               <h4><a href="">Expense Tracker</a></h4>
-              <p hidden>Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur. Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur</p>
+              <p >Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur. Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur</p>
             </div>
           </div>
 
@@ -208,7 +208,7 @@
                 <i class="bx bx-credit-card"></i>
               </div>
               <h4><a href="">Online Payment</a></h4>
-              <p hidden>Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur. Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur</p>
+              <p >Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur. Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur</p>
             </div>
           </div>
 
@@ -218,7 +218,7 @@
                 <i class="bx bx-wrench"></i>
               </div>
               <h4><a href="">Job Order</a></h4>
-              <p hidden>Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur. Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur</p>
+              <p >Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur. Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur</p>
             </div>
           </div>
 
@@ -228,7 +228,7 @@
                 <i class="bx bx-user"></i>
               </div>
               <h4><a href="">Landlord Portal</a></h4>
-              <p hidden>Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur. Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur</p>
+              <p >Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur. Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur</p>
             </div>
           </div>
 
@@ -238,7 +238,7 @@
                 <i class="bx bx-user-circle"></i>
               </div>
               <h4><a href="">Tenant Portal</a></h4>
-              <p hidden>Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur. Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur</p>
+              <p >Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur. Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur</p>
             </div>
           </div>
 
@@ -248,7 +248,7 @@
                 <i class="bx bx-user-voice"></i>
               </div>
               <h4><a href="">Concierge</a></h4>
-              <p hidden>Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur. Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur</p>
+              <p >Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur. Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur</p>
             </div>
           </div> 
 
