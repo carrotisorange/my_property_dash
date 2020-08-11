@@ -605,9 +605,10 @@ class TenantController extends Controller
             ->join('tenants', 'unit_id', 'unit_tenant_id')
             ->join('billings', 'tenant_id', 'billing_tenant_id')
             ->where('unit_property', Auth::user()->property)
-            ->whereIn('billing_desc', ['Monthly Rent', 'Surcharge', 'Rent'])
+            ->whereIn('billing_desc', ['Surcharge', 'Rent'])
             ->where('billing_status', 'unpaid')
             ->where('billing_date', '<', Carbon::now()->addDays(7))
+            ->where('billing_amt', '<=' 0)
             ->groupBy('tenant_id')
             ->get();
 
