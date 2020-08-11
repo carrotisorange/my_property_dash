@@ -510,7 +510,7 @@
                         </div>
                         
                     </div>
-    
+                    @if($item->tenants_note !== 'new' )
                     <h4>Note</h4>
                     <div class="form-group row">
                         <div class="col">
@@ -519,6 +519,7 @@
                             </textarea>
                         </div>
                     </div>
+                    @endif
     
     
         <p class="text-right">   

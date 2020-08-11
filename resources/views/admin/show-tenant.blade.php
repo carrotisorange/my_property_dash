@@ -546,14 +546,14 @@
                                   @endfor     
                               </td>
                           </tr>
-                          {{-- @if($tenant->tenant_status === 'inactive')
+                           @if($tenant->tenant_status === 'inactive')
                           <tr>
                             <td>Actual Moveout Date</td>
                             <td>
-                                {{ Carbon\Carbon::parse($tenant->actual_moveout_date)->format('M d Y') }}
+                                {{ Carbon\Carbon::parse($tenant->)->format('M d Y') }}
                             </td>
                         </tr>
-                          @endif --}}
+                          @endif 
                           <tr>
                               <td>Note</td>
                               <td>
