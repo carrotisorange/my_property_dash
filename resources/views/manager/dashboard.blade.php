@@ -221,7 +221,7 @@
               <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-bell fa-fw"></i>
                 <!-- Counter - Alerts -->
-                @if($request_to_moveout->count() > 0)
+                @if($request_to_moveout->count() > 3)
                   <span class="badge badge-danger badge-counter">{{ $request_to_moveout->count() }}+</span>
                 @else
                   <span class="badge badge-danger badge-counter">{{ $request_to_moveout->count()  }}</span>
