@@ -372,12 +372,16 @@
             <tr>
               <th class="text-center" >{{ $current_bill_no++ }}</th>
               <td>{{ $item->first_name.' '.$item->last_name }} 
-                  @if($item->tenants_note === 'new tenant' || $item->tenants_note === 'new' )
+                  @if($item->tenants_note === 'new' )
                   <span class="badge badge-success">{{ $item->tenants_note }}</span>
                   @endif
                 <td>{{ $item->building.' '.$item->unit_no }}</td>
                 <td>
+                  @if($item->tenants_note !== 'new' )
+                    <input form="add_billings" type="text" class='col-md-8' name="details{{ $details_ctr++  }}" value="{{ Carbon\Carbon::parse($item->movein_date)->startOfMonth()->format('M d') }}-{{ Carbon\Carbon::now()->endOfMonth()->format('d Y') }} " >
+                  @else
                     <input form="add_billings" type="text" class='col-md-8' name="details{{ $details_ctr++  }}" value="{{ Carbon\Carbon::now()->startOfMonth()->format('M d') }}-{{ Carbon\Carbon::now()->endOfMonth()->format('d Y') }} " >
+                  @endif
                 </td>
                 <td>
                     <input form="add_billings" class="col-md-6" type="number" name="amt{{ $amt_ctr++ }}" step="0.01"  value="{{ $item->tenant_monthly_rent }}" oninput="this.value = Math.abs(this.value)">

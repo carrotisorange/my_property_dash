@@ -358,7 +358,7 @@
             <tr>
               <th class="text-center" >{{ $current_bill_no++ }}</th>
                 <td>{{ $item->first_name.' '.$item->last_name }}
-                  @if($item->tenants_note === 'new tenant' || $item->tenants_note === 'new' )
+                  @if($item->tenants_note === 'new' )
                   <span class="badge badge-success">{{ $item->tenants_note }}</span>
                   @endif
                 <td>{{ $item->building.' '.$item->unit_no }}</td>
