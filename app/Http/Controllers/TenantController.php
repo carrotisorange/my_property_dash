@@ -608,7 +608,7 @@ class TenantController extends Controller
             ->whereIn('billing_desc', ['Surcharge', 'Rent'])
             ->where('billing_status', 'unpaid')
             ->where('billing_date', '<', Carbon::now()->addDays(7))
-            ->where('billing_amt', '<=', 0)
+            ->where('billing_amt', '>', 0)
             ->groupBy('tenant_id')
             ->get();
 
