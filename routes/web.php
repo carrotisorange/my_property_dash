@@ -670,6 +670,7 @@ Route::get('/board', function(Request $request){
             ->whereNotNull('tenants.created_at')
             ->whereNotNull('tenants.updated_at')
             ->get();
+            
       
         return view('manager.dashboard', 
             compact(
