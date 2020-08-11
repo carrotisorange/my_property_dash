@@ -332,17 +332,17 @@
                               <h6 class="m-0 font-weight-bold text-primary">DETAILS OF THE CONCERN</h6>
                                 <!-- start -->
                                 <div class="dropdown no-arrow">
-                                  <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                  <a href="#" class="dropdown-toggle" data-toggle="modal" data-target="#editConcernFullDetails" >
+                                  <i class="fas fa-edit fa-sm fa-fw text-gray-400"></i>
                                   </a>
-                                  <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                                  <!-- <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                                     <div class="dropdown-header">Dropdown Header:</div>
-                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#editConcernFullDetails">Edit details</a>
+                                    <a class="dropdown-item" href="#">Action</a>
+                                    <a class="dropdown-item" href="#">Another action</a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#editConcernFullDetails">Create job order</a>
-                                  </div> 
+                                    <a class="dropdown-item" href="#">Something else here</a>
+                                  </div> -->
                                 </div>
-                              
                                 <!-- end -->
                               </div>
                     
@@ -360,10 +360,15 @@
                               <h6 class="m-0 font-weight-bold text-primary">ACTION THAT HAS BEEN TAKEN TO ADDRESS THE CONCERN</h6>
                                 <!-- start -->
                                 <div class="dropdown no-arrow">
-                                  <a href="#" class="dropdown-toggle" data-toggle="modal" data-target="#editActionTakenForm" >
-                                  <i class="fas fa-edit fa-sm fa-fw text-gray-400"></i>
+                                  <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                   </a>
-                                 
+                                  <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                                    <div class="dropdown-header">Select Action:</div>
+                                    <a href="#" class="dropdown-toggle" data-toggle="modal" data-target="#editActionTakenForm" >
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#editConcernFullDetails">Create job order</a>
+                                  </div> 
                                 </div>
                                 <!-- end -->
                               </div>
@@ -481,7 +486,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button>
-                    <button form="editConcernDetailsForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want to perform this action?');" ><i class="fas fa-check fa-sm text-white-50"></i> Update Details</button>
+                    <button form="editConcernDetailsForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want to perform this action?');" ><i class="fas fa-check fa-sm text-white-50"></i> Update</button>
                 </div>
             </div>
             </div>
