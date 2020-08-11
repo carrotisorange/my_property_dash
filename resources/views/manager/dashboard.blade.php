@@ -231,13 +231,13 @@
                 @foreach($request_to_moveout as $item)
                 <a class="dropdown-item d-flex align-items-center" href="#">
                   <div class="mr-3">
-                    <div class="icon-circle bg-primary">
-                      <i class="fas fa-file-alt text-white"></i>
+                  <div class="icon-circle bg-warning">
+                      <i class="fas fa-exclamation-triangle text-white"></i>
                     </div>
                   </div>
                   <div>
                     <div class="small text-gray-500">{{Carbon\Carbon::parse($item->created_at)->format('M d Y')}}</div>
-                    <span class="font-weight-bold">A new monthly report is ready to download!</span>
+                    <span class="font-weight-bold">{{ $item->building.' '.$item->unit_no }} is requesting to moveout</span>
                   </div>
                 </a> 
                 @endforeach 

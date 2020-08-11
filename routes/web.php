@@ -658,6 +658,8 @@ Route::get('/board', function(Request $request){
             ->get();
 
             $request_to_moveout = DB::table('tenants')
+            ->join('units', 'unit_id', 'unit_tenant_id')
+            ->where('unit_property', Auth::user()->property)
             ->whereNotNull('created_at')
             ->whereNull('updated_at')
             ->get();
