@@ -482,11 +482,6 @@
     $(document).ready(function(){
        document.getElementById('total_bills').innerHTML = 'Total:  ' + (parseFloat(document.getElementById('amt0').value) + parseFloat(document.getElementById('amt1').value) + parseFloat(document.getElementById('amt2').value)).toFixed(2).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
        });
-          
-   function computeTotal(){
-       document.getElementById('total_bills').innerHTML = 'Total:  ' + (parseFloat(document.getElementById('amt0').value) + parseFloat(document.getElementById('amt1').value) + parseFloat(document.getElementById('amt2').value)).toFixed(2).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-   }
-       
    </script>
 
 </body>
