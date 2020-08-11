@@ -73,7 +73,7 @@
           <span>Home</span></a>
       </li>
   
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="/tenants">
           <i class="fas fa-users fa-chart-area"></i>
           <span>Tenants</span></a>
@@ -474,7 +474,7 @@
                 <div class="modal-body">
                   <div class="row">
                     <div class="table-responsive">
-                      <table class="table table-borderless" width="100%" cellspacing="0">
+                      <table class="table " width="80%" cellspacing="0">
                         <tr>
                           <th><input class="form-check-input" type="checkbox" value="" id="defaultCheck1"></th>
                           <th>Bill No</th>
