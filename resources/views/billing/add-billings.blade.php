@@ -354,7 +354,7 @@
                 
                 <th>PERIOD COVERED</th>     
                 <th>AMOUNT</th>
-                <th></th>
+           
             </tr>
            <?php
              $ctr = 1;
@@ -391,16 +391,18 @@
                 
                 ?>
                   @if($item->tenants_note === 'new' )
-                    <input form="add_billings" class="col-md-6" type="number" name="amt{{ $amt_ctr++ }}" step="0.01"  value="{{ $item->tenant_monthly_rent }}" oninput="this.value = Math.abs(this.value)">
+                    <input form="add_billings" class="col-md-6" type="number" name="amt{{ $amt_ctr++ }}" step="0.01"  value="{{ $item->tenant_monthly_rent }}" oninput="this.value = Math.abs(this.value)">  
+                    @if($item->tenants_note !== 'new' )
+                      prorated
+                    @endif
                   @else
                     <input form="add_billings" class="col-md-6" type="number" name="amt{{ $amt_ctr++ }}" step="0.01"  value="{{ $prorated_monthly_rent }}" oninput="this.value = Math.abs(this.value)">
+                    @if($item->tenants_note !== 'new' )
+                      prorated
+                    @endif
                   @endif
                 </td>
-                <td>
-                  @if($item->tenants_note !== 'new' )
-                    prorated
-                  @endif
-                </td>
+               
            </tr>
            @endforeach
         </table>
