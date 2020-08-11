@@ -663,6 +663,13 @@ Route::get('/board', function(Request $request){
             ->whereNotNull('tenants.created_at')
             ->whereNull('tenants.updated_at')
             ->get();
+
+            $approved_moveout = DB::table('tenants')
+            ->join('units', 'unit_id', 'unit_tenant_id')
+            ->where('unit_property', Auth::user()->property)
+            ->whereNotNull('tenants.created_at')
+            ->whereNotNull('tenants.updated_at')
+            ->get();
       
         return view('manager.dashboard', 
             compact(
@@ -670,7 +677,7 @@ Route::get('/board', function(Request $request){
             'active_tenants', 'pending_tenants', 'owners', 
             'movein_rate','moveout_rate', 'renewed_chart', 'collection_rate', 'reason_for_moving_out_chart',
             'delinquent_accounts','tenants_to_watch_out',
-            'collections_for_the_day','pending_concerns','active_concerns','concerns','request_to_moveout'
+            'collections_for_the_day','pending_concerns','active_concerns','concerns','request_to_moveout','approved_moveout'
                     )
             );
 

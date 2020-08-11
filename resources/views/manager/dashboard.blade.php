@@ -229,9 +229,9 @@
               </a>
               <!-- Dropdown - Alerts -->
               <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
-                <h6 class="dropdown-header">
+                <!-- <h6 class="dropdown-header">
                   Alerts Center
-                </h6>
+                </h6> -->
                 @foreach($request_to_moveout as $item)
                 <a class="dropdown-item d-flex align-items-center" href="/units/{{$item->unit_no}}/tenants/{{ $item->tenant_id }}">
                   <div class="mr-3">
@@ -245,7 +245,22 @@
                   </div>
                 </a> 
                 @endforeach 
-                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+
+                @foreach($approved_moveout as $item)
+                <a class="dropdown-item d-flex align-items-center" href="/units/{{$item->unit_no}}/tenants/{{ $item->tenant_id }}">
+                  <div class="mr-3">
+                  <div class="icon-circle bg-warning">
+                      <i class="fas fa-exclamation-triangle text-white"></i>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="small text-gray-500">{{Carbon\Carbon::parse($item->created_at)->format('M d Y')}}</div>
+                    <span class="font-weight-bold">{{ $item->building.' '.$item->unit_no }} is requesting to moveout.</span>
+                  </div>
+                </a> 
+                @endforeach 
+                
+                <!-- <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a> -->
               </div>
             </li> 
 
