@@ -396,11 +396,11 @@
                   <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                           <tr>
-                              <td>Created_at</td>
+                              <td>Request to moveout at</td>
                               <td>{{ $tenant->created_at }}</td>
                           </tr>
                           <tr>
-                              <td>Updated_at</td>
+                              <td>Approved moveout at</td>
                               <td>{{ $tenant->updated_at }}</td>
                           </tr>
                           <tr>
