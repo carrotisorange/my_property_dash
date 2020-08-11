@@ -697,7 +697,7 @@
                         <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Edit </h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Edit Room Information</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -709,11 +709,11 @@
                             <div class="modal-body">
                             <form>
                                 <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">ROOM NO</label>
+                                <small>Room No</small>
                                 <input form="editUnitForm" type="text" value="{{ $unit->unit_no }}" name="unit_no" class="form-control" id="unit_no" >
                                 </div>
                                 <div class="form-group">
-                                <label for="message-text" class="col-form-label">FLOOR NO:</label>
+                                <small>Floor no</small>
                                 <select form="editUnitForm" id="floor_no" name="floor_no" class="form-control">
                                     <option value="{{ $unit->floor_no }}" readonly selected class="bg-primary">{{ $unit->floor_no }}</option>
                                     <option value="-3">3rd basement</option>
@@ -732,11 +732,11 @@
                                 </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="message-text" class="col-form-label">BUILDING:</label>
+                                    <small>Building</small>
                                     <input form="editUnitForm" type="text" value="{{ $unit->building }}" name="building" class="form-control"> 
                                   </div>
                                 <div class="form-group">
-                                <label for="message-text" class="col-form-label">ROOM TYPE</label>
+                                <small>Room Type</small>
                                 <select form="editUnitForm" id="type_of_units" name="type_of_units" class="form-control">
                                     <option value="{{ $unit->type_of_units }}" readonly selected class="bg-primary">{{ $unit->type_of_units }}</option>
                                     <option value="leasing">leasing</option>
@@ -753,7 +753,7 @@
                                
                                
                                 <div class="form-group">
-                                <label for="message-text" class="col-form-label">ROOM STATUS</label>
+                                <small>Room Status</small>
                                 <select form="editUnitForm" id="status" name="status" class="form-control">
                                     <option value="{{ $unit->status }}" readonly selected class="bg-primary">{{ $unit->status }}</option>
                                     <option value="vacant">vacant</option>
@@ -763,15 +763,14 @@
                                 </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="message-text" class="col-form-label">MONTHLY RENT</label>
+                                    <small>Montly Rent</small>
                                     <input form="editUnitForm" min="1" type="number" value="{{ $unit->monthly_rent }}" name="monthly_rent" class="form-control">
                                     </div>
-                               
                             </form>
                             </div>
                             <div class="modal-footer">
                             <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button>
-                            <button form="editUnitForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="this.form.submit(); this.disabled = true;"><i class="fas fa-check fa-sm text-white-50"></i> Update Room</button>
+                            <button type="submit" form="editUnitForm" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;"><i class="fas fa-check fa-sm text-white-50"></i> Update Room</button>  
                             </div>
                         </div>
                         </div>
