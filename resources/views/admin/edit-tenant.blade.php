@@ -510,7 +510,7 @@
                         </div>
                         
                     </div>
-                    @if($tenant->tenants_note !== 'new' )
+                    @if($tenant->tenants_note === 'new' )
                     <h4>Note</h4>
                     <div class="form-group row">
                         <div class="col">

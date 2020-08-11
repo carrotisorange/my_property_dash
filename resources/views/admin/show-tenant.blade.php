@@ -554,12 +554,14 @@
                             </td>
                           </tr>
                           @endif 
+                          @if($tenant->tenants_note !== 'new' )
                           <tr>
                               <td>Note</td>
                               <td>
                                   {{ $tenant->tenants_note }}
                               </td>
                           </tr>
+                          @endif
                       </table>
                     </div>
                 </div>
