@@ -372,12 +372,12 @@
                 <span  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#extendTenant" data-whatever="@mdo"><i class="fas fa-external-link-alt fa-sm text-white-50"></i> Extend Contract</span>
                 @if ($tenant->tenant_status === 'active' || $tenant->tenant_status === 'pending')
                     @if($pending_balance > 0)
-                <span href="#" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm" data-toggle="modal" data-target="#moveoutTenantWarning" data-whatever="@mdo"><i class="fas fa-sign-out-alt fa-sm text-white-50"></i> Request for Moveout</span>
+                    <span href="#" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm" data-toggle="modal" data-target="#moveoutTenantWarning" data-whatever="@mdo"><i class="fas fa-sign-out-alt fa-sm text-white-50"></i> Request for Moveout</span>
                     @else
                       @if($tenant->updated_at === null)
                         <button  href="#" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm" data-toggle="modal" data-target="#moveoutTenant" data-whatever="@mdo"><i class="fas fa-sign-out-alt fa-sm text-white-50"></i> Request for Moveout</button>
                       @else
-
+                      <button class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm" ><i class="fas fa-sign-out-alt fa-sm text-white-50"></i> Moveout Tenant</button>
                       @endif
                     @endif
                 @else
@@ -395,6 +395,14 @@
                  
                   <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                          <tr>
+                              <td>Created_at</td>
+                              <td>{{ $tenant->created_at }}</td>
+                          </tr>
+                          <tr>
+                              <td>Updated_at</td>
+                              <td>{{ $tenant->upated_at }}</td>
+                          </tr>
                           <tr>
                               <td>Full Name</td>
                               <td>{{ $tenant->first_name.' '.$tenant->middle_name.' '.$tenant->last_name }} 
