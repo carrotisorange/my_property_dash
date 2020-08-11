@@ -355,20 +355,36 @@
                 <a href="/units/{{ $tenant->unit_tenant_id }}"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> Back to room</a>
                 @if(Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'admin')
                 <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/edit"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-user-edit fa-sm text-white-50"></i> Edit Tenant</a>
-                <!-- Example split danger button -->
-              <div class="dropdown">
-                <button type="button" class="btn btn-danger">Action</button>
-                <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <span class="sr-only">Toggle Dropdown</span>
-                </button>
-                <div class="dropdown-menu">
-                  <a class="dropdown-item" href="#">Action</a>
-                  <a class="dropdown-item" href="#">Another action</a>
-                  <a class="dropdown-item" href="#">Something else here</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">Separated link</a>
-                </div>
-              </div>  
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Bills</h1>
+            <div class="dropdown show">
+              <br>
+              <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-plus fa-sm text-white-50"></i> Add Bills</a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <button type="submit" form="billingRentForm" class="dropdown-item "> Rent</button>
+                <input type="hidden" form="billingRentForm" name="billing_option" value="rent">
+                <button type="submit" form="billingElectricForm" class="dropdown-item"> Electric</button>
+                <input type="hidden" form="billingElectricForm" name="billing_option" value="electric">
+                <button type="submit" form="billingWaterForm" class="dropdown-item "> Water</button>
+                <input type="hidden" form="billingWaterForm" name="billing_option" value="water">
+                <button type="submit" form="billingSurchargeForm" class="dropdown-item ">Surcharge</button>
+                <input type="hidden" form="billingSurchargeForm" name="billing_option" value="surcharge">
+
+              <form id="billingRentForm" action="/tenants/billings" method="POST">
+                @csrf
+              </form>
+              <form id="billingElectricForm" action="/tenants/billings" method="POST">
+                  @csrf
+              </form>
+              <form id="billingWaterForm" action="/tenants/billings" method="POST">
+                  @csrf
+              </form>
+              <form id="billingSurchargeForm" action="/tenants/billings" method="POST">
+                  @csrf
+              </form>
+              </div>
+            </div>
+          </div>  
                 <span  href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addConcern" data-whatever="@mdo"><i class="fas fa-plus fa-sm text-white-50"></i> Add Concern</span>  
                 @endif
                 @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'manager')
