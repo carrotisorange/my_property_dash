@@ -395,6 +395,7 @@
                  
                   <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                          @if($tenant->created_at !== null)
                           <tr>
                               <td>Request to moveout at</td>
                               <td>{{ $tenant->created_at }}</td>
@@ -403,6 +404,7 @@
                               <td>Approved moveout at</td>
                               <td>{{ $tenant->updated_at }}</td>
                           </tr>
+                          @endif
                           <tr>
                               <td>Full Name</td>
                               <td>{{ $tenant->first_name.' '.$tenant->middle_name.' '.$tenant->last_name }} 
