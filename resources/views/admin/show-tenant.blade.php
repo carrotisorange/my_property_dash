@@ -398,7 +398,7 @@
                           @if($tenant->created_at !== null)
                           <tr>
                               <td>Request to moveout at</td>
-                              <td>{{ $tenant->created_at }}</td>
+                              <td>{{ Carbon\Carbon::parse($tenant->created_at)->format('M y D') }}</td>
                           </tr>
                           <tr>
                               <td>Approved moveout at</td>
