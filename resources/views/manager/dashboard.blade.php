@@ -222,9 +222,9 @@
                 <i class="fas fa-bell fa-fw"></i>
                 <!-- Counter - Alerts -->
                 @if($request_to_moveout->count() > 0)
-                  <span class="badge badge-danger badge-counter">{{ $request_to_moveout->count() }}</span>
+                  <span class="badge badge-danger badge-counter">{{ $request_to_moveout->count() }}+</span>
                 @else
-                  <span class="badge badge-danger badge-counter">{{ $request_to_moveout->count()  }}+</span>
+                  <span class="badge badge-danger badge-counter">{{ $request_to_moveout->count()  }}</span>
                 @endif
               </a>
               <!-- Dropdown - Alerts -->
