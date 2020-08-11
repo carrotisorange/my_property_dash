@@ -374,7 +374,7 @@
                     @if($pending_balance > 0)
                     <span href="#" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm" data-toggle="modal" data-target="#moveoutTenantWarning" data-whatever="@mdo"><i class="fas fa-sign-out-alt fa-sm text-white-50"></i> Request for Moveout</span>
                     @else
-                      @if($tenant->updated_at === null)
+                      @if($tenant->updated_at !== null)
                         <button  href="#" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm" data-toggle="modal" data-target="#moveoutTenant" data-whatever="@mdo"><i class="fas fa-sign-out-alt fa-sm text-white-50"></i> Request for Moveout</button>
                       @else
                       <button class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm" ><i class="fas fa-sign-out-alt fa-sm text-white-50"></i> Moveout Tenant</button>
