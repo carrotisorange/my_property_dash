@@ -474,6 +474,7 @@
                 <div class="modal-body">
                 <table class="table text-right" width="100%" cellspacing="0" cellpadding="0">
                   <tr>
+                    <th>Select</th>
                     <th>Bill No</th>
                     <th>Description</th>
                     <th>Period Covered</th>
@@ -481,6 +482,7 @@
                   </tr>
                   @foreach ($bills as $item)
                   <tr>
+                      <td><input class="form-check-input" type="checkbox" value="" id="defaultCheck1"></td>
                       <td>{{ $item->billing_no }}</td>
                       <td>{{ $item->billing_desc }}</td>
                       <td>
