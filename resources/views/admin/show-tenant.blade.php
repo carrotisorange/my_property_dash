@@ -363,7 +363,7 @@
                         @method('put')
                          {{ csrf_field() }}
                         <input type="hidden" name="action" value="request_to_moveout">
-                        <button class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm" ><i class="fas fa-sign-out-alt fa-sm text-white-50"></i> Request To Moveout</button>
+                        <button class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm" onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;"><i class="fas fa-sign-out-alt fa-sm text-white-50"></i> Request To Moveout</button>
                       </form>
                       @elseif($tenant->created_at !== null && $tenant->updated_at === null)
                         @if(Auth::user()->user_type === 'manager')
@@ -371,13 +371,13 @@
                         @method('put')
                          {{ csrf_field() }}
                         <input type="hidden" name="action" value="approve_request_to_moveout">
-                        <button class="d-none d-sm-inline-block btn btn-sm btn-warning shadow-sm" ><i class="fas fa-sign-out-alt fa-sm text-white-50"></i> Approve Moveout</button>
+                        <button class="d-none d-sm-inline-block btn btn-sm btn-warning shadow-sm" onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;" ><i class="fas fa-sign-out-alt fa-sm text-white-50"></i> Approve Moveout</button>
                       </form>
                         @else
                           <button title="Waiting for the manager's approval to moveout..." class="d-none d-sm-inline-block btn btn-sm btn-warning shadow-sm" ><i class="fas fa-sign-out-alt fa-sm text-white-50"></i> Pending Moveout</button>
                         @endif
                       @else
-                      <button  href="#" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm" data-toggle="modal" data-target="#moveoutTenant" data-whatever="@mdo"><i class="fas fa-sign-out-alt fa-sm text-white-50"></i> Process Moveout</button>
+                      <button  href="#" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm" data-toggle="modal" data-target="#moveoutTenant" data-whatever="@mdo" onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;"><i class="fas fa-sign-out-alt fa-sm text-white-50"></i> Process Moveout</button>
                       @endif
                     @endif
                 @else
