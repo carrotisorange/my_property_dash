@@ -397,7 +397,7 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                           @if($tenant->created_at !== null)
                           <tr>
-                              <td>Request to moveout at</td>
+                              <td>Requested moveout at</td>
                               <td>{{ Carbon\Carbon::parse($tenant->created_at)->format('M d Y') }}</td>
                           </tr>
                           <tr>
