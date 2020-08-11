@@ -351,40 +351,10 @@
          <p class="alert alert-{{ $key }}"> <i class="fas fa-check-circle"></i> {{ Session::get($key) }}</p>
           @endif
           @endforeach
-            
+            <h5 style="text-align:left;">
                 <a href="/units/{{ $tenant->unit_tenant_id }}"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> Back to room</a>
                 @if(Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'admin')
-                <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/edit"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-user-edit fa-sm text-white-50"></i> Edit Tenant</a>
-                <div class="d-sm-flex align-items-center justify-content-between mb-4">
-          
-            <div class="dropdown show">
-              <br>
-              <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-plus fa-sm text-white-50"></i> Add Bills</a>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <button type="submit" form="billingRentForm" class="dropdown-item "> Rent</button>
-                <input type="hidden" form="billingRentForm" name="billing_option" value="rent">
-                <button type="submit" form="billingElectricForm" class="dropdown-item"> Electric</button>
-                <input type="hidden" form="billingElectricForm" name="billing_option" value="electric">
-                <button type="submit" form="billingWaterForm" class="dropdown-item "> Water</button>
-                <input type="hidden" form="billingWaterForm" name="billing_option" value="water">
-                <button type="submit" form="billingSurchargeForm" class="dropdown-item ">Surcharge</button>
-                <input type="hidden" form="billingSurchargeForm" name="billing_option" value="surcharge">
-
-              <form id="billingRentForm" action="/tenants/billings" method="POST">
-                @csrf
-              </form>
-              <form id="billingElectricForm" action="/tenants/billings" method="POST">
-                  @csrf
-              </form>
-              <form id="billingWaterForm" action="/tenants/billings" method="POST">
-                  @csrf
-              </form>
-              <form id="billingSurchargeForm" action="/tenants/billings" method="POST">
-                  @csrf
-              </form>
-              </div>
-            </div>
-          </div>  
+                <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/edit"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-user-edit fa-sm text-white-50"></i> Edit Tenant</a>  
                 <span  href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addConcern" data-whatever="@mdo"><i class="fas fa-plus fa-sm text-white-50"></i> Add Concern</span>  
                 @endif
                 @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'manager')
@@ -409,7 +379,7 @@
                 @else
                 @endif
                 </span>
-            
+            </h5>
             <br>
 
               <!-- DataTales Example -->
