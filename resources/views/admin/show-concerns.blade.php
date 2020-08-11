@@ -721,7 +721,7 @@
     $(document).ready(function(){
         var i=1;
     $("#add_row").click(function(){
-        $('#addr'+i).html("<th>"+ (i) +"</th><td><input form='moveoutTenantForm' name='desc"+i+"' id='desc"+i+"' type='text' class='form-control input-md'></td><td><input form='moveoutTenantForm'   name='amt"+i+"' id='amt"+i+"' type='number' min='1' class='form-control input-md' required></td><td><input form='moveoutTenantForm'   name='amt"+i+"' id='amt"+i+"' type='number' min='1' class='form-control input-md' required></td><td><input form='moveoutTenantForm'   name='amt"+i+"' id='amt"+i+"' type='number' min='1' class='form-control input-md' required></td>");
+        $('#addr'+i).html("<th>"+ (i) +"</th><td><input form='moveoutTenantForm' name='desc"+i+"' id='desc"+i+"' type='text' class='form-control input-md'></td><td><input form='moveoutTenantForm'   name='qty"+i+"' id='qty"+i+"' type='number' min='1' class='form-control input-md' required></td><td><input form='moveoutTenantForm'   name='price"+i+"' id='price"+i+"' type='number' min='1' class='form-control input-md' required></td><td><input form='moveoutTenantForm' step="0.01" name='amt"+i+"' id='amt"+i+"' type='number' min='1' class='form-control input-md' required></td>");
 
 
      $('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
