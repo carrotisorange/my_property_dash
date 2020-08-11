@@ -420,7 +420,23 @@ class TenantController extends Controller
     {
 
         if($request->action==='request_to_moveout'){
-            return $tenant_id;
+            DB::table("tenants")
+            ->where('tenant_id', $tenant_id)
+            ->update([
+                    'created_at' => Carbon::now(),
+            ]); 
+
+            return redirect('/units/'.$unit_id.'/tenants/'.$tenant_id)->with('success','Request to moveout has been sent!');
+        }
+
+        if($request->action==='approve_request_to_moveout'){
+            DB::table("tenants")
+            ->where('tenant_id', $tenant_id)
+            ->update([
+                    'updated_at' => Carbon::now(),
+            ]); 
+
+            return redirect('/units/'.$unit_id.'/tenants/'.$tenant_id)->with('success','Request to moveout has been approved!');
         }
         DB::table('tenants')
         ->where('tenant_id', $tenant_id)
