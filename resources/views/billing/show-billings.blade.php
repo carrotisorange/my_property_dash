@@ -472,9 +472,9 @@
                 </button>
                 </div>
                 <div class="modal-body">
-                <table class="table text-right" width="100%" cellspacing="0" cellpadding="0">
+                <table class="table" width="100%" cellspacing="0" cellpadding="0">
                   <tr>
-                    <th>Select</th>
+                    <th><input class="form-check-input" type="checkbox" value="" id="defaultCheck1"></th>
                     <th>Bill No</th>
                     <th>Description</th>
                     <th>Period Covered</th>
