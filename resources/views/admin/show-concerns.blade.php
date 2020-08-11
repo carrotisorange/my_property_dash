@@ -365,7 +365,7 @@
                                   </a>
                                   <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                                     <div class="dropdown-header">Select Action:</div>
-                                    <a href="#" class="dropdown-toggle" data-toggle="modal" data-target="#editActionTakenForm" >
+                                    <a href="#" class="dropdown-toggle" data-toggle="modal" data-target="#editActionTakenForm" >Edit Details</a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#editConcernFullDetails">Create job order</a>
                                   </div> 
