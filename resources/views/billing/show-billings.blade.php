@@ -473,7 +473,7 @@
                 </div>
                 <div class="modal-body">
                   <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-10">
                       <table class="table" width="100%" cellspacing="0" cellpadding="0">
                         <tr>
                           <th><input class="form-check-input" type="checkbox" value="" id="defaultCheck1"></th>
