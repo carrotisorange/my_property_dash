@@ -595,7 +595,7 @@
                   @method('put')
                   {{ csrf_field() }}
                 </form>
-                <label for="">Tenant Information</label>
+                
                   <div class="row">
                       <div class="col">
                           <small>Tenant</small>
@@ -617,10 +617,11 @@
                   <div class="row">
                     <div class="col">
                         <small></small>
-                        <textarea form="editConcernDetailsForm" class="form-control" name="feedback" cols="30" rows="10">{{ $concern->details }}</textarea>
+                        <textarea form="editConcernDetailsForm" class="form-control" name="feedback" cols="30" rows="10">{{ $concern->concern_desc }}</textarea>
                     </div>
                   </div>
-                  <label for="">Material</label>
+                  <br>
+                  <label for="">Request for materials</label>
                   <div class="row">
                     <div class="col">
                       <a id='delete_row' class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-minus fa-sm text-white-50"></i></a>
