@@ -368,7 +368,7 @@
                             <div class="table-responsive">
                               <table class="table table-bordered" width="100%" cellspacing="0">
                                    <tr>
-                                        <td>ROOM NO</td>
+                                        <td>Room No</td>
                                         <td>{{ $unit->unit_no }}</td>
                                    </tr>
                                    {{-- <tr>
@@ -386,26 +386,26 @@
                                     </th>
                                   </tr> --}}
                                     <tr>
-                                        <td>BUILDING</td>
+                                        <td>Building</td>
                                         <td>{{ $unit->building }}</td>
                                    </tr>
                                    <tr>
-                                        <td>FLOOR NO</td>
+                                        <td>Floor No</td>
                                         <td>{{ $numberFormatter->format($unit->floor_no) }}</td>
                                    </tr>
                                    <tr>
-                                        <td>ROOM TYPE</td>
+                                        <td>Room Type</td>
                                         <td>{{ $unit->type_of_units }}</td>
                                    </tr>
                                   
                                    <tr>
-                                    <td>NO OF BEDS</td>
+                                    <td>No of Beds</td>
                                     <td>{{ $unit->beds }}</td>     
                                   </tr>
                                   
                                  
                                   <tr>
-                                        <td>STATUS</td>
+                                        <td>Status</td>
                                         <td>
                                               @if($unit->status === 'occupied')
                                               <span class="badge badge-primary">{{ $unit->status }}</span>
@@ -417,7 +417,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>MONTHLY RENT <br>(excluding utilities)</td> 
+                                        <td>Monthly Rent <br>(excluding utilities)</td> 
                                         <td>{{ number_format($unit->monthly_rent,2) }}</td>
             
                                         <?php 
@@ -431,15 +431,15 @@
                                     @if ($unit_owner->count() > 0)
                                         @foreach ($unit_owner as $item)
                                     <tr>
-                                        <td>OWNER </td>
+                                        <td>Owner </td>
                                         <td><a href="{{ route('show-investor',['unit_id'=> $item->unit_id, 'unit_owner_id'=>$item->unit_owner_id]) }}">{{ $item->unit_owner }} </a></td>
                                     </tr>
                                     <tr>
-                                        <td>REPRESENTATIVE</td>
+                                        <td>Representative</td>
                                         <td>{{ $item->investor_representative }}</td>
                                     </tr>
                                     <tr>
-                                        <td>CONTRACT PERIOD</td>
+                                        <td>Contract Period </td>
                                         <td>
                                             @if($item->contract_end == NULL)
                                                 {{ Carbon\Carbon::parse($item->contract_start)->format('M d Y') }} (Renewable) 
@@ -579,12 +579,12 @@
             <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <tr>
-                    <th>Bill No</th>
-                    <th>Tenant</th>
-                    <th>Description</th>
-                    <th>Period Covered</th>
-                    <th>Amount</th>
-                    <th>Status</th>
+                    <th>BILL NO</th>
+                    <th>TENANT</th>
+                    <th>DESCRIPTION</th>
+                    <th>PERIOD COVERED</th>
+                    <th>AMOUNT</th>
+                    <th>STATUS</th>
                   </tr>
                   @foreach ($unit_bills as $item)
                   <tr>
