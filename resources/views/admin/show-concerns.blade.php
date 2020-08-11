@@ -582,7 +582,7 @@
         </div>
 
         <div class="modal fade" id="createJobOrderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Enter Job Order Information</h5>
@@ -595,11 +595,18 @@
                   @method('put')
                   {{ csrf_field() }}
                 </form>
+                <label for="">Tenant Information</label>
                   <div class="row">
                       <div class="col">
                           <small>Tenant</small>
                           <p>{{ $tenant->first_name.' '.$tenant->last_name }}</p>
                       </div>
+
+                      <div class="col">
+                        <small>Mobile</small>
+                        <p>{{ $tenant->contact_no }}</p>
+                      </div>
+                    
                       <div class="col">
                           <small>Room</small>
                           <p>{{ $unit->building.' '.$unit->unit_no }}</p>
@@ -609,12 +616,7 @@
                           <p>{{ $unit->building.' '.$unit->unit_no }}</p>
                       </div>
                   </div>
-                  <div class="row">
-                    <div class="col">
-                      <small>Mobile</small>
-                      <p>{{ $tenant->contact_no }}</p>
-                    </div>
-                  </div>
+                  
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button>
