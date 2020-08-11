@@ -378,7 +378,7 @@
                   @endif
                 <td>{{ $item->building.' '.$item->unit_no }}</td>
                 <td>
-                  @if($item->tenants_note !== 'new' )
+                  @if($item->tenants_note === 'new' )
                     <input form="add_billings" type="text" class='col-md-8' name="details{{ $details_ctr++  }}" value="{{ Carbon\Carbon::parse($item->movein_date)->startOfMonth()->format('M d') }}-{{ Carbon\Carbon::now()->endOfMonth()->format('d Y') }} " >
                   @else
                     <input form="add_billings" type="text" class='col-md-8' name="details{{ $details_ctr++  }}" value="{{ Carbon\Carbon::now()->startOfMonth()->format('M d') }}-{{ Carbon\Carbon::now()->endOfMonth()->format('d Y') }} " >
