@@ -240,7 +240,7 @@
                     </div>
                   </div>
                   <div>
-                    <div class="small text-gray-500">{{Carbon\Carbon::parse($item->created_at)->format('M d Y')}}</div>
+                    <div class="small text-gray-500">{{Carbon\Carbon::parse($item->created_at)->format('m d Y')}}</div>
                     <span class="font-weight-bold">{{ $item->building.' '.$item->unit_no }} is requesting to moveout.</span>
                   </div>
                 </a> 
