@@ -493,8 +493,8 @@
                         {{ $item->details }}
                         @endif
                       </td>
-                      <td class="text-right" colspan="3">{{ number_format($item->billing_amt,2) }}</td>
-                      <td><input form="acceptPaymentForm" type="number" class="form-control" id="" step="0.01" min="1" name="amt_paid" value="" required></td>
+                      <td>{{ number_format($item->billing_amt,2) }}</td>
+                      <td><input form="" type="number" class="form-control" id="" step="0.01" min="1" name="amt_paid" value="" required></td>
                   </tr>
                   @endforeach
             
