@@ -384,7 +384,12 @@
                   @endif
                 </td>
                 <td>
+                  <?php $?>
+                  @if($item->tenants_note !== 'new' )
                     <input form="add_billings" class="col-md-6" type="number" name="amt{{ $amt_ctr++ }}" step="0.01"  value="{{ $item->tenant_monthly_rent }}" oninput="this.value = Math.abs(this.value)">
+                  @else
+
+                  @endif
                 </td>
            </tr>
            @endforeach

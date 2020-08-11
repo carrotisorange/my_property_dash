@@ -536,7 +536,7 @@
                            </thead>
                            <tbody>
                              @foreach($tenants_to_watch_out as $item)
-                             <?php $diffInDays =  number_format(Carbon\Carbon::now()->DiffInDays(Carbon\Carbon::parse($item->moveout_date), false)) ?>
+                             <?php $diffInDays =  number_format(Carbon\Carbon::parse($item->moveout_date)->DiffInDays(Carbon\Carbon::now())) ?>
                               <tr>
                                   <td title="{{ $item->tenants_note }}">
                                     @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'treasury' )
