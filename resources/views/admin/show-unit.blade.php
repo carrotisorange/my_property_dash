@@ -368,7 +368,7 @@
                             <div class="table-responsive">
                               <table class="table table-bordered" width="100%" cellspacing="0">
                                    <tr>
-                                        <th>ROOM NO</th>
+                                        <td>ROOM NO</td>
                                         <td>{{ $unit->unit_no }}</td>
                                    </tr>
                                    {{-- <tr>
@@ -386,26 +386,26 @@
                                     </th>
                                   </tr> --}}
                                     <tr>
-                                        <th>BUILDING</th>
+                                        <td>BUILDING</td>
                                         <td>{{ $unit->building }}</td>
                                    </tr>
                                    <tr>
-                                        <th>FLOOR NO</th>
+                                        <td>FLOOR NO</td>
                                         <td>{{ $numberFormatter->format($unit->floor_no) }}</td>
                                    </tr>
                                    <tr>
-                                        <th>ROOM TYPE</th>
+                                        <td>ROOM TYPE</td>
                                         <td>{{ $unit->type_of_units }}</td>
                                    </tr>
                                   
                                    <tr>
-                                    <th>NO OF BEDS</th>
+                                    <td>NO OF BEDS</td>
                                     <td>{{ $unit->beds }}</td>     
                                   </tr>
                                   
                                  
                                   <tr>
-                                        <th>STATUS</th>
+                                        <td>STATUS</td>
                                         <td>
                                               @if($unit->status === 'occupied')
                                               <span class="badge badge-primary">{{ $unit->status }}</span>
@@ -417,7 +417,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th>MONTHLY RENT <br>(excluding utilities)</th> 
+                                        <td>MONTHLY RENT <br>(excluding utilities)</td> 
                                         <td>{{ number_format($unit->monthly_rent,2) }}</td>
             
                                         <?php 
@@ -431,15 +431,15 @@
                                     @if ($unit_owner->count() > 0)
                                         @foreach ($unit_owner as $item)
                                     <tr>
-                                        <th>OWNER </th>
+                                        <td>OWNER </td>
                                         <td><a href="{{ route('show-investor',['unit_id'=> $item->unit_id, 'unit_owner_id'=>$item->unit_owner_id]) }}">{{ $item->unit_owner }} </a></td>
                                     </tr>
                                     <tr>
-                                        <th>REPRESENTATIVE</th>
+                                        <td>REPRESENTATIVE</td>
                                         <td>{{ $item->investor_representative }}</td>
                                     </tr>
                                     <tr>
-                                        <th>CONTRACT PERIOD</th>
+                                        <td>CONTRACT PERIOD</td>
                                         <td>
                                             @if($item->contract_end == NULL)
                                                 {{ Carbon\Carbon::parse($item->contract_start)->format('M d Y') }} (Renewable) 
