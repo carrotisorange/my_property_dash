@@ -16,6 +16,9 @@
   <!-- Custom styles for this template-->
   <link href="{{ asset('dashboard/css/sb-admin-2.min.css') }}" rel="stylesheet">
 
+  <!-- stepper -->
+  <link rel="stylesheet" href="bs-stepper.min.css">
+
 </head>
 
 <body id="page-top">
@@ -336,46 +339,29 @@
         <div class="container-fluid">
             <!-- Page Heading -->
     
-            <ul class="stepper horizontal" id="horizontal-stepper">
-  <li class="step active">
-    <div class="step-title waves-effect waves-dark">Step 1</div>
-    <div class="step-new-content">
-      <div class="row">
-        <div class="md-form col-12 ml-auto">
-          <input id="email-horizontal" type="email" class="validate form-control" required>
-          <label for="email-horizontal">Email</label>
-        </div>
-      </div>
-      <div class="step-actions">
-        <button class="waves-effect waves-dark btn btn-sm btn-primary next-step" data-feedback="someFunction21">CONTINUE</button>
-      </div>
-    </div>
-  </li>
-  <li class="step">
-    <div class="step-title waves-effect waves-dark">Step 2</div>
-    <div class="step-new-content">
-      <div class="row">
-        <div class="md-form col-12 ml-auto">
-          <input id="password-horizontal" type="password" class="validate form-control" required>
-          <label for="password-horizontal">Your password</label>
-        </div>
-      </div>
-      <div class="step-actions">
-        <button class="waves-effect waves-dark btn btn-sm btn-primary next-step" data-feedback="someFunction21">CONTINUE</button>
-        <button class="waves-effect waves-dark btn btn-sm btn-secondary previous-step">BACK</button>
-      </div>
-    </div>
-  </li>
-  <li class="step">
-    <div class="step-title waves-effect waves-dark">Step 3</div>
-    <div class="step-new-content">
-      Finish!
-      <div class="step-actions">
-        <button class="waves-effect waves-dark btn-sm btn btn-primary m-0 mt-4" type="button">SUBMIT</button>
-      </div>
-    </div>
-  </li>
-</ul>
+            <div class="bs-stepper">
+                <div class="bs-stepper-header" role="tablist">
+                  <!-- your steps here -->
+                  <div class="step" data-target="#logins-part">
+                    <button type="button" class="step-trigger" role="tab" aria-controls="logins-part" id="logins-part-trigger">
+                      <span class="bs-stepper-circle">1</span>
+                      <span class="bs-stepper-label">Logins</span>
+                    </button>
+                  </div>
+                  <div class="line"></div>
+                  <div class="step" data-target="#information-part">
+                    <button type="button" class="step-trigger" role="tab" aria-controls="information-part" id="information-part-trigger">
+                      <span class="bs-stepper-circle">2</span>
+                      <span class="bs-stepper-label">Various information</span>
+                    </button>
+                  </div>
+                </div>
+                <div class="bs-stepper-content">
+                  <!-- your steps content here -->
+                  <div id="logins-part" class="content" role="tabpanel" aria-labelledby="logins-part-trigger"></div>
+                  <div id="information-part" class="content" role="tabpanel" aria-labelledby="information-part-trigger"></div>
+                </div>
+              </div>
         
           @foreach (['danger', 'warning', 'success', 'info'] as $key)
           @if(Session::has($key))
@@ -564,6 +550,8 @@
   <!-- Page level custom scripts -->
   <script src="{{ asset('/dashboard/js/demo/chart-area-demo.js') }}"></script>
   <script src="{{ asset('/dashboard/js/demo/chart-pie-demo.js') }}"></script>
+
+  <script src="bs-stepper.min.js"></script>
 
 </body>
 
