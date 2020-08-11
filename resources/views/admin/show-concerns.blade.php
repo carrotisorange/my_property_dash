@@ -613,7 +613,12 @@
                       </div>
                      
                   </div>
-                  
+                  <label for="">Concern/Request</label>
+                  <div class="row">
+                    <div class="col">
+                      <textarea form="editConcernDetailsForm" class="form-control" name="feedback" cols="30" rows="10">{{ $concern->details }}</textarea>
+                    </div>
+                  </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button>
