@@ -462,7 +462,7 @@
         {{-- modal for adding payments. --}}
         
         <div class="modal fade" id="acceptPayment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Enter Payment Information</h5>
@@ -478,7 +478,8 @@
                     <th>Bill No</th>
                     <th>Description</th>
                     <th>Period Covered</th>
-                    <th>Amount</th>
+                    <th>Bill</th>
+                    <th>Payment</th>
                   </tr>
                   @foreach ($bills as $item)
                   <tr>
@@ -493,6 +494,7 @@
                         @endif
                       </td>
                       <td class="text-right" colspan="3">{{ number_format($item->billing_amt,2) }}</td>
+                      <td><input form="acceptPaymentForm" type="number" class="form-control" id="" step="0.01" min="1" name="amt_paid" value="" required></td>
                   </tr>
                   @endforeach
             
