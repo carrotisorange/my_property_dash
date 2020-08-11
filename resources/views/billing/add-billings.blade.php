@@ -385,7 +385,7 @@
                 </td>
                 <td>
                 <?php 
-                      $prorated_rent =  number_format(Carbon\Carbon::now()->startOfMonth()->DiffInDays(Carbon\Carbon::now()->endOfMonth()));
+                      $prorated_rent =  number_format(Carbon\Carbon::now()->addDay()->DiffInDays(Carbon\Carbon::now()->endOfMonth()));
                       $prorated_monthly_rent =  ($item->tenant_monthly_rent/30) * $prorated_rent;
                 
                 ?>
