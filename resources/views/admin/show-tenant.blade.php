@@ -519,11 +519,12 @@
                           <tr>
                               <td>Current Contract Period</td>
                               <td>{{ Carbon\Carbon::parse($tenant->movein_date)->format('M d Y').'-'.Carbon\Carbon::parse($tenant->moveout_date)->format('M d Y') }} 
+                                @if( $tenant->has_extended === 'renewed')
                                 <span class="badge badge-primary">{{ $tenant->has_extended}} 
                                  
-                                  ({{ count($renewal_history)-1 }}x) 
-                                </span>  
-                               
+                                 ({{ count($renewal_history)-1 }}x) 
+                               </span>  
+                                @endif
                                @if($tenant->tenant_status === 'pending')
                                @else
                                   @if($diffInDays <= -1)
