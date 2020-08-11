@@ -401,7 +401,7 @@
                           </tr>
                           <tr>
                               <td>Updated_at</td>
-                              <td>{{ $tenant->upated_at }}</td>
+                              <td>{{ $tenant->updated_at }}</td>
                           </tr>
                           <tr>
                               <td>Full Name</td>
