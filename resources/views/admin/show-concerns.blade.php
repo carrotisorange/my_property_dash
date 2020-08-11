@@ -337,11 +337,9 @@
                                   </a>
                                   <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                                     <div class="dropdown-header">Dropdown Header:</div>
-                                    <a class="dropdown-item" data-toggle="modal" data-target="#editConcernFullDetails">Edit details</a>
-                                    
-                                    <a class="dropdown-item" href="#">Another action</a>
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#editConcernFullDetails">Edit details</a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">Something else here</a>
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#editConcernFullDetails">Create job order</a>
                                   </div> 
                                 </div>
                               
@@ -483,7 +481,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button>
-                    <button form="editConcernDetailsForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want to perform this action?');" ><i class="fas fa-check fa-sm text-white-50"></i> Update</button>
+                    <button form="editConcernDetailsForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want to perform this action?');" ><i class="fas fa-check fa-sm text-white-50"></i> Update Details</button>
                 </div>
             </div>
             </div>
