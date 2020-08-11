@@ -375,7 +375,7 @@
                     <span href="#" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm" data-toggle="modal" data-target="#moveoutTenantWarning" data-whatever="@mdo"><i class="fas fa-sign-out-alt fa-sm text-white-50"></i> Request for Moveout</span>
                     @else
                       @if($tenant->create_at === null && $tenant->updated_at === null)
-                      <form action="/tenants/{{ $tenant->tenant_id }}">
+                      <form action="/tenants/{{ $tenant->tenant_id }}" method="POST">
                         @method('put')
                          {{ csrf_field() }}
                         <input type="hidden" name="action" value="request_to_moveout">
