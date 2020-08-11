@@ -369,6 +369,33 @@
                     <a class="dropdown-item" href="#">Separated link</a>
                   </div>
                 </div>  
+                <div class="dropdown show">
+              <br>
+              <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-plus fa-sm text-white-50"></i> Add Bills</a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <button type="submit" form="billingRentForm" class="dropdown-item "> Rent</button>
+                <input type="hidden" form="billingRentForm" name="billing_option" value="rent">
+                <button type="submit" form="billingElectricForm" class="dropdown-item"> Electric</button>
+                <input type="hidden" form="billingElectricForm" name="billing_option" value="electric">
+                <button type="submit" form="billingWaterForm" class="dropdown-item "> Water</button>
+                <input type="hidden" form="billingWaterForm" name="billing_option" value="water">
+                <button type="submit" form="billingSurchargeForm" class="dropdown-item ">Surcharge</button>
+                <input type="hidden" form="billingSurchargeForm" name="billing_option" value="surcharge">
+
+              <form id="billingRentForm" action="/tenants/billings" method="POST">
+                @csrf
+              </form>
+              <form id="billingElectricForm" action="/tenants/billings" method="POST">
+                  @csrf
+              </form>
+              <form id="billingWaterForm" action="/tenants/billings" method="POST">
+                  @csrf
+              </form>
+              <form id="billingSurchargeForm" action="/tenants/billings" method="POST">
+                  @csrf
+              </form>
+              </div>
+            </div>
                 <span  href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addConcern" data-whatever="@mdo"><i class="fas fa-plus fa-sm text-white-50"></i> Add Concern</span>  
                 @endif
                 @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'manager')
