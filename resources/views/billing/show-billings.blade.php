@@ -472,33 +472,36 @@
                 </button>
                 </div>
                 <div class="modal-body">
-                <table class="table" width="100%" cellspacing="0" cellpadding="0">
-                  <tr>
-                    <th><input class="form-check-input" type="checkbox" value="" id="defaultCheck1"></th>
-                    <th>Bill No</th>
-                    <th>Description</th>
-                    <th>Period Covered</th>
-                    <th>Bill</th>
-                    <th>Payment</th>
-                  </tr>
-                  @foreach ($bills as $item)
-                  <tr>
-                      <td><input class="form-check-input" type="checkbox" value="" id="defaultCheck1"></td>
-                      <td>{{ $item->billing_no }}</td>
-                      <td>{{ $item->billing_desc }}</td>
-                      <td>
-                        @if($item->details === null)
-                        -
-                        @else
-                        {{ $item->details }}
-                        @endif
-                      </td>
-                      <td>{{ number_format($item->billing_amt,2) }}</td>
-                      <td><input form="" type="number" class="form-control" id="" step="0.01" min="1" name="amt_paid" value="" required></td>
-                  </tr>
-                  @endforeach
-            
-              </table>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <table class="table" width="100%" cellspacing="0" cellpadding="0">
+                        <tr>
+                          <th><input class="form-check-input" type="checkbox" value="" id="defaultCheck1"></th>
+                          <th>Bill No</th>
+                          <th>Description</th>
+                          <th>Period Covered</th>
+                          <th>Bill</th>
+                          <th>Payment</th>
+                        </tr>
+                        @foreach ($bills as $item)
+                        <tr>
+                            <td><input class="form-check-input" type="checkbox" value="" id="defaultCheck1"></td>
+                            <td>{{ $item->billing_no }}</td>
+                            <td>{{ $item->billing_desc }}</td>
+                            <td>
+                              @if($item->details === null)
+                              -
+                              @else
+                              {{ $item->details }}
+                              @endif
+                            </td>
+                            <td>{{ number_format($item->billing_amt,2) }}</td>
+                            <td><input form="" type="number" class="form-control" id="" step="0.01" min="1" name="amt_paid" value="" required></td>
+                        </tr>
+                        @endforeach
+                    </table>
+                    </div>
+                  </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button>
