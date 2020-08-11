@@ -354,6 +354,7 @@
                 
                 <th>PERIOD COVERED</th>     
                 <th>AMOUNT</th>
+                <th></th>
             </tr>
            <?php
              $ctr = 1;
@@ -378,18 +379,27 @@
                 <td>{{ $item->building.' '.$item->unit_no }}</td>
                 <td>
                   @if($item->tenants_note !== 'new' )
-                    <input form="add_billings" type="text" class='col-md-8' name="details{{ $details_ctr++  }}" value="{{ Carbon\Carbon::now()->addDay()->format('M d') }}-{{ Carbon\Carbon::now()->endOfMonth()->format('d Y') }} " >
+                    <input form="add_billings" type="text" class='col-md-8' name="details{{ $details_ctr++  }}" value="{{ Carbon\Carbon::parse($item->movein_date)->startOfMonth()->format('M d') }}-{{ Carbon\Carbon::now()->endOfMonth()->format('d Y') }} " >
                   @else
                     <input form="add_billings" type="text" class='col-md-8' name="details{{ $details_ctr++  }}" value="{{ Carbon\Carbon::now()->startOfMonth()->format('M d') }}-{{ Carbon\Carbon::now()->endOfMonth()->format('d Y') }} " >
                   @endif
                 </td>
                 <td>
                 <?php 
-                      $prorated_rent =  number_format(Carbon\Carbon::now()->addDay()->DiffInDays(Carbon\Carbon::now()->endOfMonth()));
-                      $monthly_rent =  ($item->tenant_monthly_rent/30) * $prorated_rent;
+                      $prorated_rent =  number_format(Carbon\Carbon::parse($item->movein_date)->DiffInDays(Carbon\Carbon::now()->endOfMonth()));
+                      $prorated_monthly_rent =  ($item->tenant_monthly_rent/30) * $prorated_rent;
                 
                 ?>
-                    <input form="add_billings" class="col-md-6" type="number" name="amt{{ $amt_ctr++ }}" step="0.01"  value="{{ $monthly_rent }}" oninput="this.value = Math.abs(this.value)">
+                  @if($item->tenants_note === 'new' )
+                    <input form="add_billings" class="col-md-6" type="number" name="amt{{ $amt_ctr++ }}" step="0.01"  value="{{ $item->tenant_monthly_rent }}" oninput="this.value = Math.abs(this.value)">
+                  @else
+                    <input form="add_billings" class="col-md-6" type="number" name="amt{{ $amt_ctr++ }}" step="0.01"  value="{{ $prorated_monthly_rent }}" oninput="this.value = Math.abs(this.value)">
+                  @endif
+                </td>
+                <td>
+                  @if($item->tenants_note !== 'new' )
+                    prorated
+                  @endif
                 </td>
            </tr>
            @endforeach
