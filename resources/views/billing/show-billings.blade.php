@@ -473,8 +473,8 @@
                 </div>
                 <div class="modal-body">
                   <div class="row">
-                    <div class="col-md-10">
-                      <table class="table" width="100%" cellspacing="0" cellpadding="0">
+                    <div class="table-responsive">
+                      <table class="table table-borderless" width="100%" cellspacing="0">
                         <tr>
                           <th><input class="form-check-input" type="checkbox" value="" id="defaultCheck1"></th>
                           <th>Bill No</th>
