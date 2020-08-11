@@ -381,7 +381,7 @@
                         <input type="hidden" name="action" value="request_to_moveout">
                         <button class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm" ><i class="fas fa-sign-out-alt fa-sm text-white-50"></i> Request To Moveout</button>
                       </form>
-                      @elseif($tenant->updated_at === null)
+                      @elseif($tenant->create_at !== null && $tenant->updated_at === null)
                         <button class="d-none d-sm-inline-block btn btn-sm btn-warning shadow-sm" ><i class="fas fa-sign-out-alt fa-sm text-white-50"></i> Pending Moveout</button>
                       @else
                       <button  href="#" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm" data-toggle="modal" data-target="#moveoutTenant" data-whatever="@mdo"><i class="fas fa-sign-out-alt fa-sm text-white-50"></i> Process Moveout</button>
