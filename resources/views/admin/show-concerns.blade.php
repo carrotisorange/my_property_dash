@@ -616,7 +616,19 @@
                   <label for="">Concern/Request</label>
                   <div class="row">
                     <div class="col">
-                      <textarea form="editConcernDetailsForm" class="form-control" name="feedback" cols="30" rows="10">{{ $concern->details }}</textarea>
+                      <a id='delete_row' class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-minus fa-sm text-white-50"></i></a>
+                          <a id="add_row" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i></a>     
+                          <br>  
+                          <br>
+                          <table class = "table table-hover " id="tab_logic">
+                            <tr>
+                                <th class="text-center">#</th>
+                                <th>Description</th>
+                                <th>Amount</th>
+                            </tr>
+                                <input form="moveoutTenantForm" type="hidden" id="no_of_items" name="no_of_items" >
+                            <tr id='addr1'></tr>
+                          </table>
                     </div>
                   </div>
                 </div>
