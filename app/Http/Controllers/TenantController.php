@@ -418,6 +418,10 @@ class TenantController extends Controller
      */
     public function update(Request $request, $unit_id, $tenant_id)
     {
+
+        if($request->action==='request_to_moveout'){
+            return $tenant_id;
+        }
         DB::table('tenants')
         ->where('tenant_id', $tenant_id)
         ->update([
