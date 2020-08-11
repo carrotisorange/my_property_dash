@@ -707,6 +707,29 @@
   <script src="{{ asset('/dashboard/js/demo/chart-area-demo.js') }}"></script>
   <script src="{{ asset('/dashboard/js/demo/chart-pie-demo.js') }}"></script>
 
+  <script type="text/javascript">
+    $(document).ready(function(){
+        var i=1;
+    $("#add_row").click(function(){
+        $('#addr'+i).html("<th>"+ (i) +"</th><td><input form='moveoutTenantForm' name='desc"+i+"' id='desc"+i+"' type='text' class='form-control input-md'></td><td><input form='moveoutTenantForm'   name='amt"+i+"' id='amt"+i+"' type='number' min='1' class='form-control input-md' required></td>");
+
+
+     $('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
+     i++;
+
+     document.getElementById('no_of_items').value = i;
+ });
+
+    $("#delete_row").click(function(){
+        if(i>1){
+        $("#addr"+(i-1)).html('');
+        i--;
+        document.getElementById('no_of_items').value = i;
+        }
+    });
+  });
+</script>
+
 </body>
 
 </html>
