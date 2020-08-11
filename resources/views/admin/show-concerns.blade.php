@@ -582,7 +582,7 @@
         </div>
 
         <div class="modal fade" id="createJobOrderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Enter Job Order Information</h5>
@@ -611,10 +611,7 @@
                           <small>Room</small>
                           <p>{{ $unit->building.' '.$unit->unit_no }}</p>
                       </div>
-                      <div class="col">
-                          <small>Time & Date Available</small>
-                          <p>{{ $unit->building.' '.$unit->unit_no }}</p>
-                      </div>
+                     
                   </div>
                   
                 </div>
