@@ -384,11 +384,15 @@
                   @endif
                 </td>
                 <td>
-                <?php $prorated_rent =  number_format(Carbon\Carbon::parse($item->movein_date)->DiffInDays(Carbon\Carbon::now()->endOfMonth())) ?>
+                <?php 
+                      $prorated_rent =  number_format(Carbon\Carbon::parse($item->movein_date)->DiffInDays(Carbon\Carbon::now()->endOfMonth()));
+                      $prorated_monthly_rent =  ($item->tenant_monthly_rent/30) * $prorated_rent;
+                
+                ?>
                   @if($item->tenants_note === 'new' )
                     <input form="add_billings" class="col-md-6" type="number" name="amt{{ $amt_ctr++ }}" step="0.01"  value="{{ $item->tenant_monthly_rent }}" oninput="this.value = Math.abs(this.value)">
                   @else
-                    <input form="add_billings" class="col-md-6" type="number" name="amt{{ $amt_ctr++ }}" step="0.01"  value="{{ $prorated_rent }}" oninput="this.value = Math.abs(this.value)">
+                    <input form="add_billings" class="col-md-6" type="number" name="amt{{ $amt_ctr++ }}" step="0.01"  value="{{ $prorated_monthly_rent }}" oninput="this.value = Math.abs(this.value)">
                   @endif
                 </td>
            </tr>
