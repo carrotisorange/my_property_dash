@@ -376,6 +376,8 @@
                     @else
                       @if($tenant->create_at === null && $tenant->updated_at === null)
                       <form action="/tenants/{{ $tenant->tenant_id }}">
+                        @method('put')
+                         {{ csrf_field() }}
                         <input type="hidden" name="action" value="request_to_moveout">
                         <button class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm" ><i class="fas fa-sign-out-alt fa-sm text-white-50"></i> Request To Moveout</button>
                       </form>
