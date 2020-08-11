@@ -339,7 +339,7 @@
                 <a href="/units/{{ $tenant->unit_tenant_id }}"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> Back to room</a>
                 @if(Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'admin')
                 <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/edit"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-user-edit fa-sm text-white-50"></i> Edit Tenant</a>  
-                <span  href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addConcern" data-whatever="@mdo"><i class="fas fa-plus fa-sm text-white-50"></i> Add Concern</span>  
+                <span  href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addConcern" data-whatever="@mdo"><i class="far fa-comment-dots fa-sm text-white-50"></i> Report Concern</span>  
                 @endif
                 @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'manager')
                 <a href="{{ route('show-billings',['unit_id' => $tenant->unit_tenant_id, 'tenant_id'=>$tenant->tenant_id]) }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-file-invoice-dollar fa-sm text-white-50"></i> Show Bills <span class="badge badge-light">{{ $billings->count() }}</span> </a>
