@@ -391,14 +391,14 @@
                 
                 ?>
                   @if($item->tenants_note === 'new' )
-                    <input form="add_billings" class="col-md-6" type="number" name="amt{{ $amt_ctr++ }}" step="0.01"  value="{{ $item->tenant_monthly_rent }}" oninput="this.value = Math.abs(this.value)">  
+                    <input form="add_billings" class="col-md-8" type="number" name="amt{{ $amt_ctr++ }}" step="0.01"  value="{{ $item->tenant_monthly_rent }}" oninput="this.value = Math.abs(this.value)">  
                     @if($item->tenants_note !== 'new' )
-                      prorated
+                       prorated
                     @endif
                   @else
-                    <input form="add_billings" class="col-md-6" type="number" name="amt{{ $amt_ctr++ }}" step="0.01"  value="{{ $prorated_monthly_rent }}" oninput="this.value = Math.abs(this.value)">
+                    <input form="add_billings" class="col-md-8" type="number" name="amt{{ $amt_ctr++ }}" step="0.01"  value="{{ $prorated_monthly_rent }}" oninput="this.value = Math.abs(this.value)">
                     @if($item->tenants_note !== 'new' )
-                      prorated
+                       prorated
                     @endif
                   @endif
                 </td>
