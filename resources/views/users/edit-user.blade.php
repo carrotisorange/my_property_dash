@@ -249,7 +249,7 @@
                   </td>
              </tr>
              <tr>
-               <th>Email</th>
+               <td>Email</td>
                <td> 
                   <input form="editUserForm" id="email" type="email" class="form-control form-control-user @error('email') is-invalid @enderror" name="email" value="{{ $user->email }}" required autocomplete="email">
                   @error('email')
@@ -260,7 +260,7 @@
                </td>
             </tr>
             <tr>
-               <th>New Password</th>
+               <td>New Password</td>
                <td> 
                   <input form="editUserForm" id="password" type="password" class="form-control form-control-user @error('password') is-invalid @enderror" name="password" autocomplete="password">
                   <small class="text-danger">Changing your password will log you out of the application.</small>
