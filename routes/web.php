@@ -671,6 +671,7 @@ Route::get('/board', function(Request $request){
             ->where('unit_property', Auth::user()->property)
             ->whereNotNull('tenants.created_at')
             ->whereNull('tenants.updated_at')
+            ->whereNull('tenants.actual_move_out_date')
             ->orderBy('tenants.created_at', 'desc')
             ->limit(3)
             ->get();
@@ -680,6 +681,7 @@ Route::get('/board', function(Request $request){
             ->where('unit_property', Auth::user()->property)
             ->whereNotNull('tenants.created_at')
             ->whereNotNull('tenants.updated_at')
+            ->whereNull('tenants.actual_move_out_date')
             ->orderBy('tenants.updated_at', 'desc')
             ->limit(3)
             ->get();
@@ -789,6 +791,7 @@ Route::get('/notifications', function(){
         ->where('unit_property', Auth::user()->property)
         ->whereNotNull('tenants.created_at')
         ->whereNull('tenants.updated_at')
+        ->whereNull('tenants.actual_move_out_date')
         ->orderBy('tenants.created_at', 'desc')
     
         ->get();
@@ -798,6 +801,7 @@ Route::get('/notifications', function(){
         ->where('unit_property', Auth::user()->property)
         ->whereNotNull('tenants.created_at')
         ->whereNotNull('tenants.updated_at')
+        ->whereNull('tenants.actual_move_out_date')
         ->orderBy('tenants.updated_at', 'desc')
         ->get()
 ;
