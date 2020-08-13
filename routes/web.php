@@ -672,7 +672,9 @@ Route::get('/board', function(Request $request){
             ->whereNotNull('tenants.created_at')
             ->whereNull('tenants.updated_at')
             ->orderBy('tenants.created_at', 'desc')
+            ->limit(3)
             ->get();
+
 
             $approved_moveout = DB::table('tenants')
             ->join('units', 'unit_id', 'unit_tenant_id')
@@ -680,17 +682,18 @@ Route::get('/board', function(Request $request){
             ->whereNotNull('tenants.created_at')
             ->whereNotNull('tenants.updated_at')
             ->orderBy('tenants.updated_at', 'desc')
+            ->limit(3)
             ->get();
 
-            return $notifications = $request_to_moveout->merge($approved_moveout)->limit(5);
-            
-            $approved_moveouts = DB::table('tenants')
+            $processed_moveouts = DB::table('tenants')
             ->join('units', 'unit_id', 'unit_tenant_id')
             ->where('unit_property', Auth::user()->property)
             ->where('tenant_status','inactive')
-            ->where('status','!=', 'pulled out')
+            ->orderBy('tenants.actual_moveout_date', 'desc')
+            ->limit(3)
             ->get();
-            
+
+            return $notifications = $request_to_moveout->merge([$approved_moveout,$processed_moveouts ]);
       
         return view('manager.dashboard', 
             compact(
