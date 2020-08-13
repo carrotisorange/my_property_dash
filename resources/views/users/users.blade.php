@@ -368,9 +368,7 @@
                         </div>
                         <div class="col">
                           <small>Password</small>
-                          <select class="form-control" form="addUserForm" name="password" required>
                             <input form="addUserForm" type="password" class="form-control" name="password" required>
-                          </select>
                       </div>
                         {{-- <div class="col">
                             <label for="recipient-name" class="col-form-label"><b>STATUS</b></label>
