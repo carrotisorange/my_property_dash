@@ -420,8 +420,8 @@ class TenantController extends Controller
     {
         if($request->action==='open_notifications'){
           
-            return 'You opened this notif.'
-            
+            return 'You opened this notif.';
+
             return redirect('/units/'.$unit_id.'/tenants/'.$tenant_id);
         }
         
