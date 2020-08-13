@@ -376,8 +376,8 @@
                       @foreach ($approved_moveouts as $item)
                       <a class="dropdown-item d-flex align-items-center" href="/units/{{$item->unit_no}}/tenants/{{ $item->tenant_id }}">
                   <div class="mr-3">
-                  <div class="icon-circle bg-warning">
-                      <i class="fas fa-exclamation-triangle text-white"></i>
+                  <div class="icon-circle bg-success">
+                            <i class="fas fa-check text-white"></i>
                     </div>
                   </div>
                   <div>
