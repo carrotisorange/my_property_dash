@@ -1098,7 +1098,7 @@ Route::post('/reset-pass', function(Request $request){
     $user = DB::table('users')->where('email', $request->email)->count();
 
     //Check if the user exists
-    if ($user < 0) {
+    if ($user <= 0) {
         return redirect()->back()->with('error', 'Email does not exist!');
     }
 
