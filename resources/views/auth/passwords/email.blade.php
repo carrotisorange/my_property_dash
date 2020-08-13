@@ -50,7 +50,7 @@
                   </div>
                   <form class="user">
                     <div class="form-group">
-                      <form method="POST" action="{{ route('password.email') }}">
+                      <form method="POST" action="/password/email>
                         @csrf         
                         <input form="resetPasswordForm" id="email" type="email" class="form-control form-control-user @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus aria-describedby="emailHelp" placeholder="Enter Email Address...">
                             @error('email')
