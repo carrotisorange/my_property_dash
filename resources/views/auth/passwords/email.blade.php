@@ -56,7 +56,14 @@
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
-                            @enderror         
+                            @enderror
+                            @foreach (['danger', 'warning', 'success', 'info'] as $key)
+                            @if(Session::has($key))
+                            <span class="invalid-feedback" role="alert">
+                              <strong>{{ $key }}</strong>
+                          </span>
+                            @endif
+                            @endforeach         
                      
                     </div>
                     <button form="resetPasswordForm" type="submit"  class="btn btn-primary btn-user btn-block" onclick="this.form.submit(); this.disabled = true;">
