@@ -142,111 +142,113 @@ Route::get('/board', function(Request $request){
 
             $movein_rate_1 = DB::table('tenants')
             ->join('units', 'unit_id', 'unit_tenant_id')
-            ->where('units.updated_at', '>=', Carbon::now()->subMonths(11)->firstOfMonth())
-            ->where('units.updated_at', '<=', Carbon::now()->subMonths(11)->endOfMonth())
+            ->where('movein_date', '>=', Carbon::now()->subMonths(11)->firstOfMonth())
+            ->where('movein_date', '<=', Carbon::now()->subMonths(11)->endOfMonth())
             ->where('unit_property', Auth::user()->property)
             ->whereIn('tenant_status',['active', 'inactive'])
-    
+            ->where('status','!=', 'pulled out')
             
             ->count();
     
             $movein_rate_2 = DB::table('tenants')
             ->join('units', 'unit_id', 'unit_tenant_id')
-            ->where('units.updated_at', '>=', Carbon::now()->subMonths(10)->firstOfMonth())
-            ->where('units.updated_at', '<=', Carbon::now()->subMonths(10)->endOfMonth())
+            ->where('movein_date', '>=', Carbon::now()->subMonths(10)->firstOfMonth())
+            ->where('movein_date', '<=', Carbon::now()->subMonths(10)->endOfMonth())
             ->where('unit_property', Auth::user()->property)
             ->whereIn('tenant_status',['active', 'inactive'])
-         
+            ->where('status','!=', 'pulled out')
             ->count();
     
             $movein_rate_3 = DB::table('tenants')
             ->join('units', 'unit_id', 'unit_tenant_id')
-            ->where('units.updated_at', '>=', Carbon::now()->subMonths(9)->firstOfMonth())
-            ->where('units.updated_at', '<=', Carbon::now()->subMonths(9)->endOfMonth())
+            ->where('movein_date', '>=', Carbon::now()->subMonths(9)->firstOfMonth())
+            ->where('movein_date', '<=', Carbon::now()->subMonths(9)->endOfMonth())
             ->where('unit_property', Auth::user()->property)
             ->whereIn('tenant_status',['active', 'inactive'])
-           
+            ->where('status','!=', 'pulled out')
             ->count();
     
             $movein_rate_4 = DB::table('tenants')
             ->join('units', 'unit_id', 'unit_tenant_id')
-            ->where('units.updated_at', '>=', Carbon::now()->subMonths(8)->firstOfMonth())
-            ->where('units.updated_at', '<=', Carbon::now()->subMonths(8)->endOfMonth())
+            ->where('movein_date', '>=', Carbon::now()->subMonths(8)->firstOfMonth())
+            ->where('movein_date', '<=', Carbon::now()->subMonths(8)->endOfMonth())
             ->where('unit_property', Auth::user()->property)
             ->whereIn('tenant_status',['active', 'inactive'])
+            ->where('status','!=', 'pulled out')
             ->count();
     
             $movein_rate_5 = DB::table('tenants')
             ->join('units', 'unit_id', 'unit_tenant_id')
-            ->where('units.updated_at', '>=', Carbon::now()->subMonths(7)->firstOfMonth())
-            ->where('units.updated_at', '<=', Carbon::now()->subMonths(7)->endOfMonth())
+            ->where('movein_date', '>=', Carbon::now()->subMonths(7)->firstOfMonth())
+            ->where('movein_date', '<=', Carbon::now()->subMonths(7)->endOfMonth())
             ->where('unit_property', Auth::user()->property)
             ->whereIn('tenant_status',['active', 'inactive'])
-    
+            ->where('status','!=', 'pulled out')
             ->count();
     
     
             $movein_rate_6 = DB::table('tenants')
             ->join('units', 'unit_id', 'unit_tenant_id')
-            ->where('units.updated_at', '>=', Carbon::now()->subMonths(6)->firstOfMonth())
-            ->where('units.updated_at', '<=', Carbon::now()->subMonths(6)->endOfMonth())
+            ->where('movein_date', '>=', Carbon::now()->subMonths(6)->firstOfMonth())
+            ->where('movein_date', '<=', Carbon::now()->subMonths(6)->endOfMonth())
             ->where('unit_property', Auth::user()->property)
             ->whereIn('tenant_status',['active', 'inactive'])
-          
+            ->where('status','!=', 'pulled out')
             ->count();
     
             $movein_rate_7 = DB::table('tenants')
             ->join('units', 'unit_id', 'unit_tenant_id')
-            ->where('units.updated_at', '>=', Carbon::now()->subMonths(5)->firstOfMonth())
-            ->where('units.updated_at', '<=', Carbon::now()->subMonths(5)->endOfMonth())
+            ->where('movein_date', '>=', Carbon::now()->subMonths(5)->firstOfMonth())
+            ->where('movein_date', '<=', Carbon::now()->subMonths(5)->endOfMonth())
             ->where('unit_property', Auth::user()->property)
             ->whereIn('tenant_status',['active', 'inactive'])
+            ->where('status','!=', 'pulled out')
             ->count();
     
             $movein_rate_8 = DB::table('tenants')
             ->join('units', 'unit_id', 'unit_tenant_id')
-            ->where('units.updated_at', '>=', Carbon::now()->subMonths(4)->firstOfMonth())
-            ->where('units.updated_at', '<=', Carbon::now()->subMonths(4)->endOfMonth())
+            ->where('movein_date', '>=', Carbon::now()->subMonths(4)->firstOfMonth())
+            ->where('movein_date', '<=', Carbon::now()->subMonths(4)->endOfMonth())
             ->where('unit_property', Auth::user()->property)
             ->whereIn('tenant_status',['active', 'inactive'])
-  
+            ->where('status','!=', 'pulled out')
             ->count();
             
             $movein_rate_9 = DB::table('tenants')
             ->join('units', 'unit_id', 'unit_tenant_id')
-            ->where('units.updated_at', '>=', Carbon::now()->subMonths(3)->firstOfMonth())
-            ->where('units.updated_at', '<=', Carbon::now()->subMonths(3)->endOfMonth())
+            ->where('movein_date', '>=', Carbon::now()->subMonths(3)->firstOfMonth())
+            ->where('movein_date', '<=', Carbon::now()->subMonths(3)->endOfMonth())
             ->where('unit_property', Auth::user()->property)
             ->where('unit_property', Auth::user()->property)
-       
-         
+            ->where('status','!=', 'pulled out')
+            ->where('type_of_units', 'leasing')
             ->count();
     
             $movein_rate_10 = DB::table('tenants')
             ->join('units', 'unit_id', 'unit_tenant_id')
-            ->where('units.updated_at', '>=', Carbon::now()->subMonths(2)->firstOfMonth())
-            ->where('units.updated_at', '<=', Carbon::now()->subMonths(2)->endOfMonth())
+            ->where('movein_date', '>=', Carbon::now()->subMonths(2)->firstOfMonth())
+            ->where('movein_date', '<=', Carbon::now()->subMonths(2)->endOfMonth())
             ->where('unit_property', Auth::user()->property)
             ->whereIn('tenant_status',['active', 'inactive'])
-            
+            ->where('status','!=', 'pulled out')
             ->count();
     
             $movein_rate_11 = DB::table('tenants')
             ->join('units', 'unit_id', 'unit_tenant_id')
-            ->where('units.updated_at', '>=', Carbon::now()->subMonth()->firstOfMonth())
-            ->where('units.updated_at', '<=', Carbon::now()->subMonth()->endOfMonth())
+            ->where('movein_date', '>=', Carbon::now()->subMonth()->firstOfMonth())
+            ->where('movein_date', '<=', Carbon::now()->subMonth()->endOfMonth())
             ->where('unit_property', Auth::user()->property)
             ->whereIn('tenant_status',['active', 'inactive'])
-            
+            ->where('status','!=', 'pulled out')
             ->count();
     
             $movein_rate_12 = DB::table('tenants')
             ->join('units', 'unit_id', 'unit_tenant_id')
-            ->where('units.updated_at', '>=', Carbon::now()->firstOfMonth())
-            ->where('units.updated_at', '<=', Carbon::now()->endOfMonth())
+            ->where('movein_date', '>=', Carbon::now()->firstOfMonth())
+            ->where('movein_date', '<=', Carbon::now()->endOfMonth())
             ->where('unit_property', Auth::user()->property)
             ->whereIn('tenant_status',['active', 'inactive'])
-            
+            ->where('status','!=', 'pulled out')
             ->count();
 
             if($units->count() <= 0){
