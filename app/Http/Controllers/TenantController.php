@@ -432,6 +432,8 @@ class TenantController extends Controller
                     'created_at' => Carbon::now(),
             ]); 
 
+            
+
             return redirect('/units/'.$unit_id.'/tenants/'.$tenant_id)->with('success','Request to moveout has been sent!');
         }
 
