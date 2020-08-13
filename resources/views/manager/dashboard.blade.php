@@ -235,7 +235,12 @@
                 @foreach($notifications as $item)
                   @if($item->action==='approve to moveout')
                     @if($item->updated_at === null)
-                      <a class="dropdown-item d-flex align-items-center" href="/units/{{$item->unit_no}}/tenants/{{ $item->tenant_id }}">
+                    <form id="notificationtForm" action="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}" method="POST">
+                        @method('put')
+                        {{ csrf_field() }}
+                        <input form="notificationtForm" type="hidden" name="'action" value="open notification">
+                    </form>
+                      <button form="notificationtForm" class="dropdown-item d-flex align-items-center">
                       <div class="mr-3">
                       <div class="icon-circle bg-success">
                           <i class="fas fa-check text-white"></i>
@@ -245,7 +250,7 @@
                         <div class="small text-gray-500">{{Carbon\Carbon::parse($item->created_at)->format('M d Y')}}</div>
                         <span class="font-weight-bold">{{ $item->first_name.' '.$item->last_name.' '.$item->building.' '.$item->unit_no.' '.$item->action }} has been approved.</span>
                       </div>
-                    </a> 
+                    </button> 
                     @else
                       <a class="dropdown-item d-flex align-items-center" href="/units/{{$item->unit_no}}/tenants/{{ $item->tenant_id }}">
                       <div class="mr-3">

@@ -465,6 +465,16 @@ class TenantController extends Controller
             return redirect('/units/'.$unit_id.'/tenants/'.$tenant_id)->with('success','Request to moveout has been approved!');
 
         }
+
+        if($request->action==='open notification'){
+            DB::table('notifications')
+            ->updated_at([
+                'updated_at' => Carbon::now()
+            ]);
+
+            return redirect('/units/'.$unit_id.'/tenants/'.$tenant_id);
+
+        }
            
 
 
