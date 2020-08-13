@@ -58,11 +58,11 @@
                                 </span>
                             @enderror
                             @foreach (['danger', 'warning', 'success', 'info'] as $key)
-                            @if(Session::has($key))
-                            <span class="invalid-feedback" role="alert">
-                              <strong>{{ $key }}</strong>
-                          </span>
-                            @endif
+                              @if(Session::has($key))
+                              <span class="invalid-feedback" role="alert">
+                                <strong>{{ $key }} {{ Session::get($key) }}</strong>
+                            </span>
+                              @endif
                             @endforeach         
                      
                     </div>
