@@ -551,7 +551,7 @@
                           <tr>
                             <td>Actual Moveout Date</td>
                             <td>
-                                {{ Carbon\Carbon::parse($tenant->actual_move_out_date)->format('M d Y') }}
+                                {{ $tenant->actual_move_out_date) }}
                             </td>
                           </tr>
                           @endif 
