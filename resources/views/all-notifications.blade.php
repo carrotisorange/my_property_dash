@@ -359,7 +359,7 @@
             <h1 class="h3 mb-0 text-gray-800">Notifications</h1>
           </div>
                 @foreach($notifications as $item)
-                  @if($item->action==='approve_to_moveout')
+                  @if($item->action==='approve to moveout')
                     <a class="dropdown-item d-flex align-items-center" href="/units/{{$item->unit_no}}/tenants/{{ $item->tenant_id }}">
                     <div class="mr-3">
                     <div class="icon-circle bg-success">

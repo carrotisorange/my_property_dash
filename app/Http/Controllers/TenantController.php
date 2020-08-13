@@ -419,13 +419,13 @@ class TenantController extends Controller
     public function update(Request $request, $unit_id, $tenant_id)
     { 
 
-        if($request->action==='request_to_moveout'){
+        if($request->action==='request to moveout'){
             DB::table('notifications')->insertGetId(
                 [
                     'notification_tenant_id' => $tenant_id,
                     'notification_room_id' => $unit_id,
                     'notification_user_id' => Auth::user()->id,
-                    'action' => 'request to moveout',
+                    'action' => $request->action,
                     'created_at' => Carbon::now(),
                 ]
             );
@@ -443,13 +443,13 @@ class TenantController extends Controller
         
            
 
-        if($request->action==='approve_to_moveout'){
+        if($request->action==='approve to moveout'){
             DB::table('notifications')->insertGetId(
                 [
                     'notification_tenant_id' => $tenant_id,
                     'notification_room_id' => $unit_id,
                     'notification_user_id' => Auth::user()->id,
-                    'action' => 'approve to moveout',
+                    'action' => $request->action,
                     'created_at' => Carbon::now(),
                 ]
             );
