@@ -372,6 +372,7 @@
                     <span class="font-weight-bold">{{ $item->building.' '.$item->unit_no }} has sent a request to moveout.</span>
                   </div>
                 </a> 
+                <hr>
                       @endforeach
                       @foreach ($approved_moveouts as $item)
                       <a class="dropdown-item d-flex align-items-center" href="/units/{{$item->unit_no}}/tenants/{{ $item->tenant_id }}">
@@ -385,6 +386,7 @@
                     <span class="font-weight-bold">{{ $item->building.' '.$item->unit_no }} has sent a request to moveout.</span>
                   </div>
                 </a> 
+                <hr>
                     
                       @endforeach
                 
