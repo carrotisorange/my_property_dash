@@ -687,8 +687,6 @@ Route::get('/board', function(Request $request){
             $processed_moveouts = DB::table('tenants')
             ->join('units', 'unit_id', 'unit_tenant_id')
             ->where('unit_property', Auth::user()->property)
-            ->whereNotNull('tenants.created_at')
-            ->whereNotNull('tenants.updated_at')
             ->whereNotNull('actual_move_out_date')
             ->orderBy('tenants.updated_at', 'desc')
             ->limit(3)
