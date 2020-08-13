@@ -238,7 +238,7 @@
                     <form id="notificationtForm" action="/units/{{ $item->unit_tenant_id }}/tenants/{{ $item->tenant_id }}" method="POST">
                         @method('put')
                         {{ csrf_field() }}
-                        <input form="notificationtForm" type="hidden" name="'action" value="open notification">
+                        <input form="notificationtForm" type="hidden" name="action" value="open notification">
                     </form>
                       <button form="notificationtForm" class="dropdown-item d-flex align-items-center">
                       <div class="mr-3">
