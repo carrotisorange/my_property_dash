@@ -420,23 +420,7 @@ class TenantController extends Controller
     { 
 
         if($request->action==='request to moveout'){
-            DB::table('notifications')->insertGetId(
-                [
-                    'notification_tenant_id' => $tenant_id,
-                    'notification_room_id' => $unit_id,
-                    'notification_user_id' => Auth::user()->id,
-                    'action' => $request->action,
-                    'created_at' => Carbon::now(),
-                ]
-            );
-
-            DB::table('tenants')
-            ->where('tenant_id', $tenant_id)
-            ->update(
-                [
-                    'created_at' => Carbon::now(),
-                ]
-            );
+           DB::table('notifications')->delete();
 
             return redirect('/units/'.$unit_id.'/tenants/'.$tenant_id)->with('success','Request to moveout has been sent!');
         }
