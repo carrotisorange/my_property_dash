@@ -232,11 +232,8 @@
                 <h6 class="dropdown-header">
                   Notifications
                 </h6>
-
-               
-
-                @foreach($$notifications->count() as $item)
-                  @if($item->action==='requested_for_moveout')
+                @foreach($notifications->count() as $item)
+                  @if($item->action==='requested_to_moveout')
                     <a class="dropdown-item d-flex align-items-center" href="/units/{{$item->unit_no}}/tenants/{{ $item->tenant_id }}">
                     <div class="mr-3">
                     <div class="icon-circle bg-success">
@@ -248,7 +245,7 @@
                       <span class="font-weight-bold">{{ $item->first_name.' '.$item->last_name.' '.$item->building.' '.$item->unit_no }} request to moveout has been approved.</span>
                     </div>
                   </a> 
-                  @elseif()
+                  @else
                   <a class="dropdown-item d-flex align-items-center" href="/units/{{$item->unit_no}}/tenants/{{ $item->tenant_id }}">
                   <div class="mr-3">
                   <div class="icon-circle bg-warning">
