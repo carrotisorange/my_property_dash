@@ -28,8 +28,6 @@
         {{ session('status') }}
     </div>
     @endif
-    <form method="POST" action="{{ route('password.email') }}">
-      @csrf
 
     <!-- Outer Row -->
     <div class="row justify-content-center">
@@ -49,6 +47,8 @@
                   </div>
                   <form class="user">
                     <div class="form-group">
+                      <form method="POST" action="{{ route('password.email') }}">
+                        @csrf                  
                       <input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">
                     </div>
                     <button type="submit"  class="btn btn-primary btn-user btn-block" onclick="this.form.submit(); this.disabled = true;">
