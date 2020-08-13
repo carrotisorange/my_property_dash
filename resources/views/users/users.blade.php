@@ -348,15 +348,15 @@
                     </form>
                     <div class="row">
                         <div class="col">
-                            <label for="recipient-name" class="col-form-label"><b>Name</b></label>
+                            <small>Name</small>
                             <input form="addUserForm" type="text" class="form-control" name="name" required>
                         </div>
                         <div class="col">
-                            <label for="recipient-name" class="col-form-label"><b>Email</b></label>
+                            <small>Email</small>
                             <input form="addUserForm" type="email" class="form-control" name="email" required>
                         </div>
                         <div class="col">
-                            <label for="recipient-name" class="col-form-label"><b>User Type</b></label>
+                           <small>Role</small>
                             <select class="form-control" form="addUserForm" name="user_type" required>
                                 <option value="">Please select one</option>
                                 <option value="admin">admin</option>
@@ -366,6 +366,12 @@
                                 
                             </select>
                         </div>
+                        <div class="col">
+                          <small>Password</small>
+                          <select class="form-control" form="addUserForm" name="password" required>
+                            <input form="addUserForm" type="password" class="form-control" name="password" required>
+                          </select>
+                      </div>
                         {{-- <div class="col">
                             <label for="recipient-name" class="col-form-label"><b>STATUS</b></label>
                             <select class="form-control" form="addUserForm" name="status" required>

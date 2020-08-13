@@ -56,7 +56,7 @@ class UserController extends Controller
             'property' => Auth::user()->property,
             'property_type' => Auth::user()->property_type,
             'property_ownership' => Auth::user()->property_ownership,
-            'password' => Hash::make(12345678),
+            'password' => Hash::make($request->password),
             'created_at' => Carbon::now(),
             'account_type' => 'basic',
         ]);
