@@ -662,7 +662,7 @@ Route::get('/board', function(Request $request){
             ->get();
 
 
-            $notifications = DB::table('tenants')
+           return $notifications = DB::table('tenants')
             ->join('units', 'unit_id', 'unit_tenant_id')
             ->join('notifications', 'notification_id', 'notification_tenant_id')
             ->where('unit_property', Auth::user()->property)
