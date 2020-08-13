@@ -51,9 +51,11 @@
                     <div class="form-group">
                       <input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">
                     </div>
-                    <a href="login.html" class="btn btn-primary btn-user btn-block">
-                      Reset Password
-                    </a>
+                    <button type="submit"  class="btn btn-primary btn-user btn-block" onclick="this.form.submit(); this.disabled = true;">
+                      Send Password Reset Link
+                  </button>
+                    </form>
+                   
                   </form>
                   <hr>
                   <div class="text-center">
@@ -71,10 +73,7 @@
       </div>
 
     </div>
-    <button type="submit" class="btn btn-primary btn-user btn-block" onclick="this.form.submit(); this.disabled = true;">
-      Send Password Reset Link
-  </button>
-    </form>
+
 
   </div>
 
