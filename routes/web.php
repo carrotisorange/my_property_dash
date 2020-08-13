@@ -682,7 +682,7 @@ Route::get('/board', function(Request $request){
             ->orderBy('tenants.updated_at', 'desc')
             ->get();
 
-            return $notifications = $request_to_moveout->merge($approved_moveout);
+            return $notifications = $request_to_moveout->merge($approved_moveout)->limit(5);
             
             $approved_moveouts = DB::table('tenants')
             ->join('units', 'unit_id', 'unit_tenant_id')
