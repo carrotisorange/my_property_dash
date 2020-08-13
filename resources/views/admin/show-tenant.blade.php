@@ -370,7 +370,7 @@
                         <form action="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}" method="POST">
                         @method('put')
                          {{ csrf_field() }}
-                        <input type="hidden" name="action" value="approve_request_to_moveout">
+                        <input type="hidden" name="action" value="approve_to_moveout">
                         <button class="d-none d-sm-inline-block btn btn-sm btn-warning shadow-sm" onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;" ><i class="fas fa-sign-out-alt fa-sm text-white-50"></i> Approve Moveout</button>
                       </form>
                         @else
