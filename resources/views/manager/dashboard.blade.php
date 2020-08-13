@@ -239,6 +239,7 @@
                         @method('put')
                         {{ csrf_field() }}
                         <input form="notificationtForm" type="hidden" name="action" value="open notification">
+                        <input form="notificationtForm" type="hidden" name="notification_id" value="{{ $item->notification_id }}">
                     </form>
                       <button form="notificationtForm" class="dropdown-item d-flex align-items-center">
                       <div class="mr-3">
