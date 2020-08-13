@@ -1099,7 +1099,7 @@ Route::post('/reset-pass', function(Request $request){
 
     //Check if the user exists
     if ($user <= 0) {
-        return redirect()->back()->with('error', 'Email does not exist!');
+        return redirect()->back()->with('alert', 'Email does not exist!');
     }
 
     });
