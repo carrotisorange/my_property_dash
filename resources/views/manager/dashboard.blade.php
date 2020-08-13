@@ -260,7 +260,7 @@
                 </a> 
                 @endforeach 
                 
-                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Notifications</a>
+                <a class="dropdown-item text-center small text-gray-500" href="/notifications">Show All Notifications</a>
               </div>
             </li> 
 

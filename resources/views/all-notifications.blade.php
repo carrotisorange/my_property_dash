@@ -360,14 +360,11 @@
           </div>
               <div class="table-responsive">
                 <table class="table table-borderless" width="100%" cellspacing="0">
-                  <tr>
-                    <td colspan="6">Showing <b>{{ $tenants->count() }} </b> of {{ $count_tenants }} tenants </td>
-                    
-                  </tr>
+             
                 </table>
                   <table class="table table-bordered" width="100%" cellspacing="0">
                     <tbody>
-                      @foreach ($approved_moveouts as $item)
+                      @foreach ($requested_moveouts as $item)
                       <tr>
                         <th>  <i class="fas fa-exclamation-triangle text-white"></i> {{Carbon\Carbon::parse($item->created_at)->format('M d Y')}} {{ $item->building.' '.$item->unit_no }} has sent a request to moveout.</th>
                       <tr>
