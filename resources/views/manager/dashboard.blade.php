@@ -269,7 +269,7 @@
                   </div>
                   <div>
                     <div class="small text-gray-500">{{Carbon\Carbon::parse($item->actual_move_out_date)->format('M d Y')}}</div>
-                    <span class="font-weight-bold">{{ $item->building.' '.$item->unit_no }} request to moveout has been approved.</span>
+                    <span class="font-weight-bold">{{ $item->building.' '.$item->unit_no }} moveout has been processed.</span>
                   </div>
                 </a> 
                 @endforeach 
