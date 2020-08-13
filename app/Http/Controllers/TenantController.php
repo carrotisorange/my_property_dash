@@ -477,10 +477,6 @@ class TenantController extends Controller
 
         }
            
-
-
-       
-
        
         DB::table('tenants')
         ->where('tenant_id', $tenant_id)
@@ -520,6 +516,10 @@ class TenantController extends Controller
                 'years_of_employment' => $request->years_of_employment,
 
                 'tenants_note' => $request->tenants_note,
+
+                'created_at' => null,
+
+                'updated_at' => null
         ]);
        return redirect('/units/'.$unit_id.'/tenants/'.$tenant_id)->with('success','Tenant information has been updated!');
     }
