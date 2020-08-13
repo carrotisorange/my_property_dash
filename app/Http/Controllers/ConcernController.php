@@ -124,6 +124,7 @@ class ConcernController extends Controller
         ->where('action_taken', 'like', '%CLOSED%')
         ->update([
             'updated_at' => Carbon::now(),
+            'concern_status' => 'closed',
         ]);
 
 
