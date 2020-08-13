@@ -1094,8 +1094,6 @@ Route::get('login/google', 'Auth\LoginController@google');
 Route::get('login/google/callback', 'Auth\LoginController@googleCallback');
 
 
-Route::get('/password/reset', function(){
-    return 'reset password'; 
-});
+
 
 
