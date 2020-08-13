@@ -221,8 +221,8 @@
               <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-bell fa-fw"></i>
                 <!-- Counter - Alerts -->
-                @if($requested_moveouts->count()+$approved_moveouts->count() > 0)
-                  <span class="badge badge-danger badge-counter">{{ $requested_moveouts->count()+$approved_moveouts->count() }}</span>
+                @if($request_to_moveout->count() > 0)
+                  <span class="badge badge-danger badge-counter">{{ $request_to_moveout->count() }}</span>
                 @else
                   <span class="badge badge-danger badge-counter"></span>
                 @endif
@@ -254,13 +254,13 @@
                     </div>
                   </div>
                   <div>
-                    <div class="small text-gray-500">{{Carbon\Carbon::parse($item->updated_at)->format('M d Y')}}</div>
+                    <div class="small text-gray-500">{{Carbon\Carbon::parse($item->created_at)->format('M d Y')}}</div>
                     <span class="font-weight-bold">{{ $item->building.' '.$item->unit_no }} request to moveout has been approved.</span>
                   </div>
                 </a> 
                 @endforeach 
                 
-                <a class="dropdown-item text-center small text-gray-500" href="/notifications">Show All Notifications</a>
+                <!-- <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a> -->
               </div>
             </li> 
 
