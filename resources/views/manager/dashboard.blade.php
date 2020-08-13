@@ -232,7 +232,7 @@
                 <h6 class="dropdown-header">
                   Notifications
                 </h6>
-                @foreach($notifications->count() as $item)
+                @foreach($notifications as $item)
                   @if($item->action==='requested_to_moveout')
                     <a class="dropdown-item d-flex align-items-center" href="/units/{{$item->unit_no}}/tenants/{{ $item->tenant_id }}">
                     <div class="mr-3">
