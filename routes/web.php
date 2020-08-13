@@ -689,7 +689,7 @@ Route::get('/board', function(Request $request){
             ->join('units', 'unit_id', 'unit_tenant_id')
             ->where('unit_property', Auth::user()->property)
             ->where('tenant_status','inactive')
-            ->orderBy('tenants.actual_moveout_date', 'desc')
+            ->orderBy('tenants.actual_move_out_date', 'desc')
             ->limit(3)
             ->get();
 
