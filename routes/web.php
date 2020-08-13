@@ -688,7 +688,7 @@ Route::get('/board', function(Request $request){
             ->join('units', 'unit_id', 'unit_tenant_id')
             ->where('unit_property', Auth::user()->property)
             ->whereNotNull('actual_move_out_date')
-            ->orderBy('tenants.updated_at', 'desc')
+            ->orderBy('tenants.actual_move_out_date', 'desc')
             ->limit(3)
             ->get();
 
@@ -806,7 +806,7 @@ Route::get('/notifications', function(){
         ->join('units', 'unit_id', 'unit_tenant_id')
         ->where('unit_property', Auth::user()->property)
         ->whereNotNull('actual_move_out_date')
-        ->orderBy('tenants.updated_at', 'desc')
+        ->orderBy('tenants.actual_move_out_date', 'desc')
         ->get();
        
         return view('all-notifications', compact('requested_moveouts', 'approved_moveouts','processed_moveouts'));
