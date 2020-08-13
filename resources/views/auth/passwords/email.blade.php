@@ -23,7 +23,11 @@
 <body class="bg-gradient-primary">
 
   <div class="container">
-   
+    @if (session('status'))
+    <div class="alert alert-success" role="alert">
+        {{ session('status') }}
+    </div>
+    @endif
 
     <!-- Outer Row -->
     <div class="row justify-content-center">
@@ -31,7 +35,7 @@
       <div class="col-xl-10 col-lg-12 col-md-9">
 
         <div class="card o-hidden border-0 shadow-lg my-5">
-          <form id="resetPasswordForm" method="POST" action="{{ url('/reset-pass') }}">
+          <form id="resetPasswordForm" method="POST" action="{{ route('password.email') }}">
             @csrf    
           </form>
           <div class="card-body p-0">
@@ -52,14 +56,7 @@
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
-                            @enderror
-                            @foreach (['danger', 'warning', 'success', 'info'] as $key)
-                              @if(Session::has($key))
-                              <span class="invalid-feedback" role="alert">
-                                <strong class="alert alert-{{ $key }}"> {{ Session::get($key) }}</strong>
-                            </span>
-                              @endif
-                            @endforeach         
+                            @enderror         
                      
                     </div>
                     <button form="resetPasswordForm" type="submit"  class="btn btn-primary btn-user btn-block" onclick="this.form.submit(); this.disabled = true;">
