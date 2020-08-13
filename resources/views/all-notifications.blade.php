@@ -358,33 +358,76 @@
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Notifications</h1>
           </div>
-                @foreach($notifications as $item)
+          @foreach($notifications as $item)
                   @if($item->action==='approve to moveout')
-                    <a class="dropdown-item d-flex align-items-center" href="/units/{{$item->unit_no}}/tenants/{{ $item->tenant_id }}">
-                    <div class="mr-3">
-                    <div class="icon-circle bg-success">
-                        <i class="fas fa-check text-white"></i>
+                    @if($item->updated_at === null)
+                    <form id="notificationtForm" action="/units/{{ $item->unit_tenant_id }}/tenants/{{ $item->tenant_id }}" method="POST">
+                        @method('put')
+                        {{ csrf_field() }}
+                        <input form="notificationtForm" type="hidden" name="action" value="open notification">
+                        <input form="notificationtForm" type="hidden" name="notification_id" value="{{ $item->notification_id }}">
+                    </form>
+                      <button form="notificationtForm" class="dropdown-item d-flex align-items-center">
+                      <div class="mr-3">
+                      <div class="icon-circle bg-success">
+                          <i class="fas fa-check text-white"></i>
+                        </div>
                       </div>
-                    </div>
-                    <div>
-                      <div class="small text-gray-500">{{Carbon\Carbon::parse($item->created_at)->format('M d Y')}}</div>
-                      <span class="">{{ $item->first_name.' '.$item->last_name.' '.$item->building.' '.$item->unit_no.' '.$item->action }} has been approved.</span>
-                    </div>
-                  </a> 
-                  <hr>
+                      <div>
+                        <div class="small text-gray-500">{{Carbon\Carbon::parse($item->created_at)->format('M d Y')}}</div>
+                        <span class="font-weight-bold">{{ $item->first_name.' '.$item->last_name.' '.$item->building.' '.$item->unit_no.' '.$item->action }} has been approved.</span>
+                      </div>
+                    </button> 
+                    <hr>
+                    @else
+                      <a class="dropdown-item d-flex align-items-center" href="/units/{{$item->unit_no}}/tenants/{{ $item->tenant_id }}">
+                      <div class="mr-3">
+                      <div class="icon-circle bg-success">
+                          <i class="fas fa-check text-white"></i>
+                        </div>
+                      </div>
+                      <div>
+                        <div class="small text-gray-500">{{Carbon\Carbon::parse($item->created_at)->format('M d Y')}}</div>
+                        <span class="">{{ $item->first_name.' '.$item->last_name.' '.$item->building.' '.$item->unit_no.' '.$item->action }} has been approved.</span>
+                      </div>
+                    </a> 
+                    <hr>
+                    @endif
                   @else
-                  <a class="dropdown-item d-flex align-items-center" href="/units/{{$item->unit_no}}/tenants/{{ $item->tenant_id }}">
-                  <div class="mr-3">
-                  <div class="icon-circle bg-warning">
+                  @if($item->updated_at === null)
+                    <form id="notificationtForm" action="/units/{{ $item->unit_tenant_id }}/tenants/{{ $item->tenant_id }}" method="POST">
+                        @method('put')
+                        {{ csrf_field() }}
+                        <input form="notificationtForm" type="hidden" name="action" value="open notification">
+                        <input form="notificationtForm" type="hidden" name="notification_id" value="{{ $item->notification_id }}">
+                    </form>
+                      <button form="notificationtForm" class="dropdown-item d-flex align-items-center">
+                      <div class="mr-3">
+                      <div class="icon-circle bg-warning">
                       <i class="fas fa-exclamation-triangle text-white"></i>
                     </div>
-                  </div>
-                  <div>
-                    <div class="small text-gray-500">{{Carbon\Carbon::parse($item->created_at)->format('M d Y')}}</div>
-                    <span class="">{{ $item->first_name.' '.$item->last_name.' '.$item->building.' '.$item->unit_no.' '.$item->action }} has been sent.</span>
-                  </div>
-                </a> 
-                <hr>
+                      </div>
+                      <div>
+                        <div class="small text-gray-500">{{Carbon\Carbon::parse($item->created_at)->format('M d Y')}}</div>
+                        <span class="font-weight-bold">{{ $item->first_name.' '.$item->last_name.' '.$item->building.' '.$item->unit_no.' '.$item->action }} has been approved.</span>
+                      </div>
+                    </button> 
+                    <hr>
+                    @else
+                      <a class="dropdown-item d-flex align-items-center" href="/units/{{$item->unit_no}}/tenants/{{ $item->tenant_id }}">
+                      <div class="mr-3">
+                      <div class="icon-circle bg-warning">
+                      <i class="fas fa-exclamation-triangle text-white"></i>
+                    </div>
+                      </div>
+                      <div>
+                        <div class="small text-gray-500">{{Carbon\Carbon::parse($item->created_at)->format('M d Y')}}</div>
+                        <span class="">{{ $item->first_name.' '.$item->last_name.' '.$item->building.' '.$item->unit_no.' '.$item->action }} has been approved.</span>
+                      </div>
+                    </a> 
+                    <hr>
+                    
+                    @endif
                   @endif
                 @endforeach
                      
