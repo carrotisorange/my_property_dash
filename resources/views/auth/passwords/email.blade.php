@@ -46,7 +46,7 @@
                   <div class="text-center">
                     <h1 class="h4 text-gray-900 mb-4">Reset Password</h1>
                   </div>
-                  <form class="user" method="POST" action="{{ route('password.reset') }}">
+                 
                     <div class="form-group">
                       <input id="email" type="email" class="form-control form-control-user @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
                             @error('email')
