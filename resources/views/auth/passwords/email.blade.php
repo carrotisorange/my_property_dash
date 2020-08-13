@@ -23,6 +23,13 @@
 <body class="bg-gradient-primary">
 
   <div class="container">
+    @if (session('status'))
+    <div class="alert alert-success" role="alert">
+        {{ session('status') }}
+    </div>
+    @endif
+    <form method="POST" action="{{ route('password.email') }}">
+      @csrf
 
     <!-- Outer Row -->
     <div class="row justify-content-center">
@@ -64,6 +71,10 @@
       </div>
 
     </div>
+    <button type="submit" class="btn btn-primary btn-user btn-block" onclick="this.form.submit(); this.disabled = true;">
+      Send Password Reset Link
+  </button>
+    </form>
 
   </div>
 
