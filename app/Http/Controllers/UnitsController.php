@@ -145,22 +145,22 @@ class UnitsController extends Controller
         
     }
 
-    public function add_unit(Request $request){
+    // public function add_unit(Request $request){
         
-       $id = DB::table('units')->insertGetId([
-            'unit_no' => $request->unit_no,
-            'floor_no' => $request->floor_no,
-            'building' => $request->building,
-            'beds' => $request->beds,
-            'monthly_rent' => $request->monthly_rent,
-            'status' => 'vacant',
-            'unit_property' => Auth::user()->property,
-            'type_of_units' => $request->type_of_units,
-            'created_at'=> Carbon::now(),
-        ]);
+    //    $id = DB::table('units')->insertGetId([
+    //         'unit_no' => $request->unit_no,
+    //         'floor_no' => $request->floor_no,
+    //         'building' => $request->building,
+    //         'beds' => $request->beds,
+    //         'monthly_rent' => $request->monthly_rent,
+    //         'status' => 'vacant',
+    //         'unit_property' => Auth::user()->property,
+    //         'type_of_units' => $request->type_of_units,
+    //         'created_at'=> Carbon::now(),
+    //     ]);
 
-        return redirect('/units/'.$id)->with('success', '1 room has been added to the record!');
-    }
+    //     return redirect('/units/'.$id)->with('success', '1 room has been added to the record!');
+    // }
 
     public function add_multiple_rooms(Request $request){
         
