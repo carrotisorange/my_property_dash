@@ -667,7 +667,7 @@ Route::get('/board', function(Request $request){
             ->join('units', 'unit_id', 'notification_room_id')
             ->join('tenants', 'tenant_id', 'notification_tenant_id')
             ->where('unit_property', Auth::user()->property)
-            ->whereNull('notifications.updated_at')
+            
             ->orderBy('notifications.created_at', 'desc')
             ->limit(5)
             ->get();
