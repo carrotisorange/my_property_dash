@@ -418,6 +418,7 @@ class TenantController extends Controller
      */
     public function update(Request $request, $unit_id, $tenant_id)
     { 
+        return $request->action;
 
         if($request->action==='request to moveout'){
             DB::table('notifications')->insertGetId(
