@@ -347,39 +347,39 @@
               <div class="table-responsive">
                 <table class="table table-bordered">
                    <tr>
-                      <th>Name</th>
+                      <td>Name</td>
                       <td>{{ $user->name }}&nbsp <a title="edit profile" href="/users/{{ $user->id }}/edit"><i class="fas fa-user-edit fa-fw"></i></a></td>
                    </tr>
                    <tr>
-                     <th>Email</th>
+                     <td>Email</td>
                      <td>{{ $user->email }}</td>
                   </tr>
                   <tr>
-                     <th>User type</th>
+                     <td>User type</td>
                      <td>{{ $user->user_type }}</td>
                   </tr>
                   <tr>
-                     <th>Status</th>
+                     <td>Status</td>
                      <td>{{ $user->status }}</td>
                   </tr> 
                   <tr>
-                   <th>Account type</th>
+                   <td>Account type</td>
                    <td>{{ $user->account_type }}</td>
                 </tr>     
                    <tr>
-                      <th>Property</th>
+                      <td>Property</td>
                       <td>{{ $user->property }}</a></td>
                    </tr>
                    <tr>
-                     <th>Property ownership</th>
+                     <td>Property ownership</td>
                      <td>{{ $user->property_ownership }}</td>
                   </tr>
                   <tr>
-                     <th>Property type</th>
+                     <td>Property type</td>
                      <td>{{ $user->property_type }}</td>
                   </tr>
                   <tr>
-                     <th>Email verified at</th>
+                     <td>Email verified at</td>
                      <td>{{ $user->email_verified_at }}</td>
                   </tr>  
                 </table>

@@ -238,7 +238,7 @@
           </div>
           <table class="table">
              <tr>
-                <th>Name</th>
+                <td>Name</td>
                 <td> 
                   <input form="editUserForm" id="name" type="text" class="form-control form-control-user @error('name') is-invalid @enderror" name="name" value="{{ $user->name }}" required autocomplete="name">
                   @error('name')
