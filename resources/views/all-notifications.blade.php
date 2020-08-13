@@ -366,12 +366,18 @@
                     <tbody>
                       @foreach ($requested_moveouts as $item)
                       <tr>
-                        <td>  <i class="fas fa-exclamation-triangle text-warning"></i> {{Carbon\Carbon::parse($item->created_at)->format('M d Y')}} {{ $item->building.' '.$item->unit_no }} has sent a request to moveout.</td>
+                        <td>  
+                            <i class="fas fa-exclamation-triangle text-warning"></i> {{Carbon\Carbon::parse($item->created_at)->format('M d Y')}} {{ $item->building.' '.$item->unit_no }} has sent a request to moveout.
+                            <div class="small text-gray-500">{{Carbon\Carbon::parse($item->created_at)->format('M d Y')}}</div>
+                        </td>
                       <tr>
                       @endforeach
                       @foreach ($approved_moveouts as $item)
                       <tr>
-                        <td>   <i class="fas fa-check text-success"></i> {{Carbon\Carbon::parse($item->created_at)->format('M d Y')}} {{ $item->building.' '.$item->unit_no }} request to moveout has been approved.</td>
+                        <td>
+                            <i class="fas fa-check text-success"></i> {{Carbon\Carbon::parse($item->created_at)->format('M d Y')}} {{ $item->building.' '.$item->unit_no }} request to moveout has been approved.
+                            <div class="small text-gray-500">{{Carbon\Carbon::parse($item->created_at)->format('M d Y')}}</div>
+                        </td>
                       <tr>
                       @endforeach
                     </tbody>
