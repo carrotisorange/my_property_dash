@@ -104,6 +104,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $user_id)
     {
+        
         if($request->action === 'change_footer_message' ){
             DB::table('users')
             ->where('id', $user_id)
