@@ -58,7 +58,7 @@
       </li>
 
       @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'treasury' )
-      <li class="nav-item active">
+      <li class="nav-item">
       <a class="nav-link" href="/tenants/search">
         <i class="fas fa-users"></i>
         <span>Tenants</span></a>

@@ -782,7 +782,7 @@ Route::get('/notifications', function(){
         ->whereNotNull('tenants.created_at')
         ->whereNull('tenants.updated_at')
         ->orderBy('tenants.created_at', 'desc')
-        ->limit(3)
+    
         ->get();
 
         $approved_moveouts = DB::table('tenants')
@@ -791,7 +791,7 @@ Route::get('/notifications', function(){
         ->whereNotNull('tenants.created_at')
         ->whereNotNull('tenants.updated_at')
         ->orderBy('tenants.updated_at', 'desc')
-        ->limit(3)
+      
         ->get();
        
         return view('all-notifications', compact('requested_moveouts', 'approved_moveouts'));
