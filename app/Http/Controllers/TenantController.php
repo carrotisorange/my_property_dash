@@ -425,6 +425,7 @@ class TenantController extends Controller
                     'notification_tenant_id' => $tenant_id,
                     'notification_room_id' => $unit_id,
                     'notification_user_id' => Auth::user()->id,
+                    'action' => 'request to moveout',
                     'created_at' => Carbon::now(),
                 ]
             );

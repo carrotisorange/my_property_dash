@@ -662,15 +662,15 @@ Route::get('/board', function(Request $request){
             ->get();
 
 
-            $notifications = DB::table('tenants')
-            ->join('units', 'unit_id', 'unit_tenant_id')
-            ->join('notifications', 'notification_id', 'notification_tenant_id')
+            $notifications = DB::table('notifications')
+            ->join('units', 'unit_id', 'notification_unit_id')
+            ->join('tenants', 'tenant_id', 'notification_tenant_id')
             ->where('unit_property', Auth::user()->property)
             ->orderBy('notifications.created_at', 'desc')
             ->limit(5)
             ->get();
 
-            return DB::table('notifications')->get();
+          
 
             // $requested_moveouts = DB::table('tenants')
             // ->join('units', 'unit_id', 'unit_tenant_id')
