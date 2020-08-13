@@ -692,7 +692,7 @@ Route::get('/board', function(Request $request){
             ->limit(3)
             ->get();
 
-            $notifications = $request_to_moveout->merge([$approved_moveout,$processed_moveouts ]);
+            $notifications = $requested_moveouts->merge([$approved_moveouts,$processed_moveouts ]);
       
         return view('manager.dashboard', 
             compact(
