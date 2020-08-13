@@ -72,7 +72,7 @@
           <span>Home</span></a>
       </li>
   
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="/tenants">
           <i class="fas fa-users fa-chart-area"></i>
           <span>Tenants</span></a>
@@ -382,7 +382,7 @@
                     </div>
                   </div>
                   <div>
-                    <div class="small text-gray-500">{{Carbon\Carbon::parse($item->created_at)->format('M d Y')}}</div>
+                    <div class="small text-gray-500">{{Carbon\Carbon::parse($item->updated_at)->format('M d Y')}}</div>
                     <span class="font-weight-bold">{{ $item->building.' '.$item->unit_no }} has sent a request to moveout.</span>
                   </div>
                 </a> 
