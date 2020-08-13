@@ -617,7 +617,7 @@
                   <div class="row">
                     <div class="col">
                         <small></small>
-                        <textarea form="editConcernDetailsForm" class="form-control" name="feedback" cols="30" rows="10">{{ $concern->concern_desc }}</textarea>
+                        <textarea form="editConcernDetailsForm" class="form-control" name="concern_desc" cols="30" rows="10">{{ $concern->concern_desc }}</textarea>
                     </div>
                   </div>
                   <br>
