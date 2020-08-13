@@ -235,7 +235,7 @@
                 @foreach($notifications as $item)
                   @if($item->action==='approve to moveout')
                     @if($item->updated_at === null)
-                    <form id="notificationtForm" action="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}" method="POST">
+                    <form id="notificationtForm" action="/units/{{ $item->unit_tenant_id }}/tenants/{{ $item->tenant_id }}" method="POST">
                         @method('put')
                         {{ csrf_field() }}
                         <input form="notificationtForm" type="hidden" name="'action" value="open notification">
