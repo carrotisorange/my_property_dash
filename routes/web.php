@@ -891,6 +891,7 @@ Route::get('/owners', function(){
             ->join('unit_owners', 'unit_unit_owner_id', 'unit_owner_id')
             ->where('unit_property', Auth::user()->property)
             ->where('status','!=','pulled out')
+            ->orderBy('contract_start', 'desc')
             ->paginate(10);
         
             return view('admin.owners', compact('owners'));
