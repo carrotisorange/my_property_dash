@@ -772,6 +772,35 @@ Route::post('/units/{unit_id}/tenants/{tenant_id}', 'TenantController@moveout')-
 Route::post('/units/{unit_id}/tenants/{tenant_id}/renew', 'TenantController@renew')->middleware(['auth', 'verified']);
 Route::delete('/tenants/{tenant_id}', 'TenantController@destroy')->middleware(['auth', 'verified']);
 
+Route::get('/notifications', function(){
+
+    if(auth()->user()->status === 'registered' || auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager' || auth()->user()->user_type === 'treasury' || auth()->user()->user_type === 'billing'){
+        
+        $requested_moveouts = DB::table('tenants')
+        ->join('units', 'unit_id', 'unit_tenant_id')
+        ->where('unit_property', Auth::user()->property)
+        ->whereNotNull('tenants.created_at')
+        ->whereNull('tenants.updated_at')
+        ->orderBy('tenants.created_at', 'desc')
+        ->limit(3)
+        ->get();
+
+        $approved_moveouts = DB::table('tenants')
+        ->join('units', 'unit_id', 'unit_tenant_id')
+        ->where('unit_property', Auth::user()->property)
+        ->whereNotNull('tenants.created_at')
+        ->whereNotNull('tenants.updated_at')
+        ->orderBy('tenants.updated_at', 'desc')
+        ->limit(3)
+        ->get();
+       
+        return view('all-notifications', compact('requested_moveouts', 'approved_moveouts'));
+    }else{
+        return view('unregistered');
+    }
+
+})->middleware(['auth', 'verified']);
+
 Route::get('/tenants', function(){
 
     if(auth()->user()->status === 'registered' || auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager' || auth()->user()->user_type === 'treasury' || auth()->user()->user_type === 'billing'){
