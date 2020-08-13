@@ -35,9 +35,7 @@
       <div class="col-xl-10 col-lg-12 col-md-9">
 
         <div class="card o-hidden border-0 shadow-lg my-5">
-          <form id="resetPasswordForm" method="POST" action="{{ route('password.email') }}">
-            @csrf    
-          </form>
+       
           <div class="card-body p-0">
             <!-- Nested Row within Card Body -->
             <div class="row">
@@ -48,7 +46,12 @@
                     <h1 class="h4 text-gray-900 mb-2">Forgot Your Password?</h1>
                     <p class="mb-4">We get it, stuff happens. Just enter your email address below and we'll send you a link to reset your password!</p>
                   </div>
-                  <form class="user">
+                  @if(session('status'))
+                    <div class="alert alert-success" role="alert">
+                        {{  session('status') }}
+                    </div>
+                  @endif
+                   <form id="resetPasswordForm" class="user" method="POST" action="{{ route('password.email') }}">
                     <div class="form-group">
                            
                         <input form="resetPasswordForm" id="email" type="email" class="form-control form-control-user @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus aria-describedby="emailHelp" placeholder="Enter Email Address...">
@@ -62,7 +65,7 @@
                     <button form="resetPasswordForm" type="submit"  class="btn btn-primary btn-user btn-block" onclick="this.form.submit(); this.disabled = true;">
                       Send Password Reset Link
                   </button>
-             
+                  </form>
                   <hr>
                   <div class="text-center">
                     <a class="small" href="/register">Create an Account!</a>
