@@ -77,8 +77,8 @@
                   <hr>
                   <div class="text-center">
                     @if (Route::has('password.request'))
-                        <a class="small btn-link" href="/password/">
-                            {{ __('Forgot Your Password?') }}
+                        <a class="small btn-link" href="{{ route('password.request') }}">
+                            Forgot Your Password?
                         </a>
                     @endif
                     

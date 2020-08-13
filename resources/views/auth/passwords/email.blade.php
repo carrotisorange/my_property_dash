@@ -35,7 +35,7 @@
       <div class="col-xl-10 col-lg-12 col-md-9">
 
         <div class="card o-hidden border-0 shadow-lg my-5">
-          <form id="resetPasswordForm" method="POST" action="{{ route('password.email') }}">
+          <form id="resetPasswordForm" method="POST" action="password/email">
             @csrf    
           </form>
           <div class="card-body p-0">
