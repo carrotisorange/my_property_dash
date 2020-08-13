@@ -358,41 +358,21 @@
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Notifications</h1>
           </div>
-
-                     @foreach ($processed_moveouts as $item)
-                      <a class="dropdown-item d-flex align-items-center" href="/units/{{$item->unit_no}}/tenants/{{ $item->tenant_id }}">
-                  <div class="mr-3">
-                  <div class="icon-circle bg-success">
-                            <i class="fas fa-check text-white"></i>
+                @foreach($notifications as $item)
+                  @if($item->action==='requested_to_moveout')
+                    <a class="dropdown-item d-flex align-items-center" href="/units/{{$item->unit_no}}/tenants/{{ $item->tenant_id }}">
+                    <div class="mr-3">
+                    <div class="icon-circle bg-success">
+                        <i class="fas fa-check text-white"></i>
+                      </div>
                     </div>
-                  </div>
-                  <div>
-                    <div class="small text-gray-500">{{Carbon\Carbon::parse($item->actual_move_out_date)->format('M d Y')}}</div>
-                    <span class="">{{ $item->first_name.' '.$item->last_name.' '.$item->building.' '.$item->unit_no }} moveout has been processed.</span>
-                  </div>
-                </a> 
-                <hr>
-                    
-                      @endforeach
-
-                      @foreach ($approved_moveouts as $item)
-                      <a class="dropdown-item d-flex align-items-center" href="/units/{{$item->unit_no}}/tenants/{{ $item->tenant_id }}">
-                  <div class="mr-3">
-                  <div class="icon-circle bg-success">
-                            <i class="fas fa-check text-white"></i>
+                    <div>
+                      <div class="small text-gray-500">{{Carbon\Carbon::parse($item->created_at)->format('M d Y')}}</div>
+                      <span class="font-weight-bold">{{ $item->first_name.' '.$item->last_name.' '.$item->building.' '.$item->unit_no }} request to moveout has been approved.</span>
                     </div>
-                  </div>
-                  <div>
-                    <div class="small text-gray-500">{{Carbon\Carbon::parse($item->updated_at)->format('M d Y')}}</div>
-                    <span class="">{{ $item->first_name.' '.$item->last_name.' '.$item->building.' '.$item->unit_no }} request to moveout has been approved.</span>
-                  </div>
-                </a> 
-                <hr>
-                    
-                      @endforeach
-            
-                      @foreach ($requested_moveouts as $item)
-                      <a class="dropdown-item d-flex align-items-center" href="/units/{{$item->unit_no}}/tenants/{{ $item->tenant_id }}">
+                  </a> 
+                  @else
+                  <a class="dropdown-item d-flex align-items-center" href="/units/{{$item->unit_no}}/tenants/{{ $item->tenant_id }}">
                   <div class="mr-3">
                   <div class="icon-circle bg-warning">
                       <i class="fas fa-exclamation-triangle text-white"></i>
@@ -400,11 +380,11 @@
                   </div>
                   <div>
                     <div class="small text-gray-500">{{Carbon\Carbon::parse($item->created_at)->format('M d Y')}}</div>
-                    <span class="">{{ $item->first_name.' '.$item->last_name.' '.$item->building.' '.$item->unit_no }} has sent a request to moveout.</span>
+                    <span class="font-weight-bold">{{ $item->building.' '.$item->unit_no }} has sent a request to moveout.</span>
                   </div>
                 </a> 
-                <hr>
-                      @endforeach
+                  @endif
+                @endforeach
                      
 
                       

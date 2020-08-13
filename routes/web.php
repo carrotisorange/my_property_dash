@@ -667,6 +667,7 @@ Route::get('/board', function(Request $request){
             ->join('units', 'unit_id', 'notification_room_id')
             ->join('tenants', 'tenant_id', 'notification_tenant_id')
             ->where('unit_property', Auth::user()->property)
+            ->whereNull('notifications.updated_at')
             ->orderBy('notifications.created_at', 'desc')
             ->limit(5)
             ->get();
@@ -793,34 +794,15 @@ Route::get('/notifications', function(){
 
     if(auth()->user()->status === 'registered' || auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager' || auth()->user()->user_type === 'treasury' || auth()->user()->user_type === 'billing'){
         
-        $requested_moveouts = DB::table('tenants')
-        ->join('units', 'unit_id', 'unit_tenant_id')
+        $notifications = DB::table('notifications')
+        ->select('*','notifications.created_at as created_at')
+        ->join('units', 'unit_id', 'notification_room_id')
+        ->join('tenants', 'tenant_id', 'notification_tenant_id')
         ->where('unit_property', Auth::user()->property)
-        ->whereNotNull('tenants.created_at')
-        ->whereNull('tenants.updated_at')
-        ->whereNull('tenants.actual_move_out_date')
-        ->orderBy('tenants.created_at', 'desc')
-    
-        ->get();
-
-        $approved_moveouts = DB::table('tenants')
-        ->join('units', 'unit_id', 'unit_tenant_id')
-        ->where('unit_property', Auth::user()->property)
-        ->whereNotNull('tenants.created_at')
-        ->whereNotNull('tenants.updated_at')
-        ->whereNull('tenants.actual_move_out_date')
-        ->orderBy('tenants.updated_at', 'desc')
-        ->get()
-;
-        
-        $processed_moveouts = DB::table('tenants')
-        ->join('units', 'unit_id', 'unit_tenant_id')
-        ->where('unit_property', Auth::user()->property)
-        ->whereNotNull('actual_move_out_date')
-        ->orderBy('tenants.actual_move_out_date', 'desc')
+        ->orderBy('notifications.created_at', 'desc')
         ->get();
        
-        return view('all-notifications', compact('requested_moveouts', 'approved_moveouts','processed_moveouts'));
+        return view('all-notifications', compact('notifications'));
     }else{
         return view('unregistered');
     }
