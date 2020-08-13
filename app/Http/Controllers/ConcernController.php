@@ -122,7 +122,7 @@ class ConcernController extends Controller
 
         DB::table('concerns')
         ->where('concern_id', $concern_id)
-        ->whereRaw("action_taken like ' like '%CLOSED%' ")
+        ->whereRaw("action_taken like  like '%CLOSED%' ")
         ->update([
             'updated_at' => Carbon::now(),
         ]);
