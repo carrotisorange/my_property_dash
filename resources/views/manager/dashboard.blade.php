@@ -234,17 +234,31 @@
                 </h6>
                 @foreach($notifications as $item)
                   @if($item->action==='approve to moveout')
-                    <a class="dropdown-item d-flex align-items-center" href="/units/{{$item->unit_no}}/tenants/{{ $item->tenant_id }}">
-                    <div class="mr-3">
-                    <div class="icon-circle bg-success">
-                        <i class="fas fa-check text-white"></i>
+                    @if($item->updated_at === null)
+                      <a class="dropdown-item d-flex align-items-center" href="/units/{{$item->unit_no}}/tenants/{{ $item->tenant_id }}">
+                      <div class="mr-3">
+                      <div class="icon-circle bg-success">
+                          <i class="fas fa-check text-white"></i>
+                        </div>
                       </div>
-                    </div>
-                    <div>
-                      <div class="small text-gray-500">{{Carbon\Carbon::parse($item->created_at)->format('M d Y')}}</div>
-                      <span class="font-weight-bold">{{ $item->first_name.' '.$item->last_name.' '.$item->building.' '.$item->unit_no.' '.$item->action }} has been approved.</span>
-                    </div>
-                  </a> 
+                      <div>
+                        <div class="small text-gray-500">{{Carbon\Carbon::parse($item->created_at)->format('M d Y')}}</div>
+                        <span class="font-weight-bold">{{ $item->first_name.' '.$item->last_name.' '.$item->building.' '.$item->unit_no.' '.$item->action }} has been approved.</span>
+                      </div>
+                    </a> 
+                    @else
+                      <a class="dropdown-item d-flex align-items-center" href="/units/{{$item->unit_no}}/tenants/{{ $item->tenant_id }}">
+                      <div class="mr-3">
+                      <div class="icon-circle bg-success">
+                          <i class="fas fa-check text-white"></i>
+                        </div>
+                      </div>
+                      <div>
+                        <div class="small text-gray-500">{{Carbon\Carbon::parse($item->created_at)->format('M d Y')}}</div>
+                        <span class="">{{ $item->first_name.' '.$item->last_name.' '.$item->building.' '.$item->unit_no.' '.$item->action }} has been approved.</span>
+                      </div>
+                    </a> 
+                    @endif
                   @else
                   <a class="dropdown-item d-flex align-items-center" href="/units/{{$item->unit_no}}/tenants/{{ $item->tenant_id }}">
                   <div class="mr-3">

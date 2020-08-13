@@ -663,7 +663,7 @@ Route::get('/board', function(Request $request){
 
 
             $notifications = DB::table('notifications')
-            ->select('*','notifications.created_at as created_at')
+            ->select('*','notifications.created_at as created_at', 'notifications.updated_at as updated_at')
             ->join('units', 'unit_id', 'notification_room_id')
             ->join('tenants', 'tenant_id', 'notification_tenant_id')
             ->where('unit_property', Auth::user()->property)
