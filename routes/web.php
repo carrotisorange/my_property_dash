@@ -709,7 +709,7 @@ Route::get('/board', function(Request $request){
             'movein_rate','moveout_rate', 'renewed_chart', 'collection_rate', 'reason_for_moving_out_chart',
             'delinquent_accounts','tenants_to_watch_out',
             'collections_for_the_day','pending_concerns','active_concerns','concerns',
-            'requested_moveouts', 'approved_moveouts',
+            'requested_moveouts', 'approved_moveouts', 'processed_moveouts'
                     )
             );
 
