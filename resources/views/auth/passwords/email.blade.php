@@ -36,7 +36,7 @@
                             {{ session('status') }}
                         </div>
          @endif
-         <form method="POST" action="{{ route('password.resend') }}">
+         <form method="POST" action="{{ route('password.reset') }}">
          @csrf
             <!-- Nested Row within Card Body -->
             <div class="row">
