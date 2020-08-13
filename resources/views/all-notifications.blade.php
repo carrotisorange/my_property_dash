@@ -362,16 +362,16 @@
                 <table class="table table-borderless" width="100%" cellspacing="0">
              
                 </table>
-                  <table class="table table-bordered" width="100%" cellspacing="0">
+                  <table class="table table-borderless" width="100%" cellspacing="0">
                     <tbody>
                       @foreach ($requested_moveouts as $item)
                       <tr>
-                        <th>  <i class="fas fa-exclamation-triangle text-warning"></i> {{Carbon\Carbon::parse($item->created_at)->format('M d Y')}} {{ $item->building.' '.$item->unit_no }} has sent a request to moveout.</th>
+                        <td  <i class="fas fa-exclamation-triangle text-warning"></i> {{Carbon\Carbon::parse($item->created_at)->format('M d Y')}} {{ $item->building.' '.$item->unit_no }} has sent a request to moveout.</td>
                       <tr>
                       @endforeach
                       @foreach ($approved_moveouts as $item)
                       <tr>
-                        <th>   <i class="fas fa-check text-success"></i> {{Carbon\Carbon::parse($item->created_at)->format('M d Y')}} {{ $item->building.' '.$item->unit_no }} request to moveout has been approved.</th>
+                        <td>   <i class="fas fa-check text-success"></i> {{Carbon\Carbon::parse($item->created_at)->format('M d Y')}} {{ $item->building.' '.$item->unit_no }} request to moveout has been approved.</td>
                       <tr>
                       @endforeach
                     </tbody>
