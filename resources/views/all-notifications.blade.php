@@ -359,7 +359,7 @@
             <h1 class="h3 mb-0 text-gray-800">Notifications</h1>
           </div>
                 @foreach($notifications as $item)
-                  @if($item->action==='request_to_moveout')
+                  @if($item->action==='approve_to_moveout')
                     <a class="dropdown-item d-flex align-items-center" href="/units/{{$item->unit_no}}/tenants/{{ $item->tenant_id }}">
                     <div class="mr-3">
                     <div class="icon-circle bg-success">
@@ -368,7 +368,7 @@
                     </div>
                     <div>
                       <div class="small text-gray-500">{{Carbon\Carbon::parse($item->created_at)->format('M d Y')}}</div>
-                      <span class="font-weight-bold">{{ $item->first_name.' '.$item->last_name.' '.$item->building.' '.$item->unit_no }} request to moveout has been approved.</span>
+                      <span class="font-weight-bold">{{ $item->first_name.' '.$item->last_name.' '.$item->building.' '.$item->unit_no.' '.$item->action }} has been approved.</span>
                     </div>
                   </a> 
                   <hr>
@@ -381,7 +381,7 @@
                   </div>
                   <div>
                     <div class="small text-gray-500">{{Carbon\Carbon::parse($item->created_at)->format('M d Y')}}</div>
-                    <span class="font-weight-bold">{{ $item->first_name.' '.$item->last_name.' '.$item->building.' '.$item->unit_no }} has sent a request to moveout.</span>
+                    <span class="font-weight-bold">{{ $item->first_name.' '.$item->last_name.' '.$item->building.' '.$item->unit_no.' '.$item->action }} has been sent.</span>
                   </div>
                 </a> 
                 <hr>
