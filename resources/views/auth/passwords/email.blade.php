@@ -49,7 +49,6 @@
                     <div class="form-group">
                       <form method="POST" action="{{ route('password.email') }}">
                         @csrf         
-                        <input form="loginForm" id="email" type="email" class="form-control form-control-user @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Enter Email Address..." autofocus>
                         <input id="email" type="email" class="form-control form-control-user @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus aria-describedby="emailHelp" placeholder="Enter Email Address...">
                             @error('email')
                                 <span class="invalid-feedback" role="alert">
