@@ -366,7 +366,7 @@
                     <tbody>
                       @foreach ($requested_moveouts as $item)
                       <tr>
-                        <td  <i class="fas fa-exclamation-triangle text-warning"></i> {{Carbon\Carbon::parse($item->created_at)->format('M d Y')}} {{ $item->building.' '.$item->unit_no }} has sent a request to moveout.</td>
+                        <td>  <i class="fas fa-exclamation-triangle text-warning"></i> {{Carbon\Carbon::parse($item->created_at)->format('M d Y')}} {{ $item->building.' '.$item->unit_no }} has sent a request to moveout.</td>
                       <tr>
                       @endforeach
                       @foreach ($approved_moveouts as $item)
