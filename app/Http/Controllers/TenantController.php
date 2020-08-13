@@ -419,7 +419,7 @@ class TenantController extends Controller
     public function update(Request $request, $unit_id, $tenant_id)
     { 
 
-        if($request->action==='request_to_moveout')
+        if($request->action==='request_to_moveout'){
             DB::table('notifications')->insertGetId(
                 [
                     'notification_tenant_id' => $tenant_id,
@@ -428,20 +428,7 @@ class TenantController extends Controller
                     'action' => 'request to moveout',
                     'created_at' => Carbon::now(),
                 ]
-        );
-
-        if($request->action==='approve_to_moveout')
-            DB::table('notifications')->insertGetId(
-                [
-                    'notification_tenant_id' => $tenant_id,
-                    'notification_room_id' => $unit_id,
-                    'notification_user_id' => Auth::user()->id,
-                    'action' => 'approve to moveout',
-                    'created_at' => Carbon::now(),
-                ]
-        );
-
-        
+            );
 
             DB::table('tenants')
             ->where('tenant_id', $tenant_id)
@@ -451,7 +438,37 @@ class TenantController extends Controller
                 ]
             );
 
-        return redirect('/units/'.$unit_id.'/tenants/'.$tenant_id)->with('success','Request to moveout has been sent!');
+            return redirect('/units/'.$unit_id.'/tenants/'.$tenant_id)->with('success','Request to moveout has been sent!');
+        }
+        
+           
+
+        if($request->action==='approve_to_moveout'){
+            DB::table('notifications')->insertGetId(
+                [
+                    'notification_tenant_id' => $tenant_id,
+                    'notification_room_id' => $unit_id,
+                    'notification_user_id' => Auth::user()->id,
+                    'action' => 'approve to moveout',
+                    'created_at' => Carbon::now(),
+                ]
+            );
+
+            DB::table('tenants')
+            ->where('tenant_id', $tenant_id)
+            ->update(
+                [
+                    'updated_at' => Carbon::now(),
+                ]
+            );
+
+            return redirect('/units/'.$unit_id.'/tenants/'.$tenant_id)->with('success','Request to moveout has been approved!');
+
+        }
+           
+
+
+       
 
        
         DB::table('tenants')
