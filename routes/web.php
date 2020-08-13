@@ -1095,7 +1095,7 @@ Route::get('login/google/callback', 'Auth\LoginController@googleCallback');
 
 
 Route::get('password/email', function(Request $request){
-    return $request->all():
+    return $request->all();
 });
 
 
