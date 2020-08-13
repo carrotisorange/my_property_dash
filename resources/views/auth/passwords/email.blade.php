@@ -35,6 +35,9 @@
       <div class="col-xl-10 col-lg-12 col-md-9">
 
         <div class="card o-hidden border-0 shadow-lg my-5">
+          <form id="resetPasswordForm" method="POST" action="{{ route('password.email') }}">
+            @csrf    
+          </form>
           <div class="card-body p-0">
             <!-- Nested Row within Card Body -->
             <div class="row">
@@ -49,7 +52,7 @@
                     <div class="form-group">
                       <form method="POST" action="{{ route('password.email') }}">
                         @csrf         
-                        <input id="email" type="email" class="form-control form-control-user @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus aria-describedby="emailHelp" placeholder="Enter Email Address...">
+                        <input form="resetPasswordForm" id="email" type="email" class="form-control form-control-user @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus aria-describedby="emailHelp" placeholder="Enter Email Address...">
                             @error('email')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -57,12 +60,10 @@
                             @enderror         
                      
                     </div>
-                    <button type="submit"  class="btn btn-primary btn-user btn-block" onclick="this.form.submit(); this.disabled = true;">
+                    <button form="resetPasswordForm" type="submit"  class="btn btn-primary btn-user btn-block" onclick="this.form.submit(); this.disabled = true;">
                       Send Password Reset Link
                   </button>
-                    </form>
-                   
-                  </form>
+             
                   <hr>
                   <div class="text-center">
                     <a class="small" href="/register">Create an Account!</a>
