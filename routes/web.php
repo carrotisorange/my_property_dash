@@ -146,6 +146,7 @@ Route::get('/board', function(Request $request){
             ->where('movein_date', '<=', Carbon::now()->subMonths(11)->endOfMonth())
             ->where('unit_property', Auth::user()->property)
             ->whereIn('tenant_status',['active', 'inactive'])
+            ->where('status','!=', 'pulled out')
             
             ->count();
     
@@ -155,7 +156,7 @@ Route::get('/board', function(Request $request){
             ->where('movein_date', '<=', Carbon::now()->subMonths(10)->endOfMonth())
             ->where('unit_property', Auth::user()->property)
             ->whereIn('tenant_status',['active', 'inactive'])
-            
+            ->where('status','!=', 'pulled out')
             ->count();
     
             $movein_rate_3 = DB::table('tenants')
@@ -164,7 +165,7 @@ Route::get('/board', function(Request $request){
             ->where('movein_date', '<=', Carbon::now()->subMonths(9)->endOfMonth())
             ->where('unit_property', Auth::user()->property)
             ->whereIn('tenant_status',['active', 'inactive'])
-            
+            ->where('status','!=', 'pulled out')
             ->count();
     
             $movein_rate_4 = DB::table('tenants')
@@ -173,7 +174,7 @@ Route::get('/board', function(Request $request){
             ->where('movein_date', '<=', Carbon::now()->subMonths(8)->endOfMonth())
             ->where('unit_property', Auth::user()->property)
             ->whereIn('tenant_status',['active', 'inactive'])
-            
+            ->where('status','!=', 'pulled out')
             ->count();
     
             $movein_rate_5 = DB::table('tenants')
@@ -182,6 +183,7 @@ Route::get('/board', function(Request $request){
             ->where('movein_date', '<=', Carbon::now()->subMonths(7)->endOfMonth())
             ->where('unit_property', Auth::user()->property)
             ->whereIn('tenant_status',['active', 'inactive'])
+            ->where('status','!=', 'pulled out')
             ->count();
     
     
@@ -191,6 +193,7 @@ Route::get('/board', function(Request $request){
             ->where('movein_date', '<=', Carbon::now()->subMonths(6)->endOfMonth())
             ->where('unit_property', Auth::user()->property)
             ->whereIn('tenant_status',['active', 'inactive'])
+            ->where('status','!=', 'pulled out')
             ->count();
     
             $movein_rate_7 = DB::table('tenants')
@@ -199,6 +202,7 @@ Route::get('/board', function(Request $request){
             ->where('movein_date', '<=', Carbon::now()->subMonths(5)->endOfMonth())
             ->where('unit_property', Auth::user()->property)
             ->whereIn('tenant_status',['active', 'inactive'])
+            ->where('status','!=', 'pulled out')
             ->count();
     
             $movein_rate_8 = DB::table('tenants')
@@ -207,6 +211,7 @@ Route::get('/board', function(Request $request){
             ->where('movein_date', '<=', Carbon::now()->subMonths(4)->endOfMonth())
             ->where('unit_property', Auth::user()->property)
             ->whereIn('tenant_status',['active', 'inactive'])
+            ->where('status','!=', 'pulled out')
             ->count();
             
             $movein_rate_9 = DB::table('tenants')
@@ -215,6 +220,7 @@ Route::get('/board', function(Request $request){
             ->where('movein_date', '<=', Carbon::now()->subMonths(3)->endOfMonth())
             ->where('unit_property', Auth::user()->property)
             ->where('unit_property', Auth::user()->property)
+            ->where('status','!=', 'pulled out')
             ->where('type_of_units', 'leasing')
             ->count();
     
@@ -224,6 +230,7 @@ Route::get('/board', function(Request $request){
             ->where('movein_date', '<=', Carbon::now()->subMonths(2)->endOfMonth())
             ->where('unit_property', Auth::user()->property)
             ->whereIn('tenant_status',['active', 'inactive'])
+            ->where('status','!=', 'pulled out')
             ->count();
     
             $movein_rate_11 = DB::table('tenants')
@@ -232,6 +239,7 @@ Route::get('/board', function(Request $request){
             ->where('movein_date', '<=', Carbon::now()->subMonth()->endOfMonth())
             ->where('unit_property', Auth::user()->property)
             ->whereIn('tenant_status',['active', 'inactive'])
+            ->where('status','!=', 'pulled out')
             ->count();
     
             $movein_rate_12 = DB::table('tenants')
@@ -240,6 +248,7 @@ Route::get('/board', function(Request $request){
             ->where('movein_date', '<=', Carbon::now()->endOfMonth())
             ->where('unit_property', Auth::user()->property)
             ->whereIn('tenant_status',['active', 'inactive'])
+            ->where('status','!=', 'pulled out')
             ->count();
 
             if($units->count() <= 0){
@@ -468,7 +477,7 @@ Route::get('/board', function(Request $request){
             ->where('moveout_date', '<=', Carbon::now()->subMonths(11)->endOfMonth())
             ->where('unit_property', Auth::user()->property)
             ->where('tenant_status','inactive')
-            ->where('type_of_units', 'leasing')
+            ->where('status','!=', 'pulled out')
             ->count();
     
             $moveout_rate_2 = DB::table('tenants')
@@ -477,7 +486,7 @@ Route::get('/board', function(Request $request){
             ->where('moveout_date', '<=', Carbon::now()->subMonths(10)->endOfMonth())
             ->where('unit_property', Auth::user()->property)
             ->where('tenant_status','inactive')
-            ->where('type_of_units', 'leasing')
+            ->where('status','!=', 'pulled out')
             ->count();
     
             $moveout_rate_3 = DB::table('tenants')
@@ -486,7 +495,7 @@ Route::get('/board', function(Request $request){
             ->where('moveout_date', '<=', Carbon::now()->subMonths(9)->endOfMonth())
             ->where('unit_property', Auth::user()->property)
             ->where('tenant_status','inactive')
-            ->where('type_of_units', 'leasing')
+            ->where('status','!=', 'pulled out')
             ->count();
     
             $moveout_rate_4 = DB::table('tenants')
@@ -495,7 +504,7 @@ Route::get('/board', function(Request $request){
             ->where('moveout_date', '<=', Carbon::now()->subMonths(8)->endOfMonth())
             ->where('unit_property', Auth::user()->property)
             ->where('tenant_status','inactive')
-            ->where('type_of_units', 'leasing')
+            ->where('status','!=', 'pulled out')
             ->count();
     
             $moveout_rate_5 = DB::table('tenants')
@@ -504,7 +513,7 @@ Route::get('/board', function(Request $request){
             ->where('moveout_date', '<=', Carbon::now()->subMonths(7)->endOfMonth())
             ->where('unit_property', Auth::user()->property)
             ->where('tenant_status','inactive')
-            ->where('type_of_units', 'leasing')
+            ->where('status','!=', 'pulled out')
             ->count();
     
             $moveout_rate_6 = DB::table('tenants')
@@ -513,7 +522,7 @@ Route::get('/board', function(Request $request){
             ->where('moveout_date', '<=', Carbon::now()->subMonths(6)->endOfMonth())
             ->where('unit_property', Auth::user()->property)
             ->where('tenant_status','inactive')
-            ->where('type_of_units', 'leasing')
+            ->where('status','!=', 'pulled out')
             ->count();
     
             $moveout_rate_7 = DB::table('tenants')
@@ -522,7 +531,7 @@ Route::get('/board', function(Request $request){
             ->where('moveout_date', '<=', Carbon::now()->subMonths(5)->endOfMonth())
             ->where('unit_property', Auth::user()->property)
             ->where('tenant_status','inactive')
-            ->where('type_of_units', 'leasing')
+            ->where('status','!=', 'pulled out')
             ->count();
         
             $moveout_rate_8 = DB::table('tenants')
@@ -531,7 +540,7 @@ Route::get('/board', function(Request $request){
             ->where('moveout_date', '<=', Carbon::now()->subMonths(4)->endOfMonth())
             ->where('unit_property', Auth::user()->property)
             ->where('tenant_status','inactive')
-            ->where('type_of_units', 'leasing')
+            ->where('status','!=', 'pulled out')
             ->count();
         
             $moveout_rate_9= DB::table('tenants')
@@ -540,7 +549,7 @@ Route::get('/board', function(Request $request){
             ->where('moveout_date', '<=', Carbon::now()->subMonths(3)->endOfMonth())
             ->where('unit_property', Auth::user()->property)
             ->where('tenant_status','inactive')
-            ->where('type_of_units', 'leasing')
+            ->where('status','!=', 'pulled out')
             ->count();
         
             $moveout_rate_10= DB::table('tenants')
@@ -549,7 +558,7 @@ Route::get('/board', function(Request $request){
             ->where('moveout_date', '<=', Carbon::now()->subMonths(2)->endOfMonth())
             ->where('unit_property', Auth::user()->property)
             ->where('tenant_status','inactive')
-            ->where('type_of_units', 'leasing')
+            ->where('status','!=', 'pulled out')
             ->count();
         
             $moveout_rate_11 = DB::table('tenants')
@@ -558,7 +567,7 @@ Route::get('/board', function(Request $request){
             ->where('moveout_date', '<=', Carbon::now()->subMonth()->endOfMonth())
             ->where('unit_property', Auth::user()->property)
             ->where('tenant_status','inactive')
-            ->where('type_of_units', 'leasing')
+            ->where('status','!=', 'pulled out')
             ->count();
         
             $moveout_rate_12 = DB::table('tenants')
@@ -567,7 +576,7 @@ Route::get('/board', function(Request $request){
             ->where('moveout_date', '<=', Carbon::now()->endOfMonth())
             ->where('unit_property', Auth::user()->property)
             ->where('tenant_status','inactive')
-            ->where('type_of_units', 'leasing')
+            ->where('status','!=', 'pulled out')
             ->count();
 
             $moveout_rate = new DashboardChart;
@@ -662,6 +671,7 @@ Route::get('/board', function(Request $request){
             ->where('unit_property', Auth::user()->property)
             ->whereNotNull('tenants.created_at')
             ->whereNull('tenants.updated_at')
+            ->orderBy('tenants.created_at', 'desc')
             ->get();
 
             $approved_moveout = DB::table('tenants')
@@ -669,6 +679,16 @@ Route::get('/board', function(Request $request){
             ->where('unit_property', Auth::user()->property)
             ->whereNotNull('tenants.created_at')
             ->whereNotNull('tenants.updated_at')
+            ->orderBy('tenants.updated_at', 'desc')
+            ->get();
+
+            return $notifications = $request_to_moveout->merge($approved_moveout);
+            
+            $approved_moveouts = DB::table('tenants')
+            ->join('units', 'unit_id', 'unit_tenant_id')
+            ->where('unit_property', Auth::user()->property)
+            ->where('tenant_status','inactive')
+            ->where('status','!=', 'pulled out')
             ->get();
             
       
