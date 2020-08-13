@@ -1095,7 +1095,13 @@ Route::get('login/google/callback', 'Auth\LoginController@googleCallback');
 
 
 Route::post('/reset-pass', function(Request $request){
-    return $request->all();
-});
+    $user = DB::table('users')->where('email', '=', $request->email)
+    ->first();
+
+    //Check if the user exists
+    if (count($user) < 1) {
+        return redirect()->back()->with('error', 'Email does not exist!');
+    }
+    });
 
 
