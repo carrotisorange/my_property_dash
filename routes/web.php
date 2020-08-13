@@ -671,15 +671,17 @@ Route::get('/board', function(Request $request){
             ->where('unit_property', Auth::user()->property)
             ->whereNotNull('tenants.created_at')
             ->whereNull('tenants.updated_at')
+            ->orderBy('tenants.created_at', 'desc')
+            ->limit(3)
+            ->get();
 
-            return $approved_moveouts = DB::table('tenants')
+            $approved_moveouts = DB::table('tenants')
             ->join('units', 'unit_id', 'unit_tenant_id')
             ->where('unit_property', Auth::user()->property)
             ->whereNotNull('tenants.created_at')
             ->whereNotNull('tenants.updated_at')
             ->orderBy('tenants.updated_at', 'desc')
-            ->union($requested_moveouts)
-            ->limit(5)
+            ->limit(3)
             ->get();
 
             // $processed_moveouts = DB::table('tenants')
@@ -687,10 +689,10 @@ Route::get('/board', function(Request $request){
             // ->where('unit_property', Auth::user()->property)
             // ->where('tenant_status','inactive')
             // ->orderBy('tenants.actual_move_out_date', 'desc')
-            // ->limit(2)
+            // ->limit(3)
             // ->get();
 
-            // $notifications = $requested_moveouts->merge([$approved_moveouts,$processed_moveouts ]);
+            $notifications = $requested_moveouts->merge([$approved_moveouts]);
       
         return view('manager.dashboard', 
             compact(
@@ -699,7 +701,7 @@ Route::get('/board', function(Request $request){
             'movein_rate','moveout_rate', 'renewed_chart', 'collection_rate', 'reason_for_moving_out_chart',
             'delinquent_accounts','tenants_to_watch_out',
             'collections_for_the_day','pending_concerns','active_concerns','concerns',
-            'approved_moveouts'
+            'notifications', 'requested_moveouts', 'approved_moveouts',
                     )
             );
 

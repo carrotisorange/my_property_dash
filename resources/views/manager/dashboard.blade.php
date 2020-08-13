@@ -260,7 +260,7 @@
                 </a> 
                 @endforeach 
 
-                @foreach($processed_moveouts as $item)
+                <!-- @foreach($processed_moveouts as $item)
                 <a class="dropdown-item d-flex align-items-center" href="/units/{{$item->unit_no}}/tenants/{{ $item->tenant_id }}">
                   <div class="mr-3">
                   <div class="icon-circle bg-success">
@@ -272,7 +272,7 @@
                     <span class="font-weight-bold">{{ $item->building.' '.$item->unit_no }} moveout has been processed.</span>
                   </div>
                 </a> 
-                @endforeach 
+                @endforeach  -->
                 
                 <a class="dropdown-item text-center small text-gray-500" href="#">Show All Notifications</a>
               </div>
