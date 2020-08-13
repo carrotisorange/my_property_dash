@@ -368,7 +368,7 @@
                   </div>
                   <div>
                     <div class="small text-gray-500">{{Carbon\Carbon::parse($item->actual_move_out_date)->format('M d Y')}}</div>
-                    <span class="font-weight-bold">{{ $item->first_name.' '.$item->last_name.' '.$item->building.' '.$item->unit_no }} moveout has been processed.</span>
+                    <span class="">{{ $item->first_name.' '.$item->last_name.' '.$item->building.' '.$item->unit_no }} moveout has been processed.</span>
                   </div>
                 </a> 
                 <hr>
@@ -384,7 +384,7 @@
                   </div>
                   <div>
                     <div class="small text-gray-500">{{Carbon\Carbon::parse($item->updated_at)->format('M d Y')}}</div>
-                    <span class="font-weight-bold">{{ $item->first_name.' '.$item->last_name.' '.$item->building.' '.$item->unit_no }} request to moveout has been approved.</span>
+                    <span class="">{{ $item->first_name.' '.$item->last_name.' '.$item->building.' '.$item->unit_no }} request to moveout has been approved.</span>
                   </div>
                 </a> 
                 <hr>
@@ -400,7 +400,7 @@
                   </div>
                   <div>
                     <div class="small text-gray-500">{{Carbon\Carbon::parse($item->created_at)->format('M d Y')}}</div>
-                    <span class="font-weight-bold">{{ $item->first_name.' '.$item->last_name.' '.$item->building.' '.$item->unit_no }} has sent a request to moveout.</span>
+                    <span class="">{{ $item->first_name.' '.$item->last_name.' '.$item->building.' '.$item->unit_no }} has sent a request to moveout.</span>
                   </div>
                 </a> 
                 <hr>
