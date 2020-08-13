@@ -119,6 +119,15 @@ class ConcernController extends Controller
             'updated_at' => Carbon::now(),
         ]);
 
+
+        DB::table('concerns')
+        ->where('concern_id', $concern_id)
+        ->whereRaw("action_taken like ' like '%CLOSED%' ")
+        ->update([
+            'updated_at' => Carbon::now(),
+        ]);
+
+
         return back()->with('success', 'Concern information has been updated!');
     }
 
