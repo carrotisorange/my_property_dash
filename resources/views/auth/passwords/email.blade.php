@@ -53,6 +53,7 @@
                   @endif
                    <form id="resetPasswordForm" class="user" method="POST" action="{{ route('password.email') }}">
                     @csrf
+                  </form>
                     <div class="form-group">
                            
                         <input form="resetPasswordForm" id="email" type="email" class="form-control form-control-user @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus aria-describedby="emailHelp" placeholder="Enter Email Address...">
@@ -66,7 +67,7 @@
                     <button form="resetPasswordForm" type="submit"  class="btn btn-primary btn-user btn-block" onclick="this.form.submit(); this.disabled = true;">
                       Send Password Reset Link
                   </button>
-                  </form>
+             
                   <hr>
                   <div class="text-center">
                     <a class="small" href="/register">Create an Account!</a>
