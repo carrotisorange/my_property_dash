@@ -798,7 +798,7 @@ Route::get('/notifications', function(){
     if(auth()->user()->status === 'registered' || auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager' || auth()->user()->user_type === 'treasury' || auth()->user()->user_type === 'billing'){
         
         $notifications = DB::table('notifications')
-        ->select('*','notifications.created_at as created_at')
+        ->select('*','notifications.updated_at as updated_at')
         ->join('units', 'unit_id', 'notification_room_id')
         ->join('tenants', 'tenant_id', 'notification_tenant_id')
         ->where('unit_property', Auth::user()->property)

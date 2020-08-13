@@ -375,7 +375,7 @@
                       </div>
                       <div>
                         <div class="small text-gray-500">{{Carbon\Carbon::parse($item->created_at)->format('M d Y')}}</div>
-                        <span class="">{{ $item->first_name.' '.$item->last_name.' '.$item->building.' '.$item->unit_no.' '.$item->action }} has been approved.</span>
+                        <span class="font-weight-bold">{{ $item->first_name.' '.$item->last_name.' '.$item->building.' '.$item->unit_no.' '.$item->action }} has been approved.</span>
                       </div>
                     </button> 
                     <hr>
@@ -409,7 +409,7 @@
                       </div>
                       <div>
                         <div class="small text-gray-500">{{Carbon\Carbon::parse($item->created_at)->format('M d Y')}}</div>
-                        <span class="">{{ $item->first_name.' '.$item->last_name.' '.$item->building.' '.$item->unit_no.' '.$item->action }} has been approved.</span>
+                        <span class="font-weight-bold">{{ $item->first_name.' '.$item->last_name.' '.$item->building.' '.$item->unit_no.' '.$item->action }} has been approved.</span>
                       </div>
                     </button> 
                     <hr>
