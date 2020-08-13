@@ -23,11 +23,7 @@
 <body class="bg-gradient-primary">
 
   <div class="container">
-    @foreach (['danger', 'warning', 'success', 'info'] as $key)
-    @if(Session::has($key))
-   <p class="alert alert-{{ $key }}"> <i class="fas fa-check-circle"></i> {{ Session::get($key) }}</p>
-    @endif
-    @endforeach
+   
 
     <!-- Outer Row -->
     <div class="row justify-content-center">
@@ -60,7 +56,7 @@
                             @foreach (['danger', 'warning', 'success', 'info'] as $key)
                               @if(Session::has($key))
                               <span class="invalid-feedback" role="alert">
-                                <strong>{{ $key }} {{ Session::get($key) }}</strong>
+                                <strong class="alert alert-{{ $key }}"> {{ Session::get($key) }}</strong>
                             </span>
                               @endif
                             @endforeach         
