@@ -551,7 +551,7 @@
                           <tr>
                             <td>Actual Moveout Date</td>
                             <td>
-                                {{ $tenant->actual_move_out_date) }}
+                                {{ $tenant->actual_move_out_date }}
                             </td>
                           </tr>
                           @endif 
