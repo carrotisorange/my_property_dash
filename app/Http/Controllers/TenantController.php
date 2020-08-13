@@ -417,35 +417,20 @@ class TenantController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $unit_id, $tenant_id)
-    {
-        if($request->action==='open_notifications'){
-          
-            return 'You opened this notif.';
+    { 
+        if($request->action==='request_to_moveout')
+        DB::table('notifications')->insertGetId(
+            [
+            'notification_tenant_id' => $tenant_id,
+            'notification_room_id' => $unit_id,
+            'notification_user_id' => Auth::user()->id,
+            'created_at' => Carbon::now(),
+            ]
+        );
 
-            return redirect('/units/'.$unit_id.'/tenants/'.$tenant_id);
-        }
-        
-        if($request->action==='request_to_moveout'){
-            DB::table("tenants")
-            ->where('tenant_id', $tenant_id)
-            ->update([
-                    'created_at' => Carbon::now(),
-            ]); 
+        return redirect('/units/'.$unit_id.'/tenants/'.$tenant_id)->with('success','Request to moveout has been sent!');
 
-            
-
-            return redirect('/units/'.$unit_id.'/tenants/'.$tenant_id)->with('success','Request to moveout has been sent!');
-        }
-
-        if($request->action==='approve_request_to_moveout'){
-            DB::table("tenants")
-            ->where('tenant_id', $tenant_id)
-            ->update([
-                    'updated_at' => Carbon::now(),
-            ]); 
-
-            return redirect('/units/'.$unit_id.'/tenants/'.$tenant_id)->with('success','Request to moveout has been approved!');
-        }
+       
         DB::table('tenants')
         ->where('tenant_id', $tenant_id)
         ->update([

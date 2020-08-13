@@ -221,8 +221,8 @@
               <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-bell fa-fw"></i>
                 <!-- Counter - Alerts -->
-                @if($requested_moveouts->count() + $approved_moveouts->count() + $processed_moveouts->count()  > 0)
-                  <span class="badge badge-danger badge-counter">{{ $requested_moveouts->count() + $approved_moveouts->count() +  + $processed_moveouts->count() }}</span>
+                @if($notifications->count()  > 0)
+                  <span class="badge badge-danger badge-counter">{{ $notifications->count() }}</span>
                 @else
                   <span class="badge badge-danger badge-counter"></span>
                 @endif
@@ -233,41 +233,23 @@
                   Notifications
                 </h6>
 
-                @foreach($processed_moveouts as $item)
-                <form id="openNotificationsForm"  action="/units/{{ $item->unit_tenant_id }}/tenants/{{ $item->tenant_id }}" method="POST">
-                  @method('put')
-                  {{ csrf_field() }}
-                  <input form="openNotificationsForm" type="hidden" name="action" value="open_notifications">
-                </form>
-                <button form="openNotificationsForm" class="dropdown-item d-flex align-items-center">
-                  <div class="mr-3">
-                  <div class="icon-circle bg-success">
-                      <i class="fas fa-check text-white"></i>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="small text-gray-500">{{Carbon\Carbon::parse($item->actual_move_out_date)->format('M d Y')}}</div>
-                    <span class="font-weight-bold">{{ $item->first_name.' '.$item->last_name.' '.$item->building.' '.$item->unit_no }} moveout has been processed.</span>
-                  </div>
-                </button> 
-                @endforeach 
+               
 
-                @foreach($approved_moveouts as $item)
-                <a class="dropdown-item d-flex align-items-center" href="/units/{{$item->unit_no}}/tenants/{{ $item->tenant_id }}">
-                  <div class="mr-3">
-                  <div class="icon-circle bg-success">
-                      <i class="fas fa-check text-white"></i>
+                @foreach($$notifications->count() as $item)
+                  @if($item->action==='requested_for_moveout')
+                    <a class="dropdown-item d-flex align-items-center" href="/units/{{$item->unit_no}}/tenants/{{ $item->tenant_id }}">
+                    <div class="mr-3">
+                    <div class="icon-circle bg-success">
+                        <i class="fas fa-check text-white"></i>
+                      </div>
                     </div>
-                  </div>
-                  <div>
-                    <div class="small text-gray-500">{{Carbon\Carbon::parse($item->created_at)->format('M d Y')}}</div>
-                    <span class="font-weight-bold">{{ $item->first_name.' '.$item->last_name.' '.$item->building.' '.$item->unit_no }} request to moveout has been approved.</span>
-                  </div>
-                </a> 
-                @endforeach 
-
-                @foreach($requested_moveouts as $item)
-                <a class="dropdown-item d-flex align-items-center" href="/units/{{$item->unit_no}}/tenants/{{ $item->tenant_id }}">
+                    <div>
+                      <div class="small text-gray-500">{{Carbon\Carbon::parse($item->created_at)->format('M d Y')}}</div>
+                      <span class="font-weight-bold">{{ $item->first_name.' '.$item->last_name.' '.$item->building.' '.$item->unit_no }} request to moveout has been approved.</span>
+                    </div>
+                  </a> 
+                  @elseif()
+                  <a class="dropdown-item d-flex align-items-center" href="/units/{{$item->unit_no}}/tenants/{{ $item->tenant_id }}">
                   <div class="mr-3">
                   <div class="icon-circle bg-warning">
                       <i class="fas fa-exclamation-triangle text-white"></i>
@@ -278,12 +260,8 @@
                     <span class="font-weight-bold">{{ $item->building.' '.$item->unit_no }} has sent a request to moveout.</span>
                   </div>
                 </a> 
-                @endforeach 
-
-              
-
-               
-                
+                  @endif
+                @endforeach
                  <a class="dropdown-item text-center small text-gray-500" href="/notifications">Show All Notifications</a>
               </div>
             </li> 
