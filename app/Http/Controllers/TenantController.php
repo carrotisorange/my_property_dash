@@ -476,6 +476,10 @@ class TenantController extends Controller
                 'years_of_employment' => $request->years_of_employment,
 
                 'tenants_note' => $request->tenants_note,
+
+                'created_at' => '',
+
+                'updated_at' => '',
         ]);
        return redirect('/units/'.$unit_id.'/tenants/'.$tenant_id)->with('success','Tenant information has been updated!');
     }
