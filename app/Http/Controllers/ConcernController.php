@@ -116,7 +116,6 @@ class ConcernController extends Controller
             'concern_desc' => $request->concern_desc, 
             'action_taken' => $request->action_taken,
             'feedback' => $request->feedback,
-            'updated_at' => Carbon::now(),
         ]);
 
 
