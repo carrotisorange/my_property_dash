@@ -469,7 +469,7 @@ class TenantController extends Controller
         if($request->action==='open notification'){
             DB::table('notifications')
             ->where('notification_id', $request->notification_id)
-            ->updated([
+            ->update([
                 'updated_at' => Carbon::now()
             ]);
 
