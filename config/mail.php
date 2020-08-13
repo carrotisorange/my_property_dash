@@ -42,7 +42,7 @@ return [
     |
     */
 
-    'port' => env('MAIL_PORT', '587'),
+    'port' => env('MAIL_PORT', '2525'),
 
     /*
     |--------------------------------------------------------------------------
@@ -56,8 +56,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'marthaleasingcourtyards@gmail.com'),
-        'name' => env('MAIL_FROM_NAME', 'The Property Manager IT'),
+        'address' => env('MAIL_FROM_ADDRESS', 'lmbernardo@slu.edu.ph'),
+        'name' => env('MAIL_FROM_NAME', 'The Property Manager'),
     ],
 
     /*
@@ -84,9 +84,9 @@ return [
     |
     */
 
-    'username' => env('MAIL_USERNAME'),
+    'username' => env('MAIL_USERNAME', 'd78f2af0614779'),
 
-    'password' => env('MAIL_PASSWORD'),
+    'password' => env('MAIL_PASSWORD', '78c264e4cbac0c'),
 
     /*
     |--------------------------------------------------------------------------
