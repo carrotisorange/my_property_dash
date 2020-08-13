@@ -222,7 +222,7 @@
                 <i class="fas fa-bell fa-fw"></i>
                 <!-- Counter - Alerts -->
                 @if($requested_moveouts->count()+$approved_moveouts->count() > 0)
-                  <span class="badge badge-danger badge-counter">{{ $notifications->count() }}</span>
+                  <span class="badge badge-danger badge-counter">{{ $requested_moveouts->count()+$approved_moveouts->count() }}</span>
                 @else
                   <span class="badge badge-danger badge-counter"></span>
                 @endif
