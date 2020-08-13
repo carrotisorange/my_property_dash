@@ -418,7 +418,13 @@ class TenantController extends Controller
      */
     public function update(Request $request, $unit_id, $tenant_id)
     {
-
+        if($request->action==='open_notifications'){
+          
+            return 'You opened this notif.'
+            
+            return redirect('/units/'.$unit_id.'/tenants/'.$tenant_id);
+        }
+        
         if($request->action==='request_to_moveout'){
             DB::table("tenants")
             ->where('tenant_id', $tenant_id)

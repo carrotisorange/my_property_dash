@@ -234,10 +234,12 @@
                 </h6>
 
                 @foreach($processed_moveouts as $item)
-                <form action="">
-
+                <form form="openNotificationsForm"  action="/units/{{ $item->unit_tenant_id }}/tenants/{{ $item->tenant_id }}" method="POST">
+                  @method('put')
+                  {{ csrf_field() }}
+                  <input id="openNotificationsForm" type="text" name="action" value="open_notifications">
                 </form>
-                <button class="dropdown-item d-flex align-items-center" href="/units/{{$item->unit_no}}/tenants/{{ $item->tenant_id }}">
+                <button id="openNotificationsForm" class="dropdown-item d-flex align-items-center" href="/units/{{$item->unit_no}}/tenants/{{ $item->tenant_id }}">
                   <div class="mr-3">
                   <div class="icon-circle bg-success">
                       <i class="fas fa-check text-white"></i>
