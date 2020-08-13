@@ -234,7 +234,10 @@
                 </h6>
 
                 @foreach($processed_moveouts as $item)
-                <a class="dropdown-item d-flex align-items-center" href="/units/{{$item->unit_no}}/tenants/{{ $item->tenant_id }}">
+                <form action="">
+
+                </form>
+                <button class="dropdown-item d-flex align-items-center" href="/units/{{$item->unit_no}}/tenants/{{ $item->tenant_id }}">
                   <div class="mr-3">
                   <div class="icon-circle bg-success">
                       <i class="fas fa-check text-white"></i>
@@ -244,7 +247,7 @@
                     <div class="small text-gray-500">{{Carbon\Carbon::parse($item->actual_move_out_date)->format('M d Y')}}</div>
                     <span class="font-weight-bold">{{ $item->first_name.' '.$item->last_name.' '.$item->building.' '.$item->unit_no }} moveout has been processed.</span>
                   </div>
-                </a> 
+                </button> 
                 @endforeach 
 
                 @foreach($approved_moveouts as $item)
