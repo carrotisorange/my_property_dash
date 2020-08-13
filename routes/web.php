@@ -691,6 +691,8 @@ Route::get('/board', function(Request $request){
             ->orderBy('tenants.actual_move_out_date', 'desc')
             ->limit(3)
             ->get();
+
+            $notifications = $request_to_moveout->merge([$approved_moveout,$processed_moveouts ]);
       
         return view('manager.dashboard', 
             compact(
@@ -698,7 +700,8 @@ Route::get('/board', function(Request $request){
             'active_tenants', 'pending_tenants', 'owners', 
             'movein_rate','moveout_rate', 'renewed_chart', 'collection_rate', 'reason_for_moving_out_chart',
             'delinquent_accounts','tenants_to_watch_out',
-            'collections_for_the_day','pending_concerns','active_concerns','concerns','processed_moveouts','requested_moveouts', 'approved_moveouts'
+            'collections_for_the_day','pending_concerns','active_concerns','concerns',
+            'notifications', 'requested_moveouts', 'approved_moveouts', 'processed_moveouts'
                     )
             );
 
