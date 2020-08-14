@@ -104,11 +104,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $user_id)
     {
-        DB::table('users')->
-        update([
-            'email_verified_at' => null
-        ]);
-
+        
         if($request->action === 'change_footer_message' ){
             DB::table('users')
             ->where('id', $user_id)
