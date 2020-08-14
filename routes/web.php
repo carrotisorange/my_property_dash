@@ -45,10 +45,6 @@ Route::get('/', function(){
 
 Route::get('/board', function(Request $request){
 
-    if(auth()->user()->status === 'unregistered'){
-        return view('unregistered');
-    }
-
             $pending_concerns = DB::table('tenants')
             ->join('units', 'unit_id', 'unit_tenant_id')
             ->join('concerns', 'tenant_id', 'concern_tenant_id')
@@ -767,10 +763,7 @@ Route::get('/home', function(){
         //     ->get();
         
         return view('admin.home',compact('units','buildings', 'units_count'));
-        }else{
-            return view('unregistered');
-        }
-   
+    }
 })->middleware(['auth', 'verified']);
 
 //routes for payments
@@ -795,7 +788,7 @@ Route::delete('/tenants/{tenant_id}', 'TenantController@destroy')->middleware(['
 
 Route::get('/notifications', function(){
 
-    if(auth()->user()->status === 'registered' || auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager' || auth()->user()->user_type === 'treasury' || auth()->user()->user_type === 'billing'){
+    if(auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager' || auth()->user()->user_type === 'treasury' || auth()->user()->user_type === 'billing'){
         
         $notifications = DB::table('notifications')
         ->select('*','notifications.updated_at as updated_at')
@@ -814,7 +807,7 @@ Route::get('/notifications', function(){
 
 Route::get('/tenants', function(){
 
-    if(auth()->user()->status === 'registered' || auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager' || auth()->user()->user_type === 'treasury' || auth()->user()->user_type === 'billing'){
+    if(auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager' || auth()->user()->user_type === 'treasury' || auth()->user()->user_type === 'billing'){
         
             $tenants = DB::table('tenants')
             ->join('units', 'unit_id', 'unit_tenant_id')
@@ -837,7 +830,7 @@ Route::get('/tenants', function(){
 
 Route::get('/concerns', function(){
 
-    if(auth()->user()->status === 'registered'|| auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager'){
+    if(auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager'){
         
              $concerns = DB::table('tenants')
             ->join('units', 'unit_id', 'unit_tenant_id')
@@ -857,7 +850,7 @@ Route::get('/concerns', function(){
 
 Route::get('/users', function(){
 
-    if(auth()->user()->status === 'registered' || auth()->user()->user_type === 'manager'){
+    if(auth()->user()->user_type === 'manager'){
         
         if(Auth::user()->email === 'marthaleasingcourtyards@gmail.com'){
             $users = DB::table('users')
@@ -881,7 +874,7 @@ Route::get('/users', function(){
 })->middleware(['auth', 'verified']);
 
 Route::get('/owners', function(){
-    if(auth()->user()->status === 'registered' || auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager'){
+    if( auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager'){
         $property = explode(",", Auth::user()->property);
       
             $owners = DB::table('units')
@@ -933,7 +926,7 @@ Route::get('/collections', function(){
 })->middleware(['auth', 'verified']);
 
 Route::get('/bills', function(){
-    if(auth()->user()->status === 'registered' || auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager'){
+    if(auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager'){
         
         $bills = DB::table('units')
         ->join('tenants', 'unit_id', 'unit_tenant_id')
@@ -956,7 +949,7 @@ Route::get('/bills', function(){
 })->middleware(['auth', 'verified']);
 
 Route::get('/account-payables', function(){
-    if(auth()->user()->status === 'registered' || auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager'){
+    if( auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager'){
         return view('account-payables.account-payables');
     }else{
         return view('unregistered');
@@ -965,7 +958,7 @@ Route::get('/account-payables', function(){
 })->middleware(['auth', 'verified']);
 
 Route::get('/housekeeping', function(){
-    if(auth()->user()->status === 'registered' || auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager'){
+    if(auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager'){
 
         $housekeeping = DB::table('personnels')
         ->where('personnel_property', Auth::user()->property)
@@ -980,7 +973,7 @@ Route::get('/housekeeping', function(){
 })->middleware(['auth', 'verified']);
 
 Route::get('/maintenance', function(){
-    if(auth()->user()->status === 'registered' || auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager'){
+    if(auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager'){
 
          $maintenance = DB::table('personnels')
         ->where('personnel_property', Auth::user()->property)
@@ -995,7 +988,7 @@ Route::get('/maintenance', function(){
 })->middleware(['auth', 'verified']);
 
 Route::get('/job-orders', function(){
-    if(auth()->user()->status === 'registered' || auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager'){
+    if(auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager'){
 
         return view('admin.job-orders');
     }else{

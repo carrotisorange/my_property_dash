@@ -68,7 +68,7 @@ class ConcernController extends Controller
      */
     public function show($unit_id, $tenant_id, $concern_id)
     {
-        if(auth()->user()->status === 'registered' || auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager' || auth()->user()->user_type === 'treasury' || auth()->user()->user_type === 'billing'){
+        if(auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager' || auth()->user()->user_type === 'treasury' || auth()->user()->user_type === 'billing'){
         
             $tenant = Tenant::findOrFail($tenant_id);
 

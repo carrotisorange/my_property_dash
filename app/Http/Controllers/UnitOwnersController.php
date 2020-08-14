@@ -97,7 +97,7 @@ class UnitOwnersController extends Controller
      */
     public function show($unit_id, $unit_owner_id)
     {
-        if(Auth::user()->status === 'registered' || auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager'){
+        if(auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager'){
             $investor = UnitOwner::findOrFail($unit_owner_id);
 
             $investor_billings = DB::table('units')

@@ -207,15 +207,16 @@
         </nav>
         <!-- End of Topbar -->
         <div class="container-fluid">
+          @if (session('resent'))
+            <div class="alert alert-success" role="alert">
+              {{ __('A fresh verification link has been sent to your email address.') }}
+            </div>
+          @endif
         <div class="text-center">
             <div class="error mx-auto" data-text="404">404</div>
             <p class="lead text-gray-800 mb-5">Page Not Found</p>
             <p class="text-gray-500 mb-0">
-            @if (session('resent'))
-                <div class="alert alert-success" role="alert">
-                  {{ __('A fresh verification link has been sent to your email address.') }}
-                </div>
-            @endif
+           
                   {{ __('Before proceeding, please check your email for a verification link.') }}
                   {{ __('If you did not receive the email') }},
                   <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">

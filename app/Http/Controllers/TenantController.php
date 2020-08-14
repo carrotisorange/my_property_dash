@@ -399,7 +399,7 @@ class TenantController extends Controller
      */
     public function edit($unit_id, $tenant_id)
     {
-        if(Auth::user()->status === 'registered' || auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager'){
+        if(auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager'){
             $tenant = Tenant::findOrFail($tenant_id);
             return view('admin.edit-tenant', compact('tenant'));
         }else{
