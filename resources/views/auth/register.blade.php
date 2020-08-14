@@ -28,7 +28,7 @@
       <div class="card-body p-0">
         <form class="user" id="registrationForm" method="POST" action="/register">
             @csrf
-        </form>
+        
         <!-- Nested Row within Card Body -->
         <div class="row">
           <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
@@ -123,6 +123,8 @@
                 <button form="registrationForm" type="submit" class="btn btn-primary btn-user btn-block" id="registerButton" onclick="this.form.submit(); this.disabled = true;">
                     <i class="fas fa-check"></i> Register
             </button>
+
+          </form>
                 <hr>
                 <a href="login/google" class="btn btn-google btn-user btn-block">
                   <i class="fab fa-google fa-fw"></i> Register with Google
