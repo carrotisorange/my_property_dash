@@ -1080,11 +1080,18 @@ Route::get('/{properties}/units','UnitsController@show_vacant_units');
 Route::get('/{properties}/units/{unit_id}', 'UnitsController@show_reservation_form');
 Route::get('/{properties}/units/{unit_id}/tenants/{tenant_id}/reserved', 'TenantController@get_reservation');
 
+
+//routes for logging in using facebook
 Route::get('login/facebook', 'Auth\LoginController@redirectToProvider');
 Route::get('login/facebook/callback', 'Auth\LoginController@handleProviderCallback');
 
-Route::get('login/google', 'Auth\LoginController@google');
-Route::get('login/google/callback', 'Auth\LoginController@googleCallback');
+//routes for loggin in using google
+Route::get('sign-in/google', 'Auth\LoginController@google');
+Route::get('sign-in/google/redirect', 'Auth\LoginController@googleRedirect');
+
+
+
+
 
 
 Route::post('/reset-pass', function(Request $request){
