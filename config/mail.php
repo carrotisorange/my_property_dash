@@ -132,15 +132,6 @@ return [
     */
 
     'log_channel' => env('MAIL_LOG_CHANNEL'),
-
-    'encryption' => 'tls', 
     
-    'streamOptions' => [
-    'ssl' => [
-        'allow_self_signed' => true,
-        'verify_peer' => false,
-        'verify_peer_name' => false,
-        ],
-    ],
 
 ];
