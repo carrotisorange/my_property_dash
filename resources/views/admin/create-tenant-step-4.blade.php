@@ -339,7 +339,7 @@
                     <li class="breadcrumb-item"><a href="tenant-step1">Data</a></li>
                     <li class="breadcrumb-item"><a href="tenant-step2">Background</a></li>
                     <li class="breadcrumb-item"><a href="tenant-step3">Contract</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Payment</li>
+                    <li class="breadcrumb-item" ><a href="tenant-step4">Payment</a></li>
                   </ol>
                    <h2 class="d-none d-sm-inline-block btn btn-md btn-primary shadow-sm" id="total_bills">Total:</h2>
               </div>

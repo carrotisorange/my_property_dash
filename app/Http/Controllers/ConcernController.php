@@ -57,7 +57,7 @@ class ConcernController extends Controller
                 'is_paid' => 'unpaid',
             ]);
 
-            return back()->with('success', 'Concern has been added to the record!');
+            return back()->with('success', 'Concern has been added to your property!');
     }
 
     /**

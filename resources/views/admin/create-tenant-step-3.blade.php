@@ -332,8 +332,9 @@
 
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="tenant-step1">Data</a></li>
-            <li class="breadcrumb-item"><a href="tenant-step2">Background</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Contract</li>
+              <li class="breadcrumb-item"><a href="tenant-step2">Background</a></li>
+              <li class="breadcrumb-item"><a href="tenant-step3">Contract</a></li>
+              <li class="breadcrumb-item">Payment</li>
           </ol>
 
           @foreach (['danger', 'warning', 'success', 'info'] as $key)

@@ -409,7 +409,7 @@
           <tbody>
             @foreach ($users as $item)
            <tr>
-              <th>{{ $item->id }}</th>
+              <td>{{ $item->id }}</td>
                <td title="{{ $item->last_login_ip }}">
                  {{ $item->name }}
                 </td>

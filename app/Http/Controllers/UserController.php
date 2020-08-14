@@ -61,7 +61,7 @@ class UserController extends Controller
             'account_type' => 'basic',
         ]);
 
-        return redirect('/users')->with('success', 'A new user has been added to the record!');
+        return redirect('/users')->with('success', 'A new user has been added to your property!');
 
     }
 

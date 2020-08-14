@@ -178,7 +178,7 @@ class UnitsController extends Controller
          ]);
         }
  
-         return back()->with('success', $request->no_of_rooms.' rooms have been added to the record!');
+         return back()->with('success', $request->no_of_rooms.' rooms have been added to your property!');
      }
 
 

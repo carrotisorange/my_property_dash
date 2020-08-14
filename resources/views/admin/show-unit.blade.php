@@ -746,7 +746,7 @@
                                 </div>
                                 @if(Auth::user()->property_type !== 'Commercial Complex')
                                 <div class="form-group">
-                                  <label for="message-text" class="col-form-label">NO OF BEDS</label>
+                                  <small>No of beds</small>
                                   <input form="editUnitForm" min="1" max="4" type="number" value="{{ $unit->beds }}" name="beds" class="form-control">
                                   </div>
                                 @endif
