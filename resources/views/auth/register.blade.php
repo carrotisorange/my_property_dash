@@ -26,7 +26,7 @@
 
     <div class="card o-hidden border-0 shadow-lg my-5">
       <div class="card-body p-0">
-        <form id="registrationForm" method="POST" action="/register">
+        <form class="user" id="registrationForm" method="POST" action="/register">
             @csrf
         </form>
         <!-- Nested Row within Card Body -->
