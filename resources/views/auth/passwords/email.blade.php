@@ -23,12 +23,6 @@
 <body class="bg-gradient-primary">
 
   <div class="container">
-    @if (session('status'))
-    <div class="alert alert-success" role="alert">
-        {{ session('status') }}
-    </div>
-    @endif
-
     <!-- Outer Row -->
     <div class="row justify-content-center">
 
