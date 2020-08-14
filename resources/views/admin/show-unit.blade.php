@@ -500,7 +500,7 @@
                             @if($tenant_reservations->count() <= 0)
                             <tr>
                                 <br><br><br>
-                                <p class="text-center">No tenants found</p>
+                                <p class="text-center">No tenants found!</p>
                             </tr>
                             @else
                             <tr>
