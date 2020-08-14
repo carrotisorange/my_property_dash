@@ -563,7 +563,7 @@
           
               <div class="form-group">
                 <small>Enter the number of bed</small>
-                <input form="addUMultipleUnitForm" type="number" class="form-control" name="beds" required>
+                <input form="addUMultipleUnitForm" type="number" min="0" class="form-control" name="beds" required>
             </div>
        
 

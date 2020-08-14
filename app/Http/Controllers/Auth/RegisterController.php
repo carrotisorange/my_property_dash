@@ -88,6 +88,7 @@ class RegisterController extends Controller
             'property_ownership' => $data['property_ownership'],
             'property_type' => $data['property_type'],
             'password' => Hash::make($data['password']),
+            'note' => 'Enter notice for all the tenants.',
         ]);
     }
 }
