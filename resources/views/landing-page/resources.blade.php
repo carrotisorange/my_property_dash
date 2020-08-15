@@ -65,7 +65,7 @@
               <li><a href="#">Drop Down 4</a></li> -->
             </ul>
           </li>
-          <li><a class="btn" href="#services">Services</a></li>    
+          <li><a class="btn" href="/#features">Features</a></li>    
           <li><a class="btn" href="#pricing">Pricing</a></li>
           <li><a class="btn" href="#contact">Contact</a></li>
           <li><a class="btn btn-warning" target="_blank" href="/login">Login</a></li>
