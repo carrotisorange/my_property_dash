@@ -329,24 +329,29 @@
         </nav>
         <!-- End of Topbar -->
         <div class="container-fluid">
-          <form id="addTenantForm3" action="/units/{{ session(Auth::user()->id.'unit_id') }}/tenant-step3" method="POST">
-            {{ csrf_field() }}
-        </form>
+          
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
           <h1 class="h3 mb-0 text-gray-800">Owners</h1>
+          <form  action="/tenants/search" method="GET" >
+            @csrf
+            <div class="input-group">
+                <input type="text" class="form-control" name="search" placeholder="Search for owner..." value="{{ session(Auth::user()->id.'search_tenant') }}">
+                <div class="input-group-append">
+                  <button class="btn btn-primary" type="submit">
+                    <i class="fas fa-search fa-sm"></i>
+                  </button>
+                </div>
+            </div>
+        </form>
         </div>
         
-    
-            {{-- <form action="/tenants/search" method="GET" >
-                @csrf
-                <div class="input-group">
-                    <input type="text" class="form-control" name="search" placeholder="enter tenant name" value="{{ session(Auth::user()->id.'search_tenant') }}">
-                </div>
-            </form>
-            <br>
-            <p class="text-center"><small ><b>{{ $tenants->count() }}</b> tenants found.</small></p> --}}
-          
             <div class="table-responsive">
+              <table class="table table-borderless" width="100%" cellspacing="0">
+                <tr>
+                  <td colspan="6">Showing <b>{{ $owners->count() }} </b> of  tenants </td>
+                  
+                </tr>
+              </table>
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
