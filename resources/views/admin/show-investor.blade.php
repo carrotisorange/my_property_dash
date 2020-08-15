@@ -233,40 +233,40 @@
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                <tr>
-                   <th>Owner</th>
+                   <td>Owner</td>
                    <td>{{ $investor->unit_owner }}</td>
                </tr>
                <tr>
-                <th>Email</th>
+                <td>Email</td>
                 <td>{{ $investor->investor_email_address }}</td>
             </tr>
              <tr>
-                <th>Mobile</th>
+                <td>Mobile</td>
                 <td>{{ $investor->investor_contact_no }}</td>
             </tr>
             <tr>
-              <th>Representative</th>
+              <td>Representative</td>
               <td>{{ $investor->investor_representative }}</td>
           </tr>
           <tr>
-            <th>Address</th>
+            <td>Address</td>
             <td>{{ $investor->investor_address }}</td>
           </tr>
             <tr>
-              <th>Bank Name</th>
+              <td>Bank Name</td>
               <td>{{ $investor->bank_name }}</td>
           </tr>
           <tr>
-            <th>Account Name</th>
+            <td>Account Name</td>
             <td>{{ $investor->account_name }}</td>
         </tr>
         <tr>
-          <th>Account Number</th>
+          <td>Account Number</td>
           <td>{{ $investor->account_number }}</td>
         </tr>
        
         <tr>
-          <th>Contract Period</th>
+          <td>Contract Period</td>
           <td>{{ Carbon\Carbon::parse($investor->contract_start)->format('M d Y').' - '.Carbon\Carbon::parse($investor->contract_end)->format('M d Y') }}</td>
         </tr>
             </table>
