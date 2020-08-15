@@ -40,32 +40,28 @@ class UnitOwnersController extends Controller
        }
     }
 
-    public function search(Request $request){
+    
+    public function search(Request $request){   
+        $search = $request->get('search');
 
-        $property = explode(",", Auth::user()->property);
+        //create session for the search
+        $request->session()->put(Auth::user()->id.'search_owner', $search);
 
-        $search = $request->search;
+        $owners = DB::table('units')
+            ->join('unit_owners', 'unit_unit_owner_id', 'unit_owner_id')
+            ->where('unit_property', Auth::user()->property)
+            ->whereRaw("unit_owner like '%$search%' ")
+            ->orWhereRaw("investor_contact_no like '%$search%' ")
+            ->orWhereRaw("investor_email_address like '%$search%' ")
+            ->paginate(10);
 
-        //creating session for searching unit owner.
-        $request->session()->put('search_unit_owner', $search);
-
-        if(count($property) > 1){
-            $investors = DB::table('units')
+        $count_owners = DB::table('units')
             ->join('unit_owners', 'unit_owner_id', 'unit_unit_owner_id')
-            ->whereIn('unit_property', [$property[0],$property[1]])
-            ->where('unit_owner', 'like', '%'.$searchKeyInput.'%')
-            ->get();
-         }else{
-            $investors = DB::table('units')
-            ->join('unit_owners', 'unit_owner_id', 'unit_unit_owner_id')
-            ->where('unit_property', $property[0])
-            ->where('unit_owner', 'like', '%'.$searchKeyInput.'%')
-            ->get();
-         }
-        
-        
+            ->where('unit_property', Auth::user()->property)
+            ->count();
 
-        return view('investors', compact('investors'));
+        return view('admin.owners', compact('owners', 'count_owners'));
+
     }
 
     /**

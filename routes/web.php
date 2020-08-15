@@ -133,7 +133,7 @@ Route::get('/board', function(Request $request){
             $owners = DB::table('units')
             ->join('unit_owners', 'unit_unit_owner_id', 'unit_owner_id')
             ->where('unit_property', Auth::user()->property)
-            ->where('status', '!=', 'pulled out')
+            
             ->get();
 
             $movein_rate_1 = DB::table('tenants')
@@ -880,11 +880,15 @@ Route::get('/owners', function(){
             $owners = DB::table('units')
             ->join('unit_owners', 'unit_unit_owner_id', 'unit_owner_id')
             ->where('unit_property', Auth::user()->property)
-            ->where('status','!=','pulled out')
             ->orderBy('contract_start', 'desc')
             ->paginate(10);
+
+            $count_owners = DB::table('units')
+            ->join('unit_owners', 'unit_owner_id', 'unit_unit_owner_id')
+            ->where('unit_property', Auth::user()->property)
+            ->count();
         
-            return view('admin.owners', compact('owners'));
+            return view('admin.owners', compact('owners', 'count_owners'));
     }else{
             return view('unregistered');
     }
@@ -1023,6 +1027,8 @@ Route::get('/units/{unit_id}/tenants/{tenant_id}/payments', 'TenantController@sh
 
 //route for searching tenant
 Route::get('/tenants/search', 'TenantController@search')->middleware(['auth', 'verified']);
+
+Route::get('/owners/search', 'UnitOwnersController@search')->middleware(['auth', 'verified']);
 
 //routes for investors
 Route::get('/units/{unit_id}/unit_owners/{unit_owner_id}', 'UnitOwnersController@show')->name('show-investor')->middleware(['auth', 'verified']);

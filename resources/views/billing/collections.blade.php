@@ -357,7 +357,7 @@
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 @foreach ($collections as $day => $collection_list)
                   <tr>
-                      <th colspan="8">{{ Carbon\Carbon::parse($day)->addDay()->format('M d Y') }} ({{ $collection_list->count()}})</th>
+                      <th colspan="8">{{ Carbon\Carbon::parse($day)->addDay()->format('M d Y') }} ({{ $collection_list->count() }} BILLS COLLECTED)</th>
                   </tr>
                   <tr>
                           <th>AR NO</th>

@@ -332,10 +332,10 @@
           
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
           <h1 class="h3 mb-0 text-gray-800">Owners</h1>
-          <form  action="/tenants/search" method="GET" >
+          <form  action="/owners/search" method="GET" >
             @csrf
             <div class="input-group">
-                <input type="text" class="form-control" name="search" placeholder="Search for owner..." value="{{ session(Auth::user()->id.'search_tenant') }}">
+                <input type="text" class="form-control" name="search" placeholder="Search for owner..." value="{{ session(Auth::user()->id.'search_owner') }}" required>
                 <div class="input-group-append">
                   <button class="btn btn-primary" type="submit">
                     <i class="fas fa-search fa-sm"></i>
@@ -348,7 +348,7 @@
             <div class="table-responsive">
               <table class="table table-borderless" width="100%" cellspacing="0">
                 <tr>
-                  <td colspan="6">Showing <b>{{ $owners->count() }} </b> of  tenants </td>
+                  <td colspan="6">Showing <b>{{ $owners->count() }} </b> of {{  $count_owners }}  tenants </td>
                   
                 </tr>
               </table>
@@ -360,7 +360,7 @@
                            <th>ROOM</th>
                            <th>EMAIL</th>
                            <th>MOBILE</th>
-                           <th>CONTRACT PERIOD</th>
+                          
                        </tr>
                     </thead>   
                        <tbody>
@@ -371,7 +371,7 @@
                            <td><a href="/units/{{ $item->unit_id }}">{{ $item->building.' '.$item->unit_no }}</a></td>
                            <td>{{ $item-> investor_email_address}}</td>
                            <td>{{ $item->investor_contact_no }}</td>
-                           <td>{{ Carbon\Carbon::parse($item->contract_start)->format('M d Y').' - '.Carbon\Carbon::parse($item->contract_end)->format('M d Y') }}</td>
+                           {{-- <td>{{ Carbon\Carbon::parse($item->contract_start)->format('M d Y').' - '.Carbon\Carbon::parse($item->contract_end)->format('M d Y') }}</td> --}}
                        </tr>
                        @endforeach
                        </tbody>

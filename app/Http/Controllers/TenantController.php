@@ -33,6 +33,8 @@ class TenantController extends Controller
                 ->join('units', 'unit_id', 'unit_tenant_id')
                 ->where('unit_property', Auth::user()->property)
                 ->whereRaw("concat(first_name, ' ', last_name) like '%$search%' ")
+                ->orWhereRaw("email_address like '%$search%' ")
+                ->orWhereRaw("contact_no like '%$search%' ")
                 ->orderBy('movein_date', 'desc')
                 ->paginate(10);
     
