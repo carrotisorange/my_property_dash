@@ -73,12 +73,14 @@ class UserController extends Controller
      */
     public function show($user_id)
     {
-        // if($user_id === Auth::user()->id ){
-            $user = User::findOrFail($user_id);
+        $user = User::findOrFail($user_id);
+
+         if($user->id === Auth::user()->id ){
+          
             return view('users.show-user', compact('user'));
-        // }else{
-        //     return view('unregistered');
-        // }
+         }else{
+             return view('unregistered');
+         }
        
     }
 
@@ -92,7 +94,16 @@ class UserController extends Controller
     {
         $user = User::findOrFail($user_id);
 
-        return view('users.edit-user', compact('user'));
+        if($user->id === Auth::user()->id ){
+
+            return view('users.edit-user', compact('user'));
+        }
+        else{
+            return view('unregistered');
+        }
+
+       
+        
     }
 
     /**

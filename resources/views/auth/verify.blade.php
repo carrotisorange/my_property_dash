@@ -170,6 +170,8 @@
             <i class="fa fa-bars"></i>
           </button>
 
+          {{ Auth::user()->property.' '.Auth::user()->property_type }}
+
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
             <div class="topbar-divider d-none d-sm-block"></div>
