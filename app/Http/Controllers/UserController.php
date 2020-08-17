@@ -116,11 +116,44 @@ class UserController extends Controller
     public function update(Request $request, $user_id)
     {
         
-        DB::table('users')->where('id', $user_id)->delete();
+        if($request->action === 'change_footer_message' ){
+            DB::table('users')
+            ->where('id', $user_id)
+            ->update(
+                    [
+                        'note' => $request->note,
+                    ]
+                );
 
-        DB::table('units')->where('unit_property', Auth::user()->property)->delete();
+                return back()->with('success', 'Footer message has been updated!');
+        }
+        if($request->password === null){
+            DB::table('users')
+            ->where('id', $user_id)
+            ->update(
+                    [
+                        'name' => $request->name,
+                        'email' => $request->email,
+                        
+                    ]
+                );
 
-        DB::table('unit_owners')->where('unit_owner_id', '251')->delete();
+                return redirect('/users/'.$user_id)->with('success', 'User Profile has been updated!');
+        }else{
+            DB::table('users')
+            ->where('id', $user_id)
+            ->update(
+                [
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'password' => Hash::make($request->password),
+                ]
+                );
+
+            Auth::logout();
+
+            return redirect('/login')->with('success', 'You have been logged out!');
+        }   
     }
 
     /**
