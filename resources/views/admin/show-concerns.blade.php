@@ -228,19 +228,19 @@
                             <div class="table-responsive">
                               <table class="table table-bordered" width="100%" cellspacing="0">
                                    <tr>
-                                        <th>TENANT</th>
+                                        <td>Tenant</th>
                                         <td><a href="/units/{{ $unit->unit_id }}/tenants/{{ $tenant->tenant_id }}/">{{ $tenant->first_name.' '.$tenant->last_name }}</a></td>
                                    </tr>
                                    <tr>
-                                        <th>MOBILE</th>
+                                        <td>Mobile</td>
                                         <td>{{ $tenant->contact_no }}</td>
                                    </tr>
                                    <tr>
-                                        <th>EMAIL</th>
+                                        <td>Email</td>
                                         <td>{{ $tenant->email_address}}</td>
                                    </tr>
                                    <tr>
-                                        <th>ROOM</th>
+                                      <td>Room</td>
                                         <td><a href="/units/{{ $unit->unit_id }}">{{ $unit->building.' '.$unit->unit_no }}</a></td>
                                    </tr>
                                </table>
@@ -274,15 +274,15 @@
                             <div class="table-responsive">
                               <table class="table table-bordered" width="100%" cellspacing="0">
                                     <tr>
-                                        <th>DATE REPORTED</th>
+                                        <td>Date Reported</td>
                                         <td>{{ Carbon\Carbon::parse($concern->date_reported)->format('M d Y') }}</td>
                                    </tr>
                                    <tr>
-                                        <th>DESCRIPTION</th>
+                                        <td>Description</td>
                                         <td>{{ $concern->concern_item }}</td>
                                    </tr>
                                    <tr>
-                                        <th>TYPE</th>
+                                        <td>Type</td>
                                         <td>
                                           {{ $concern->concern_type }}
                                         </td>
@@ -292,7 +292,7 @@
                                         <td>{{ $concern->is_warranty }}</td>
                                    </tr> -->
                                    <tr>
-                                        <th>URGENT</th>
+                                        <td>Urgency</td>
                                         <td>
                                           @if($concern->concern_urgency === 'urgent')
                                           <span class="badge badge-danger">{{ $concern->concern_urgency }}</span>
@@ -304,7 +304,7 @@
                                         </td>
                                    </tr>
                                    <tr>
-                                        <th>STATUS</th>
+                                      <td>Status</td>
                                         <td>
                                             @if($concern->concern_status === 'pending')
                                             <span class="badge badge-warning">{{ $concern->concern_status }} for {{ number_format(Carbon\Carbon::parse($concern->date_reported)->DiffInDays(Carbon\Carbon::now()), 0) }} days</span>

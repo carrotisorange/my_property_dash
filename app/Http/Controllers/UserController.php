@@ -134,7 +134,7 @@ class UserController extends Controller
                     [
                         'name' => $request->name,
                         'email' => $request->email,
-                        'email_verified_at' => null
+                        
                     ]
                 );
 
