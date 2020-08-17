@@ -359,7 +359,7 @@
             <h1 class="h3 mb-0 text-gray-800">Notifications</h1>
           </div>
           @foreach($notifications as $item)
-                  @if($item->action==='approve to moveout')
+             @if($item->action==='request to moveout has been approved!' ||$item->action==='has been added to the property!' || $item->action==='property has been set-up!' ) 
                     @if($item->updated_at === null)
                     <form id="notificationtForm" action="/units/{{ $item->unit_tenant_id }}/tenants/{{ $item->tenant_id }}" method="POST">
                         @method('put')
@@ -375,7 +375,7 @@
                       </div>
                       <div>
                         <div class="small text-gray-500">{{Carbon\Carbon::parse($item->created_at)->format('M d Y')}}</div>
-                        <span class="font-weight-bold">{{ $item->first_name.' '.$item->last_name.' '.$item->building.' '.$item->unit_no.' '.$item->action }} has been approved.</span>
+                        <span class="font-weight-bold">{{ $item->first_name.' '.$item->last_name.' '.$item->building.' '.$item->unit_no.' '.$item->action }}</span>
                       </div>
                     </button> 
                     <hr>
@@ -388,7 +388,7 @@
                       </div>
                       <div>
                         <div class="small text-gray-500">{{Carbon\Carbon::parse($item->created_at)->format('M d Y')}}</div>
-                        <span class="">{{ $item->first_name.' '.$item->last_name.' '.$item->building.' '.$item->unit_no.' '.$item->action }} has been approved.</span>
+                        <span class="">{{ $item->first_name.' '.$item->last_name.' '.$item->building.' '.$item->unit_no.' '.$item->action }}</span>
                       </div>
                     </a> 
                     <hr>
@@ -409,7 +409,7 @@
                       </div>
                       <div>
                         <div class="small text-gray-500">{{Carbon\Carbon::parse($item->created_at)->format('M d Y')}}</div>
-                        <span class="font-weight-bold">{{ $item->first_name.' '.$item->last_name.' '.$item->building.' '.$item->unit_no.' '.$item->action }} has been approved.</span>
+                        <span class="font-weight-bold">{{ $item->first_name.' '.$item->last_name.' '.$item->building.' '.$item->unit_no.' '.$item->action }}</span>
                       </div>
                     </button> 
                     <hr>
@@ -422,7 +422,7 @@
                       </div>
                       <div>
                         <div class="small text-gray-500">{{Carbon\Carbon::parse($item->created_at)->format('M d Y')}}</div>
-                        <span class="">{{ $item->first_name.' '.$item->last_name.' '.$item->building.' '.$item->unit_no.' '.$item->action }} has been approved.</span>
+                        <span class="">{{ $item->first_name.' '.$item->last_name.' '.$item->building.' '.$item->unit_no.' '.$item->action }}</span>
                       </div>
                     </a> 
                     <hr>

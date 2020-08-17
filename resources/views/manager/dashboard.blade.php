@@ -233,7 +233,7 @@
                   Notifications
                 </h6>
                 @foreach($notifications as $item)
-                  @if($item->action==='approve to moveout')
+                  @if($item->action==='request to moveout has been approved!' ||$item->action==='has been added to the property!' || $item->action==='property has been set-up!' )
                     @if($item->updated_at === null)
                     <form id="notificationtForm" action="/units/{{ $item->unit_tenant_id }}/tenants/{{ $item->tenant_id }}" method="POST">
                         @method('put')
@@ -249,7 +249,7 @@
                       </div>
                       <div>
                         <div class="small text-gray-500">{{Carbon\Carbon::parse($item->created_at)->format('M d Y')}}</div>
-                        <span class="font-weight-bold">{{ $item->first_name.' '.$item->last_name.' '.$item->building.' '.$item->unit_no.' '.$item->action }} has been approved.</span>
+                        <span class="font-weight-bold">{{ $item->first_name.' '.$item->last_name.' '.$item->building.' '.$item->unit_no.' '.$item->action }}</span>
                       </div>
                     </button> 
                     @else
@@ -261,7 +261,7 @@
                       </div>
                       <div>
                         <div class="small text-gray-500">{{Carbon\Carbon::parse($item->created_at)->format('M d Y')}}</div>
-                        <span class="">{{ $item->first_name.' '.$item->last_name.' '.$item->building.' '.$item->unit_no.' '.$item->action }} has been approved.</span>
+                        <span class="">{{ $item->first_name.' '.$item->last_name.' '.$item->building.' '.$item->unit_no.' '.$item->action }}</span>
                       </div>
                     </a> 
                     @endif
@@ -281,7 +281,7 @@
                       </div>
                       <div>
                         <div class="small text-gray-500">{{Carbon\Carbon::parse($item->created_at)->format('M d Y')}}</div>
-                        <span class="font-weight-bold">{{ $item->first_name.' '.$item->last_name.' '.$item->building.' '.$item->unit_no.' '.$item->action }} has been approved.</span>
+                        <span class="font-weight-bold">{{ $item->first_name.' '.$item->last_name.' '.$item->building.' '.$item->unit_no.' '.$item->action }}</span>
                       </div>
                     </button> 
                     @else
@@ -293,7 +293,7 @@
                       </div>
                       <div>
                         <div class="small text-gray-500">{{Carbon\Carbon::parse($item->created_at)->format('M d Y')}}</div>
-                        <span class="">{{ $item->first_name.' '.$item->last_name.' '.$item->building.' '.$item->unit_no.' '.$item->action }} has been approved.</span>
+                        <span class="">{{ $item->first_name.' '.$item->last_name.' '.$item->building.' '.$item->unit_no.' '.$item->action }}</span>
                       </div>
                     </a> 
                     @endif
@@ -394,6 +394,11 @@
         </nav>
         <!-- End of Topbar -->
         <div class="container-fluid">
+          @foreach (['danger', 'warning', 'success', 'info'] as $key)
+          @if(Session::has($key))
+         <p class="alert alert-{{ $key }}"> <i class="fas fa-check-circle"></i> {{ Session::get($key) }}</p>
+          @endif
+          @endforeach
             
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                   <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
@@ -411,7 +416,7 @@
                         <div class="row no-gutters align-items-center">
                           <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"><a class="text-primary" href="/home">  ROOMS</a> </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $units->count() }}</div>
+                            <div id="count_rooms" class="h5 mb-0 font-weight-bold text-gray-800">{{ $units->count() }}</div>
                             
                             <small>O ({{ $units_occupied->count() }})</small>
                             <small>V ({{ $units_vacant->count() }})</small>
@@ -496,7 +501,7 @@
                         <div class="row no-gutters align-items-center">
                           <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"><a class="text-primary" href="/home">  ROOMS</a></div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $units->count() }}</div>
+                            <div id="count_rooms" class="h5 mb-0 font-weight-bold text-gray-800">{{ $units->count() }}</div>
                             
                             <small>O ({{ $units_occupied->count() }})</small>
                             <small>V ({{ $units_vacant->count() }})</small>
@@ -975,6 +980,29 @@
     </div>
   </div>
 
+  <div id="myModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Congratulations!</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+            <div class="modal-body">
+				      <p class="text-center">You've just completed completed setting-up your property.
+                <br>
+                Would you like to start adding rooms?
+              </p>
+            </div>
+             <div class="modal-footer">
+              <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> No, later</button>
+              <a href="/home" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-check fa-sm text-white-50"></i> Yes, proceed</a>
+        </div>
+        </div>
+    </div>
+</div>
+
   <!-- Bootstrap core JavaScript-->
   <script src="{{ asset('/dashboard/vendor/jquery/jquery.min.js') }}"></script>
   <script src="{{ asset('/dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
@@ -997,6 +1025,15 @@
 {!! $moveout_rate->script() !!}
 {!! $collection_rate->script() !!}
 {!! $reason_for_moving_out_chart->script() !!}
+
+<script>
+	$(document).ready(function(){
+
+   if(document.getElementById('count_rooms').innerHTML <= 0){
+      $("#myModal").modal('show');
+    }
+	});
+</script>
 </body>
 
 </html>

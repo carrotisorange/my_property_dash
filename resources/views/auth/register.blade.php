@@ -76,7 +76,7 @@
                 </div>
                 <hr>
              
-                <div class="form-group">
+                {{-- <div class="form-group">
                   <input form="registrationForm" id="property" type="text" class="form-control @error('property') is-invalid @enderror" name="property" value="{{ old('property') }}" required autocomplete="property" placeholder="Name of your property">
               
                   @error('property')
@@ -121,7 +121,7 @@
                        </span>
                    @enderror
                    </div>
-                  </div>
+                  </div> --}}
                
                
                 <button form="registrationForm" type="submit" class="btn btn-primary btn-user btn-block" id="registerButton" onclick="this.form.submit(); this.disabled = true;">

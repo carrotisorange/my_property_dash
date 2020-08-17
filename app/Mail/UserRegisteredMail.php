@@ -6,23 +6,22 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use Auth;
 
-class SendMail extends Mailable
+
+
+class UserRegisteredMail extends Mailable
 {
     use Queueable, SerializesModels;
-
-    public $data;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($data)
+    public function __construct()
     {
-        $this->data = $data;
-
-
+        //
     }
 
     /**
@@ -32,9 +31,6 @@ class SendMail extends Mailable
      */
     public function build()
     {
-        return $this->from('landleydgreat@gmail.com')
-        ->subject('New Customer Inquiry')
-        ->view('dynamic_email_template')
-        ->with('data', $this->data);
+        return $this->subject( Auth::user()->property )->markdown('emails.user-generated-mail');
     }
 }

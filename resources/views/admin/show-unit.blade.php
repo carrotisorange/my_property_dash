@@ -861,7 +861,7 @@
                                 <div class="modal-dialog modal-md" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">CAN'T ADD TENANT</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel">Warning</h5>
                                     
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
@@ -869,7 +869,11 @@
                                     </div>
                                     <div class="modal-body">
                                        <p class="text-center">
-                                            THE ROOM IS FULLY OCCUPIED!
+                                            You can't add tenant. The room is fully occupied.
+                                            <br>
+                                            <small class="text-danger">
+                                              You may add the number of beds to increase capacity.
+                                            </small>
                                        </p>
                                     </div>
                                     

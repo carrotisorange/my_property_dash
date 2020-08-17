@@ -10,6 +10,8 @@ use App\Unit;
 use App\Personnel;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use App\Mail\WelcomeMail;
+use Illuminate\Support\Facades\Mail;
 
 class TenantController extends Controller
 {
@@ -112,6 +114,8 @@ class TenantController extends Controller
     public function postTenantStep3(Request $request, $unit_id){
 
         if($request->moveout_date <= $request->movein_date){
+            $request->session()->put(Auth::user()->id.'movein_date', $request->movein_date);
+            $request->session()->put(Auth::user()->id.'moveout_date', $request->moveout_date);
             return back()->with('danger', 'Invalid input. Make sure the moveout date is later than the movein date. ');
         }
 
@@ -135,6 +139,7 @@ class TenantController extends Controller
      */
     public function store(Request $request)
     {
+
         //insert tenant to a specific unit
         $tenant_id = DB::table('tenants')->insertGetId(
             [
@@ -260,7 +265,11 @@ class TenantController extends Controller
         $request->session()->forget(Auth::user()->id.'years_of_employment');
         $request->session()->forget(Auth::user()->id.'employer_contact_no');
 
-        return redirect('/units/'.session(Auth::user()->id.'unit_id').'/tenants/'.$tenant_id)->with('success', 'New tenant has been added to your property!');
+
+
+
+
+        return redirect('/units/'.session(Auth::user()->id.'unit_id').'/tenants/'.$tenant_id)->with('success', 'New tenant has been added to the property!');
     }
 
     /**
@@ -427,7 +436,7 @@ class TenantController extends Controller
                     'notification_tenant_id' => $tenant_id,
                     'notification_room_id' => $unit_id,
                     'notification_user_id' => Auth::user()->id,
-                    'action' => $request->action,
+                    'action' => 'has requested to moveout!',
                     'created_at' => Carbon::now(),
                 ]
             );
@@ -451,7 +460,7 @@ class TenantController extends Controller
                     'notification_tenant_id' => $tenant_id,
                     'notification_room_id' => $unit_id,
                     'notification_user_id' => Auth::user()->id,
-                    'action' => $request->action,
+                    'action' => 'request to moveout has been approved!',
                     'created_at' => Carbon::now(),
                 ]
             );

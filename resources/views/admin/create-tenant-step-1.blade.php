@@ -371,11 +371,11 @@
                 <br>
             <div class="row">
                 <div class="col">
-                    <small class="">Birthdate</small>
-                    <input form="addTenantForm1" type="date" class="form-control" name="birthdate" id="birthdate" value="{{ session(Auth::user()->id.'birthdate') }}">
+                    <small class="">Birthdate <span class="text-danger">*</span></small>
+                    <input form="addTenantForm1" type="date" class="form-control" name="birthdate" id="birthdate" value="{{ session(Auth::user()->id.'birthdate') }}" required>
                 </div>
                 <div class="col">
-                    <small class="">Gender<span class="text-danger">*</span></small>
+                    <small class="">Gender <span class="text-danger">*</span></small>
                     <select form="addTenantForm1"  id="gender" name="gender" class="form-control" required >        
                         <option value="{{ session(Auth::user()->id.'gender') }}" selected>{{ session(Auth::user()->id.'gender') }}</option>
                         <option value="male">male</option>
@@ -406,8 +406,8 @@
                   <input form="addTenantForm1" type="text" class="form-control" name="contact_no" id="contact_no" value="{{ session(Auth::user()->id.'contact_no') }}" required >
                 </div>
                 <div class="col">
-                    <small class="">Email</small>
-                  <input form="addTenantForm1" type="email" class="form-control" name="email_address" id="email_address" value="{{ session(Auth::user()->id.'email_address') }}">
+                    <small class="">Email <span class="text-danger">*</span></small>
+                  <input form="addTenantForm1" type="email" class="form-control" name="email_address" id="email_address" value="{{ session(Auth::user()->id.'email_address') }}" required>
                 </div>
             </div>
             <br>

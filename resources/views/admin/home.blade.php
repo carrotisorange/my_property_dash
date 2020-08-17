@@ -341,7 +341,7 @@
                  <div class="d-sm-flex align-items-center justify-content-between mb-4">
                   <h1 class="h3 mb-0 text-gray-800">Home</h1>
                  @if(Auth::user()->user_type === 'manager')
-                 <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addMultipleUnits" data-whatever="@mdo"><i class="fas fa-plus fa-sm text-white-50"></i> Add multiple rooms</a>
+                 <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addMultipleUnits" data-whatever="@mdo"><i class="fas fa-plus fa-sm text-white-50"></i> Add Multiple Rooms</a>
                  @endif
                 </div>
                
@@ -352,7 +352,7 @@
                 
                 <nav>
                   <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                    <a class="nav-item nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">All<span class="badge badge-light">{{ $units_count }}</span></a>
+                    <a class="nav-item nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">All<span id="count_rooms" class="badge badge-light">{{ $units_count }}</span></a>
                     @foreach ($buildings as $building)
                     <a class="nav-item nav-link" id="{{ $building->building }}-tab" data-toggle="tab" href="#{{ $building->building }}" role="tab" aria-controls="{{ $building->building }}" aria-selected="false">{{ $building->building }}<span class="badge badge-light">{{ $building  ->count }}</span></a>
                     @endforeach
@@ -524,7 +524,7 @@
           <div class="form-group">
               <small >Enter the name of the building</small>
               <input form="addUMultipleUnitForm" type="text" class="form-control" name="building" placeholder="Building-A" required>
-              <small class="text-danger">please put hyphen(-) between spaces</small>
+              <small class="text-danger">please put a hyphen (-) between spaces</small>
           </div>
 
           <div class="form-group">
@@ -629,6 +629,15 @@
   });
   </script>
 
+
+<script>
+	$(document).ready(function(){
+
+   if(document.getElementById('count_rooms').innerHTML <= 0){
+      $("#addMultipleUnits").modal('show');
+    }
+	});
+</script>
 </body>
 
 </html>

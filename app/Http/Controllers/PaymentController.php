@@ -7,6 +7,8 @@ use DB, Auth;
 use App\Charts\DashboardChart;
 use App\Unit, App\UnitOwner, App\Tenant, App\User, App\Payment, App\Billing;
 use Carbon\Carbon;
+use App\Mail\UserRegisteredMail;
+use Illuminate\Support\Facades\Mail;
 
 class PaymentController extends Controller
 {
@@ -113,14 +115,26 @@ class PaymentController extends Controller
                         ]
                     );
 
+            $tenant = Tenant::findOrFail($request->payment_tenant_id);
+
+            Mail::to($tenant->email_address)->send(new UserRegisteredMail());
+            
+            DB::table('notifications')->insertGetId(
+                [
+                    'notification_tenant_id' => $tenant->tenant_id,
+                    'notification_room_id' => $tenant->unit_tenant_id,
+                    'notification_user_id' => Auth::user()->id,
+                    'action' => 'has been added to the property!',
+                    'created_at' => Carbon::now(),
+                ]
+            );
+
             return back()->with('success','Payment has been recorded!');
         }else{
             return back()->with('danger','Payment has been rejected. Insufficient amount!');
         }
        }       
 
-       
-       
 
        $count_billed = DB::table('billings')
        ->where('billing_tenant_id', $request->payment_tenant_id)
