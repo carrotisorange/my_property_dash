@@ -29,8 +29,8 @@ Route::get('/', function(){
     ->where('user_type', 'admin')
     ->count();
 
-    $properties = Unit::distinct()
-    ->count('unit_property');
+    $properties = User::where('user_type', 'manager')
+    ->count();
       
     $buildings = Unit::distinct()
     ->count('building');
