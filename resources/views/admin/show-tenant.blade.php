@@ -975,7 +975,7 @@
                <div class="modal-body">
                 <p class="text-center">
                     Tenant has an outstanding balance of <a title="click this to see the breakdown" >{{ number_format($pending_balance,2) }}. 
-                      <br> Would you like refer it to the treasury?
+                     
                 </p>
              </div>
              <div class="modal-footer">
