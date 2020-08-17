@@ -887,7 +887,7 @@
             <div class="modal-dialog modal-md" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Extend</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Extend Contract</h5>
         
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -952,17 +952,39 @@
             <div class="modal-dialog modal-md" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Can't Moveout Tenant</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Warning </h5>
         
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 </div>
+
+                @if(Auth::user()->user_type === 'manager')
                 <div class="modal-body">
-                   <p class="text-center">
-                       Tenant has a pending balance of <a title="click this to see the breakdown" >{{ number_format($pending_balance,2) }}</a>.
-                   </p>
-                </div>
+                  <p class="text-center">
+                      Tenant has an outstanding balance of <a title="click this to see the breakdown" >{{ number_format($pending_balance,2) }}. 
+                        <br> Would you like to add payment?
+                  </p>
+               </div>
+               <div class="modal-footer">
+                 <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> No, Close</button>
+                 <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{  $tenant->tenant_id }}/billings" form="extendTenantForm" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-check fa-sm text-white-50"></i> Yes, Proceed</a>
+             </div>
+               
+               @else
+               <div class="modal-body">
+                <p class="text-center">
+                    Tenant has an outstanding balance of <a title="click this to see the breakdown" >{{ number_format($pending_balance,2) }}. 
+                      <br> Would you like refer it to the treasury?
+                </p>
+             </div>
+             <div class="modal-footer">
+               <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> No, Close</button>
+               <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{  $tenant->tenant_id }}/billings" form="extendTenantForm" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-check fa-sm text-white-50"></i> Yes, Proceed</a>
+           </div>
+               @endif
+                
+              
             </div>
             </div>
         

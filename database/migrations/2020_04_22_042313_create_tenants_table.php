@@ -80,6 +80,6 @@ class CreateTenantsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('tenants');
-        $table->dropForeign('tenant_unit_id');
+        $table->dropForeign('unit_tenant_id');
     }
 }
