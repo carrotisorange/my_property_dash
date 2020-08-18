@@ -62,6 +62,15 @@ class TenantController extends Controller
 
     public function postTenantStep1(Request $request, $unit_id){
         
+        $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'contact_no' => 'required',
+            'email_address' => 'required',
+            'gender' => 'required',
+            'birthdate' => 'required',
+        ]);
+
         $request->session()->put(Auth::user()->id.'type_of_tenant', 'student');
         $request->session()->put(Auth::user()->id.'first_name', $request->first_name);
         $request->session()->put(Auth::user()->id.'contact_no', $request->contact_no);
@@ -116,6 +125,7 @@ class TenantController extends Controller
         if($request->moveout_date <= $request->movein_date){
             $request->session()->put(Auth::user()->id.'movein_date', $request->movein_date);
             $request->session()->put(Auth::user()->id.'moveout_date', $request->moveout_date);
+            $request->session()->put(Auth::user()->id.'tenant_monthly_rent', $request->tenant_monthly_rent);
             return back()->with('danger', 'Invalid input. Make sure the moveout date is later than the movein date. ');
         }
 

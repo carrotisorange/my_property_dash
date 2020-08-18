@@ -55,19 +55,20 @@ class UnitsController extends Controller
         //insert investor to a specific unit.
        $id = DB::table('unit_owners')->insertGetId(
             [
-                'date_invested' => $request->date_invested,
+                // 'date_invested' => $request->date_invested,
                 'unit_owner' => $request->unit_owner,
-                'discount' => $request->discount,
-                'investment_price' => $request->investment_price,
-                'investment_type'=> $request->investment_type,
-                'investor_representative' =>$request->investor_representative,
+                // 'discount' => $request->discount,
+                // 'investment_price' => $request->investment_price,
+                // 'investment_type'=> $request->investment_type,
+                // 'investor_representative' =>$request->investor_representative,
                 'investor_email_address' => $request->investor_email_address,
                 'investor_contact_no' => $request->investor_contact_no,
-                'account_name' => $request->account_name,
-                'bank_name' => $request->bank_name,
-                'investor_address' =>$request->investor_address,
-                'contract_start' =>$request->contract_start,
-                'contract_end' => $request->contract_end,
+                // 'account_name' => $request->account_name,
+                // 'bank_name' => $request->bank_name,
+                // 'investor_address' =>$request->investor_address,
+                // 'contract_start' =>$request->contract_start,
+                // 'contract_end' => $request->contract_end,
+                'created_at' => Carbon::now(),
             ]
         );
 
@@ -80,7 +81,7 @@ class UnitsController extends Controller
                         ]
                     );
 
-        return back()->with('success', 'Investor has been successfully added!');
+    return redirect('/owners/'.$id.'/edit')->with('success', 'Owner has been added to the property!');
     }
 
     /**

@@ -10,7 +10,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>The Property Manager | Register</title>
+  <title>The Property Manager | Verify Email</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -31,8 +31,10 @@
         
         <!-- Nested Row within Card Body -->
         <div class="row">
-          <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
-          <div class="col-lg-7">
+          <div class="col-lg-6 d-none d-lg-block">
+          
+          </div>
+          <div class="col-lg-6">
             <div class="p-5">
               <div class="">
                 <h1 class="h4 text-gray-900 mb-4">Email Verification</h1>
@@ -61,11 +63,12 @@
           
             <div class="form-group">
               <small>Name</small>
-              <input form="registrationForm" id="property" type="text" class="form-control" value="{{ Auth::user()->name }}" readonly>
+              <p>{{ Auth::user()->name }}</p>
           </div>
+          <hr>
           <div class="form-group">
               <small>Email</small>
-              <input form="registrationForm" id="property" type="text" class="form-control" value="{{ Auth::user()->email }}" readonly>
+              <p>{{ Auth::user()->email }}</p>
           </div>
           <br>
           
@@ -74,6 +77,14 @@
              
             </div>
           </div>
+        </div>
+        <footer class="sticky-footer bg-white">
+          <div class="container my-auto">
+            <div class="copyright text-right my-auto">
+              <span>Copyright &copy; The PMO Co 2020</span>
+            </div>
+          </div>
+        </footer>
         </div>
       </div>
     </div>

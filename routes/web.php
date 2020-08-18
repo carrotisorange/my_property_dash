@@ -51,6 +51,9 @@ Route::get('/board', function(Request $request){
     }elseif(Auth::user()->property !== null && Auth::user()->account_type === null){
         return view('select-plan');
     }
+    // elseif(Auth::user()->property !== null && Auth::user()->account_type !== null && Auth::user()->stripe_id === null){
+    //     return view('payment-info');
+    // }   
     else{
         $pending_concerns = DB::table('tenants')
         ->join('units', 'unit_id', 'unit_tenant_id')
@@ -998,6 +1001,8 @@ Route::get('/units/{unit_id}/tenants/{tenant_id}/payments', 'TenantController@sh
 Route::get('/tenants/search', 'TenantController@search')->middleware(['auth', 'verified']);
 
 Route::get('/owners/search', 'UnitOwnersController@search')->middleware(['auth', 'verified']);
+
+Route::get('/owners/{unit_owner_id}/edit', 'UnitOwnersController@edit')->middleware(['auth', 'verified']);
 
 //routes for investors
 Route::get('/units/{unit_id}/unit_owners/{unit_owner_id}', 'UnitOwnersController@show')->name('show-investor')->middleware(['auth', 'verified']);

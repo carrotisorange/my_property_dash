@@ -357,30 +357,53 @@
             <div class="row">
                 <div class="col">
                     <small class="">First Name <span class="text-danger">*</span></small>
-                    <input form="addTenantForm1" type="text" class="form-control" name="first_name" id="first_name" value="{{ session(Auth::user()->id.'first_name') }}" required>
-                </div>
+                    <input form="addTenantForm1" type="text" class="form-control @error('first_name') is-invalid @enderror" name="first_name" name="first_name" id="first_name" value="{{ session(Auth::user()->id.'first_name') }}" >
+                      @error('first_name')
+                      <span class="invalid-feedback" role="alert">
+                          <strong>{{ $message }}</strong>
+                      </span>
+                      @enderror
+                  </div>
                 <div class="col">
                     <small class="">Middle Name</small>
                     <input form="addTenantForm1" type="text" class="form-control" name="middle_name" id="middle_name" value="{{ session(Auth::user()->id.'middle_name') }}">
                 </div>
                 <div class="col">
                     <small class="">Last Name  <span class="text-danger">*</span></small>
-                    <input form="addTenantForm1" type="text" class="form-control" name="last_name" id="last_name" value="{{ session(Auth::user()->id.'last_name') }}" required>
+                    <input form="addTenantForm1" type="text" class="form-control @error('last_name') is-invalid @enderror" name="last_name" id="last_name" value="{{ session(Auth::user()->id.'last_name') }}" >
+
+                    @error('last_name')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
                 </div>
                 </div>
                 <br>
             <div class="row">
                 <div class="col">
                     <small class="">Birthdate <span class="text-danger">*</span></small>
-                    <input form="addTenantForm1" type="date" class="form-control" name="birthdate" id="birthdate" value="{{ session(Auth::user()->id.'birthdate') }}" required>
+                    <input form="addTenantForm1" type="date" class="form-control @error('birthdate') is-invalid @enderror" name="birthdate" id="birthdate" value="{{ session(Auth::user()->id.'birthdate') }}" >
+
+                    @error('birthdate')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
                 </div>
                 <div class="col">
                     <small class="">Gender <span class="text-danger">*</span></small>
-                    <select form="addTenantForm1"  id="gender" name="gender" class="form-control" required >        
+                    <select form="addTenantForm1"  id="gender" name="gender" class="form-control @error('gender') is-invalid @enderror">        
                         <option value="{{ session(Auth::user()->id.'gender') }}" selected>{{ session(Auth::user()->id.'gender') }}</option>
                         <option value="male">male</option>
                         <option value="female">female</option>
                     </select>
+
+                    @error('gender')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
                 </div>
                 <div class="col">
                     <small class="">Civil Status</small>
@@ -403,11 +426,23 @@
             <div class="row">
                 <div class="col">
                     <small class="">Mobile <span class="text-danger">*</span></small>
-                  <input form="addTenantForm1" type="text" class="form-control" name="contact_no" id="contact_no" value="{{ session(Auth::user()->id.'contact_no') }}" required >
+                  <input form="addTenantForm1" type="text" class="form-control @error('contact_no') is-invalid @enderror" name="contact_no" id="contact_no" value="{{ session(Auth::user()->id.'contact_no') }}"  >
+
+                  @error('contact_no')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+                  @enderror
                 </div>
                 <div class="col">
                     <small class="">Email <span class="text-danger">*</span></small>
-                  <input form="addTenantForm1" type="email" class="form-control" name="email_address" id="email_address" value="{{ session(Auth::user()->id.'email_address') }}" required>
+                  <input form="addTenantForm1" type="email" class="form-control @error('email_address') is-invalid @enderror" name="email_address" id="email_address" value="{{ session(Auth::user()->id.'email_address') }}" >
+
+                  @error('email_address')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+                  @enderror
                 </div>
             </div>
             <br>

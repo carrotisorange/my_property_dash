@@ -16,32 +16,12 @@ class UnitOwnersController extends Controller
      */
     public function index(Request $request)
     {
-        $property = explode(",", Auth::user()->property);
         
-       if(Auth::user()->status === 'registered'){
-        $searchKeyInput = $request->searchKeyInput; 
-        
-        if(count($property) > 1){
-            $investors = DB::table('units')
-            ->join('unit_owners', 'unit_owner_id', 'unit_unit_owner_id')
-            ->whereIn('unit_property', [$property[0],$property[1]])
-            ->where('unit_owner', 'like', '%'.$searchKeyInput.'%')
-            ->get();
-         }else{
-            $investors = DB::table('units')
-            ->join('unit_owners', 'unit_owner_id', 'unit_unit_owner_id')
-            ->where('unit_property', $property[0])
-            ->where('unit_owner', 'like', '%'.$searchKeyInput.'%')
-            ->get();
-         }
-        return view('investors', compact('investors'));
-       }else{
-           return view('unregistered');
-       }
     }
 
     
     public function search(Request $request){   
+        
         $search = $request->get('search');
 
         //create session for the search
@@ -91,7 +71,7 @@ class UnitOwnersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($unit_id, $unit_owner_id)
+    public function show($unit_id,$unit_owner_id)
     {
         if(auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager'){
             $investor = UnitOwner::findOrFail($unit_owner_id);
@@ -116,9 +96,11 @@ class UnitOwnersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($unit_owner_id)
     {
-        //
+        $investor = UnitOwner::findOrFail($unit_owner_id);
+        
+        return view('admin.edit-investor', compact('investor'));
     }
 
     /**

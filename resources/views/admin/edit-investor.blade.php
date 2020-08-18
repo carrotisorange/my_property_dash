@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>{{ $investor->unit_owner }}</title>
+  <title>{{ $investor->unit_owner }} | Edit</title>
 
   <!-- Custom fonts for this template-->
   <link href="{{ asset('dashboard/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css"><link href="{{ asset('index/assets/img/favicon.ico') }}" rel="icon">
@@ -226,56 +226,24 @@
         <div class="container-fluid">
 
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            
-            <a href="/owners/{{ $investor->unit_owner_id }}/edit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" ><i class="fas fa-edit fa-sm text-white-50"></i> Edit Owner</a>  
+            <h1 class="h3 mb-0 text-gray-800">{{ $investor->unit_owner }}</h1>
+         
           </div>
         <!-- 404 Error Text -->
-        <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-               <tr>
-                   <td>Owner</td>
-                   <td>{{ $investor->unit_owner }}</td>
-               </tr>
-               <tr>
-                <td>Email</td>
-                <td>{{ $investor->investor_email_address }}</td>
-            </tr>
-             <tr>
-                <td>Mobile</td>
-                <td>{{ $investor->investor_contact_no }}</td>
-            </tr>
-            <tr>
-              <td>Representative</td>
-              <td>{{ $investor->investor_representative }}</td>
-          </tr>
-          <tr>
-            <td>Address</td>
-            <td>{{ $investor->investor_address }}</td>
-          </tr>
-            <tr>
-              <td>Bank Name</td>
-              <td>{{ $investor->bank_name }}</td>
-          </tr>
-          <tr>
-            <td>Account Name</td>
-            <td>{{ $investor->account_name }}</td>
-        </tr>
-        <tr>
-          <td>Account Number</td>
-          <td>{{ $investor->account_number }}</td>
-        </tr>
-       
-        <tr>
-          <td>Contract Period</td>
-          <td>{{ Carbon\Carbon::parse($investor->contract_start)->format('M d Y').' - '.Carbon\Carbon::parse($investor->contract_end)->format('M d Y') }}</td>
-        </tr>
-            </table>
+          <div class="form-group">
+              <small>Email</small>
+              <p>{{ $investor->investor_email_address }}</p>
+          </div>
+          <hr>
+          <div class="form-group">
+            <small>Mobile</small>
+            <p>{{ $investor->investor_contact_no }}</p>
         </div>
-        </div>
+        <hr>
 
       </div>
       <!-- End of Main Content -->
-
+      </div>
       <!-- Footer -->
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">

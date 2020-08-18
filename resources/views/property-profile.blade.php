@@ -44,13 +44,15 @@
                 <input form="addPropertyForm" type="hidden" name="action" value="adding_property" >
                 </form>
                 <div class="form-group">
-                    <small>Name</small>
-                    <input form="" id="property" type="text" class="form-control" value="{{ Auth::user()->name }}" readonly>
-                </div>
-                <div class="form-group">
-                    <small>Email</small>
-                    <input form="" id="property" type="text" class="form-control" value="{{ Auth::user()->email }}" readonly>
-                </div>
+                  <small>Name</small>
+                  <p>{{ Auth::user()->name }}</p>
+              </div>
+              <hr>
+              <div class="form-group">
+                  <small>Email</small>
+                  <p>{{ Auth::user()->email }}</p>
+              </div>
+              <hr>
              <div class="form-group">
                  <small>Name of your property</small>
                   <input form="addPropertyForm" id="property" type="text" class="form-control @error('property') is-invalid @enderror" name="property" value="{{ old('property') }}" required autocomplete="property" placeholder="Name of your property">
@@ -62,6 +64,7 @@
                  @enderror
               
                 </div>
+                <hr>
               
                 <div class="form-group row">
                  
@@ -79,7 +82,7 @@
                         </span>
                     @enderror
                     </div>
-              
+                    
               
                <div class="col-sm-6">
                  <small>Property Type</small>
@@ -98,6 +101,7 @@
                    @enderror
                    </div>
                   </div> 
+                  <hr>
 
                     <button form="addPropertyForm" type="submit" class="btn btn-primary btn-user btn-block" id="registerButton" onclick="this.form.submit(); this.disabled = true;"> 
                        Next
@@ -106,7 +110,9 @@
               </div>
              
             </div>
+            
           </div>
+          
         </div>
       </div>
     </div>

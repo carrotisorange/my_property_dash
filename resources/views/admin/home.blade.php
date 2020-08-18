@@ -374,6 +374,10 @@
                   {{ '2nd basement ('.$floor_no_list->count().')' }} 
                   @elseif($floor_no >= -3)
                   {{ '3rd basement ('.$floor_no_list->count().')' }} 
+                  @elseif($floor_no >= -4)
+                  {{ '4th basement ('.$floor_no_list->count().')' }} 
+                  @elseif($floor_no >= -5)
+                  {{ '5th basement ('.$floor_no_list->count().')' }} 
                   @endif
                 @endif
                 
@@ -413,12 +417,16 @@
                       @if($floor_no >= 1)
                       {{ $numberFormatter->format($floor_no).' floor  ('.$floor_no_list->count().')' }}
                       @else
-                        @if($floor_no >= -1)
+                      @if($floor_no >= -1)
                         {{ '1st basement ('.$floor_no_list->count().')' }} 
                         @elseif($floor_no >= -2)
                         {{ '2nd basement ('.$floor_no_list->count().')' }} 
                         @elseif($floor_no >= -3)
                         {{ '3rd basement ('.$floor_no_list->count().')' }} 
+                        @elseif($floor_no >= -4)
+                        {{ '4th basement ('.$floor_no_list->count().')' }} 
+                        @elseif($floor_no >= -5)
+                        {{ '5th basement ('.$floor_no_list->count().')' }} 
                         @endif
                       @endif
                       
@@ -530,10 +538,12 @@
           <div class="form-group">
               <small>Select the floor number</small>
               <select class="form-control" form="addUMultipleUnitForm" name="floor_no" id="floor_no" required>
-                  <option value="" selected>Please select one</option>
-                                    <option value="-3">3rd basement</option>
-                                    <option value="-2">2nd basement</option>
-                                    <option value="-1">1st basement</option>
+                                  <option value="" selected>Please select one</option>
+                                  <option value="-5">5th basement</option>
+                                  <option value="-4">4th basement</option>
+                                  <option value="-3">3rd basement</option>
+                                  <option value="-2">2nd basement</option>
+                                  <option value="-1">1st basement</option>
                                    
                                     <option value="1">1st floor</option>
                                     <option value="2">2nd floor</option>

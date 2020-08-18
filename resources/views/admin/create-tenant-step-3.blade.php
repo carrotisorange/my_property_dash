@@ -350,15 +350,33 @@
         <div class="row">
             <div class="col">
               <small>Move-in date</small>
-              <input form="addTenantForm3" type="date" class="form-control" name="movein_date" id="movein_date" value="{{ session(Auth::user()->id.'movein_date') }}" required>
+              <input form="addTenantForm3" type="date" class="form-control @error('movein_date') is-invalid @enderror" name="movein_date" id="movein_date" value="{{ session(Auth::user()->id.'movein_date') }}" required>
+
+              @error('movein_date')
+              <span class="invalid-feedback" role="alert">
+                  <strong>{{ $message }}</strong>
+              </span>
+              @enderror
             </div>
             <div class="col">
               <small>Move-out date</small>
-              <input onkeyup="duration()" form="addTenantForm3" type="date" class="form-control" name="moveout_date" value="{{ session(Auth::user()->id.'moveout_date') }}" id="moveout_date" required>
+              <input onkeyup="duration()" form="addTenantForm3" type="date" class="form-control @error('moveout_date') is-invalid @enderror" name="moveout_date" value="{{ session(Auth::user()->id.'moveout_date') }}" id="moveout_date" required>
+              
+              @error('moveout_date')
+              <span class="invalid-feedback" role="alert">
+                  <strong>{{ $message }}</strong>
+              </span>
+              @enderror
             </div>
             <div class="col">
                 <small>Monthly rent</small>
-                <input form="addTenantForm3" type="number" class="form-control" name="tenant_monthly_rent" min="1" id="tenant_monthly_rent" value="{{ session(Auth::user()->id.'tenant_monthly_rent') }}" required>
+                <input form="addTenantForm3" type="number" class="form-control @error('tenant_monthly_rent') is-invalid @enderror" name="tenant_monthly_rent" min="1" id="tenant_monthly_rent" value="{{ session(Auth::user()->id.'tenant_monthly_rent') }}" required>
+
+                @error('tenant_monthly_rent')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
             </div>
           </div>
             <br>

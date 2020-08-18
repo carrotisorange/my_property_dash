@@ -397,12 +397,18 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                           @if($tenant->created_at !== null)
                           <tr>
-                              <td>Requested moveout at</td>
-                              <td>{{ Carbon\Carbon::parse($tenant->created_at)->format('M d Y') }}</td>
+                              <td>Moveout Requested At</td>
+                              <td id="moveout_requested_at">{{ Carbon\Carbon::parse($tenant->created_at)->format('M d Y') }}</td>
                           </tr>
                           <tr>
-                              <td>Approved moveout at</td>
-                              <td>{{ Carbon\Carbon::parse($tenant->updated_at)->format('M d Y') }}</td>
+                              <td>Moveout Approved At</td>
+                              <td id="moveout_approved_at">
+                                @if($tenant->updated_at === null)
+                                    -
+                                @else
+                                {{ Carbon\Carbon::parse($tenant->updated_at)->format('M d Y') }}
+                                @endif
+                              </td>
                           </tr>
                           @endif
                           <tr>
@@ -1096,7 +1102,6 @@
     });
 });
 </script>
-
 </body>
 
 </html>

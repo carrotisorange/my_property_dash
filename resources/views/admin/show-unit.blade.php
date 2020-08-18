@@ -716,6 +716,8 @@
                                 <small>Floor no</small>
                                 <select form="editUnitForm" id="floor_no" name="floor_no" class="form-control">
                                     <option value="{{ $unit->floor_no }}" readonly selected class="bg-primary">{{ $unit->floor_no }}</option>
+                                    <option value="-5">5th basement</option>
+                                    <option value="-4">4th basement</option>
                                     <option value="-3">3rd basement</option>
                                     <option value="-2">2nd basement</option>
                                     <option value="-1">1st basement</option>
@@ -739,7 +741,6 @@
                                 <small>Room Type</small>
                                 <select form="editUnitForm" id="type_of_units" name="type_of_units" class="form-control">
                                     <option value="{{ $unit->type_of_units }}" readonly selected class="bg-primary">{{ $unit->type_of_units }}</option>
-                                    <option value="leasing">leasing</option>
                                     <option value="commercial">commercial</option>
                                     <option value="residential">residential</option>
                                 </select>
@@ -747,7 +748,7 @@
                                 @if(Auth::user()->property_type !== 'Commercial Complex')
                                 <div class="form-group">
                                   <small>No of beds</small>
-                                  <input form="editUnitForm" min="1" max="4" type="number" value="{{ $unit->beds }}" name="beds" class="form-control">
+                                  <input form="editUnitForm" min="0" type="number" value="{{ $unit->beds }}" name="beds" class="form-control">
                                   </div>
                                 @endif
                                
@@ -758,13 +759,13 @@
                                     <option value="{{ $unit->status }}" readonly selected class="bg-primary">{{ $unit->status }}</option>
                                     <option value="vacant">vacant</option>
                                     <option value="occupied">occupied</option>
-                                    <option value="pulled out">pulled out</option>
+                                    
                                     <option value="reserved">reserved</option>
                                 </select>
                                 </div>
                                 <div class="form-group">
                                     <small>Montly Rent</small>
-                                    <input form="editUnitForm" min="1" type="number" value="{{ $unit->monthly_rent }}" name="monthly_rent" class="form-control">
+                                    <input form="editUnitForm" min="0" step="0.01" type="number" value="{{ $unit->monthly_rent }}" name="monthly_rent" class="form-control">
                                     </div>
                             </form>
                             </div>
@@ -808,7 +809,7 @@
                                     <small>Mobile</small>
                                     <input form="addInvestorForm" type="text" class="form-control" name="investor_contact_no" id="contact_no" required>
                                 </div>
-                                <div class="form-group">
+                                {{-- <div class="form-group">
                                     <small>Address</small>
                                     <input form="addInvestorForm" type="text" class="form-control" name="investor_address" id="investor_address"    >
                                 </div>
@@ -844,12 +845,12 @@
                                 <div class="form-group">
                                     <small>Account Number</small>
                                     <input form="addInvestorForm" type="text" class="form-control" name="account_number" id="account_number">
-                                </div>
+                                </div> --}}
             
                             </div>
                             <div class="modal-footer">
                             <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button>
-                            <button type="submit" form="addInvestorForm" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;"><i class="fas fa-check fa-sm text-white-50"></i> Update Room</button>  
+                            <button type="submit" form="addInvestorForm" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;"><i class="fas fa-check fa-sm text-white-50"></i> Add Owner</button>  
                             </div>
                         </div>
                         </div>
