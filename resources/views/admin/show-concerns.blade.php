@@ -471,7 +471,7 @@
                       </div>
                   </div>
 
-                  <div class="row">
+                  {{-- <div class="row">
                       <div class="col">
                           <small>Status</small>
                           <select class="form-control" form="editConcernDetailsForm" name="concern_status" id="" required>
@@ -481,7 +481,7 @@
                              <option value="closed">closed</option>
                           </select>
                       </div>
-                  </div>
+                  </div> --}}
 
                 </div>
                 <div class="modal-footer">
