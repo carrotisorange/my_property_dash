@@ -42,7 +42,7 @@ class ConcernController extends Controller
         //     'personnel_availability' => 'yes'
         // ]);
 
-        DB::table('concerns')->insert(
+       $concern_id = DB::table('concerns')->insertGetId(
             [
                 'concern_tenant_id' => $request->tenant_id,
                 'date_reported' => $request->date_reported,
@@ -57,7 +57,7 @@ class ConcernController extends Controller
                 'is_paid' => 'unpaid',
             ]);
 
-            return back()->with('success', 'Concern has been added to the property!');
+            return redirect('/units/'.$request->unit_tenant_id.'/tenants/'.$request->tenant_id.'/concerns/'.$concern_id)->with('success', 'Concern has been added to the property!');
     }
 
     /**

@@ -719,6 +719,8 @@
                           </form>
 
                           <input type="hidden" form="concernForm" id="tenant_id" name="tenant_id" value="{{ $tenant->tenant_id }}"required>
+                          <input type="hidden" form="concernForm" id="unit_tenant_id" name="unit_tenant_id" value="{{ $tenant->unit_tenant_id }}"required>
+
                           <div class="row">
                             <div class="col">
                                 <label for="movein_date">Date Reported</label>

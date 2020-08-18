@@ -374,7 +374,7 @@
                               </div>
                     
                         <div class="card-body">
-                        <p>{{ $concern->action_taken }}</p>
+                        <p id="action_taken">{{ $concern->action_taken }}</p>
                         </div>
                     </div>   
                       
@@ -516,7 +516,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button>
-                    <button form="editConcernDetailsForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want to perform this action?');" ><i class="fas fa-check fa-sm text-white-50"></i> Update</button>
+                    <button form="editConcernDetailsForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want to perform this action?');" ><i class="fas fa-check fa-sm text-white-50"></i> Add Details</button>
                 </div>
             </div>
             </div>
@@ -545,7 +545,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button>
-                    <button form="editConcernDetailsForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want to perform this action?');" ><i class="fas fa-check fa-sm text-white-50"></i> Update</button>
+                    <button form="editConcernDetailsForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want to perform this action?');" ><i class="fas fa-check fa-sm text-white-50"></i> Add Action</button>
                 </div>
             </div>
             </div>
@@ -575,7 +575,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button>
-                    <button form="editConcernDetailsForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want to perform this action?');" ><i class="fas fa-check fa-sm text-white-50"></i> Update</button>
+                    <button form="editConcernDetailsForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want to perform this action?');" ><i class="fas fa-check fa-sm text-white-50"></i> Add Feedback</button>
                 </div>
             </div>
             </div>
@@ -738,6 +738,15 @@
         }
     });
   });
+</script>
+<script>
+	$(document).ready(function(){
+
+    if(document.getElementById('action_taken').innerHTML === ""){
+      $("#editActionTakenForm").modal('show');
+    }
+
+	});
 </script>
 
 </body>
