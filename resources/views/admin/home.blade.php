@@ -529,7 +529,7 @@
 
           <div class="form-group">
               <small>Select the floor number</small>
-              <select class="form-control" form="addUMultipleUnitForm" name="floor_no" id="floor_no" onkeyup="getFloorNo()" required>
+              <select class="form-control" form="addUMultipleUnitForm" name="floor_no" id="floor_no" required>
                   <option value="" selected>Please select one</option>
                                     <option value="-3">3rd basement</option>
                                     <option value="-2">2nd basement</option>
@@ -564,7 +564,7 @@
           
               <div class="form-group">
                 <small>Enter the number of bed</small>
-                <input form="addUMultipleUnitForm" type="number" min="0" class="form-control" name="beds" required>
+                <input form="addUMultipleUnitForm" type="number" value="0" class="form-control" name="beds">
             </div>
        
 
@@ -582,7 +582,7 @@
          
             <div class="form-group">
                 <small>Enter the rent of the room per month</small>
-                <input form="addUMultipleUnitForm" type="number" min="1" class="form-control" name="monthly_rent" id="monthly_rent" required>
+                <input form="addUMultipleUnitForm" type="number" value="0" class="form-control" name="monthly_rent" id="monthly_rent">
             </div>
           
 

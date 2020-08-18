@@ -1,5 +1,5 @@
 @component('mail::message')
-# Hello, <b> {{ Auth::user()->name  }} </b>
+# Hello,  {{ Auth::user()->name }} 
 
 Thank you for using The Property Manager to manage <b> {{ Auth::user()->property.' '.Auth::user()->property_type }} </b>. 
 
