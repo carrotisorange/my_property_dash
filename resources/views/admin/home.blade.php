@@ -564,7 +564,7 @@
           
               <div class="form-group">
                 <small>Enter the number of bed</small>
-                <input form="addUMultipleUnitForm" type="number" value="0" class="form-control" name="beds">
+                <input form="addUMultipleUnitForm" type="number" value="0" min="0"  class="form-control" name="beds">
             </div>
        
 
@@ -582,7 +582,7 @@
          
             <div class="form-group">
                 <small>Enter the rent of the room per month</small>
-                <input form="addUMultipleUnitForm" type="number" value="0" step="0.01" class="form-control" name="monthly_rent" id="monthly_rent">
+                <input form="addUMultipleUnitForm" type="number" value="0" step="0.01" min="0" class="form-control" name="monthly_rent" id="monthly_rent">
             </div>
           
 
