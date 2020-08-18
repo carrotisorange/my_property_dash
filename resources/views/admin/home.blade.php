@@ -576,7 +576,7 @@
 
           <div class="form-group">
               <small>Enter the initial name of the rooms</small>
-              <input form="addUMultipleUnitForm" type="text" class="form-control" name="unit_no" id="unit_no" required>
+              <input form="addUMultipleUnitForm" type="text" class="form-control" name="unit_no" id="unit_no" placeholder="GF-"required>
           </div>
 
          
