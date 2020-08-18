@@ -363,12 +363,12 @@
                      <tr id='addr0'>
                          <th>1</th>
                          <td><input form="addTenantForm4"  type="text" name='desc0' id='desc0' class="form-control col-md-8" value="Security Deposit (Rent)" readonly/></td>
-                         <td><input oninput="this.value = Math.abs(this.value)" form="addTenantForm4"  onkeyup="computeTotal()" type="number" name='amt0' id='amt0' class="form-control col-md-8" value="{{ session(Auth::user()->id.'tenant_monthly_rent') }}"/></td>
+                         <td><input oninput="this.value = Math.abs(this.value)" step="0.01" form="addTenantForm4"  onkeyup="computeTotal()" type="number" name='amt0' id='amt0' class="form-control col-md-8" value="{{ session(Auth::user()->id.'tenant_monthly_rent') }}"/></td>
                      </tr>
                      <tr>
                       <th>2</th>
                      <td><input form="addTenantForm4"  type="text" name='desc1' id='desc1' class="form-control col-md-8" value="Advance Rent" readonly/></td>
-                     <td><input oninput="this.value = Math.abs(this.value)" form="addTenantForm4"  onkeyup="computeTotal()" type="number" name='amt1' id='amt1' class="form-control col-md-8" value="{{ session(Auth::user()->id.'tenant_monthly_rent') }}"/></td>
+                     <td><input oninput="this.value = Math.abs(this.value)" step="0.01" form="addTenantForm4"  onkeyup="computeTotal()" type="number" name='amt1' id='amt1' class="form-control col-md-8" value="{{ session(Auth::user()->id.'tenant_monthly_rent') }}"/></td>
                     </tr>
                      <tr id='addr1'>
                         <th>3</th>
@@ -380,7 +380,7 @@
                          
                           </select>
                         </td>
-                        <td><input oninput="this.value = Math.abs(this.value)" form="addTenantForm4"  onkeyup="computeTotal()" type="number" name='amt2' id='amt2' class="form-control col-md-8" value="2000"/></td>
+                        <td><input oninput="this.value = Math.abs(this.value)" step="0.01" form="addTenantForm4"  onkeyup="computeTotal()" type="number" name='amt2' id='amt2' class="form-control col-md-8" value="2000"/></td>
                     </tr>
                     
                      <tr id='addr2'></tr>
