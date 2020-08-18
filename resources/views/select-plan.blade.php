@@ -10,7 +10,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>The Property Manager | Register</title>
+  <title>The Property Manager | Select your plan</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -69,7 +69,7 @@
                       <select form="selectingPlanForm" id="account_type" class="form-control form @error('account_type') is-invalid @enderror" name="account_type" value="{{ old('account_type') }}" required autocomplete="account_type">
                         <option value="">Please select one</option>
                         <option value="Basic">Basic - 20 rooms - 450/mo</option>
-                        <option value="Medium">Medium -50 rooms - 950/mo</option>
+                        <option value="Medium">Medium - 50 rooms - 950/mo</option>
                         <option value="Large">Large - 100 rooms - 1800/mo</option>
                         <option value="Enterprise">Enterprise - 200 rooms - 2400/mo</option>
                         <option value="Corporate">Corporate - 500 rooms - 4800/mo</option>

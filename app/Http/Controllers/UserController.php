@@ -126,11 +126,14 @@ class UserController extends Controller
             DB::table('users')->where('id', Auth::user()->id)
             ->update([
                 'account_type' => $request->account_type,
+                'last_login_at' => Carbon::now(),
+                'last_login_ip' => request()->ip(),
+                'user_current_status' => 'online',
             ]);
 
             Mail::to(Auth::user()->email)->send(new TenantRegisteredMail());
 
-            return back();
+            return redirect('/board');
         }
 
 
@@ -147,8 +150,6 @@ class UserController extends Controller
                 'property_type' => $request->property_type,
                 'property_ownership' => $request->property_ownership 
             ]);
-
-          
 
             return back();
         }
