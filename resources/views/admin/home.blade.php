@@ -562,6 +562,7 @@
               <select form="addUMultipleUnitForm" class="form-control" name="type_of_units" required>
                   <option value="" selected>Please select one</option>
                   <option value="commercial">commercial</option>
+                  <option value="leasing">leasing</option>
                   <option value="residential">residential</option>         
               </select>
           </div> 
@@ -581,7 +582,7 @@
 
           <div class="form-group">
               <small>Enter the initial name of the rooms</small>
-              <input form="addUMultipleUnitForm" type="text" class="form-control" name="unit_no" id="unit_no" placeholder="GF-"required>
+              <input form="addUMultipleUnitForm" type="text" class="form-control" name="unit_no" id="unit_no" placeholder="GF-" required>
           </div>
 
          
