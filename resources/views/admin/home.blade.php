@@ -571,7 +571,7 @@
 
           <div class="form-group">
               <small>Enter the number of rooms you want to create</small>
-              <input form="addUMultipleUnitForm" type="number" min="1" class="form-control" name="no_of_rooms"required>
+              <input form="addUMultipleUnitForm" type="number" value="1" min="1" class="form-control" name="no_of_rooms" required>
           </div>
 
           <div class="form-group">
