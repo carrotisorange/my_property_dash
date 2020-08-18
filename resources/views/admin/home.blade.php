@@ -551,13 +551,8 @@
               <small>Select the room type</small>
               <select form="addUMultipleUnitForm" class="form-control" name="type_of_units" required>
                   <option value="" selected>Please select one</option>
-                 
-                 
-                  <option value="leasing">leasing</option> 
                   <option value="commercial">commercial</option>
-                  <option value="residential">residential</option>
-              
-                 
+                  <option value="residential">residential</option>         
               </select>
           </div> 
 
