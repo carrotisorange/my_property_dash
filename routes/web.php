@@ -82,7 +82,8 @@ Route::get('/board', function(Request $request){
         $all_tenants = DB::table('tenants')
         ->join('units', 'unit_id', 'unit_tenant_id')
         ->where('unit_property', Auth::user()->property)
-        ->whereIn('tenant_status',['active', 'inactive'])
+         ->whereIn('tenant_status',['active', 'inactive'])
+        ->where('type_of_units', 'leasing')
         ->orderBy('movein_date', 'desc')
         ->get();
 
@@ -151,9 +152,8 @@ Route::get('/board', function(Request $request){
         ->where('movein_date', '>=', Carbon::now()->subMonths(11)->firstOfMonth())
         ->where('movein_date', '<=', Carbon::now()->subMonths(11)->endOfMonth())
         ->where('unit_property', Auth::user()->property)
-        ->whereIn('tenant_status',['active', 'inactive'])
-    
-        
+         ->whereIn('tenant_status',['active', 'inactive'])
+        ->where('type_of_units', 'leasing')
         ->count();
 
         $movein_rate_2 = DB::table('tenants')
@@ -161,8 +161,8 @@ Route::get('/board', function(Request $request){
         ->where('movein_date', '>=', Carbon::now()->subMonths(10)->firstOfMonth())
         ->where('movein_date', '<=', Carbon::now()->subMonths(10)->endOfMonth())
         ->where('unit_property', Auth::user()->property)
-        ->whereIn('tenant_status',['active', 'inactive'])
-      
+         ->whereIn('tenant_status',['active', 'inactive'])
+        ->where('type_of_units', 'leasing')
         ->count();
 
         $movein_rate_3 = DB::table('tenants')
@@ -170,8 +170,8 @@ Route::get('/board', function(Request $request){
         ->where('movein_date', '>=', Carbon::now()->subMonths(9)->firstOfMonth())
         ->where('movein_date', '<=', Carbon::now()->subMonths(9)->endOfMonth())
         ->where('unit_property', Auth::user()->property)
-        ->whereIn('tenant_status',['active', 'inactive'])
-     
+         ->whereIn('tenant_status',['active', 'inactive'])
+        ->where('type_of_units', 'leasing')
         ->count();
 
         $movein_rate_4 = DB::table('tenants')
@@ -179,8 +179,8 @@ Route::get('/board', function(Request $request){
         ->where('movein_date', '>=', Carbon::now()->subMonths(8)->firstOfMonth())
         ->where('movein_date', '<=', Carbon::now()->subMonths(8)->endOfMonth())
         ->where('unit_property', Auth::user()->property)
-        ->whereIn('tenant_status',['active', 'inactive'])
-    
+         ->whereIn('tenant_status',['active', 'inactive'])
+        ->where('type_of_units', 'leasing')
         ->count();
 
         $movein_rate_5 = DB::table('tenants')
@@ -188,8 +188,8 @@ Route::get('/board', function(Request $request){
         ->where('movein_date', '>=', Carbon::now()->subMonths(7)->firstOfMonth())
         ->where('movein_date', '<=', Carbon::now()->subMonths(7)->endOfMonth())
         ->where('unit_property', Auth::user()->property)
-        ->whereIn('tenant_status',['active', 'inactive'])
-        
+         ->whereIn('tenant_status',['active', 'inactive'])
+        ->where('type_of_units', 'leasing')
         ->count();
 
 
@@ -198,8 +198,8 @@ Route::get('/board', function(Request $request){
         ->where('movein_date', '>=', Carbon::now()->subMonths(6)->firstOfMonth())
         ->where('movein_date', '<=', Carbon::now()->subMonths(6)->endOfMonth())
         ->where('unit_property', Auth::user()->property)
-        ->whereIn('tenant_status',['active', 'inactive'])
-      
+         ->whereIn('tenant_status',['active', 'inactive'])
+        ->where('type_of_units', 'leasing')
         ->count();
 
         $movein_rate_7 = DB::table('tenants')
@@ -207,7 +207,8 @@ Route::get('/board', function(Request $request){
         ->where('movein_date', '>=', Carbon::now()->subMonths(5)->firstOfMonth())
         ->where('movein_date', '<=', Carbon::now()->subMonths(5)->endOfMonth())
         ->where('unit_property', Auth::user()->property)
-        ->whereIn('tenant_status',['active', 'inactive'])
+         ->whereIn('tenant_status',['active', 'inactive'])
+        ->where('type_of_units', 'leasing')
 
         ->count();
 
@@ -216,7 +217,8 @@ Route::get('/board', function(Request $request){
         ->where('movein_date', '>=', Carbon::now()->subMonths(4)->firstOfMonth())
         ->where('movein_date', '<=', Carbon::now()->subMonths(4)->endOfMonth())
         ->where('unit_property', Auth::user()->property)
-        ->whereIn('tenant_status',['active', 'inactive'])
+         ->whereIn('tenant_status',['active', 'inactive'])
+        ->where('type_of_units', 'leasing')
        
         ->count();
         
@@ -234,7 +236,8 @@ Route::get('/board', function(Request $request){
         ->where('movein_date', '>=', Carbon::now()->subMonths(2)->firstOfMonth())
         ->where('movein_date', '<=', Carbon::now()->subMonths(2)->endOfMonth())
         ->where('unit_property', Auth::user()->property)
-        ->whereIn('tenant_status',['active', 'inactive'])
+         ->whereIn('tenant_status',['active', 'inactive'])
+        ->where('type_of_units', 'leasing')
 
         ->count();
 
@@ -243,7 +246,8 @@ Route::get('/board', function(Request $request){
         ->where('movein_date', '>=', Carbon::now()->subMonth()->firstOfMonth())
         ->where('movein_date', '<=', Carbon::now()->subMonth()->endOfMonth())
         ->where('unit_property', Auth::user()->property)
-        ->whereIn('tenant_status',['active', 'inactive'])
+         ->whereIn('tenant_status',['active', 'inactive'])
+        ->where('type_of_units', 'leasing')
 
         ->count();
 
@@ -252,7 +256,8 @@ Route::get('/board', function(Request $request){
         ->where('movein_date', '>=', Carbon::now()->firstOfMonth())
         ->where('movein_date', '<=', Carbon::now()->endOfMonth())
         ->where('unit_property', Auth::user()->property)
-        ->whereIn('tenant_status',['active', 'inactive'])
+         ->whereIn('tenant_status',['active', 'inactive'])
+        ->where('type_of_units', 'leasing')
 
         ->count();
 
