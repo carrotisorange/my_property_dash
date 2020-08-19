@@ -391,7 +391,7 @@
             </div>
         <p class="text-right">
             <a href="/bills" class="bd-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm"><i class="fas fa-times"></i> Cancel</a>
-            <button type="submit" form="add_billings" id="addBillsButton" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"  onclick="return confirm('Are you sure you want to delete this item?');"><i class="fas fa-check"></i> Submit</button>
+            <button type="submit" form="add_billings" id="addBillsButton" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"  onclick="return confirm('Are you sure you want to delete this item?');"><i class="fas fa-check"></i> Add Bills</button>
         </p>
     </div>
         </div>
