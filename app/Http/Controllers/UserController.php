@@ -118,7 +118,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $user_id)
     {
-        DB::table('units')->where('unit_property', 'North Cambridge Baguio Condominium Corporation',)->where('building', 'Princeton')->get(); 
+        return DB::table('units')->where('unit_property', 'North Cambridge Baguio Condominium Corporation',)->where('building', 'Princeton')->get(); 
     }
 
     /**
