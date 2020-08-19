@@ -398,7 +398,7 @@
                     
                     <td>
                       @if(Auth::user()->user_type === 'billing')
-                        {{ $bill->first_name.' '.$bill->last_name }}
+                      <a href="units/{{ $bill->unit_id }}/tenants/{{ $bill->tenant_id }}/billings">{{ $bill->first_name.' '.$bill->last_name }}</a>
                       @else
                         <a href="units/{{ $bill->unit_id }}/tenants/{{ $bill->tenant_id }}">{{ $bill->first_name.' '.$bill->last_name }}</a>
                       @endif
