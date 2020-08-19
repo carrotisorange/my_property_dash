@@ -569,8 +569,8 @@
 
           
               <div class="form-group">
-                <small>Enter the number of bed</small>
-                <input form="addUMultipleUnitForm" type="number" value="0" min="0"  class="form-control" name="beds">
+                <small>Enter the max occupant of room</small>
+                <input form="addUMultipleUnitForm" type="number" value="0" min="0"  class="form-control" name="max_occupancy">
             </div>
        
 

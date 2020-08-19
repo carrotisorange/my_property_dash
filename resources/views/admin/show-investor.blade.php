@@ -227,7 +227,7 @@
 
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             
-            <a href="/units/{{ $unit_id }}/owners/{{ $investor->unit_owner_id }}/edit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" ><i class="fas fa-edit fa-sm text-white-50"></i> Edit Owner</a>  
+            <a href="/units/{{ $unit->unit_id }}/owners/{{ $investor->unit_owner_id }}/edit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" ><i class="fas fa-edit fa-sm text-white-50"></i> Edit Owner</a>  
           </div>
         <!-- 404 Error Text -->
         <div class="table-responsive">
@@ -252,6 +252,7 @@
             <td>Address</td>
             <td>{{ $investor->investor_address }}</td>
           </tr>
+          @if($unit->type_of_units === 'leasing')
             <tr>
               <td>Bank Name</td>
               <td>{{ $investor->bank_name }}</td>
@@ -264,11 +265,8 @@
           <td>Account Number</td>
           <td>{{ $investor->account_number }}</td>
         </tr>
-       
-        <tr>
-          <td>Contract Period</td>
-          <td>{{ Carbon\Carbon::parse($investor->contract_start)->format('M d Y').' - '.Carbon\Carbon::parse($investor->contract_end)->format('M d Y') }}</td>
-        </tr>
+        @endif
+        
             </table>
         </div>
         </div>

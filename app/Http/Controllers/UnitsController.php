@@ -169,7 +169,7 @@ class UnitsController extends Controller
              'unit_no' => $request->unit_no.$i,
              'floor_no' => $request->floor_no,
              'building' => $request->building,
-             'beds' => $request->beds,
+             'max_occupancy' => $request->max_occupancy,
              'monthly_rent' => $request->monthly_rent,
              'status' => 'vacant',
              'unit_property' => Auth::user()->property,

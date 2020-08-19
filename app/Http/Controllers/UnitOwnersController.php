@@ -82,9 +82,9 @@ class UnitOwnersController extends Controller
            ->join('billings', 'unit_owner_id', 'billing_tenant_id')
            ->get();
 
-           $unit_id = $unit_id;
+           $unit = Unit::findOrFail($unit_id);
    
-            return view('admin.show-investor', compact('investor','unit_id'));
+            return view('admin.show-investor', compact('investor','unit'));
         }else{
             return view('unregistered');
         }

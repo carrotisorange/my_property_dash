@@ -285,7 +285,7 @@
                       
                        <div class="col">
                           <small>Purchase Amount</small>
-                          <input form="editInvestorForm" class="form-control" type="number" step="0.01" name="investment_price" value="{{ $investor->investment_price }}" >
+                          <input form="editInvestorForm" class="form-control" type="number" min="1" step="0.01" name="investment_price" value="{{ $investor->investment_price }}" >
                       </div>  
 
                       <div class="col">
