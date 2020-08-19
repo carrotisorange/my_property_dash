@@ -902,7 +902,7 @@ Route::get('/collections', function(){
 })->middleware(['auth', 'verified']);
 
 Route::get('/bills', function(){
-    if(auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager'){
+    if(auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager' || auth()->user()->user_type === 'billing'){
         
         $bills = DB::table('units')
         ->join('tenants', 'unit_id', 'unit_tenant_id')
