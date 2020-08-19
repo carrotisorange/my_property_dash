@@ -117,7 +117,18 @@ class UnitOwnersController extends Controller
      */
     public function update(Request $request, $unit_id, $unit_owner_id)
     {
-        return $request->all();
+        DB::table('unit_owners')->update([
+            'unit_owner' => $request->unit_owner,
+            'investor_contact_no' => $request->investor_contact_no,
+            'investor_email_address' => $request->investor_email_address,
+            'investor_address' => $request->investor_address,
+            'investor_representative' => $request->investor_representative,
+            'date_invested' => $request->date_invested,
+            'investment_price' => $request->investment_price,
+            'investment_type' => $request->investment_type
+        ]);
+
+        return redirect('/units/'.$unit_id)->with('success', 'Owner information has been updated!');
     }
 
     /**
