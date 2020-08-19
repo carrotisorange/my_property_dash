@@ -437,7 +437,7 @@
                                         <td>Representative</td>
                                         <td>{{ $item->investor_representative }}</td>
                                     </tr>
-                                    <tr>
+                                    {{-- <tr>
                                         <td>Contract Period </td>
                                         <td>
                                             @if($item->contract_end == NULL)
@@ -446,7 +446,7 @@
                                                 {{ Carbon\Carbon::parse($item->contract_start)->format('M d Y') .'-'. Carbon\Carbon::parse($item->contract_end)->format('M d Y')  }} 
                                             @endif
                                         </td>
-                                    </tr>
+                                    </tr> --}}
                                         @endforeach
                                     @endif
                                </table>
