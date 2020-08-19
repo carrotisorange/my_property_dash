@@ -25,7 +25,6 @@
   <!-- Page Wrapper -->
   <div id="wrapper">
 
-    <!-- Sidebar -->
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       {{-- <!-- Sidebar - Brand -->
@@ -39,7 +38,7 @@
   
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="/">
+        <a class="nav-link" href="/board">
           <span>The Property Manager</span></a>
       </li>
   
@@ -52,12 +51,20 @@
       </div>  --}}
   
       <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item">
-        <a class="nav-link" href="/board">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a>
-      </li>
+       <li class="nav-item">
+          <a class="nav-link" href="/board">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span></a>
+        </li>
   
+      @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'treasury' )
+        <li class="nav-item">
+        <a class="nav-link" href="/tenants/search">
+          <i class="fas fa-users"></i>
+          <span>Tenants</span></a>
+      </li>
+      @endif
+      
       @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' )
       <li class="nav-item">
         <a class="nav-link" href="/home">
@@ -81,32 +88,34 @@
      @endif
   
         <!-- Nav Item - Tables -->
-      <li class="nav-item">
-      <a class="nav-link" href="/concerns">
-    <i class="far fa-comment-dots"></i>
-        <span>Concerns</span></a>
-  </li>
-
-  <li class="nav-item">
-      <a class="nav-link" href="/job-orders">
-        <i class="fas fa-tools fa-table"></i>
-        <span>Job Orders</span></a>
-  </li>
-
+      
+          <!-- Nav Item - Tables -->
+        <li class="nav-item">
+        <a class="nav-link" href="/concerns">
+      <i class="far fa-comment-dots"></i>
+          <span>Concerns</span></a>
+    </li>
+  
+    <li class="nav-item">
+        <a class="nav-link" href="/job-orders">
+          <i class="fas fa-tools fa-table"></i>
+          <span>Job Orders</span></a>
+    </li>
+  
         
-              <!-- Nav Item - Tables -->
-               <li class="nav-item">
-        <a class="nav-link collapsed" href="/personnels" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-        <i class="fas fa-user-cog"></i>
-          <span>Personnels</span>
-        </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="/housekeeping">Housekeeping</a>
-            <a class="collapse-item" href="/maintenance">Maintenance</a>
+                <!-- Nav Item - Tables -->
+                 <li class="nav-item">
+          <a class="nav-link collapsed" href="/personnels" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+          <i class="fas fa-user-cog"></i>
+            <span>Personnels</span>
+          </a>
+          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+              <a class="collapse-item" href="/housekeeping">Housekeeping</a>
+              <a class="collapse-item" href="/maintenance">Maintenance</a>
+            </div>
           </div>
-        </div>
-      </li>
+        </li>
       @endif
   
        @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'manager')
@@ -118,32 +127,31 @@
         </li>
        @endif
   
-       @if(Auth::user()->user_type === 'treasury' || Auth::user()->user_type === 'manager')
-          <li class="nav-item">
-          <a class="nav-link" href="/collections">
-            <i class="fas fa-file-invoice-dollar"></i>
-            <span>Collections</span></a>
-        </li>
-  
-        @endif
+          @if(Auth::user()->user_type === 'treasury' || Auth::user()->user_type === 'manager')
+            <li class="nav-item">
+            <a class="nav-link" href="/collections">
+              <i class="fas fa-file-invoice-dollar"></i>
+              <span>Collections</span></a>
+          </li>
+    
+          @endif
+    
+        @if(Auth::user()->user_type === 'manager')
+        <li class="nav-item">
+        <a class="nav-link" href="/account-payables">
+        <i class="fas fa-hand-holding-usd"></i>
+          <span>Account Payables</span></a>
+      </li>
+      @endif
   
       @if(Auth::user()->user_type === 'manager')
-      <li class="nav-item">
-      <a class="nav-link" href="/account-payables">
-      <i class="fas fa-hand-holding-usd"></i>
-        <span>Account Payables</span></a>
-    </li>
-    @endif
-
-    @if(Auth::user()->user_type === 'manager')
-     <!-- Nav Item - Tables -->
-     <li class="nav-item">
-      <a class="nav-link" href="/users">
-        <i class="fas fa-user-circle"></i>
-        <span>Users</span></a>
-    </li>
-    @endif
-      
+       <!-- Nav Item - Tables -->
+       <li class="nav-item">
+        <a class="nav-link" href="/users">
+          <i class="fas fa-user-circle"></i>
+          <span>Users</span></a>
+      </li>
+      @endif
   
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
@@ -154,7 +162,6 @@
       </div>
   
     </ul>
-    <!-- End of Sidebar -->
 
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
