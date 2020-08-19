@@ -800,7 +800,7 @@
 
       <div class="mr-md-auto text-center text-md-left">
         <div class="copyright">
-          &copy; Copyright <strong><span>GoDie Enterprise</span></strong>. All Rights Reserved
+          &copy; Copyright <strong><span>The PMO Co 2020</span></strong>. 
         </div>
         <div class="credits">
           <!-- All the links in the footer should remain intact. -->
