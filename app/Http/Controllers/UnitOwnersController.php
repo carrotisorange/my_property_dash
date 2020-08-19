@@ -117,7 +117,9 @@ class UnitOwnersController extends Controller
      */
     public function update(Request $request, $unit_id, $unit_owner_id)
     {
-        DB::table('unit_owners')->update([
+        DB::table('unit_owners')
+        ->where('unit_owner_id',$unit_owner_id )
+        ->update([
             'unit_owner' => $request->unit_owner,
             'investor_contact_no' => $request->investor_contact_no,
             'investor_email_address' => $request->investor_email_address,

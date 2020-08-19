@@ -355,28 +355,35 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                           <th>ID</th>
+                          <th>ROOM</th>
                            <th>OWNER</th>
-                           <th>ROOM</th>
                            <th>EMAIL</th>
                            <th>MOBILE</th>
-                          
+                           <th>REPRESENTATIVE</th>
+                           <th>DATE PURCHASED</th>
+                           <th>DATE ACCEPTED</th>
+                           <th>ROOM TYPE</th>
+                           
                        </tr>
                     </thead>   
                        <tbody>
                        @foreach ($owners as $item)
                        <tr>
-                           <th>{{ $item->unit_owner_id }}</th>
-                           <td><a href="{{ route('show-investor',['unit_id'=> $item->unit_id, 'unit_owner_id'=>$item->unit_owner_id]) }}">{{ $item->unit_owner }} </a></td>
+                           
                            <td><a href="/units/{{ $item->unit_id }}">{{ $item->building.' '.$item->unit_no }}</a></td>
+                           <td><a href="{{ route('show-investor',['unit_id'=> $item->unit_id, 'unit_owner_id'=>$item->unit_owner_id]) }}">{{ $item->unit_owner }} </a></td>
+                          
                            <td>{{ $item-> investor_email_address}}</td>
                            <td>{{ $item->investor_contact_no }}</td>
-                           {{-- <td>{{ Carbon\Carbon::parse($item->contract_start)->format('M d Y').' - '.Carbon\Carbon::parse($item->contract_end)->format('M d Y') }}</td> --}}
+                           <TD>{{ $item->investor_representative }}</TD>
+                           <td>{{ Carbon\Carbon::parse($item->date_invested)->format('M d Y')}}</td> 
+                           <td>{{ Carbon\Carbon::parse($item->date_accepted)->format('M d Y')}}</td> 
+                           <td>{{ $item->type_of_units }}</td>
                        </tr>
                        @endforeach
                        </tbody>
                 </table>
-                {{ $owners->links() }}
+               
               </div>
         
         </div>
