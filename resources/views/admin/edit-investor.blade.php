@@ -224,24 +224,91 @@
         </nav>
         <!-- End of Topbar -->
         <div class="container-fluid">
+          @foreach (['danger', 'warning', 'success', 'info'] as $key)
+          @if(Session::has($key))
+         <p class="alert alert-{{ $key }}"> <i class="fas fa-check-circle"></i> {{ Session::get($key) }}</p>
+          @endif
+          @endforeach
 
-          <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">{{ $investor->unit_owner }}</h1>
-         
-          </div>
-        <!-- 404 Error Text -->
-          <div class="form-group">
-              <small>Email</small>
-              <p>{{ $investor->investor_email_address }}</p>
-          </div>
-          <hr>
-          <div class="form-group">
-            <small>Mobile</small>
-            <p>{{ $investor->investor_contact_no }}</p>
-        </div>
-        <hr>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/units/{{ $unit->unit_id}}">{{ $unit->building.' '.$unit->unit_no }}</a></li>
+            <li class="breadcrumb-item">Owner </li>
+          </ol>
+          
+          <!-- 404 Error Text -->
+          <form id="editInvestorForm" action="/units/{{ $unit->unit_id }}/owners/{{ $investor->unit_owner_id }}" method="POST">
+              @method('put')
+              {{ csrf_field() }}
+          </form>
+                      <div class="form-group row">
+                          <div class="col">
+                              <small>Name</small>
+                              <input form="editInvestorForm" class="form-control" type="text" name="unit_owner" value="{{ $investor->unit_owner }}" >
+                          </div>
+                         
+                        <div class="col">
+                          <small>Email</small>
+                          <input form="editInvestorForm" class="form-control" type="text" name="investor_contact_no" value="{{ $investor->investor_contact_no }}" >
+                      </div>
+                      <div class="col">
+                        <small>Mobile</small>
+                        <input form="editInvestorForm" class="form-control" type="text" name="investor_email_address" value="{{ $investor->investor_email_address }}" >
+                    </div>  
+                         
+                      </div>
 
-      </div>
+                      <div class="form-group row">
+                        
+                    <div class="col">
+                      <small>Address</small>
+                      <input form="editInvestorForm" class="form-control" type="text" name="investor_address" value="{{ $investor->investor_address }}" >
+                  </div>  
+                       
+                    </div>
+
+                    <div class="form-group row">
+                        
+                      <div class="col">
+                        <small>Authorized Representative</small>
+                        <input form="editInvestorForm" class="form-control" type="text" name="investor_representative" value="{{ $investor->investor_representative }}" >
+                    </div>  
+                         
+                      </div>
+                      <hr>
+
+                      <div class="form-group row">
+                        
+                        <div class="col">
+                          <small>Date Purchased</small>
+                          <input form="editInvestorForm" class="form-control" type="date" name="date_invested" value="{{ $investor->date_invested }}" >
+                      </div>  
+                      
+                       <div class="col">
+                          <small>Purchase Amount</small>
+                          <input form="editInvestorForm" class="form-control" type="number" step="0.01" name="investment_price" value="{{ $investor->investment_price }}" >
+                      </div>  
+
+                      <div class="col">
+                        <small>Payment Option</small>
+                        <select name="investment_type" id=""  form="editInvestorForm" class="form-control" >
+                            <option value="{{ $investor->investment_type }}">{{ $investor->investment_type }}</option>
+                            <option value="Full Cash">Full Cash</option>
+                            <option value="Full Downpayment">Full Downpayment</option>
+                            <option value="Installment">Installment</option>
+                        </select>
+                    </div>  
+                           
+                        </div>
+               
+                     
+            
+      
+      
+          <p class="text-right">   
+              <a href="/unit_owners/{{ $investor->unit_owner_id }}" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</a>
+              <button type="submit" form="editInvestorForm" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;"><i class="fas fa-check fa-sm text-white-50"></i> Update Owner</button>
+          </p>
+          </div>
       <!-- End of Main Content -->
       </div>
       <!-- Footer -->

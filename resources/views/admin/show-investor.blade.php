@@ -227,7 +227,7 @@
 
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             
-            <a href="/owners/{{ $investor->unit_owner_id }}/edit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" ><i class="fas fa-edit fa-sm text-white-50"></i> Edit Owner</a>  
+            <a href="/units/{{ $unit_id }}/owners/{{ $investor->unit_owner_id }}/edit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" ><i class="fas fa-edit fa-sm text-white-50"></i> Edit Owner</a>  
           </div>
         <!-- 404 Error Text -->
         <div class="table-responsive">

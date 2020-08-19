@@ -68,7 +68,6 @@ class UnitsController extends Controller
                 // 'investor_address' =>$request->investor_address,
                 // 'contract_start' =>$request->contract_start,
                 // 'contract_end' => $request->contract_end,
-                'created_at' => Carbon::now(),
             ]
         );
 
@@ -81,7 +80,7 @@ class UnitsController extends Controller
                         ]
                     );
 
-    return redirect('/owners/'.$id.'/edit')->with('success', 'Owner has been added to the property!');
+    return redirect('/units/'.$request->unit_id.'/owners/'.$id.'/edit')->with('success', 'Owner has been added to the property! Please provide more information.');
     }
 
     /**
@@ -214,7 +213,6 @@ class UnitsController extends Controller
                 'type_of_units' => $request->type_of_units,
                 'monthly_rent' => $request->monthly_rent
             ]);
-        
         return back()->with('success', 'Room information has been updated!');
     }
 

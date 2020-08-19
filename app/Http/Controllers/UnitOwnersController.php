@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
-use App\UnitOwner;
+use App\UnitOwner, App\Unit;
 use Illuminate\Support\Facades\Auth;
 
 class UnitOwnersController extends Controller
@@ -73,6 +73,7 @@ class UnitOwnersController extends Controller
      */
     public function show($unit_id,$unit_owner_id)
     {
+
         if(auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager'){
             $investor = UnitOwner::findOrFail($unit_owner_id);
 
@@ -80,8 +81,10 @@ class UnitOwnersController extends Controller
            ->join('unit_owners', 'unit_id', 'unit_unit_owner_id')
            ->join('billings', 'unit_owner_id', 'billing_tenant_id')
            ->get();
+
+           $unit_id = $unit_id;
    
-            return view('admin.show-investor', compact('investor'));
+            return view('admin.show-investor', compact('investor','unit_id'));
         }else{
             return view('unregistered');
         }
@@ -96,11 +99,13 @@ class UnitOwnersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($unit_owner_id)
+    public function edit($unit_id,$unit_owner_id)
     {
         $investor = UnitOwner::findOrFail($unit_owner_id);
+
+        $unit = Unit::findOrFail($unit_id);
         
-        return view('admin.edit-investor', compact('investor'));
+        return view('admin.edit-investor', compact('investor','unit'));
     }
 
     /**
@@ -110,9 +115,9 @@ class UnitOwnersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $unit_id, $unit_owner_id)
     {
-        //
+        return $request->all();
     }
 
     /**

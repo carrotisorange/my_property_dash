@@ -333,7 +333,7 @@
                         <button type="button" title="edit room" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#editUnit" data-whatever="@mdo"><i class="fas fa-edit fa-sm text-white-50"></i> Edit Room</button> 
                       @endif 
 
-                      @if(Auth::user()->property_type !== 'Commercial Complex')
+                      @if($unit->type_of_units === 'leasing')
                         @if ($tenant_active->count() < $unit->beds)
                         <a href="/units/{{ $unit->unit_id }}/tenant-step1" title="{{ $unit->beds - $tenant_active->count() }} remaining tenant/s to be fully occupied." type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                             <i class="fas fa-user-plus fa-sm text-white-50"></i> Add Tenant <span class="badge badge-light">{{  $tenant_active->count() }}/{{ $unit->beds }} </a>
@@ -344,8 +344,8 @@
                           </a>
                         @endif
                       @else
-                      <a href="/units/{{ $unit->unit_id }}/tenant-step1" type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                        <i class="fas fa-users-plus fa-sm text-white-50"></i> Add Tenant</a>
+                      {{-- <a href="/units/{{ $unit->unit_id }}/tenant-step1" type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                        <i class="fas fa-users-plus fa-sm text-white-50"></i> Add Tenant</a> --}}
                       @endif
                        
                        
@@ -397,13 +397,12 @@
                                         <td>Room Type</td>
                                         <td>{{ $unit->type_of_units }}</td>
                                    </tr>
-                                  
+                                   @if($unit->type_of_units === 'leasing')
                                    <tr>
                                     <td>No of Beds</td>
                                     <td>{{ $unit->beds }}</td>     
                                   </tr>
                                   
-                                 
                                   <tr>
                                         <td>Status</td>
                                         <td>
@@ -427,7 +426,7 @@
                                             session([Auth::user()->id.'building'=> $unit->building]);
                                         ?>
                                     </tr>
-                                  
+                                  @endif
                                     @if ($unit_owner->count() > 0)
                                         @foreach ($unit_owner as $item)
                                     <tr>
@@ -746,14 +745,12 @@
                                     <option value="residential">residential</option>
                                 </select>
                                 </div>
-                                @if(Auth::user()->property_type !== 'Commercial Complex')
+                                @if($unit->type_of_units === 'leasing')
                                 <div class="form-group">
                                   <small>No of beds</small>
                                   <input form="editUnitForm" min="0" type="number" value="{{ $unit->beds }}" name="beds" class="form-control">
                                   </div>
-                                @endif
-                               
-                               
+                          
                                 <div class="form-group">
                                 <small>Room Status</small>
                                 <select form="editUnitForm" id="status" name="status" class="form-control">
@@ -768,6 +765,7 @@
                                     <small>Montly Rent</small>
                                     <input form="editUnitForm" min="0" step="0.01" type="number" value="{{ $unit->monthly_rent }}" name="monthly_rent" class="form-control">
                                     </div>
+                                @endif
                             </form>
                             </div>
                             <div class="modal-footer">

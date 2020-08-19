@@ -1002,15 +1002,17 @@ Route::get('/tenants/search', 'TenantController@search')->middleware(['auth', 'v
 
 Route::get('/owners/search', 'UnitOwnersController@search')->middleware(['auth', 'verified']);
 
-Route::get('/owners/{unit_owner_id}/edit', 'UnitOwnersController@edit')->middleware(['auth', 'verified']);
+Route::get('units/{unit_id}/owners/{unit_owner_id}/edit', 'UnitOwnersController@edit')->middleware(['auth', 'verified']);
 
 //routes for investors
-Route::get('/units/{unit_id}/unit_owners/{unit_owner_id}', 'UnitOwnersController@show')->name('show-investor')->middleware(['auth', 'verified']);
+Route::get('/units/{unit_id}/owners/{unit_owner_id}', 'UnitOwnersController@show')->name('show-investor')->middleware(['auth', 'verified']);
 Route::post('/units', 'UnitsController@store')->middleware(['auth', 'verified']);
 Route::delete('/units/{$unit_id}', 'UnitsController@destroy')->middleware(['auth', 'verified']);
 
 //route for searching investors
-Route::get('/unit_owners/{unit_owner_id}', 'UnitOwnersController@search')->middleware(['auth', 'verified']);
+Route::get('/owners/{unit_owner_id}', 'UnitOwnersController@search')->middleware(['auth', 'verified']);
+Route::put('/units/{unit_id}/owners/{unit_owner_id}', 'UnitOwnersController@update')->middleware(['auth', 'verified']);
+
 
 //route for users
 Route::get('/users/search', 'UserController@search')->middleware(['auth', 'verified']);
