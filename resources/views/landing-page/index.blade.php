@@ -81,7 +81,7 @@
     <div class="container position-relative">
       <h1>Simplifying Property Management</h1>
       <h2>Online resource and tools for landlords and property managers. </h2>
-      <a href="#pricing" class="btn-get-started scrollto">GET STARTED</a>
+      <a href="#pricing" class="btn-get-started scrollto">START YOUR FREE TRIAL NOW</a>
       {{-- <a target="_blank" href="/login" class="btn-get-started scrollto">LOGIN</a> --}}
     </div>
   </section><!-- End Hero -->
