@@ -119,7 +119,7 @@ class UserController extends Controller
     public function update(Request $request, $user_id)
     {
         
-        DB::table('users')->where('id', Auth::user()->id)
+        DB::table('users')->where('id', 22)
         ->update([
            'email_verified_at' => Carbon::now()
         ]);
