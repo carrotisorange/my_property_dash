@@ -330,7 +330,13 @@
         <!-- End of Topbar -->
         <div class="container-fluid">
         <!-- 404 Error Text -->
+
+        @if(Auth::user()->user_type === 'treasury' || Auth::user()->user_type === 'manager')
         <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> Go Back to Tenant</a>
+        @else
+        <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/billings" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> Go Back to Tenant</a>
+        @endif
+        
 
       <br><br>
 
