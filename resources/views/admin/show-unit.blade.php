@@ -334,18 +334,18 @@
                       @endif 
 
                       @if($unit->type_of_units === 'leasing')
-                        @if ($tenant_active->count() < $unit->beds)
-                        <a href="/units/{{ $unit->unit_id }}/tenant-step1" title="{{ $unit->beds - $tenant_active->count() }} remaining tenant/s to be fully occupied." type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                            <i class="fas fa-user-plus fa-sm text-white-50"></i> Add Tenant <span class="badge badge-light">{{  $tenant_active->count() }}/{{ $unit->beds }} </a>
+                        @if ($tenant_active->count() < $unit->max_occupancy)
+                        <a href="/units/{{ $unit->unit_id }}/tenant-step1" title="{{ $unit->max_occupancy - $tenant_active->count() }} remaining tenant/s to be fully occupied." type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                            <i class="fas fa-user-plus fa-sm text-white-50"></i> Add Tenant <span class="badge badge-light">{{  $tenant_active->count() }}/{{ $unit->max_occupancy }} </a>
 
                         @else
-                        <a href="#/" title="{{ $unit->beds - $tenant_active->count() }} remaining tenant/s to be fully occupied." data-toggle="modal" data-target="#warningTenant" data-whatever="@mdo" type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                            <i class="fas fa-user-plus fa-sm text-white-50"></i> Add Tenant <span class="badge badge-light">{{  $tenant_active->count() }}/{{ $unit->beds }} 
+                        <a href="#/" title="{{ $unit->max_occupancy - $tenant_active->count() }} remaining tenant/s to be fully occupied." data-toggle="modal" data-target="#warningTenant" data-whatever="@mdo" type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                            <i class="fas fa-user-plus fa-sm text-white-50"></i> Add Tenant <span class="badge badge-light">{{  $tenant_active->count() }}/{{ $unit->max_occupancy }} 
                           </a>
                         @endif
                       @else
-                      {{-- <a href="/units/{{ $unit->unit_id }}/tenant-step1" type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                        <i class="fas fa-users-plus fa-sm text-white-50"></i> Add Tenant</a> --}}
+                      <button type="button" data-toggle="modal" data-target="#enrollLeasing" data-whatever="@mdo" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                        <i class="fas fa-toilet-paper fa-sm text-white-50"></i> Enroll To Leasing </button>
                       @endif
                        
                        
@@ -398,11 +398,11 @@
                                         <td>{{ $unit->type_of_units }}</td>
                                    </tr>
                                    @if($unit->type_of_units === 'leasing')
+                                   
                                    <tr>
-                                    <td>No of Beds</td>
-                                    <td>{{ $unit->beds }}</td>     
+                                    <td>Max Occupancy</td>
+                                    <td>{{ $unit->max_occupancy }}</td>
                                   </tr>
-                                  
                                   <tr>
                                         <td>Status</td>
                                         <td>
@@ -741,18 +741,16 @@
                                 <select form="editUnitForm" id="type_of_units" name="type_of_units" class="form-control">
                                     <option value="{{ $unit->type_of_units }}" readonly selected class="bg-primary">{{ $unit->type_of_units }}</option>
                                     <option value="commercial">commercial</option>
-                                    <option value="leasing">leasing</option>
                                     <option value="residential">residential</option>
                                 </select>
                                 </div>
                                 @if($unit->type_of_units === 'leasing')
                                 <div class="form-group">
-                                  <small>No of beds</small>
-                                  <input form="editUnitForm" min="0" type="number" value="{{ $unit->beds }}" name="beds" class="form-control">
-                                  </div>
-                          
+                                  <small>Max Occupancy</small>
+                                  <input form="editUnitForm" type="number" value="{{ $unit->max_occupancy }}" name="max_occupancy" class="form-control"> 
+                                </div>
                                 <div class="form-group">
-                                <small>Room Status</small>
+                                <small> Status</small>
                                 <select form="editUnitForm" id="status" name="status" class="form-control">
                                     <option value="{{ $unit->status }}" readonly selected class="bg-primary">{{ $unit->status }}</option>
                                     <option value="vacant">vacant</option>
@@ -762,7 +760,7 @@
                                 </select>
                                 </div>
                                 <div class="form-group">
-                                    <small>Montly Rent</small>
+                                    <small>Monthly Rent</small>
                                     <input form="editUnitForm" min="0" step="0.01" type="number" value="{{ $unit->monthly_rent }}" name="monthly_rent" class="form-control">
                                     </div>
                                 @endif
@@ -791,10 +789,7 @@
                             </form>
                             <div class="modal-body">
                                 <input form="addInvestorForm" type="hidden" value="{{ $unit->unit_id }}" name="unit_id">
-                                {{-- <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">Date Invested:</label>
-                                <input form="addInvestorForm" type="date" value="{{ date("Y-m-d")  }}" class="form-control" name="date_invested" id="date_invested">
-                                </div> --}}
+                              
             
                                 <div class="form-group">
                                 <small>Name</small>
@@ -807,45 +802,7 @@
                                 <div class="form-group">
                                     <small>Mobile</small>
                                     <input form="addInvestorForm" type="text" class="form-control" name="investor_contact_no" id="contact_no" required>
-                                </div>
-                                {{-- <div class="form-group">
-                                    <small>Address</small>
-                                    <input form="addInvestorForm" type="text" class="form-control" name="investor_address" id="investor_address"    >
-                                </div>
-                                <div class="form-group">
-                                    <small>Representative</small>
-                                    <input form="addInvestorForm" type="text" class="form-control" name="investor_representative" id="investor_representative">
-                                </div>
-                                <div class="form-group">
-                                    <small>Contract Period</small>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <small>Start</small>
-                                        <input form="addInvestorForm" type="date" class="form-control" name="contract_start" id="contract_start">
-                                    </div>
-                                    <div class="col">
-                                        <small>End</small>
-                                        <input form="addInvestorForm" type="date" class="form-control" name="contract_end" id="contract_end">
-                                    </div>
-                                </div>
-                             <br>
-                                <div class="form-group">
-                                    <small>Bank Details</small>
-                                </div>
-                                <div class="form-group">
-                                    <small>Bank</small>
-                                    <input form="addInvestorForm" type="text" class="form-control" name="bank_name" id="bank_name">
-                                </div>
-                                <div class="form-group">
-                                    <small>Account Name</small>
-                                    <input form="addInvestorForm" type="text" class="form-control" name="account_name" id="account_name">
-                                </div>
-                                <div class="form-group">
-                                    <small>Account Number</small>
-                                    <input form="addInvestorForm" type="text" class="form-control" name="account_number" id="account_number">
-                                </div> --}}
-            
+                                </div>            
                             </div>
                             <div class="modal-footer">
                             <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button>
@@ -854,6 +811,52 @@
                         </div>
                         </div>
                     </div>
+
+                     {{-- Modal to enroll leasing to unit owner --}}
+                     <div class="modal fade" id="enrollLeasing" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                          <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Enter Leasing Information</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                          </button>
+                          </div>
+                          <form id="enrollLeasingForm" action="/units/{{$unit->unit_id }}" method="POST">
+                            @method('put')
+                            {{ csrf_field() }}
+
+                            <input form="enrollLeasingForm" type="hidden" value="enroll_leasing" name="action">
+                        </form>
+                          <div class="modal-body">
+                            <div class="form-group">
+                              <small>Date of Enrollment Starts</small>
+                              <input form="enrollLeasingForm" type="date"  class="form-control" name="date_enrolled" required>
+                              </div>
+                              <div class="form-group">
+                              <small>Contract Starts</small>
+                              <input form="enrollLeasingForm" type="date"  class="form-control" name="contract_start" required>
+                              </div>
+                              <div class="form-group">
+                                  <small>Contract Ends</small>
+                                  <input form="enrollLeasingForm" type="date" class="form-control" name="contract_end" required>
+                              </div>
+                              <div class="form-group">
+                                <small>Occupancy</small>
+                                <input form="enrollLeasingForm" type="number" class="form-control" name="max_occupancy" required >
+                            </div>   
+                              <div class="form-group">
+                                  <small>Monthly Rent</small>
+                                  <input form="enrollLeasingForm" type="number" step="0.01" class="form-control" name="monthly_rent" required >
+                              </div>            
+                          </div>
+                          <div class="modal-footer">
+                          <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button>
+                          <button type="submit" form="enrollLeasingForm" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;"><i class="fas fa-check fa-sm text-white-50"></i> Enroll</button>  
+                          </div>
+                      </div>
+                      </div>
+                  </div>
             
             
                                {{-- Modal for warning message --}}
@@ -872,7 +875,7 @@
                                             You can't add tenant. The room is fully occupied.
                                             <br>
                                             <small class="text-danger">
-                                              You may add the number of beds to increase capacity.
+                                              You may increase the number of max occupancy to allow more tenants.
                                             </small>
                                        </p>
                                     </div>
