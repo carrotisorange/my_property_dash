@@ -589,7 +589,13 @@
                                     <a href="{{ route('show-tenant',['unit_id' => $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a>
                                     @endif  
                                   </td>
-                                  <td><a href="/units/{{ $item->unit_id }}">{{ $item->building.' '.$item->unit_no }}</a></td>
+                                  <td>
+                                    @if(Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'admin' )
+                                    <a href="/units/{{ $item->unit_id }}">{{ $item->building.' '.$item->unit_no }}</a>
+                                    @else
+                                   {{ $item->building.' '.$item->unit_no }}
+                                    @endif
+                                  </td>
                                   <td>
                                       @if($diffInDays <= -1)
                                       <span class="badge badge-danger">contract has lapsed {{ $diffInDays*-1 }} days ago</span>
@@ -638,7 +644,13 @@
                                   <a href="{{ route('show-tenant',['unit_id' => $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a>
                                   @endif
                                 </td>
-                                <td><a href="/units/{{ $item->unit_id }}">{{ $item->building.' '.$item->unit_no }}</a></td>
+                                <td>
+                                  @if(Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'admin' )
+                                  <a href="/units/{{ $item->unit_id }}">{{ $item->building.' '.$item->unit_no }}</a>
+                                  @else
+                                 {{ $item->building.' '.$item->unit_no }}
+                                  @endif
+                                </td>
                                 <td>{{ number_format($item->total_bills,2) }}</td>
                               </tr>
                               @endforeach
@@ -737,13 +749,24 @@
                           <td>
                               <a href="{{ route('show-tenant',['unit_id'=> $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a>
                           </td>
-                          <td><a href="/units/{{ $item->unit_id }}">{{ $item->building.' '.$item->unit_no }}</a></td>
+                          <td> @if(Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'admin' )
+                            <a href="/units/{{ $item->unit_id }}">{{ $item->building.' '.$item->unit_no }}</a>
+                            @else
+                           {{ $item->building.' '.$item->unit_no }}
+                            @endif</td>
                           <td>
                             
                               {{ $item->concern_type }}
                               
                           </td>
-                          <td ><a title="{{ $item->concern_desc }}" href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/concerns/{{ $item->concern_id }}">{{ $item->concern_item }}</a></td>
+                          <td >
+                            @if(Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'admin' )
+                            <a title="{{ $item->concern_desc }}" href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/concerns/{{ $item->concern_id }}">{{ $item->concern_item }}</a></td>
+                            @else
+                            {{ $item->concern_item }}
+                            @endif
+
+                            
                           <td>
                               @if($item->concern_urgency === 'urgent')
                               <span class="badge badge-danger">{{ $item->concern_urgency }}</span>
