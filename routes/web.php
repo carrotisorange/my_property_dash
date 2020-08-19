@@ -857,7 +857,7 @@ Route::get('/owners', function(){
             $owners = DB::table('units')
             ->join('unit_owners', 'unit_unit_owner_id', 'unit_owner_id')
             ->where('unit_property', Auth::user()->property)
-            ->orderBy('contract_start', 'desc')
+    
             ->paginate(10);
 
             $count_owners = DB::table('units')
