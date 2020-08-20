@@ -118,13 +118,80 @@ class UserController extends Controller
      */
     public function update(Request $request, $user_id)
     {
-        DB::table('users')
-        ->where('email', 'jmelg.0707@gmail.com')
-        ->update(
+        if($request->action === 'selecting_plan'){
+            $request->validate([
+                'account_type' => 'required',
+            ]);
+
+            DB::table('users')->where('id', Auth::user()->id)
+            ->update([
+                'account_type' => $request->account_type,
+                'last_login_at' => Carbon::now(),
+                'last_login_ip' => request()->ip(),
+                'user_current_status' => 'online',
+            ]);
+
+            Mail::to(Auth::user()->email)->send(new TenantRegisteredMail());
+
+            return back();
+        }
+
+
+        if($request->action === 'adding_property'){
+            $request->validate([
+                'property' => 'required|unique:users|max:255',
+                'property_ownership' => 'required',
+                'property_type' => 'required',
+            ]);
+
+            DB::table('users')->where('id', Auth::user()->id)
+            ->update([
+                'property' => $request->property,
+                'property_type' => $request->property_type,
+                'property_ownership' => $request->property_ownership 
+            ]);
+
+            return back();
+        }
+        
+        if($request->action === 'change_footer_message' ){
+            DB::table('users')
+            ->where('id', $user_id)
+            ->update(
+                    [
+                        'note' => $request->note,
+                    ]
+                );
+
+                return back()->with('success', 'Footer message has been updated!');
+        }
+        if($request->password === null){
+            DB::table('users')
+            ->where('id', $user_id)
+            ->update(
+                    [
+                        'name' => $request->name,
+                        'email' => $request->email,
+                        
+                    ]
+                );
+
+                return redirect('/users/'.$user_id)->with('success', 'User Profile has been updated!');
+        }else{
+            DB::table('users')
+            ->where('id', $user_id)
+            ->update(
                 [
-                    'property_type' => 'Apartment Rentals',   
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'password' => Hash::make($request->password),
                 ]
-            );  
+                );
+
+            Auth::logout();
+
+            return redirect('/login')->with('success', 'You have been logged out!');
+        }   
     }
 
     /**
