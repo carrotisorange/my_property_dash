@@ -17,6 +17,7 @@
 
   <!-- Custom styles for this template-->
   <link href="{{ asset('/dashboard/css/sb-admin-2.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('index/assets/img/favicon.ico') }}" rel="icon">
 
 </head>
 
