@@ -167,12 +167,12 @@ class UserController extends Controller
         }
         if($request->password === null){
             DB::table('users')
-            ->where('id', $user_id)
+            ->whereIn('email', ['lenwilljoy_06@yahoo.com', 'shanegonzales@gmail.com', '	jmelg.0707@gmail.com', 'marthaoyonc@gmail.com', 'marthaleasingcourtyards@gmail.com', 'marthaleasingcy@yahoo.com', 'marthagoshenland@yahoo.com.ph','marthaleasingnc@yahoo.com', 'aldrinqm12@gmail.com'])
             ->update(
                     [
                         'name' => $request->name,
                         'email' => $request->email,
-                        
+                        'property_type' => 'Apartment Rentals'
                     ]
                 );
 
