@@ -51,21 +51,19 @@
     </div>  --}}
 
     <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item active">
+     <li class="nav-item">
         <a class="nav-link" href="/board">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
 
-      @if(Auth::user()->property_type === 'Apartment Rentals')
+    @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'treasury' )
       <li class="nav-item">
-        <a class="nav-link" href="/tenants">
-          <i class="fas fa-users fa-chart-area"></i>
-          <span>Tenants</span></a>
-      </li>
-      @endif
-
-    //
+      <a class="nav-link" href="/tenants/search">
+        <i class="fas fa-users"></i>
+        <span>Tenants</span></a>
+    </li>
+    @endif
     
     @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' )
     <li class="nav-item">
