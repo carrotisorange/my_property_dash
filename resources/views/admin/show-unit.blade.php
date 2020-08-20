@@ -333,6 +333,17 @@
                         <button type="button" title="edit room" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#editUnit" data-whatever="@mdo"><i class="fas fa-edit fa-sm text-white-50"></i> Edit Room</button> 
                       @endif 
 
+                      @if(Auth::user()->property_ownership === 'Multiple Owners' && Auth::user()->user_type === 'manager' && Auth::user()->property_type !== 'Commercial Complex')
+                      @if ($unit_owner->count() < 1)
+                      <a href="#/" data-toggle="modal" data-target="#addInvestor" data-whatever="@mdo" type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                        <i class="fas fa-user-plus fa-sm text-white-50"></i> Add Owner
+                      </a>   
+                      @else
+                       <button type="button" data-toggle="modal" data-target="#enrollLeasing" data-whatever="@mdo" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                        <i class="fas fa-toilet-paper fa-sm text-white-50"></i> Enroll To Leasing </button>
+                      @endif
+                    @endif
+                    
                       @if($unit->type_of_units === 'leasing')
                         @if ($tenant_active->count() < $unit->max_occupancy)
                         <a href="/units/{{ $unit->unit_id }}/tenant-step1" title="{{ $unit->max_occupancy - $tenant_active->count() }} remaining tenant/s to be fully occupied." type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
@@ -344,18 +355,11 @@
                           </a>
                         @endif
                       @else
-                      <button type="button" data-toggle="modal" data-target="#enrollLeasing" data-whatever="@mdo" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                        <i class="fas fa-toilet-paper fa-sm text-white-50"></i> Enroll To Leasing </button>
+                     
                       @endif
                        
                        
-                        @if(Auth::user()->property_ownership === 'Multiple Owners' && Auth::user()->user_type === 'manager' && Auth::user()->property_type !== 'Commercial Complex')
-                          @if ($unit_owner->count() < 1)
-                          <a href="#/" data-toggle="modal" data-target="#addInvestor" data-whatever="@mdo" type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                            <i class="fas fa-user-plus fa-sm text-white-50"></i> Add Owner
-                          </a>   
-                          @endif
-                        @endif
+                      
                         <br> <br>
                             <?php $numberFormatter = new NumberFormatter('en_US', NumberFormatter::ORDINAL) ?>
 
@@ -461,9 +465,9 @@
                     <div class="col-md-6">
                       <nav>
                         <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                          <a class="nav-item nav-link active" data-toggle="tab" href="#active" role="tab" aria-controls="nav-home" aria-selected="true"><i class="fas fa-user-check fa-sm text-50"></i>&nbsp&nbspACTIVE  <span class="badge badge-light">{{ $tenant_active->count() }}</span></a>
-                          <a class="nav-item nav-link"  data-toggle="tab" href="#reserved" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="fas fa-user-clock fa-sm text-50"></i>&nbsp&nbspRESERVED <span class="badge badge-light">{{ $tenant_reservations->count() }}</a>
-                          <a class="nav-item nav-link"  data-toggle="tab" href="#inactive" role="tab" aria-controls="nav-contact" aria-selected="false"><i class="fas fa-user-times fa-sm text-50"></i>&nbsp&nbspINACTIVE <span class="badge badge-light">{{ $tenant_inactive->count() }}</a>
+                          <a class="nav-item nav-link active" data-toggle="tab" href="#active" role="tab" aria-controls="nav-home" aria-selected="true"><i class="fas fa-user-check fa-sm text-50"></i> Active  <span class="badge badge-light">{{ $tenant_active->count() }}</span></a>
+                          <a class="nav-item nav-link"  data-toggle="tab" href="#reserved" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="fas fa-user-clock fa-sm text-50"></i> Reserved <span class="badge badge-light">{{ $tenant_reservations->count() }}</a>
+                          <a class="nav-item nav-link"  data-toggle="tab" href="#inactive" role="tab" aria-controls="nav-contact" aria-selected="false"><i class="fas fa-user-times fa-sm text-50"></i> Inactive <span class="badge badge-light">{{ $tenant_inactive->count() }}</a>
                         </div>
                       </nav>
                       <div class="tab-content" id="nav-tabContent">
@@ -852,7 +856,7 @@
                           </div>
                           <div class="modal-footer">
                           <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button>
-                          <button type="submit" form="enrollLeasingForm" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;"><i class="fas fa-check fa-sm text-white-50"></i> Enroll</button>  
+                          <button type="submit" form="enrollLeasingForm" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;"><i class="fas fa-check fa-sm text-white-50"></i> Enroll Now</button>  
                           </div>
                       </div>
                       </div>

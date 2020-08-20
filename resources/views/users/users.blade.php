@@ -402,6 +402,7 @@
                 <th>EMAIL</th>
                 <th>TYPE</th>
                 <th>PROPERTY</th>
+                <th>PROPERTY TYPE</th>
                 <th>LAST LOGIN</th>
                 <th>SESSION</th>
               </tr>
@@ -416,6 +417,7 @@
                <td>{{ $item->email }}</td>
                <td>{{ $item->user_type }}</td>
                <td>{{ $item->property }}</td>
+               <td>{{ $item->property_type }}</td>
                <td>{{ $item->last_login_at }}</td>
                <?php  
                   $diffInMinutes = Carbon\Carbon::parse($item->last_logout_at)->diffInMinutes();
