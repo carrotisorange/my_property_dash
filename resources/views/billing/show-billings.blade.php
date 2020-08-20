@@ -73,11 +73,13 @@
           <span>Home</span></a>
       </li>
   
+         @if(Auth::user()->property_type === 'Apartment Rentals')
       <li class="nav-item">
         <a class="nav-link" href="/tenants">
           <i class="fas fa-users fa-chart-area"></i>
           <span>Tenants</span></a>
       </li>
+      @endif
   
      @if(Auth::user()->property_ownership === 'Multiple Owners')
     <!-- Nav Item - Tables -->

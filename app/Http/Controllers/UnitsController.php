@@ -91,7 +91,8 @@ class UnitsController extends Controller
      */
     public function show(Request $request, $unit_id)
     {
-        if(Auth::user()->status === 'registered'|| Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager'){
+        if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager'){
+
             $unit = Unit::where('unit_property', Auth::user()->property)->findOrFail($unit_id);
 
             $unit_owner = DB::table('units')
@@ -115,7 +116,6 @@ class UnitsController extends Controller
             ->where('unit_tenant_id', $unit_id)
             ->where('tenant_status', 'pending')
             ->get();
-
             
             $unit_bills = DB::table('units')
             ->join('tenants', 'unit_id', 'unit_tenant_id')
@@ -135,13 +135,16 @@ class UnitsController extends Controller
             ->orderBy('concern_status', 'desc')
             ->paginate(10);
 
-                return view('admin.show-unit',compact('unit', 'unit_owner', 'tenant_active', 'tenant_inactive', 'tenant_reservations', 'unit_bills', 'concerns'));
+                if(Auth::user()->property_type === 'Apartment Rentals'){
+                    return view('admin.show-room',compact('unit', 'unit_owner', 'tenant_active', 'tenant_inactive', 'tenant_reservations', 'unit_bills', 'concerns'));
+                }
+                else{
+                    return view('admin.show-unit',compact('unit', 'unit_owner', 'tenant_active', 'tenant_inactive', 'tenant_reservations', 'unit_bills', 'concerns'));
+                }
         }else{
                 return view('unregistered');
         }
-        
-            
-        
+    
         
     }
 

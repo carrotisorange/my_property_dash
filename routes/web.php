@@ -685,16 +685,32 @@ Route::get('/board', function(Request $request){
         ->whereNull('updated_at')
         ->count();
   
-    return view('manager.dashboard', 
-        compact(
-        'units', 'units_occupied','units_vacant', 'units_reserved',
-        'active_tenants', 'pending_tenants', 'owners', 
-        'movein_rate','moveout_rate', 'renewed_chart', 'collection_rate', 'reason_for_moving_out_chart',
-        'delinquent_accounts','tenants_to_watch_out',
-        'collections_for_the_day','pending_concerns','active_concerns','concerns',
-        'notifications','notifications_opened'
-                )
-        );
+        if(Auth::user()->property_type === 'Apartment Rentals'){
+            return view('manager.dashboard', 
+            compact(
+            'units', 'units_occupied','units_vacant', 'units_reserved',
+            'active_tenants', 'pending_tenants', 'owners', 
+            'movein_rate','moveout_rate', 'renewed_chart', 'collection_rate', 'reason_for_moving_out_chart',
+            'delinquent_accounts','tenants_to_watch_out',
+            'collections_for_the_day','pending_concerns','active_concerns','concerns',
+            'notifications','notifications_opened'
+                    )
+            );
+        }else{
+            return view('manager.dashboard-condo', 
+            compact(
+            'units', 'units_occupied','units_vacant', 'units_reserved',
+            'active_tenants', 'pending_tenants', 'owners', 
+            'movein_rate','moveout_rate', 'renewed_chart', 'collection_rate', 'reason_for_moving_out_chart',
+            'delinquent_accounts','tenants_to_watch_out',
+            'collections_for_the_day','pending_concerns','active_concerns','concerns',
+            'notifications','notifications_opened'
+                    )
+            );
+        }
+        
+
+        
     }
 
 })->middleware(['auth', 'verified']);
@@ -718,7 +734,7 @@ Route::get('/home', function(){
             ->where('unit_property', Auth::user()->property)
             ->where('status','!=', 'pulled out')
             ->orderBy('floor_no', 'asc')
-            ->orderBy('unit_id', 'asc')
+            ->orderBy('unit_no', 'asc')
             ->get()
             ->groupBy(function($item) {
             return $item->floor_no;
@@ -730,8 +746,15 @@ Route::get('/home', function(){
             ->groupBy('building')
             ->where('status','!=', 'pulled out')
             ->get('building', 'status','count');   
+
+        if(Auth::user()->property_type === 'Apartment Rentals'){
+            return view('admin.home',compact('units','buildings', 'units_count'));
+        }
+        else{
+            return view('admin.condo',compact('units','buildings', 'units_count'));
+        }
         
-        return view('admin.home',compact('units','buildings', 'units_count'));
+      
     }
 })->middleware(['auth', 'verified']);
 
@@ -776,7 +799,7 @@ Route::get('/notifications', function(){
 
 Route::get('/tenants', function(){
 
-    if(auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager' || auth()->user()->user_type === 'treasury' || auth()->user()->user_type === 'billing'){
+    if(Auth::user()->property_type === 'Apartment Rentals' && ( auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager' || auth()->user()->user_type === 'treasury' || auth()->user()->user_type === 'billing')){
         
             $tenants = DB::table('tenants')
             ->join('units', 'unit_id', 'unit_tenant_id')

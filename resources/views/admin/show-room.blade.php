@@ -328,21 +328,37 @@
                 </div> --}}
 
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                       @if(Auth::user()->user_type === 'manager' )
                         <button type="button" title="edit room" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#editUnit" data-whatever="@mdo"><i class="fas fa-edit fa-sm text-white-50"></i> Edit Room</button> 
                       @endif 
 
-                     
+                      @if(Auth::user()->property_ownership === 'Multiple Owners' && Auth::user()->user_type === 'manager' && Auth::user()->property_type !== 'Commercial Complex')
                       @if ($unit_owner->count() < 1)
                       <a href="#/" data-toggle="modal" data-target="#addInvestor" data-whatever="@mdo" type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                         <i class="fas fa-user-plus fa-sm text-white-50"></i> Add Owner
                       </a>   
+                      @else
+                       {{-- <button type="button" data-toggle="modal" data-target="#enrollLeasing" data-whatever="@mdo" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                        <i class="fas fa-toilet-paper fa-sm text-white-50"></i> Enroll To Leasing </button> --}}
                       @endif
+                    @endif
+                    
+                      @if($unit->type_of_units === 'leasing')
+                        @if ($tenant_active->count() < $unit->max_occupancy)
+                        <a href="/units/{{ $unit->unit_id }}/tenant-step1" title="{{ $unit->max_occupancy - $tenant_active->count() }} remaining tenant/s to be fully occupied." type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                            <i class="fas fa-user-plus fa-sm text-white-50"></i> Add Tenant <span class="badge badge-light">{{  $tenant_active->count() }}/{{ $unit->max_occupancy }} </a>
 
-                      @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'manager')
-                      <a href="#" data-toggle="modal" data-target="#addBill" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Add Bill</a>
+                        @else
+                        <a href="#/" title="{{ $unit->max_occupancy - $tenant_active->count() }} remaining tenant/s to be fully occupied." data-toggle="modal" data-target="#warningTenant" data-whatever="@mdo" type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                            <i class="fas fa-user-plus fa-sm text-white-50"></i> Add Tenant <span class="badge badge-light">{{  $tenant_active->count() }}/{{ $unit->max_occupancy }} 
+                          </a>
+                        @endif
+                      @else
+                     
                       @endif
+                       
+                       
                       
                         <br> <br>
                             <?php $numberFormatter = new NumberFormatter('en_US', NumberFormatter::ORDINAL) ?>
@@ -350,16 +366,29 @@
                               <!-- DataTales Example -->
                               <div class="card shadow mb-4">
                                <div class="card-header py-3">
-                                 <h6 class="m-0 font-weight-bold text-primary">UNIT INFORMATION</h6>
+                                 <h6 class="m-0 font-weight-bold text-primary">ROOM INFORMATION</h6>
                                </div>
                                <div class="card-body">
                             <div class="table-responsive">
                               <table class="table table-bordered" width="100%" cellspacing="0">
                                    <tr>
-                                        <td>Unit No</td>
+                                        <td>Room No</td>
                                         <td>{{ $unit->unit_no }}</td>
                                    </tr>
-                                  
+                                   {{-- <tr>
+                                    <th>LAST UPDATED AT</th>
+                                    <td>{{ $unit->updated_at }}</td>
+                               </tr> --}}
+                                  {{-- <tr>
+                                    <th></th>
+                                    <th>
+                                         <form action="/units/{{ $unit->unit_id }}" method="POST">
+                                          @csrf
+                                          @method('delete')
+                                          <button type="submit">Delete</button>
+                                      </form> 
+                                    </th>
+                                  </tr> --}}
                                     <tr>
                                         <td>Building</td>
                                         <td>{{ $unit->building }}</td>
@@ -369,13 +398,30 @@
                                         <td>{{ $numberFormatter->format($unit->floor_no) }}</td>
                                    </tr>
                                    <tr>
-                                        <td>Unit Type</td>
+                                        <td>Room Type</td>
                                         <td>{{ $unit->type_of_units }}</td>
                                    </tr>
                                  
-                                    
+                                   
+                                   <tr>
+                                    <td>Max Occupancy</td>
+                                    <td>{{ $unit->max_occupancy }}</td>
+                                  </tr>
+                                  <tr>
+                                        <td>Status</td>
+                                        <td>
+                                              @if($unit->status === 'occupied')
+                                              <span class="badge badge-primary">{{ $unit->status }}</span>
+                                              @elseif($unit->status === 'reserved')
+                                                  <span class="badge badge-warning">{{ $unit->status}} </span>
+                                              @else
+                                                  <span class="badge badge-secondary">{{ $unit->status }}</span>
+                                              @endif
+                                        </td>
+                                    </tr>
                                     <tr>
-                                       
+                                        <td>Monthly Rent <br>(excluding utilities)</td> 
+                                        <td>{{ number_format($unit->monthly_rent,2) }}</td>
             
                                         <?php 
                                             session([Auth::user()->id.'tenant_monthly_rent'=> $unit->monthly_rent]);
@@ -384,7 +430,7 @@
                                             session([Auth::user()->id.'building'=> $unit->building]);
                                         ?>
                                     </tr>
-                          
+                                
                                </table>
                               </div>
                                </div>
@@ -393,50 +439,157 @@
 
                     </div>
                 
-   
+                    
+                    <div class="col-md-6">
+                      <nav>
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                          <a class="nav-item nav-link active" data-toggle="tab" href="#active" role="tab" aria-controls="nav-home" aria-selected="true"><i class="fas fa-user-check fa-sm text-50"></i> Active  <span class="badge badge-light">{{ $tenant_active->count() }}</span></a>
+                          <a class="nav-item nav-link"  data-toggle="tab" href="#reserved" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="fas fa-user-clock fa-sm text-50"></i> Reserved <span class="badge badge-light">{{ $tenant_reservations->count() }}</a>
+                          <a class="nav-item nav-link"  data-toggle="tab" href="#inactive" role="tab" aria-controls="nav-contact" aria-selected="false"><i class="fas fa-user-times fa-sm text-50"></i> Inactive <span class="badge badge-light">{{ $tenant_inactive->count() }}</a>
+                        </div>
+                      </nav>
+                      <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="active" role="tabpanel" aria-labelledby="nav-home-tab">
+                          <div class="table-responsive">
+                          <table class="table table-borderless">
+                            @if($tenant_active->count() <= 0)
+                            <tr>
+                                <br><br><br>
+                                <p class="text-center">No tenants found!</p>
+                            </tr>
+                            @else
+                            <tr>
+                                <th class="text-center">#</th>
+                                <th>NAME</th>
+                                <th>CONTRACT PERIOD</th>   
+                            </tr>
+                            <?php $ctr = 1; ?>   
+                        @foreach ($tenant_active as $item)
+                            <tr>
+                                <th class="text-center">{{ $ctr++ }}</th>
+                                <td><a href="{{ route('show-tenant',['unit_id'=> $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }} </a></td>
+                                <td title="{{ Carbon\Carbon::now()->diffInDays(Carbon\Carbon::parse($item->moveout_date), false) }} days left">{{ Carbon\Carbon::parse($item->movein_date)->format('M d Y').'-'.Carbon\Carbon::parse($item->moveout_date)->format('M d Y') }}</>
+                            </tr>
+                        @endforeach
+                            @endif                        
+                        </table>
+                          </div>
+                        </div>
+                        <div class="tab-pane fade" id="reserved" role="tabpanel" aria-labelledby="nav-profile-tab">
+                          <div class="table-responsive">
+                          <table class="table table-borderless">
+                            @if($tenant_reservations->count() <= 0)
+                            <tr>
+                                <br><br><br>
+                                <p class="text-center">No tenants found!</p>
+                            </tr>
+                            @else
+                            <tr>
+                                <th class="text-center">#</th>
+                                <th>NAME</th>
+                                <th>RESERVED VIA</th>
+                                <th>RESERVATION DATE</th>   
+                                         
+                                <th></th>
+                            </tr>
+                            <?php
+                                $ctr = 1;
+                            ?>   
+                        @foreach ($tenant_reservations as $item)
+                            <tr>
+                                <th class="text-center">{{ $ctr++ }}</th>
+                                <td><a href="{{ route('show-tenant',['unit_id'=> $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }} </a></td>
+                                @if($item->type_of_tenant === 'online')
+                                <td><a class="badge badge-success">{{ $item->type_of_tenant }}</td>
+                                @else
+                                <td><a class="badge badge-warning">{{ $item->type_of_tenant }}</td>
+                                @endif
+                                <td>{{ Carbon\Carbon::parse($item->created_at)->format('M d Y') }}</td>
+                                <th>{{ Carbon\Carbon::now()->diffInDays(Carbon\Carbon::parse($item->created_at)->addDays(7), false) }} days before exp</th>
+                            </tr>
+                        @endforeach
+                            @endif                        
+                        </table>
+                          </div>
+                        </div>
+                        <div class="tab-pane fade" id="inactive" role="tabpanel" aria-labelledby="nav-contact-tab">
+                          <div class="table-responsive">
+                          <table class="table table-borderless">
+                            @if($tenant_inactive->count() <= 0)
+                            <tr>
+                                <br><br><br>
+                                <p class="text-center">No tenants found!</p>
+                            </tr>
+                            @else
+                            <tr>
+                                <th class="text-center">#</th>
+                                <th>NAME</th>
+                                
+                                <th>MOVEOUT SINCE</th>   
+                                         
+                                <th></th>
+                            </tr>
+                            <?php
+                                $ctr = 1;
+                            ?>   
+                        @foreach ($tenant_inactive as $item)
+                            <tr>
+                                <th class="text-center">{{ $ctr++ }}</th>
+                                <td><a href="{{ route('show-tenant',['unit_id'=> $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }} </a></td>
+                                
+                                <td>{{ Carbon\Carbon::parse($item->moveout_date)->format('M d Y') }}</td>
+                            </tr>
+                        @endforeach
+                            @endif                        
+                        </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>    
 
                     <div class="col-lg-12 mb-4">
-                      <!-- DataTales Example -->
-                      <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                          <h6 class="m-0 font-weight-bold text-primary">OWNERS </h6>
-                        </div>
-                       <div class="card-body">
-                        <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                        <tr>
-            
-                          <th>OWNER</th>
-                          <th>EMAIL</th>
-                          <th>MOBILE</th>
-                          <th>REPRESENTATIVE</th>
-                          <th>DATE PURCHASED</th>
-                          <th>DATE ACCEPTED</th>
-                          <th>ROOM TYPE</th>
-                              </tr>
-                              @foreach ($unit_owner as $item)
-                              <tr>
-                                 <td><a href="{{ route('show-investor',['unit_id'=> $item->unit_id, 'unit_owner_id'=>$item->unit_owner_id]) }}">{{ $item->unit_owner }} </a></td>
+                        <!-- DataTales Example -->
+                        <div class="card shadow mb-4">
+                          <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">OWNERS </h6>
+                          </div>
+                         <div class="card-body">
+                          <div class="table-responsive">
+                          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                          <tr>
+              
+                            <th>OWNER</th>
+                            <th>EMAIL</th>
+                            <th>MOBILE</th>
+                            <th>REPRESENTATIVE</th>
+                            <th>DATE PURCHASED</th>
+                            <th>DATE ACCEPTED</th>
+                            <th>ROOM TYPE</th>
+                                </tr>
+                                @foreach ($unit_owner as $item)
+                                <tr>
+                                   <td><a href="{{ route('show-investor',['unit_id'=> $item->unit_id, 'unit_owner_id'=>$item->unit_owner_id]) }}">{{ $item->unit_owner }} </a></td>
+                            
+                                  <td>{{ $item-> investor_email_address}}</td>
+                                  <td>{{ $item->investor_contact_no }}</td>
+                                  <TD>{{ $item->investor_representative }}</TD>
+                                  <td>{{ Carbon\Carbon::parse($item->date_invested)->format('M d Y')}}</td> 
+                                  <td>{{ Carbon\Carbon::parse($item->date_accepted)->format('M d Y')}}</td> 
+                                  <td>{{ $item->type_of_units }}</td>
+                                </tr>
+                                @endforeach
                           
-                                <td>{{ $item-> investor_email_address}}</td>
-                                <td>{{ $item->investor_contact_no }}</td>
-                                <TD>{{ $item->investor_representative }}</TD>
-                                <td>{{ Carbon\Carbon::parse($item->date_invested)->format('M d Y')}}</td> 
-                                <td>{{ Carbon\Carbon::parse($item->date_accepted)->format('M d Y')}}</td> 
-                                <td>{{ $item->type_of_units }}</td>
-                              </tr>
-                              @endforeach
-                        
-                              
-                        </table>
-            
-                       
-                      </div>
+                                
+                          </table>
+              
+                         
+                        </div>
+                         </div>
                        </div>
-                     </div>
-             
-                        
-                    </div>
+               
+                          
+                      </div>
+                    
          
 
         <div class="col-lg-12 mb-4">
@@ -450,7 +603,7 @@
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <tr>
                     <th>BILL NO</th>
-                    <th>OWNER</th>
+                    <th>TENANT</th>
                     <th>DESCRIPTION</th>
                     <th>PERIOD COVERED</th>
                     <th>AMOUNT</th>
@@ -502,9 +655,9 @@
             <table class="table table-bordered" width="100%" cellspacing="0">
                  <thead>
                    <tr>
-                    
+                       <th>ID</th>
                        <th>DATE REPORTED</th>
-                      <th>OWNER</th>
+                      <th>TENANT</th>
                 
                        <th>TYPE</th>
                        <th>DESCRIPTION</th>
@@ -516,7 +669,7 @@
                  <tbody>
                    @foreach ($concerns as $item)
                    <tr>
-                  
+                   <td>{{ $item->concern_id }}</td>
                      <td>{{ Carbon\Carbon::parse($item->date_reported)->format('M d Y') }}</td>
                      <td>
                             <a href="{{ route('show-tenant',['unit_id'=> $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a>
@@ -583,10 +736,6 @@
                                 <input form="editUnitForm" type="text" value="{{ $unit->unit_no }}" name="unit_no" class="form-control" id="unit_no" >
                                 </div>
                                 <div class="form-group">
-                                  <small>Building</small>
-                                  <input form="editUnitForm" type="text" value="{{ $unit->building }}" name="building" class="form-control"> 
-                                </div>
-                                <div class="form-group">
                                 <small>Floor no</small>
                                 <select form="editUnitForm" id="floor_no" name="floor_no" class="form-control">
                                     <option value="{{ $unit->floor_no }}" readonly selected class="bg-primary">{{ $unit->floor_no }}</option>
@@ -607,7 +756,10 @@
                                     <option value="9">9th floor</option>
                                 </select>
                                 </div>
-                           
+                                <div class="form-group">
+                                    <small>Building</small>
+                                    <input form="editUnitForm" type="text" value="{{ $unit->building }}" name="building" class="form-control"> 
+                                  </div>
                                 <div class="form-group">
                                 <small>Room Type</small>
                                 <select form="editUnitForm" id="type_of_units" name="type_of_units" class="form-control">
@@ -616,7 +768,26 @@
                                     <option value="residential">residential</option>
                                 </select>
                                 </div>
-                             
+                                @if($unit->type_of_units === 'leasing')
+                                <div class="form-group">
+                                  <small>Max Occupancy</small>
+                                  <input form="editUnitForm" type="number" value="{{ $unit->max_occupancy }}" name="max_occupancy" class="form-control"> 
+                                </div>
+                                <div class="form-group">
+                                <small> Status</small>
+                                <select form="editUnitForm" id="status" name="status" class="form-control">
+                                    <option value="{{ $unit->status }}" readonly selected class="bg-primary">{{ $unit->status }}</option>
+                                    <option value="vacant">vacant</option>
+                                    <option value="occupied">occupied</option>
+                                    
+                                    <option value="reserved">reserved</option>
+                                </select>
+                                </div>
+                                <div class="form-group">
+                                    <small>Monthly Rent</small>
+                                    <input form="editUnitForm" min="0" step="0.01" type="number" value="{{ $unit->monthly_rent }}" name="monthly_rent" class="form-control">
+                                    </div>
+                                @endif
                             </form>
                             </div>
                             <div class="modal-footer">
