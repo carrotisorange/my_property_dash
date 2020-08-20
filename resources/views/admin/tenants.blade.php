@@ -74,7 +74,7 @@
       </li>
   
       @if(Auth::user()->property_type === 'Apartment Rentals')
-    <li class="nav-item">
+    <li class="nav-item active">
       <a class="nav-link" href="/tenants">
         <i class="fas fa-users fa-chart-area"></i>
         <span>Tenants</span></a>
