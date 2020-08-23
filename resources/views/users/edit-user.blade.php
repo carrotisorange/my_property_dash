@@ -221,70 +221,67 @@
         <!-- End of Topbar -->
         <div class="container-fluid">
 
-          
-         <!-- Page Heading -->
-         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Edit Profile    
+          <div class="col-lg-12 mb-4">
+            <!-- DataTales Example -->
+            <div class="card shadow mb-4">
+              <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+               <h6 class="m-0 font-weight-bold text-primary">EDIT PROFILE </h6>   
+             </div>
+             <div class="card-body">
               <form id="editUserForm" action="/users/{{ $user->id }}" method="POST">
                 @method('put')
                 {{ csrf_field() }}
             </form>
-               {{-- <form action="/users/{{ Auth::user()->id }}" method="POST">
-              {{ csrf_field() }}
-              @method('delete')
-              <button type="submit">Delete</button>
-          </form>--}}
-        </h1> 
-          </div>
-          <table class="table">
-             <tr>
-                <td>Name</td>
-                <td> 
-                  <input form="editUserForm" id="name" type="text" class="form-control form-control-user @error('name') is-invalid @enderror" name="name" value="{{ $user->name }}" required autocomplete="name">
-                  @error('name')
-                      <span class="invalid-feedback" role="alert">
-                          <strong>{{ $message }}</strong>
-                      </span>
-                  @enderror
-                  </td>
-             </tr>
-             <tr>
-               <td>Email</td>
-               <td> 
-                  <input form="editUserForm" id="email" type="email" class="form-control form-control-user @error('email') is-invalid @enderror" name="email" value="{{ $user->email }}" required autocomplete="email">
-                  @error('email')
-                      <span class="invalid-feedback" role="alert">
-                          <strong>{{ $message }}</strong>
-                      </span>
-                  @enderror
-               </td>
-            </tr>
-            <tr>
-               <td>New Password</td>
-               <td> 
-                  <input form="editUserForm" id="password" type="password" class="form-control form-control-user @error('password') is-invalid @enderror" name="password" autocomplete="password">
-                  <small class="text-danger">Changing your password will log you out of the application.</small>
-                  @error('password')
-                      <span class="invalid-feedback" role="alert">
-                          <strong>{{ $message }}</strong>
-                      </span>
-                  @enderror
-               </td>
-            </tr>
-            {{-- <tr>
-               <th>Repeat Password</th>
-               <td> 
-                  <input form="editUserForm" id="password-confirm" type="password" class="form-control form-control-user" name="password_confirmation" autocomplete="new-password" >
-                 
-               </td>
-            </tr> --}} 
-          </table>
-          <p class="text-right">
-            <a href="/users/{{ Auth::user()->id }}" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</a>
-            <button form="editUserForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want perform this action?');"><i class="fas fa-check fa-sm text-white-50"></i> Update Profile</button>
-          </p>
-        
-       </div>
+              <div class="table-responsive">
+                <table class="table table-bordered">
+                  <tr>
+                    <td>Name</td>
+                    <td> 
+                      <input form="editUserForm" id="name" type="text" class="form-control form-control-user @error('name') is-invalid @enderror" name="name" value="{{ $user->name }}" required autocomplete="name">
+                      @error('name')
+                          <span class="invalid-feedback" role="alert">
+                              <strong>{{ $message }}</strong>
+                          </span>
+                      @enderror
+                      </td>
+                 </tr>
+                 <tr>
+                   <td>Email</td>
+                   <td> 
+                      <input form="editUserForm" id="email" type="email" class="form-control form-control-user @error('email') is-invalid @enderror" name="email" value="{{ $user->email }}" required autocomplete="email">
+                      @error('email')
+                          <span class="invalid-feedback" role="alert">
+                              <strong>{{ $message }}</strong>
+                          </span>
+                      @enderror
+                   </td>
+                </tr>
+                <tr>
+                   <td>New Password</td>
+                   <td> 
+                      <input form="editUserForm" id="password" type="password" class="form-control form-control-user @error('password') is-invalid @enderror" name="password" autocomplete="password">
+                      <small class="text-danger">Changing your password will log you out of the application.</small>
+                      @error('password')
+                          <span class="invalid-feedback" role="alert">
+                              <strong>{{ $message }}</strong>
+                          </span>
+                      @enderror
+                   </td>
+                </tr>
+                </table>
+                 </div>
+                 <p class="text-right">
+                  <a href="/users/{{ Auth::user()->id }}" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</a>
+                  <button form="editUserForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want perform this action?');"><i class="fas fa-check fa-sm text-white-50"></i> Update Profile</button>
+                </p>
+             </div>
+           </div>
+   
+               </div>
+            <!-- Page Heading -->
+      
+        </div>
+
       </div>
       
       <!-- End of Main Content -->

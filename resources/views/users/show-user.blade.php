@@ -340,22 +340,29 @@
           <div class="col-lg-12 mb-4">
             <!-- DataTales Example -->
             <div class="card shadow mb-4">
-             <div class="card-header py-3">
-               <h6 class="m-0 font-weight-bold text-primary">PROFILE</h6>
+              <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+               <h6 class="m-0 font-weight-bold text-primary">PROFILE </h6>
+                <div class="dropdown no-arrow">
+                <a title="edit profile" href="/users/{{ $user->id }}/edit">
+                  <i class="fas fa-user-edit fa-fw text-gray-400"></i>
+                  </a>
+                </div>
+                <!-- end -->
+              
              </div>
              <div class="card-body">
               <div class="table-responsive">
                 <table class="table table-bordered">
                    <tr>
                       <td>Name</td>
-                      <td>{{ $user->name }}&nbsp <a title="edit profile" href="/users/{{ $user->id }}/edit"><i class="fas fa-user-edit fa-fw"></i></a></td>
+                      <td>{{ $user->name }}</td>
                    </tr>
                    <tr>
                      <td>Email</td>
                      <td>{{ $user->email }}</td>
                   </tr>
                   <tr>
-                     <td>User type</td>
+                     <td>User Type</td>
                      <td>{{ $user->user_type }}</td>
                   </tr>
                   <tr>
@@ -363,7 +370,7 @@
                      <td>{{ $user->status }}</td>
                   </tr> 
                   <tr>
-                   <td>Account type</td>
+                   <td>Plan</td>
                    <td>{{ $user->account_type }}</td>
                 </tr>     
                    <tr>
@@ -371,11 +378,11 @@
                       <td>{{ $user->property }}</a></td>
                    </tr>
                    <tr>
-                     <td>Property ownership</td>
+                     <td>Property Ownership</td>
                      <td>{{ $user->property_ownership }}</td>
                   </tr>
                   <tr>
-                     <td>Property type</td>
+                     <td>Property Type</td>
                      <td>{{ $user->property_type }}</td>
                   </tr>
                   <tr>
