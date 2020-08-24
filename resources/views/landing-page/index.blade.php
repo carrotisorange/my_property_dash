@@ -295,15 +295,6 @@
             </li>
 
             <li data-aos="fade-up">
-              <a data-toggle="collapse" class="collapse" href="#faq-list-1">Online Payment <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
-              <div id="faq-list-1" class="collapse" data-parent=".faq-list">
-                <p>
-                 
-                </p>
-              </div>
-            </li>
-
-            <li data-aos="fade-up">
               <a data-toggle="collapse" class="collapse" href="#faq-list-1">Landlord Portal <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
               <div id="faq-list-1" class="collapse" data-parent=".faq-list">
                 <p>

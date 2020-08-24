@@ -1088,18 +1088,6 @@ Route::get('login/facebook/callback', 'Auth\LoginController@handleProviderCallba
 Route::get('sign-in/google', 'Auth\LoginController@google');
 Route::get('sign-in/google/redirect', 'Auth\LoginController@googleRedirect');
 
-
-// Route::get('/email', function(){
-
-//     $tenant = Tenant::findOrFail(1);
-
-//     $message = [
-//         'tenant' => $tenant->first_name,
-//         'movein_date' => $tenant->movein_date,
-//         'moveout_date' => $tenant->moveout_date,
-//         'monthly_rent' => $tenant->tenant_monthly_rent, 
-//     ];
-
-
-// });
-
+Route::get('/board/search', function(){
+    return 'asdasd';
+});

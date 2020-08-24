@@ -18,6 +18,12 @@
   <!-- Custom styles for this template-->
   <link href="{{ asset('dashboard/css/sb-admin-2.min.css') }}" rel="stylesheet">
 
+
+  <style>
+    .btn-purple {
+    background-color: #893aff !important;
+    }
+  </style>
 </head>
 
 <body id="page-top">
@@ -38,18 +44,17 @@
     <hr class="sidebar-divider my-0"> --}}
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item active">
-      <a class="nav-link" href="/board">
-        <span>The Property Manager</span></a>
-    </li>
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/board">
+      <div class="sidebar-brand-icon rotate-n-15">
+        {{-- <i class="fas fa-laugh-wink"></i> --}}
+      </div>
+      <div class="sidebar-brand-text mx-3">{{ Auth::user()->property }}<sup></sup></div>
+    </a>
 
     <!-- Divider -->
-    <hr class="sidebar-divider">
+    <hr class="sidebar-divider my-0">
 
-    {{-- <!-- Heading -->
-     <div class="sidebar-heading">
-      Interface
-    </div>  --}}
+     <!-- Heading -->
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item active">
@@ -58,6 +63,11 @@
           <span>Dashboard</span></a>
       </li>
 
+      <hr class="sidebar-divider">
+
+      <div class="sidebar-heading">
+        Interface
+      </div>  
     @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' )
     <li class="nav-item">
       <a class="nav-link" href="/home">
@@ -172,7 +182,17 @@
             <i class="fa fa-bars"></i>
           </button>
 
-           {{ Auth::user()->property.' '.Auth::user()->property_type }}
+               <!-- Topbar Search -->
+               <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" action="/board/search" method="GET">
+                <div class="input-group">
+                  <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                  <div class="input-group-append">
+                    <button class="btn btn-purple" type="submit">
+                      <i class="fas fa-search fa-sm text-white"></i>
+                    </button>
+                  </div>
+                </div>
+              </form>
           <!-- Topbar Search -->
         
 
@@ -309,7 +329,7 @@
             
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                   <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-                   <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> 
+                   <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-purple text-white"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> 
                 </div>
 
                 @if(Auth::user()->property_ownership === 'Multiple Owners')

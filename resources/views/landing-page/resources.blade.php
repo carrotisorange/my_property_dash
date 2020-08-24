@@ -102,15 +102,50 @@
       <div class="container">
         <div id="accordion">
           <div class="card">
+            <div class="card-header" id="headingThree">
+              <h5 class="mb-0">
+                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseThree">
+                  Property Managers must implement continuing Covid Safety Protocols in the properties.
+                </button>
+              </h5>
+            </div>
+            <div id="collapseSix" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+              <div class="card-body">
+                <div class="col-md-12 text-center">
+                  <video id ="myVideo" width="50%" autoplay>
+                    <source src={{ asset('index/assets/vid/Covid.mp4') }} type="video/mp4">
+                    Your browser does not support HTML video.
+                  </video>
+                </div>
+                <p id="is-property-management-right-for-me">
+                 <ol>
+                   <li>Temperature Scanning on all entrances.</li>
+                   <li>Disinfection of incoming vehicles.</li>
+                   <li>Disinfection mats at the entrances.</li>
+                   <li>Health declaration checklist for returning tenants and employees.</li>
+                   <li>Health questionnaires for visitors.</li>
+                   <li>Deep cleaning and sanitation on common areas.</li>
+                   <li>Social distancing marking on common areas.</li>
+                   <li>Reminders on Using Face Mask.</li>
+                   <li>Prescribed PPE for building staff.</li>
+                   <li>Contact less policy thru cashless transactions and email approvals on work permits or gate passes, etc  .</li>
+                 </ol>
+                </p>
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="card">
             <div class="card-header" id="headingOne">
               <h5 class="mb-0">
-                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseTwo">
                   Being Customer Centric.
                 </button>
               </h5>
             </div>
         
             <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+              
               <div class="card-body">
                 <p id="being-customer-centric">
                 <ol>
@@ -132,7 +167,8 @@
                   It has to be a part of our DNA, our purpose, to make it easier for our customers
                   </li>
               </ol> 
-              Technology can help us be customer-centric by automating processes, we reduce waiting and be more responsive to our customers needs. Data gives us the information that we need to cater to the special needs of our customers and provides valuable insights that can help us differentiate ourselves, to add value to our services,  and reduce maintenance.</p>
+              Technology can help us be customer-centric by automating processes, we reduce waiting and be more responsive to our customers needs. Data gives us the information that we need to cater to the special needs of our customers and provides valuable insights that can help us differentiate ourselves, to add value to our services,  and reduce maintenance.
+            </p>
               </div>
             </div>
           </div>
@@ -273,33 +309,7 @@
             </div>
           </div>
           <br>
-          <div class="card">
-            <div class="card-header" id="headingThree">
-              <h5 class="mb-0">
-                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseThree">
-                  Property Managers must implement continuing Covid Safety Protocols in the properties.
-                </button>
-              </h5>
-            </div>
-            <div id="collapseSix" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-              <div class="card-body">
-                <p id="is-property-management-right-for-me">
-                 <ol>
-                   <li>Temperature Scanning on all entrances.</li>
-                   <li>Disinfection of incoming vehicles.</li>
-                   <li>Disinfection mats at the entrances.</li>
-                   <li>Health declaration checklist for returning tenants and employees.</li>
-                   <li>Health questionnaires for visitors.</li>
-                   <li>Deep cleaning and sanitation on common areas.</li>
-                   <li>Social distancing marking on common areas.</li>
-                   <li>Reminders on Using Face Mask.</li>
-                   <li>Prescribed PPE for building staff.</li>
-                   <li>Contact less policy thru cashless transactions and email approvals on work permits or gate passes, etc  .</li>
-                 </ol>
-                </p>
-              </div>
-            </div>
-          </div>
+         
         </div>
       </div>
     </section>
@@ -350,6 +360,12 @@
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<script>
+  var x = document.getElementById("myVideo");
+  x.autoplay = true;
+  x.load();
+</script>
 
 </body>
 

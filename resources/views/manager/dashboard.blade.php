@@ -40,7 +40,7 @@
     <!-- Nav Item - Dashboard -->
     <li class="nav-item active">
       <a class="nav-link" href="/board">
-        <span>The Property Manager</span></a>
+        <span>{{ Auth::user()->property }}</span></a>
     </li>
 
     <!-- Divider -->
