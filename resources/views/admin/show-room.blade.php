@@ -806,7 +806,7 @@
                             
                                 <div class="form-group">
                                   <small>Max Occupancy</small>
-                                  <input form="editUnitForm" type="number" value="{{ $unit->max_occupancy }}" name="max_occupancy" class="form-control"> 
+                                  <input  oninput="this.value = Math.abs(this.value)" form="editUnitForm" type="number" value="{{ $unit->max_occupancy }}" name="max_occupancy" class="form-control"> 
                                 </div>
                                 <div class="form-group">
                                 <small> Status</small>
@@ -820,7 +820,7 @@
                                 </div>
                                 <div class="form-group">
                                     <small>Monthly Rent</small>
-                                    <input form="editUnitForm" min="0" step="0.01" type="number" value="{{ $unit->monthly_rent }}" name="monthly_rent" class="form-control">
+                                    <input form="editUnitForm"  oninput="this.value = Math.abs(this.value)" step="0.01" type="number" value="{{ $unit->monthly_rent }}" name="monthly_rent" class="form-control">
                                     </div>
                            
                             </form>
