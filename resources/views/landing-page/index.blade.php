@@ -8,7 +8,7 @@
   <title>The Property Manager </title>
   <meta content="" name="descriptison">
   <meta content="" name="keywords">
-  <meta property="og:image" content="http://www.thepropertymanager.online/index/assets/img/logo.jpg"/>  
+  <meta property="og:image" content="http://www.thepropertymanager.online/index/assets/img/logo.png"/>  
   <meta property="og:image" content="http://www.thepropertymanager.online/index/assets/img/favicon.ico"/> 
   <meta property="og:description" content="Simplifying Property Management - Online resource and tools for landlords and property managers."/> 
   <meta property="og:title" content="The Property Manager"/> 
@@ -48,15 +48,15 @@
   <!-- ======= Header ======= -->
   <header id="header" class="fixed-top ">
     <div class="container d-flex align-items-center">
-
-      <h1 class="logo mr-auto"><a href="/">The Property Manager</a></h1>
+      {{-- <a href="index.html" class="logo mr-auto"><img src="{{ asset('index/assets/img/logo.png') }}" alt="" class="img-fluid"></a> --}}
+      <h1 class="logo mr-auto"><a href="/"><img src="{{ asset('index/assets/img/logo.png') }}" alt="" class="img-fluid"> The Property Manager</a></h1>
       <!-- Uncomment below if you prefer to use an image logo -->
-      <!-- <a href="index.html" class="logo mr-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+      
 
       <nav class="nav-menu d-none d-lg-block">
         <ul>
-          <li class="active"><a class="btn" href="/">Home</a></li>
-          <li class="drop-down"><a class="btn" href="">Resources</a>
+          <li class=""><a class="" href="/">Home</a></li>
+          <li class="drop-down"><a class="" href="">Resources</a>
             <ul>
               <li><a target="_blank" href="/resources#guidelines-during-covid-19">Guidelines During COVID-19</a></li>
               <li class="drop-down"><a href="#">Articles</a>
@@ -74,10 +74,10 @@
               <li><a href="#">Drop Down 4</a></li> -->
             </ul>
           </li>
-          <li><a class="btn" href="#features">Features</a></li>    
-          <li><a class="btn" href="#pricing">Pricing</a></li>
-          <li><a class="btn" href="#contact">Contact</a></li>
-          <li><a class="btn btn-warning" target="_blank" href="/login">Login</a></li>
+          <li><a class="" href="#features">Features</a></li>    
+          <li><a class="" href="#pricing">Pricing</a></li>
+          <li><a class="" href="#contact">Contact</a></li>
+          <li class="active"><a class="" target="_blank" href="/login">Login</a></li>
         </ul>
       </nav><!-- .nav-menu -->
 
@@ -168,7 +168,176 @@
       </div>
     </section><!-- End Clients Section -->
 
-    <!-- ======= Services Section ======= -->
+        <!-- ======= Services Section ======= -->
+        <section id="" class="services">
+          <div class="container">
+    
+            <div class="section-title">
+              <h2>Quick Start Guide</h2>
+              <p>Let us take care of your business process so you can focus on growing your business.</p>
+            </div>
+    
+            <div class="row">
+    
+              <div class="col-lg-4 col-md-6 d-flex" data-aos="zoom-in" data-aos-delay="100">
+                
+                  <div class="icon-box iconbox-teal">
+                    
+                  <div class="icon">
+                    <h2>1</h2>
+                    
+                  </div>
+                  <h4><a href="">Register your property</a></h4>
+                  <p> As a dorm, apartments, commercial spaces, residential units, or condominiums</p>
+                </div>
+              </div>
+    
+              <div class="col-lg-4 col-md-6 d-flex mt-4 mt-md-0" data-aos="zoom-in" data-aos-delay="200">
+                <div class="icon-box iconbox-teal ">
+                  <div class="icon">
+                    <h2>2</h2>
+                  </div>
+                  <h4><a href="">Add units, rooms, or beds</a></h4>
+                  <p>Set up monthly rent, deposit requirements, room, features, and etc.</p>
+                </div>
+              </div>
+    
+              <div class="col-lg-4 col-md-6 d-flex mt-4 mt-lg-0" data-aos="zoom-in" data-aos-delay="300">
+                <div class="icon-box iconbox-teal">
+                  <div class="icon">
+                   <h2>3</h2>
+                  </div>
+                  <h4><a href="">Add tenants</a></h4>
+                  <p>Add tenant names, contact numbers, email, contract period, and other details. </p>
+                </div>
+              </div>
+    
+              <div class="col-lg-4 col-md-6 d-flex mt-4" data-aos="zoom-in" data-aos-delay="100">
+                <div class="icon-box iconbox-teal">
+                  <div class="icon">
+                    <h2>4</h2>
+                  </div>
+                  <h4><a href="">Manage your tenants</a></h4>
+                 <p>Manager concerns, requests, create job orders, assign jobs, and monitor up to completion.</p>
+                </div>
+              </div>
+    
+              <div class="col-lg-4 col-md-6 d-flex mt-4" data-aos="zoom-in" data-aos-delay="200">
+                <div class="icon-box iconbox-teal">
+                  <div class="icon">
+                   <h2>5</h2>
+                  </div>
+                  <h4><a href="">Bill & collect rent & utilities</a></h4>
+                  <p>Bill rent, water, light, and other charges then email to tenant or print for distribution.</p>
+                </div>
+              </div>
+    
+            </div>
+    
+          </div>
+        </section><!-- End Services Section -->
+
+             <!-- ======= Frequently Asked Questions Section ======= -->
+    <section id="features" class="faq section-bg">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Features</h2>
+          <p>We offer a full suite of property management tools to  rental property owners and landlords. Let us help you make your work simple so you can relax knowing your property is running smoothly.</p>
+        </div>
+
+        <div class="faq-list">
+          <ul>
+            <li data-aos="fade-up">
+              <a data-toggle="collapse" class="collapse" href="#faq-list-1">Room Management </a>
+              <div id="faq-list-1" class="collapse" data-parent=".faq-list">
+                <p>
+                 
+                </p>
+              </div>
+            </li>
+
+            <li data-aos="fade-up">
+              <a data-toggle="collapse" class="collapse" href="#faq-list-1">Billing & Collection <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+              <div id="faq-list-1" class="collapse" data-parent=".faq-list">
+                <p>
+                 
+                </p>
+              </div>
+            </li>
+
+
+            <li data-aos="fade-up">
+              <a data-toggle="collapse" class="collapse" href="#faq-list-1">Expense Tracker <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+              <div id="faq-list-1" class="collapse" data-parent=".faq-list">
+                <p>
+                 
+                </p>
+              </div>
+            </li>
+
+            <li data-aos="fade-up">
+              <a data-toggle="collapse" class="collapse" href="#faq-list-1">Online Payment <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+              <div id="faq-list-1" class="collapse" data-parent=".faq-list">
+                <p>
+                 
+                </p>
+              </div>
+            </li>
+
+            <li data-aos="fade-up">
+              <a data-toggle="collapse" class="collapse" href="#faq-list-1">Job Order <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+              <div id="faq-list-1" class="collapse" data-parent=".faq-list">
+                <p>
+                 
+                </p>
+              </div>
+            </li>
+
+            <li data-aos="fade-up">
+              <a data-toggle="collapse" class="collapse" href="#faq-list-1">Online Payment <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+              <div id="faq-list-1" class="collapse" data-parent=".faq-list">
+                <p>
+                 
+                </p>
+              </div>
+            </li>
+
+            <li data-aos="fade-up">
+              <a data-toggle="collapse" class="collapse" href="#faq-list-1">Landlord Portal <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+              <div id="faq-list-1" class="collapse" data-parent=".faq-list">
+                <p>
+                 
+                </p>
+              </div>
+            </li>
+
+            <li data-aos="fade-up">
+              <a data-toggle="collapse" class="collapse" href="#faq-list-1">Tenant Portal <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+              <div id="faq-list-1" class="collapse" data-parent=".faq-list">
+                <p>
+                 
+                </p>
+              </div>
+            </li>
+
+            <li data-aos="fade-up">
+              <a data-toggle="collapse" class="collapse" href="#faq-list-1">Concierge <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+              <div id="faq-list-1" class="collapse" data-parent=".faq-list">
+                <p>
+                 
+                </p>
+              </div>
+            </li>
+            
+            
+          </ul>
+        </div>
+
+      </div>
+    </section><!-- End Frequently Asked Questions Section --> 
+
+    {{-- <!-- ======= Services Section ======= -->
     <section id="features" class="services">
       <div class="container">
 
@@ -264,146 +433,12 @@
         </div>
 
       </div>
-    </section><!-- End Services Section -->
+    </section><!-- End Services Section --> --}}
 
     <!-- ======= Cta Section ======= -->
    
 
-    <!-- ======= Testimonials Section ======= -->
-     <section id="testimonials" class="testimonials section-bg">
-      <div class="container">
-
-        <div class="section-title">
-          <h2>Quick Start Guide</h2>
-          
-        </div>
-
-        <div class="row text-center">
-            <div class="col-md-12">
-              <img src="{{ asset('index/assets/img/guide.png') }}" class="img" alt="">  
-            </div>
-        </div>
-      
-
-      </div>
-    </section><!-- End Testimonials Section --> 
-
-    {{-- <!-- ======= Portfolio Section ======= -->
-    <section id="portfolio" class="portfolio">
-      <div class="container">
-
-        <div class="section-title">
-          <h2>Portfolio</h2>
-          <p>Properties, Condominiumes, Dormitories</p>
-        </div>
-
-        {{-- <div class="row">
-          <div class="col-lg-12 d-flex justify-content-center">
-            <ul id="portfolio-flters">
-              <li data-filter="*" class="filter-active">All</li>
-              <li data-filter=".filter-app">App</li>
-              <li data-filter=".filter-card">Card</li>
-              <li data-filter=".filter-web">Web</li>
-            </ul>
-          </div>
-        </div> --}}
-
-        {{-- <div class="row portfolio-container">
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <img src="{{ asset('index/assets/img/portfolio/portfolio-1.jpg') }}" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>App 1</h4>
-              <p>App</p>
-              <a href="{{ asset('index/assets/img/portfolio/portfolio-1.jpg') }}" data-gall="portfolioGallery" class="venobox preview-link" title="App 1"><i class="bx bx-plus"></i></a>
-              <a href="{{ asset('/index/portfolio-details.html') }}" data-gall="portfolioDetailsGallery" data-vbtype="iframe" class="venobox details-link" title="Portfolio Details"><i class="bx bx-link"></i></a>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-            <img src="{{ asset('index/assets/img/portfolio/portfolio-2.jpg') }}" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>Web 3</h4>
-              <p>Web</p>
-              <a href="{{ asset('index/assets/img/portfolio/portfolio-2.jpg') }}" data-gall="portfolioGallery" class="venobox preview-link" title="Web 3"><i class="bx bx-plus"></i></a>
-              <a href="portfolio-details.html" data-gall="portfolioDetailsGallery" data-vbtype="iframe" class="venobox details-link" title="Portfolio Details"><i class="bx bx-link"></i></a>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <img src="{{ asset('index/assets/img/portfolio/portfolio-3.jpg') }}" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>App 2</h4>
-              <p>App</p>
-              <a href="assets/img/portfolio/portfolio-3.jpg" data-gall="portfolioGallery" class="venobox preview-link" title="App 2"><i class="bx bx-plus"></i></a>
-              <a href="portfolio-details.html" data-gall="portfolioDetailsGallery" data-vbtype="iframe" class="venobox details-link" title="Portfolio Details"><i class="bx bx-link"></i></a>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-            <img src="{{ asset('index/assets/img/portfolio/portfolio-4.jpg') }}" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>Card 2</h4>
-              <p>Card</p>
-              <a href="{{ asset('/index/assets/img/portfolio/portfolio-4.jpg') }}" data-gall="portfolioGallery" class="venobox preview-link" title="Card 2"><i class="bx bx-plus"></i></a>
-              <a href="portfolio-details.html" data-gall="portfolioDetailsGallery" data-vbtype="iframe" class="venobox details-link" title="Portfolio Details"><i class="bx bx-link"></i></a>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-            <img src="{{ asset('/index/assets/img/portfolio/portfolio-5.jpg') }}" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>Web 2</h4>
-              <p>Web</p>
-              <a href="{{ asset('/index/assets/img/portfolio/portfolio-5.jpg') }}" data-gall="portfolioGallery" class="venobox preview-link" title="Web 2"><i class="bx bx-plus"></i></a>
-              <a href="portfolio-details.html" data-gall="portfolioDetailsGallery" data-vbtype="iframe" class="venobox details-link" title="Portfolio Details"><i class="bx bx-link"></i></a>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <img src="{{ asset('/index/assets/img/portfolio/portfolio-6.jpg') }}" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>App 3</h4>
-              <p>App</p>
-              <a href="{{ asset('/index/assets/img/portfolio/portfolio-6.jpg') }}" data-gall="portfolioGallery" class="venobox preview-link" title="App 3"><i class="bx bx-plus"></i></a>
-              <a href="portfolio-details.html" data-gall="portfolioDetailsGallery" data-vbtype="iframe" class="venobox details-link" title="Portfolio Details"><i class="bx bx-link"></i></a>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-            <img src="{{ asset('/index/assets/img/portfolio/portfolio-7.jpg') }}" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>Card 1</h4>
-              <p>Card</p>
-              <a href="{{ asset('/index/assets/img/portfolio/portfolio-7.jpg') }}" data-gall="portfolioGallery" class="venobox preview-link" title="Card 1"><i class="bx bx-plus"></i></a>
-              <a href="portfolio-details.html" data-gall="portfolioDetailsGallery" data-vbtype="iframe" class="venobox details-link" title="Portfolio Details"><i class="bx bx-link"></i></a>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-            <img src="{{ asset('/index/assets/img/portfolio/portfolio-8.jpg') }}" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>Card 3</h4>
-              <p>Card</p>
-              <a href="{{ asset('/index/assets/img/portfolio/portfolio-8.jpg') }}" data-gall="portfolioGallery" class="venobox preview-link" title="Card 3"><i class="bx bx-plus"></i></a>
-              <a href="portfolio-details.html" data-gall="portfolioDetailsGallery" data-vbtype="iframe" class="venobox details-link" title="Portfolio Details"><i class="bx bx-link"></i></a>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-            <img src="{{ asset('/index/assets/img/portfolio/portfolio-9.jpg') }}" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>Web 3</h4>
-              <p>Web</p>
-              <a href="{{ asset('/index/assets/img/portfolio/portfolio-9.jpg') }}" data-gall="portfolioGallery" class="venobox preview-link" title="Web 3"><i class="bx bx-plus"></i></a>
-              <a href="portfolio-details.html" data-gall="portfolioDetailsGallery" data-vbtype="iframe" class="venobox details-link" title="Portfolio Details"><i class="bx bx-link"></i></a>
-            </div>
-          </div>
-
-        </div>
-
-      </div> 
-    </section><!-- End Portfolio Section --> --}}
+     <!-- ======= Portfolio Section ======= -->
 
     <!-- ======= Team Section ======= -->
     {{-- <section id="team" class="team section-bg">
@@ -615,68 +650,6 @@
 
       </div>
     </section><!-- End Pricing Section -->
-
-    {{-- <!-- ======= Frequently Asked Questions Section ======= -->
-    <section id="faq" class="faq section-bg">
-      <div class="container">
-
-        <div class="section-title">
-          <h2>Frequently Asked Questions</h2>
-          <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
-        </div>
-
-        <div class="faq-list">
-          <ul>
-            <li data-aos="fade-up">
-              <i class="bx bx-help-circle icon-help"></i> <a data-toggle="collapse" class="collapse" href="#faq-list-1">Non consectetur a erat nam at lectus urna duis? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
-              <div id="faq-list-1" class="collapse show" data-parent=".faq-list">
-                <p>
-                  Feugiat pretium nibh ipsum consequat. Tempus iaculis urna id volutpat lacus laoreet non curabitur gravida. Venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non.
-                </p>
-              </div>
-            </li>
-
-            <li data-aos="fade-up" data-aos-delay="100">
-              <i class="bx bx-help-circle icon-help"></i> <a data-toggle="collapse" href="#faq-list-2" class="collapsed">Feugiat scelerisque varius morbi enim nunc? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
-              <div id="faq-list-2" class="collapse" data-parent=".faq-list">
-                <p>
-                  Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.
-                </p>
-              </div>
-            </li>
-
-            <li data-aos="fade-up" data-aos-delay="200">
-              <i class="bx bx-help-circle icon-help"></i> <a data-toggle="collapse" href="#faq-list-3" class="collapsed">Dolor sit amet consectetur adipiscing elit? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
-              <div id="faq-list-3" class="collapse" data-parent=".faq-list">
-                <p>
-                  Eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis orci. Faucibus pulvinar elementum integer enim. Sem nulla pharetra diam sit amet nisl suscipit. Rutrum tellus pellentesque eu tincidunt. Lectus urna duis convallis convallis tellus. Urna molestie at elementum eu facilisis sed odio morbi quis
-                </p>
-              </div>
-            </li>
-
-            <li data-aos="fade-up" data-aos-delay="300">
-              <i class="bx bx-help-circle icon-help"></i> <a data-toggle="collapse" href="#faq-list-4" class="collapsed">Tempus quam pellentesque nec nam aliquam sem et tortor consequat? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
-              <div id="faq-list-4" class="collapse" data-parent=".faq-list">
-                <p>
-                  Molestie a iaculis at erat pellentesque adipiscing commodo. Dignissim suspendisse in est ante in. Nunc vel risus commodo viverra maecenas accumsan. Sit amet nisl suscipit adipiscing bibendum est. Purus gravida quis blandit turpis cursus in.
-                </p>
-              </div>
-            </li>
-
-            <li data-aos="fade-up" data-aos-delay="400">
-              <i class="bx bx-help-circle icon-help"></i> <a data-toggle="collapse" href="#faq-list-5" class="collapsed">Tortor vitae purus faucibus ornare. Varius vel pharetra vel turpis nunc eget lorem dolor? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
-              <div id="faq-list-5" class="collapse" data-parent=".faq-list">
-                <p>
-                  Laoreet sit amet cursus sit amet dictum sit amet justo. Mauris vitae ultricies leo integer malesuada nunc vel. Tincidunt eget nullam non nisi est sit amet. Turpis nunc eget lorem dolor sed. Ut venenatis tellus in metus vulputate eu scelerisque.
-                </p>
-              </div>
-            </li>
-
-          </ul>
-        </div>
-
-      </div>
-    </section><!-- End Frequently Asked Questions Section --> --}}
 
     <!-- ======= Contact Section ======= -->
     <section id="contact" class="contact" >
