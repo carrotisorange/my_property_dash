@@ -40,15 +40,15 @@
   <!-- ======= Header ======= -->
   <header id="header" class="fixed-top ">
     <div class="container d-flex align-items-center">
-
-      <h1 class="logo mr-auto"><a href="/">The Property Manager</a></h1>
+      {{-- <a href="index.html" class="logo mr-auto"><img src="{{ asset('index/assets/img/logo.png') }}" alt="" class="img-fluid"></a> --}}
+      <h1 class="logo mr-auto"><a href="/"><img src="{{ asset('index/assets/img/logo.png') }}" alt="" class="img-fluid"> The Property Manager</a></h1>
       <!-- Uncomment below if you prefer to use an image logo -->
-      <!-- <a href="index.html" class="logo mr-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+      
 
       <nav class="nav-menu d-none d-lg-block">
         <ul>
-          <li><a class="btn" href="/">Home</a></li>
-          <li class="drop-down active"><a class="btn" href="">Resources</a>
+          <li class=""><a class="" href="/">Home</a></li>
+          <li class="drop-down"><a class="" href="">Resources</a>
             <ul>
               <li><a target="_blank" href="/resources#guidelines-during-covid-19">Guidelines During COVID-19</a></li>
               <li class="drop-down"><a href="#">Articles</a>
@@ -66,10 +66,10 @@
               <li><a href="#">Drop Down 4</a></li> -->
             </ul>
           </li>
-          <li><a class="btn" href="/#features">Features</a></li>    
-          <li><a class="btn" href="#pricing">Pricing</a></li>
-          <li><a class="btn" href="#contact">Contact</a></li>
-          <li><a class="btn btn-warning" target="_blank" href="/login">Login</a></li>
+          <li><a class="" href="#features">Features</a></li>    
+          <li><a class="" href="#pricing">Pricing</a></li>
+          <li><a class="" href="#contact">Contact</a></li>
+          <li class="active"><a class="" target="_blank" href="/login">Login</a></li>
         </ul>
       </nav><!-- .nav-menu -->
 
