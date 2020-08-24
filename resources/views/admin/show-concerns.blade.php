@@ -194,8 +194,6 @@
                   </div>
                 </div>
               </form>
-
-           {{ Auth::user()->property.' '.Auth::user()->property_type }}
           <!-- Topbar Search -->
     
           <!-- Topbar Navbar -->
