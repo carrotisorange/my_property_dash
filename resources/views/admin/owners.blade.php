@@ -66,7 +66,7 @@
       </li>
   
      
-      @if(Auth::user()->property_type === 'Apartment Rentals')
+      @if(Auth::user()->property_type === 'Apartment Rentals' || Auth::user()->property_type === 'Dormitory')
       <li class="nav-item">
         <a class="nav-link" href="/tenants">
           <i class="fas fa-users fa-chart-area"></i>

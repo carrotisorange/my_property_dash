@@ -2700,6 +2700,13 @@ fieldset:disabled a.btn {
   border-color: #3490dc;
 }
 
+.btn-purple {
+  color: #fff;
+  background-color: #893aff;
+  border-color: #893aff;
+}
+
+
 .btn-primary:hover {
   color: #fff;
   background-color: #227dc7;

@@ -18,12 +18,6 @@
   <!-- Custom styles for this template-->
   <link href="{{ asset('dashboard/css/sb-admin-2.min.css') }}" rel="stylesheet">
 
-
-  <style>
-    .btn-purple {
-    background-color: #893aff !important;
-    }
-  </style>
 </head>
 
 <body id="page-top">
