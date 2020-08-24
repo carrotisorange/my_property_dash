@@ -16,7 +16,16 @@
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
   <!-- Custom styles for this template-->
+  <!-- Custom styles for this template-->
   <link href="{{ asset('dashboard/css/sb-admin-2.min.css') }}" rel="stylesheet">
+
+  <style>
+    .btn-purple {
+  color: #fff;
+  background-color: #893aff;
+  border-color: #893aff;
+}
+  </style>
 
 </head>
 
@@ -26,100 +35,105 @@
   <div id="wrapper">
 
      <!-- Sidebar -->
- <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-    {{-- <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
-      
-      <div class="sidebar-brand-text mx-5"> </div>
-    </a>
-
-    <!-- Divider -->
-    <hr class="sidebar-divider my-0"> --}}
-
-    <!-- Nav Item - Dashboard -->
-    <li class="nav-item active">
-      <a class="nav-link" href="/board">
-        <span>The Property Manager</span></a>
-    </li>
-
-    <!-- Divider -->
-    <hr class="sidebar-divider">
-
-    {{-- <!-- Heading -->
-     <div class="sidebar-heading">
-      Interface
-    </div>  --}}
-
-    <!-- Nav Item - Pages Collapse Menu -->
-     <li class="nav-item">
-        <a class="nav-link" href="/board">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a>
-      </li>
-
-    @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' )
-    <li class="nav-item">
-      <a class="nav-link" href="/home">
-        <i class="fas fa-home"></i>
-        <span>Home</span></a>
-    </li>
-
-    <li class="nav-item active">
-      <a class="nav-link" href="/tenants">
-        <i class="fas fa-users fa-chart-area"></i>
-        <span>Tenants</span></a>
-    </li>
-
-   @if(Auth::user()->property_ownership === 'Multiple Owners')
-  <!-- Nav Item - Tables -->
-  <li class="nav-item">
-      <a class="nav-link" href="/owners">
-      <i class="fas fa-user-tie"></i>
-      <span>Owners</span></a>
-  </li>
-   @endif
-
-      <!-- Nav Item - Tables -->
-    
-        <!-- Nav Item - Tables -->
-      <li class="nav-item">
-      <a class="nav-link" href="/concerns">
-    <i class="far fa-comment-dots"></i>
-        <span>Concerns</span></a>
-  </li>
-
-  <li class="nav-item">
-      <a class="nav-link" href="/job-orders">
-        <i class="fas fa-tools fa-table"></i>
-        <span>Job Orders</span></a>
-  </li>
-      
-              <!-- Nav Item - Tables -->
-               <li class="nav-item">
-        <a class="nav-link collapsed" href="/personnels" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-        <i class="fas fa-user-cog"></i>
-          <span>Personnels</span>
-        </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="/housekeeping">Housekeeping</a>
-            <a class="collapse-item" href="/maintenance">Maintenance</a>
-          </div>
+      {{-- <!-- Sidebar - Brand -->
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/dashboard">
+        
+        <div class="sidebar-brand-text mx-5"> </div>
+      </a>
+  
+      <!-- Divider -->
+      <hr class="sidebar-divider my-0"> --}}
+  
+      <!-- Nav Item - Dashboard -->
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/board">
+        <div class="sidebar-brand-icon rotate-n-15">
+          {{-- <i class="fas fa-laugh-wink"></i> --}}
         </div>
-      </li>
-    @endif
-
-     @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'manager')
-      <!-- Nav Item - Tables -->
+        <div class="sidebar-brand-text mx-3">{{ Auth::user()->property }}<sup></sup></div>
+      </a>
+  
+      <!-- Divider -->
+      <hr class="sidebar-divider my-0">
+  
+       <!-- Heading -->
+  
+      <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
-        <a class="nav-link" href="/bills">
-          <i class="fas fa-file-invoice-dollar fa-table"></i>
-          <span>Bills</span></a>
+          <a class="nav-link" href="/board">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span></a>
+        </li>
+  
+        <hr class="sidebar-divider">
+  
+        <div class="sidebar-heading">
+          Interface
+        </div>  
+      @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' )
+      <li class="nav-item">
+        <a class="nav-link" href="/home">
+          <i class="fas fa-home"></i>
+          <span>Home</span></a>
       </li>
+  
+      @if(Auth::user()->property_type === 'Apartment Rentals' || Auth::user()->property_type === 'Dormitory')
+        <li class="nav-item active">
+          <a class="nav-link" href="/tenants">
+            <i class="fas fa-users fa-chart-area"></i>
+            <span>Tenants</span></a>
+        </li>
+        @endif
+  
+     @if(Auth::user()->property_ownership === 'Multiple Owners')
+    <!-- Nav Item - Tables -->
+    <li class="nav-item">
+        <a class="nav-link" href="/owners">
+        <i class="fas fa-user-tie"></i>
+        <span>Owners</span></a>
+    </li>
      @endif
-
-        @if(Auth::user()->user_type === 'treasury' || Auth::user()->user_type === 'manager')
+  
+        <!-- Nav Item - Tables -->
+    <li class="nav-item">
+        <a class="nav-link" href="/concerns">
+      <i class="far fa-comment-dots"></i>
+          <span>Concerns</span></a>
+    </li>
+  
+    <li class="nav-item">
+        <a class="nav-link" href="/job-orders">
+          <i class="fas fa-tools fa-table"></i>
+          <span>Job Orders</span></a>
+    </li>
+  
+         <!-- Nav Item - Tables -->
+  
+         <li class="nav-item">
+          <a class="nav-link collapsed" href="/personnels" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+          <i class="fas fa-user-cog"></i>
+            <span>Personnels</span>
+          </a>
+          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+              <a class="collapse-item" href="/housekeeping">Housekeeping</a>
+              <a class="collapse-item" href="/maintenance">Maintenance</a>
+            </div>
+          </div>
+        </li>
+      @endif
+  
+       @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'manager')
+        <!-- Nav Item - Tables -->
+        <li class="nav-item">
+          <a class="nav-link" href="/bills">
+            <i class="fas fa-file-invoice-dollar fa-table"></i>
+            <span>Bills</span></a>
+        </li>
+       @endif
+  
+       @if(Auth::user()->user_type === 'treasury' || Auth::user()->user_type === 'manager')
           <li class="nav-item">
           <a class="nav-link" href="/collections">
             <i class="fas fa-file-invoice-dollar"></i>
@@ -128,32 +142,33 @@
   
         @endif
   
+        @if(Auth::user()->user_type === 'manager')
+        <li class="nav-item">
+        <a class="nav-link" href="/account-payables">
+        <i class="fas fa-hand-holding-usd"></i>
+          <span>Account Payables</span></a>
+      </li>
+      @endif
+  
       @if(Auth::user()->user_type === 'manager')
-      <li class="nav-item">
-      <a class="nav-link" href="/account-payables">
-      <i class="fas fa-hand-holding-usd"></i>
-        <span>Account Payables</span></a>
-    </li>
-    @endif
-
-    @if(Auth::user()->user_type === 'manager')
-     <!-- Nav Item - Tables -->
-     <li class="nav-item">
-      <a class="nav-link" href="/users">
-        <i class="fas fa-user-circle"></i>
-        <span>Users</span></a>
-    </li>
-    @endif
-
-    <!-- Divider -->
-    <hr class="sidebar-divider d-none d-md-block">
-
-    <!-- Sidebar Toggler (Sidebar) -->
-    <div class="text-center d-none d-md-inline">
-      <button class="rounded-circle border-0" id="sidebarToggle"></button>
-    </div>
-
-  </ul>
+       <!-- Nav Item - Tables -->
+       <li class="nav-item">
+        <a class="nav-link" href="/users">
+          <i class="fas fa-user-circle"></i>
+          <span>Users</span></a>
+      </li>
+      @endif
+      
+  
+      <!-- Divider -->
+      <hr class="sidebar-divider d-none d-md-block">
+  
+      <!-- Sidebar Toggler (Sidebar) -->
+      <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+      </div>
+  
+    </ul>
   <!-- End of Sidebar -->
 
     <!-- Content Wrapper -->
@@ -166,9 +181,21 @@
         <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
           <!-- Sidebar Toggle (Topbar) -->
-          <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+              <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
             <i class="fa fa-bars"></i>
           </button>
+
+               <!-- Topbar Search -->
+               <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" action="/board/search" method="GET">
+                <div class="input-group">
+                  <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                  <div class="input-group-append">
+                    <button class="btn btn-purple" type="submit">
+                      <i class="fas fa-search fa-sm text-white"></i>
+                    </button>
+                  </div>
+                </div>
+              </form>
 
            {{ Auth::user()->property.' '.Auth::user()->property_type }}
           <!-- Topbar Search -->
@@ -176,7 +203,7 @@
             <div class="input-group">
               <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
               <div class="input-group-append">
-                <button class="btn btn-primary" type="button">
+                <button class="btn btn-purple" type="button">
                   <i class="fas fa-search fa-sm"></i>
                 </button>
               </div>
@@ -197,7 +224,7 @@
                   <div class="input-group">
                     <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
                     <div class="input-group-append">
-                      <button class="btn btn-primary" type="button">
+                      <button class="btn btn-purple" type="button">
                         <i class="fas fa-search fa-sm"></i>
                       </button>
                     </div>
@@ -336,16 +363,16 @@
           @endif
           @endforeach
             <h5 style="text-align:left;">
-                <a href="/units/{{ $tenant->unit_tenant_id }}"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> Back to room</a>
+                <a href="/units/{{ $tenant->unit_tenant_id }}"  class="d-none d-sm-inline-block btn btn-sm btn-purple shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> Back to room</a>
                 @if(Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'admin')
-                <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/edit"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-user-edit fa-sm text-white-50"></i> Edit Tenant</a>  
-                <span  href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addConcern" data-whatever="@mdo"><i class="far fa-comment-dots fa-sm text-white-50"></i> Report Concern</span>  
+                <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/edit"  class="d-none d-sm-inline-block btn btn-sm btn-purple shadow-sm"><i class="fas fa-user-edit fa-sm text-white-50"></i> Edit Tenant</a>  
+                <span  href="#" class="d-none d-sm-inline-block btn btn-sm btn-purple shadow-sm" data-toggle="modal" data-target="#addConcern" data-whatever="@mdo"><i class="far fa-comment-dots fa-sm text-white-50"></i> Report Concern</span>  
                 @endif
                 @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'manager')
-                <a href="{{ route('show-billings',['unit_id' => $tenant->unit_tenant_id, 'tenant_id'=>$tenant->tenant_id]) }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-file-invoice-dollar fa-sm text-white-50"></i> Show Bills <span class="badge badge-light">{{ $billings->count() }}</span> </a>
+                <a href="{{ route('show-billings',['unit_id' => $tenant->unit_tenant_id, 'tenant_id'=>$tenant->tenant_id]) }}" class="d-none d-sm-inline-block btn btn-sm btn-purple shadow-sm"><i class="fas fa-file-invoice-dollar fa-sm text-white-50"></i> Show Bills <span class="badge badge-light">{{ $billings->count() }}</span> </a>
                 @endif
                 @if(Auth::user()->user_type === 'treasury' || Auth::user()->user_type === 'manager')
-                <a href="#payment-history" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-dollar-sign fa-sm text-white-50"></i> Payment History</a>
+                <a href="#payment-history" class="d-none d-sm-inline-block btn btn-sm btn-purple shadow-sm"><i class="fas fa-dollar-sign fa-sm text-white-50"></i> Payment History</a>
                 @endif
                 <span style="float:right;">
                       {{-- <form action="/tenants/{{ $tenant->tenant_id }}" method="POST">
@@ -353,7 +380,7 @@
                         @method('delete')
                         <button type="submit">Delete</button>
                     </form>   --}}
-                <span  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#extendTenant" data-whatever="@mdo"><i class="fas fa-external-link-alt fa-sm text-white-50"></i> Extend Contract</span>
+                <span  class="d-none d-sm-inline-block btn btn-sm btn-purple shadow-sm" data-toggle="modal" data-target="#extendTenant" data-whatever="@mdo"><i class="fas fa-external-link-alt fa-sm text-white-50"></i> Extend Contract</span>
                 @if ($tenant->tenant_status === 'active' || $tenant->tenant_status === 'pending')
                     @if($pending_balance > 0)
                     <span href="#" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm" data-toggle="modal" data-target="#moveoutTenantWarning" data-whatever="@mdo"><i class="fas fa-sign-out-alt fa-sm text-white-50"></i> Request To Moveout</span>
@@ -672,8 +699,8 @@
                           <td>{{ $item->payment_note }}</td>
                           <td class="text-right">{{ number_format($item->amt_paid,2) }}</td>
                           <td class="text-center">
-                            <a title="export pdf" target="_blank" href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/payments/{{ $item->payment_id }}/dates/{{$item->payment_created}}/export" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i></a>
-                            {{-- <a target="_blank" href="#" title="print invoice" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-print fa-sm text-white-50"></i></a> 
+                            <a title="export pdf" target="_blank" href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/payments/{{ $item->payment_id }}/dates/{{$item->payment_created}}/export" class="d-none d-sm-inline-block btn btn-sm btn-purple shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i></a>
+                            {{-- <a target="_blank" href="#" title="print invoice" class="d-none d-sm-inline-block btn btn-sm btn-purple shadow-sm"><i class="fas fa-print fa-sm text-white-50"></i></a> 
                             --}}
                           </td>
                           {{-- <td>
@@ -809,7 +836,7 @@
                       </div>
                       <div class="modal-footer">
                           <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button>
-                          <button type="submit" form="concernForm" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;"><i class="fas fa-check fa-sm text-white-50"></i> Report Concern</button>
+                          <button type="submit" form="concernForm" class="d-none d-sm-inline-block btn btn-sm btn-purple shadow-sm" onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;"><i class="fas fa-check fa-sm text-white-50"></i> Report Concern</button>
                       </div>
                   </div>
                   </div>
@@ -865,7 +892,7 @@
                                 @endforeach
                                 Moveout Charges
                                 <a id='delete_row' class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-minus fa-sm text-white-50"></i></a>
-                                <a id="add_row" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i></a>     
+                                <a id="add_row" class="d-none d-sm-inline-block btn btn-sm btn-purple shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i></a>     
                                 <br>
                             
                             <br>
@@ -929,7 +956,7 @@
                                 Additonal Charges
                                 <small class="text-danger">(Optional)</small>
                                 <a id='remove_charges' class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-minus fa-sm text-white-50"></i></a>
-                                <a id="add_charges" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i></a>     
+                                <a id="add_charges" class="d-none d-sm-inline-block btn btn-sm btn-purple shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i></a>     
                                 <br>
                             
                             <br>
@@ -949,7 +976,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button>
-                    <button form="extendTenantForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want to perform this action?');" ><i class="fas fa-check fa-sm text-white-50"></i> Extend/Renew</button>
+                    <button form="extendTenantForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-purple shadow-sm" onclick="return confirm('Are you sure you want to perform this action?');" ><i class="fas fa-check fa-sm text-white-50"></i> Extend/Renew</button>
                 </div>
             </div>
             </div>
@@ -976,7 +1003,7 @@
                </div>
                <div class="modal-footer">
                  <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> No, Close</button>
-                 <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{  $tenant->tenant_id }}/billings" form="extendTenantForm" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-check fa-sm text-white-50"></i> Yes, Proceed</a>
+                 <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{  $tenant->tenant_id }}/billings" form="extendTenantForm" class="d-none d-sm-inline-block btn btn-sm btn-purple shadow-sm"><i class="fas fa-check fa-sm text-white-50"></i> Yes, Proceed</a>
              </div>
                
                @else
@@ -988,7 +1015,7 @@
              </div>
              <div class="modal-footer">
                <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> No, Close</button>
-               <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{  $tenant->tenant_id }}/billings" form="extendTenantForm" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-check fa-sm text-white-50"></i> Yes, Proceed</a>
+               <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{  $tenant->tenant_id }}/billings" form="extendTenantForm" class="d-none d-sm-inline-block btn btn-sm btn-purple shadow-sm"><i class="fas fa-check fa-sm text-white-50"></i> Yes, Proceed</a>
            </div>
                @endif
                 

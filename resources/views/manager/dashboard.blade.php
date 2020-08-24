@@ -16,8 +16,16 @@
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
   <!-- Custom styles for this template-->
+  <!-- Custom styles for this template-->
   <link href="{{ asset('dashboard/css/sb-admin-2.min.css') }}" rel="stylesheet">
 
+  <style>
+    .btn-purple {
+  color: #fff;
+  background-color: #893aff;
+  border-color: #893aff;
+}
+  </style>
 </head>
 
 <body id="page-top">
@@ -56,10 +64,10 @@
 
 
     <li class="nav-item active">
-        <a class="nav-link" href="/board">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a>
-      </li>
+          <a class="nav-link" href="/board">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span></a>
+        </li>
 
       @if(Auth::user()->property_type === 'Apartment Rentals' || Auth::user()->property_type === 'Dormitory')
       <li class="nav-item">
@@ -173,9 +181,21 @@
         <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
           <!-- Sidebar Toggle (Topbar) -->
-          <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+              <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
             <i class="fa fa-bars"></i>
           </button>
+
+               <!-- Topbar Search -->
+               <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" action="/board/search" method="GET">
+                <div class="input-group">
+                  <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                  <div class="input-group-append">
+                    <button class="btn btn-purple" type="submit">
+                      <i class="fas fa-search fa-sm text-white"></i>
+                    </button>
+                  </div>
+                </div>
+              </form>
 
            {{ Auth::user()->property.' '.Auth::user()->property_type }}
           <!-- Topbar Search -->
@@ -183,7 +203,7 @@
             <div class="input-group">
               <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
               <div class="input-group-append">
-                <button class="btn btn-primary" type="button">
+                <button class="btn btn-purple" type="button">
                   <i class="fas fa-search fa-sm"></i>
                 </button>
               </div>
@@ -204,7 +224,7 @@
                   <div class="input-group">
                     <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
                     <div class="input-group-append">
-                      <button class="btn btn-primary" type="button">
+                      <button class="btn btn-purple" type="button">
                         <i class="fas fa-search fa-sm"></i>
                       </button>
                     </div>
@@ -399,7 +419,7 @@
             
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                   <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-                   <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> 
+                   <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-purple shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> 
                 </div>
 
                 @if(Auth::user()->property_ownership === 'Multiple Owners')
@@ -694,8 +714,8 @@
                         
                         <td>{{ number_format($item->total,2) }}</td>
                         <td>
-                          <a title="export pdf" target="_blank" href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/payments/{{ $item->payment_id }}/dates/{{$item->payment_created}}/export" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i></a>
-                          {{-- <a id="" target="_blank" href="#" title="print invoice" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-print fa-sm text-white-50"></i></a>  --}}
+                          <a title="export pdf" target="_blank" href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/payments/{{ $item->payment_id }}/dates/{{$item->payment_created}}/export" class="d-none d-sm-inline-block btn btn-sm btn-purple shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i></a>
+                          {{-- <a id="" target="_blank" href="#" title="print invoice" class="d-none d-sm-inline-block btn btn-sm btn-purple shadow-sm"><i class="fas fa-print fa-sm text-white-50"></i></a>  --}}
                           
                         </td>
                     </tr>
@@ -1017,7 +1037,7 @@
             </div>
              <div class="modal-footer">
               <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> No, later</button>
-              <a href="/home" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-check fa-sm text-white-50"></i> Yes, proceed</a>
+              <a href="/home" class="d-none d-sm-inline-block btn btn-sm btn-purple shadow-sm"><i class="fas fa-check fa-sm text-white-50"></i> Yes, proceed</a>
         </div>
         </div>
     </div>

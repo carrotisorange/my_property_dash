@@ -13,7 +13,7 @@
                     <h5 class="card-title">{{ $item->unit_property }}</h5>
                     <p class="card-text">{{ $item->count_building }} buildings, {{ $item->count_unit_no }} rooms</p>
                     <a href="#" class="card-link">Visit FB Page</a>
-                    <a href="/{{$item->unit_property}}/units" class="card-link btn btn-primary">Book a room</a>
+                    <a href="/{{$item->unit_property}}/units" class="card-link btn btn-purple">Book a room</a>
                 </div>
               </div>
               <br>

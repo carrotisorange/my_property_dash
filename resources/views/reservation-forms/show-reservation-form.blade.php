@@ -222,7 +222,7 @@
        <br>
        <p class="text-right">   
             <a href="/units/" class="btn btn-secondary"><i class="fas fa-times"></i> cancel</a>
-           <button type="submit" form="reservationForm" class="btn btn-primary" ><i class="fas fa-check"></i> reserve</button>
+           <button type="submit" form="reservationForm" class="btn btn-purple" ><i class="fas fa-check"></i> reserve</button>
        </p>
        {{-- <br>
        <h4>Leasing Agreement</h4>

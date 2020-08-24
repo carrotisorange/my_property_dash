@@ -16,7 +16,16 @@
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
   <!-- Custom styles for this template-->
+  <!-- Custom styles for this template-->
   <link href="{{ asset('dashboard/css/sb-admin-2.min.css') }}" rel="stylesheet">
+
+  <style>
+    .btn-purple {
+  color: #fff;
+  background-color: #893aff;
+  border-color: #893aff;
+}
+  </style>
 
 </head>
 
@@ -29,7 +38,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       {{-- <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/dashboard">
         
         <div class="sidebar-brand-text mx-5"> </div>
       </a>
@@ -38,26 +47,30 @@
       <hr class="sidebar-divider my-0"> --}}
   
       <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
-        <a class="nav-link" href="/">
-          <span>The Property Manager</span></a>
-      </li>
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/board">
+        <div class="sidebar-brand-icon rotate-n-15">
+          {{-- <i class="fas fa-laugh-wink"></i> --}}
+        </div>
+        <div class="sidebar-brand-text mx-3">{{ Auth::user()->property }}<sup></sup></div>
+      </a>
   
       <!-- Divider -->
-      <hr class="sidebar-divider">
+      <hr class="sidebar-divider my-0">
   
-      {{-- <!-- Heading -->
-       <div class="sidebar-heading">
-        Interface
-      </div>  --}}
+       <!-- Heading -->
   
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
-        <a class="nav-link" href="/board">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a>
-      </li>
+          <a class="nav-link" href="/board">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span></a>
+        </li>
   
+        <hr class="sidebar-divider">
+  
+        <div class="sidebar-heading">
+          Interface
+        </div>  
       @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' )
       <li class="nav-item">
         <a class="nav-link" href="/home">
@@ -65,13 +78,13 @@
           <span>Home</span></a>
       </li>
   
-         @if(Auth::user()->property_type === 'Apartment Rentals' || Auth::user()->property_type === 'Dormitory')
-      <li class="nav-item">
-        <a class="nav-link" href="/tenants">
-          <i class="fas fa-users fa-chart-area"></i>
-          <span>Tenants</span></a>
-      </li>
-      @endif
+      @if(Auth::user()->property_type === 'Apartment Rentals' || Auth::user()->property_type === 'Dormitory')
+        <li class="nav-item">
+          <a class="nav-link" href="/tenants">
+            <i class="fas fa-users fa-chart-area"></i>
+            <span>Tenants</span></a>
+        </li>
+        @endif
   
      @if(Auth::user()->property_ownership === 'Multiple Owners')
     <!-- Nav Item - Tables -->
@@ -83,31 +96,32 @@
      @endif
   
         <!-- Nav Item - Tables -->
-      <li class="nav-item">
-      <a class="nav-link" href="/concerns">
-    <i class="far fa-comment-dots"></i>
-        <span>Concerns</span></a>
-  </li>
-
-  <li class="nav-item">
-      <a class="nav-link" href="/job-orders">
-        <i class="fas fa-tools fa-table"></i>
-        <span>Job Orders</span></a>
-  </li>
-        
-              <!-- Nav Item - Tables -->
-               <li class="nav-item active">
-        <a class="nav-link collapsed" href="/personnels" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-        <i class="fas fa-user-cog"></i>
-          <span>Personnels</span>
-        </a>
-        <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item active" href="/housekeeping">Housekeeping</a>
-            <a class="collapse-item" href="/maintenance">Maintenance</a>
+    <li class="nav-item">
+        <a class="nav-link" href="/concerns">
+      <i class="far fa-comment-dots"></i>
+          <span>Concerns</span></a>
+    </li>
+  
+    <li class="nav-item">
+        <a class="nav-link" href="/job-orders">
+          <i class="fas fa-tools fa-table"></i>
+          <span>Job Orders</span></a>
+    </li>
+  
+         <!-- Nav Item - Tables -->
+  
+         <li class="nav-item">
+          <a class="nav-link collapsed" href="/personnels" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+          <i class="fas fa-user-cog"></i>
+            <span>Personnels</span>
+          </a>
+          <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+              <a class="collapse-item active" href="/housekeeping">Housekeeping</a>
+              <a class="collapse-item" href="/maintenance">Maintenance</a>
+            </div>
           </div>
-        </div>
-      </li>
+        </li>
       @endif
   
        @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'manager')
@@ -128,22 +142,22 @@
   
         @endif
   
+        @if(Auth::user()->user_type === 'manager')
+        <li class="nav-item">
+        <a class="nav-link" href="/account-payables">
+        <i class="fas fa-hand-holding-usd"></i>
+          <span>Account Payables</span></a>
+      </li>
+      @endif
+  
       @if(Auth::user()->user_type === 'manager')
-      <li class="nav-item">
-      <a class="nav-link" href="/account-payables">
-      <i class="fas fa-hand-holding-usd"></i>
-        <span>Account Payables</span></a>
-    </li>
-    @endif
-
-    @if(Auth::user()->user_type === 'manager')
-     <!-- Nav Item - Tables -->
-     <li class="nav-item">
-      <a class="nav-link" href="/users">
-        <i class="fas fa-user-circle"></i>
-        <span>Users</span></a>
-    </li>
-    @endif
+       <!-- Nav Item - Tables -->
+       <li class="nav-item">
+        <a class="nav-link" href="/users">
+          <i class="fas fa-user-circle"></i>
+          <span>Users</span></a>
+      </li>
+      @endif
       
   
       <!-- Divider -->
@@ -167,9 +181,21 @@
         <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
           <!-- Sidebar Toggle (Topbar) -->
-          <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+              <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
             <i class="fa fa-bars"></i>
           </button>
+
+               <!-- Topbar Search -->
+               <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" action="/board/search" method="GET">
+                <div class="input-group">
+                  <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                  <div class="input-group-append">
+                    <button class="btn btn-purple" type="submit">
+                      <i class="fas fa-search fa-sm text-white"></i>
+                    </button>
+                  </div>
+                </div>
+              </form>
 
            {{ Auth::user()->property.' '.Auth::user()->property_type }}
           <!-- Topbar Search -->
@@ -177,7 +203,7 @@
             <div class="input-group">
               <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
               <div class="input-group-append">
-                <button class="btn btn-primary" type="button">
+                <button class="btn btn-purple" type="button">
                   <i class="fas fa-search fa-sm"></i>
                 </button>
               </div>
@@ -198,7 +224,7 @@
                   <div class="input-group">
                     <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
                     <div class="input-group-append">
-                      <button class="btn btn-primary" type="button">
+                      <button class="btn btn-purple" type="button">
                         <i class="fas fa-search fa-sm"></i>
                       </button>
                     </div>
@@ -338,7 +364,7 @@
           @endforeach
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Housekeeping</h1>
-            <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls=""> <i class="fas fa-user-plus  fa-sm text-white-50"></i> Add Housekeeping</a> 
+            <a class="d-none d-sm-inline-block btn btn-sm btn-purple shadow-sm" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls=""> <i class="fas fa-user-plus  fa-sm text-white-50"></i> Add Housekeeping</a> 
             
           </div>
 
@@ -363,7 +389,7 @@
                     </div>
                     <br>
                       <p class="text-right">
-                        <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" type="submit" form="addPersonnelForm" onclick="return confirm('Are you sure you want perform this action?');" ><i class="fas fa-check fa-sm text-white-50"></i> Add Housekeeping</button>
+                        <button class="d-none d-sm-inline-block btn btn-sm btn-purple shadow-sm" type="submit" form="addPersonnelForm" onclick="return confirm('Are you sure you want perform this action?');" ><i class="fas fa-check fa-sm text-white-50"></i> Add Housekeeping</button>
                       </p>
 
                 </div>
@@ -400,8 +426,7 @@
           
           </div>
         </div>
-                    </div>
-      </div>
+      
       <!-- End of Main Content -->
 
       <!-- Footer -->

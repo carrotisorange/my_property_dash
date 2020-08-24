@@ -16,7 +16,16 @@
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
   <!-- Custom styles for this template-->
+  <!-- Custom styles for this template-->
   <link href="{{ asset('dashboard/css/sb-admin-2.min.css') }}" rel="stylesheet">
+
+  <style>
+    .btn-purple {
+  color: #fff;
+  background-color: #893aff;
+  border-color: #893aff;
+}
+  </style>
 
 </head>
 
@@ -58,7 +67,7 @@
                             @enderror         
                      
                     </div>
-                    <button form="resetPasswordForm" type="submit"  class="btn btn-primary btn-user btn-block" onclick="this.form.submit(); this.disabled = true;">
+                    <button form="resetPasswordForm" type="submit"  class="btn btn-purple btn-user btn-block" onclick="this.form.submit(); this.disabled = true;">
                       Send Password Reset Link
                   </button>
                 </form>

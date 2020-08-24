@@ -125,7 +125,7 @@
                   </div> --}}
                
                
-                <button form="registrationForm" type="submit" class="btn btn-primary btn-user btn-block" id="registerButton" onclick="this.form.submit(); this.disabled = true;">
+                <button form="registrationForm" type="submit" class="btn btn-purple btn-user btn-block" id="registerButton" onclick="this.form.submit(); this.disabled = true;">
                     <i class="fas fa-check"></i> Register
             </button>
 
