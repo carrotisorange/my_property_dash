@@ -67,7 +67,7 @@
                             <label class="form-check-label" for="remember">Remember Me</label>
                       </div>
                     </div>
-                    <button form="loginForm" type="submit" class="btn btn-purple btn-user btn-block" onclick="this.form.submit(); this.disabled = true;">Login</button>
+                    <button form="loginForm" type="submit" class="btn btn-primary btn-user btn-block" onclick="this.form.submit(); this.disabled = true;">Login</button>
                     <hr>
                     {{-- <a href="login/google" class="btn btn-google btn-user btn-block">
                       <i class="fab fa-google fa-fw"></i> Login with Google

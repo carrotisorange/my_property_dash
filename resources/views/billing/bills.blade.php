@@ -181,7 +181,7 @@
                 <div class="input-group">
                   <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
                   <div class="input-group-append">
-                    <button class="btn btn-purple" type="submit">
+                    <button class="btn btn-primary" type="submit">
                       <i class="fas fa-search fa-sm text-white"></i>
                     </button>
                   </div>
@@ -192,7 +192,7 @@
             <div class="input-group">
               <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
               <div class="input-group-append">
-                <button class="btn btn-purple" type="button">
+                <button class="btn btn-primary" type="button">
                   <i class="fas fa-search fa-sm"></i>
                 </button>
               </div>
@@ -213,7 +213,7 @@
                   <div class="input-group">
                     <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
                     <div class="input-group-append">
-                      <button class="btn btn-purple" type="button">
+                      <button class="btn btn-primary" type="button">
                         <i class="fas fa-search fa-sm"></i>
                       </button>
                     </div>
@@ -357,7 +357,7 @@
             <h1 class="h3 mb-0 text-gray-800">Bills</h1>
             <div class="dropdown show">
               <br>
-              <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-purple shadow-sm dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-plus fa-sm text-white-50"></i> Add Bills</a>
+              <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-plus fa-sm text-white-50"></i> Add Bills</a>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <button type="submit" form="billingRentForm" class="dropdown-item "> Rent</button>
                 <input type="hidden" form="billingRentForm" name="billing_option" value="rent">

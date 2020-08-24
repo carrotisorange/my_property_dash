@@ -59,7 +59,7 @@
                             @enderror         
                      
                     </div>
-                    <button form="resetPasswordForm" type="submit"  class="btn btn-purple btn-user btn-block" onclick="this.form.submit(); this.disabled = true;">
+                    <button form="resetPasswordForm" type="submit"  class="btn btn-primary btn-user btn-block" onclick="this.form.submit(); this.disabled = true;">
                       Send Password Reset Link
                   </button>
                 </form>

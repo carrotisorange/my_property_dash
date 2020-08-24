@@ -184,7 +184,7 @@
                 <div class="input-group">
                   <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
                   <div class="input-group-append">
-                    <button class="btn btn-purple" type="submit">
+                    <button class="btn btn-primary" type="submit">
                       <i class="fas fa-search fa-sm text-white"></i>
                     </button>
                   </div>
@@ -195,7 +195,7 @@
             <div class="input-group">
               <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
               <div class="input-group-append">
-                <button class="btn btn-purple" type="button">
+                <button class="btn btn-primary" type="button">
                   <i class="fas fa-search fa-sm"></i>
                 </button>
               </div>
@@ -216,7 +216,7 @@
                   <div class="input-group">
                     <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
                     <div class="input-group-append">
-                      <button class="btn btn-purple" type="button">
+                      <button class="btn btn-primary" type="button">
                         <i class="fas fa-search fa-sm"></i>
                       </button>
                     </div>
@@ -357,11 +357,11 @@
                  <div class="d-sm-flex align-items-center justify-content-between mb-4">
                   <h1 class="h3 mb-0 text-gray-800">Home</h1>
                  @if(Auth::user()->user_type === 'manager')
-                 <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-purple shadow-sm" data-toggle="modal" data-target="#addMultipleUnits" data-whatever="@mdo"><i class="fas fa-plus fa-sm text-white-50"></i> Add Multiple Rooms</a>
+                 <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addMultipleUnits" data-whatever="@mdo"><i class="fas fa-plus fa-sm text-white-50"></i> Add Multiple Rooms</a>
                  @endif
                 </div>
                
-                <span class="d-none d-sm-inline-block btn btn-sm btn-purple shadow-sm" ><i class="fas fa-home fa-sm text-white-50"></i> OCCUPIED</span>
+                <span class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" ><i class="fas fa-home fa-sm text-white-50"></i> OCCUPIED</span>
                 <span class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" ><i class="fas fa-home fa-sm text-white-50"></i> VACANT</span>
                 <span class="d-none d-sm-inline-block btn btn-sm btn-warning shadow-sm" ><i class="fas fa-home fa-sm text-white-50"></i> RESERVED</span>
                 <br><br>
@@ -413,7 +413,7 @@
                          {{ $item->unit_no }}
                         </a>
                       @elseif($item->status=== 'occupied')
-                        <a title="{{ $item->type_of_units }}" href="/units/{{$item->unit_id}}" class="btn btn-purple">
+                        <a title="{{ $item->type_of_units }}" href="/units/{{$item->unit_id}}" class="btn btn-primary">
                           <i class="fas fa-home fa-3x"></i>
                           <br>
                           {{ $item->unit_no }}
@@ -463,7 +463,7 @@
                                {{ $item->unit_no }}
                               </a>
                             @elseif($item->status=== 'occupied')
-                              <a title="{{ $item->type_of_units }}" href="/units/{{$item->unit_id}}" class="btn btn-purple">
+                              <a title="{{ $item->type_of_units }}" href="/units/{{$item->unit_id}}" class="btn btn-primary">
                                 <i class="fas fa-home fa-3x"></i>
                                 <br>
                                 {{ $item->unit_no }}
@@ -611,7 +611,7 @@
       </div>
       <div class="modal-footer">
           <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button>
-          <button form="addUMultipleUnitForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-purple shadow-sm" onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;"><i class="fas fa-check"></i> Create Rooms</button>
+          <button form="addUMultipleUnitForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;"><i class="fas fa-check"></i> Create Rooms</button>
           </div>
   </div>
   </div>

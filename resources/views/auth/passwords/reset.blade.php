@@ -74,7 +74,7 @@
                         <input id="password-confirm" type="password" class="form-control form-control-user" name="password_confirmation" required autocomplete="new-password">
                     </div>
               
-                    <button type="submit"  class="btn btn-purple btn-user btn-block" onclick="this.form.submit(); this.disabled = true;">
+                    <button type="submit"  class="btn btn-primary btn-user btn-block" onclick="this.form.submit(); this.disabled = true;">
                        Reset Password
                   </button>
                 </form>

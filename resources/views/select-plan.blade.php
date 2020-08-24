@@ -122,7 +122,7 @@
                 </div>
 
                 <hr>
-                    <button form="selectingPlanForm" type="submit" class="btn btn-purple btn-user btn-block" id="registerButton" onclick="this.form.submit(); this.disabled = true;"> 
+                    <button form="selectingPlanForm" type="submit" class="btn btn-primary btn-user btn-block" id="registerButton" onclick="this.form.submit(); this.disabled = true;"> 
                        Next
                     </button>
     
