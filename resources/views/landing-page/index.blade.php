@@ -8,11 +8,15 @@
   <title>The Property Manager </title>
   <meta content="" name="descriptison">
   <meta content="" name="keywords">
+  <meta property="og:image" content="{{ asset('index/assets/img/favicon.ico') }}"/> 
+
+
 
     <!-- Favicons -->
     <link href="{{ asset('index/assets/img/d.ico') }}" rel="icon">
     <link href="{{ asset('index/assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
     <link href="{{ asset('index/assets/img/favicon.ico') }}" rel="icon">
+    
   
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
