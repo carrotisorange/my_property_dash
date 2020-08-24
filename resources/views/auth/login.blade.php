@@ -18,14 +18,6 @@
   <!-- Custom styles for this template-->
   <!-- Custom styles for this template-->
   <link href="{{ asset('dashboard/css/sb-admin-2.min.css') }}" rel="stylesheet">
-
-  <style>
-    .btn-purple {
-  color: #fff;
-  background-color: #893aff;
-  border-color: #893aff;
-}
-  </style>
   <link href="{{ asset('index/assets/img/favicon.ico') }}" rel="icon">
 
 </head>
