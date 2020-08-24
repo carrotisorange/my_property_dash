@@ -8,6 +8,7 @@
   <title>The Property Manager </title>
   <meta content="" name="descriptison">
   <meta content="" name="keywords">
+  <meta property="og:image" content="http://www.thepropertymanager.online/index/assets/img/logo.jpg"/>  
   <meta property="og:image" content="http://www.thepropertymanager.online/index/assets/img/favicon.ico"/> 
   <meta property="og:description" content="Simplifying Property Management - Online resource and tools for landlords and property managers."/> 
   <meta property="og:title" content="The Property Manager"/> 
