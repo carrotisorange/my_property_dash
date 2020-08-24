@@ -8,7 +8,7 @@
   <title>The Property Manager </title>
   <meta content="" name="descriptison">
   <meta content="" name="keywords">
-  <meta property="og:image" content="{{ asset('index/assets/img/favicon.ico') }}"/> 
+  <meta property="og:image" content="http://www.thepropertymanager.online/index/assets/img/favicon.ico"/> 
 
 
 
