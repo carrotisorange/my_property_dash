@@ -56,7 +56,7 @@
       <nav class="nav-menu d-none d-lg-block">
         <ul>
           <li class=""><a class="" href="/">Home</a></li>
-          <li class="drop-down"><a class="" href="">Resources</a>
+          <li class="drop-down"><a class="" href="/resources">Resources</a>
             <ul>
               <li><a target="_blank" href="/resources#guidelines-during-covid-19">Guidelines During COVID-19</a></li>
               <li class="drop-down"><a href="#">Articles</a>
