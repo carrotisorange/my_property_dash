@@ -455,7 +455,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Monthly Rent <br>(excluding utilities)</td> 
+                                        <td>Monthly Rent <small>(excluding utilities)</small></td> 
                                         <td>{{ number_format($unit->monthly_rent,2) }}</td>
             
                                         <?php 
