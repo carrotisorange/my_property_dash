@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>{{$tenant->first_name.' '.$tenant->last_name}}</title>
+  <title>{{$tenant->first_name.' '.$tenant->last_name}} | Edit</title>
 
   <!-- Custom fonts for this template-->
   <link href="{{ asset('dashboard/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css"><link href="{{ asset('index/assets/img/favicon.ico') }}" rel="icon">
@@ -26,140 +26,145 @@
   <!-- Page Wrapper -->
   <div id="wrapper">
    <!-- Sidebar -->
-   <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+     <!-- Sidebar -->
+     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-    {{-- <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/dashboard">
-      
-      <div class="sidebar-brand-text mx-5"> </div>
-    </a>
-
-    <!-- Divider -->
-    <hr class="sidebar-divider my-0"> --}}
-
-    <!-- Nav Item - Dashboard -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/board">
-      <div class="sidebar-brand-icon rotate-n-15">
-        {{-- <i class="fas fa-laugh-wink"></i> --}}
-      </div>
-      <div class="sidebar-brand-text mx-3">{{ Auth::user()->property }}<sup></sup></div>
-    </a>
-
-    <!-- Divider -->
-    <hr class="sidebar-divider my-0">
-
-     <!-- Heading -->
-
-    <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item">
-          <a class="nav-link" href="/board">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span></a>
+      {{-- <!-- Sidebar - Brand -->
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/dashboard">
+        
+        <div class="sidebar-brand-text mx-5"> </div>
+      </a>
+  
+      <!-- Divider -->
+      <hr class="sidebar-divider my-0"> --}}
+  
+      <!-- Nav Item - Dashboard -->
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/board">
+        <div class="sidebar-brand-icon rotate-n-15">
+          {{-- <i class="fas fa-laugh-wink"></i> --}}
+        </div>
+        <div class="sidebar-brand-text mx-3">{{ Auth::user()->property }}<sup></sup></div>
+      </a>
+  
+      <!-- Divider -->
+      <hr class="sidebar-divider my-0">
+  
+       <!-- Heading -->
+  
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+            <a class="nav-link" href="/board">
+              <i class="fas fa-fw fa-tachometer-alt"></i>
+              <span>Dashboard</span></a>
+          </li>
+  
+        <hr class="sidebar-divider">
+  
+        <div class="sidebar-heading">
+          Interface
+        </div>  
+      @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' )
+      <li class="nav-item">
+        <a class="nav-link" href="/home">
+          <i class="fas fa-home"></i>
+          <span>Home</span></a>
+      </li>
+      @endif
+    
+      @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'treasury' && (Auth::user()->property_type === 'Apartment Rentals' || Auth::user()->property_type === 'Dormitory'))
+        <li class="nav-item active">
+          <a class="nav-link" href="/tenants">
+            <i class="fas fa-users fa-chart-area"></i>
+            <span>Tenants</span></a>
         </li>
+        @endif
+  
+    @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'treasury' && (Auth::user()->property_ownership === 'Multiple Owners'))
+    <!-- Nav Item - Tables -->
+    <li class="nav-item">
+        <a class="nav-link" href="/owners">
+        <i class="fas fa-user-tie"></i>
+        <span>Owners</span></a>
+    </li>
+     @endif
+  
+     @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' )
+        <!-- Nav Item - Tables -->
+    <li class="nav-item">
+        <a class="nav-link" href="/concerns">
+      <i class="far fa-comment-dots"></i>
+          <span>Concerns</span></a>
+    </li>
+    @endif
 
-      <hr class="sidebar-divider">
-
-      <div class="sidebar-heading">
-        Interface
-      </div>  
     @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' )
     <li class="nav-item">
-      <a class="nav-link" href="/home">
-        <i class="fas fa-home"></i>
-        <span>Home</span></a>
+        <a class="nav-link" href="/job-orders">
+          <i class="fas fa-tools fa-table"></i>
+          <span>Job Orders</span></a>
     </li>
-
-    @if(Auth::user()->property_type === 'Apartment Rentals' || Auth::user()->property_type === 'Dormitory')
-      <li class="nav-item active">
-        <a class="nav-link" href="/tenants">
-          <i class="fas fa-users fa-chart-area"></i>
-          <span>Tenants</span></a>
-      </li>
-      @endif
-
-   @if(Auth::user()->property_ownership === 'Multiple Owners')
-  <!-- Nav Item - Tables -->
-  <li class="nav-item">
-      <a class="nav-link" href="/owners">
-      <i class="fas fa-user-tie"></i>
-      <span>Owners</span></a>
-  </li>
-   @endif
-
-      <!-- Nav Item - Tables -->
-  <li class="nav-item">
-      <a class="nav-link" href="/concerns">
-    <i class="far fa-comment-dots"></i>
-        <span>Concerns</span></a>
-  </li>
-
-  <li class="nav-item">
-      <a class="nav-link" href="/job-orders">
-        <i class="fas fa-tools fa-table"></i>
-        <span>Job Orders</span></a>
-  </li>
-
-       <!-- Nav Item - Tables -->
-
-       <li class="nav-item">
+    @endif
+  
+         <!-- Nav Item - Tables -->
+    @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' )
+      <li class="nav-item">
         <a class="nav-link collapsed" href="/personnels" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-        <i class="fas fa-user-cog"></i>
-          <span>Personnels</span>
-        </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="/housekeeping">Housekeeping</a>
-            <a class="collapse-item" href="/maintenance">Maintenance</a>
+          <i class="fas fa-user-cog"></i>
+            <span>Personnels</span>
+          </a>
+          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+              <a class="collapse-item" href="/housekeeping">Housekeeping</a>
+              <a class="collapse-item" href="/maintenance">Maintenance</a>
+            </div>
           </div>
-        </div>
-      </li>
+        </li>
     @endif
-
-     @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'manager')
-      <!-- Nav Item - Tables -->
-      <li class="nav-item">
-        <a class="nav-link" href="/bills">
-          <i class="fas fa-file-invoice-dollar fa-table"></i>
-          <span>Bills</span></a>
-      </li>
-     @endif
-
-     @if(Auth::user()->user_type === 'treasury' || Auth::user()->user_type === 'manager')
+  
+       @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'manager')
+        <!-- Nav Item - Tables -->
         <li class="nav-item">
-        <a class="nav-link" href="/collections">
-          <i class="fas fa-file-invoice-dollar"></i>
-          <span>Collections</span></a>
+          <a class="nav-link" href="/bills">
+            <i class="fas fa-file-invoice-dollar fa-table"></i>
+            <span>Bills</span></a>
+        </li>
+       @endif
+  
+       @if(Auth::user()->user_type === 'treasury' || Auth::user()->user_type === 'manager')
+          <li class="nav-item">
+          <a class="nav-link" href="/collections">
+            <i class="fas fa-file-invoice-dollar"></i>
+            <span>Collections</span></a>
+        </li>
+        @endif
+  
+        @if(Auth::user()->user_type === 'manager')
+        <li class="nav-item">
+        <a class="nav-link" href="/account-payables">
+        <i class="fas fa-hand-holding-usd"></i>
+          <span>Account Payables</span></a>
       </li>
-
       @endif
-
+  
       @if(Auth::user()->user_type === 'manager')
-      <li class="nav-item">
-      <a class="nav-link" href="/account-payables">
-      <i class="fas fa-hand-holding-usd"></i>
-        <span>Account Payables</span></a>
-    </li>
-    @endif
-
-    @if(Auth::user()->user_type === 'manager')
-     <!-- Nav Item - Tables -->
-     <li class="nav-item">
-      <a class="nav-link" href="/users">
-        <i class="fas fa-user-circle"></i>
-        <span>Users</span></a>
-    </li>
-    @endif
-    
-
-    <!-- Divider -->
-    <hr class="sidebar-divider d-none d-md-block">
-
-    <!-- Sidebar Toggler (Sidebar) -->
-    <div class="text-center d-none d-md-inline">
-      <button class="rounded-circle border-0" id="sidebarToggle"></button>
-    </div>
-
-  </ul>
+       <!-- Nav Item - Tables -->
+       <li class="nav-item">
+        <a class="nav-link" href="/users">
+          <i class="fas fa-user-circle"></i>
+          <span>Users</span></a>
+      </li>
+      @endif
+      
+  
+      <!-- Divider -->
+      <hr class="sidebar-divider d-none d-md-block">
+  
+      <!-- Sidebar Toggler (Sidebar) -->
+      <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+      </div>
+  
+    </ul>  <!-- End of Sidebar -->
   <!-- End of Sidebar -->
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
@@ -351,7 +356,7 @@
             @method('put')
             {{ csrf_field() }}
         </form>
-            <h4>Personal Information</h4>
+         
                     <div class="form-group row">
                         <div class="col">
                             <small>First Name</small>
@@ -393,10 +398,7 @@
                             <input form="editTenantForm" class="form-control" type="text" name="id_number" value="{{ $tenant->id_number }}">
                         </div>
                     </div>
-                    
-                    <br>
-    
-                    <h4>Address</h4>
+                   
                     <div class="form-group row">
                         <div class=" col-md-8">
                             <small for="">Barangay</small>
@@ -422,10 +424,7 @@
                             <input form="editTenantForm" class="form-control" type="text" name="zip_code" value="{{ $tenant->zip_code }}">
                         </div>
                     </div>
-    
-                    <br>
-    
-                    <h4>Contact Information</h4>
+  
                     <div class="form-group row">
                         <div class="col">
                             <small for="">Contact No</small>
@@ -437,12 +436,10 @@
                         </div>
                     </div>
                
-                    <br>
-    
-                    <h4>Person to contact in case of emergency</h4>
+                    <hr>
                     <div class="form-group row">
                         <div class="col">
-                            <small for="">Name</small>
+                            <small for="">Guardian</small>
                             <input form="editTenantForm" class="form-control" type="text" name="guardian" value="{{ $tenant->guardian }}">
                         </div>
                         <div class="col">
@@ -455,9 +452,8 @@
                         </div>
                     </div>
     
-                    <br>
-    
-                    <h4>Educational Backgound</h4>
+                    <hr>
+  
                     <div class="form-group row">
                         <div class="col">
                             <small for="">High School</small>
@@ -498,9 +494,9 @@
                         </div>
                     </div>
     
-                    <br>
+                    <hr>
     
-                    <h4>Employment Information</h4>
+        
                     <div class="form-group row">
                         <div class="col">
                             <small for="">Employer/Company</small>
@@ -526,10 +522,11 @@
                         </div>
                         
                     </div>
+                    <hr>
                     @if($tenant->tenants_note !== 'new' )
-                    <h4>Note</h4>
                     <div class="form-group row">
                         <div class="col">
+                          <small>Note</small>
                             <textarea form="editTenantForm" class="form-control" name="tenants_note" id="" cols="30" rows="5">
                                 {{ $tenant->tenants_note }}
                             </textarea>

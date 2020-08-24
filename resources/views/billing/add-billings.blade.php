@@ -26,6 +26,7 @@
   <!-- Page Wrapper -->
   <div id="wrapper">
 
+    <!-- Sidebar -->
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       {{-- <!-- Sidebar - Brand -->
@@ -52,10 +53,10 @@
   
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
-          <a class="nav-link" href="/board">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span></a>
-        </li>
+            <a class="nav-link" href="/board">
+              <i class="fas fa-fw fa-tachometer-alt"></i>
+              <span>Dashboard</span></a>
+          </li>
   
         <hr class="sidebar-divider">
   
@@ -68,8 +69,9 @@
           <i class="fas fa-home"></i>
           <span>Home</span></a>
       </li>
-  
-      @if(Auth::user()->property_type === 'Apartment Rentals' || Auth::user()->property_type === 'Dormitory')
+      @endif
+    
+      @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'treasury' && (Auth::user()->property_type === 'Apartment Rentals' || Auth::user()->property_type === 'Dormitory'))
         <li class="nav-item">
           <a class="nav-link" href="/tenants">
             <i class="fas fa-users fa-chart-area"></i>
@@ -77,7 +79,7 @@
         </li>
         @endif
   
-     @if(Auth::user()->property_ownership === 'Multiple Owners')
+    @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'treasury' && (Auth::user()->property_ownership === 'Multiple Owners'))
     <!-- Nav Item - Tables -->
     <li class="nav-item">
         <a class="nav-link" href="/owners">
@@ -86,23 +88,27 @@
     </li>
      @endif
   
+     @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' )
         <!-- Nav Item - Tables -->
     <li class="nav-item">
         <a class="nav-link" href="/concerns">
       <i class="far fa-comment-dots"></i>
           <span>Concerns</span></a>
     </li>
-  
+    @endif
+
+    @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' )
     <li class="nav-item">
         <a class="nav-link" href="/job-orders">
           <i class="fas fa-tools fa-table"></i>
           <span>Job Orders</span></a>
     </li>
+    @endif
   
          <!-- Nav Item - Tables -->
-  
-         <li class="nav-item">
-          <a class="nav-link collapsed" href="/personnels" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+    @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' )
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="/personnels" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
           <i class="fas fa-user-cog"></i>
             <span>Personnels</span>
           </a>
@@ -113,7 +119,7 @@
             </div>
           </div>
         </li>
-      @endif
+    @endif
   
        @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'manager')
         <!-- Nav Item - Tables -->
@@ -130,7 +136,6 @@
             <i class="fas fa-file-invoice-dollar"></i>
             <span>Collections</span></a>
         </li>
-  
         @endif
   
         @if(Auth::user()->user_type === 'manager')
@@ -159,7 +164,7 @@
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
       </div>
   
-    </ul>
+    </ul>  <!-- End of Sidebar -->
 
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">

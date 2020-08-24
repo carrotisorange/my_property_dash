@@ -68,8 +68,9 @@
           <i class="fas fa-home"></i>
           <span>Home</span></a>
       </li>
-  
-      @if(Auth::user()->property_type === 'Apartment Rentals' || Auth::user()->property_type === 'Dormitory')
+      @endif
+    
+      @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'treasury' && (Auth::user()->property_type === 'Apartment Rentals' || Auth::user()->property_type === 'Dormitory'))
         <li class="nav-item">
           <a class="nav-link" href="/tenants">
             <i class="fas fa-users fa-chart-area"></i>
@@ -77,7 +78,7 @@
         </li>
         @endif
   
-     @if(Auth::user()->property_ownership === 'Multiple Owners')
+    @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'treasury' && (Auth::user()->property_ownership === 'Multiple Owners'))
     <!-- Nav Item - Tables -->
     <li class="nav-item">
         <a class="nav-link" href="/owners">
@@ -86,23 +87,27 @@
     </li>
      @endif
   
+     @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' )
         <!-- Nav Item - Tables -->
     <li class="nav-item">
         <a class="nav-link" href="/concerns">
       <i class="far fa-comment-dots"></i>
           <span>Concerns</span></a>
     </li>
-  
+    @endif
+
+    @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' )
     <li class="nav-item">
         <a class="nav-link" href="/job-orders">
           <i class="fas fa-tools fa-table"></i>
           <span>Job Orders</span></a>
     </li>
+    @endif
   
          <!-- Nav Item - Tables -->
-  
-         <li class="nav-item">
-          <a class="nav-link collapsed" href="/personnels" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+    @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' )
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="/personnels" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
           <i class="fas fa-user-cog"></i>
             <span>Personnels</span>
           </a>
@@ -113,7 +118,7 @@
             </div>
           </div>
         </li>
-      @endif
+    @endif
   
        @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'manager')
         <!-- Nav Item - Tables -->
@@ -130,7 +135,6 @@
             <i class="fas fa-file-invoice-dollar"></i>
             <span>Collections</span></a>
         </li>
-  
         @endif
   
         @if(Auth::user()->user_type === 'manager')
@@ -422,11 +426,11 @@
                           <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"><a class="text-primary" href="/home">  ROOMS</a> </div>
                             <div id="count_rooms" class="h5 mb-0 font-weight-bold text-gray-800">{{ $units->count() }}</div>
-                            
+{{--                             
                             <small>O ({{ $units_occupied->count() }})</small>
                             <small>V ({{ $units_vacant->count() }})</small>
                             <small>R ({{ $units_reserved->count() }})</small>
-                            
+                             --}}
                           </div>
                           <div class="col-auto">
                               <i class="fas fa-home fa-2x text-gray-300"></i>
@@ -444,7 +448,7 @@
                           <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1"><a class="text-success" href="/tenants">  ACTIVE TENANTS</a></div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $active_tenants->count() }}</div>
-                            <small>PENDING ({{ $pending_tenants->count() }})</small>
+                            {{-- <small>PENDING ({{ $pending_tenants->count() }})</small> --}}
                             
                           </div>
                           <div class="col-auto">
@@ -464,7 +468,7 @@
                           <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1"><a class="text-warning" href="/owners">  OWNERS</a> </div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $owners->count() }}</div>
-                            <small>|</small>
+                            {{-- <small>|</small> --}}
                             
                           </div>
                           <div class="col-auto">
@@ -483,8 +487,8 @@
                           <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-danger text-uppercase mb-1"><a class="text-danger"  href="#active-concerns">  ACTIVE CONCERNS</a></div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $active_concerns->count() }}</div>
-                           
-                            <small>PENDING ({{ $pending_concerns->count() }})</small>
+{{--                            
+                            <small>PENDING ({{ $pending_concerns->count() }})</small> --}}
                           </div>
                           <div class="col-auto">
                             <i class="fas fa-tools fa-2x text-gray-300"></i>
@@ -508,9 +512,9 @@
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"><a class="text-primary" href="/home">  ROOMS</a></div>
                             <div id="count_rooms" class="h5 mb-0 font-weight-bold text-gray-800">{{ $units->count() }}</div>
                             
-                            <small>O ({{ $units_occupied->count() }})</small>
+                            {{-- <small>O ({{ $units_occupied->count() }})</small>
                             <small>V ({{ $units_vacant->count() }})</small>
-                            <small>R ({{ $units_reserved->count() }})</small>
+                            <small>R ({{ $units_reserved->count() }})</small> --}}
                             
                           </div>
                           <div class="col-auto">
@@ -529,7 +533,7 @@
                           <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1" ><a class="text-success" href="/tenants">  ACTIVE TENANTS</a></div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $active_tenants->count() }}</div>
-                            <small>PENDING ({{ $pending_tenants->count() }})</small>
+                            {{-- <small>PENDING ({{ $pending_tenants->count() }})</small> --}}
                             
                           </div>
                           <div class="col-auto">
@@ -549,7 +553,7 @@
                           <div class="text-xs font-weight-bold text-danger text-uppercase mb-1" ><a class="text-danger" href="#active-concerns">  ACTIVE CONCERNS</a></div>
                           <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $active_concerns->count() }}</div>
                            
-                            <small>PENDING ({{ $pending_concerns->count() }})</small>
+                            {{-- <small>PENDING ({{ $pending_concerns->count() }})</small> --}}
                           </div>
                           <div class="col-auto">
                             <i class="fas fa-tools fa-2x text-gray-300"></i>
