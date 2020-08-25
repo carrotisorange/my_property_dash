@@ -126,6 +126,7 @@ class UnitOwnersController extends Controller
             'investor_address' => $request->investor_address,
             'investor_representative' => $request->investor_representative,
             'date_invested' => $request->date_invested,
+            'date_accepted' => $request->date_accepted,
             'investment_price' => $request->investment_price,
             'investment_type' => $request->investment_type
         ]);

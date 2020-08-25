@@ -298,8 +298,8 @@
                       <div class="form-group row">
                         
                         <div class="col">
-                          <small>Date Purchased</small>
-                          <input form="editInvestorForm" class="form-control" type="date" name="date_invested" value="{{ $investor->date_invested }}" >
+                          <small>Date Accepted</small>
+                          <input form="editInvestorForm" class="form-control" type="date" name="date_accepted" value="{{ $investor->date_invested }}" >
                       </div>  
                       
                        <div class="col">

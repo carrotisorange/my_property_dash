@@ -382,7 +382,7 @@
                            <th>EMAIL</th>
                            <th>MOBILE</th>
                            <th>REPRESENTATIVE</th>
-                           <th>DATE PURCHASED</th>
+                  
                            <th>DATE ACCEPTED</th>
                            <th>ROOM TYPE</th>
                            
@@ -398,8 +398,8 @@
                            <td>{{ $item-> investor_email_address}}</td>
                            <td>{{ $item->investor_contact_no }}</td>
                            <TD>{{ $item->investor_representative }}</TD>
-                           <td>{{ Carbon\Carbon::parse($item->date_invested)->format('M d Y')}}</td> 
                            <td>{{ Carbon\Carbon::parse($item->date_accepted)->format('M d Y')}}</td> 
+         
                            <td>{{ $item->type_of_units }}</td>
                        </tr>
                        @endforeach
