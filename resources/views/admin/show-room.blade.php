@@ -405,7 +405,7 @@
                                </div>
                                <div class="card-body">
                                 <div class="table-responsive text-nowrap">
-                              <table class="table table-striped">
+                              <table class="table">
                                    <tr>
                                         <td>Room No</td>
                                         <td>{{ $unit->unit_no }}</td>
@@ -486,7 +486,7 @@
                       <div class="tab-content" id="nav-tabContent">
                         <div class="tab-pane fade show active" id="active" role="tabpanel" aria-labelledby="nav-home-tab">
                           <div class="table-responsive text-nowrap">
-                          <table class="table table-striped">
+                          <table class="table">
                             @if($tenant_active->count() <= 0)
                             <tr>
                                 <br><br><br>
@@ -511,8 +511,8 @@
                           </div>
                         </div>
                         <div class="tab-pane fade" id="reserved" role="tabpanel" aria-labelledby="nav-profile-tab">
-                          <div class="table table-striped"-responsive text-nowrap">
-                          <table class="table table-striped" table-borderless">
+                          <div class="table-responsive text-nowrap">
+                          <table class="table">
                             @if($tenant_reservations->count() <= 0)
                             <tr>
                                 <br><br><br>
@@ -549,7 +549,7 @@
                         </div>
                         <div class="tab-pane fade" id="inactive" role="tabpanel" aria-labelledby="nav-contact-tab">
                           <div class="table-responsive text-nowrap">
-                          <table class="table table-striped">
+                          <table class="table">
                             @if($tenant_inactive->count() <= 0)
                             <tr>
                                 <br><br><br>
