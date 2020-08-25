@@ -1097,7 +1097,9 @@ Route::get('/board/search', function(){
 Route::post('/users/{user_id}/charge', function(Request $request){
 
     if(Auth::user()->account_type === 'Free'){
-        DB::table('users')->update([
+        DB::table('users')
+        ->where('id', Auth::user()->id)
+        ->update([
             'trial_ends_at'=> Carbon::now()->addMonth(),
          ]);
      
@@ -1128,7 +1130,9 @@ Route::post('/users/{user_id}/charge', function(Request $request){
             'description' => Auth::user()->name.' | '.Auth::user()->property.' | ' . Auth::user()->property_type.' | '.Auth::user()->property_ownership.' | '.Auth::user()->account_type.' | '.$charge,
         ));
     
-        DB::table('users')->update([
+        DB::table('users')
+        ->where('id', Auth::user()->id)
+        ->update([
            'trial_ends_at'=> Carbon::now()->addMonth(),
         ]);
     
