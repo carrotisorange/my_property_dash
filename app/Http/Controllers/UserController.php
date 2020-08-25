@@ -120,7 +120,7 @@ class UserController extends Controller
     {
        
         DB::table('users')
-        ->where('id', '$user_id')
+        ->where('id', $user_id)
         ->update([
             
         
