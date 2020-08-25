@@ -454,7 +454,7 @@
                <td>{{ $item->property_type }}</td>
                <td>{{ $item->property_ownership }}</td>
                <td>{{ $item->email_verified_at }}</td>
-               <td>{{ $item->trial_starts_at }}</td>
+               <td>{{ $item->trial_ends_at }}</td>
                <td>{{ $item->account_type }}</td>
                <td>{{ $item->last_login_ip }}</td>
                <td>{{ $item->last_login_at }}</td>
