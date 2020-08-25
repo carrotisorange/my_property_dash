@@ -118,7 +118,6 @@ class UserController extends Controller
      */
     public function update(Request $request, $user_id)
     {
-        
         if($request->action === 'selecting_plan'){
             $request->validate([
                 'account_type' => 'required',
