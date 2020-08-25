@@ -165,7 +165,7 @@
               velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
               culpa qui officia deserunt mollit anim id est laborum.
             </p>
-            <a href="/login" class="btn-learn-more">Login</a>
+            <a href="/register" class="btn-learn-more">Register</a>
             <a href="#pricing" class="btn-learn-more">See Pricing</a>
           </div>
         </div>
@@ -364,7 +364,7 @@
             <div class="col-xl-3 col-md-6 d-flex align-items-stretch mt-4 mt-xl-0" data-aos="zoom-in" data-aos-delay="400">
               <div class="icon-box">
                 <div class="icon"><i class="bx bx-layer"></i></div>
-                <h4><a href="">Concierge  Service</a></h4>
+                <h4><a href="">Concierge  Services</a></h4>
                 {{-- <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis</p> --}}
               </div>
             </div>
@@ -611,7 +611,7 @@
                 <li class="na"><i class="bx bx-x"></i> <span>Portal for Landlord</span></li>
                 <li class="na"><i class="bx bx-x"></i> <span>Portal for Tenant</span></li>
                 <li class="na"><i class="bx bx-x"></i> <span>Online Payment</span></li>
-                <li class="na"><i class="bx bx-x"></i> <span>Concierge Service</span></li>
+                <li class="na"><i class="bx bx-x"></i> <span>Concierge Services</span></li>
               </ul>
               <a href="/register" class="buy-btn">Get Started</a>
             </div>
@@ -629,7 +629,7 @@
                 <li class="na"><i class="bx bx-x"></i> <span>Portal for Landlord</span></li>
                 <li class="na"><i class="bx bx-x"></i> <span>Portal for Tenant</span></li>
                 <li class="na"><i class="bx bx-x"></i> <span>Online Payment</span></li>
-                <li class="na"><i class="bx bx-x"></i> <span>Concierge Service</span></li>
+                <li class="na"><i class="bx bx-x"></i> <span>Concierge Services</span></li>
               </ul>
               <a href="/register" class="buy-btn">Get Started</a>
             </div>
@@ -647,7 +647,7 @@
                 <li><i class="bx bx-check"></i> <span>Portal for Landlord</span></li>
                 <li><i class="bx bx-check"></i> <span>Portal for Tenant</span></li>
                 <li><i class="bx bx-check"></i> <span>Online Payment</span></li>
-                <li class="na"><i class="bx bx-x"></i> <span>Concierge Service</span></li>
+                <li class="na"><i class="bx bx-x"></i> <span>Concierge Services</span></li>
               </ul>
               </ul>
               <a href="/register" class="buy-btn">Get Started</a>
@@ -673,7 +673,7 @@
                 <li><i class="bx bx-check"></i> <span>Portal for Landlord</span></li>
                 <li><i class="bx bx-check"></i> <span>Portal for Tenant</span></li>
                 <li><i class="bx bx-check"></i> <span>Online Payment</span></li>
-                <li><i class="bx bx-check"></i> <span>Concierge Service</span></li>
+                <li><i class="bx bx-check"></i> <span>Concierge Services</span></li>
                 </ul>
                 <a href="/register" class="buy-btn">Get Started</a>
               </div>
@@ -691,7 +691,7 @@
                   <li><i class="bx bx-check"></i> <span>Portal for Landlord</span></li>
                   <li><i class="bx bx-check"></i> <span>Portal for Tenant</span></li>
                   <li><i class="bx bx-check"></i> <span>Online Payment</span></li>
-                  <li><i class="bx bx-check"></i> <span>Concierge Service</span></li>
+                  <li><i class="bx bx-check"></i> <span>Concierge Services</span></li>
                 </ul>
                 <a href="/register" class="buy-btn">Get Started</a>
               </div>

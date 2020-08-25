@@ -4,6 +4,8 @@ use App\Unit, App\UnitOwner, App\Tenant, App\User;
 use Carbon\Carbon;
 use App\Charts\DashboardChart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\TenantRegisteredMail;
 
 
 
@@ -51,7 +53,7 @@ Route::get('/board', function(Request $request){
     }elseif(Auth::user()->property !== null && Auth::user()->account_type === null){
         return view('select-plan');
     }
-     elseif(Auth::user()->property !== null && Auth::user()->account_type !== null && Auth::user()->stripe_id === null){
+     elseif(Auth::user()->property !== null && Auth::user()->account_type !== null && Auth::user()->trial_ends_at === null){
          return view('payment-info');
      }   
     else{
@@ -1090,4 +1092,53 @@ Route::get('sign-in/google/redirect', 'Auth\LoginController@googleRedirect');
 
 Route::get('/board/search', function(){
     return 'asdasd';
+});
+
+Route::post('/users/{user_id}/charge', function(Request $request){
+
+    if(Auth::user()->account_type === 'Free'){
+        DB::table('users')->update([
+            'trial_ends_at'=> Carbon::now()->addMonth(),
+         ]);
+     
+         Mail::to(Auth::user()->email)->send(new TenantRegisteredMail());
+     
+         return back();
+    }else{
+        
+        Stripe\Stripe::setApiKey('sk_test_51HJukYJRwyQ1aYnq47AXjpdfByCMtKxJJqcsORmKtMmSvliAuxnYuGTLRpTQVmuKAbPvMW7KdBn361qSNR13HTH700pQjYbkVO');
+
+        $charge = 0;
+
+        if(Auth::user()->account_type === 'Medium'){
+            $charge = 95000;
+        }elseif(Auth::user()->account_type === 'Large'){
+            $charge = 180000;
+        }elseif(Auth::user()->account_type === 'Enterprise'){
+            $charge = 240000;
+        }elseif(Auth::user()->account_type === 'Corporate'){
+            $charge = 480000;
+        }
+    
+       try{
+        Stripe\Charge::create(array(
+            "amount" => $charge,
+            "currency" => "php",
+            'source' => $request->stripeToken,
+            'description' => Auth::user()->name.' | '.Auth::user()->property.' | ' . Auth::user()->property_type.' | '.Auth::user()->property_ownership.' | '.Auth::user()->account_type.' | '.$charge,
+        ));
+    
+        DB::table('users')->update([
+           'trial_ends_at'=> Carbon::now()->addMonth(),
+        ]);
+    
+        Mail::to(Auth::user()->email)->send(new TenantRegisteredMail());
+    
+        return back();
+    
+       }catch(\Exception $e){
+           return back()->with('danger', $e->getMessage());
+       }
+    }
+
 });

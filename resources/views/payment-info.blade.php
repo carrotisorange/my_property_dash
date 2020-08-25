@@ -91,6 +91,7 @@
 
   <div class="container">
 
+   
     <div class="card o-hidden border-0 shadow-lg my-5">
       <div class="card-body p-0">
        
@@ -100,7 +101,7 @@
           <div class="col-lg-7 d-none d-lg-block">
             <div class="p-5">
                 <div class="">
-                  <h1 class="h4 text-gray-900 mb-4">Checkout</h1>
+                  <h1 class="h4 text-gray-900 mb-4">User and Company Profile</h1>
                 </div>
         
                   <div class="form-group">
@@ -133,24 +134,79 @@
           </div>
           <div class="col-lg-5">
             <div class="p-5">
-              <form action="/charge" method="post" id="payment-form">
-                <div class="form-row">
-                  <label for="card-element">
-                    Credit or debit card
-                  </label>
-                  <div id="card-element">
-                    <!-- A Stripe Element will be inserted here. -->
-                  </div>
+             
+                <h1 class="h4 text-gray-900 mb-4">Selected Plan</h1>
+            
+              <div class="form-group">
+                <small>Plan</small>
+                <p>{{ Auth::user()->account_type }}</p>
+            </div>
+             <hr>
+             <div class="form-group">
+              <small>Price</small>
+              <p>
+                @if(Auth::user()->account_type === 'Free')
+                {{ number_format(0, 2) }}
+              @elseif(Auth::user()->account_type === 'Medium')
+              {{ number_format(950, 2) }}
+              @elseif(Auth::user()->account_type === 'Large')
+              {{ number_format(1800,2) }}
+              @elseif(Auth::user()->account_type === 'Enterprise')
+              {{ number_format(2400,2) }}
+              @elseif(Auth::user()->account_type === 'Corporate')
+              {{ number_format(4800,2) }}
               
-                  <!-- Used to display form errors. -->
-                  <div id="card-errors" role="alert"></div>
+              @endif
+          
+              </p>
+          </div>
+           <hr>
                 </div>
+                
+           @if(Auth::user()->account_type === 'Free')
+           <div class="p-5">
+          
+          <form action="/users/{{ Auth::user()->id }}/charge" method="POST" id="payment-form">
+            @csrf
+          
+            <p class="text-right">  <button type="submit" class="btn btn-primary btn-user btn-block" id="registerButton" onclick="this.form.submit(); this.disabled = true;"> Submit</button> </p>
+          </form>
+
+            </div>
+           @else
+           <div class="p-5">
               
-                <button>Submit Payment</button>
-              </form>
-        
-      
-                </div>
+            <h3 class="h4 text-gray-900 mb-4">Payment Details</h1>
+          
+          <form action="/users/{{ Auth::user()->id }}/charge" method="POST" id="payment-form">
+            @csrf
+            <div class="form-group">
+              <label for="card-element">
+                Credit or debit card
+              </label>
+              <div id="card-element">
+                <!-- A Stripe Element will be inserted here. -->
+              </div>
+          
+              <!-- Used to display form errors. -->
+              <div id="card-errors" role="alert"></div>
+            </div>
+
+            @foreach (['danger', 'warning', 'success', 'info'] as $key)
+            @if(Session::has($key))
+           
+              <strong class="text-danger">{{ Session::get($key) }}</strong>
+          
+            @endif
+            @endforeach
+            <br>
+            <button type="submit" class="btn btn-primary btn-user btn-block" > Submit Payment</button>
+          </form>
+    
+  
+            </div>
+
+           @endif
             </div>
             
           </div>
@@ -161,6 +217,31 @@
     
 
   </div>
+        <!-- Logout Modal-->
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+                </button>
+              </div>
+              <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+              <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-danger" href="{{ route('logout') }}"
+                      onclick="event.preventDefault();
+                      document.getElementById('logout-form').submit();">
+                    Logout
+              </a>
+              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                  @csrf
+              </form>
+              </div>
+            </div>
+          </div>
+        </div>
 
   <!-- Bootstrap core JavaScript-->
   <script src="{{ asset('/dashboard/vendor/jquery/jquery.min.js') }}"></script>
@@ -173,7 +254,75 @@
   <script src="{{ asset('/dashboard/js/sb-admin-2.min.js') }}"></script>
 
   <script>
-    var stripe = Stripe('pk_test_51HJukYJRwyQ1aYnqdaz49Eiy0wpOyvQRyc5Vy9mt314nJuwjt2XRepCxnum8BJSOlAhALLohFJFmr5Q98nEv4PM900opF4E895');
+   // Create a Stripe client.
+var stripe = Stripe('pk_test_51HJukYJRwyQ1aYnqdaz49Eiy0wpOyvQRyc5Vy9mt314nJuwjt2XRepCxnum8BJSOlAhALLohFJFmr5Q98nEv4PM900opF4E895');
+
+// Create an instance of Elements.
+var elements = stripe.elements();
+
+// Custom styling can be passed to options when creating an Element.
+// (Note that this demo uses a wider set of styles than the guide below.)
+var style = {
+  base: {
+    color: '#32325d',
+    fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+    fontSmoothing: 'antialiased',
+    fontSize: '16px',
+    '::placeholder': {
+      color: '#aab7c4'
+    }
+  },
+  invalid: {
+    color: '#fa755a',
+    iconColor: '#fa755a'
+  }
+};
+
+// Create an instance of the card Element.
+var card = elements.create('card', {style: style});
+
+// Add an instance of the card Element into the `card-element` <div>.
+card.mount('#card-element');
+// Handle real-time validation errors from the card Element.
+card.on('change', function(event) {
+  var displayError = document.getElementById('card-errors');
+  if (event.error) {
+    displayError.textContent = event.error.message;
+  } else {
+    displayError.textContent = '';
+  }
+});
+
+// Handle form submission.
+var form = document.getElementById('payment-form');
+form.addEventListener('submit', function(event) {
+  event.preventDefault();
+
+  stripe.createToken(card).then(function(result) {
+    if (result.error) {
+      // Inform the user if there was an error.
+      var errorElement = document.getElementById('card-errors');
+      errorElement.textContent = result.error.message;
+    } else {
+      // Send the token to your server.
+      stripeTokenHandler(result.token);
+    }
+  });
+});
+
+// Submit the form with the token ID.
+function stripeTokenHandler(token) {
+  // Insert the token ID into the form so it gets submitted to the server
+  var form = document.getElementById('payment-form');
+  var hiddenInput = document.createElement('input');
+  hiddenInput.setAttribute('type', 'hidden');
+  hiddenInput.setAttribute('name', 'stripeToken');
+  hiddenInput.setAttribute('value', token.id);
+  form.appendChild(hiddenInput);
+
+  // Submit the form
+  form.submit();
+}
 
 
   </script>

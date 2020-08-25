@@ -351,11 +351,6 @@
         </nav>
         <!-- End of Topbar -->
         <div class="container-fluid">
-          @foreach (['danger', 'warning', 'success', 'info'] as $key)
-          @if(Session::has($key))
-         <p class="alert alert-{{ $key }}"> <i class="fas fa-check-circle"></i> {{ Session::get($key) }}</p>
-          @endif
-          @endforeach
             <h5 style="text-align:left;">
                 <a href="/units/{{ $tenant->unit_tenant_id }}"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> Back to room</a>
                 @if(Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'admin')

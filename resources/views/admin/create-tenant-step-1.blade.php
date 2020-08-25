@@ -373,9 +373,9 @@
                     <small class="">First Name <span class="text-danger">*</span></small>
                     <input form="addTenantForm1" type="text" class="form-control @error('first_name') is-invalid @enderror" name="first_name" name="first_name" id="first_name" value="{{ session(Auth::user()->id.'first_name') }}" >
                       @error('first_name')
-                      <span class="invalid-feedback" role="alert">
-                          <strong>{{ $message }}</strong>
-                      </span>
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
                       @enderror
                   </div>
                 <div class="col">

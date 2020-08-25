@@ -131,8 +131,6 @@ class UserController extends Controller
                 'user_current_status' => 'online',
             ]);
 
-            Mail::to(Auth::user()->email)->send(new TenantRegisteredMail());
-
             return back();
         }
 
