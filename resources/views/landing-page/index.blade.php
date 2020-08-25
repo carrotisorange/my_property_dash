@@ -53,7 +53,8 @@
           <li><a href="#services">Features</a></li>
           <li><a href="#pricing">Pricing</a></li>
          
-          <li class="drop-down"><a href="">Resources</a>
+          <li><a href="/resources">Resources</a></li>
+          {{-- <li class="drop-down"><a href="">Resources</a>
             <ul>
               <li><a href="#">Drop Down 1</a></li>
               <li class="drop-down"><a href="#">Deep Drop Down</a>
@@ -69,7 +70,7 @@
               <li><a href="#">Drop Down 3</a></li>
               <li><a href="#">Drop Down 4</a></li>
             </ul>
-          </li>
+          </li> --}}
           <li><a href="#contact">Contact</a></li>
 
         </ul>
@@ -380,10 +381,10 @@
         <div class="row">
           <div class="col-lg-9 text-center text-lg-left">
             <h3>Call To Action</h3>
-            <p> Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            {{-- <p> Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p> --}}
           </div>
           <div class="col-lg-3 cta-btn-container text-center">
-            <a class="cta-btn align-middle" href="#">Call To Action</a>
+            <a class="cta-btn align-middle" href="/register">Register your property now!</a>
           </div>
         </div>
 
