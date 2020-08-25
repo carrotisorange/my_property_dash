@@ -5,7 +5,7 @@
     <div class="row">
        <div class="col-md-12">
            <p>Tenant information</p>
-        <table class="table table-striped">
+        <table class="table table-striped" table-striped">
             <tr>
                 <th>Date of reservation</th>
                 <td>{{ $tenant->created_at }}</td>
@@ -42,7 +42,7 @@
             </table>
        
            <p>Breakdowns of the amount to be paid moving-in</p>
-        <table class="table">
+        <table class="table table-striped"">
             <tr>
                 <th class="text-center">#</th>
                 <th>date</th>

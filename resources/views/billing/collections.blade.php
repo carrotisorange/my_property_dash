@@ -367,8 +367,8 @@
             </div>
           </form>
           </div>
-              <div class="table-responsive">
-              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+          <div class="table-responsive text-nowrap">
+              <table class="table table-striped">
                 @foreach ($collections as $day => $collection_list)
                   <tr>
                       <th colspan="8">{{ Carbon\Carbon::parse($day)->addDay()->format('M d Y') }} ({{ $collection_list->count() }} BILLS COLLECTED)</th>

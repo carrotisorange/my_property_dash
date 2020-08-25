@@ -392,9 +392,9 @@
             </div>
         </div>
         <br>
-              <div class="table-responsive">
+        <div class="table-responsive text-nowrap">
                
-                  <table class="table table-bordered" width="100%" cellspacing="0">
+                  <table class="table table-striped" table-bordered" width="100%" cellspacing="0">
                     <thead>
                       <tr>
                           <th>ID</th>

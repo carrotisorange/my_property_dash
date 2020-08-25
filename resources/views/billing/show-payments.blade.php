@@ -368,11 +368,11 @@
               <h6 class="m-0 font-weight-bold text-primary">PAYMENT HISTORY</h6>
             </div>
            <div class="card-body">
-            <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <div class="table-responsive text-nowrap">
+            <table class="table table-striped">
                 @foreach ($collections as $day => $collection_list)
                   <tr>
-                      <th colspan="8">{{ Carbon\Carbon::parse($day)->addDay()->format('M d Y') }} ({{ $collection_list->count()}})</th>
+                      <th colspan="8">{{ Carbon\Carbon::parse($day)->addDay()->format('M d Y') }} ({{ $collection_list->count()}} BILLS COLLECTED)</th>
                   </tr>
                   <tr>
                           <th>AR NO</th>

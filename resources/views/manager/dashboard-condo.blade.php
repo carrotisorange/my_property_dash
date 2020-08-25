@@ -476,8 +476,8 @@
                <h6 class="m-0 font-weight-bold text-primary">DAILY COLLECTION</h6>
              </div>
              <div class="card-body">
-               <div class="table-responsive">
-                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+              <div class="table-responsive text-nowrap">
+                 <table class="table table-striped">
                    <thead>
                     <tr>
                         <th>AR NO</th>
@@ -509,7 +509,7 @@
                     @endforeach
                    </tbody>
                  </table>
-                 <table class="table" id="dataTable" width="100%" cellspacing="0">
+                 <table class="table table-striped"" id="dataTable" width="100%" cellspacing="0">
                   <tr>
                    <th>TOTAL</th>
                    <th class="text-right">{{ number_format($collections_for_the_day->sum('total'),2) }}</th>
@@ -529,9 +529,9 @@
                             <h6 class="m-0 font-weight-bold text-primary">ACTIVE CONCERNS</h6>            
                         </div>
                         <div class="card-body">
-                        <div class="table-responsive">
+                          <div class="table-responsive text-nowrap">
                
-               <table class="table table-bordered" width="100%" cellspacing="0">
+               <table class="table table-striped">
                  <thead>
                    <tr>
                           <th>ID</th>

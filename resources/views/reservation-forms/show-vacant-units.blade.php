@@ -20,7 +20,7 @@
 <div class="tab-content" id="pills-tabContent">
     <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="pills-all-tab">
     <div class="row ">
-        <table class="table">
+        <table class="table table-striped"">
             <tr>
                 <td>
                     @foreach ($units as $item)
@@ -40,7 +40,7 @@
 @foreach ($buildings as $item)
     <div class="tab-pane fade" id="{{ $item->building }}" role="tabpanel" aria-labelledby="pills-{{ $item->building }}-tab">
     <div class="row ">
-        <table class="table">
+        <table class="table table-striped"">
             <tr>
                 <td>
                     @foreach ($units as $building)

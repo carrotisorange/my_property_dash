@@ -368,14 +368,14 @@
         </form>
         </div>
         
-            <div class="table-responsive text-nowrap">
+        <div class="table-responsive text-nowrap">
               <table class="table">
                 <tr>
                   <td colspan="6">Showing <b>{{ $owners->count() }} </b> of {{  $count_owners }}  tenants </td>
                   
                 </tr>
               </table>
-                <table class="table table-striped" >
+                <table class="table table-striped">
                     <thead>
                         <tr>
                           <th>ROOM</th>

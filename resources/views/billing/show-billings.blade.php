@@ -390,7 +390,7 @@
               </ul>
               <p class="text-right">Statement of Accounts</p>
               
-                <table class="table text-right" width="100%" cellspacing="0" cellpadding="0">
+                <table class="table" text-right" width="100%" cellspacing="0" cellpadding="0">
                   <tr>
                     <th>Bill No</th>
                     <th>Description</th>
@@ -413,7 +413,7 @@
                   @endforeach
             
               </table>
-              <table class="table" width="100%" cellspacing="0">
+              <table class="table">
                 <tr>
                  <th>TOTAL AMOUNT PAYABLE</th>
                  <th class="text-right">{{ number_format($total_bills,2) }} </th>

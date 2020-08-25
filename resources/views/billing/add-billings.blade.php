@@ -366,13 +366,13 @@
             {{-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> --}}
           </div>
 
-            <div class="table-responsive">
+          <div class="table-responsive text-nowrap">
         <!-- 404 Error Text -->
         <form id="add_billings" action="/tenants/billings-post" method="POST">
             {{ csrf_field() }}
             </form>
             
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-striped" table-bordered" id="dataTable" width="100%" cellspacing="0">
             <tr>
                 <th  class="text-center">BILL NO</th>
                 <th>NAME</th>

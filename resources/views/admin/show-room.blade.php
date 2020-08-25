@@ -404,8 +404,8 @@
                                  <h6 class="m-0 font-weight-bold text-primary">ROOM INFORMATION</h6>
                                </div>
                                <div class="card-body">
-                            <div class="table-responsive">
-                              <table class="table table-bordered" width="100%" cellspacing="0">
+                                <div class="table-responsive text-nowrap">
+                              <table class="table table-striped">
                                    <tr>
                                         <td>Room No</td>
                                         <td>{{ $unit->unit_no }}</td>
@@ -485,8 +485,8 @@
                       </nav>
                       <div class="tab-content" id="nav-tabContent">
                         <div class="tab-pane fade show active" id="active" role="tabpanel" aria-labelledby="nav-home-tab">
-                          <div class="table-responsive">
-                          <table class="table table-borderless">
+                          <div class="table-responsive text-nowrap">
+                          <table class="table table-striped">
                             @if($tenant_active->count() <= 0)
                             <tr>
                                 <br><br><br>
@@ -511,8 +511,8 @@
                           </div>
                         </div>
                         <div class="tab-pane fade" id="reserved" role="tabpanel" aria-labelledby="nav-profile-tab">
-                          <div class="table-responsive">
-                          <table class="table table-borderless">
+                          <div class="table table-striped"-responsive text-nowrap">
+                          <table class="table table-striped" table-borderless">
                             @if($tenant_reservations->count() <= 0)
                             <tr>
                                 <br><br><br>
@@ -548,8 +548,8 @@
                           </div>
                         </div>
                         <div class="tab-pane fade" id="inactive" role="tabpanel" aria-labelledby="nav-contact-tab">
-                          <div class="table-responsive">
-                          <table class="table table-borderless">
+                          <div class="table-responsive text-nowrap">
+                          <table class="table table-striped">
                             @if($tenant_inactive->count() <= 0)
                             <tr>
                                 <br><br><br>
@@ -589,8 +589,8 @@
                             <h6 class="m-0 font-weight-bold text-primary">OWNERS </h6>
                           </div>
                          <div class="card-body">
-                          <div class="table-responsive">
-                          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                          <div class="table-responsive text-nowrap">
+                          <table class="table table-striped">
                           <tr>
               
                             <th>OWNER</th>
@@ -634,8 +634,8 @@
               <h6 class="m-0 font-weight-bold text-primary">BILLING HISTORY</h6>
             </div>
            <div class="card-body">
-            <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <div class="table-responsive text-nowrap">
+            <table class="table table-striped">
             <tr>
                     <th>BILL NO</th>
                     <th>TENANT</th>
@@ -685,9 +685,9 @@
               <h6 class="m-0 font-weight-bold text-primary">CONCERNS HISTORY</h6>
             </div>
            <div class="card-body">
-            <div class="table-responsive">
+            <div class="table-responsive text-nowrap">
             
-            <table class="table table-bordered" width="100%" cellspacing="0">
+            <table class="table table-striped" >
                  <thead>
                    <tr>
                        <th>ID</th>

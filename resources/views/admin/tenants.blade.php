@@ -385,14 +385,14 @@
               </div>
           </form>
           </div>
-              <div class="table-responsive text-nowrap">
+          <div class="table-responsive text-nowrap">
                 <table class="table">
                   <tr>
                     <td colspan="6">Showing <b>{{ $tenants->count() }} </b> of {{ $count_tenants }} tenants </td>
                     
                   </tr>
                 </table>
-                  <table class="table table-striped">
+                  <table class="table table-striped" table-striped">
                     <thead>
                       <tr>
                           <th>TENANT</th>

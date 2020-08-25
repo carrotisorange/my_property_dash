@@ -421,8 +421,8 @@
         </div>
       
         <br>
-        <div class="table-responsive">
-        <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+        <div class="table-responsive text-nowrap">
+        <table class="table table-striped">
           <thead>
             <tr>
               <th>ID</th>

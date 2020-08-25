@@ -367,12 +367,12 @@
             {{-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> --}}
           </div>
         <!-- 404 Error Text -->
-        <div class="table-responsive">
+        <div class="table-responsive text-nowrap">
         <form id="add_billings" action="/tenants/billings-post" method="POST">
             {{ csrf_field() }}
             </form>
-            <div class="table-responsive">
-              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            
+              <table class="table table-striped">
             <tr>
                 <th  class="text-center">BILL NO</th>
                 <th>NAME</th>
@@ -407,7 +407,7 @@
             </tr>
            @endforeach
         </table>
-            </div>
+            
         <p class="text-right">
             <a href="/bills" class="bd-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm"><i class="fas fa-times"></i> Cancel</a>
             <button type="submit" form="add_billings" id="addBillsButton" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"  onclick="return confirm('Are you sure you want to delete this item?');"><i class="fas fa-check"></i> Add Bills</button>

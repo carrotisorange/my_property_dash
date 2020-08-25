@@ -195,7 +195,7 @@
       <h5>Payment Requirements</h5>
     <div class="row">
         <div class="col">
-             <table class="table table-borderless" id="tab_logic">
+             <table class="table table-striped" table-borderless" id="tab_logic">
                      <input form="reservationForm" type="hidden" id="no_of_items" name="no_of_items" value="3">
                  <tr id='addr0'>
                      

@@ -26,39 +26,41 @@
             <li><b>Room:</b> {{ $unit }} </li>
           </ul>
           <p class="text-right">Acknowledgment Receipt</p>
-            <table class="table text-right" width="100%" cellspacing="0" cellpadding="0">
-              <tr>
-              
-                <th>Bill No</th>
-                <th>Description</th>
-                <th>Date</th>
-                <th>Amount</th>
-              </tr>
-              @foreach ($payment_breakdown as $item)
-              <tr>
-                
-                <td>{{ $item->payment_billing_no }}</th>
-                <td>{{ $item->payment_note }}</td>
-                <td>
-                  @if($item->or_number === null)
-                  -
-                  @else
-                  {{ $item->or_number }}
-                  @endif
-                <td >{{ number_format($item->amt_paid,2) }}</td>
-              </tr>
-              @endforeach
-          </table>
-          <table class="table" width="100%" cellspacing="0">
+        <div class="table-responsive text-nowrap">
+          <table class="table text-right" >
             <tr>
-             <th>TOTAL</th>
-             <th class="text-right">{{ number_format($payment_amt,2) }}</th>
+            
+              <th>Bill No</th>
+              <th>Description</th>
+              <th>Date</th>
+              <th>Amount</th>
             </tr>
+            @foreach ($payment_breakdown as $item)
             <tr>
-              <th>RUNNING BALANCE</th>
-              <th class="text-right">{{ number_format($running_balance,2) }}</th>
-             </tr>
-          </table>
+              
+              <td>{{ $item->payment_billing_no }}</th>
+              <td>{{ $item->payment_note }}</td>
+              <td>
+                @if($item->or_number === null)
+                -
+                @else
+                {{ $item->or_number }}
+                @endif
+              <td >{{ number_format($item->amt_paid,2) }}</td>
+            </tr>
+            @endforeach
+        </table>
+        <table class="table" width="100%" cellspacing="0">
+          <tr>
+           <th>TOTAL</th>
+           <th class="text-right">{{ number_format($payment_amt,2) }}</th>
+          </tr>
+          <tr>
+            <th>RUNNING BALANCE</th>
+            <th class="text-right">{{ number_format($running_balance,2) }}</th>
+           </tr>
+        </table>
+        </div>
           <ul style="list-style-type: none">
             <li><b>Issued by:</b> {{ Auth::user()->name }}</li>
             <li>{{ ucfirst(Auth::user()->user_type).' of '. Auth::user()->property }}</li>

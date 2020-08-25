@@ -238,8 +238,8 @@
                                  <h6 class="m-0 font-weight-bold text-primary">TENANT INFORMATION</h6>
                                </div>
                                <div class="card-body">
-                            <div class="table-responsive">
-                              <table class="table table-bordered" width="100%" cellspacing="0">
+                                <div class="table-responsive text-nowrap">
+                              <table class="table table-striped">
                                    <tr>
                                         <td>Tenant</th>
                                         <td><a href="/units/{{ $unit->unit_id }}/tenants/{{ $tenant->tenant_id }}/">{{ $tenant->first_name.' '.$tenant->last_name }}</a></td>
@@ -284,8 +284,8 @@
                                 <!-- end -->
                               </div>
                                <div class="card-body">
-                            <div class="table-responsive">
-                              <table class="table table-bordered" width="100%" cellspacing="0">
+                            <div class="table table-striped"-responsive text-nowrap">
+                              <table class="table table-striped" table-bordered" width="100%" cellspacing="0">
                                     <tr>
                                         <td>Date Reported</td>
                                         <td>{{ Carbon\Carbon::parse($concern->date_reported)->format('M d Y') }}</td>

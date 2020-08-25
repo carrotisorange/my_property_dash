@@ -248,8 +248,8 @@
             <a href="/units/{{ $unit->unit_id }}/owners/{{ $investor->unit_owner_id }}/edit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" ><i class="fas fa-edit fa-sm text-white-50"></i> Edit Owner</a>  
           </div>
         <!-- 404 Error Text -->
-        <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <div class="table-responsive text-nowrap">
+            <table class="table table-striped" >
                <tr>
                    <td>Owner</td>
                    <td>{{ $investor->unit_owner }}</td>

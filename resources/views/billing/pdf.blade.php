@@ -32,7 +32,8 @@
             <li><b>Room:</b> {{ $unit }}</li>
           </ul>
           <p class="text-right">Statement of Accounts</p>
-            <table class="table text-right" width="100%" cellspacing="0" cellpadding="0">
+          <div class="table-responsive text-nowrap">
+            <table class="table text-right">
               <tr>
                 <th>Bill No</th>
                 <th>Description</th>
@@ -69,7 +70,7 @@
               @endforeach
         
           </table>
-          <table class="table" width="100%" cellspacing="0">
+          <table class="table" >
             <tr>
              <th>TOTAL AMOUNT PAYABLE</th>
              <th class="text-right">{{ number_format($total_bills,2) }} </th>
@@ -83,6 +84,7 @@
              </tr>
             @endif  
           </table>
+          </div>
          
           
           <div class="card-body">

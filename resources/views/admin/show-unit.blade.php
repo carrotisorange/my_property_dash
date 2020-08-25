@@ -388,8 +388,8 @@
                                  <h6 class="m-0 font-weight-bold text-primary">UNIT INFORMATION</h6>
                                </div>
                                <div class="card-body">
-                            <div class="table-responsive">
-                              <table class="table table-bordered" width="100%" cellspacing="0">
+                                <div class="table-responsive text-nowrap">
+                              <table class="table table-striped" >
                                    <tr>
                                         <td>Unit No</td>
                                         <td>{{ $unit->unit_no }}</td>
@@ -437,8 +437,8 @@
                           <h6 class="m-0 font-weight-bold text-primary">OWNERS </h6>
                         </div>
                        <div class="card-body">
-                        <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <div class="table-responsive text-nowrap">
+                        <table class="table table-striped">
                         <tr>
             
                           <th>OWNER</th>
@@ -481,8 +481,8 @@
               <h6 class="m-0 font-weight-bold text-primary">BILLING HISTORY</h6>
             </div>
            <div class="card-body">
-            <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <div class="table-responsive text-nowrap">
+            <table class="table table-striped" >
             <tr>
                     <th>BILL NO</th>
                     <th>OWNER</th>
@@ -532,9 +532,9 @@
               <h6 class="m-0 font-weight-bold text-primary">CONCERNS HISTORY</h6>
             </div>
            <div class="card-body">
-            <div class="table-responsive">
+            <div class="table-responsive text-nowrap">
             
-            <table class="table table-bordered" width="100%" cellspacing="0">
+            <table class="table table-striped" >
                  <thead>
                    <tr>
                     

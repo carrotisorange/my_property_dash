@@ -359,8 +359,8 @@
           </div>
     
                      <div class="card-body">
-                       <div class="table-responsive">
-                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                      <div class="table-responsive text-nowrap">
+                         <table class="table table-striped" >
                            <thead>
                             <tr>
                                 <th class="text-center">#</th>
@@ -392,7 +392,7 @@
                             @endforeach
                            </tbody>
                          </table>
-                         <table class="table" id="dataTable" width="100%" cellspacing="0">
+                         <table class="table table-striped"" id="dataTable" width="100%" cellspacing="0">
                            <tr>
                             <th>TOTAL</th>
                             <th class="text-right">{{ number_format($payments->sum('amt_paid'),2) }}</th>

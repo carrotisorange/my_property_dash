@@ -389,12 +389,12 @@
             </div>
           </div>
         <!-- 404 Error Text -->
-        <div class="table-responsive">
-          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <div class="table-responsive text-nowrap">
+          <table class="table table-striped">
                 
                 @foreach ($bills as $day => $bills_list)
                   <tr>
-                      <th colspan="8">{{ Carbon\Carbon::parse($day)->addDay()->format('M d Y') }} ({{ $bills_list->count()}} BILLS POSTED)</th>
+                      <th colspan="8">{{ Carbon\Carbon::parse($day)->addDay()->format('M d Y') }} ({{$bills_list->count()}} BILLS POSTED)</th>
                   </tr>
                   <tr>
                     <th>BILL NO</th>
