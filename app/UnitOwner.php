@@ -22,6 +22,7 @@ class UnitOwner extends Model
                                 'discount',
                                 'investment_price',
                                 'investment_type',
-                                'unit_owner'
+                                'unit_owner',
+                                'date_accepted'
                             ];
 }

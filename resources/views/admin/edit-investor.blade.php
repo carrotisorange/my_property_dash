@@ -299,7 +299,7 @@
                         
                         <div class="col">
                           <small>Date Accepted</small>
-                          <input form="editInvestorForm" class="form-control" type="date" name="date_accepted" value="{{ $investor->date_invested }}" >
+                          <input form="editInvestorForm" class="form-control" type="date" name="date_accepted" value="{{ $unit->date_accepted }}" >
                       </div>  
                       
                        <div class="col">

@@ -117,6 +117,7 @@ class UnitOwnersController extends Controller
      */
     public function update(Request $request, $unit_id, $unit_owner_id)
     {
+
         DB::table('unit_owners')
         ->where('unit_owner_id',$unit_owner_id )
         ->update([
@@ -126,9 +127,14 @@ class UnitOwnersController extends Controller
             'investor_address' => $request->investor_address,
             'investor_representative' => $request->investor_representative,
             'date_invested' => $request->date_invested,
-            'date_accepted' => $request->date_accepted,
             'investment_price' => $request->investment_price,
             'investment_type' => $request->investment_type
+        ]);
+
+        DB::table('units')
+        ->where('unit_id', $unit_id)
+        ->update([
+            'date_accepted' => $request->date_accepted,
         ]);
 
         return redirect('/units/'.$unit_id)->with('success', 'Owner information has been updated!');
