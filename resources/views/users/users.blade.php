@@ -431,7 +431,13 @@
                 <th>TYPE</th>
                 <th>PROPERTY</th>
                 <th>PROPERTY TYPE</th>
+                <th>PROPERTY OWNERSHIP</th>
+                <th>EMAIL VERIFIED AT</th>
+                <th>TRIAL STARTS AT</th>
+                <th>PLAN</th>
+                <th>LAST LOGIN IP</th>
                 <th>LAST LOGIN</th>
+                <th>LAST LOGOUT</th>
                 <th>SESSION</th>
               </tr>
           </thead>
@@ -446,7 +452,14 @@
                <td>{{ $item->user_type }}</td>
                <td>{{ $item->property }}</td>
                <td>{{ $item->property_type }}</td>
+               <td>{{ $item->property_ownership }}</td>
+               <td>{{ $item->email_verified_at }}</td>
+               <td>{{ $item->trial_starts_at }}</td>
+               <td>{{ $item->account_type }}</td>
+               <td>{{ $item->last_login_ip }}</td>
                <td>{{ $item->last_login_at }}</td>
+               <td>{{ $item->last_logout_at }}</td>
+               
                <?php  
                   $diffInMinutes = Carbon\Carbon::parse($item->last_logout_at)->diffInMinutes();
                   $diffInHours = Carbon\Carbon::parse($item->last_logout_at)->diffInHours();
