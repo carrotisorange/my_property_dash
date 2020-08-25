@@ -19,6 +19,7 @@
   <!-- Custom styles for this template-->
   <!-- Custom styles for this template-->
   <link href="{{ asset('dashboard/css/sb-admin-2.min.css') }}" rel="stylesheet">
+  
 
 </head>
 
@@ -384,14 +385,14 @@
               </div>
           </form>
           </div>
-              <div class="table-responsive">
-                <table class="table table-borderless" width="100%" cellspacing="0">
+              <div class="table-responsive text-nowrap">
+                <table class="table">
                   <tr>
                     <td colspan="6">Showing <b>{{ $tenants->count() }} </b> of {{ $count_tenants }} tenants </td>
                     
                   </tr>
                 </table>
-                  <table class="table table-bordered" width="100%" cellspacing="0">
+                  <table class="table table-striped">
                     <thead>
                       <tr>
                           <th>TENANT</th>
@@ -449,7 +450,7 @@
                       @endforeach
                     </tbody>
                   </table>
-                  {{ $tenants->links() }}
+              
                 </div>
           
           </div>

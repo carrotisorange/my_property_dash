@@ -19,6 +19,12 @@
   <!-- Custom styles for this template-->
   <link href="{{ asset('dashboard/css/sb-admin-2.min.css') }}" rel="stylesheet">
 
+  <style>
+    table th {
+    width: auto !important;
+}
+  </style>
+
 </head>
 
 <body id="page-top">
@@ -399,9 +405,9 @@
                 <td>{{ $item->building.' '.$item->unit_no }}</td>
                 <td>
                   @if($item->tenants_note === 'new' )
-                    <input form="add_billings" type="text" class='col-md-8' name="details{{ $details_ctr++  }}" value="{{ Carbon\Carbon::parse($item->movein_date)->startOfMonth()->format('M d') }}-{{ Carbon\Carbon::now()->endOfMonth()->format('d Y') }} " >
+                    <input form="add_billings" type="text" name="details{{ $details_ctr++  }}" value="{{ Carbon\Carbon::parse($item->movein_date)->startOfMonth()->format('M d') }}-{{ Carbon\Carbon::now()->endOfMonth()->format('d Y') }} " >
                   @else
-                    <input form="add_billings" type="text" class='col-md-8' name="details{{ $details_ctr++  }}" value="{{ Carbon\Carbon::now()->startOfMonth()->format('M d') }}-{{ Carbon\Carbon::now()->endOfMonth()->format('d Y') }}" >
+                    <input form="add_billings" type="text"  name="details{{ $details_ctr++  }}" value="{{ Carbon\Carbon::now()->startOfMonth()->format('M d') }}-{{ Carbon\Carbon::now()->endOfMonth()->format('d Y') }}" >
                   @endif
                 </td>
                 <td>
@@ -411,12 +417,12 @@
                 
                 ?>
                   @if($item->tenants_note === 'new' )
-                    <input form="add_billings" class="col-md-6" type="number" name="amt{{ $amt_ctr++ }}" step="0.01"  value="{{ $prorated_monthly_rent }}" oninput="this.value = Math.abs(this.value)">
+                    <input form="add_billings" type="number" name="amt{{ $amt_ctr++ }}" step="0.01"  value="{{ $prorated_monthly_rent }}" oninput="this.value = Math.abs(this.value)">
                     @if($item->tenants_note === 'new' )
                        <span class="badge badge-danger">prorated</span>
                     @endif
                   @else
-                    <input form="add_billings" class="col-md-6" type="number" name="amt{{ $amt_ctr++ }}" step="0.01"  value="{{ $item->tenant_monthly_rent }}" oninput="this.value = Math.abs(this.value)"> 
+                    <input form="add_billings" type="number" name="amt{{ $amt_ctr++ }}" step="0.01"  value="{{ $item->tenant_monthly_rent }}" oninput="this.value = Math.abs(this.value)"> 
                     @if($item->tenants_note === 'new' )
                       <span class="badge badge-danger">prorated</span>
                     @endif

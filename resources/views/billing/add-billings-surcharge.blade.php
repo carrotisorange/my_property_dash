@@ -19,6 +19,12 @@
   <!-- Custom styles for this template-->
   <link href="{{ asset('dashboard/css/sb-admin-2.min.css') }}" rel="stylesheet">
 
+  <style>
+    table th {
+    width: auto !important;
+}
+  </style>
+
 </head>
 
 <body id="page-top">
@@ -372,7 +378,7 @@
                 <th>NAME</th>
                 <th>ROOM</th>   
                 {{-- <th>DESCRIPTION</th>   --}}
-                <th>PREVIOUS BILL</th>     
+                <th>CURRENT BILL</th>     
                 <th>SURCHARGE (+10%)</th>
             </tr>
            <?php
@@ -397,7 +403,7 @@
                     @endif
                   <td>{{ $item->building.' '.$item->unit_no }}</td>
                   <td>{{ number_format($item->total_bills,2) }}</td>
-                  <td><input form="add_billings" class=" col-md-6" type="number" name="amt{{ $amt_ctr++ }}" step="0.01" value="{{ $item->total_bills * .1 }}" oninput="this.value = Math.abs(this.value)"></td>
+                  <td><input form="add_billings" type="number" name="amt{{ $amt_ctr++ }}" step="0.01" value="{{ $item->total_bills * .1 }}" oninput="this.value = Math.abs(this.value)"></td>
             </tr>
            @endforeach
         </table>

@@ -19,6 +19,11 @@
   <!-- Custom styles for this template-->
   <link href="{{ asset('dashboard/css/sb-admin-2.min.css') }}" rel="stylesheet">
 
+  <style>
+    table th {
+    width: auto !important;
+}
+  </style>
 </head>
 
 <body id="page-top">
@@ -397,10 +402,10 @@
                   @endif
                 <td>{{ $item->building.' '.$item->unit_no }}</td>
                 <td>
-                    <input form="add_billings" type="text" class='col-md-8' name="details{{ $details_ctr++  }}" value="{{ Carbon\Carbon::now()->startOfMonth()->format('M d') }}-{{ Carbon\Carbon::now()->endOfMonth()->format('d Y') }} " >
+                    <input form="add_billings" type="text" name="details{{ $details_ctr++  }}" value="{{ Carbon\Carbon::now()->startOfMonth()->format('M d') }}-{{ Carbon\Carbon::now()->endOfMonth()->format('d Y') }} " >
                 </td>
                 <td>
-                    <input form="add_billings" class="col-md-6" type="number" name="amt{{ $amt_ctr++ }}" value="0" step="0.01" show-billingsoninput="this.value = Math.abs(this.value)">
+                    <input form="add_billings" type="number" name="amt{{ $amt_ctr++ }}" value="0" step="0.01" show-billingsoninput="this.value = Math.abs(this.value)">
                 </td>
            </tr>
            @endforeach
