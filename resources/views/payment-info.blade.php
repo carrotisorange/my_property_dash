@@ -19,8 +19,41 @@
   <!-- Custom styles for this template-->
   <link href="{{ asset('/dashboard/css/sb-admin-2.min.css') }}" rel="stylesheet">
 
-  <script src="https://js.stripe.com/v2/"></script>
- <script src="https://js.stripe.com/v3/"></script>
+  <script src="https://js.stripe.com/v3/"></script>
+
+<style>
+/**
+ * The CSS shown here will not be introduced in the Quickstart guide, but shows
+ * how you can use CSS to style your Element's container.
+ */
+.StripeElement {
+  box-sizing: border-box;
+
+  height: 40px;
+
+  padding: 10px 12px;
+
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background-color: white;
+
+  box-shadow: 0 1px 3px 0 #e6ebf1;
+  -webkit-transition: box-shadow 150ms ease;
+  transition: box-shadow 150ms ease;
+}
+
+.StripeElement--focus {
+  box-shadow: 0 1px 3px 0 #cfd7df;
+}
+
+.StripeElement--invalid {
+  border-color: #fa755a;
+}
+
+.StripeElement--webkit-autofill {
+  background-color: #fefde5 !important;}
+
+</style>
 </head>
 
 <body class="bg-gradient-primary">
@@ -100,44 +133,21 @@
           </div>
           <div class="col-lg-5">
             <div class="p-5">
-                <div class="">
-                  <h1 class="h4 text-gray-900 mb-4">Selected Plan: <b>{{ Auth::user()->account_type }}</b> </h1>
+              <form action="/charge" method="post" id="payment-form">
+                <div class="form-row">
+                  <label for="card-element">
+                    Credit or debit card
+                  </label>
+                  <div id="card-element">
+                    <!-- A Stripe Element will be inserted here. -->
+                  </div>
+              
+                  <!-- Used to display form errors. -->
+                  <div id="card-errors" role="alert"></div>
                 </div>
-                <form action="/charge" class="fo" method="post" id="payment-form">
-                    <div class="card-errors"></div>
-                  
-                    <div class="form-row">
-                      <label>
-                        <span>Card number</span>
-                        <input type="text" size="20" data-stripe="number">
-                      </label>
-                    </div>
-                  
-                    <div class="form-row">
-                      <label>
-                        <span>Expiration (MM/YY)</span>
-                        <input type="text" size="2" data-stripe="exp_month">
-                      </label>
-                      <span> / </span>
-                      <input type="text" size="2" data-stripe="exp_year">
-                    </div>
-                  
-                    <div class="form-row">
-                      <label>
-                        <span>CVC</span>
-                        <input type="text" size="4" data-stripe="cvc">
-                      </label>
-                    </div>
-                  
-                    <div class="form-row">
-                      <label>
-                        <span>Billing Zip</span>
-                        <input type="text" size="6" data-stripe="address_zip">
-                      </label>
-                    </div>
-                  
-                    <input type="submit" class="submit" value="Submit Payment">
-                  </form>
+              
+                <button>Submit Payment</button>
+              </form>
         
       
                 </div>
@@ -161,6 +171,12 @@
 
   <!-- Custom scripts for all pages-->
   <script src="{{ asset('/dashboard/js/sb-admin-2.min.js') }}"></script>
+
+  <script>
+    var stripe = Stripe('pk_test_51HJukYJRwyQ1aYnqdaz49Eiy0wpOyvQRyc5Vy9mt314nJuwjt2XRepCxnum8BJSOlAhALLohFJFmr5Q98nEv4PM900opF4E895');
+
+
+  </script>
 
   
 </body>

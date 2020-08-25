@@ -685,11 +685,11 @@
                                 </div>
                                 <div class="form-group">
                                     <small>Email</small>
-                                    <input form="addInvestorForm" type="email" class="form-control" name="investor_email_address" id="investor_email_address" required>
+                                    <input form="addInvestorForm" type="email" class="form-control" name="investor_email_address" id="investor_email_address">
                                 </div>
                                 <div class="form-group">
                                     <small>Mobile</small>
-                                    <input form="addInvestorForm" type="text" class="form-control" name="investor_contact_no" id="contact_no" required>
+                                    <input form="addInvestorForm" type="text" class="form-control" name="investor_contact_no" id="contact_no">
                                 </div>            
                             </div>
                             <div class="modal-footer">
