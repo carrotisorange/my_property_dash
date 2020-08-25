@@ -416,7 +416,7 @@
               <div class="row">
                 <div class="col">
                   <small>Property Type</small>
-                  <input type="email" class="form-control form-control-user" value="{{ $user->property_type }}" disabled>
+                  <input type="" class="form-control form-control-user" value="{{ $user->property_type }}" disabled>
                  
                 </div>
               </div>
@@ -428,6 +428,7 @@
                  
                 </div>
               </div>
+
 
 
               
