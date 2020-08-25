@@ -29,7 +29,7 @@
 
       <!-- Sidebar Toggle (Topbar) -->
        <!-- Nav Item - Dashboard -->
-    
+       <span class="mx-3">The Property Manager</span>
     
       <!-- Topbar Navbar -->
       <ul class="navbar-nav ml-auto">

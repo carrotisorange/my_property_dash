@@ -23,12 +23,11 @@
 
 <body class="bg-gradient-primary">
          <!-- Topbar -->
-     <!-- Topbar -->
      <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
       <!-- Sidebar Toggle (Topbar) -->
        <!-- Nav Item - Dashboard -->
-    
+       <span class="mx-3">The Property Manager</span>
     
       <!-- Topbar Navbar -->
       <ul class="navbar-nav ml-auto">

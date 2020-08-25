@@ -51,9 +51,9 @@ Route::get('/board', function(Request $request){
     }elseif(Auth::user()->property !== null && Auth::user()->account_type === null){
         return view('select-plan');
     }
-    // elseif(Auth::user()->property !== null && Auth::user()->account_type !== null && Auth::user()->stripe_id === null){
-    //     return view('payment-info');
-    // }   
+     elseif(Auth::user()->property !== null && Auth::user()->account_type !== null && Auth::user()->stripe_id === null){
+         return view('payment-info');
+     }   
     else{
         $pending_concerns = DB::table('tenants')
         ->join('units', 'unit_id', 'unit_tenant_id')
