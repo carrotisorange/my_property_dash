@@ -167,8 +167,8 @@
               velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
               culpa qui officia deserunt mollit anim id est laborum.
             </p>
-            <a href="/register" class="btn-learn-more">Register</a>
-            <a href="#pricing" class="btn-learn-more">See Pricing</a>
+            <a href="#quick" class="btn-learn-more">Quick Start</a>
+           
           </div>
         </div>
 
