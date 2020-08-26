@@ -118,41 +118,6 @@ class UserController extends Controller
      */
     public function update(Request $request, $user_id)
     {
-        if($request->action === 'selecting_plan'){
-            $request->validate([
-                'account_type' => 'required',
-            ]);
-
-            DB::table('users')->where('id', Auth::user()->id)
-            ->update([
-                'account_type' => $request->account_type,
-                'last_login_at' => Carbon::now(),
-                'last_login_ip' => request()->ip(),
-                'user_current_status' => 'online',
-            ]);
-
-            Mail::to(Auth::user()->email)->send(new TenantRegisteredMail());
-
-            return back();
-        }
-
-
-        if($request->action === 'adding_property'){
-            $request->validate([
-                'property' => 'required|unique:users|max:255',
-                'property_ownership' => 'required',
-                'property_type' => 'required',
-            ]);
-
-            DB::table('users')->where('id', Auth::user()->id)
-            ->update([
-                'property' => $request->property,
-                'property_type' => $request->property_type,
-                'property_ownership' => $request->property_ownership 
-            ]);
-
-            return back();
-        }
         
         if($request->action === 'change_footer_message' ){
             DB::table('users')

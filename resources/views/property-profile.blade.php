@@ -71,21 +71,12 @@
                 <h1 class="h4 text-gray-900 mb-4">Property Profile</h1>
               </div>
               
-                <form id="addPropertyForm" action="/users/{{ Auth::user()->id }}" method="POST">
+                <form id="addPropertyForm" action="/users/{{ Auth::user()->id }}/property" method="POST">
                 @method('put')
                 {{ csrf_field() }}
-                <input form="addPropertyForm" type="hidden" name="action" value="adding_property" >
                 </form>
-                <div class="form-group">
-                  <small>Name</small>
-                  <p>{{ Auth::user()->name }}</p>
-              </div>
-              <hr>
-              <div class="form-group">
-                  <small>Email</small>
-                  <p>{{ Auth::user()->email }}</p>
-              </div>
-              <hr>
+               
+             
              <div class="form-group">
                  <small>Name of your property</small>
                   <input form="addPropertyForm" id="property" type="text" class="form-control @error('property') is-invalid @enderror" name="property" value="{{ old('property') }}" required autocomplete="property" placeholder="Name of your property">
@@ -97,26 +88,11 @@
                  @enderror
               
                 </div>
-                <hr>
+                
               
                 <div class="form-group row">
-                 
-                <div class="col-sm-6">
-                  <small>Property Ownership</small>
-                  <select form="addPropertyForm" id="property_ownership" class="form-control form @error('property_ownership') is-invalid @enderror" name="property_ownership" value="{{ old('property_ownership') }}" required autocomplete="property_ownership">
-                    <option value="">Please select one</option>
-                    <option value="Single Owner">Single Owner</option>
-                    <option value="Multiple Owners">Multiple Owners</option>
-                  </select>
-              
-                     @error('property_ownership')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                    </div>
-                    
-              
+            
+                
                <div class="col-sm-6">
                  <small>Property Type</small>
                  <select form="addPropertyForm" id="property_type" type="text" class="form-control @error('property_type') is-invalid @enderror" name="property_type" value="{{ old('property_type') }}" required autocomplete="property_type" required>
@@ -133,6 +109,22 @@
                        </span>
                    @enderror
                    </div>
+
+                        
+                <div class="col-sm-6">
+                  <small>Property Ownership</small>
+                  <select form="addPropertyForm" id="property_ownership" class="form-control form @error('property_ownership') is-invalid @enderror" name="property_ownership" value="{{ old('property_ownership') }}" required autocomplete="property_ownership">
+                    <option value="">Please select one</option>
+                    <option value="Single Owner">Single Owner</option>
+                    <option value="Multiple Owners">Multiple Owners</option>
+                  </select>
+              
+                     @error('property_ownership')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                    </div>
                   </div> 
                   <hr>
 

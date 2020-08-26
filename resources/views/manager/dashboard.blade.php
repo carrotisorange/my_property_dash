@@ -1022,7 +1022,7 @@
             </button>
           </div>
             <div class="modal-body">
-				      <p class="text-center">You've just completed completed setting-up your property.
+				      <p class="text-center">You've just completed setting-up your property.
                 <br>
                 Would you like to start adding rooms?
               </p>

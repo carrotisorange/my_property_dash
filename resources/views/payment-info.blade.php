@@ -133,84 +133,142 @@
                
           </div>
           <div class="col-lg-5">
-            <div class="p-5">
-             
-                <h1 class="h4 text-gray-900 mb-4">Selected Plan</h1>
-            
-              <div class="form-group">
-                <small>Plan</small>
-                <p>{{ Auth::user()->account_type }}</p>
-            </div>
-             <hr>
-             <div class="form-group">
-              <small>Price</small>
-              <p>
-                @if(Auth::user()->account_type === 'Free')
-                {{ number_format(0, 2) }}
-              @elseif(Auth::user()->account_type === 'Medium')
-              {{ number_format(950, 2) }}
-              @elseif(Auth::user()->account_type === 'Large')
-              {{ number_format(1800,2) }}
-              @elseif(Auth::user()->account_type === 'Enterprise')
-              {{ number_format(2400,2) }}
-              @elseif(Auth::user()->account_type === 'Corporate')
-              {{ number_format(4800,2) }}
-              
-              @endif
-          
-              </p>
-          </div>
-           <hr>
-                </div>
-                
-           @if(Auth::user()->account_type === 'Free')
-           <div class="p-5">
-          
-          <form action="/users/{{ Auth::user()->id }}/charge" method="POST" id="payment-form">
-            @csrf
-          
-            <p class="text-right">  <button type="submit" class="btn btn-primary btn-user btn-block" id="registerButton" onclick="this.form.submit(); this.disabled = true;"> Submit</button> </p>
-          </form>
-
-            </div>
-           @else
-           <div class="p-5">
-              
-            <h3 class="h4 text-gray-900 mb-4">Payment Details</h1>
-          
-          <form action="/users/{{ Auth::user()->id }}/charge" method="POST" id="payment-form">
-            @csrf
-            <div class="form-group">
-              <label for="card-element">
-                Credit or debit card
-              </label>
-              <div id="card-element">
-                <!-- A Stripe Element will be inserted here. -->
-              </div>
-          
-              <!-- Used to display form errors. -->
-              <div id="card-errors" role="alert"></div>
-            </div>
-
-            @foreach (['danger', 'warning', 'success', 'info'] as $key)
-            @if(Session::has($key))
            
-              <strong class="text-danger">{{ Session::get($key) }}</strong>
-          
-            @endif
-            @endforeach
-            <br>
-            <button type="submit" class="btn btn-primary btn-user btn-block" > Submit Payment</button>
-          </form>
-    
-  
-            </div>
+                
+          @if(Auth::user()->account_type === null)
 
-           @endif
+          <div class="p-5">
+             
+            <h1 class="h4 text-gray-900 mb-4">Select Your Plan</h1>
+        
+            <form id="selectingPlanForm" action="/users/{{ Auth::user()->id }}/plan" method="POST">
+              @method('put')
+              {{ csrf_field() }}
+
+          
+          <div class="form-group">
+            <select class="form-control" name="account_type" id="">
+              <option value="account_type">Please select one</option>
+              <option value="Free">Free | 20 rooms | ₱0/mo</option>
+              <option value="Medium">Medium | 50 rooms | ₱950/mo</option>
+              <option value="Large">Large | 100 rooms | ₱1800/mo</option>
+              <option value="Enterprise">Enterprise | 200 rooms | ₱2400/mo</option>
+              <option value="Corporate">Corporate | 500 rooms | ₱4800/mo</option>
+            </select>
+        </div>
+        <button form="selectingPlanForm" type="submit" class="btn btn-primary btn-user btn-block" id="registerButton" onclick="this.form.submit(); this.disabled = true;"> 
+          Submit
+       </button>
+
+      </form>
+  
+       <hr>
             </div>
+          @else
+
+          @if(Auth::user()->account_type === 'Free')
+          <div class="p-5">
             
+             
+              <h1 class="h4 text-gray-900 mb-4">Select Your Plan</h1>
+          
+              <form id="selectingPlanForm" action="/users/{{ Auth::user()->id }}/plan" method="POST">
+                @method('put')
+                {{ csrf_field() }}
+  
+            
+            <div class="form-group">
+              <select class="form-control" name="account_type" id="">
+                <option value="{{ Auth::user()->account_type }}">{{ Auth::user()->account_type }}</option>
+                <option value="Free">Free | 20 rooms | ₱0/mo | +1 mon free trial</option>
+                <option value="Medium">Medium | 50 rooms | ₱950/mo | +1 mon free trial</option>
+                <option value="Large">Large | 100 rooms | ₱1800/mo | +1 mon free trial</option>
+                <option value="Enterprise">Enterprise | 200 rooms | ₱2400/mo | +1 mon free trial</option>
+                <option value="Corporate">Corporate | 500 rooms | ₱4800/mo | +1 mon free trial</option>
+              </select>
           </div>
+          <button form="selectingPlanForm" type="submit" class="btn btn-primary btn-user btn-block" id="registerButton" onclick="this.form.submit(); this.disabled = true;"> 
+            Change Plan
+         </button>
+  
+        </form>
+    
+         <hr>
+              
          
+         <form action="/users/{{ Auth::user()->id }}/charge" method="POST" id="payment-form">
+           @csrf
+         
+           <p class="text-right">  <button type="submit" class="btn btn-primary btn-user btn-block" id="registerButton" onclick="this.form.submit(); this.disabled = true;"> Finish</button> </p>
+         </form>
+
+           </div>
+          @else
+          <div class="p-5">
+        
+             
+              <h1 class="h4 text-gray-900 mb-4">Select Your Plan</h1>
+          
+              <form id="selectingPlanForm" action="/users/{{ Auth::user()->id }}/plan" method="POST">
+                @method('put')
+                {{ csrf_field() }}
+  
+            
+            <div class="form-group">
+              <select class="form-control" name="account_type" id="">
+                <option value="{{ Auth::user()->account_type }}">{{ Auth::user()->account_type }}</option>
+                <option value="Free">Free | 20 rooms | ₱0/mo | +1 mon free trial</option>
+                <option value="Medium">Medium | 50 rooms | ₱950/mo | +1 mon free trial</option>
+                <option value="Large">Large | 100 rooms | ₱1800/mo | +1 mon free trial</option>
+                <option value="Enterprise">Enterprise | 200 rooms | ₱2400/mo | +1 mon free trial</option>
+                <option value="Corporate">Corporate | 500 rooms | ₱4800/mo | +1 mon free trial</option>
+              </select>
+          </div>
+          <button form="selectingPlanForm" type="submit" class="btn btn-primary btn-user btn-block" id="registerButton" onclick="this.form.submit(); this.disabled = true;"> 
+            Change Plan
+         </button>
+  
+        </form>
+    
+         <hr>
+             
+           <h3 class="h4 text-gray-900 mb-4">Payment Details</h1>
+         
+         <form action="/users/{{ Auth::user()->id }}/charge" method="POST" id="payment-form">
+           @csrf
+           <div class="form-group">
+             <label for="card-element">
+               Credit or debit card
+             </label>
+             <div id="card-element">
+               <!-- A Stripe Element will be inserted here. -->
+             </div>
+         
+             <!-- Used to display form errors. -->
+             <div id="card-errors" role="alert"></div>
+           </div>
+           
+           <small class="text-danger">Card won't be charge until {{ Carbon\Carbon::now()->addMonth()->format('M d Y')  }}.</small>
+           <br>
+           @foreach (['danger', 'warning', 'success', 'info'] as $key)
+           @if(Session::has($key))
+          
+             <strong class="text-danger">{{ Session::get($key) }}</strong>
+         
+           @endif
+           @endforeach
+           <br>
+           
+           <button type="submit" class="btn btn-primary btn-user btn-block" onclick = "this.disabled = true; "> Submit Payment</button>
+         </form>
+   
+           </div>
+
+          @endif
+
+          @endif
+            </div>
+          </div>
         </div>
       </div>
     </div>

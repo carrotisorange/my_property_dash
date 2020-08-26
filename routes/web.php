@@ -50,12 +50,12 @@ Route::get('/', function(){
 Route::get('/board', function(Request $request){
     if(Auth::user()->property === null){
         return view('property-profile');
-    }elseif(Auth::user()->property !== null && Auth::user()->account_type === null){
-        return view('select-plan');
+    }elseif(Auth::user()->property !== null &&  Auth::user()->account_type === null){
+        return view('payment-info');
     }
-     elseif(Auth::user()->property !== null && Auth::user()->account_type !== null && Auth::user()->trial_ends_at === null){
-         return view('payment-info');
-     }   
+      elseif(Auth::user()->property !== null && Auth::user()->account_type !== null && Auth::user()->trial_ends_at === null){
+          return view('payment-info');
+      }   
     else{
         $pending_concerns = DB::table('tenants')
         ->join('units', 'unit_id', 'unit_tenant_id')
@@ -1092,6 +1092,37 @@ Route::get('sign-in/google/redirect', 'Auth\LoginController@googleRedirect');
 
 Route::get('/board/search', function(){
     return 'asdasd';
+});
+
+Route::put('/users/{user_id}/property', function(Request $request){
+
+    $request->validate([
+        'property' => 'required|unique:users|max:255',
+        'property_ownership' => 'required',
+        'property_type' => 'required',
+    ]);
+
+    DB::table('users')
+    ->where('id', Auth::user()->id)
+    ->update([
+        'property' => $request->property,
+        'property_type' => $request->property_type,
+        'property_ownership' => $request->property_ownership 
+    ]);
+
+    return back();
+
+});
+
+Route::put('/users/{user_id}/plan', function(Request $request){
+    DB::table('users')
+    ->where('id', Auth::user()->id)
+    ->update([
+        'account_type' => $request->account_type,
+    ]);
+
+    return back();
+
 });
 
 Route::post('/users/{user_id}/charge', function(Request $request){
