@@ -78,6 +78,8 @@
 
       <a href="#about" class="get-started-btn scrollto">Get Started</a>
 
+      <a href="/login" class="get-started-btn scrollto">Login</a>
+
     </div>
   </header><!-- End Header -->
 
