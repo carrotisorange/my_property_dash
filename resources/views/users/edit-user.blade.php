@@ -255,7 +255,7 @@
             <div class="row">
               <div class="col">
                 <small>Name</small>
-                <input form="editUserForm" id="name" type="text" class="form-control form-control-user @error('name') is-invalid @enderror" name="name" value="{{ $user->name }}" required autocomplete="name">
+                <input form="editUserForm" id="name" type="text" class="form-control form-control-user @error('name') is-invalid @enderror" name="name" value="{{ $user->name }}" required autocomplete="name" >
                       @error('name')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
@@ -274,6 +274,19 @@
                 @enderror
               </div>
             </div>
+            <hr>
+            {{-- <div class="row">
+              <div class="col">
+                <small>Property</small>
+                <input form="editUserForm" id="email" type="text" class="form-control form-control-user @error('property') is-invalid @enderror" name="property" value="{{ $user->property }}" required autocomplete="property">
+                @error('property')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+              </div>
+            </div>
+            <hr> --}}
             <div class="row">
               <div class="col">
                 <small>New Password</small>

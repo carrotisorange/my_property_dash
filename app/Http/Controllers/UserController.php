@@ -130,14 +130,18 @@ class UserController extends Controller
 
                 return back()->with('success', 'Footer message has been updated!');
         }
+
+
         if($request->password === null){
+
+
             DB::table('users')
             ->where('id', $user_id)
             ->update(
                     [
                         'name' => $request->name,
                         'email' => $request->email,
-                        
+                        // 'property' => $request->property
                     ]
                 );
 

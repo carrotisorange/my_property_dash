@@ -234,7 +234,7 @@
              
            <h3 class="h4 text-gray-900 mb-4">Payment Details</h1>
          
-         <form action="/users/{{ Auth::user()->id }}/charge" method="POST" id="payment-form">
+         <form action="/users/{{ Auth::user()->id }}/charge" method="POST" id="payment-form" onsubmit="return checkForm(this);">
            @csrf
            <div class="form-group">
              <label for="card-element">
@@ -259,7 +259,7 @@
            @endforeach
            <br>
            
-           <button type="submit" class="btn btn-primary btn-user btn-block" > Submit Payment</button>
+           <button type="submit" name="myButton" class="btn btn-primary btn-user btn-block"> Submit Payment</button>
          </form>
    
            </div>
@@ -381,8 +381,15 @@ function stripeTokenHandler(token) {
   // Submit the form
   form.submit();
 }
+  </script>
 
-
+<script type="text/javascript">
+    function checkForm(form) // Submit button clicked
+  {
+    form.myButton.disabled = true;
+    form.myButton.value = "Please wait...";
+    return true;
+  }
   </script>
 
   
