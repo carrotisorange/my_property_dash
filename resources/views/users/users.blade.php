@@ -433,7 +433,7 @@
                 <th>PROPERTY TYPE</th>
                 <th>PROPERTY OWNERSHIP</th>
                 <th>EMAIL VERIFIED AT</th>
-                <th>TRIAL STARTS AT</th>
+                <th>TRIAL ENDS AT</th>
                 <th>PLAN</th>
                 <th>LAST LOGIN IP</th>
                 <th>LAST LOGIN</th>
