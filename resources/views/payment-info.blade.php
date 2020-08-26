@@ -150,10 +150,10 @@
             <select class="form-control" name="account_type" id="">
               <option value="account_type">Please select one</option>
               <option value="Free">Free | 20 rooms | ₱0/mo </option>
-              <option value="Medium">Medium | 50 rooms | ₱950/mo | +1 mon free trial</option>
-              <option value="Large">Large | 100 rooms | ₱1800/mo | +1 mon free trial</option>
-              <option value="Enterprise">Enterprise | 200 rooms | ₱2400/mo | +1 mon free trial</option>
-              <option value="Corporate">Corporate | 500 rooms | ₱4800/mo | +1 mon free trial</option>
+              <option value="Medium">Medium | 50 rooms | ₱950/mo</option>
+              <option value="Large">Large | 100 rooms | ₱1800/mo</option>
+              <option value="Enterprise">Enterprise | 200 rooms | ₱2400/mo </option>
+              <option value="Corporate">Corporate | 500 rooms | ₱4800/mo </option>
             </select>
         </div>
         <button form="selectingPlanForm" type="submit" class="btn btn-primary btn-user btn-block" id="registerButton" onclick="this.form.submit(); this.disabled = true;"> 
@@ -181,10 +181,10 @@
               <select class="form-control" name="account_type" id="">
                 <option value="{{ Auth::user()->account_type }}">{{ Auth::user()->account_type }}</option>
                 <option value="Free">Free | 20 rooms | ₱0/mo </option>
-                <option value="Medium">Medium | 50 rooms | ₱950/mo | +1 mon free trial</option>
-                <option value="Large">Large | 100 rooms | ₱1800/mo | +1 mon free trial</option>
-                <option value="Enterprise">Enterprise | 200 rooms | ₱2400/mo | +1 mon free trial</option>
-                <option value="Corporate">Corporate | 500 rooms | ₱4800/mo | +1 mon free trial</option>
+                <option value="Medium">Medium | 50 rooms | ₱950/mo </option>
+                <option value="Large">Large | 100 rooms | ₱1800/mo </option>
+                <option value="Enterprise">Enterprise | 200 rooms | ₱2400/mo</option>
+                <option value="Corporate">Corporate | 500 rooms | ₱4800/mo</option>
               </select>
           </div>
           <button form="selectingPlanForm" type="submit" class="btn btn-primary btn-user btn-block" id="registerButton" onclick="this.form.submit(); this.disabled = true;"> 
@@ -218,10 +218,10 @@
               <select class="form-control" name="account_type" id="">
                 <option value="{{ Auth::user()->account_type }}">{{ Auth::user()->account_type }}</option>
                 <option value="Free">Free | 20 rooms | ₱0/mo </option>
-                <option value="Medium">Medium | 50 rooms | ₱950/mo | +1 mon free trial</option>
-                <option value="Large">Large | 100 rooms | ₱1800/mo | +1 mon free trial</option>
-                <option value="Enterprise">Enterprise | 200 rooms | ₱2400/mo | +1 mon free trial</option>
-                <option value="Corporate">Corporate | 500 rooms | ₱4800/mo | +1 mon free trial</option>
+                <option value="Medium">Medium | 50 rooms | ₱950/mo</option>
+                <option value="Large">Large | 100 rooms | ₱1800/mo</option>
+                <option value="Enterprise">Enterprise | 200 rooms | ₱2400/mo</option>
+                <option value="Corporate">Corporate | 500 rooms | ₱4800/mo </option>
               </select>
           </div>
           <button form="selectingPlanForm" type="submit" class="btn btn-primary btn-user btn-block" id="registerButton" onclick="this.form.submit(); this.disabled = true;"> 
@@ -248,7 +248,7 @@
              <div id="card-errors" role="alert"></div>
            </div>
            
-           <small class="text-danger">Card won't be charge until {{ Carbon\Carbon::now()->addMonth()->format('M d Y')  }}.</small>
+           {{-- <small class="text-danger">Card won't be charge until {{ Carbon\Carbon::now()->addMonth()->format('M d Y')  }}.</small> --}}
            <br>
            @foreach (['danger', 'warning', 'success', 'info'] as $key)
            @if(Session::has($key))
