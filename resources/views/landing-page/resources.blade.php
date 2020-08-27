@@ -297,6 +297,7 @@
               <li><i class="bx bx-chevron-right"></i> <a href="#services">Features</a></li>
               <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
               <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="/acceptable-use-policy">Acceptable Use Policy</a></li>
             </ul>
           </div>
 

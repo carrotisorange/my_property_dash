@@ -1177,3 +1177,18 @@ Route::post('/users/{user_id}/charge', function(Request $request){
     }
 
 });
+
+Route::get('/privacy-policy', function(){
+    return view('privacy-policy');
+});
+
+Route::get('/terms-of-service', function(){
+    return view('terms-of-service');
+});
+
+Route::get('/acceptable-use-policy', function(){
+    return view('acceptable-use-policy');
+});
+
+
+

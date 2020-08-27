@@ -93,7 +93,7 @@
           <h2>Online resource and tools for landlords and property managers</h2>
           <div class="d-lg-flex">
             <a href="#about" class="btn-get-started scrollto">Get Started</a>
-            <a href="https://youtu.be/TP4WH8-v2Xs" class="venobox btn-watch-video" data-vbtype="video" data-autoplay="true"> Watch Video <i class="icofont-play-alt-2"></i></a>
+            <a href="https://youtu.be/w1eyMVddAOI" class="venobox btn-watch-video" data-vbtype="video" data-autoplay="true"> Watch Video <i class="icofont-play-alt-2"></i></a>
           </div>
         </div>
         <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
@@ -921,8 +921,9 @@
               <li><i class="bx bx-chevron-right"></i> <a href="#hero">Home</a></li>
               <li><i class="bx bx-chevron-right"></i> <a href="#about">About us</a></li>
               <li><i class="bx bx-chevron-right"></i> <a href="#services">Features</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="/terms-of-service">Terms of service</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="/privacy-policy">Privacy policy</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="/acceptable-use-policy">Acceptable Use Policy</a></li>
             </ul>
           </div>
 
