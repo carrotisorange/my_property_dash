@@ -1,12 +1,28 @@
 @component('mail::message')
-# Hello,  {{ Auth::user()->name }} 
+# Dear,  {{ Auth::user()->name }} 
 
-Thank you for using The Property Manager to manage <b> {{ Auth::user()->property.' '.Auth::user()->property_type }} </b>. 
+Welcome to the The Property Manager!
 
-You have 30 days to enjoy our platform in <b> {{ Auth::user()->account_type }} </b> plan for free.
+<br>
+Below are your property details:
+<br>
+Email: {{ Auth::user()->email }}
+<br>
+Property: {{ Auth::user()->property }}
+<br>
+Property Type: {{ Auth::user()->property_type }}
+<br>
+Property Ownership: {{ Auth::user()->property_ownership }}
+<br>
+Plan: {{ Auth::user()->account_type }}
 
-Your free subscription will expire on <b> {{ Carbon\Carbon::parse(Auth::user()->created_at)->addMonth()->format('M d Y') }} </b>.
+<br><br>
+During the Free Trial, you are welcome to use all the features in The Property Management System. Should you need help with setting up your property or with using any of the features, please let me know. 
 
+            
+I am available to take your call anytime from 8am to 8pm at this number 09752826318.
+
+Hope to hear from you soon!
 
 Thanks,<br>
 The Property Manager

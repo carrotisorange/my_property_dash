@@ -56,7 +56,7 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'lmbernardo@slu.edu.ph'),
+        'address' => env('MAIL_FROM_ADDRESS', 'thepropertymanager2020@gmail.com'),
         'name' => env('MAIL_FROM_NAME', 'The Property Manager'),
     ],
 
@@ -84,9 +84,9 @@ return [
     |
     */
 
-    'username' => env('MAIL_USERNAME','lmbernardo@slu.edu.ph'),
+    'username' => env('MAIL_USERNAME','thepropertymanager2020@gmail.com'),
 
-    'password' => env('MAIL_PASSWORD','jhdvtmdmupgcqpas'),
+    'password' => env('MAIL_PASSWORD','efwvsnetubcygxmm'),
 
     /*
     |--------------------------------------------------------------------------
