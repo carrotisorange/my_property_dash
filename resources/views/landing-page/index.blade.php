@@ -76,7 +76,7 @@
         </ul>
       </nav><!-- .nav-menu -->
 
-      <a href="#about" class="get-started-btn scrollto">Get Started</a>
+      {{-- <a href="#about" class="get-started-btn scrollto">Get Started</a> --}}
 
       <a href="/login"  target="_blank" class="get-started-btn scrollto">Login</a>
 
@@ -250,6 +250,13 @@
                     </p>
                   </div>
                 </li>
+
+                <li>
+                  <a href="#pricing" class="text-center text-primary get-started-btn scrollto"> See Pricing </a>
+                  
+                </li>
+                <br>
+               
 
                 {{-- <li>
                   <a data-toggle="collapse" href="#accordion-list-3" class="collapsed"><span>03</span> Dolor sit amet consectetur adipiscing elit? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
