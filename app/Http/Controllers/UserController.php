@@ -137,7 +137,13 @@ class UserController extends Controller
 
             DB::table('users')
             ->where('id', $user_id)
-           ->delete();
+            ->update(
+                    [
+                        'name' => $request->name,
+                        'email' => $request->email,
+                        // 'property' => $request->property
+                    ]
+                );
 
                 return redirect('/users/'.$user_id)->with('success', 'User Profile has been updated!');
         }else{
