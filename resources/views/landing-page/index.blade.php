@@ -78,7 +78,7 @@
 
       <a href="#about" class="get-started-btn scrollto">Get Started</a>
 
-      <a href="/login" class="get-started-btn scrollto">Login</a>
+      <a href="/login"  target="_blank" class="get-started-btn scrollto">Login</a>
 
     </div>
   </header><!-- End Header -->
@@ -151,21 +151,35 @@
 
         <div class="row content">
           <div class="col-lg-6">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-              magna aliqua.
+            <p class="text-justify">
+              Why did you start The Property Manager?
+
+              <br><br>
+          
+              We are property managers with about a thousand listings, we were using traditional marketing and many steps of leasing procedures, 
+              paper and pen to sign up tenant info sheets, contracts, billing statements and receipts. We monitor transactions through spreadsheets 
+              and it takes a day to process a report. At one point, our operations are so wrapped up into administrative work that we are spending less 
+              time strengthening our customer relations. We spend so much time looking for documents and less time on satisfying customer requests. 
+              We realize that if we want to stay in this business and grow, we need to automate our processes so we can focus on the more important 
+              aspects of the business like providing good customer service experience while maintaining efficient operations and that’s how thepropertymanager.online was born. 
+             
             </p>
-            <ul>
+            {{-- <ul>
               <li><i class="ri-check-double-line"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat</li>
               <li><i class="ri-check-double-line"></i> Duis aute irure dolor in reprehenderit in voluptate velit</li>
               <li><i class="ri-check-double-line"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat</li>
-            </ul>
+            </ul> --}}
           </div>
           <div class="col-lg-6 pt-4 pt-lg-0">
-            <p>
-              Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-              velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-              culpa qui officia deserunt mollit anim id est laborum.
+            <p class="text-justify">
+              Is a property management right for me?
+              <br><br>
+              Renting out a room or a few number of rooms to tenants is a good source of passive income if you are not doing the property management work. 
+                        But if you factor in the work of looking for tenants, interviewing tenants, explaining house rules, closing contracts, then managing tenants,
+                         billing and collecting rent, and every work in between, the number of hours spent is actual working hours spent to manage and operate a rental property. 
+                         Growing and expanding your business is possible with a property management system that stores all your business’ historical data and tenant information in one place. 
+                         Even if you are not yet looking to expand your business, a property management system is still a good investment as it saves you hours of work that can be done in minutes. 
+                         Work that is a function of 3 persons can be done by 1 person with a good property management system. This savings in time and people is good for the bottom line. 
             </p>
             <a href="#quick" class="btn-learn-more">Quick Start</a>
            
@@ -176,7 +190,7 @@
     </section><!-- End About Us Section -->
 
     <!-- ======= Why Us Section ======= -->
-    <section id="why-us" class="why-us section-bg">
+    <section id="quick" class="why-us section-bg">
       <div class="container-fluid" data-aos="fade-up">
 
         <div class="row">
@@ -184,7 +198,7 @@
           <div class="col-lg-7 d-flex flex-column justify-content-center align-items-stretch  order-2 order-lg-1">
 
             <div class="content">
-              <h3>The Property Manager</strong></h3>
+              <h3>Quick Start</strong></h3>
               <p>
                
               </p> 
@@ -193,29 +207,46 @@
             <div class="accordion-list">
               <ul>
                 <li>
-                  <a data-toggle="collapse" class="collapse" href="#accordion-list-1"><span>01</span> Why did you start The Property Manager? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+                  <a data-toggle="collapse" class="collapse" href="#accordion-list-1"><span>01</span> Register your property <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
                   <div id="accordion-list-1" class="collapse show" data-parent=".accordion-list">
                     <p>
-                        We are property managers with about a thousand listings, we were using traditional marketing and many steps of leasing procedures, 
-                        paper and pen to sign up tenant info sheets, contracts, billing statements and receipts. We monitor transactions through spreadsheets 
-                        and it takes a day to process a report. At one point, our operations are so wrapped up into administrative work that we are spending less 
-                        time strengthening our customer relations. We spend so much time looking for documents and less time on satisfying customer requests. 
-                        We realize that if we want to stay in this business and grow, we need to automate our processes so we can focus on the more important 
-                        aspects of the business like providing good customer service experience while maintaining efficient operations and that’s how thepropertymanager.online was born. 
+                        as dorm, apartments, commercial spaces, residential units, or condominiums
                     </p>
                   </div>
                 </li>
 
                 <li>
-                  <a data-toggle="collapse" href="#accordion-list-2" class="collapsed"><span>02</span> Is a property management right for me? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+                  <a data-toggle="collapse" href="#accordion-list-2" class="collapsed"><span>02</span> Add units, rooms, or beds <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
                   <div id="accordion-list-2" class="collapse" data-parent=".accordion-list">
                     <p>
-                        Renting out a room or a few number of rooms to tenants is a good source of passive income if you are not doing the property management work. 
-                        But if you factor in the work of looking for tenants, interviewing tenants, explaining house rules, closing contracts, then managing tenants,
-                         billing and collecting rent, and every work in between, the number of hours spent is actual working hours spent to manage and operate a rental property. 
-                         Growing and expanding your business is possible with a property management system that stores all your business’ historical data and tenant information in one place. 
-                         Even if you are not yet looking to expand your business, a property management system is still a good investment as it saves you hours of work that can be done in minutes. 
-                         Work that is a function of 3 persons can be done by 1 person with a good property management system. This savings in time and people is good for the bottom line. 
+                          set up monthly rent, deposit requirements, room, features, and etc.
+                    </p>
+                  </div>
+                </li>
+
+                <li>
+                  <a data-toggle="collapse" href="#accordion-list-3" class="collapsed"><span>03</span> Add tenants <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+                  <div id="accordion-list-3" class="collapse" data-parent=".accordion-list">
+                    <p>
+                            Add tenant names, contact numbers, email, contract period, and etc.
+                    </p>
+                  </div>
+                </li>
+
+                <li>
+                  <a data-toggle="collapse" href="#accordion-list-4" class="collapsed"><span>04</span> Manage your tenants <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+                  <div id="accordion-list-4" class="collapse" data-parent=".accordion-list">
+                    <p>
+                       manage concerns, requests, create job orders, assign jobs, and monitor up to completion.   
+                    </p>
+                  </div>
+                </li>
+
+                <li>
+                  <a data-toggle="collapse" href="#accordion-list-5" class="collapsed"><span>05</span> Bill & Collect Rent & Utilities <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+                  <div id="accordion-list-5" class="collapse" data-parent=".accordion-list">
+                    <p>
+                          bill rent, water, lights, and other charges then email to tenant or print for distribution.
                     </p>
                   </div>
                 </li>
@@ -230,6 +261,7 @@
                 </li> --}}
 
               </ul>
+              
             </div>
 
           </div>
@@ -238,6 +270,7 @@
         </div>
 
       </div>
+      
     </section><!-- End Why Us Section -->
 
     <!-- ======= Skills Section ======= -->
@@ -705,13 +738,13 @@
       </div>
     </section><!-- End Pricing Section -->
 
-    <!-- ======= Frequently Asked Questions Section ======= -->
+    {{-- <!-- ======= Frequently Asked Questions Section ======= -->
     <section id="faq" class="faq section-bg">
       <div class="container" data-aos="fade-up">
 
         <div class="section-title">
           <h2>Frequently Asked Questions</h2>
-          {{-- <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p> --}}
+           <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p> 
         </div>
 
         <div class="faq-list">
@@ -765,7 +798,7 @@
         </div>
 
       </div>
-    </section><!-- End Frequently Asked Questions Section -->
+    </section><!-- End Frequently Asked Questions Section --> --}}
 
     <!-- ======= Contact Section ======= -->
     <section id="contact" class="contact">
@@ -773,7 +806,7 @@
 
         <div class="section-title">
           <h2>Contact</h2>
-          <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+          <p></p>
         </div>
 
         <div class="row">
@@ -789,16 +822,16 @@
               <div class="email">
                 <i class="icofont-envelope"></i>
                 <h4>Email:</h4>
-                <p>info@example.com</p>
+                <p>thepropertymanager2020@gmail.com</p>
               </div>
 
               <div class="phone">
                 <i class="icofont-phone"></i>
                 <h4>Call:</h4>
-                <p>+1 5589 55488 55s</p>
+                <p>09752826318</p>
               </div>
 
-              <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12097.433213460943!2d-74.0062269!3d40.7101282!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb89d1fe6bc499443!2sDowntown+Conference+Center!5e0!3m2!1smk!2sbg!4v1539943755621" frameborder="0" style="border:0; width: 100%; height: 290px;" allowfullscreen></iframe>
+              <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3826.939723645365!2d120.6037482!3d16.4278874!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3391a3e479341e41%3A0x755cbcb65bb186b1!2sThe%20Courtyard%20Goshen%20Land!5e0!3m2!1sen!2sph!4v1598508208581!5m2!1sen!2sph" frameborder="0" style="border:0; width: 100%; height: 290px;" allowfullscreen></iframe>
             </div>
 
           </div>
@@ -846,7 +879,7 @@
   <!-- ======= Footer ======= -->
   <footer id="footer">
 
-    <div class="footer-newsletter">
+    {{-- <div class="footer-newsletter">
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-lg-6">
@@ -858,20 +891,20 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> --}}
 
     <div class="footer-top">
       <div class="container">
         <div class="row">
 
-          <div class="col-lg-3 col-md-6 footer-contact">
+          <div class="col-lg-4 col-md-6 footer-contact">
             <h3>The PMO Co.</h3>
             <p>
               Baguio City <br>
               Philippines, 2600<br>
             <br>
-              <strong>Phone:</strong> +1 5589 55488 55<br>
-              <strong>Email:</strong> info@example.com<br>
+              <strong>Phone:</strong> 09752826318<br>
+              <strong>Email:</strong> thepropertymanager2020@gmail.com<br>
             </p>
           </div>
 
@@ -899,14 +932,14 @@
             </ul>
           </div>
 
-          <div class="col-lg-3 col-md-6 footer-links">
+          <div class="col-lg-2 col-md-6 footer-links">
             <h4>Our Social Networks</h4>
             <p>Get in touch with us:</p>
             <div class="social-links mt-3">
               <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-              <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+              <a href="https://www.facebook.com/onlinepropertymanager"  target="_blank" class="facebook"><i class="bx bxl-facebook"></i></a>
               <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-              <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+              {{-- <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a> --}}
   
             </div>
           </div> 
