@@ -838,7 +838,7 @@
                 <p>09752826318</p>
               </div>
 
-              <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3826.939723645365!2d120.6037482!3d16.4278874!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3391a3e479341e41%3A0x755cbcb65bb186b1!2sThe%20Courtyard%20Goshen%20Land!5e0!3m2!1sen!2sph!4v1598508208581!5m2!1sen!2sph" frameborder="0" style="border:0; width: 100%; height: 290px;" allowfullscreen></iframe>
+              <iframe src="https://www.google.com/maps/embed?pb=!1m24!1m12!1m3!1d15309.397476437753!2d120.58530152846114!3d16.407073518766374!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m9!3e6!4m3!3m2!1d16.4102144!2d120.58623999999999!4m3!3m2!1d16.4071875!2d120.60170889999999!5e0!3m2!1sen!2sph!4v1598517619889!5m2!1sen!2sph" frameborder="0" style="border:0; width: 100%; height: 290px;" allowfullscreen></iframe>
             </div>
 
           </div>
