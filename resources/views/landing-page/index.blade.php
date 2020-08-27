@@ -319,7 +319,7 @@
               </div>
 
               <div class="progress">
-                <h4 class="skill">Tenants <i class="val">{{ number_format($tenants,0) }}</i></h4>
+                <h4 class="skill">Active Tenants <i class="val">{{ number_format($tenants,0) }}</i></h4>
                 {{-- <div class="progress-bar-wrap">
                   <div class="progress-bar" role="progressbar" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
                 </div> --}}
