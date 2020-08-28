@@ -72,7 +72,7 @@
         </li>
         @endif
       
-        @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'treasury' && (Auth::user()->property_type === 'Apartment Rentals' || Auth::user()->property_type === 'Dormitory'))
+        @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'treasury')
           <li class="nav-item">
             <a class="nav-link" href="/tenants">
               <i class="fas fa-users fa-chart-area"></i>

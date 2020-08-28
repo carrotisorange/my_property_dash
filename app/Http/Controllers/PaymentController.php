@@ -128,7 +128,7 @@ class PaymentController extends Controller
             );
         
             Mail::send('emails.user-generated-mail', $data, function($message) use ($data){
-                $message->to($tenant->email_address);
+                $message->to($data['email']);
                 $message->subject('Welcome Message');
             });
             

@@ -135,7 +135,7 @@ class UnitsController extends Controller
             ->orderBy('concern_status', 'desc')
             ->paginate(10);
 
-                if(Auth::user()->property_type === 'Apartment Rentals'){
+                if(Auth::user()->property_type === 'Apartment Rentals' || Auth::user()->property_type === 'Dormitory'){
                     return view('admin.show-room',compact('unit', 'unit_owner', 'tenant_active', 'tenant_inactive', 'tenant_reservations', 'unit_bills', 'concerns'));
                 }
                 else{
