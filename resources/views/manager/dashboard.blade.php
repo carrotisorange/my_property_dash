@@ -616,7 +616,7 @@
                                   </td>
                                   <td>
                                     @if($item->email_address === null)
-                                    Please add an email 
+                                    <a href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/edit" class="badge badge-warning">Please add an email</a>
                                     @else
                                     <form action="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/alert/contract">
                                       @csrf
