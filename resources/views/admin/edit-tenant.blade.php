@@ -430,7 +430,7 @@
                             <small for="">Contact No</small>
                             <input form="editTenantForm" class="form-control" type="text" name="contact_no" value="{{ $tenant->contact_no }}">
                         </div>
-                        <div class="col">
+                        <div class="col" id="email_address">
                             <small for="">Email Address</small>
                             <input form="editTenantForm" class="form-control" type="text" name="email_address" value="{{ $tenant->email_address }}">
                         </div>
