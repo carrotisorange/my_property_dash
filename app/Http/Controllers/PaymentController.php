@@ -128,7 +128,6 @@ class PaymentController extends Controller
             );
         
             Mail::send('emails.user-generated-mail', $data, function($message) use ($data){
-                $message->from('No-reply@propertymanager.online');
                 $message->to($data['email']);
                 $message->subject('Welcome Message');
             });
