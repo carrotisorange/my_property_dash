@@ -433,6 +433,7 @@
                         <div class="col" id="email_address">
                             <small for="">Email Address</small>
                             <input form="editTenantForm" class="form-control" type="text" name="email_address" value="{{ $tenant->email_address }}">
+                            <small class="text-danger">Please add an email</small>
                         </div>
                     </div>
                
