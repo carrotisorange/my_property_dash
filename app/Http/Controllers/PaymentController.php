@@ -116,8 +116,22 @@ class PaymentController extends Controller
                     );
 
             $tenant = Tenant::findOrFail($request->payment_tenant_id);
+            $unit  = Unit::findOrFail($request->unit_tenant_id);
 
-            Mail::to($tenant->email_address)->send(new UserRegisteredMail());
+            $data = array(
+                'email' => $tenant->email_address,
+                'name' => $tenant->first_name,
+                'unit' => $unit->building.' '.$unit->unit_no,
+                'contract_ends_at'  => $tenant->moveout_date,
+                'contract_starts_at'  => $tenant->moveout_date,
+                'monthly_rent'=> $tenant->tenant_monthly_rent
+            );
+        
+            Mail::send('emails.user-generated-mail', $data, function($message) use ($data){
+                $message->from('No-reply@propertymanager.online');
+                $message->to($data['email']);
+                $message->subject('Welcome Message');
+            });
             
             DB::table('notifications')->insertGetId(
                 [

@@ -926,7 +926,7 @@
                     <div class="row">
                         <div class="col">
                             <label for="moveout_date">Extend contract to</label>
-                            <input type="number" form="extendTenantForm" class="form-control" name="no_of_months" min="1" placeholder="enter no of months" required >
+                            <input type="number" form="extendTenantForm" min="1" class="form-control" name="no_of_months" min="1" placeholder="enter no of months" required >
                             <input type="hidden" form="extendTenantForm" class="form-control" name="old_movein_date" value="{{ $tenant->movein_date }}" required>
                         </div>
                     </div>
@@ -936,10 +936,13 @@
                         <div class="col">
                             
                                 Additonal Charges
+                                
                                 <small class="text-danger">(Optional)</small>
-                                <a id='remove_charges' class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-minus fa-sm text-white-50"></i></a>
-                                <a id="add_charges" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i></a>     
-                                <br>
+                               
+                               <p class="text-right">
+                                <a id='remove_charges' class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-minus fa-sm text-white-50"></i> </a>
+                                <a id="add_charges" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> </a>     
+                               </p>
                             
                             <br>
                                 <table class = "table table-hover " id="extend_table">
@@ -958,7 +961,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button>
-                    <button form="extendTenantForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want to perform this action?');" ><i class="fas fa-check fa-sm text-white-50"></i> Extend/Renew</button>
+                    <button form="extendTenantForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want to perform this action?');" ><i class="fas fa-check fa-sm text-white-50"></i> Extend</button>
                 </div>
             </div>
             </div>

@@ -585,6 +585,7 @@
                                <th>TENANT</th>
                                <th>ROOM</th>
                                <th>STATUS</th>
+                               <th>ACTION</th>
                            </tr>
                            </thead>
                            <tbody>
@@ -612,7 +613,14 @@
                                       <span class="badge badge-warning">contract expires in {{ $diffInDays }} days </span>
                                        @endif
                                   </td>
+                                  <td>
+                                    <form action="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/alert/contract">
+                                      @csrf
+                                      <button class="btn btn-primary d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" type="submit" onclick="this.form.submit(); this.disabled = true;"><i class="fas fa-paper-plane fa-sm text-white-50"></i> Send an email</button>
+                                    </form>
+                                  </td>
                              </tr>
+                            
                             
                              @endforeach
                            </tbody>

@@ -6,7 +6,7 @@ use App\Charts\DashboardChart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\TenantRegisteredMail;
-
+use App\Mail\SendContractAlertEmail;
 
 
 /*
@@ -1176,6 +1176,36 @@ Route::post('/users/{user_id}/charge', function(Request $request){
        }
     }
 
+});
+
+//sending tenant for contract extension
+Route::get('/units/{unit_id}/tenants/{tenant_id}/alert/contract', function(Request $request, $unit_id, $tenant_id){
+
+    $tenant = Tenant::findOrFail($tenant_id);
+    $unit  = Unit::findOrFail($unit_id);
+
+    $diffInDays =  number_format(Carbon::now()->DiffInDays(Carbon::parse($tenant->moveout_date), false));
+
+    $data = array(
+        'email' => $tenant->email_address,
+        'name' => $tenant->first_name,
+        'unit' => $unit->building.' '.$unit->unit_no,
+        'contract_ends_at'  => $tenant->moveout_date,
+        'days_before_moveout' => $diffInDays
+    );
+
+    Mail::send('emails.send-contract-alert-mail', $data, function($message) use ($data){
+        $message->from('No-reply@propertymanager.online');
+        $message->to($data['email']);
+        $message->subject('Contract Alert');
+    });
+    
+    return back()->with('success', 'Email to  has been sent to '. $data['name'].'!');
+
+})->middleware(['auth', 'verified']);
+
+Route::post('/send/inquiry', function(Request $request){
+    return 'this is the message';
 });
 
 Route::get('/privacy-policy', function(){
