@@ -1,5 +1,5 @@
 <p class="text-justify">
-    <h3>Hello, {{ $name }}</h3>
+    <h3>Hello, {{ $name }}!</h3>
 
     <p>Your contract in <b>{{ $unit }}</b> is set to expire on <b>{{ Carbon\Carbon::parse($contract_ends_at)->format('M d Y') }}</b>, exactly <b>{{ $days_before_moveout }} days </b> from now. </p> 
         
