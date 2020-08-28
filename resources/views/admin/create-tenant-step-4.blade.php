@@ -371,7 +371,7 @@
         <div class="row">
           <div class="col-md-12">
               <div class="table-responsive text-nowrap">
-                <table class="table table-striped" id="tab_logic" width="90%" cellspacing="0" cellpadding="0">
+                <table class="table" id="tab_logic" width="90%" cellspacing="0" cellpadding="0">
                      <tr>
                          <th>#</th>
                          <th>Description</th>

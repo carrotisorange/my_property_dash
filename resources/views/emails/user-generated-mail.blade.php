@@ -1,6 +1,6 @@
 <p>
 <h3> Welcome, {{ $name }}! </h3>
-You're now officially a resident of {{ Auth::user()->property.' '.Auth::user()->property_type }}.
+You're now officially a resident of {{ Auth::user()->property }}.
 <br><br>
 Your contract starts in unit {{ $unit }} is from {{ Carbon\Carbon::parse($contract_starts_at)->format('M d Y') }} to {{ Carbon\Carbon::parse($contract_ends_at)->format('M d Y') }}.
 <br><br>
@@ -19,17 +19,16 @@ till last day of the current month.
     z = Monthly Rent
     <br>
     n = Number of days of the month of you move in.
-=====================================
     <br>
-   <b>(( x- y ) / n ) * z  = Prorated Rent</b>
+    =====================================
+    <br>
+   <b>Prorated Rent = (( x- y ) / n ) * z  </b>
 </small>
 
 <br><br>
-For the next succeeding months you're rent will be the rent you signed in the contract (Php {{ number_format($monthly_rent,2) }})
-except for the last month of your contract, which will again be prorated.
+For the next succeeding months your rent will be Php {{ number_format($monthly_rent,2) }}except for the last month of your, which will again be prorated.
 <br><br>
-Please inform us atleast 1 month before your contract expires, otherwise your contract will be automatically 
-extended to another month.
+Please inform us atleast 1 month before your contract expires, otherwise your contract will be automatically extended to another month.
 <br><br>
 Thank you for choosing {{ Auth::user()->property }}. Enjoy your stay!
 <br>
