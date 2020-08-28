@@ -685,7 +685,7 @@ Route::get('/board', function(Request $request){
         ->whereNull('updated_at')
         ->count();
   
-        if(Auth::user()->property_type === 'Apartment Rentals'){
+        if(Auth::user()->property_type === 'Apartment Rentals' || Auth::user()->property_type === 'Dormitory'){
             return view('manager.dashboard', 
             compact(
             'units', 'units_occupied','units_vacant', 'units_reserved',
