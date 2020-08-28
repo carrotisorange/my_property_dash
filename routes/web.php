@@ -1199,6 +1199,12 @@ Route::get('/units/{unit_id}/tenants/{tenant_id}/alert/contract', function(Reque
         $message->to($data['email']);
         $message->subject('Contract Alert');
     });
+
+    DB::table('tenants')
+    ->where('tenant_id', $tenant->tenant_id)
+    ->update([
+        'note' => 'Contract alert mail has been sent to the tenant!'
+    ]);
     
     return back()->with('success', 'Email to  has been sent to '. $data['name'].'!');
 
