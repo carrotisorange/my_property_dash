@@ -401,6 +401,7 @@
                           <th>MOBILE</th>
                           <th>EMAIL</th>
                           <th>CONTRACT PERIOD</th>    
+                          <th>MONTHLY RENT</th>
                      </tr>
                     </thead>
                     <tbody>
@@ -408,7 +409,7 @@
                       <tr>
                           <td>
                               @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager')
-                              <a href="{{ route('show-tenant',['unit_id'=> $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}
+                              <a href="{{ route('show-tenant',['unit_id'=> $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->middle_name.' '.$item->last_name }}
                                 @if($item->tenants_note === 'new' )
                                 <span class="badge badge-success">{{ $item->tenants_note }}</span>
                                 @endif
@@ -445,6 +446,7 @@
                           <td>{{ $item->email_address }}</td>
                         
                           <td>{{ Carbon\Carbon::parse($item->movein_date)->format('M d Y').' - '.Carbon\Carbon::parse($item->moveout_date)->format('M d Y') }}</td>
+                          <td>{{ number_format($item->monthly_rent, 2) }}</td>
                           {{-- <td title="months before move-out">{{ number_format(Carbon\Carbon::now()->diffInDays(Carbon\Carbon::parse($item->moveout_date), false)/30,1) }} mon</td> --}}
                       </tr>
                       @endforeach
