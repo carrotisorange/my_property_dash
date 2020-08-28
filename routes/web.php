@@ -747,7 +747,7 @@ Route::get('/home', function(){
             ->where('status','!=', 'pulled out')
             ->get('building', 'status','count');   
 
-        if(Auth::user()->property_type === 'Apartment Rentals' || Auth::user()->property_type === 'Dormitory'){
+        if(Auth::user()->property_type === 'Apartment Rentals' || Auth::user()->property_type === 'Dormitory' ){
             return view('admin.home',compact('units','buildings', 'units_count'));
         }
         else{
