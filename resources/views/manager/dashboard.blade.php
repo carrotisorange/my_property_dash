@@ -586,6 +586,7 @@
                                <th>ROOM</th>
                                <th>STATUS</th>
                                <th>ACTION</th>
+                               <th>ACTION STATUS</th>
                            </tr>
                            </thead>
                            <tbody>
@@ -618,7 +619,9 @@
                                       @csrf
                                       <button class="btn btn-primary d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" type="submit" onclick="this.form.submit(); this.disabled = true;"><i class="fas fa-paper-plane fa-sm text-white-50"></i> Send an email</button>
                                     </form>
+                                    <small></small>
                                   </td>
+                                  <td><span class="badge badge-success">{{ $item->tenants_note }}</span></td>
                              </tr>
                             
                             
