@@ -727,7 +727,6 @@ Route::get('/home', function(){
 
         $units_count = DB::table('units')
             ->where('unit_property', Auth::user()->property)
-            ->where('status','!=', 'pulled out')
             ->count();
 
         $units = DB::table('units')
@@ -744,7 +743,6 @@ Route::get('/home', function(){
             ->select('building', 'status', DB::raw('count(*) as count'))
             ->where('unit_property', Auth::user()->property)
             ->groupBy('building')
-            ->where('status','!=', 'pulled out')
             ->get('building', 'status','count');   
 
         if(Auth::user()->property_type === 'Apartment Rentals' || Auth::user()->property_type === 'Dormitory' ){
