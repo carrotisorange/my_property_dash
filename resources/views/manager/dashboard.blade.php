@@ -615,11 +615,14 @@
                                        @endif
                                   </td>
                                   <td>
+                                    @if($item->email_address === null)
+                                    Please add an email 
+                                    @else
                                     <form action="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/alert/contract">
                                       @csrf
                                       <button class="btn btn-primary d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" type="submit" onclick="this.form.submit(); this.disabled = true;"><i class="fas fa-paper-plane fa-sm text-white-50"></i> Send an email</button>
                                     </form>
-                                    <small></small>
+                                    @endif
                                   </td>
                                   <td><span class="badge badge-success">{{ $item->tenants_note }}</span></td>
                              </tr>
