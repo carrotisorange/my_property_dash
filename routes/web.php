@@ -1195,6 +1195,7 @@ Route::get('/units/{unit_id}/tenants/{tenant_id}/alert/contract', function(Reque
     );
 
     Mail::send('emails.send-contract-alert-mail', $data, function($message) use ($data){
+
         $message->to($data['email']);
         $message->subject('Contract Alert');
     });
