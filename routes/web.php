@@ -1206,7 +1206,7 @@ Route::get('/units/{unit_id}/tenants/{tenant_id}/alert/contract', function(Reque
         'tenants_note' => 'Email has been sent!'
     ]);
     
-    return back()->with('success', 'Email to  has been sent to '. $tenant->first_name.' of '. $unit->building.' '.$unit->unit_no);
+    return back()->with('success', 'Email  has been sent to '. $tenant->first_name.' of '. $unit->building.' '.$unit->unit_no);
 
 })->middleware(['auth', 'verified']);
 
