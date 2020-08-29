@@ -54,9 +54,9 @@
   <header id="header" class="fixed-top ">
     <div class="container d-flex align-items-center">
 
-      <h3 class="logo mr-auto"><a href="/" title="The Property Manager">The Property Manager</a></h3>
+      {{-- <h3 class="logo mr-auto"><a href="/" title="The Property Manager">The Property Manager</a></h3> --}}
       <!-- Uncomment below if you prefer to use an image logo -->
-       {{-- <a href="index.html" class="logo mr-auto"><img src="{{ asset('/arsha/assets/img/logo.png') }}" alt="" class="img-fluid"></a> --}}
+       <a href="index.html" title="The Property Manager" class="logo mr-auto"><img src="{{ asset('/arsha/assets/img/logo.png') }}" alt="" class="img-fluid"></a> 
 
       <nav class="nav-menu d-none d-lg-block">
         <ul>
@@ -84,21 +84,23 @@
             </ul>
           </li> --}}
           <li><a  href="javascript:void(0)">Contact</a></li>
-          <li class="drop-down"><a href="">Login</a>
+          <li><a href="/properties" target="_blank">Tenant Portal</a></li>
+          <li><a href="/login" target="_blank">Owner Portal</a></li>
+          {{-- <li class="drop-down"><a href="">Login</a>
             <ul>
-              <li><a href="/login" target="_blank">Property Owner</a></li>
-              <li><a href="/properties" target="_blank">Tenant</a></li>
-              <li><a href="/login" target="_blank">Room Owner</a></li>
+              <li><a href="/login" target="_blank">System User</a></li>
+              <li><a href="/properties" target="_blank">Tenant Portal</a></li>
+              <li><a href="/login" target="_blank">Owner Portal</a></li>
              
             </ul>
-          </li>
+          </li> --}}
 
         </ul>
       </nav><!-- .nav-menu -->
 
       {{-- <a href="#about" class="get-started-btn scrollto">Get Started</a> --}}
 
-      <a href="/register"  target="_blank" class="get-started-btn scrollto">Register Free</a>
+      <a href="/login"  target="_blank" class="get-started-btn scrollto">Login</a>
 
     </div>
   </header><!-- End Header -->
@@ -112,7 +114,7 @@
           <h1>Simplifying Property Management</h1>
           <h2>Online resources and tools for landlords and property managers</h2>
           <div class="d-lg-flex">
-            <a href="#about" class="btn-get-started scrollto">Get Started For Free</a>
+            <a href="/register" class="btn-get-started scrollto">Get Started For Free</a>
             <a href="https://youtu.be/w1eyMVddAOI" class="venobox btn-watch-video" data-vbtype="video" data-autoplay="true"> Watch Video <i class="icofont-play-alt-2"></i></a>
           </div>
         </div>
