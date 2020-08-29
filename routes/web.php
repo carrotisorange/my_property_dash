@@ -1209,7 +1209,18 @@ Route::get('/units/{unit_id}/tenants/{tenant_id}/alert/contract', function(Reque
 })->middleware(['auth', 'verified']);
 
 Route::post('/send/inquiry', function(Request $request){
-    return 'this is the message';
+
+    $request->validate([
+        'name' => 'required',
+        'email' => 'required',
+        'subject' => 'required',
+        'message' => 'required',
+    ]);
+
+    return $request->all();
+    
+    return redirect('/#contact');
+ 
 });
 
 Route::get('/privacy-policy', function(){

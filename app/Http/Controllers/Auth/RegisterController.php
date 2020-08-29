@@ -64,6 +64,7 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'terms' => ['required']
         ]);
     }
 
@@ -80,7 +81,6 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'user_type' => 'manager',
             'status' => 'registered',
-            
             'password' => Hash::make($data['password']),
             'note' => 'Enter notice for all the tenants.',
         ]);

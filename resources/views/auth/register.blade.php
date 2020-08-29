@@ -123,7 +123,16 @@
                    @enderror
                    </div>
                   </div> --}}
-               
+               <div class="form-group">
+                 <small>
+                   <input type="checkbox" name="terms" checked>
+                   By selecting Agree and Register below, I agree to The Property Manager <a href="/terms-of-service" target="_blank">Terms and Conditions</a>, <a href="/privacy-policy" target="_blank">Privacy Policy</a>, and <a href="/acceptable-use-policy" target="_blank">Acceptable Use Policy</a>.</small>
+                   @error('terms')
+                   <span class="invalid-feedback" role="alert">
+                       <strong>{{ $message }}</strong>
+                   </span>
+               @enderror
+                  </div>
                
                 <button form="registrationForm" type="submit" class="btn btn-primary btn-user btn-block" id="registerButton" onclick="this.form.submit(); this.disabled = true;">
                     <i class="fas fa-check"></i> Register
