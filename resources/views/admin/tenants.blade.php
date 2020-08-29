@@ -392,7 +392,7 @@
                     
                   </tr>
                 </table>
-                  <table class="table table-striped" table-striped">
+                  <table class="table table-striped table-bordered" table-striped">
                     <thead>
                       <tr>
                           <th>TENANT</th>
@@ -402,6 +402,9 @@
                           <th>EMAIL</th>
                           <th>CONTRACT PERIOD</th>    
                           <th>MONTHLY RENT</th>
+                          <th>GUARDIAN</th>
+                          <th>RELATIONSHIP</th>
+                          <th>GUARDIAN CONTACT</th>
                      </tr>
                     </thead>
                     <tbody>
@@ -447,6 +450,10 @@
                         
                           <td>{{ Carbon\Carbon::parse($item->movein_date)->format('M d Y').' - '.Carbon\Carbon::parse($item->moveout_date)->format('M d Y') }}</td>
                           <td>{{ number_format($item->monthly_rent, 2) }}</td>
+                          <td>{{ $item->guardian }}</td>
+                          <td>{{ $item->guardian_relationship }}</td>
+                          <td>{{ $item->guardian_contact_no }}</td>
+                         
                           {{-- <td title="months before move-out">{{ number_format(Carbon\Carbon::now()->diffInDays(Carbon\Carbon::parse($item->moveout_date), false)/30,1) }} mon</td> --}}
                       </tr>
                       @endforeach

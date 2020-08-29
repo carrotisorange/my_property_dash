@@ -375,7 +375,7 @@
                   
                 </tr>
               </table>
-                <table class="table table-striped">
+                <table class="table table-striped table-bordered">
                     <thead>
                         <tr>
                           <th>ROOM</th>
@@ -387,6 +387,7 @@
                            <th>DATE ACCEPTED</th>
                            <th>ROOM TYPE</th>
                            <th>MAX OCCUPANCY</th>
+                           <th>MONTHLY RENT</th>
                            
                        </tr>
                     </thead>   
@@ -403,7 +404,8 @@
                            <td>{{ Carbon\Carbon::parse($item->date_accepted)->format('M d Y')}}</td> 
          
                            <td>{{ $item->type_of_units }}</td>
-                           <td>{{ $item->max_occupancy }}</td>
+                           <td>{{ $item->max_occupancy }} pax</td>
+                           <td>{{ number_format($item->monthly_rent, 2) }}</td>
                        </tr>
                        @endforeach
                        </tbody>
