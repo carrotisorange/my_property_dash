@@ -83,14 +83,20 @@
               <li><a href="#">Drop Down 4</a></li>
             </ul>
           </li> --}}
-          <li><a href="#contact">Contact</a></li>
+          <li><a  href="javascript:void(0)">Contact</a></li>
+          <li class="drop-down"><a href="">Login</a>
+            <ul>
+              <li><a href="/properties" target="_blank">Tenant</a></li>
+              <li><a href="/login" target="_blank">Owner</a></li>
+            </ul>
+          </li>
 
         </ul>
       </nav><!-- .nav-menu -->
 
       {{-- <a href="#about" class="get-started-btn scrollto">Get Started</a> --}}
 
-      <a href="/login"  target="_blank" class="get-started-btn scrollto">Login</a>
+      <a href="/register"  target="_blank" class="get-started-btn scrollto">Register Free</a>
 
     </div>
   </header><!-- End Header -->
@@ -102,9 +108,9 @@
       <div class="row">
         <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
           <h1>Simplifying Property Management</h1>
-          <h2>Online resource and tools for landlords and property managers</h2>
+          <h2>Online resources and tools for landlords and property managers</h2>
           <div class="d-lg-flex">
-            <a href="#about" class="btn-get-started scrollto">Get Started</a>
+            <a href="#about" class="btn-get-started scrollto">Get Started For Free</a>
             <a href="https://youtu.be/w1eyMVddAOI" class="venobox btn-watch-video" data-vbtype="video" data-autoplay="true"> Watch Video <i class="icofont-play-alt-2"></i></a>
           </div>
         </div>
@@ -210,7 +216,7 @@
           <div class="col-lg-7 d-flex flex-column justify-content-center align-items-stretch  order-2 order-lg-1">
 
             <div class="content">
-              <h3>Quick Start</strong></h3>
+              <h3>How it works?</strong></h3>
               <p>
                
               </p> 
@@ -255,7 +261,7 @@
                 </li>
 
                 <li>
-                  <a data-toggle="collapse" href="#accordion-list-5" class="collapsed"><span>05</span> Bill & Collect Rent & Utilities <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+                  <a data-toggle="collapse" href="#accordion-list-5" class="collapsed"><span>05</span> Bill and collect rent and utilities <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
                   <div id="accordion-list-5" class="collapse" data-parent=".accordion-list">
                     <p>
                           bill rent, water, lights, and other charges then email to tenant or print for distribution.
@@ -265,7 +271,7 @@
 
                 <li>
                   <a href="#pricing" class="text-center text-primary get-started-btn scrollto"> See Pricing </a>
-                  
+              
                 </li>
                 <br>
                
@@ -691,7 +697,7 @@
         <div class="row">
 
           <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
-            <div class="box">
+            <div class="box featured">
               <h3>Free Plan</h3>
               <h4><sup>₱</sup>0<span>per month</span></h4>
               <ul>
@@ -707,12 +713,12 @@
                 <li class="na"><i class="bx bx-x"></i> <span>Online Payment</span></li>
                 <li class="na"><i class="bx bx-x"></i> <span>Concierge Services</span></li>
               </ul>
-              <a href="/register" class="buy-btn">Get Started</a>
+              <a href="/register" class="buy-btn">Get Started for Free</a>
             </div>
           </div>
 
           <div class="col-lg-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="200">
-            <div class="box featured">
+            <div class="box">
               <h3>Medium Plan</h3>
               <h4><sup>₱</sup>950<span>per month</span></h4>
               <ul>
@@ -766,7 +772,7 @@
                 <h3>Enterprise Plan</h3>
                 <h4><sup>₱</sup>N<span>per month</span></h4>
                 <ul>
-                  <li><i class="bx bx-check"></i> 200 rooms</li>
+                  <li><i class="bx bx-check"></i> 200+ rooms</li>
                   <li><i class="bx bx-check"></i> Room management</li>
                 <li><i class="bx bx-check"></i> Tenant management</li>
                 <li><i class="bx bx-check"></i> Marketing Available Rooms</li>
