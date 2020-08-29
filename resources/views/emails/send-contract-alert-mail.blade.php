@@ -5,7 +5,7 @@
         
     <p>Would you like to extend your contract, if yes, for how long? </p>
 
-    <p><b>This is a system generated message, and we do not receive emails from this account, please let us know your response atleast a week before your moveout date, through this email {{ Auth::user()->email }} instead. </b></p>
+    <p><b>This is a system generated message, and we do not receive emails from this account, please let us know your response atleast a week before your moveout date through this email {{ Auth::user()->email }} instead. </b></p>
 
     Sincerely,
     <br>
