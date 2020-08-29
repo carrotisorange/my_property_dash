@@ -582,7 +582,7 @@
               <select form="addUMultipleUnitForm" class="form-control" name="type_of_units" required>
                   <option value="" selected>Please select one</option>
                   <option value="commercial">commercial</option>
-                  <option value="leasing">leasing</option>
+                  {{-- <option value="leasing">leasing</option> --}}
                   <option value="residential">residential</option>         
               </select>
           </div> 

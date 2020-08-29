@@ -750,8 +750,9 @@
                 <li class="na"><i class="bx bx-x"></i> <span>Job order</span></li>
                 <li class="na"><i class="bx bx-x"></i> <span>Portal for owner</span></li>
                 <li class="na"><i class="bx bx-x"></i> <span>Portal for tenant</span></li>
-                <li class="na"><i class="bx bx-x"></i> <span>Online Ppayment</span></li>
+                <li class="na"><i class="bx bx-x"></i> <span>Online payment</span></li>
                 <li class="na"><i class="bx bx-x"></i> <span>Concierge services</span></li>
+                <li class="na"><i class="bx bx-x"></i> <span>Portforlio management</span></li>
               </ul>
               <a href="/register" class="buy-btn">Get Started for Free</a>
             </div>
@@ -773,6 +774,7 @@
                 <li class="na"><i class="bx bx-x"></i> <span>Portal for tenant</span></li>
                 <li class="na"><i class="bx bx-x"></i> <span>Online payment</span></li>
                 <li class="na"><i class="bx bx-x"></i> <span>Concierge services</span></li>
+                <li class="na"><i class="bx bx-x"></i> <span>Portforlio management</span></li>
               </ul>
               <a href="/register" class="buy-btn">Get Started</a>
             </div>
@@ -794,6 +796,7 @@
                 <li><i class="bx bx-check"></i> <span>Portal for tenant</span></li>
                 <li><i class="bx bx-check"></i> <span>Online payment</span></li>
                 <li class="na"><i class="bx bx-x"></i> <span>Concierge services</span></li>
+                <li class="na"><i class="bx bx-x"></i> <span>Portforlio management</span></li>
               </ul>
               </ul>
               <a href="/register" class="buy-btn">Get Started</a>
@@ -823,6 +826,7 @@
                 <li><i class="bx bx-check"></i> <span>Portal for tenant</span></li>
                 <li><i class="bx bx-check"></i> <span>Online payment</span></li>
                 <li><i class="bx bx-check"></i> <span>Concierge services</span></li>
+                <li><i class="bx bx-check"></i> <span>Portforlio Management</span></li>
                 </ul>
                 <a href="#contact" class="buy-btn">Give us a message</a>
               </div>

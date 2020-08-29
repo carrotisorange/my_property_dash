@@ -386,6 +386,7 @@
                   
                            <th>DATE ACCEPTED</th>
                            <th>ROOM TYPE</th>
+                           <th>MAX OCCUPANCY</th>
                            
                        </tr>
                     </thead>   
@@ -402,6 +403,7 @@
                            <td>{{ Carbon\Carbon::parse($item->date_accepted)->format('M d Y')}}</td> 
          
                            <td>{{ $item->type_of_units }}</td>
+                           <td>{{ $item->max_occupancy }}</td>
                        </tr>
                        @endforeach
                        </tbody>
