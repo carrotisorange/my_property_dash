@@ -2,7 +2,7 @@
 <h3> Welcome, {{ $name }}! </h3>
 You're now officially a resident of {{ Auth::user()->property }}.
 <br><br>
-Your contract starts in unit {{ $unit }} is from {{ Carbon\Carbon::parse($contract_starts_at)->format('M d Y') }} to {{ Carbon\Carbon::parse($contract_ends_at)->format('M d Y') }}.
+Your contract in unit {{ $unit }} starts from {{ Carbon\Carbon::parse($contract_starts_at)->format('M d Y') }} to {{ Carbon\Carbon::parse($contract_ends_at)->format('M d Y') }}.
 <br><br>
 The billing cycle starts every 1st day of the month, and if your movein date happens to be not on the first day of the month, 
 expect you're first bill to be prorated, meaning that you'll only have to pay from the date of you're movein 
