@@ -174,16 +174,11 @@
         <div class="row content">
           <div class="col-lg-6">
             <p class="text-justify">
-              Why did you start The Property Manager?
+             
 
               <br><br>
           
-              We are property managers with about a thousand listings, we were using traditional marketing and many steps of leasing procedures, 
-              paper and pen to sign up tenant info sheets, contracts, billing statements and receipts. We monitor transactions through spreadsheets 
-              and it takes a day to process a report. At one point, our operations are so wrapped up into administrative work that we are spending less 
-              time strengthening our customer relations. We spend so much time looking for documents and less time on satisfying customer requests. 
-              We realize that if we want to stay in this business and grow, we need to automate our processes so we can focus on the more important 
-              aspects of the business like providing good customer service experience while maintaining efficient operations and that’s how thepropertymanager.online was born. 
+             
              
             </p>
             {{-- <ul>
@@ -194,16 +189,15 @@
           </div>
           <div class="col-lg-6 pt-4 pt-lg-0">
             <p class="text-justify">
-              Is a property management right for me?
-              <br><br>
-              Renting out a room or a few number of rooms to tenants is a good source of passive income if you are not doing the property management work. 
-                        But if you factor in the work of looking for tenants, interviewing tenants, explaining house rules, closing contracts, then managing tenants,
-                         billing and collecting rent, and every work in between, the number of hours spent is actual working hours spent to manage and operate a rental property. 
-                         Growing and expanding your business is possible with a property management system that stores all your business’ historical data and tenant information in one place. 
-                         Even if you are not yet looking to expand your business, a property management system is still a good investment as it saves you hours of work that can be done in minutes. 
-                         Work that is a function of 3 persons can be done by 1 person with a good property management system. This savings in time and people is good for the bottom line. 
+
+              We are property managers with about a thousand listings, we were using traditional marketing and many steps of leasing procedures, 
+              paper and pen to sign up tenant info sheets, contracts, billing statements and receipts. We monitor transactions through spreadsheets 
+              and it takes a day to process a report. At one point, our operations are so wrapped up into administrative work that we are spending less 
+              time strengthening our customer relations. We spend so much time looking for documents and less time on satisfying customer requests. 
+              We realize that if we want to stay in this business and grow, we need to automate our processes so we can focus on the more important 
+              aspects of the business like providing good customer service experience while maintaining efficient operations and that’s how thepropertymanager.online was born. 
             </p>
-            <a href="#quick" class="btn-learn-more">Quick Start</a>
+            {{-- <a href="#quick" class="btn-learn-more">Quick Start</a> --}}
            
           </div>
         </div>
@@ -518,11 +512,11 @@
       <div class="container" data-aos="zoom-in">
 
         <div class="row">
-          <div class="col-lg-9 text-center text-lg-left">
-            <h3>Call To Action</h3>
-            {{-- <p> Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p> --}}
-          </div>
-          <div class="col-lg-3 cta-btn-container text-center">
+          {{-- <div class="col-lg-9 text-center text-lg-left">
+            <h3>Call To Action</h3> 
+             <p> Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p> 
+          </div> --}}
+          <div class="col-lg-12 cta-btn-container text-center">
             <a class="cta-btn align-middle" href="/register">Register your property now!</a>
           </div>
         </div>
