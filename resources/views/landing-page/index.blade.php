@@ -86,8 +86,10 @@
           <li><a  href="javascript:void(0)">Contact</a></li>
           <li class="drop-down"><a href="">Login</a>
             <ul>
+              <li><a href="/login" target="_blank">Property Owner</a></li>
               <li><a href="/properties" target="_blank">Tenant</a></li>
-              <li><a href="/login" target="_blank">Owner</a></li>
+              <li><a href="/login" target="_blank">Room Owner</a></li>
+             
             </ul>
           </li>
 
@@ -388,7 +390,7 @@
           <div class="col-xl-3 col-md-6 d-flex align-items-stretch mt-4 mt-xl-0" data-aos="zoom-in" data-aos-delay="400">
             <div class="icon-box">
               <div class="icon"><i class="bx bx-store-alt"></i></div>
-              <h4><a href="">Marketing for Tenants</a></h4>
+              <h4><a href="">Marketing Services</a></h4>
               {{-- <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis</p> --}}
             </div>
           </div>
@@ -467,6 +469,44 @@
             </div>
   
           </div>
+
+          <br>
+          
+          <div class="row">
+             <div class="col-xl-3 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+              <div class="icon-box">
+                <div class="icon"><i class="bx bx-folder-open"></i></div>
+                <h4><a href="">Portfolio Management</a></h4>
+                <p></p>
+              </div>
+            </div>
+  
+            {{-- <div class="col-xl-3 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in" data-aos-delay="200">
+              <div class="icon-box">
+                <div class="icon"><i class="bx bx-user-circle"></i></div>
+                <h4><a href="">Portforlio Management</a></h4>
+               <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</p> 
+              </div>
+            </div>
+  
+            <div class="col-xl-3 col-md-6 d-flex align-items-stretch mt-4 mt-xl-0" data-aos="zoom-in" data-aos-delay="300">
+              <div class="icon-box">
+                <div class="icon"><i class="bx bx-user-circle"></i></div>
+                <h4><a href="">Portal for Tenant</a></h4>
+                <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia</p> 
+              </div>
+            </div>
+  
+            <div class="col-xl-3 col-md-6 d-flex align-items-stretch mt-4 mt-xl-0" data-aos="zoom-in" data-aos-delay="400">
+              <div class="icon-box">
+                <div class="icon"><i class="bx bx-help-circle"></i></div>
+                <h4><a href="">Concierge Services</a></h4>
+                <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis</p> -
+              </div>
+            </div> --}}
+  
+          </div>
+  
   
       </div>
     </section><!-- End Services Section -->
@@ -704,14 +744,14 @@
                 <li><i class="bx bx-check"></i> 20 rooms</li>
                 <li><i class="bx bx-check"></i> Room management</li>
                 <li><i class="bx bx-check"></i> Tenant management</li>
-                <li><i class="bx bx-check"></i> Marketing Available Rooms</li>
-                <li><i class="bx bx-check"></i> Billing Rents and Utilities</li>
-                <li><i class="bx bx-check"></i> Concern and Violation Tracker</li>
-                <li class="na"><i class="bx bx-x"></i> <span>Job Order</span></li>
-                <li class="na"><i class="bx bx-x"></i> <span>Portal for Owner</span></li>
-                <li class="na"><i class="bx bx-x"></i> <span>Portal for Tenant</span></li>
-                <li class="na"><i class="bx bx-x"></i> <span>Online Payment</span></li>
-                <li class="na"><i class="bx bx-x"></i> <span>Concierge Services</span></li>
+                <li><i class="bx bx-check"></i> Marketing services</li>
+                <li><i class="bx bx-check"></i> Billing rents and utilities</li>
+                <li><i class="bx bx-check"></i> Concern and violation tracker</li>
+                <li class="na"><i class="bx bx-x"></i> <span>Job order</span></li>
+                <li class="na"><i class="bx bx-x"></i> <span>Portal for owner</span></li>
+                <li class="na"><i class="bx bx-x"></i> <span>Portal for tenant</span></li>
+                <li class="na"><i class="bx bx-x"></i> <span>Online Ppayment</span></li>
+                <li class="na"><i class="bx bx-x"></i> <span>Concierge services</span></li>
               </ul>
               <a href="/register" class="buy-btn">Get Started for Free</a>
             </div>
@@ -725,14 +765,14 @@
                 <li><i class="bx bx-check"></i> 50 rooms</li>
                 <li><i class="bx bx-check"></i> Room management</li>
                 <li><i class="bx bx-check"></i> Tenant management</li>
-                <li><i class="bx bx-check"></i> Marketing Available Rooms</li>
-                <li><i class="bx bx-check"></i> Billing Rents and Utilities</li>
-                <li><i class="bx bx-check"></i> Concern and Violation Tracker</li>
-                <li><i class="bx bx-check"></i> Job Order</li>
-                <li class="na"><i class="bx bx-x"></i> <span>Portal for Owner</span></li>
-                <li class="na"><i class="bx bx-x"></i> <span>Portal for Tenant</span></li>
-                <li class="na"><i class="bx bx-x"></i> <span>Online Payment</span></li>
-                <li class="na"><i class="bx bx-x"></i> <span>Concierge Services</span></li>
+                <li><i class="bx bx-check"></i> Marketing services</li>
+                <li><i class="bx bx-check"></i> Billing rent and utilities</li>
+                <li><i class="bx bx-check"></i> Concern and violation tracker</li>
+                <li><i class="bx bx-check"></i> Job order</li>
+                <li class="na"><i class="bx bx-x"></i> <span>Portal for owner</span></li>
+                <li class="na"><i class="bx bx-x"></i> <span>Portal for tenant</span></li>
+                <li class="na"><i class="bx bx-x"></i> <span>Online payment</span></li>
+                <li class="na"><i class="bx bx-x"></i> <span>Concierge services</span></li>
               </ul>
               <a href="/register" class="buy-btn">Get Started</a>
             </div>
@@ -746,14 +786,14 @@
                 <li><i class="bx bx-check"></i> 100 rooms</li>
                 <li><i class="bx bx-check"></i> Room management</li>
                 <li><i class="bx bx-check"></i> Tenant management</li>
-                <li><i class="bx bx-check"></i> Marketing Available Rooms</li>
-                <li><i class="bx bx-check"></i> Billing Rents and Utilities</li>
-                <li><i class="bx bx-check"></i> Concern and Violation Tracker</li>
-                <li><i class="bx bx-check"></i> Job Order</li>
-                <li><i class="bx bx-check"></i> <span>Portal for Owner</span></li>
-                <li><i class="bx bx-check"></i> <span>Portal for Tenant</span></li>
-                <li><i class="bx bx-check"></i> <span>Online Payment</span></li>
-                <li class="na"><i class="bx bx-x"></i> <span>Concierge Services</span></li>
+                <li><i class="bx bx-check"></i> Marketing services</li>
+                <li><i class="bx bx-check"></i> Billing rent and utilities</li>
+                <li><i class="bx bx-check"></i> Concern and violation tracker</li>
+                <li><i class="bx bx-check"></i> Job order</li>
+                <li><i class="bx bx-check"></i> <span>Portal for owner</span></li>
+                <li><i class="bx bx-check"></i> <span>Portal for tenant</span></li>
+                <li><i class="bx bx-check"></i> <span>Online payment</span></li>
+                <li class="na"><i class="bx bx-x"></i> <span>Concierge services</span></li>
               </ul>
               </ul>
               <a href="/register" class="buy-btn">Get Started</a>
@@ -775,14 +815,14 @@
                   <li><i class="bx bx-check"></i> 200+ rooms</li>
                   <li><i class="bx bx-check"></i> Room management</li>
                 <li><i class="bx bx-check"></i> Tenant management</li>
-                <li><i class="bx bx-check"></i> Marketing Available Rooms</li>
-                <li><i class="bx bx-check"></i> Billing Rents and Utilities</li>
-                <li><i class="bx bx-check"></i> Concern and Violation Tracker</li>
-                <li><i class="bx bx-check"></i> Job Order</li>
-                <li><i class="bx bx-check"></i> <span>Portal for Owner</span></li>
-                <li><i class="bx bx-check"></i> <span>Portal for Tenant</span></li>
-                <li><i class="bx bx-check"></i> <span>Online Payment</span></li>
-                <li><i class="bx bx-check"></i> <span>Concierge Services</span></li>
+                <li><i class="bx bx-check"></i> Marketing services</li>
+                <li><i class="bx bx-check"></i> Billing rent and utilities</li>
+                <li><i class="bx bx-check"></i> Concern and violation tracker</li>
+                <li><i class="bx bx-check"></i> Job order</li>
+                <li><i class="bx bx-check"></i> <span>Portal for owner</span></li>
+                <li><i class="bx bx-check"></i> <span>Portal for tenant</span></li>
+                <li><i class="bx bx-check"></i> <span>Online payment</span></li>
+                <li><i class="bx bx-check"></i> <span>Concierge services</span></li>
                 </ul>
                 <a href="#contact" class="buy-btn">Give us a message</a>
               </div>
