@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use DB;
 
 class BillingController extends Controller
 {
@@ -79,6 +80,7 @@ class BillingController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::table('billings')->where('billing_id', $id)->delete();
+        return back()->with('success', 'Bill has been deleted');
     }
 }

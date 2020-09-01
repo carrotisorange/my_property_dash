@@ -1010,6 +1010,7 @@ Route::post('/units/{unit_id}/tenant-step4', 'TenantController@postTenantStep4')
 Route::get('/units/{unit_id}/tenants/{tenant_id}/billings', 'TenantController@show_billings')->name('show-billings')->middleware(['auth', 'verified']);
 Route::post('/tenants/billings', 'TenantController@add_billings')->name("add-billings")->middleware(['auth', 'verified']);
 Route::post('/tenants/billings-post', 'TenantController@post_billings')->middleware(['auth', 'verified']);
+Route::delete('/billings/{billing_id}', 'BillingController@destroy')->middleware(['auth', 'verified']);
 
 
 Route::get('/units/{unit_id}/tenants/{tenant_id}/payments', 'TenantController@show_payments')->name('show-payments')->middleware(['auth', 'verified']);
@@ -1175,6 +1176,38 @@ Route::post('/users/{user_id}/charge', function(Request $request){
     }
 
 });
+
+//sending tenant for contract extension
+Route::get('/units/{unit_id}/tenants/{tenant_id}/alert/contract', function(Request $request, $unit_id, $tenant_id){
+
+    $tenant = Tenant::findOrFail($tenant_id);
+    $unit  = Unit::findOrFail($unit_id);
+
+    $diffInDays =  number_format(Carbon::now()->DiffInDays(Carbon::parse($tenant->moveout_date), false));
+
+    $data = array(
+        'email' => $tenant->email_address,
+        'name' => $tenant->first_name,
+        'unit' => $unit->building.' '.$unit->unit_no,
+        'contract_ends_at'  => $tenant->moveout_date,
+        'days_before_moveout' => $diffInDays
+    );
+
+    Mail::send('emails.send-contract-alert-mail', $data, function($message) use ($data){
+        
+        $message->to($data['email']);
+        $message->subject('Contract Alert');
+    });
+
+    DB::table('tenants')
+    ->where('tenant_id', $tenant->tenant_id)
+    ->update([
+        'tenants_note' => 'Email has been sent!'
+    ]);
+    
+    return back()->with('success', 'Email  has been sent to '. $tenant->first_name.' of '. $unit->building.' '.$unit->unit_no);
+
+})->middleware(['auth', 'verified']);
 
 //sending tenant for contract extension
 Route::get('/units/{unit_id}/tenants/{tenant_id}/alert/contract', function(Request $request, $unit_id, $tenant_id){

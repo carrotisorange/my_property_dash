@@ -403,6 +403,7 @@
                     <th>DESCRIPTION</th>
                     <th>AMOUNT</th>
                     <th>STATUS</th>
+                    <td></td>
                   
                 </tr>
                   @foreach ($bills_list as $bill)
@@ -425,6 +426,13 @@
                        @else
                       <span class="badge badge-danger">{{ $bill->billing_status }} </span>
                        @endif
+                      </td>
+                      <td>
+                        <form action="/billings/{{ $bill->billing_id }}" method="POST">
+                          @csrf
+                          @method('delete')
+                          <button type="submit" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"  onclick="return confirm('Are you sure you want perform this action?');"><i class="fas fa-trash fa-sm text-white-50"></i></button>
+                        </form>
                       </td>
                     </tr>
                   @endforeach

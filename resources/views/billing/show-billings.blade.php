@@ -373,7 +373,13 @@
             @if(Auth::user()->user_type === 'treasury' || Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'billing')
             <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/payments" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-dollar-sign fa-sm text-white-50"></i> Payment History <span class="badge badge-light">{{ $payments }}</span></a>
             <a  target="_blank" href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/billings/export" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Download Bills</span></a>
-            <a  target="_blank" href="" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-paper-plane fa-sm text-white-50"></i> Send Bills</span></a>
+            
+            {{-- <form action="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/alert/contract">
+              @csrf
+             
+              <button class="btn btn-primary d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" type="submit" onclick="this.form.submit(); this.disabled = true;"><i class="fas fa-paper-plane fa-sm text-white-50"></i> Send Email</button>
+            
+            </form> --}}
           @endif
           <br><br>
           <div class="row">
@@ -392,13 +398,22 @@
               
                 <table class="table" text-right" width="100%" cellspacing="0" cellpadding="0">
                   <tr>
+                  <td></td>
                     <th>Bill No</th>
                     <th>Description</th>
                     <th>Period Covered</th>
-                    <th>Amount</th>
+                    <th class="text-right" colspan="3">Amount</th>
+                    
                   </tr>
                   @foreach ($bills as $item)
                   <tr>
+                    <td>
+                      <form action="/billings/{{ $item->billing_id }}" method="POST">
+                        @csrf
+                        @method('delete')
+                        <button title="remove this bill" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"  onclick="return confirm('Are you sure you want perform this action?');"><i class="fas fa-trash-alt fa-sm text-white-50"></i></button>
+                      </form>
+                    </td>   
                       <td>{{ $item->billing_no }}</td>
                       <td>{{ $item->billing_desc }}</td>
                       <td>
@@ -409,7 +424,7 @@
                         @endif
                       </td>
                       <td class="text-right" colspan="3">{{ number_format($item->billing_amt,2) }}</td>
-                  </tr>
+                             </tr>
                   @endforeach
             
               </table>
