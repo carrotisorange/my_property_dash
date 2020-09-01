@@ -683,7 +683,9 @@ Route::get('/board', function(Request $request){
         ->get();
 
         $notifications_opened = DB::table('notifications')
-        ->whereNull('updated_at')
+        ->join('units', 'unit_id', 'notification_room_id')
+        ->join('tenants', 'tenant_id', 'notification_tenant_id')
+        ->where('unit_property', Auth::user()->property)
         ->count();
   
         if(Auth::user()->property_type === 'Apartment Rentals' || Auth::user()->property_type === 'Dormitory'){
