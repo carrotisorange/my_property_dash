@@ -377,8 +377,8 @@
                   <tr>
                           <th>AR NO</th>
                           <th>BILL NO</th>
-                          
-                          <th>ROOM</th>
+{{--                           
+                          <th>ROOM</th> --}}
                           <th>DESCRIPTION</th>
                           <th colspan="2">PERIOD COVERED</th>
                           <th class="text-right">AMOUNT</th>
@@ -390,7 +390,7 @@
                           <td>{{ $item->ar_number }}</td>
                           <td>{{ $item->payment_billing_no }}</td>
                           
-                          <td>{{ $item->building.' '.$item->unit_no }}</td>
+                          {{-- <td>{{ $item->building.' '.$item->unit_no }}</td> --}}
                           <td>{{ $item->billing_desc }}</td>
                           <td colspan="2">
                             {{ Carbon\Carbon::parse($item->billing_start)->format('M d Y') }} -
