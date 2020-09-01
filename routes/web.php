@@ -32,6 +32,7 @@ Route::get('/', function(){
     ->count();
 
     $properties = User::where('user_type', 'manager')
+    ->whereNotNull('account_type')
     ->count();
       
     $buildings = Unit::distinct()
