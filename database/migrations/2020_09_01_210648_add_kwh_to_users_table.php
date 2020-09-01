@@ -14,7 +14,7 @@ class AddKwhToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->float('electric_rate_kwh', 8,2)->;
+            $table->float('electric_rate_kwh', 8,2);
             $table->float('water_rate_cum', 8,2);
         });
     }
