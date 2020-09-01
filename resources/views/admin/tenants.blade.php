@@ -392,7 +392,7 @@
                     
                   </tr>
                 </table>
-                  <table class="table table-striped table-bordered" table-striped">
+                  <table class="table table-striped table-bordered">
                     <thead>
                       <tr>
                           <th>TENANT</th>

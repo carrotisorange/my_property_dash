@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <style>
       body {
-        font: normal 8px Verdana, Arial, sans-serif;
+          font: normal 7px Verdana, Arial, sans-serif;
           }
     </style>
 
@@ -21,24 +21,26 @@
 
     <!-- End of Topbar -->
     <div class="container">
-      <div class="row">
-        <div class="col-md-10">
           <h5 class="text-black-50">{{ Auth::user()->property }}</h5>
           {{-- <p class="text-right"> <b>AR #:</b> </p> --}}
-          <ul style="list-style-type: none">
-            <li><b>Date:</b> {{ Carbon\Carbon::now()->firstOfMonth()->format('M d Y') }}</li>
-            <li class="text-danger"><b>Due Date:</b> {{ Carbon\Carbon::now()->firstOfMonth()->addDays(7)->format('M d Y') }}</li>
-            <li><b>To:</b> {{ $tenant }}</li>
-            <li><b>Room:</b> {{ $unit }}</li>
-          </ul>
+          <p>
+            <b>Date:</b> {{ Carbon\Carbon::now()->firstOfMonth()->format('M d Y') }}
+            <br>
+            <span class="text-danger"><b>Due Date:</b> {{ Carbon\Carbon::now()->firstOfMonth()->addDays(7)->format('M d Y') }}</span>
+            <br>
+            <b>To:</b> {{ $tenant }}
+            <br>
+            <b>Room:</b> {{ $unit }}</b>
+          </p>
+       
           <p class="text-right">Statement of Accounts</p>
           <div class="table-responsive text-nowrap">
-            <table class="table text-right">
+            <table class="table">
               <tr>
                 <th>Bill No</th>
                 <th>Description</th>
                 <th>Period Covered</th>
-                <th>Amount</th>
+                <th class="text-right" colspan="3">Amount</th>
               </tr>
               @foreach ($rent_bills as $item)
               <tr>
@@ -87,26 +89,17 @@
           </div>
          
           
-          <div class="card-body">
-            <p class="text-center">
-                  {{ Auth::user()->note }}
-            </p>
-          </div>
-          
-          <ul style="list-style-type: none">
-            <li><b>Posted by:</b> {{ Auth::user()->name }}</li>
-            <li>{{ ucfirst(Auth::user()->user_type).' of '. Auth::user()->property }}</li>
-          </ul>
-        
-        </div>
-      </div>
+          <p class="text-justify">
+            <b>{{ Auth::user()->note }}</b>
 
-    </div>
-     <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+            <br>
+            <br>
+            <b>Posted by:</b> {{ Auth::user()->name }}
+            <br>
+            {{ ucfirst(Auth::user()->user_type).' of '. Auth::user()->property }}
+          </p>
+
+
 </body>
 
 </html>

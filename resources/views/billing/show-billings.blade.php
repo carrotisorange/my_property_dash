@@ -395,8 +395,8 @@
                </li>
               </ul>
               <p class="text-right">Statement of Accounts</p>
-              
-                <table class="table" text-right" width="100%" cellspacing="0" cellpadding="0">
+              <div class="table-responsive text-nowrap">
+                <table class="table">
                   <tr>
                   <td></td>
                     <th>Bill No</th>
@@ -448,10 +448,11 @@
                  @endif     
               </table>
             </div>
+            </div>
           </div>
   
           <div class="card-body">
-            <p class="text-left">
+            <p class="text-justify">
                   {{ Auth::user()->note }}
             </p>
           </div>

@@ -121,7 +121,7 @@ class UserController extends Controller
         
         if($request->action === 'change_footer_message' ){
             DB::table('users')
-            ->where('id', $user_id)
+            ->where('property', Auth::user()->property)
             ->update(
                     [
                         'note' => $request->note,
