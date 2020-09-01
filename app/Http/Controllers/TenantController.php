@@ -298,7 +298,14 @@ class TenantController extends Controller
         
             $security_deposits = DB::table('payments')->where('payment_tenant_id', $tenant_id)->wherein('payment_note',['Security Deposit (Rent)', 'Security Deposit (Utilities)'])->get();
     
-            $billings = DB::table('billings')->where('billing_tenant_id', $tenant_id)->where('billing_status', 'unpaid')->get();
+            $billings = Billing::leftJoin('payments', 'billings.billing_no', '=', 'payments.payment_billing_no')
+            ->selectRaw('*, billings.billing_amt - IFNULL(sum(payments.amt_paid),0) as balance')
+            ->where('billing_tenant_id', $tenant_id)
+            ->groupBy('billing_id')
+
+            ->havingRaw('balance > 0')
+            ->get();
+
     
             $overall_payments = DB::table('payments')->where('payment_tenant_id', $tenant_id)->sum('amt_paid');
             $overall_bills = DB::table('billings')->where('billing_tenant_id', $tenant_id)->sum('billing_amt');
