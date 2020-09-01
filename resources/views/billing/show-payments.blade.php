@@ -380,7 +380,7 @@
                           
                           <th>ROOM</th>
                           <th>DESCRIPTION</th>
-                          <th colspan="2">PERIOD COVERED\</th>
+                          <th colspan="2">PERIOD COVERED</th>
                           <th class="text-right">AMOUNT</th>
                           <th></th>
                       </tr>
