@@ -392,23 +392,26 @@
         <div class="table-responsive text-nowrap">
           <table class="table table-striped">
                 
-                @foreach ($bills as $day => $bills_list)
-                  <tr>
-                      <th colspan="8">{{ Carbon\Carbon::parse($day)->addDay()->format('M d Y') }} ({{$bills_list->count()}} BILLS POSTED)</th>
-                  </tr>
+                
                   <tr>
                     <th>BILL NO</th>
+                    <th>DATE BILLED</th>
+                    
                     <th>TENANT</th>
                     <th>ROOM</th>
                     <th>DESCRIPTION</th>
+                   
+                    <th colspan="2">PERIOD COVERED</th>
                     <th>AMOUNT</th>
-                    <th>STATUS</th>
+                    {{-- <th>STATUS</th> --}}
                     <td></td>
                   
                 </tr>
-                  @foreach ($bills_list as $bill)
+                  @foreach ($bills as $bill)
                   <tr>
-                    <td>{{ $bill->billing_no }}</th>
+                    <td>{{ $bill->billing_no }}</th>  
+                    <td>  {{ Carbon\Carbon::parse($bill->billing_date)->format('M d Y') }}</td>
+                   
                     
                     <td>
                       @if(Auth::user()->user_type === 'billing')
@@ -419,14 +422,19 @@
                     </td>
                     <td>{{ $bill->building.' '.$bill->unit_no }}</td>
                     <td>{{ $bill->billing_desc }}</td>
+                   
+                    <td colspan="2">
+                      {{ Carbon\Carbon::parse($bill->billing_start)->format('M d Y') }} -
+                      {{ Carbon\Carbon::parse($bill->billing_end)->format('M d Y') }}
+                    </td>
                     <td><a href="units/{{ $bill->unit_id }}/tenants/{{ $bill->tenant_id }}/billings">{{ number_format($bill->billing_amt,2) }}</a></td>
-                    <td>
+                    {{-- <td>
                       @if($bill->billing_status === 'paid')
                       <span class="badge badge-success">{{ $bill->billing_status }}</span>
                        @else
                       <span class="badge badge-danger">{{ $bill->billing_status }} </span>
-                       @endif
-                      </td>
+                       @endif 
+                      </td>--}}
                       <td>
                         <form action="/billings/{{ $bill->billing_id }}" method="POST">
                           @csrf
@@ -436,7 +444,7 @@
                       </td>
                     </tr>
                   @endforeach
-                @endforeach
+           
             </table>
         </div>
         </div>

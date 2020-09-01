@@ -15,7 +15,8 @@ class Billing extends Model
                             'billing_desc',
                             'billing_amt',
                             'details',
-                            'billing_status'
+                            'billing_status',
+                            'billing_no'
                         ];
 
  public function tenant()

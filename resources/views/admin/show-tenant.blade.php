@@ -409,22 +409,10 @@
                  
                   <div class="table-responsive text-nowrap">
                     <table class="table table-striped" >
-                          @if($tenant->created_at !== null)
-                          <tr>
-                              <td>Moveout Requested At</td>
-                              <td id="moveout_requested_at">{{ $tenant->created_at }}</td>
-                          </tr>
-                          <tr>
-                              <td>Moveout Approved At</td>
-                              <td id="approve_moveout_at">
-                             
+        
+                             <input type="hidden" value="{{ ($tenant->updated_at) }}" id="approve_moveout_at"> 
                          
-                              {{ ($tenant->updated_at) }}
              
-                            
-                              </td>
-                          </tr>
-                          @endif
                           <tr>
                               <td>Full Name</td>
                               <td>{{ $tenant->first_name.' '.$tenant->middle_name.' '.$tenant->last_name }} 
@@ -1191,7 +1179,7 @@
 <script>
 	$(document).ready(function(){
 
-    if(document.getElementById('approve_moveout_at').innerText === '' ){
+    if(document.getElementById('approve_moveout_at').value === '' ){
       
     }else{
       $("#moveoutTenant").modal('show');

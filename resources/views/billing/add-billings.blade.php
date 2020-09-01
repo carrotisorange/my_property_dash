@@ -267,89 +267,102 @@
         </nav>
         <!-- End of Topbar -->
         <div class="container-fluid">
-          @foreach (['danger', 'warning', 'success', 'info'] as $key)
-          @if(Session::has($key))
-         <p class="alert alert-{{ $key }}"> <i class="fas fa-check-circle"></i> {{ Session::get($key) }}</p>
-          @endif
-          @endforeach
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Rental Bill for {{ Carbon\Carbon::now()->format('M d Y')}}</h1>
-            {{-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> --}}
+            <h1 class="h3 mb-0 text-gray-800">Rental Bill for {{ Carbon\Carbon::now()->format('M Y')}}</h1>
           </div>
 
           <div class="table-responsive text-nowrap">
-        <!-- 404 Error Text -->
-        <form id="add_billings" action="/tenants/billings-post" method="POST">
-            {{ csrf_field() }}
-            </form>
+ 
+          <form id="add_billings" action="/billings" method="POST">
+              {{ csrf_field() }}
+          </form>
             
-            <table class="table table-striped table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-striped table-bordered">
             <tr>
-                <th  class="text-center">BILL NO</th>
+                <th>BILL NO</th>
                 <th>NAME</th>
                 <th>ROOM</th>   
-                
-                <th>PERIOD COVERED</th>     
+                <th>DESCRIPTION</th>
+                <th colspan="2">PERIOD COVERED</th>     
                 <th>AMOUNT</th>
+                <th></th>
            
             </tr>
            <?php
              $ctr = 1;
-             $billing_no_ctr = 1;
+             $billing_no = 1;
              $desc_ctr = 1;
              $amt_ctr = 1;
              $id_ctr = 1;
-             $details_ctr = 1;
+             $billing_start = 1;
+             $billing_end = 1;
            ?>   
            @foreach($active_tenants as $item)
 
-           <input class="col-md-4" type="hidden" form="add_billings" name="billing_no{{ $billing_no_ctr++ }}" value="{{ $billing_ctr++ }}" required>
-           <input class="form-control" type="hidden" form="add_billings" name="ctr" value="{{ $ctr++ }}" readonly>     
-            <input type="hidden" form="add_billings" name="tenant{{ $id_ctr++ }}" value="{{ $item->tenant_id }}">
-            <input class="form-control" type="hidden" form="add_billings" name="desc{{ $desc_ctr++ }}" value="Rent" readonly>
+           <input type="hidden" form="add_billings" name="billing_no{{ $billing_no++ }}" value="{{ $billing_ctr++ }}" required>
+
+           <input type="hidden" form="add_billings" name="ctr" value="{{ $ctr++ }}" required>     
+
+            <input type="hidden" form="add_billings" name="billing_tenant_id{{ $id_ctr++ }}" value="{{ $item->tenant_id }}" required>
+
             <tr>
-              <th class="text-center" >{{ $current_bill_no++ }}</th>
-              <td>{{ $item->first_name.' '.$item->last_name }} 
+              <td>
+                {{ $current_bill_no++ }}
+              </td>
+              <td>
+                <a href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/billings">{{ $item->first_name.' '.$item->last_name }}</a> 
                   @if($item->tenants_note === 'new' )
                   <span class="badge badge-success">{{ $item->tenants_note }}</span>
                   @endif
               </td>
-                <td>{{ $item->building.' '.$item->unit_no }}</td>
-                <td>
+              <td>
+                  {{ $item->building.' '.$item->unit_no }}
+              </td>
+              <td>
+                  <input class="" type="text" form="add_billings" name="billing_desc{{ $desc_ctr++ }}" value="Rent" readonly>
+              </td>
+                {{-- <td>
                   @if($item->tenants_note === 'new' )
                     <input form="add_billings" type="text" name="details{{ $details_ctr++  }}" value="{{ Carbon\Carbon::parse($item->movein_date)->startOfMonth()->format('M d') }}-{{ Carbon\Carbon::now()->endOfMonth()->format('d Y') }} " >
                   @else
                     <input form="add_billings" type="text"  name="details{{ $details_ctr++  }}" value="{{ Carbon\Carbon::now()->startOfMonth()->format('M d') }}-{{ Carbon\Carbon::now()->endOfMonth()->format('d Y') }}" >
                   @endif
-                </td>
-                <td>
+                </td> --}}
+              <td colspan="2">
+                  @if($item->tenants_note === 'new' )
+                  <input form="add_billings" type="date" name="billing_start{{ $billing_start++  }}" value="{{ Carbon\Carbon::parse($item->movein_date)->format('Y-m-d') }}" >
+                  <input form="add_billings" type="date" name="billing_end{{ $billing_end++  }}" value="{{ Carbon\Carbon::parse($item->moveout_date)->format('Y-m-d') }}" >
+                  @else
+                  <input form="add_billings" type="date" name="billing_start{{ $billing_start++  }}" value="{{ Carbon\Carbon::now()->firstOfMonth()->format('Y-m-d') }}" >
+                  <input form="add_billings" type="date" name="billing_end{{ $billing_end++  }}" value="{{ Carbon\Carbon::now()->endOfMonth()->format('Y-m-d') }}" >
+                  @endif
+              </td>
+              <td>
                 <?php 
                       $prorated_rent =  Carbon\Carbon::parse($item->movein_date)->DiffInDays(Carbon\Carbon::now()->endOfMonth());
                       $prorated_monthly_rent =  ($item->tenant_monthly_rent/30) * $prorated_rent;
-                
                 ?>
                   @if($item->tenants_note === 'new' )
-                    <input form="add_billings" type="number" name="amt{{ $amt_ctr++ }}" step="0.01"  value="{{ $prorated_monthly_rent }}" oninput="this.value = Math.abs(this.value)">
-                    @if($item->tenants_note === 'new' )
-                       <span class="badge badge-danger">prorated</span>
-                    @endif
+                    <input form="add_billings" type="number" name="billing_amt{{ $amt_ctr++ }}" step="0.01"  value="{{ $prorated_monthly_rent }}" oninput="this.value = Math.abs(this.value)">
                   @else
-                    <input form="add_billings" type="number" name="amt{{ $amt_ctr++ }}" step="0.01"  value="{{ $item->tenant_monthly_rent }}" oninput="this.value = Math.abs(this.value)"> 
-                    @if($item->tenants_note === 'new' )
-                      <span class="badge badge-danger">prorated</span>
-                    @endif
+                    <input form="add_billings" type="number" name="billing_amt{{ $amt_ctr++ }}" step="0.01"  value="{{ $item->tenant_monthly_rent }}" oninput="this.value = Math.abs(this.value)">
                   @endif
-                </td>
-               
+              </td>
+              <td>
+                @if($item->tenants_note === 'new' )
+                  <span class="badge badge-primary">prorated</span>
+                @endif
+              </td>
            </tr>
            @endforeach
         </table>
-    
-        <p class="text-right">
-            <a href="/bills" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</a>
-            <button type="submit" form="add_billings" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"  onclick="return confirm('Are you sure you want perform this action?');"><i class="fas fa-check fa-sm text-white-50"></i> Add Bills</button>
-        </p>
+  
         </div>
+        <br>
+        <p class="text-right">
+          <a href="/bills" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</a>
+          <button type="submit" form="add_billings" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"  onclick="return confirm('Are you sure you want perform this action?');"><i class="fas fa-check fa-sm text-white-50"></i> Add Bills</button>
+      </p>
     </div>
 
       </div>

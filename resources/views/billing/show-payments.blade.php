@@ -380,6 +380,7 @@
                           
                           <th>ROOM</th>
                           <th>DESCRIPTION</th>
+                          <th colspan="2">PERIOD COVERED\</th>
                           <th class="text-right">AMOUNT</th>
                           <th></th>
                       </tr>
@@ -390,7 +391,11 @@
                           <td>{{ $item->payment_billing_no }}</td>
                           
                           <td>{{ $item->building.' '.$item->unit_no }}</td>
-                          <td>{{ $item->payment_note }}</td>
+                          <td>{{ $item->billing_desc }}</td>
+                          <td colspan="2">
+                            {{ Carbon\Carbon::parse($item->billing_start)->format('M d Y') }} -
+                            {{ Carbon\Carbon::parse($item->billing_end)->format('M d Y') }}
+                          </td>
                           <td class="text-right">{{ number_format($item->amt_paid,2) }}</td>
                           <td class="text-center">
                             <a title="export pdf" target="_blank" href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/payments/{{ $item->payment_id }}/dates/{{$item->payment_created}}/export" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i></a>

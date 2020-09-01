@@ -39,35 +39,18 @@
               <tr>
                 <th>Bill No</th>
                 <th>Description</th>
-                <th>Period Covered</th>
+                <th colspan="2">Period Covered</th>
                 <th class="text-right" colspan="3">Amount</th>
               </tr>
-              @foreach ($rent_bills as $item)
+              @foreach ($bills as $item)
               <tr>
                   <td>{{ $item->billing_no }}</th>
                   <td>{{ $item->billing_desc }}</td>
-                  <td>
-                    @if($item->details === null)
-                   -
-                    @else
-                    {{ $item->details }}
-                    @endif
+                  <td colspan="2">
+                    {{ Carbon\Carbon::parse($item->billing_start)->format('M d Y') }} -
+                    {{ Carbon\Carbon::parse($item->billing_end)->format('M d Y') }}
                   </td>
-                  <th class="text-right" colspan="3">{{ number_format($item->billing_amt,2) }}</th>
-              </tr>
-              @endforeach
-              @foreach ($other_bills as $item)
-              <tr>
-                <td>{{ $item->billing_no }}</th>
-                  <td>{{ $item->billing_desc }}</td>
-                  <td> 
-                    @if($item->details === null)
-                    -
-                    @else
-                    {{ $item->details }}
-                    @endif
-                  </td>
-                  <th class="text-right" colspan="3">{{ number_format($item->billing_amt,2) }}</th>
+                  <th class="text-right" colspan="3">{{ number_format($item->balance,2) }}</th>
               </tr>
               @endforeach
         
@@ -75,14 +58,14 @@
           <table class="table" >
             <tr>
              <th>TOTAL AMOUNT PAYABLE</th>
-             <th class="text-right">{{ number_format($total_bills,2) }} </th>
+             <th class="text-right">{{ number_format($item->balance,2) }} </th>
             </tr>
             @if($tenant_status === 'pending')
 
             @else
             <tr>
               <th class="text-danger">TOTAL AMOUNT PAYABLE AFTER DUE DATE (+10%)</th>
-              <th class="text-right text-danger">{{ number_format($total_bills + ($total_bills * .1) ,2) }}</th>
+              <th class="text-right text-danger">{{ number_format($item->balance + ($item->balance * .1) ,2) }}</th>
              </tr>
             @endif  
           </table>

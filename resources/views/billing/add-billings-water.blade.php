@@ -368,7 +368,7 @@
           </div>
         <!-- 404 Error Text -->
         <div class="table-responsive text-nowrap">
-        <form id="add_billings" action="/tenants/billings-post" method="POST">
+        <form id="add_billings" action="/billings" method="POST">
             {{ csrf_field() }}
             </form>
      
@@ -377,8 +377,8 @@
                 <th class="text-center">BILL NO</th>
                 <th>NAME</th>
                 <th>ROOM</th>   
-                {{-- <th>DESCRIPTION</th>   --}}
-                <th>PERIOD COVERED</th>     
+                <th>DESCRIPTION</th>  
+                <th colspan="2">PERIOD COVERED</th>     
                 <th>AMOUNT</th>
             </tr>
            <?php
@@ -388,12 +388,14 @@
              $amt_ctr = 1;
              $id_ctr = 1;
              $details_ctr = 1;
+             $billing_start = 1;
+             $billing_end = 1;
            ?>   
            @foreach($active_tenants as $item)
            <input class="col-md-4" type="hidden" form="add_billings" name="billing_no{{ $billing_no_ctr++ }}" value="{{ $billing_ctr++ }}" required>
            <input class="form-control" type="hidden" form="add_billings" name="ctr" value="{{ $ctr++ }}" readonly>     
-            <input type="hidden" form="add_billings" name="tenant{{ $id_ctr++ }}" value="{{ $item->tenant_id }}">
-            <input class="form-control" type="hidden" form="add_billings" name="desc{{ $desc_ctr++ }}" value="Water" readonly>
+            <input type="hidden" form="add_billings" name="billing_tenant_id{{ $id_ctr++ }}" value="{{ $item->tenant_id }}">
+          
             <tr>
               <th class="text-center" >{{ $current_bill_no++ }}</th>
                 <td>{{ $item->first_name.' '.$item->last_name }}
@@ -402,20 +404,31 @@
                   @endif
                 <td>{{ $item->building.' '.$item->unit_no }}</td>
                 <td>
-                    <input form="add_billings" type="text" name="details{{ $details_ctr++  }}" value="{{ Carbon\Carbon::now()->startOfMonth()->format('M d') }}-{{ Carbon\Carbon::now()->endOfMonth()->format('d Y') }} " >
+                  <input class="" type="text" form="add_billings" name="billing_desc{{ $desc_ctr++ }}" value="Water" readonly>
                 </td>
+                <td colspan="2">
+                  @if($item->tenants_note === 'new' )
+                  <input form="add_billings" type="date" name="billing_start{{ $billing_start++  }}" value="{{ Carbon\Carbon::parse($item->movein_date)->format('Y-m-d') }}" >
+                  <input form="add_billings" type="date" name="billing_end{{ $billing_end++  }}" value="{{ Carbon\Carbon::parse($item->moveout_date)->format('Y-m-d') }}" >
+                  @else
+                  <input form="add_billings" type="date" name="billing_start{{ $billing_start++  }}" value="{{ Carbon\Carbon::now()->firstOfMonth()->format('Y-m-d') }}" >
+                  <input form="add_billings" type="date" name="billing_end{{ $billing_end++  }}" value="{{ Carbon\Carbon::now()->endOfMonth()->format('Y-m-d') }}" >
+                  @endif
+              </td>
                 <td>
-                    <input form="add_billings" type="number" name="amt{{ $amt_ctr++ }}" value="0" step="0.01" show-billingsoninput="this.value = Math.abs(this.value)">
+                  <input form="add_billings" type="number" step="0.01" name="billing_amt{{ $amt_ctr++ }}" value="0" oninput="this.value = Math.abs(this.value)">
                 </td>
            </tr>
            @endforeach
         </table>
             
-        <p class="text-right">
-            <a href="/bills" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</a>
-            <button type="submit" form="add_billings" id="addBillsButton" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"  onclick="return confirm('Are you sure you want to perform this action?');"><i class="fas fa-check fa-sm text-white-50"></i> Add Bills</button>
-        </p>
+      
     </div>
+    <br>
+    <p class="text-right">
+      <a href="/bills" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</a>
+      <button type="submit" form="add_billings" id="addBillsButton" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"  onclick="return confirm('Are you sure you want to perform this action?');"><i class="fas fa-check fa-sm text-white-50"></i> Add Bills</button>
+  </p>
         </div>
 
       </div>

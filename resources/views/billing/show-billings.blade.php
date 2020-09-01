@@ -384,46 +384,45 @@
           <br><br>
           <div class="row">
             <div class="col-md-12">
-              <ul style="list-style-type: none">
-                <li><b>Date:</b> {{ Carbon\Carbon::now()->firstOfMonth()->format('M d Y') }}</li>
-                <li class="text-danger"><b>Due Date:</b> {{ Carbon\Carbon::now()->firstOfMonth()->addDays(7)->format('M d Y') }}</li>
-                <li><b>To:</b> {{ $tenant->first_name.' '.$tenant->last_name }}</li>
-                <li><b>Room:</b>   
-                  @foreach($unit_no as $item)
-                  {{ $item->building.' '.$item->unit_no }}
-                  @endforeach
-               </li>
-              </ul>
+              <p>
+                <b>Date:</b> {{ Carbon\Carbon::now()->firstOfMonth()->format('M d Y') }}
+                <br>
+                <span class="text-danger"><b>Due Date:</b> {{ Carbon\Carbon::now()->firstOfMonth()->addDays(7)->format('M d Y') }}</span>
+                <br>
+                <b>To:</b> {{ $tenant->first_name.' '.$tenant->last_nane }}
+                <br>
+                <b>Room:</b> {{ $room->building.' '.$room->unit_no }}</b>
+               
+              </p>
               <p class="text-right">Statement of Accounts</p>
               <div class="table-responsive text-nowrap">
                 <table class="table">
                   <tr>
                   <td></td>
                     <th>Bill No</th>
+                   
                     <th>Description</th>
                     <th>Period Covered</th>
                     <th class="text-right" colspan="3">Amount</th>
                     
                   </tr>
-                  @foreach ($bills as $item)
+                  @foreach ($balance as $item)
                   <tr>
                     <td>
                       <form action="/billings/{{ $item->billing_id }}" method="POST">
                         @csrf
                         @method('delete')
-                        <button title="remove this bill" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"  onclick="return confirm('Are you sure you want perform this action?');"><i class="fas fa-trash-alt fa-sm text-white-50"></i></button>
+                        <button title="remove this bill" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"  onclick="return confirm('Are you sure you want perform this action?');"><i class="fas fa-edit fa-sm text-white-50"></i></button>
                       </form>
                     </td>   
                       <td>{{ $item->billing_no }}</td>
+              
                       <td>{{ $item->billing_desc }}</td>
                       <td>
-                        @if($item->details === null)
-                        -
-                        @else
-                        {{ $item->details }}
-                        @endif
+                        {{ Carbon\Carbon::parse($item->billing_start)->format('M d Y') }} -
+                        {{ Carbon\Carbon::parse($item->billing_end)->format('M d Y') }}
                       </td>
-                      <td class="text-right" colspan="3">{{ number_format($item->billing_amt,2) }}</td>
+                      <td class="text-right" colspan="3">{{ number_format($item->balance,2) }}</td>
                              </tr>
                   @endforeach
             
@@ -431,15 +430,15 @@
               <table class="table">
                 <tr>
                  <th>TOTAL AMOUNT PAYABLE</th>
-                 <th class="text-right">{{ number_format($total_bills,2) }} </th>
+                 <th class="text-right">{{ number_format($balance->sum('balance'),2) }} </th>
                 </tr>
                 @if($tenant->tenant_status === 'pending')
 
                 @else
-                <tr>
+                 <tr>
                   <th class="text-danger">TOTAL AMOUNT PAYABLE AFTER DUE DATE (+10%)</th>
-                  <th class="text-right text-danger">{{ number_format($total_bills + ($total_bills * .1) ,2) }}</th>
-                 </tr>
+                  <th class="text-right text-danger">{{ number_format($balance->sum('balance') + ($balance->sum('balance') * .1) ,2) }}</th>
+                 </tr> 
                 @endif
                  @if(Auth::user()->user_type === 'treasury' || Auth::user()->user_type === 'manager')
                  <tr>
@@ -525,12 +524,12 @@
                   
                   <div class="form-group row">
                       <div class="col-md-9">
-                          <label for="">Date</label>
+                          <small for="">Date</small>
                       <input form="acceptPaymentForm" type="date" class="form-control" name="payment_created" value={{date('Y-m-d')}} required>
                       </div>
                       <div class="col-md-3">
-                        <label for="">AR #</label>
-                        <input form="acceptPaymentForm" type="text" class="form-control" id="" name="ar_number" value="{{ $payment_ctr+1 }}" required readonly>
+                        <small for="">AR #</small>
+                        <input form="acceptPaymentForm" type="text" class="form-control" id="" name="ar_number" value="{{ $payment_ctr }}" required readonly>
                     </div>
                   </div>
                   @if($tenant->tenant_status === 'pending')
@@ -538,17 +537,21 @@
                   @else
                   <div class="form-group row">
                     <div class="col">
-                        <label for="">Payment Description</label>
-                        <select form="acceptPaymentForm" class="form-control" name="payment_note" id="" required>
-                          <option value="" selected>Please select one</option>
-                          <option value="Electric">Electric</option>
-                            <option value="Rent">Rent</option>
-                            <option value="Surcharge">Surcharge</option>
-                            <option value="Water">Water</option>
+                        <small for="">Select Bill</small>
+                        <select form="acceptPaymentForm" class="form-control" name="billing_no" id="" required>
+                          @foreach ($balance as $item)
+                            <option value="{{ $item->billing_no }}"> 
+                              Bill # {{ $item->billing_no }}
+                             - {{ $item->billing_desc }}
+                               from {{ Carbon\Carbon::parse($item->billing_start)->format('M d Y') }} 
+                              to  {{ Carbon\Carbon::parse($item->billing_end)->format('M d Y') }}
+                              worth {{ number_format($item->balance,2) }}
+                            </option>
+                          @endforeach
                         </select>
                     </div>
 
-                    <div class="col">
+                    {{-- <div class="col">
                       <label for="">Period Covered</label>
                       <div class="col">
                         <select form="acceptPaymentForm" class="form-control" name="details" required>
@@ -558,13 +561,13 @@
                         </select>
                        
                       </div>
-                  </div>
+                  </div> --}}
                 </div>
                   @endif
                  
                   <div class="form-group row">
                       <div class="col-md-8">
-                          <label for="">Form of Payment</label>
+                          <small>Form of Payment</small>
                           <select form="acceptPaymentForm" class="form-control" name="form_of_payment" id="" required>
                             <option value="" selected>Please select one</option>
                               <option value="Cash">cash</option>
@@ -573,12 +576,13 @@
                           </select>
                       </div>
                       <div class="col-md-4">
-                          <label for="">Amount</label>
-                          @if(Carbon\Carbon::now()->startOfMonth()->addDays(7)->format('d') <= Carbon\Carbon::now()->format('d') && $tenant->tenant_status !== 'pending')
-                          <input form="acceptPaymentForm" type="number" class="form-control" id="" step="0.01" min="1" name="amt_paid" value="{{ $total_bills+($total_bills*.1) }}" required>
+                          <small >Amount</small>
+                          <input form="acceptPaymentForm" type="number" class="form-control" id="" step="0.01" min="1" name="amt_paid" required>
+                          {{-- @if(Carbon\Carbon::now()->startOfMonth()->addDays(7)->format('d') <= Carbon\Carbon::now()->format('d') && $tenant->tenant_status !== 'pending')
+                          <input form="acceptPaymentForm" type="number" class="form-control" id="" step="0.01" min="1" name="amt_paid" value="{{ $bills->sum('billing_amt') +($bills->sum('billing_amt')*.1) }}" required>
                           @else
-                          <input form="acceptPaymentForm" type="number" class="form-control" id="" step="0.01" min="1" name="amt_paid" value="{{ $total_bills }}" required>
-                          @endif
+                          <input form="acceptPaymentForm" type="number" class="form-control" id="" step="0.01" min="1" name="amt_paid" value="{{ $bills->sum('billing_amt') }}" required>
+                          @endif --}}
                       </div>
                    
                   </div>
@@ -589,12 +593,12 @@
               
                   <div class="form-group row">
                     <div class="col">
-                        <label for="">Bank Name</label>
+                        <small for="">Bank Name</small>
                         <input form="acceptPaymentForm" class="form-control" type="text" name="bank_name">
                         <small class="text-danger">For bank deposit only</small>
                     </div>
                     <div class="col">
-                        <label for="">Cheque No</label>
+                        <small for="">Cheque No</small>
                         <input form="acceptPaymentForm" class="form-control" type="text" name="cheque_no">
                         <small class="text-danger">For cheque only</small>
                     </div>
@@ -627,18 +631,60 @@
             </form>
             <div class="row">
               <div class="col">
-                  <small>Date to be billed</small>
-                  <input type="date" form="addBillForm" class="form-control" name="billing_date" required >
+                  <small>Bill No</small>
+                  <input type="number" form="addBillForm" class="form-control" name="billing_no" value="{{ $current_bill_no }}" required readonly>
+                
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="col">
+                  <small>Billing Date</small>
+                  <input type="date" form="addBillForm" class="form-control" name="billing_date" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}" required >
               </div>
             </div>
             <div class="row">
               <div class="col">
-                  <small>Period Covered</small>
-                  @if($tenant->tenants_note === 'new' )
-                  <input form="addBillForm" type="text" class="form-control" name="details" value="{{ Carbon\Carbon::parse($tenant->movein_date)->startOfMonth()->format('M d') }}-{{ Carbon\Carbon::now()->endOfMonth()->format('d Y') }} " >
-                  @else
-                  <input form="addBillForm" type="text" class="form-control" name="details" value="{{ Carbon\Carbon::now()->startOfMonth()->format('M d') }}-{{ Carbon\Carbon::now()->endOfMonth()->format('d Y') }}" >
-                  @endif
+                  <small>Tenant</small>
+                  <input type="text" form="addBillForm" class="form-control" name="tenant" value="{{ $tenant->first_name.' '.$tenant->last_name }}" required readonly>
+                  <input type="hidden" form="addBillForm" class="form-control" name="billing_tenant_id" value="{{ $tenant->tenant_id }}" required readonly>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                  <small>Room</small>
+                  <input type="text" form="addBillForm" class="form-control" name="room" value="{{ $room->building.' '.$room->unit_no }}" required readonly>
+                  <input type="hidden" form="addBillForm" class="form-control" name="room_id" value="{{ $room->unit_id }}" required readonly>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                  <small>Description</small>
+                  <select form="addBillForm" name="billing_desc" class="form-control" required>
+                    <option value="">Please select one</option>
+                    <option value="Rent">Rent</option>
+                    <option value="Electric">Electric</option>
+                    <option value="Water">Water</option>
+                  </select>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="col">
+                  <small>Period Covered</small >
+                  <br>
+                  <small>From</small>
+                  <input type="date"  form="addBillForm" class="form-control" name="billing_start" required>
+                  
+                  <small>To</small>
+                  <input type="date"  form="addBillForm" class="form-control" name="billing_end" required>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                  <small>Amount</small>
+                  <input type="number" step="0.01" form="addBillForm" class="form-control" name="billing_amt" required>
+                 
               </div>
             </div>
             

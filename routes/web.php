@@ -891,6 +891,7 @@ Route::get('/collections', function(){
 
             $collections = DB::table('units')
             ->join('tenants', 'unit_id', 'unit_tenant_id')
+            ->join('billings', 'tenant_id', 'billing_tenant_id')
             ->join('payments', 'tenant_id', 'payment_tenant_id')
             ->where('unit_property', Auth::user()->property)
             // ->whereIn('payment_note',['Rent', 'Electricity', 'Water', 'Surcharge'])
@@ -921,19 +922,17 @@ Route::get('/collections', function(){
 
 Route::get('/bills', function(){
     if(auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager' || auth()->user()->user_type === 'billing'){
-        
+
+
         $bills = DB::table('units')
         ->join('tenants', 'unit_id', 'unit_tenant_id')
         ->join('billings', 'tenant_id', 'billing_tenant_id')
         ->where('unit_property', Auth::user()->property)
-        ->where('billing_amt','>',0)
-        ->whereIn('billing_desc',['Rent', 'Electricity', 'Water', 'Surcharge'])
-        ->orderBy('billing_date', 'desc')
         ->orderBy('billing_no', 'desc')
-        ->get()
-        ->groupBy(function($item) {
-            return \Carbon\Carbon::parse($item->billing_date)->timestamp;
-        });
+        ->get();
+        // ->groupBy(function($item) {
+        //     return \Carbon\Carbon::parse($item->billing_date)->timestamp;
+        // });
    
         return view('billing.bills', compact('bills'));
     }else{
@@ -1037,8 +1036,8 @@ Route::put('/units/{unit_id}/owners/{unit_owner_id}', 'UnitOwnersController@upda
 Route::get('/users/search', 'UserController@search')->middleware(['auth', 'verified']);
 Route::get('/users/{user_id}', 'UserController@show')->middleware('auth');
 Route::post('/users', 'UserController@store')->middleware(['auth', 'verified']);
-Route::get('/users/{user_id}/edit', 'UserController@edit')->middleware('auth');
-Route::put('users/{user_id}', 'UserController@update')->middleware('auth');
+Route::get('/users/{user_id}/edit', 'UserController@edit')->middleware(['auth', 'verified']);
+Route::put('/users/{user_id}', 'UserController@update')->middleware(['auth', 'verified']);
 Route::delete('/users/{user_id}', 'UserController@destroy')->middleware(['auth', 'verified']);
 
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout')->middleware(['auth', 'verified']);

@@ -261,10 +261,7 @@ class UnitsController extends Controller
     }
 
     public function show_property(){
-        if(Auth::check()){
-            return view('unregistered');
-        }
-        else
+       
          $properties = DB::table('units')
         ->select('unit_property',DB::raw('count(distinct building) as count_building'),DB::raw('count(distinct unit_no) as count_unit_no'))
         ->groupBy('unit_property')        
@@ -276,9 +273,7 @@ class UnitsController extends Controller
 
     public function show_reservation_form($property, $unit_id){
 
-        if(Auth::check()){
-            return view('unregistered');
-        }
+  
         $unit = Unit::whereIn('status', ['vacant', 'reserved'])->findOrFail($unit_id);
 
         return view('reservation-forms.show-reservation-form', compact('unit'));

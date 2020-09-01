@@ -149,54 +149,53 @@ class PaymentController extends Controller
        }       
 
 
-       $count_billed = DB::table('billings')
-       ->where('billing_tenant_id', $request->payment_tenant_id)
-       ->where('billing_desc', $request->payment_note)
-       ->where('billing_status', 'unpaid')
-       ->where('details', $request->details)
-       ->count();
+    //    $count_billed = DB::table('billings')
+    //    ->where('billing_tenant_id', $request->payment_tenant_id)
+    //    ->where('billing_desc', $request->payment_note)
+    //    ->where('billing_status', 'unpaid')
+    //    ->where('details', $request->details)
+    //    ->count();
 
-       if($count_billed <= 0){
-        return back()->with('danger','Payment has been rejected. Bill was not found!');
-       }else{
-        DB::table('billings')
-        ->where('billing_tenant_id', $request->payment_tenant_id)
-        ->where('billing_desc', $request->payment_note)
-        ->where('billing_status', 'unpaid')
-        ->where('details', $request->details)
-        ->update(
-                    [
-                        'billing_status' => 'paid',
-                        'created_at' => Carbon::now(),
-                    ]
-                ); 
+    //    if($count_billed <= 0){
+    //     return back()->with('danger','Payment has been rejected. Bill was not found!');
+    //    }else{
+        // DB::table('billings')
+        // ->where('billing_tenant_id', $request->payment_tenant_id)
+        // ->where('billing_desc', $request->payment_note)
+        // ->where('billing_status', 'unpaid')
+        // ->where('details', $request->details)
+        // ->update(
+        //             [
+        //                 'billing_status' => 'paid',
+        //                 'created_at' => Carbon::now(),
+        //             ]
+        //         ); 
  
-          $billing_no = Billing::where('billing_tenant_id', $request->payment_tenant_id)
-         ->latest('created_at')
-         ->first();
- 
+         $current_bill_no = DB::table('units')
+         ->join('tenants', 'unit_id', 'unit_tenant_id')
+         ->join('billings', 'tenant_id', 'billing_tenant_id')
+         ->where('unit_property', Auth::user()->property)
+         ->count();
  
          DB::table('payments')
                  ->insert(
                              [
                                  'payment_tenant_id' => $request->payment_tenant_id,
-                                 'payment_billing_no' => $billing_no->billing_no,
+                                 'payment_billing_no' => $request->billing_no,
                                  'payment_created' => $request->payment_created,
                                  'amt_paid' => $request->amt_paid,
-                                 'or_number' => $billing_no->details, //period covered
                                  'ar_number' => $request->ar_number,
                                  'bank_name' => $request->bank_name,
                                  'form_of_payment' => $request->form_of_payment,
                                  'check_no' => $request->check_no,
                                  'date_deposited' => $request->date_deposited,
-                                 'payment_note' => $request->payment_note, //payment description
                                  'created_at' => Carbon::now(),
                              ]
                          );
  
  
              return back()->with('success','Payment has been recorded!');
-       }
+       
         
     }
 

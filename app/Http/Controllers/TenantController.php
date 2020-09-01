@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Mail\WelcomeMail;
 use Illuminate\Support\Facades\Mail;
+use App\Billing;
 
 class TenantController extends Controller
 {
@@ -341,11 +342,7 @@ class TenantController extends Controller
             //get the tenant information
             $tenant = Tenant::findOrFail($tenant_id);
 
-            //get the unit number
-            $unit_no = DB::table('tenants')
-            ->join('units', 'unit_id', 'unit_tenant_id')
-            ->where('tenant_id', $tenant_id)
-            ->get();
+            $room = Unit::findOrFail($unit_id);
     
             //get the ar number
             $payment_ctr = DB::table('units')
@@ -353,6 +350,13 @@ class TenantController extends Controller
             ->join('payments', 'tenant_id', 'payment_tenant_id')
             ->where('unit_property', Auth::user()->property)
             ->count();
+
+            //get the number of last added bills
+             $current_bill_no = DB::table('units')
+             ->join('tenants', 'unit_id', 'unit_tenant_id')
+             ->join('billings', 'tenant_id', 'billing_tenant_id')
+             ->where('unit_property', Auth::user()->property)
+             ->count();
 
             //get the move in charges
             $movein_charges = DB::table('billings')
@@ -367,23 +371,24 @@ class TenantController extends Controller
             ->where('amt_paid','>',0)
             ->count();
     
-            //get all the unpaid  bills
-            $bills = DB::table('billings')
+            // //get all the unpaid  bills
+            // $bills = DB::table('billings')
+            // ->where('billing_tenant_id', $tenant_id)         
+            // ->orderBy('billing_no')
+            // ->get();
+
+
+            $balance = Billing::leftJoin('payments', 'billings.billing_no', '=', 'payments.payment_billing_no')
+            ->selectRaw('*, billings.billing_amt - IFNULL(sum(payments.amt_paid),0) as balance')
             ->where('billing_tenant_id', $tenant_id)
-            ->where('billing_status', 'unpaid')
-            ->where('billing_amt','>',0)
-            ->orderBy('billing_no')
-            ->distinct()
+            ->groupBy('billing_id')
+
+            ->havingRaw('balance > 0')
             ->get();
 
-            //get the sum of all the unpaid bills
-            $total_bills = DB::table('billings')
-            ->where('billing_tenant_id', $tenant_id)
-            ->where('billing_status', 'unpaid')
-            ->where('billing_amt','>',0)
-            ->sum('billing_amt');
-            
-            return view('billing.show-billings', compact('tenant', 'unit_no', 'bills', 'total_bills','payment_ctr','payments', 'movein_charges'));  
+
+
+            return view('billing.show-billings', compact('current_bill_no','tenant','payment_ctr','payments', 'movein_charges', 'room', 'balance'));  
         }else{
             return view('unregistered');
         }
@@ -395,6 +400,7 @@ class TenantController extends Controller
      
         $collections = DB::table('units')
         ->join('tenants', 'unit_id', 'unit_tenant_id')
+        ->join('billings', 'tenant_id', 'billing_tenant_id')
         ->join('payments', 'tenant_id', 'payment_tenant_id')
         ->where('unit_property', Auth::user()->property)
         ->where('tenant_id', $tenant_id)
@@ -554,7 +560,7 @@ class TenantController extends Controller
           ->join('tenants', 'unit_id', 'unit_tenant_id')
           ->join('billings', 'tenant_id', 'billing_tenant_id')
           ->where('unit_property', Auth::user()->property)
-          ->count();
+          ->count()+1;
         
         for($i = 1; $i<$no_of_items; $i++){
             DB::table('billings')->insert(
@@ -924,12 +930,14 @@ class TenantController extends Controller
 
         $unit = Unit::findOrFail($unit_id);
 
-        $rent_bills = DB::table('billings')->where('billing_tenant_id', $tenant_id)->where('billing_status', 'unpaid') ->where('billing_amt','>',0)->whereIn('billing_desc', ['Monthly Rent', 'Surcharges'])->get();
-
-         $other_bills = DB::table('billings')->where('billing_tenant_id', $tenant_id)->where('billing_status', 'unpaid') ->where('billing_amt','>',0)->where('billing_desc','!=','Monthly Rent')->where('billing_desc','!=','Surcharges')->get();
-
-         $total_bills = DB::table('billings')->where('billing_tenant_id', $tenant_id)->where('billing_status', 'unpaid')->sum('billing_amt');
-         
+    
+        $bills = Billing::leftJoin('payments', 'billings.billing_no', '=', 'payments.payment_billing_no')
+        ->selectRaw('*, billings.billing_amt - IFNULL(sum(payments.amt_paid),0) as balance')
+        ->where('billing_tenant_id', $tenant_id)
+        ->groupBy('billing_id')
+        ->havingRaw('balance > 0')
+        ->get();
+     
         $data = [
             
             'tenant' => $tenant->first_name.' '.$tenant->last_name ,
@@ -938,11 +946,7 @@ class TenantController extends Controller
 
             'unit' => $unit->building.' '.$unit->unit_no,
 
-            'rent_bills' => $rent_bills,
-
-            'other_bills' => $other_bills,
-
-            'total_bills' => $total_bills,
+            'bills' => $bills,
 
     ];
 
