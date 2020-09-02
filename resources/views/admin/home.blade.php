@@ -551,7 +551,7 @@
 
           <div class="form-group">
               <small >Enter the name of the building for the rooms</small>
-              <input form="addUMultipleUnitForm" type="text" class="form-control" name="building" placeholder="ex. Building-A, Building-1">
+              <input form="addUMultipleUnitForm" type="text" class="form-control" name="building" placeholder="ex. Building A, Building 1">
               {{-- <small class="text-danger">please put a hyphen (-) between spaces</small> --}}
           </div>
 
