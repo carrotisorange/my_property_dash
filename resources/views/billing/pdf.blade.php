@@ -58,14 +58,14 @@
           <table class="table" >
             <tr>
              <th>TOTAL AMOUNT PAYABLE</th>
-             <th class="text-right">{{ number_format($item->balance,2) }} </th>
+             <th class="text-right">{{ number_format($bills->sum('balance'),2) }} </th>
             </tr>
             @if($tenant_status === 'pending')
 
             @else
             <tr>
               <th class="text-danger">TOTAL AMOUNT PAYABLE AFTER DUE DATE (+10%)</th>
-              <th class="text-right text-danger">{{ number_format($item->balance + ($item->balance * .1) ,2) }}</th>
+              <th class="text-right text-danger">{{ number_format($bills->sum('balance') + ($bills->sum('balance') * .1) ,2) }}</th>
              </tr>
             @endif  
           </table>
