@@ -118,9 +118,60 @@ class UserController extends Controller
      */
     public function update(Request $request, $user_id)
     {
-        DB::table('units')->where('unit_id', 586)->delete();
+        if($request->action === 'change_electric_rate' ){
+            DB::table('users')
+            ->where('property', Auth::user()->property)
+            ->update(
+                    [
+                        'electric_rate_kwh' => $request->electric_rate_kwh,
+                    ]
+                );
 
-        DB::table('unit_owners')->where('unit_owner_id', 250)->delete();
+                return back()->with('success', 'Electric rate has been updated!');
+        } 
+        
+        if($request->action === 'change_footer_message' ){
+            DB::table('users')
+            ->where('property', Auth::user()->property)
+            ->update(
+                    [
+                        'note' => $request->note,
+                    ]
+                );
+
+                return back()->with('success', 'Footer message has been updated!');
+        }
+
+
+        if($request->password === null){
+
+
+            DB::table('users')
+            ->where('id', $user_id)
+            ->update(
+                    [
+                        'name' => $request->name,
+                        'email' => $request->email,
+                        // 'property' => $request->property
+                    ]
+                );
+
+                return redirect('/users/'.$user_id)->with('success', 'User Profile has been updated!');
+        }else{
+            DB::table('users')
+            ->where('id', $user_id)
+            ->update(
+                [
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'password' => Hash::make($request->password),
+                ]
+                );
+
+            Auth::logout();
+
+            return redirect('/login')->with('success', 'You have been logged out!');
+        }   
     }
 
     /**
