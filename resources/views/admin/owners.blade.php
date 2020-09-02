@@ -378,8 +378,9 @@
                 <table class="table table-striped table-bordered">
                     <thead>
                         <tr>
-                          <th>ROOM</th>
+                          
                            <th>OWNER</th>
+                           <th>ROOM</th>
                            <th>EMAIL</th>
                            <th>MOBILE</th>
                            <th>REPRESENTATIVE</th>
@@ -395,9 +396,10 @@
                        <tbody>
                        @foreach ($owners as $item)
                        <tr>
+                        <td><a href="{{ route('show-investor',['unit_id'=> $item->unit_id, 'unit_owner_id'=>$item->unit_owner_id]) }}">{{ $item->unit_owner }} </a></td>
                            
                            <td><a href="/units/{{ $item->unit_id }}">{{ $item->building.' '.$item->unit_no }}</a></td>
-                           <td><a href="{{ route('show-investor',['unit_id'=> $item->unit_id, 'unit_owner_id'=>$item->unit_owner_id]) }}">{{ $item->unit_owner }} </a></td>
+                           
                           
                            <td>{{ $item-> investor_email_address}}</td>
                            <td>{{ $item->investor_contact_no }}</td>
