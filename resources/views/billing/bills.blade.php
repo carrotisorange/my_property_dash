@@ -424,8 +424,8 @@
                     <td>{{ $bill->billing_desc }}</td>
                    
                     <td colspan="2">
-                      {{ Carbon\Carbon::parse($bill->billing_start)->format('M d Y') }} -
-                      {{ Carbon\Carbon::parse($bill->billing_end)->format('M d Y') }}
+                      {{ $bill->billing_start? Carbon\Carbon::parse($bill->billing_start)->format('M d Y') : null}} -
+                      {{ $bill->billing_end? Carbon\Carbon::parse($bill->billing_end)->format('M d Y') : null }}
                     </td>
                     <td><a href="units/{{ $bill->unit_id }}/tenants/{{ $bill->tenant_id }}/billings">{{ number_format($bill->billing_amt,2) }}</a></td>
                     {{-- <td>
@@ -439,7 +439,7 @@
                         <form action="/billings/{{ $bill->billing_id }}" method="POST">
                           @csrf
                           @method('delete')
-                          <button type="submit" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"  onclick="return confirm('Are you sure you want perform this action?');"><i class="fas fa-trash fa-sm text-white-50"></i></button>
+                          <button type="submit" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"  onclick="return confirm('Are you sure you want perform this action?');"><i class="fas fa-times fa-sm text-white-50"></i></button>
                         </form>
                       </td>
                     </tr>

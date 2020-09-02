@@ -139,7 +139,14 @@ class TenantController extends Controller
 
     public function createTenantStep4()
     {   
-        return view('admin.create-tenant-step-4');
+         //get the number of last added bills
+         $current_bill_no = DB::table('units')
+         ->join('tenants', 'unit_id', 'unit_tenant_id')
+         ->join('billings', 'tenant_id', 'billing_tenant_id')
+         ->where('unit_property', Auth::user()->property)
+         ->max('billing_no') + 1;
+
+        return view('admin.create-tenant-step-4', compact('current_bill_no'));
     }
 
     /**
@@ -205,12 +212,13 @@ class TenantController extends Controller
         ]);
 
           //get the number of last added bills
-          $current_bill_no = DB::table('units')
-          ->join('tenants', 'unit_id', 'unit_tenant_id')
-          ->join('billings', 'tenant_id', 'billing_tenant_id')
-          ->where('unit_property', Auth::user()->property)
-          ->count();
-            
+
+        $current_bill_no = DB::table('units')
+        ->join('tenants', 'unit_id', 'unit_tenant_id')
+        ->join('billings', 'tenant_id', 'billing_tenant_id')
+        ->where('unit_property', Auth::user()->property)
+        ->max('billing_no') + 1;
+                
         
        //create movein charges of the tenant.
         for($i = 0; $i<3 ; $i++){
@@ -302,10 +310,8 @@ class TenantController extends Controller
             ->selectRaw('*, billings.billing_amt - IFNULL(sum(payments.amt_paid),0) as balance')
             ->where('billing_tenant_id', $tenant_id)
             ->groupBy('billing_id')
-
             ->havingRaw('balance > 0')
             ->get();
-
     
             $overall_payments = DB::table('payments')->where('payment_tenant_id', $tenant_id)->sum('amt_paid');
             $overall_bills = DB::table('billings')->where('billing_tenant_id', $tenant_id)->sum('billing_amt');
@@ -326,17 +332,21 @@ class TenantController extends Controller
             ->join('tenants', 'unit_id', 'unit_tenant_id')
             ->join('payments', 'tenant_id', 'payment_tenant_id')
             ->where('unit_property', Auth::user()->property)
-            ->where('tenant_id', $tenant_id)
-            ->where('amt_paid','>',0)
-            // ->whereIn('payment_note',['Rent', 'Electricity', 'Water', 'Surcharge'])
-            
+            ->where('tenant_id', $tenant_id)            
             ->orderBy('payment_created', 'desc')
             ->get()
             ->groupBy(function($item) {
                 return \Carbon\Carbon::parse($item->payment_created)->timestamp;
             });
+
+              //get the number of last added bills
+            $current_bill_no = DB::table('units')
+            ->join('tenants', 'unit_id', 'unit_tenant_id')
+            ->join('billings', 'tenant_id', 'billing_tenant_id')
+            ->where('unit_property', Auth::user()->property)
+            ->max('billing_no') + 1;
             
-                return view('admin.show-tenant', compact('tenant','personnels' ,'billings', 'payments', 'pending_balance','security_deposits','concerns'));  
+                return view('admin.show-tenant', compact('tenant','personnels' ,'billings', 'payments', 'pending_balance','security_deposits','concerns', 'current_bill_no'));  
         }else{
                 return view('unregistered');
         }
@@ -563,12 +573,12 @@ class TenantController extends Controller
 
         $no_of_items = (int) $request->no_of_items; 
 
-          //get the number of last added bills
-          $current_bill_no = DB::table('units')
-          ->join('tenants', 'unit_id', 'unit_tenant_id')
-          ->join('billings', 'tenant_id', 'billing_tenant_id')
-          ->where('unit_property', Auth::user()->property)
-          ->count()+1;
+      //get the number of last added bills
+      $current_bill_no = DB::table('units')
+      ->join('tenants', 'unit_id', 'unit_tenant_id')
+      ->join('billings', 'tenant_id', 'billing_tenant_id')
+      ->where('unit_property', Auth::user()->property)
+      ->max('billing_no') + 1;
         
         for($i = 1; $i<$no_of_items; $i++){
             DB::table('billings')->insert(
@@ -703,7 +713,7 @@ class TenantController extends Controller
              ->join('tenants', 'unit_id', 'unit_tenant_id')
              ->join('billings', 'tenant_id', 'billing_tenant_id')
              ->where('unit_property', Auth::user()->property)
-             ->count();
+             ->max('billing_no') + 1;
     
        
         if($request->billing_option === 'rent'){

@@ -820,7 +820,7 @@
 
         {{-- Modal to moveout tenant --}}
         <div class="modal fade" id="moveoutTenant" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-md" role="document">
+            <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Moveout </h5>
@@ -871,21 +871,25 @@
                                 <br>
                             
                             <br>
-                            <table class = "table table-hover " id="tab_logic">
+                            <div class="table-responsive text-nowrap">
+                            <table class = "table" id="tab_logic">
                                 <tr>
-                                    <th class="text-center">#</th>
-                                    <th>Description</th>
-                                    <th>Amount</th>
+                                    <th>#</th>
+                                    <th>Item</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Item Total</th>
                                 </tr>
                                     <input form="moveoutTenantForm" type="hidden" id="no_of_items" name="no_of_items" >
                                 <tr id='addr1'></tr>
                             </table>
+                          </div>
                         </div>
                       </div>
         
                 <div class="modal-footer">
                     <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button>
-                    <button form="moveoutTenantForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"  onclick="return confirm('Are you sure you want to delete this item?');"><i class="fas fa-check fa-sm text-white-50"></i> Process Moveout</button>
+                    <button form="moveoutTenantForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"  onclick="return confirm('Are you sure you want to perform this action?');"><i class="fas fa-check fa-sm text-white-50"></i> Process Moveout</button>
                 </div>
             </div>
             </div>
@@ -1136,17 +1140,19 @@
   <script src="{{ asset('/dashboard/js/demo/chart-pie-demo.js') }}"></script>
 
   <script type="text/javascript">
+
+  //adding moveout charges upon moveout
     $(document).ready(function(){
         var i=1;
     $("#add_row").click(function(){
-        $('#addr'+i).html("<th>"+ (i) +"</th><td><input form='moveoutTenantForm' name='desc"+i+"' id='desc"+i+"' type='text' class='form-control input-md'></td><td><input form='moveoutTenantForm'   name='amt"+i+"' id='amt"+i+"' type='number' min='1' class='form-control input-md' required></td>");
+        $('#addr'+i).html("<th id='value'>"+ (i) +"</th><td><input form='moveoutTenantForm' name='desc"+i+"' id='desc"+i+"' type='text' class='form-control input-md'></td><td><input form='moveoutTenantForm' name='price"+i+"' id='price"+i+"' type='number' class='form-control input-md'></td><td><input form='moveoutTenantForm' name='qty"+i+"' id='qty"+i+"' type='number' class='form-control input-md'></td><td><input form='moveoutTenantForm'   name='amt"+i+"' id='amt"+i+"' jAutoCalc = '{ 'price"+i+"' } * { 'amt"+i+"' }' type='number' min='1' class='form-control input-md' required></td>");
 
 
      $('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
      i++;
 
-     document.getElementById('no_of_items').value = i;
- });
+
+    });
 
     $("#delete_row").click(function(){
         if(i>1){
@@ -1174,6 +1180,15 @@
         }
     });
 });
+</script>
+
+<script>
+
+       
+function calculateAmount(val){
+
+  alert(val);
+     }
 </script>
 
 {{-- <script>

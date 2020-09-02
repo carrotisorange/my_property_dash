@@ -412,15 +412,15 @@
                       <form action="/billings/{{ $item->billing_id }}" method="POST">
                         @csrf
                         @method('delete')
-                        <button title="remove this bill" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"  onclick="return confirm('Are you sure you want perform this action?');"><i class="fas fa-edit fa-sm text-white-50"></i></button>
+                        <button title="remove this bill" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"  onclick="return confirm('Are you sure you want perform this action?');"><i class="fas fa-times fa-sm text-white-50"></i></button>
                       </form>
                     </td>   
                       <td>{{ $item->billing_no }}</td>
               
                       <td>{{ $item->billing_desc }}</td>
                       <td>
-                        {{ Carbon\Carbon::parse($item->billing_start)->format('M d Y') }} -
-                        {{ Carbon\Carbon::parse($item->billing_end)->format('M d Y') }}
+                        {{ $item->billing_start? Carbon\Carbon::parse($item->billing_start)->format('M d Y') : null}} -
+                        {{ $item->billing_end? Carbon\Carbon::parse($item->billing_end)->format('M d Y') : null }}
                       </td>
                       <td class="text-right" colspan="3">{{ number_format($item->balance,2) }}</td>
                              </tr>
@@ -543,8 +543,8 @@
                             <option value="{{ $item->billing_no }}"> 
                               Bill # {{ $item->billing_no }}
                              - {{ $item->billing_desc }}
-                               from {{ Carbon\Carbon::parse($item->billing_start)->format('M d Y') }} 
-                              to  {{ Carbon\Carbon::parse($item->billing_end)->format('M d Y') }}
+                                {{ $item->billing_start? Carbon\Carbon::parse($item->billing_start)->format('M d Y') : null}} -
+                                {{ $item->billing_end? Carbon\Carbon::parse($item->billing_end)->format('M d Y') : null }}
                               worth {{ number_format($item->balance,2) }}
                             </option>
                           @endforeach

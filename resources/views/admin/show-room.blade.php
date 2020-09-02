@@ -640,30 +640,28 @@
                     <th>BILL NO</th>
                     <th>TENANT</th>
                     <th>DESCRIPTION</th>
-                    <th>PERIOD COVERED</th>
+                    <th colspan="2">PERIOD COVERED</th>
                     <th>AMOUNT</th>
-                    <th>STATUS</th>
+               
                   </tr>
                   @foreach ($unit_bills as $item)
                   <tr>
                       <td>{{ $item->billing_no }}</td>
                       <td> <a href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}">{{ $item->first_name.' '.$item->last_name }}</a></td>
                       <td>{{ $item->billing_desc }}</td>
-                      <td>
-                        @if($item->details === null)
-                        -
-                        @else
-                        {{ $item->details }}
-                        @endif
+                      <td colspan="2">
+                        {{ $item->billing_start? Carbon\Carbon::parse($item->billing_start)->format('M d Y') : null}} -
+                        {{ $item->billing_end? Carbon\Carbon::parse($item->billing_end)->format('M d Y') : null }}
                       </td>
-                      <td>{{ number_format($item->billing_amt,2) }}</td>
-                      <td>
+                      <td> <a href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/billings">{{ number_format($item->billing_amt,2) }}</a></td>
+         
+                      {{-- <td>
                       @if($item->billing_status === 'paid')
                       <span class="badge badge-success">{{ $item->billing_status }}</span>
                        @else
                       <span class="badge badge-danger">{{ $item->billing_status }} </span>
                        @endif
-                       </td>
+                       </td> --}}
                   </tr>
                   @endforeach
             

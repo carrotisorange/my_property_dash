@@ -373,32 +373,32 @@
               <div class="table-responsive text-nowrap">
                 <table class="table" id="tab_logic" width="90%" cellspacing="0" cellpadding="0">
                      <tr>
-                         <th>#</th>
+                         <th>Bill No</th>
                          <th>Description</th>
                          <th>Amount</th>
                      </tr>
                          <input form="addTenantForm4" type="hidden" id="no_of_items" name="no_of_items" value="3">
                      <tr id='addr0'>
-                         <th>1</th>
-                         <td><input form="addTenantForm4"  type="text" name='desc0' id='desc0' class="form-control col-md-8" value="Security Deposit (Rent)" readonly/></td>
-                         <td><input oninput="this.value = Math.abs(this.value)" step="0.01" form="addTenantForm4"  onkeyup="computeTotal()" type="number" name='amt0' id='amt0' class="form-control col-md-8" value="{{ session(Auth::user()->id.'tenant_monthly_rent') }}"/></td>
+                         <td>{{ $current_bill_no }}</td>
+                         <td><input form="addTenantForm4"  type="text" name='desc0' id='desc0' value="Security Deposit (Rent)" readonly/></td>
+                         <td><input oninput="this.value = Math.abs(this.value)" step="0.01" form="addTenantForm4"  onkeyup="computeTotal()" type="number" name='amt0' id='amt0' value="{{ session(Auth::user()->id.'tenant_monthly_rent') }}"/></td>
                      </tr>
                      <tr>
-                      <th>2</th>
-                     <td><input form="addTenantForm4"  type="text" name='desc1' id='desc1' class="form-control col-md-8" value="Advance Rent" readonly/></td>
-                     <td><input oninput="this.value = Math.abs(this.value)" step="0.01" form="addTenantForm4"  onkeyup="computeTotal()" type="number" name='amt1' id='amt1' class="form-control col-md-8" value="{{ session(Auth::user()->id.'tenant_monthly_rent') }}"/></td>
+                      <td>{{ $current_bill_no+1 }}</td>
+                     <td><input form="addTenantForm4"  type="text" name='desc1' id='desc1' class="" value="Advance Rent" readonly/></td>
+                     <td><input oninput="this.value = Math.abs(this.value)" step="0.01" form="addTenantForm4"  onkeyup="computeTotal()" type="number" name='amt1' id='amt1' value="{{ session(Auth::user()->id.'tenant_monthly_rent') }}"/></td>
                     </tr>
                      <tr id='addr1'>
-                        <th>3</th>
+                      <td>{{ $current_bill_no+2 }}</td>
                         <td>
-                          <select form="addTenantForm4" name='desc2' id='desc2' class="form-control col-md-8" required>
+                          <select form="addTenantForm4" name='desc2' id='desc2'>
                             <option value="Security Deposit (Utilities)" >Security Deposit (Utilities)</option>
                             <option value="General Cleaning" >General Cleaning</option>
                             <option value="Management Fee" >Management Fee</option>
                          
                           </select>
                         </td>
-                        <td><input oninput="this.value = Math.abs(this.value)" step="0.01" form="addTenantForm4"  onkeyup="computeTotal()" type="number" name='amt2' id='amt2' class="form-control col-md-8" value="2000"/></td>
+                        <td><input oninput="this.value = Math.abs(this.value)" step="0.01" form="addTenantForm4"  onkeyup="computeTotal()" type="number" name='amt2' id='amt2' value="2000"/></td>
                     </tr>
                     
                      <tr id='addr2'></tr>
@@ -485,12 +485,6 @@
        document.getElementById('total_bills').innerHTML = 'Total:  ' + (parseFloat(document.getElementById('amt0').value) + parseFloat(document.getElementById('amt1').value) + parseFloat(document.getElementById('amt2').value)).toFixed(2).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
        });
    </script>
-
-  <script>
-      function computeTotal(){
-       document.getElementById('total_bills').innerHTML = 'Total:  ' + (parseFloat(document.getElementById('amt0').value) + parseFloat(document.getElementById('amt1').value) + parseFloat(document.getElementById('amt2').value)).toFixed(2).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-   }
-  </script>
 </body>
 
 </html>
