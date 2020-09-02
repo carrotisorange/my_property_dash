@@ -449,19 +449,20 @@
             </div>
             </div>
           </div>
-  
-          <div class="card-body">
-            <p class="text-justify">
-                  {{ Auth::user()->note }}
-            </p>
-          </div>
+
+            <pre>
+              {{ Auth::user()->note }}       
+            </pre>
+
+
           
           @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'manager')
           <button data-toggle="modal" data-target="#editPaymentFooter" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" ><i class="fas fa-edit fa-sm text-white-50"></i> Edit Footer Message</button>
           @endif
+          <br>
           {{-- Modal for editing payment footer message --}}
         <div class="modal fade" id="editPaymentFooter" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-md" role="document">
+            <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Enter Footer Message</h5>
@@ -541,7 +542,7 @@
                         <select form="acceptPaymentForm" class="form-control" name="billing_no" id="" required>
                           @foreach ($balance as $item)
                             <option value="{{ $item->billing_no }}"> 
-                              Bill # {{ $item->billing_no }}
+                              Bill No {{ $item->billing_no }}
                              - {{ $item->billing_desc }}
                                 {{ $item->billing_start? Carbon\Carbon::parse($item->billing_start)->format('M d Y') : null}} -
                                 {{ $item->billing_end? Carbon\Carbon::parse($item->billing_end)->format('M d Y') : null }}
