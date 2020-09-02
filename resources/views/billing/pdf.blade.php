@@ -73,10 +73,13 @@
          
   
             <pre>
-              {{ Auth::user()->note }}
+              <b>{{ Auth::user()->note }}</b>
             </pre>
+
+            <br>
             <br>
             <b>Posted by:</b> {{ Auth::user()->name }}
+            <br>
             {{ ucfirst(Auth::user()->user_type).' of '. Auth::user()->property }}
           
 
