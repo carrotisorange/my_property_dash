@@ -31,8 +31,6 @@ class UnitOwnersController extends Controller
             ->join('unit_owners', 'unit_unit_owner_id', 'unit_owner_id')
             ->where('unit_property', Auth::user()->property)
             ->whereRaw("unit_owner like '%$search%' ")
-            ->orWhereRaw("investor_contact_no like '%$search%' ")
-            ->orWhereRaw("investor_email_address like '%$search%' ")
             ->paginate(10);
 
         $count_owners = DB::table('units')
