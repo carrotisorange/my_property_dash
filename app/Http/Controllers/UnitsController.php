@@ -166,12 +166,14 @@ class UnitsController extends Controller
     // }
 
     public function add_multiple_rooms(Request $request){
+
+       $building =  str_replace(' ', '-',$request->building);
         
         for($i = 1; $i<=$request->no_of_rooms; $i++ ) {
         $id = DB::table('units')->insertGetId([
-             'unit_no' => $request->unit_no.$i,
+             'unit_no' => $request->unit_no.'-'.$i,
              'floor_no' => $request->floor_no,
-             'building' => $request->building,
+             'building' => $building,
              'max_occupancy' => $request->max_occupancy,
              'monthly_rent' => $request->monthly_rent,
              'status' => 'vacant',

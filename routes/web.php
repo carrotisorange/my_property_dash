@@ -734,7 +734,6 @@ Route::get('/home', function(){
 
         $units = DB::table('units')
             ->where('unit_property', Auth::user()->property)
-            ->where('status','!=', 'pulled out')
             ->orderBy('floor_no', 'asc')
             ->orderBy('unit_no', 'asc')
             ->get()
@@ -742,7 +741,7 @@ Route::get('/home', function(){
             return $item->floor_no;
         });
 
-        $buildings = DB::table('units')
+         $buildings = DB::table('units')
             ->select('building', 'status', DB::raw('count(*) as count'))
             ->where('unit_property', Auth::user()->property)
             ->groupBy('building')

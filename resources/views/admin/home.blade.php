@@ -550,13 +550,13 @@
           </form>
 
           <div class="form-group">
-              <small >Enter the name of the building</small>
-              <input form="addUMultipleUnitForm" type="text" class="form-control" name="building" placeholder="Building-A" required>
-              <small class="text-danger">please put a hyphen (-) between spaces</small>
+              <small >Enter the name of the building for the rooms</small>
+              <input form="addUMultipleUnitForm" type="text" class="form-control" name="building" placeholder="ex. Building-A, Building-1">
+              {{-- <small class="text-danger">please put a hyphen (-) between spaces</small> --}}
           </div>
 
           <div class="form-group">
-              <small>Select the floor number</small>
+              <small>Select the floor number of the rooms</small>
               <select class="form-control" form="addUMultipleUnitForm" name="floor_no" id="floor_no" required>
                                   <option value="" selected>Please select one</option>
                                   <option value="-5">5th basement</option>
@@ -578,7 +578,7 @@
           </div>
 
            <div class="form-group">
-              <small>Select the room type</small>
+              <small>Select the type of the rooms</small>
               <select form="addUMultipleUnitForm" class="form-control" name="type_of_units" required>
                   <option value="" selected>Please select one</option>
                   <option value="commercial">commercial</option>
@@ -589,7 +589,7 @@
 
           
               <div class="form-group">
-                <small>Enter the max occupant of room</small>
+                <small>Enter the max occupant of the rooms</small>
                 <input form="addUMultipleUnitForm" type="number" value="0" min="0"  class="form-control" name="max_occupancy">
             </div>
        
@@ -601,13 +601,14 @@
           </div>
 
           <div class="form-group">
-              <small>Enter the initial name of the rooms</small>
-              <input form="addUMultipleUnitForm" type="text" class="form-control" name="unit_no" id="unit_no" placeholder="GF-" required>
+              <small>Enter the initial name for the rooms</small>
+              <input form="addUMultipleUnitForm" type="text" class="form-control" name="unit_no" placeholder="ex. GF, 1F, 6F" id="unit_no" required>
+     
           </div>
 
          
             <div class="form-group">
-                <small>Enter the rent of the room per month</small>
+                <small>Enter the rent of the rooms per month</small>
                 <input form="addUMultipleUnitForm" type="number" value="0" step="0.01" min="0" class="form-control" name="monthly_rent" id="monthly_rent">
             </div>
           
