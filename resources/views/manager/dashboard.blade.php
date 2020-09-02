@@ -678,7 +678,9 @@
                                  {{ $item->building.' '.$item->unit_no }}
                                   @endif
                                 </td>
-                                <td>{{ number_format($item->total_bills,2) }}</td>
+                                <td>
+                                  <a href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/billings">{{ number_format($item->total_bills,2) }}</a>
+                                </td>
                               </tr>
                               @endforeach
                             </tbody>

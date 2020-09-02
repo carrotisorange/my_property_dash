@@ -1176,7 +1176,7 @@
 });
 </script>
 
-<script>
+{{-- <script>
 	$(document).ready(function(){
 
     if(document.getElementById('approve_moveout_at').value === '' ){
@@ -1186,7 +1186,7 @@
     }
 
 	});
-</script>
+</script> --}}
 </body>
 
 </html>

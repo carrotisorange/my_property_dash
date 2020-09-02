@@ -404,18 +404,22 @@ class TenantController extends Controller
     public function show_payments($unit_id, $tenant_id){
 
         $tenant = Tenant::findOrFail($tenant_id);
-     
+    
+
         $collections = DB::table('units')
-        ->join('tenants', 'unit_id', 'unit_tenant_id')
-        ->join('payments', 'tenant_id', 'payment_tenant_id')
-        ->where('unit_property', Auth::user()->property)
-        ->where('tenant_id', $tenant_id)
-        ->where('amt_paid','>',0)
- 
-        ->get()
-        ->groupBy(function($item) {
-            return \Carbon\Carbon::parse($item->payment_created)->timestamp;
-        });
+            ->join('tenants', 'unit_id', 'unit_tenant_id')
+            ->join('payments', 'tenant_id', 'payment_tenant_id')
+            ->where('unit_property', Auth::user()->property)
+            ->where('tenant_id', $tenant_id)
+            ->where('amt_paid','>',0)
+            // ->whereIn('payment_note',['Rent', 'Electricity', 'Water', 'Surcharge'])
+            
+            ->orderBy('payment_created', 'desc')
+            ->orderBy('payment_id', 'desc')
+            ->get()
+            ->groupBy(function($item) {
+                return \Carbon\Carbon::parse($item->payment_created)->timestamp;
+            });
  
         return view('billing.show-payments', compact('collections', 'tenant'));
     }
