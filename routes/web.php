@@ -1077,7 +1077,12 @@ Route::post('/personnels', 'PersonnelController@store')->middleware(['auth', 've
 
 //tenant's online reservation
 Route::post('/reservation','TenantController@post_reservation');
-Route::get('/properties','UnitsController@show_property');
+
+Route::get('/property', function(){
+
+
+    return view('properties.properties');
+});
 Route::get('/{properties}/units','UnitsController@show_vacant_units');
 Route::get('/{properties}/units/{unit_id}', 'UnitsController@show_reservation_form');
 Route::get('/{properties}/units/{unit_id}/tenants/{tenant_id}/reserved', 'TenantController@get_reservation');
