@@ -389,7 +389,7 @@
                 <br>
                 <span class="text-danger"><b>Due Date:</b> {{ Carbon\Carbon::now()->firstOfMonth()->addDays(7)->format('M d Y') }}</span>
                 <br>
-                <b>To:</b> {{ $tenant->first_name.' '.$tenant->last_nane }}
+                <b>To:</b> {{ $tenant->first_name.' '.$tenant->last_name }}
                 <br>
                 <b>Room:</b> {{ $room->building.' '.$room->unit_no }}</b>
                
