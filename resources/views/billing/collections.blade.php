@@ -392,8 +392,8 @@
                           <td>{{ $item->building.' '.$item->unit_no }}</td>
                           <td>{{ $item->billing_desc }}</td>
                           <td colspan="2">
-                            {{ Carbon\Carbon::parse($item->billing_start)->format('M d Y') }} -
-                            {{ Carbon\Carbon::parse($item->billing_end)->format('M d Y') }}
+                            {{ $item->billing_start? Carbon\Carbon::parse($item->billing_start)->format('M d Y') : null}} -
+                            {{ $item->billing_end? Carbon\Carbon::parse($item->billing_end)->format('M d Y') : null }}
                           </td>
                           <td class="text-right">{{ number_format($item->amt_paid,2) }}</td>
                           <td class="text-center">

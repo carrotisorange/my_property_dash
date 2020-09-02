@@ -401,7 +401,7 @@
                            <td>{{ $item-> investor_email_address}}</td>
                            <td>{{ $item->investor_contact_no }}</td>
                            <TD>{{ $item->investor_representative }}</TD>
-                           <td>{{ Carbon\Carbon::parse($item->date_accepted)->format('M d Y')}}</td> 
+                           <td> {{ $item->date_accepted ? Carbon\Carbon::parse($item->date_accepted)->format('M d Y') : null}}</td>
          
                            <td>{{ $item->type_of_units }}</td>
                            <td>{{ $item->max_occupancy }} pax</td>

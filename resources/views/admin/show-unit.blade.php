@@ -456,8 +456,8 @@
                                 <td>{{ $item-> investor_email_address}}</td>
                                 <td>{{ $item->investor_contact_no }}</td>
                                 <TD>{{ $item->investor_representative }}</TD>
-                                <td>{{ Carbon\Carbon::parse($item->date_invested)->format('M d Y')}}</td> 
-                                <td>{{ Carbon\Carbon::parse($item->date_accepted)->format('M d Y')}}</td> 
+                                <td>{{ $item->date_invested ? Carbon\Carbon::parse($item->date_invested)->format('M d Y') : null}}</td> 
+                                <td> {{ $item->date_accepted ? Carbon\Carbon::parse($item->date_accepted)->format('M d Y') : null}}</td> 
                                 <td>{{ $item->type_of_units }}</td>
                               </tr>
                               @endforeach
@@ -549,7 +549,7 @@
                    @foreach ($concerns as $item)
                    <tr>
                   
-                     <td>{{ Carbon\Carbon::parse($item->date_reported)->format('M d Y') }}</td>
+                    <td> {{ $item->date_reported ? Carbon\Carbon::parse($item->date_reported)->format('M d Y') : null}}</td>
                      <td>
                             <a href="{{ route('show-tenant',['unit_id'=> $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a>
                         </td>
