@@ -388,6 +388,7 @@
                            <th>ROOM TYPE</th>
                            <th>MAX OCCUPANCY</th>
                            <th>MONTHLY RENT</th>
+                           <th>STATUS</th>
                            
                        </tr>
                     </thead>   
@@ -406,6 +407,7 @@
                            <td>{{ $item->type_of_units }}</td>
                            <td>{{ $item->max_occupancy }} pax</td>
                            <td>{{ number_format($item->monthly_rent, 2) }}</td>
+                           <td>{{ $item->status }}</td>
                        </tr>
                        @endforeach
                        </tbody>
