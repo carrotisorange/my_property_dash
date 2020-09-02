@@ -354,7 +354,7 @@
                 <h2 class="title-a">Latest Properties</h2>
               </div>
               <div class="title-link">
-                <a href="property-grid.html">All Property
+                <a href="{{ asset('/properties/property-grid.html') }}">All Property
                   <span class="ion-ios-arrow-forward"></span>
                 </a>
               </div>
