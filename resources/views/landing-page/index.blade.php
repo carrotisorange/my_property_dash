@@ -115,7 +115,7 @@
           <h2>Online resources and tools for landlords and property managers</h2>
           <div class="d-lg-flex">
             <a href="/register" class="btn-get-started scrollto">Get Started For Free</a>
-            <a href="https://youtu.be/w1eyMVddAOI" class="venobox btn-watch-video" data-vbtype="video" data-autoplay="true"> Watch Video <i class="icofont-play-alt-2"></i></a>
+            <a href="https://youtu.be/JLPH5mDWCxA" class="venobox btn-watch-video" data-vbtype="video" data-autoplay="true"> Watch Video <i class="icofont-play-alt-2"></i></a>
           </div>
         </div>
         <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
