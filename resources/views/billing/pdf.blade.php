@@ -47,8 +47,8 @@
                   <td>{{ $item->billing_no }}</th>
                   <td>{{ $item->billing_desc }}</td>
                   <td colspan="2">
-                    {{ $bill->billing_start? Carbon\Carbon::parse($bill->billing_start)->format('M d Y') : null}} -
-                      {{ $bill->billing_end? Carbon\Carbon::parse($bill->billing_end)->format('M d Y') : null }}
+                    {{ $item->billing_start? Carbon\Carbon::parse($item->billing_start)->format('M d Y') : null}} -
+                      {{ $item->billing_end? Carbon\Carbon::parse($item->billing_end)->format('M d Y') : null }}
                   </td>
                   <th class="text-right" colspan="3">{{ number_format($item->balance,2) }}</th>
               </tr>
