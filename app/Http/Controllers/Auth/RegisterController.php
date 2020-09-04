@@ -8,6 +8,7 @@ use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Carbon\Carbon;
 
 class RegisterController extends Controller
 {
@@ -82,7 +83,7 @@ class RegisterController extends Controller
             'user_type' => 'manager',
             'status' => 'registered',
             'password' => Hash::make($data['password']),
-            'note' => 'Enter notice for all the tenants.',
+            'created_at' => Carbon::now(),
         ]);
     }
 }

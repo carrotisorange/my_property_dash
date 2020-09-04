@@ -220,7 +220,6 @@ Route::get('/board', function(Request $request){
         ->where('movein_date', '<=', Carbon::now()->subMonths(4)->endOfMonth())
         ->where('unit_property', Auth::user()->property)
          ->whereIn('tenant_status',['active', 'inactive'])
-       
         ->count();
         
         $movein_rate_9 = DB::table('tenants')
@@ -229,7 +228,6 @@ Route::get('/board', function(Request $request){
         ->where('movein_date', '<=', Carbon::now()->subMonths(3)->endOfMonth())
         ->where('unit_property', Auth::user()->property)
         ->where('unit_property', Auth::user()->property)
-   
         ->count();
 
         $movein_rate_10 = DB::table('tenants')
@@ -238,8 +236,6 @@ Route::get('/board', function(Request $request){
         ->where('movein_date', '<=', Carbon::now()->subMonths(2)->endOfMonth())
         ->where('unit_property', Auth::user()->property)
          ->whereIn('tenant_status',['active', 'inactive'])
-   
-
         ->count();
 
         $movein_rate_11 = DB::table('tenants')
@@ -248,8 +244,6 @@ Route::get('/board', function(Request $request){
         ->where('movein_date', '<=', Carbon::now()->subMonth()->endOfMonth())
         ->where('unit_property', Auth::user()->property)
          ->whereIn('tenant_status',['active', 'inactive'])
-     
-
         ->count();
 
         $movein_rate_12 = DB::table('tenants')
@@ -258,8 +252,6 @@ Route::get('/board', function(Request $request){
         ->where('movein_date', '<=', Carbon::now()->endOfMonth())
         ->where('unit_property', Auth::user()->property)
          ->whereIn('tenant_status',['active', 'inactive'])
-   
-
         ->count();
 
         if($units->count() <= 0){
@@ -348,7 +340,6 @@ Route::get('/board', function(Request $request){
         ->where('payment_created', '>=', Carbon::now()->subMonths(10)->firstOfMonth())
         ->where('payment_created', '<=', Carbon::now()->subMonths(10)->endOfMonth())
         ->where('unit_property', Auth::user()->property)
-       
         ->sum('amt_paid');
 
         $collection_rate_3 = DB::table('units')

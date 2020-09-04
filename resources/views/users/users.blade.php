@@ -427,10 +427,12 @@
             <tr>
               <th>ID</th>
                 <th>USER</th>
+                <th>CREATED AT</th>
                 <th>EMAIL</th>
                 <th>TYPE</th>
                 <th>PROPERTY</th>
                 <th>PROPERTY TYPE</th>
+              
                 <th>PROPERTY OWNERSHIP</th>
                 <th>EMAIL VERIFIED AT</th>
                 <th>TRIAL ENDS AT</th>
@@ -445,14 +447,15 @@
             @foreach ($users as $item)
            <tr>
               <td>{{ $item->id }}</td>
-               <td title="{{ $item->last_login_ip }}">
-                 {{ $item->name }}
-                </td>
+               <td>{{ $item->name }}</td>
+               <td>{{ $item->created_at }}</td>
                <td>{{ $item->email }}</td>
                <td>{{ $item->user_type }}</td>
                <td>{{ $item->property }}</td>
                <td>{{ $item->property_type }}</td>
+              
                <td>{{ $item->property_ownership }}</td>
+              
                <td>{{ $item->email_verified_at }}</td>
                <td>{{ $item->trial_ends_at }}</td>
                <td>{{ $item->account_type }}</td>
