@@ -734,10 +734,10 @@
 
           <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
             <div class="box featured">
-              <h3>Free Plan</h3>
+              <h3>Free</h3>
               <h4><sup>₱</sup>0<span>per month</span></h4>
               <ul>
-                <li><i class="bx bx-check"></i> 20 rooms</li>
+                <li><i class="bx bx-check"></i> 10 rooms</li>
                 <li><i class="bx bx-check"></i> Room management</li>
                 <li><i class="bx bx-check"></i> Tenant management</li>
                 <li><i class="bx bx-check"></i> Marketing services</li>
@@ -756,10 +756,10 @@
 
           <div class="col-lg-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="200">
             <div class="box">
-              <h3>Medium Plan</h3>
+              <h3>Medium</h3>
               <h4><sup>₱</sup>950<span>per month</span></h4>
               <ul>
-                <li><i class="bx bx-check"></i> 50 rooms</li>
+                <li><i class="bx bx-check"></i> 20 rooms</li>
                 <li><i class="bx bx-check"></i> Room management</li>
                 <li><i class="bx bx-check"></i> Tenant management</li>
                 <li><i class="bx bx-check"></i> Marketing services</li>
@@ -778,10 +778,10 @@
 
           <div class="col-lg-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="300">
             <div class="box">
-              <h3>Large Plan</h3>
+              <h3>Large</h3>
               <h4><sup>₱</sup>1800<span>per month</span></h4>
               <ul>
-                <li><i class="bx bx-check"></i> 100 rooms</li>
+                <li><i class="bx bx-check"></i> 50 rooms</li>
                 <li><i class="bx bx-check"></i> Room management</li>
                 <li><i class="bx bx-check"></i> Tenant management</li>
                 <li><i class="bx bx-check"></i> Marketing services</li>
@@ -808,10 +808,10 @@
 
             <div class=" col-lg-6" data-aos="fade-up" data-aos-delay="400">
               <div class="box">
-                <h3>Enterprise Plan</h3>
+                <h3>Enterprise</h3>
                 <h4><sup>₱</sup>N<span>per month</span></h4>
                 <ul>
-                  <li><i class="bx bx-check"></i> 200+ rooms</li>
+                  <li><i class="bx bx-check"></i> 100 rooms</li>
                   <li><i class="bx bx-check"></i> Room management</li>
                 <li><i class="bx bx-check"></i> Tenant management</li>
                 <li><i class="bx bx-check"></i> Marketing services</li>
@@ -826,8 +826,12 @@
                 </ul>
                 <a href="#contact" class="buy-btn">Give us a message</a>
               </div>
+              
             </div>
+            
   
+
+            
             {{-- <div class="col-lg-6 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="500">
               <div class="box">
                 <h3>Corporate Plan</h3>
