@@ -414,22 +414,51 @@ class TenantController extends Controller
     public function show_payments($unit_id, $tenant_id){
 
         $tenant = Tenant::findOrFail($tenant_id);
-    
 
         $collections = DB::table('units')
-            ->join('tenants', 'unit_id', 'unit_tenant_id')
-            ->join('payments', 'tenant_id', 'payment_tenant_id')
-            ->where('unit_property', Auth::user()->property)
-            ->where('tenant_id', $tenant_id)
-            ->where('amt_paid','>',0)
-            // ->whereIn('payment_note',['Rent', 'Electricity', 'Water', 'Surcharge'])
+        ->leftJoin('tenants', 'unit_id', 'unit_tenant_id')
+       
+        ->leftJoin('payments', 'tenant_id', 'payment_tenant_id')
+        ->leftJoin('billings', 'payment_billing_no', 'billing_no')
+        ->where('tenant_id', $tenant_id)
+       
+        ->orderBy('payment_created', 'desc')
+        ->orderBy('ar_number', 'desc')
+        ->get()
+        ->groupBy(function($item) {
+            return \Carbon\Carbon::parse($item->payment_created)->timestamp;
+        });
+    
+
+
+        // $collections = DB::table('units')
+        // ->join('tenants', 'unit_id', 'unit_tenant_id')
+        // // ->join('billings', 'tenant_id', 'billing_tenant_id')
+        // ->join('payments', 'tenant_id', 'payment_tenant_id')
+        // ->where('tenant_id', $tenant_id)
+        // // ->whereIn('payment_note',['Rent', 'Electricity', 'Water', 'Surcharge'])
+        // ->orderBy('payment_created', 'desc')
+        // ->orderBy('ar_number', 'desc')
+        // ->get()
+        // ->groupBy(function($item) {
+        //     return \Carbon\Carbon::parse($item->payment_created)->timestamp;
+        // });
+
+
+        // $collections = DB::table('units')
+        //     ->join('tenants', 'unit_id', 'unit_tenant_id')
+        //     ->join('payments', 'tenant_id', 'payment_tenant_id')
+        //     ->where('unit_property', Auth::user()->property)
+        //     ->where('tenant_id', $tenant_id)
+        //     ->where('amt_paid','>',0)
+        //     // ->whereIn('payment_note',['Rent', 'Electricity', 'Water', 'Surcharge'])
             
-            ->orderBy('payment_created', 'desc')
-            ->orderBy('payment_id', 'desc')
-            ->get()
-            ->groupBy(function($item) {
-                return \Carbon\Carbon::parse($item->payment_created)->timestamp;
-            });
+        //     ->orderBy('payment_created', 'desc')
+        //     ->orderBy('payment_id', 'desc')
+        //     ->get()
+        //     ->groupBy(function($item) {
+        //         return \Carbon\Carbon::parse($item->payment_created)->timestamp;
+        //     });
  
         return view('billing.show-payments', compact('collections', 'tenant'));
     }
@@ -901,23 +930,43 @@ class TenantController extends Controller
 
             $unit = Unit::findOrFail($unit_id);
 
+            //  $payment_breakdown = DB::table('payments')
+            // ->where('payment_tenant_id',$tenant_id)
+            // ->where('payment_created', $payment_created)
+            // ->where('amt_paid','>',0)
+            // ->get();
+
+            $collections = DB::table('units')
+            ->leftJoin('tenants', 'unit_id', 'unit_tenant_id')
+           
+            ->leftJoin('payments', 'tenant_id', 'payment_tenant_id')
+            ->leftJoin('billings', 'payment_billing_no', 'billing_no')
+            ->where('tenant_id',$tenant_id)
+            ->where('payment_created', $payment_created)
+            ->orderBy('payment_created', 'desc')
+            ->orderBy('ar_number', 'desc')
+            ->get();
+
+            $balance = Billing::leftJoin('payments', 'billings.billing_no', '=', 'payments.payment_billing_no')
+            ->selectRaw('*, billings.billing_amt - IFNULL(sum(payments.amt_paid),0) as balance')
+            ->where('billing_tenant_id', $tenant_id)
+            ->groupBy('billing_id')
+
+            ->havingRaw('balance > 0')
+            ->get();
+
             $payment = Payment::findOrFail($payment_id);
 
-             $payment_breakdown = DB::table('payments')
-            ->where('payment_tenant_id',$tenant_id)
-            ->where('payment_created', $payment_created)
-            ->where('amt_paid','>',0)
-            ->get();
             
-            $payment_amt = DB::table('payments')
-            ->where('payment_tenant_id',$tenant_id)
-            ->where('payment_created', $payment_created)
-            ->sum('amt_paid');
+            // $payment_amt = DB::table('payments')
+            // ->where('payment_tenant_id',$tenant_id)
+            // ->where('payment_created', $payment_created)
+            // ->sum('amt_paid');
 
-            $running_balance = DB::table('billings')
-            ->where('billing_tenant_id', $tenant_id)
-            ->where('billing_status', 'unpaid')
-            ->sum('billing_amt');
+            // $running_balance = DB::table('billings')
+            // ->where('billing_tenant_id', $tenant_id)
+            // ->where('billing_status', 'unpaid')
+            // ->sum('billing_amt');
             
             $data = [
                 
@@ -925,15 +974,11 @@ class TenantController extends Controller
 
                 'unit' => $unit->building.' '.$unit->unit_no,
 
-                'payment_amt' => $payment_amt,
+                'collections' => $collections,
 
-                'payment_date' => $payment->payment_created,
+                'balance' => $balance,
 
-                'payment_ar' => $payment->ar_number,
-
-                'payment_breakdown' => $payment_breakdown,
-
-                'running_balance' => $running_balance,
+                'payment_date' => $payment->payment_created
 
         ];
 

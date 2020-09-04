@@ -19,7 +19,7 @@
       <div class="row">
         <div class="col-md-10">
           <h5 class="text-black-50">{{ Auth::user()->property }}</h5>
-          <p class="text-right"> <b>AR No:</b> {{ $payment_ar }}</p>
+          {{-- <p class="text-right"> <b>AR No:</b> {{ $payment_ar }}</p> --}}
           <ul style="list-style-type: none">
             <li><b>Date:</b> {{ Carbon\Carbon::parse($payment_date)->format('M d Y') }}</li>
             <li><b>To:</b> {{ $tenant }}</li>
@@ -27,37 +27,42 @@
           </ul>
           <p class="text-right">Acknowledgment Receipt</p>
         <div class="table-responsive text-nowrap">
-          <table class="table text-right" >
+          <table class="table text-right">
             <tr>
-            
-              <th>Bill No</th>
-              <th>Description</th>
-              <th>Date</th>
-              <th>Amount</th>
-            </tr>
-            @foreach ($payment_breakdown as $item)
-            <tr>
+              <th>AR NO</th>
+              <th>BILL NO</th>
+           
+           
+              <th>DESCRIPTION</th>
+              <th colspan="2">PERIOD COVERED</th>
+              <th>FORM OF PAYMENT</th>
+              <th >AMOUNT</th>
               
-              <td>{{ $item->payment_billing_no }}</th>
-              <td>{{ $item->payment_note }}</td>
-              <td>
-                @if($item->or_number === null)
-                -
-                @else
-                {{ $item->or_number }}
-                @endif
-              <td >{{ number_format($item->amt_paid,2) }}</td>
+            </tr>
+            @foreach ($collections as $item)
+            <tr>
+              <td>{{ $item->ar_number }}</td>
+              <td>{{ $item->payment_billing_no }}</td>
+            
+              <td>{{ $item->billing_desc }}</td>
+              <td colspan="2">
+                {{ $item->billing_start? Carbon\Carbon::parse($item->billing_start)->format('M d Y') : null}} -
+                {{ $item->billing_end? Carbon\Carbon::parse($item->billing_end)->format('M d Y') : null }}
+              </td>
+              <td>{{ $item->form_of_payment }}</td>
+              <td class="">{{ number_format($item->amt_paid,2) }}</td>
+             
             </tr>
             @endforeach
         </table>
-        <table class="table" width="100%" cellspacing="0">
+        <table class="table">
           <tr>
            <th>TOTAL</th>
-           <th class="text-right">{{ number_format($payment_amt,2) }}</th>
+           <th class="text-right">{{ number_format($collections->sum('amt_paid'),2) }}</th>
           </tr>
           <tr>
             <th>RUNNING BALANCE</th>
-            <th class="text-right">{{ number_format($running_balance,2) }}</th>
+            <th class="text-right">{{ number_format($balance->sum('balance'),2) }}</th>
            </tr>
         </table>
         </div>
