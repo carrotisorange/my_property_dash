@@ -371,7 +371,7 @@
               <table class="table table-striped">
                 @foreach ($collections as $day => $collection_list)
                   <tr>
-                      <th colspan="9">{{ Carbon\Carbon::parse($day)->addDay()->format('M d Y') }} ({{ $collection_list->count() }} BILLS COLLECTED)</th>
+                      <th colspan="10">{{ Carbon\Carbon::parse($day)->addDay()->format('M d Y') }} ({{ $collection_list->count() }})</th>
                   </tr>
                   <tr>
                           <th>AR NO</th>
@@ -380,8 +380,9 @@
                           <th>ROOM</th>
                           <th>DESCRIPTION</th>
                           <th colspan="2">PERIOD COVERED</th>
-                          <th >AMOUNT</th>
                           <th>FORM OF PAYMENT</th>
+                          <th >AMOUNT</th>
+                         
                           <th></th>
                       </tr>
                 </tr>
@@ -396,8 +397,9 @@
                             {{ $item->billing_start? Carbon\Carbon::parse($item->billing_start)->format('M d Y') : null}} -
                             {{ $item->billing_end? Carbon\Carbon::parse($item->billing_end)->format('M d Y') : null }}
                           </td>
-                          <td class="">{{ number_format($item->amt_paid,2) }}</td>
                           <td>{{ $item->form_of_payment }}</td>
+                          <td class="text-right">{{ number_format($item->amt_paid,2) }}</td>
+                         
                           <td class="text-center">
                             <a title="export pdf" target="_blank" href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/payments/{{ $item->payment_id }}/dates/{{$item->payment_created}}/export" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i></a>
                             {{-- <a target="_blank" href="#" title="print invoice" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-print fa-sm text-white-50"></i></a> 
@@ -414,11 +416,9 @@
                   @endforeach
                       <tr>
                         <th>TOTAL</th>
-                        <th colspan="6" class="text-right">{{ number_format($collection_list->sum('amt_paid'),2) }}</th>
+                        <th colspan="8" class="text-right">{{ number_format($collection_list->sum('amt_paid'),2) }}</th>
                       </tr>
-                      <tr>
-                          <th colspan=""></th>
-                      </tr>
+                    
                 @endforeach
             </table>
              </div>
