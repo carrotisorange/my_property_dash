@@ -83,7 +83,7 @@
               <li><a href="#">Drop Down 4</a></li>
             </ul>
           </li> --}}
-          <li><a  href="javascript:void(0)">Contact</a></li>
+          <li><a  href='#contact'>Contact</a></li>
           <li><a href="/properties" target="_blank">Tenant Portal</a></li>
           <li><a href="/login" target="_blank">Owner Portal</a></li>
           {{-- <li class="drop-down"><a href="">Login</a>
@@ -172,21 +172,10 @@
         </div>
 
         <div class="row content">
-          <div class="col-lg-6">
-            <p class="text-justify">
-             
-
-              <br><br>
-          
-             
-             
-            </p>
-            {{-- <ul>
-              <li><i class="ri-check-double-line"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat</li>
-              <li><i class="ri-check-double-line"></i> Duis aute irure dolor in reprehenderit in voluptate velit</li>
-              <li><i class="ri-check-double-line"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat</li>
-            </ul> --}}
+          <div class="col-lg-6 d-flex align-items-center" data-aos="fade-right" data-aos-delay="50">
+            <img src="{{ asset('/arsha/assets/img/about.png') }}" class="img-fluid" alt="">
           </div>
+          
           <div class="col-lg-6 pt-4 pt-lg-0">
             <p class="text-justify">
 
@@ -266,11 +255,11 @@
                     </p>
                   </div>
                 </li>
-
+{{-- 
                 <li>
                   <a href="#pricing" class="text-center text-primary get-started-btn scrollto"> See Pricing </a>
               
-                </li>
+                </li> --}}
                 <br>
                
 
@@ -289,7 +278,7 @@
 
           </div>
 
-          <div class="col-lg-5 align-items-stretch order-1 order-lg-2 img" style='background-image: url("{{ asset('/arsha/assets/img/why-us.png') }}");' data-aos="zoom-in" data-aos-delay="150">&nbsp;</div>
+          <div class="col-lg-5 align-items-stretch order-1 order-lg-2 img" style='background-image: url("{{ asset('/arsha/assets/img/quick.png') }}");' data-aos="zoom-in" data-aos-delay="150">&nbsp;</div>
         </div>
 
       </div>
@@ -919,7 +908,7 @@
 
       </div>
     </section><!-- End Frequently Asked Questions Section --> --}}
-
+{{-- 
     <!-- ======= Contact Section ======= -->
     <section id="contact" class="contact">
       <div class="container" data-aos="fade-up">
@@ -936,7 +925,7 @@
               <div class="address">
                 <i class="icofont-google-map"></i>
                 <h4>Location:</h4>
-                <p>Bagui City, Philippines, 2600</p>
+                <p>Baguio City, Philippines, 2600</p>
               </div>
 
               <div class="email">
@@ -993,7 +982,7 @@
         </div>
 
       </div>
-    </section><!-- End Contact Section -->
+    </section><!-- End Contact Section --> --}}
 
   </main><!-- End #main -->
 
@@ -1016,16 +1005,16 @@
 
     <div class="footer-top">
       <div class="container">
-        <div class="row">
+        <div id="contact" class="row">
 
           <div class="col-lg-4 col-md-6 footer-contact">
             <h3>The PMO Co.</h3>
             <p>
-              Baguio City <br>
+            {{--   Baguio City <br>
               Philippines, 2600<br>
             <br>
-              <strong>Phone:</strong> 09752826318<br>
-              <strong>Email:</strong> thepropertymanager2020@gmail.com<br>
+              <strong>Phone:</strong> 09752826318<br> --}}
+              <strong>Email:</strong> customercare@thepropertymanager.online<br>
             </p>
           </div>
 
@@ -1072,7 +1061,7 @@
 
     <div class="container footer-bottom clearfix">
       <div class="copyright">
-        &copy; Copyright <strong><span>The PMO Co</span></strong>. All Rights Reserved
+        &copy; 2020 Copyright <strong><span>The PMO Co</span></strong>. All Rights Reserved
       </div>
       
     </div>
