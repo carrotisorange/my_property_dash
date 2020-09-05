@@ -399,7 +399,7 @@ class TenantController extends Controller
             ->selectRaw('*, billings.billing_amt - IFNULL(sum(payments.amt_paid),0) as balance')
             ->where('billing_tenant_id', $tenant_id)
             ->groupBy('billing_id')
-
+            ->orderBy('billing_no', 'desc')
             ->havingRaw('balance > 0')
             ->get();
 

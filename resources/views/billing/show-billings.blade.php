@@ -663,6 +663,9 @@
                   <small>Description</small>
                   <select form="addBillForm" name="billing_desc" class="form-control" required>
                     <option value="">Please select one</option>
+                    <option value="Security Deposit (Utilities)" >Security Deposit (Utilities)</option>
+                    <option value="General Cleaning" >General Cleaning</option>
+                    <option value="Management Fee" >Management Fee</option>
                     <option value="Rent">Rent</option>
                     <option value="Electric">Electric</option>
                     <option value="Water">Water</option>
@@ -675,10 +678,10 @@
                   <small>Period Covered</small >
                   <br>
                   <small>From</small>
-                  <input type="date"  form="addBillForm" class="form-control" name="billing_start" required>
+                  <input type="date"  form="addBillForm" class="form-control" name="billing_start">
                   
                   <small>To</small>
-                  <input type="date"  form="addBillForm" class="form-control" name="billing_end" required>
+                  <input type="date"  form="addBillForm" class="form-control" name="billing_end">
               </div>
             </div>
             <div class="row">

@@ -350,6 +350,12 @@
         </nav>
         <!-- End of Topbar -->
         <div class="container-fluid">
+
+          @foreach (['danger', 'warning', 'success', 'info'] as $key)
+          @if(Session::has($key))
+         <p class="alert alert-{{ $key }}"> <i class="fas fa-check-circle"></i> {{ Session::get($key) }}</p>
+          @endif
+          @endforeach
         <!-- 404 Error Text -->
 
         @if(Auth::user()->user_type === 'treasury' || Auth::user()->user_type === 'manager')
@@ -372,24 +378,30 @@
             <table class="table table-striped">
                 @foreach ($collections as $day => $collection_list)
                   <tr>
-                      <th colspan="8">{{ Carbon\Carbon::parse($day)->addDay()->format('M d Y') }} ({{ $collection_list->count()}})</th>
+                      <th colspan="9">{{ Carbon\Carbon::parse($day)->addDay()->format('M d Y') }} ({{ $collection_list->count()}})</th>
                   </tr>
                   <tr>
-                          <th>AR NO</th>
-                          <th>BILL NO</th>
-                 
-                          <th>ROOM</th>  
-                          <th>DESCRIPTION</th>
-                          <th colspan="2">PERIOD COVERED</th>
-                          <th class="text-right">AMOUNT</th>
-                          <th></th>
+                      <th></th>
+                      <th>AR NO</th>
+                      <th>BILL NO</th>
+                      <th>ROOM</th>  
+                      <th>DESCRIPTION</th>
+                      <th colspan="2">PERIOD COVERED</th>
+                      <th class="text-right">AMOUNT</th>
+                      <th></th>
                       </tr>
                 </tr>
                   @foreach ($collection_list as $item)
                   <tr>
+                    <td>
+                      <form action="/payments/{{ $item->payment_id }}" method="POST">
+                        @csrf
+                        @method('delete')
+                        <button title="remove this payment" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"  onclick="return confirm('Are you sure you want perform this action?');"><i class="fas fa-times fa-sm text-white-50"></i></button>
+                      </form>
+                    </td>   
                           <td>{{ $item->ar_number }}</td>
                           <td>{{ $item->payment_billing_no }}</td>
-                          
                             <td>{{ $item->building.' '.$item->unit_no }}</td> 
                            <td>{{ $item->billing_desc }}</td> 
                          <td colspan="2">
