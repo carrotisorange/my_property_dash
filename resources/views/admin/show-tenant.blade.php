@@ -227,94 +227,6 @@
               </div>
             </li> 
 
-            <!-- Nav Item - Alerts -->
-            {{--     <li class="nav-item dropdown no-arrow mx-1">
-              <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-bell fa-fw"></i>
-                <!-- Counter - Alerts -->
-                @if($request_to_moveout->count() > 3)
-                  <span class="badge badge-danger badge-counter">{{ $request_to_moveout->count() }}+</span>
-                @else
-                  <span class="badge badge-danger badge-counter">{{ $request_to_moveout->count()  }}</span>
-                @endif
-              </a>
-              <!-- Dropdown - Alerts -->
-              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
-                <h6 class="dropdown-header">
-                  Alerts Center
-                </h6>
-                @foreach($request_to_moveout as $item)
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="mr-3">
-                  <div class="icon-circle bg-warning">
-                      <i class="fas fa-exclamation-triangle text-white"></i>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="small text-gray-500">{{Carbon\Carbon::parse($item->created_at)->format('M d Y')}}</div>
-                    <span class="font-weight-bold">{{ $item->building.' '.$item->unit_no }} is requesting to moveout.</span>
-                  </div>
-                </a> 
-                @endforeach 
-                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-              </div>
-            </li> 
-
-            <!-- Nav Item - Messages -->
-            <li class="nav-item dropdown no-arrow mx-1">
-              <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-envelope fa-fw"></i>
-                <!-- Counter - Messages -->
-                <span class="badge badge-danger badge-counter">7</span>
-              </a>
-              <!-- Dropdown - Messages -->
-              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
-                <h6 class="dropdown-header">
-                  Message Center
-                </h6>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="https://source.unsplash.com/fn_BT9fwg_E/60x60" alt="">
-                    <div class="status-indicator bg-success"></div>
-                  </div>
-                  <div class="font-weight-bold">
-                    <div class="text-truncate">Hi there! I am wondering if you can help me with a problem I've been having.</div>
-                    <div class="small text-gray-500">Emily Fowler · 58m</div>
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="https://source.unsplash.com/AU4VPcFN4LE/60x60" alt="">
-                    <div class="status-indicator"></div>
-                  </div>
-                  <div>
-                    <div class="text-truncate">I have the photos that you ordered last month, how would you like them sent to you?</div>
-                    <div class="small text-gray-500">Jae Chun · 1d</div>
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="https://source.unsplash.com/CS2uCrpNzJY/60x60" alt="">
-                    <div class="status-indicator bg-warning"></div>
-                  </div>
-                  <div>
-                    <div class="text-truncate">Last month's report looks great, I am very happy with the progress so far, keep up the good work!</div>
-                    <div class="small text-gray-500">Morgan Alvarez · 2d</div>
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60" alt="">
-                    <div class="status-indicator bg-success"></div>
-                  </div>
-                  <div>
-                    <div class="text-truncate">Am I a good boy? The reason I ask is because someone told me that people say this to all dogs, even if they aren't good...</div>
-                    <div class="small text-gray-500">Chicken the Dog · 2w</div>
-                  </div>
-                </a>
-                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
-              </div>
-            </li> --}}
 
             <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -364,22 +276,20 @@
                 <span  href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addConcern" data-whatever="@mdo"><i class="far fa-comment-dots fa-sm text-white-50"></i> Report Concern</span>  
                 @endif
                 @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'manager')
-                <a href="{{ route('show-billings',['unit_id' => $tenant->unit_tenant_id, 'tenant_id'=>$tenant->tenant_id]) }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-file-invoice-dollar fa-sm text-white-50"></i> Show Bills <span class="badge badge-light">{{ $billings->count() }}</span> </a>
+                <a href="{{ route('show-billings',['unit_id' => $tenant->unit_tenant_id, 'tenant_id'=>$tenant->tenant_id]) }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-file-invoice-dollar fa-sm text-white-50"></i> Show Bills <span class="badge badge-light">{{ $balance->count() }}</span> </a>
                 @endif
                 @if(Auth::user()->user_type === 'treasury' || Auth::user()->user_type === 'manager')
                 <a href="#payment-history" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-dollar-sign fa-sm text-white-50"></i> Payment History</a>
                 @endif
                 
-                @if ($tenant->tenant_status === 'inactive' && $pending_balance > 0) 
+                @if ($tenant->tenant_status === 'inactive' && $balance->sum('balance') > 0) 
                 <span  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#moveoutTenantWarning" data-whatever="@mdo"><i class="fas fa-external-link-alt fa-sm text-white-50"></i> Extend Contract</span>
                 @else
                 <span  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#extendTenant" data-whatever="@mdo"><i class="fas fa-external-link-alt fa-sm text-white-50"></i> Extend Contract</span>
                 @endif
                
                 @if ($tenant->tenant_status === 'active' || $tenant->tenant_status === 'pending')
-                    @if($pending_balance > 0)
-                    <span href="#" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm" data-toggle="modal" data-target="#moveoutTenantWarning" data-whatever="@mdo"><i class="fas fa-sign-out-alt fa-sm text-white-50"></i> Request Moveout</span>
-                    @else
+                   
                       @if($tenant->created_at === null && $tenant->updated_at === null)
                       <span href="#" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm" data-toggle="modal" data-target="#requestToMoveoutModal" data-whatever="@mdo"><i class="fas fa-sign-out-alt fa-sm text-white-50"></i> Request Moveout</span>
                       @elseif($tenant->created_at !== null && $tenant->updated_at === null)
@@ -389,10 +299,13 @@
                           <button title="Waiting for the manager to approve..." class="d-none d-sm-inline-block btn btn-sm btn-warning shadow-sm" ><i class="fas fa-clock fa-sm text-white-50"></i> Pending Moveout</button>
                         @endif
                       @else
+                      @if($balance->sum('balance') > 0)
+                      <span href="#" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm" data-toggle="modal" data-target="#moveoutTenantWarning" data-whatever="@mdo"><i class="fas fa-sign-out-alt fa-sm text-white-50"></i> Process Moveout</span>
+                      @else
                       <button  href="#" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm" data-toggle="modal" data-target="#moveoutTenant" data-whatever="@mdo"><i class="fas fa-sign-out-alt fa-sm text-white-50"></i> Process Moveout</button>
                       @endif
-                    @endif
-                @else
+                  @endif
+           
                 @endif
               </div>
             </div>
@@ -823,7 +736,7 @@
             <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Moveout </h5>
+                <h5 class="modal-title" id="exampleModalLabel">Process Moveout </h5>
         
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -833,64 +746,22 @@
                     <form id="moveoutTenantForm" action="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}" method="POST">
                         {{ csrf_field() }}
                     </form>
-                    <input type="hidden" form="moveoutTenantForm" id="unit_tenant_id" name="unit_tenant_id" value="{{ $tenant->unit_tenant_id }}"required>
-                    <input type="hidden" form="moveoutTenantForm" id="tenant_id" name="tenant_id" value="{{ $tenant->tenant_id }}"required>
+                    <input type="hidden" form="moveoutTenantForm" id="unit_tenant_id" name="unit_tenant_id" value="{{ $tenant->unit_tenant_id }}" required>
+                    <input type="hidden" form="moveoutTenantForm" id="tenant_id" name="tenant_id" value="{{ $tenant->tenant_id }}" required>
                     <div class=" row">
                         <div class="col">
-                            <label for="moveout_date">Moveout date</label>
-                            <input type="date" form="moveoutTenantForm" class="form-control" name="actual_move_out_date" id="actual_moveout_date" value="{{ $tenant->moveout_date }}" required>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div class="col">
-                            <label for="ex1">Reason for moving out</label>
-                              <select form="moveoutTenantForm" class="form-control" name="reason_for_moving_out" id="reason_for_moving_out" required>
-                                  <option value="">Please select one</option>
-                                  <option value="end of contract">end of contract</option>
-                                  <option value="delinquent">delinquent</option>
-                                  <option value="force majeure">force majeure</option>
-                                  <option value="run away">run away</option>
-                                  <option value="unruly">unruly</option>
-                              </select>
-                          </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div class="col">
+                          <p class="text-center">{{ $tenant->first_name.' '.$tenant->last_name }} is ready to moveout in {{ $unit->building.' '.$unit->unit_no }} on {{ Carbon\Carbon::parse($tenant->actual_move_out_date)->format('M d Y') }}. </p>
                           
-                            Deposit
-                                @foreach ($security_deposits as $item)
-                                    <ul>
-                                        <li>{{ $item->payment_note.' - '. number_format($item->amt_paid,2)}} </li>
-                                    </ul>
-                                @endforeach
-                                Moveout Charges
-                                <a id='delete_row' class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-minus fa-sm text-white-50"></i></a>
-                                <a id="add_row" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i></a>     
-                                <br>
-                            
-                            <br>
-                            <div class="table-responsive text-nowrap">
-                            <table class = "table" id="tab_logic">
-                                <tr>
-                                    <th>#</th>
-                                    <th>Item</th>
-                                    <th>Price</th>
-                                    <th>Quantity</th>
-                                    <th>Item Total</th>
-                                </tr>
-                                    <input form="moveoutTenantForm" type="hidden" id="no_of_items" name="no_of_items" >
-                                <tr id='addr1'></tr>
-                            </table>
-                          </div>
                         </div>
-                      </div>
-        
-                <div class="modal-footer">
-                    <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button>
-                    <button form="moveoutTenantForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"  onclick="return confirm('Are you sure you want to perform this action?');"><i class="fas fa-check fa-sm text-white-50"></i> Process Moveout</button>
+                    </div>
+                  
+                  <div class="modal-footer">
+                    <button form="moveoutTenantForm" type="submit" class="btn btn-primary btn-user btn-block"  onclick="this.form.submit(); this.disabled = true;">
+                      Print Gatepass
+                   </button>
+                  
                 </div>
+             
             </div>
             </div>
         </div>
@@ -898,7 +769,7 @@
         
         {{-- Modal for renewing tenant --}}
         <div class="modal fade" id="extendTenant" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-md" role="document">
+            <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Extend Contract</h5>
@@ -949,7 +820,6 @@
                                         <th>Amount</th>
                                     </tr>
                                         <input form="extendTenantForm" type="hidden" id="no_of_row" name="no_of_row" >
-                                        <input form="extendTenantForm" type="hidden" id="current_date" name="current_date" value="{{ date('Y-m-d') }}">
                                     
                                     <tr id='row1'></tr>
                                 </table>
@@ -966,40 +836,76 @@
         
         {{-- Modal for warning message --}}
         <div class="modal fade" id="moveoutTenantWarning" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-md" role="document">
+            <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Warning </h5>
+                <h5 class="modal-title" id="exampleModalLabel">Outstanding Balance </h5>
         
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 </div>
 
-                @if(Auth::user()->user_type === 'manager')
+               
                 <div class="modal-body">
-                  <p class="text-center">
-                      Tenant has an outstanding balance of <a title="click this to see the breakdown" >{{ number_format($pending_balance,2) }}. 
-                        <br> Would you like to add payment?
-                  </p>
+                  <div class="row">
+                    <div class="col">
+    
+                      <small>Breakdown</small>
+                      <div class="table-responsive text-nowrap">
+                       
+                        <table class="table table-bordered">
+                          <tr>
+                          {{-- <td></td> --}}
+                            <th>Bill No</th>
+                           
+                            <th>Description</th>
+                            <th>Period Covered</th>
+                            <th class="text-right" colspan="3">Amount</th>
+                            
+                          </tr>
+                          @foreach ($balance as $item)
+                          <tr>
+                            {{-- <td>
+                              <form action="/billings/{{ $item->billing_id }}" method="POST">
+                                @csrf
+                                @method('delete')
+                                <button title="remove this bill" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"  onclick="return confirm('Are you sure you want perform this action?');"><i class="fas fa-times fa-sm text-white-50"></i></button>
+                              </form>
+                            </td>    --}}
+                              <td>{{ $item->billing_no }}</td>
+                      
+                              <td>{{ $item->billing_desc }}</td>
+                              <td>
+                                {{ $item->billing_start? Carbon\Carbon::parse($item->billing_start)->format('M d Y') : null}} -
+                                {{ $item->billing_end? Carbon\Carbon::parse($item->billing_end)->format('M d Y') : null }}
+                              </td>
+                              <td class="text-right" colspan="3">{{ number_format($item->balance,2) }}</td>
+                          </tr>
+                         
+                          @endforeach
+                          <tr>
+                            <th colspan="4">TOTAL AMOUNT PAYABLE</th>
+                            <th class="text-right">{{ number_format($balance->sum('balance'),2) }} </th>
+                          </tr>
+                    
+                      </table>
+                     
+                    </div>
+                    </div>
+                    
+                  </div>
+                 
                </div>
                <div class="modal-footer">
-                 <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> No, Close</button>
-                 <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{  $tenant->tenant_id }}/billings" form="extendTenantForm" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-check fa-sm text-white-50"></i> Yes, Proceed</a>
+                 <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Close</button>
+                 @if($balance->sum('balance') > 0)
+                 <button title="balance has to be settled before moving out." href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{  $tenant->tenant_id }}/billings" form="extendTenantForm" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" disabled><i class="fas fa-check fa-sm text-white-50"></i> Process Moveout</button> 
+                 @else
+                 <button href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{  $tenant->tenant_id }}/billings" form="extendTenantForm" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-check fa-sm text-white-50"></i> Process Moveout</button> 
+                 @endif
              </div>
-               
-               @else
-               <div class="modal-body">
-                <p class="text-center">
-                    Tenant has an outstanding balance of <a title="click this to see the breakdown" >{{ number_format($pending_balance,2) }}. 
-                     
-                </p>
-             </div>
-             <div class="modal-footer">
-               <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> No, Close</button>
-               <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{  $tenant->tenant_id }}/billings" form="extendTenantForm" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-check fa-sm text-white-50"></i> Yes, Proceed</a>
-           </div>
-               @endif
+             
                 
               
             </div>
@@ -1009,10 +915,10 @@
 
                 {{-- Modal for requesting to moveout --}}
                 <div class="modal fade" id="requestToMoveoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                  <div class="modal-dialog modal-md" role="document">
+                  <div class="modal-dialog modal-lg" role="document">
                   <div class="modal-content">
                       <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Confirm </h5>
+                      <h5 class="modal-title" id="exampleModalLabel">Request Moveout </h5>
               
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
@@ -1020,18 +926,65 @@
                       </div>
   
                       <div class="modal-body">
-                        <p class="text-center">
-                           Are you sure you want to request this tenant to moveout?
-                        </p>
-                     </div>
-                     <div class="modal-footer">
-                       <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> No</button>
-                       <form action="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}" method="POST">
+                      <form id="requestMoveoutForm" action="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}" method="POST">
                         @method('put')
                          {{ csrf_field() }}
-                        <input type="hidden" name="action" value="request to moveout">
-                        <button class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-sign-out-alt fa-sm text-white-50"></i> Request Moveout</button>
-                      </form>
+                        </form>
+                        <input form="requestMoveoutForm" type="hidden" name="action" value="request to moveout">
+                        <input type="hidden" form="requestMoveoutForm" id="unit_tenant_id" name="unit_tenant_id" value="{{ $tenant->unit_tenant_id }}"required>
+                        <input type="hidden" form="requestMoveoutForm" id="tenant_id" name="tenant_id" value="{{ $tenant->tenant_id }}"required>
+                        <div class=" row">
+                          <div class="col">
+                              <small>Moveout Date</small>
+                              <input type="date" form="requestMoveoutForm" class="form-control" name="actual_move_out_date" id="actual_moveout_date" value="{{ $tenant->moveout_date }}" required>
+                          </div>
+                      </div>
+                      <br>
+                      <div class="row">
+                          <div class="col">
+                              <small>Reason for Moving Out</small>
+                                <select form="requestMoveoutForm" class="form-control" name="reason_for_moving_out" id="reason_for_moving_out" required>
+                                    <option value="">Please select one</option>
+                                    <option value="end of contract">end of contract</option>
+                                    <option value="delinquent">delinquent</option>
+                                    <option value="force majeure">force majeure</option>
+                                    <option value="run away">run away</option>
+                                    <option value="unruly">unruly</option>
+                                </select>
+                            </div>
+                      </div>
+                      <br>
+                        <div class="row">
+                          <div class="col">
+                            <small>Moveout Charges</small> 
+                            <p class="text-right">
+                              <a id='delete_row' class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-minus fa-sm text-white-50"></i> </a>
+                            <a id="add_row" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> </a>     
+                            </p>
+                              <div class="table-responsive text-nowrap">
+                              <table class = "table" id="tab_logic">
+                                  <tr>
+                                      <th>#</th>
+                                      <th>Item</th>
+                                      <th>Price</th>
+                                      <th>Quantity</th>
+                                      <th>Item Total</th>
+                                  </tr>
+                                      <input form="requestMoveoutForm" type="hidden" id="no_of_items" name="no_of_items" >
+                                  <tr id='addr1'></tr>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                        <br>
+                        
+                       
+                     </div>
+                     <div class="modal-footer">
+                       <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button>
+                      
+                        <button type="submit" form="requestMoveoutForm" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-sign-out-alt fa-sm text-white-50"></i> Request Moveout</button>
+                     
                    </div>
                      
                 
@@ -1042,10 +995,10 @@
 
               {{-- Modal to approve to moveout --}}
               <div class="modal fade" id="approveToMoveoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-md" role="document">
+                <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Confirm </h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Approve Moveout </h5>
             
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -1053,18 +1006,86 @@
                     </div>
 
                     <div class="modal-body">
-                      <p class="text-center">
-                         Are you sure you want to approve this tenant to moveout?
-                      </p>
+                      <form id="approveMoveoutForm" action="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}" method="POST">
+                        @method('put')
+                         {{ csrf_field() }}
+                        <input form ="approveMoveoutForm" type="hidden" name="action" value="approve to moveout">
+                      </form>
+                      <div class="row">
+                        <div class="col">
+                          <small>Moveout Date</small>
+                          <input class="form-control" type="date" name="actual_move_out_date" value={{ $tenant->actual_move_out_date }}>
+                    
+                        </div>
+                      </div>
+                      <br>
+                      <div class="row">
+                        <div class="col">
+                          <small>Reason for Moving Out</small>
+                          <select form="approveMoveoutForm" class="form-control" name="reason_for_moving_out" id="reason_for_moving_out" required>
+                            <option value="{{ $tenant->reason_for_moving_out }}">{{ $tenant->reason_for_moving_out }}</option>
+                            <option value="end of contract">end of contract</option>
+                            <option value="delinquent">delinquent</option>
+                            <option value="force majeure">force majeure</option>
+                            <option value="run away">run away</option>
+                            <option value="unruly">unruly</option>
+                        </select>
+                        </div>
+                      </div>
+
+                      <br>
+                      <div class="row">
+                        <div class="col">
+                          <small>Pending balance</small>
+                          <div class="table-responsive text-nowrap">
+                           
+                            <table class="table table-bordered">
+                              <tr>
+                              <td></td>
+                                <th>Bill No</th>
+                               
+                                <th>Description</th>
+                                <th>Period Covered</th>
+                                <th class="text-right" colspan="3">Amount</th>
+                                
+                              </tr>
+                              @foreach ($balance as $item)
+                              <tr>
+                                <td>
+                                  <form action="/billings/{{ $item->billing_id }}" method="POST">
+                                    @csrf
+                                    @method('delete')
+                                    <button title="remove this bill" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"  onclick="return confirm('Are you sure you want perform this action?');"><i class="fas fa-times fa-sm text-white-50"></i></button>
+                                  </form>
+                                </td>   
+                                  <td>{{ $item->billing_no }}</td>
+                          
+                                  <td>{{ $item->billing_desc }}</td>
+                                  <td>
+                                    {{ $item->billing_start? Carbon\Carbon::parse($item->billing_start)->format('M d Y') : null}} -
+                                    {{ $item->billing_end? Carbon\Carbon::parse($item->billing_end)->format('M d Y') : null }}
+                                  </td>
+                                  <td class="text-right" colspan="3">{{ number_format($item->balance,2) }}</td>
+                                         </tr>
+                              @endforeach
+                        
+                          </table>
+                          <table class="table">
+                            <tr>
+                             <th>TOTAL AMOUNT PAYABLE</th>
+                             <th class="text-right">{{ number_format($balance->sum('balance'),2) }} </th>
+                            </tr>    
+                          </table>
+                        </div>
+                        </div>
+                        
+                      </div>
+                      
                    </div>
                    <div class="modal-footer">
-                     <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> No</button>
-                     <form action="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}" method="POST">
-                      @method('put')
-                       {{ csrf_field() }}
-                      <input type="hidden" name="action" value="approve to moveout">
-                      <button class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-sign-out-alt fa-sm text-white-50"></i> Approve Moveout</button>
-                    </form>
+                     <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button>
+                      <button form="approveMoveoutForm" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-sign-out-alt fa-sm text-white-50"></i> Approve Moveout</button>
+                  
                  </div>
                    
               
@@ -1145,12 +1166,12 @@
     $(document).ready(function(){
         var i=1;
     $("#add_row").click(function(){
-        $('#addr'+i).html("<th id='value'>"+ (i) +"</th><td><input form='moveoutTenantForm' name='desc"+i+"' id='desc"+i+"' type='text' class='form-control input-md'></td><td><input form='moveoutTenantForm' name='price"+i+"' id='price"+i+"' type='number' class='form-control input-md'></td><td><input form='moveoutTenantForm' name='qty"+i+"' id='qty"+i+"' type='number' class='form-control input-md'></td><td><input form='moveoutTenantForm'   name='amt"+i+"' id='amt"+i+"' jAutoCalc = '{ 'price"+i+"' } * { 'amt"+i+"' }' type='number' min='1' class='form-control input-md' required></td>");
+        $('#addr'+i).html("<th id='value'>"+ (i) +"</th><td><input form='requestMoveoutForm' name='desc"+i+"' id='desc"+i+"' type='text' class='form-control input-md' required></td><td><input form='requestMoveoutForm' name='price"+i+"' id='price"+i+"' type='number' class='form-control input-md'></td><td><input form='requestMoveoutForm' name='qty"+i+"' id='qty"+i+"' type='number' class='form-control input-md'></td><td><input form='requestMoveoutForm'   name='amt"+i+"' id='amt"+i+"' type='number' min='1' class='form-control input-md' required></td>");
 
 
      $('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
      i++;
-
+     document.getElementById('no_of_items').value = i;
 
     });
 

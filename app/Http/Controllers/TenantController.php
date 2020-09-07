@@ -302,21 +302,10 @@ class TenantController extends Controller
         if(Auth::user()->status === 'registered'|| auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager' || auth()->user()->user_type === 'billing'){
             $tenant = Tenant::findOrFail($tenant_id);
 
+            $unit = Unit::findOrFail($unit_id);
+
             $personnels = DB::table('personnels')->where('personnel_property', Auth::user()->property)->get();
         
-            $security_deposits = DB::table('payments')->where('payment_tenant_id', $tenant_id)->wherein('payment_note',['Security Deposit (Rent)', 'Security Deposit (Utilities)'])->get();
-    
-            $billings = Billing::leftJoin('payments', 'billings.billing_no', '=', 'payments.payment_billing_no')
-            ->selectRaw('*, billings.billing_amt - IFNULL(sum(payments.amt_paid),0) as balance')
-            ->where('billing_tenant_id', $tenant_id)
-            ->groupBy('billing_id')
-            ->havingRaw('balance > 0')
-            ->get();
-    
-            $overall_payments = DB::table('payments')->where('payment_tenant_id', $tenant_id)->sum('amt_paid');
-            $overall_bills = DB::table('billings')->where('billing_tenant_id', $tenant_id)->sum('billing_amt');
-    
-            $pending_balance = $overall_bills - $overall_payments;
 
             $concerns = DB::table('tenants')
             ->join('units', 'unit_id', 'unit_tenant_id')
@@ -345,8 +334,17 @@ class TenantController extends Controller
             ->join('billings', 'tenant_id', 'billing_tenant_id')
             ->where('unit_property', Auth::user()->property)
             ->max('billing_no') + 1;
+
+            $balance = Billing::leftJoin('payments', 'billings.billing_no', '=', 'payments.payment_billing_no')
+            ->selectRaw('*, billings.billing_amt - IFNULL(sum(payments.amt_paid),0) as balance')
+            ->where('billing_tenant_id', $tenant_id)
+            ->groupBy('billing_id')
+            ->orderBy('billing_no', 'desc')
+            ->havingRaw('balance > 0')
+            ->get();
+
             
-                return view('admin.show-tenant', compact('tenant','personnels' ,'billings', 'payments', 'pending_balance','security_deposits','concerns', 'current_bill_no'));  
+                return view('admin.show-tenant', compact('tenant','personnels' , 'payments','concerns', 'current_bill_no', 'balance', 'unit'));  
         }else{
                 return view('unregistered');
         }
@@ -421,7 +419,6 @@ class TenantController extends Controller
         ->leftJoin('payments', 'tenant_id', 'payment_tenant_id')
         ->leftJoin('billings', 'payment_billing_no', 'billing_no')
         ->where('tenant_id', $tenant_id)
-       
         ->orderBy('payment_created', 'desc')
         ->orderBy('ar_number', 'desc')
         ->get()
@@ -494,6 +491,7 @@ class TenantController extends Controller
     { 
 
         if($request->action==='request to moveout'){
+
             DB::table('notifications')->insertGetId(
                 [
                     'notification_tenant_id' => $tenant_id,
@@ -509,8 +507,31 @@ class TenantController extends Controller
             ->update(
                 [
                     'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
+                    'reason_for_moving_out' => $request->reason_for_moving_out,
+                    'actual_move_out_date' => $request->actual_move_out_date,
                 ]
             );
+
+            $no_of_items = (int) $request->no_of_items; 
+
+            //get the number of last added bills
+            $current_bill_no = DB::table('units')
+            ->join('tenants', 'unit_id', 'unit_tenant_id')
+            ->join('billings', 'tenant_id', 'billing_tenant_id')
+            ->where('unit_property', Auth::user()->property)
+            ->max('billing_no') + 1;
+
+            for($i = 1; $i<$no_of_items; $i++){
+                DB::table('billings')->insert(
+                    [
+                        'billing_tenant_id' => $request->tenant_id,
+                        'billing_no' => $current_bill_no++,
+                        'billing_date' => $request->actual_move_out_date,
+                        'billing_desc' =>  $request->input('desc'.$i),
+                        'billing_amt' =>  $request->input('amt'.$i)
+                    ]);
+            }
 
             return redirect('/units/'.$unit_id.'/tenants/'.$tenant_id)->with('success','Request to moveout has been sent!');
         }
@@ -533,6 +554,8 @@ class TenantController extends Controller
             ->update(
                 [
                     'updated_at' => Carbon::now(),
+                    'reason_for_moving_out' => $request->reason_for_moving_out,
+                    'actual_move_out_date' => $request->actual_move_out_date,
                 ]
             );
 
@@ -598,34 +621,16 @@ class TenantController extends Controller
        return redirect('/units/'.$unit_id.'/tenants/'.$tenant_id)->with('success','Tenant information has been updated!');
     }
 
-    public function moveout(Request $request, $tenant_id){       
+    public function moveout(Request $request, $unit_id, $tenant_id){      
 
-        $no_of_items = (int) $request->no_of_items; 
+        $tenant = Tenant::findOrFail($tenant_id);
 
-      //get the number of last added bills
-      $current_bill_no = DB::table('units')
-      ->join('tenants', 'unit_id', 'unit_tenant_id')
-      ->join('billings', 'tenant_id', 'billing_tenant_id')
-      ->where('unit_property', Auth::user()->property)
-      ->max('billing_no') + 1;
-        
-        for($i = 1; $i<$no_of_items; $i++){
-            DB::table('billings')->insert(
-                [
-                    'billing_tenant_id' => $request->tenant_id,
-                    'billing_no' => $current_bill_no++,
-                    'billing_date' => $request->actual_move_out_date,
-                    'billing_desc' =>  $request->input('desc'.$i),
-                    'billing_amt' =>  $request->input('amt'.$i)
-                ]);
-        }
-        
+        $unit = Unit::findOrFail($unit_id);
+
         DB::table('tenants')
         ->where('tenant_id', $request->tenant_id)
         ->update([
             'tenant_status' => 'inactive',
-            'reason_for_moving_out' => $request->reason_for_moving_out,
-            'actual_move_out_date' => $request->actual_move_out_date,
         ]);
 
         $no_of_active_tenants_in_the_unit = DB::table('tenants')
@@ -641,8 +646,20 @@ class TenantController extends Controller
                 'status' => 'vacant'
             ]);
         }
+
+        $data = [
+                
+                'tenant' => $tenant,
+
+                'unit' => $unit,
+
+        ];
+
+            $pdf = \PDF::loadView('admin.gatepass', $data)->setPaper('a4', 'portrait');
+      
+            return $pdf->download($tenant->first_name.' '.$tenant->last_name.'.pdf');
     
-        return redirect('/units/'.$request->unit_tenant_id.'/tenants/'.$request->tenant_id)->with('success','Tenant has been moved out!');
+        // return redirect('/units/'.$request->unit_tenant_id.'/tenants/'.$request->tenant_id)->with('success','Tenant has been moved out!');
     }
 
     public function renew(Request $request, $unit_id, $tenant_id){
@@ -1017,6 +1034,10 @@ class TenantController extends Controller
   
         return $pdf->download($tenant->first_name.' '.$tenant->last_name.'.pdf');
 }
+
+    public function printGatePass($unit_id, $tenant_id){
+        return $unit_id;
+    }
 }
 
 

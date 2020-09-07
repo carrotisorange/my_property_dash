@@ -758,6 +758,10 @@ Route::delete('/payments/{payment_id}', 'PaymentController@destroy')->middleware
 
 Route::get('/units/{unit_id}/tenants/{tenant_id}/payments/{payment_id}/dates/{payment_created}/export', 'TenantController@export')->middleware(['auth', 'verified']);
 
+
+//print gate pass
+Route::get('/units/{unit_id}/tenants/{tenant_id}/print/gatepass', 'TenantController@printGatePass')->middleware(['auth', 'verified']);
+
 Route::get('/units/{unit_id}/tenants/{tenant_id}/billings/export', 'TenantController@exportBills')->middleware(['auth', 'verified']);
 
 //routes for tenants
@@ -881,13 +885,11 @@ Route::get('/collections', function(){
     if(auth()->user()->status === 'registered' && (auth()->user()->user_type === 'billing' || auth()->user()->user_type === 'manager' || auth()->user()->user_type === 'treasury')){
         $property = explode(",", Auth::user()->property);
 
-            $collections = DB::table('units')
-            ->leftJoin('tenants', 'unit_id', 'unit_tenant_id')
-           
-            ->leftJoin('payments', 'tenant_id', 'payment_tenant_id')
-            ->leftJoin('billings', 'payment_billing_no', 'billing_no')
-            ->where('unit_property', Auth::user()->property)
-            // ->whereIn('payment_note',['Rent', 'Electricity', 'Water', 'Surcharge'])
+            $collections = DB::table('tenants')
+          
+            ->join('billings', 'tenant_id', 'billing_tenant_id')
+            ->join('payments', 'payment_billing_no', 'billing_no')
+            // ->where('unit_property', Auth::user()->property)
             ->orderBy('payment_created', 'desc')
             ->orderBy('ar_number', 'desc')
             ->get()

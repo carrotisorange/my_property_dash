@@ -84,7 +84,7 @@
             </ul>
           </li> --}}
           <li><a  href='#contact'>Contact</a></li>
-          <li><a href="/properties" target="_blank">Tenant Portal</a></li>
+          {{-- <li><a href="/properties" target="_blank">Tenant Portal</a></li> --}}
           <li><a href="/login" target="_blank">Owner Portal</a></li>
           {{-- <li class="drop-down"><a href="">Login</a>
             <ul>

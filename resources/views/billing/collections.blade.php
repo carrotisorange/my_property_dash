@@ -377,7 +377,7 @@
                           <th>AR NO</th>
                           <th>BILL NO</th>
                           <th>TENANT</th>
-                          <th>ROOM</th>
+                          {{-- <th>ROOM</th> --}}
                           <th>DESCRIPTION</th>
                           <th colspan="2">PERIOD COVERED</th>
                           <th>FORM OF PAYMENT</th>
@@ -390,8 +390,9 @@
                   <tr>
                           <td>{{ $item->ar_number }}</td>
                           <td>{{ $item->payment_billing_no }}</td>
-                          <td><a href="units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}">{{ $item->first_name.' '.$item->last_name }}</a></td>
-                          <td>{{ $item->building.' '.$item->unit_no }}</td>
+                          {{-- <td><a href="units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}">{{ $item->first_name.' '.$item->last_name }}</a></td> --}}
+                          <td>{{ $item->first_name.' '.$item->last_name }}</td>
+                          {{-- <td>{{ $item->building.' '.$item->unit_no }}</td> --}}
                           <td>{{ $item->billing_desc }}</td>
                           <td colspan="2">
                             {{ $item->billing_start? Carbon\Carbon::parse($item->billing_start)->format('M d Y') : null}} -
@@ -401,7 +402,7 @@
                           <td class="text-right">{{ number_format($item->amt_paid,2) }}</td>
                          
                           <td class="text-center">
-                            <a title="export pdf" target="_blank" href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/payments/{{ $item->payment_id }}/dates/{{$item->payment_created}}/export" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i></a>
+                            <a title="export pdf" target="_blank" href="/tenants/{{ $item->tenant_id }}/payments/{{ $item->payment_id }}/dates/{{$item->payment_created}}/export" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i></a>
                             {{-- <a target="_blank" href="#" title="print invoice" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-print fa-sm text-white-50"></i></a> 
                             --}}
                           </td>
