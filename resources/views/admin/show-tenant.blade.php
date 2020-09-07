@@ -939,7 +939,7 @@
                               <input type="date" form="requestMoveoutForm" class="form-control" name="actual_move_out_date" id="actual_moveout_date" value="{{ $tenant->moveout_date }}" required>
                           </div>
                       </div>
-                      <br>
+                      <hr>
                       <div class="row">
                           <div class="col">
                               <small>Reason for Moving Out</small>
@@ -953,7 +953,50 @@
                                 </select>
                             </div>
                       </div>
-                      <br>
+                      <hr>
+
+                      <div class="row">
+                        <div class="col">
+                          <small>Pending balance</small>
+                          <div class="table-responsive text-nowrap">
+                           
+                            <table class="table table-bordered">
+                              <tr>
+                            
+                                <th>Bill No</th>
+                               
+                                <th>Description</th>
+                                <th>Period Covered</th>
+                                <th class="text-right" colspan="3">Amount</th>
+                                
+                              </tr>
+                              @foreach ($balance as $item)
+                              <tr>
+                              
+                                  <td>{{ $item->billing_no }}</td>
+                          
+                                  <td>{{ $item->billing_desc }}</td>
+                                  <td>
+                                    {{ $item->billing_start? Carbon\Carbon::parse($item->billing_start)->format('M d Y') : null}} -
+                                    {{ $item->billing_end? Carbon\Carbon::parse($item->billing_end)->format('M d Y') : null }}
+                                  </td>
+                                  <td class="text-right" colspan="3">{{ number_format($item->balance,2) }}</td>
+                                         </tr>
+                              @endforeach
+                        
+                          </table>
+                          <table class="table">
+                            <tr>
+                             <th>TOTAL AMOUNT PAYABLE</th>
+                             <th class="text-right">{{ number_format($balance->sum('balance'),2) }} </th>
+                            </tr>    
+                          </table>
+                        </div>
+                        </div>
+                        
+                      </div>
+                      <hr>
+                      
                         <div class="row">
                           <div class="col">
                             <small>Moveout Charges</small> 
@@ -962,7 +1005,7 @@
                             <a id="add_row" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> </a>     
                             </p>
                               <div class="table-responsive text-nowrap">
-                              <table class = "table" id="tab_logic">
+                              <table class = "table table-bordered" id="tab_logic">
                                   <tr>
                                       <th>#</th>
                                       <th>Item</th>
