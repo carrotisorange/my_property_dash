@@ -458,7 +458,6 @@ Route::get('/board', function(Request $request){
         ->join('tenants', 'unit_id', 'unit_tenant_id')
         ->join('billings', 'tenant_id', 'billing_tenant_id')
         ->where('unit_property', Auth::user()->property)
-        ->where('billing_status', 'unpaid')
         ->where('billing_date', '<', Carbon::now()->startOfMonth()->addDays(7))
         ->groupBy('tenant_id')
         ->where('billing_amt','>', 0)
