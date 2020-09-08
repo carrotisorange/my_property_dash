@@ -623,7 +623,7 @@ class TenantController extends Controller
 
                 'tenants_note' => $request->tenants_note,
 
-                'tenant_status' => 'pending'
+                // 'tenant_status' => 'pending'
 
                 // 'created_at' => null,
 
