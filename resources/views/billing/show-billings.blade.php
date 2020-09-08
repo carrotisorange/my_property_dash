@@ -529,7 +529,8 @@
                   <div class="form-group row">
                       <div class="col-md-9">
                           <small for="">Date</small>
-                      <input form="acceptPaymentForm" type="date" class="form-control" name="payment_created" value={{date('Y-m-d')}} required>
+                      {{-- <input form="acceptPaymentForm" type="date" class="form-control" name="payment_created" value={{date('Y-m-d')}} required> --}}
+                      <input type="date" form="acceptPaymentForm" class="form-control" name="payment_created" value="{{ Carbon\Carbon::parse($tenant->movein_date)->format('Y-m-d') }}" required >
                       </div>
                       <div class="col-md-3">
                         <small for="">AR #</small>
