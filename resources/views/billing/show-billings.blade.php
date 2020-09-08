@@ -698,7 +698,7 @@
             <div class="row">
               <div class="col">
                   <small>Amount</small>
-                  <input type="number" step="0.01" form="addBillForm" class="form-control" name="billing_amt" required>
+                  <input type="number" step="0.01" form="addBillForm" class="form-control" name="{{ $tenant->tenant_monthly_rent }}" required>
                  
               </div>
             </div>
