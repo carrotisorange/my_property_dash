@@ -363,10 +363,10 @@
               </div>
 
         
-        
-        <form id="addTenantForm4" action="/tenants" method="POST">
-            {{ csrf_field() }}
-        </form>
+      
+      <form id="addTenantForm4" action="/tenants" method="POST">
+          {{ csrf_field() }}
+      </form>
     
         <div class="row">
           <div class="col-md-12">

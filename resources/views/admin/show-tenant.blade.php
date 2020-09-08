@@ -1246,15 +1246,6 @@
 });
 </script>
 
-<script>
-
-       
-function calculateAmount(val){
-
-  alert(val);
-     }
-</script>
-
 {{-- <script>
 	$(document).ready(function(){
 

@@ -363,9 +363,10 @@
          <p class="alert alert-{{ $key }}"> <i class="fas fa-times-circle"></i> {{ Session::get($key) }}</p>
           @endif
           @endforeach
-          <form id="addTenantForm3" action="/units/{{ session(Auth::user()->id.'unit_id') }}/tenant-step3" method="POST">
-            {{ csrf_field() }}
-        </form>
+                  
+        <form id="addTenantForm3" action="/tenants" method="POST">
+          {{ csrf_field() }}
+      </form>
        
         
         <div class="row">

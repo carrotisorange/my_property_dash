@@ -394,7 +394,7 @@
                   @foreach ($collection_list as $item)
                   <tr>
                     <td>
-                      <form action="/payments/{{ $item->payment_id }}" method="POST">
+                      <form action="/tenants/{{ $item->tenant_id }}/payments/{{ $item->payment_id }}" method="POST">
                         @csrf
                         @method('delete')
                         <button title="remove this payment" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"  onclick="return confirm('Are you sure you want perform this action?');"><i class="fas fa-times fa-sm text-white-50"></i></button>

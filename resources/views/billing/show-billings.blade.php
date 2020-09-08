@@ -621,7 +621,7 @@
       </div>
 
       <div class="modal fade" id="addBill" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-md" role="document">
+        <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Enter Bill Information </h5>
@@ -634,13 +634,15 @@
             <form id="addBillForm" action="/billings/" method="POST">
                @csrf
             </form>
-            <div class="row">
+            {{-- <div class="row">
               <div class="col">
                   <small>Bill No</small>
                   <input type="number" form="addBillForm" class="form-control" name="billing_no" value="{{ $current_bill_no }}" required readonly>
                 
               </div>
-            </div>
+            </div> --}}
+            <input type="hidden" form="addBillForm" name="action" value="add_move_in_charges" required>
+            <input type="hidden" form="addBillForm" name="tenant_id" value="{{ $tenant->tenant_id }}" required>
             
             <div class="row">
               <div class="col">
@@ -649,7 +651,7 @@
                   <input type="date" form="addBillForm" class="form-control" name="billing_date" value="{{ Carbon\Carbon::parse($tenant->movein_date)->format('Y-m-d') }}" required >
               </div>
             </div>
-            <div class="row">
+            {{-- <div class="row">
               <div class="col">
                   <small>Tenant</small>
                   <input type="text" form="addBillForm" class="form-control" name="tenant" value="{{ $tenant->first_name.' '.$tenant->last_name }}" required readonly>
@@ -662,8 +664,31 @@
                   <input type="text" form="addBillForm" class="form-control" name="room" value="{{ $room->building.' '.$room->unit_no }}" required readonly>
                   <input type="hidden" form="addBillForm" class="form-control" name="room_id" value="{{ $room->unit_id }}" required readonly>
               </div>
-            </div>
+            </div> --}}
+            <br>
             <div class="row">
+              <div class="col">
+             
+                <p class="text-left">
+                  <a id='delete_row' class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-minus fa-sm text-white-50"></i> </a>
+                <a id="add_row" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> </a>     
+                </p>
+                  <div class="table-responsive text-nowrap">
+                  <table class = "table table-bordered" id="tab_logic">
+                      <tr>
+                          <th>#</th>
+                          <th>Description</th>
+                          <th colspan="2">Period Covered</th>
+                          <th>Amount</th>
+                          
+                      </tr>
+                          <input form="addBillForm" type="hidden" id="no_of_items" name="no_of_items" >
+                      <tr id='addr1'></tr>
+                  </table>
+                </div>
+              </div>
+            </div>
+            {{-- <div class="row">
               <div class="col">
                   <small>Description</small>
                   <select form="addBillForm" name="billing_desc" class="form-control" required>
@@ -686,22 +711,22 @@
                   <br>
                   <small>From</small>
                   {{-- <input type="date"  form="addBillForm" class="form-control" name="billing_start"> --}}
-                 
+{{--                  
                   <input type="date"  form="addBillForm" class="form-control" name="billing_start" value="{{ Carbon\Carbon::parse($tenant->movein_date)->format('Y-m-d') }}">
                  
-                  <small>To</small>
+                  <small>To</small> --}}
                   {{-- <input type="date"  form="addBillForm" class="form-control" name="billing_end"> --}}
-                  
+{{--                   
                   <input type="date"  form="addBillForm" class="form-control" name="billing_end"  value="{{ Carbon\Carbon::parse($tenant->moveout_date)->format('Y-m-d') }}"> 
-              </div>
+              </div> 
             </div>
             <div class="row">
               <div class="col">
                   <small>Amount</small>
                   <input type="number" step="0.01" form="addBillForm" class="form-control" name="billing_amt" value="{{ $tenant->tenant_monthly_rent }}" required>
                  
-              </div>
-            </div>
+              </div> 
+            </div>--}}
             
          </div>
          <div class="modal-footer">
@@ -793,6 +818,34 @@
         });
     });
 </script>
+
+<script type="text/javascript">
+
+  //adding moveout charges upon moveout
+    $(document).ready(function(){
+        var i=1;
+    $("#add_row").click(function(){
+        $('#addr'+i).html("<th id='value'>"+ (i) +"</th><td><select name='billing_desc"+i+"' form='addBillForm' id='billing_desc"+i+"'><option value='Security Deposit (Rent)'>Security Deposit (Rent)</option><option value='Security Deposit (Utilities)'>Security Deposit (Utilities)</option><option value='Advance Rent'>Advance Rent</option><option value='Rent'>Rent</option><option value='Electric'>Electric</option><option value='Water'>Water</option></select> <td><input form='addBillForm' name='billing_start"+i+"' id='billing_start"+i+"' type='date' value='{{ Carbon\Carbon::parse($tenant->movein_date)->format('Y-m-d') }}' input-md'></td> <td><input form='addBillForm' name='billing_end"+i+"' id='billing_end"+i+"' type='date' value='{{ Carbon\Carbon::parse($tenant->moveout_date)->format('Y-m-d') }}'input-md'></td> <td><input form='addBillForm'   name='billing_amt"+i+"' id='billing_amt"+i+"' type='number' min='0' input-md' required></td>");
+
+
+     $('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
+     i++;
+     document.getElementById('no_of_items').value = i;
+
+    });
+
+    $("#delete_row").click(function(){
+        if(i>1){
+        $("#addr"+(i-1)).html('');
+        i--;
+        document.getElementById('no_of_items').value = i;
+        }
+    });
+
+    
+});
+</script>
+
 
 </body>
 

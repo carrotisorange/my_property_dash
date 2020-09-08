@@ -304,6 +304,8 @@
            <input class="col-md-4" type="hidden" form="add_billings" name="billing_no{{ $billing_no_ctr++ }}" value="{{ $billing_ctr++ }}" required>
            <input class="form-control" type="hidden" form="add_billings" name="ctr" value="{{ $ctr++ }}" readonly>     
             <input type="hidden" form="add_billings" name="billing_tenant_id{{ $id_ctr++ }}" value="{{ $item->tenant_id }}">
+
+            <input type="hidden" form="add_billings" name="billing_date" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}" required>
  
             <tr>
               <td>{{ $current_bill_no++ }}</td>
