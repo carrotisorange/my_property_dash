@@ -370,11 +370,11 @@ class TenantController extends Controller
             ->max('payment_id') + 1;
 
             //get the number of last added bills
-        $current_bill_no = DB::table('units')
-        ->join('tenants', 'unit_id', 'unit_tenant_id')
-        ->join('billings', 'tenant_id', 'billing_tenant_id')
-        ->where('unit_property', Auth::user()->property)
-        ->max('billing_no') + 1;
+            $current_bill_no = DB::table('units')
+            ->join('tenants', 'unit_id', 'unit_tenant_id')
+            ->join('billings', 'tenant_id', 'billing_tenant_id')
+            ->where('unit_property', Auth::user()->property)
+            ->max('billing_no') + 1;
 
             //get the move in charges
             $movein_charges = DB::table('billings')
@@ -388,15 +388,9 @@ class TenantController extends Controller
             ->where('payment_tenant_id', $tenant_id)
             ->where('amt_paid','>',0)
             ->count();
-    
-            // //get all the unpaid  bills
-            // $bills = DB::table('billings')
-            // ->where('billing_tenant_id', $tenant_id)         
-            // ->orderBy('billing_no')
-            // ->get();
 
 
-            $balance = Billing::leftJoin('payments', 'billings.billing_no', '=', 'payments.payment_billing_no')
+             $balance = Billing::leftJoin('payments', 'billings.billing_no', '=', 'payments.payment_billing_no')
             ->selectRaw('*, billing_amt - IFNULL(sum(amt_paid),0) as balance')
             ->where('billing_tenant_id', $tenant_id)
             ->groupBy('billing_id')
