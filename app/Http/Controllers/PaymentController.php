@@ -59,6 +59,7 @@ class PaymentController extends Controller
         $balance = Billing::leftJoin('payments', 'billings.billing_no', '=', 'payments.payment_billing_no')
        ->selectRaw('*, billings.billing_amt - IFNULL(sum(payments.amt_paid),0) as balance')
        ->where('billing_tenant_id', $request->payment_tenant_id)
+       ->whereIn('billing_desc', ['Security Deposit (Utilities)', 'Advance Rent', 'Security Deposit (Rent)'])
        ->groupBy('billing_id')
        ->havingRaw('balance > 0')
        ->get();
