@@ -374,11 +374,11 @@
                       <th colspan="10">{{ Carbon\Carbon::parse($day)->addDay()->format('M d Y') }} ({{ $collection_list->count() }})</th>
                   </tr>
                   <tr>
-                    <th></th>
+                    
                           <th>AR NO</th>
                           <th>BILL NO</th>
                           <th>TENANT</th>
-                          {{-- <th>ROOM</th> --}}
+                          <th>ROOM</th>
                           <th>DESCRIPTION</th>
                           <th colspan="2">PERIOD COVERED</th>
                           <th>FORM OF PAYMENT</th>
@@ -393,7 +393,7 @@
                           <td>{{ $item->payment_billing_no }}</td>
                           {{-- <td><a href="units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}">{{ $item->first_name.' '.$item->last_name }}</a></td> --}}
                           <td>{{ $item->first_name.' '.$item->last_name }}</td>
-                          {{-- <td>{{ $item->building.' '.$item->unit_no }}</td> --}}
+                          <td>{{ $item->building.' '.$item->unit_no }}</td>
                           <td>{{ $item->billing_desc }}</td>
                           <td colspan="2">
                             {{ $item->billing_start? Carbon\Carbon::parse($item->billing_start)->format('M d Y') : null}} -
