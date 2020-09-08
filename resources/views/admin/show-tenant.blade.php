@@ -639,7 +639,7 @@
                           <div class="row">
                             <div class="col">
                                 <small>Date Reported</small>
-                                <input type="date" form="concernForm" class="form-control" name="date_reported" required >
+                                <input type="date" form="concernForm" class="form-control" name="date_reported" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}" required >
                             </div>
                         </div>
                         <br>
