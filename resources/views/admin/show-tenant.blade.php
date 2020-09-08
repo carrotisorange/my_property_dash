@@ -638,14 +638,14 @@
 
                           <div class="row">
                             <div class="col">
-                                <label for="movein_date">Date Reported</label>
+                                <small>Date Reported</small>
                                 <input type="date" form="concernForm" class="form-control" name="date_reported" required >
                             </div>
                         </div>
                         <br>
                           <div class="row">
                               <div class="col">
-                                  <label for="movein_date">Type of Concern</label>
+                                 <small>Type of Concern</small>
                                   <select class="form-control" form="concernForm" name="concern_type" id="" required>
                                     <option value="" selected>Please select one</option>
                                     <option value="billing">billing</option>
@@ -664,7 +664,7 @@
                           <br>
                           <div class="row">
                             <div class="col">
-                                <label for="movein_date">Urgency</label>
+                               <small>Urgency</small>
                                 <select class="form-control" form="concernForm" name="concern_urgency" id="" required>
                                   <option value="" selected>Please select one</option>
                                   <option value="minor">minor</option>
@@ -688,7 +688,7 @@
                       <br> -->
                       <div class="row">
                         <div class="col">
-                            <label for="movein_date">Short Description</label>
+                            <small>Short Description</small>
                             <small class="text-danger">(What is your concern all about?)</small>
                             <input type="text" form="concernForm" class="form-control" name="concern_item" required >
                         </div>
@@ -703,7 +703,7 @@
                       <br> -->
                        <div class="row">
                             <div class="col">
-                                <label for="movein_date">Concern/Request <small class="text-danger">(Please provide full details.)</small></label>
+                                <small>Details of the concern</small>
                                 
                                 <textarea form="concernForm" rows="7" class="form-control" name="concern_desc" required></textarea>
                             </div>
