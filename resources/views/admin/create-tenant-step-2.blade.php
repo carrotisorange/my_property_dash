@@ -357,7 +357,7 @@
               <li class="breadcrumb-item"><a href="tenant-step1">Data</a></li>
               <li class="breadcrumb-item"><a href="tenant-step2">Background</a></li>
               <li class="breadcrumb-item">Contract</li>
-              <li class="breadcrumb-item">Payment</li>
+              {{-- <li class="breadcrumb-item">Payment</li> --}}
              
             </ol>
           <form id="addTenantForm2" action="/units/{{ session(Auth::user()->id.'unit_id') }}/tenant-step2" method="POST">

@@ -354,7 +354,7 @@
               <li class="breadcrumb-item"><a href="tenant-step1">Data</a></li>
               <li class="breadcrumb-item">Background</li>
               <li class="breadcrumb-item">Contract</li>
-              <li class="breadcrumb-item">Payment</li>
+              {{-- <li class="breadcrumb-item">Payment</li> --}}
              
             </ol>
         
