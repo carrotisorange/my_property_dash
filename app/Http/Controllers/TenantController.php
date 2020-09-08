@@ -490,48 +490,56 @@ class TenantController extends Controller
     public function update(Request $request, $unit_id, $tenant_id)
     { 
 
-        if($request->action==='request to moveout'){
+        $tenants = DB::table('tenants')
+        ->join('units', 'unit_id', 'unit_tenant_id')
+        ->where('unit_property', Auth::user()->property)
+        ->where('tenant_status','active')
+        ->update([
+            'tenant_status' => 'pending'
+        ]);
+        
+        // if($request->action==='request to moveout'){
 
-            DB::table('notifications')->insertGetId(
-                [
-                    'notification_tenant_id' => $tenant_id,
-                    'notification_room_id' => $unit_id,
-                    'notification_user_id' => Auth::user()->id,
-                    'action' => 'has requested to moveout!',
-                    'created_at' => Carbon::now(),
-                ]
-            );
+        //     DB::table('notifications')->insertGetId(
+        //         [
+        //             'notification_tenant_id' => $tenant_id,
+        //             'notification_room_id' => $unit_id,
+        //             'notification_user_id' => Auth::user()->id,
+        //             'action' => 'has requested to moveout!',
+        //             'created_at' => Carbon::now(),
+        //         ]
+        //     );
 
-            DB::table('tenants')
-            ->where('tenant_id', $tenant_id)
-            ->update(
-                [
-                    'created_at' => Carbon::now(),
-                    'updated_at' => Carbon::now(),
-                    'reason_for_moving_out' => $request->reason_for_moving_out,
-                    'actual_move_out_date' => $request->actual_move_out_date,
-                ]
-            );
+        //     DB::table('tenants')
+        //     ->where('tenant_id', $tenant_id)
+        //     ->update(
+        //         [
+        //             'created_at' => Carbon::now(),
+        //             'updated_at' => Carbon::now(),
+        //             'reason_for_moving_out' => $request->reason_for_moving_out,
+        //             'actual_move_out_date' => $request->actual_move_out_date,
+        //         ]
+        //     );
 
-            $no_of_items = (int) $request->no_of_items; 
+        //     $no_of_items = (int) $request->no_of_items; 
 
-            //get the number of last added bills
-            $current_bill_no = DB::table('units')
-            ->join('tenants', 'unit_id', 'unit_tenant_id')
-            ->join('billings', 'tenant_id', 'billing_tenant_id')
-            ->where('unit_property', Auth::user()->property)
-            ->max('billing_no') + 1;
+        //     //get the number of last added bills
+        //     $current_bill_no = DB::table('units')
+        //     ->join('tenants', 'unit_id', 'unit_tenant_id')
+        //     ->join('billings', 'tenant_id', 'billing_tenant_id')
+        //     ->where('unit_property', Auth::user()->property)
+        //     ->max('billing_no') + 1;
 
-            for($i = 1; $i<$no_of_items; $i++){
-                DB::table('billings')->insert(
-                    [
-                        'billing_tenant_id' => $request->tenant_id,
-                        'billing_no' => $current_bill_no++,
-                        'billing_date' => $request->actual_move_out_date,
-                        'billing_desc' =>  $request->input('desc'.$i),
-                        'billing_amt' =>  $request->input('amt'.$i)
-                    ]);
-            }
+        //     for($i = 1; $i<$no_of_items; $i++){
+        //         DB::table('billings')->insert(
+        //             [
+        //                 'billing_tenant_id' => $request->tenant_id,
+        //                 'billing_no' => $current_bill_no++,
+        //                 'billing_date' => $request->actual_move_out_date,
+        //                 'billing_desc' =>  $request->input('desc'.$i),
+        //                 'billing_amt' =>  $request->input('amt'.$i)
+        //             ]);
+        //     }
 
             return redirect('/units/'.$unit_id.'/tenants/'.$tenant_id)->with('success','Request to moveout has been sent!');
         }
