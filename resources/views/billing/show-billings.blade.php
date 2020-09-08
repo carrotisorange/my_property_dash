@@ -686,12 +686,12 @@
                   <small>From</small>
                   {{-- <input type="date"  form="addBillForm" class="form-control" name="billing_start"> --}}
                  
-                  <input type="date"  form="addBillForm" class="form-control" name="billing_start" value=" {{ Carbon\Carbon::parse($tenant->movein_date)->format('Y-m-d') }}">
+                  <input type="date"  form="addBillForm" class="form-control" name="billing_start" value="{{ Carbon\Carbon::parse($tenant->movein_date)->format('Y-m-d') }}">
                  
                   <small>To</small>
                   {{-- <input type="date"  form="addBillForm" class="form-control" name="billing_end"> --}}
                   
-                  <input type="date"  form="addBillForm" class="form-control" name="billing_end"  value=" {{ Carbon\Carbon::parse($tenant->moveout_date)->format('Y-m-d') }}"> 
+                  <input type="date"  form="addBillForm" class="form-control" name="billing_end"  value="{{ Carbon\Carbon::parse($tenant->moveout_date)->format('Y-m-d') }}"> 
               </div>
             </div>
             <div class="row">
