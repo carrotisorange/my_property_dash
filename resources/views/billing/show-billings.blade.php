@@ -644,7 +644,8 @@
             <div class="row">
               <div class="col">
                   <small>Billing Date</small>
-                  <input type="date" form="addBillForm" class="form-control" name="billing_date" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}" required >
+                  {{-- <input type="date" form="addBillForm" class="form-control" name="billing_date" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}" required > --}}
+                  <input type="date" form="addBillForm" class="form-control" name="billing_date" value="{{ Carbon\Carbon::parse($tenant->movein_date)->format('Y-m-d') }}" required >
               </div>
             </div>
             <div class="row">
@@ -683,10 +684,12 @@
                   <small>Period Covered</small >
                   <br>
                   <small>From</small>
-                  <input type="date"  form="addBillForm" class="form-control" name="billing_start">
-                  
+                  {{-- <input type="date"  form="addBillForm" class="form-control" name="billing_start"> --}}
+                  <input type="date"  form="addBillForm" class="form-control" name="billing_start" value=" {{ Carbon\Carbon::parse($tenant->movein_date)->format('Y-m-d') }}">
+                 
                   <small>To</small>
-                  <input type="date"  form="addBillForm" class="form-control" name="billing_end">
+                  {{-- <input type="date"  form="addBillForm" class="form-control" name="billing_end"> --}}
+                  <input type="date"  form="addBillForm" class="form-control" name="billing_end"  value=" {{ Carbon\Carbon::parse($tenant->moveout_date)->format('Y-m-d') }}"> 
               </div>
             </div>
             <div class="row">
