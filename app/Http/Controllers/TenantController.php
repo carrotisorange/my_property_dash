@@ -491,7 +491,7 @@ class TenantController extends Controller
      */
     public function update(Request $request, $unit_id, $tenant_id)
     { 
-        DB::table('tenants')->update(['tenants_note' => ''])
+        DB::table('tenants')->update(['tenants_note' => ' ']);
     }
 
     public function moveout(Request $request, $unit_id, $tenant_id){      
