@@ -1025,7 +1025,7 @@ Route::post('/units/{unit_id}/tenant-step4', 'TenantController@postTenantStep4')
 Route::get('/units/{unit_id}/tenants/{tenant_id}/billings', 'TenantController@show_billings')->name('show-billings')->middleware(['auth', 'verified']);
 Route::post('/tenants/billings', 'TenantController@add_billings')->name("add-billings")->middleware(['auth', 'verified']);
 Route::post('/tenants/billings-post', 'TenantController@post_billings')->middleware(['auth', 'verified']);
-Route::delete('/billings/{billing_id}', 'BillingController@destroy')->middleware(['auth', 'verified']);
+Route::delete('tenants/{tenant_id}/billings/{billing_id}', 'BillingController@destroy')->middleware(['auth', 'verified']);
 
 
 Route::get('/units/{unit_id}/tenants/{tenant_id}/payments', 'TenantController@show_payments')->name('show-payments')->middleware(['auth', 'verified']);

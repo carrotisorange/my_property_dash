@@ -409,7 +409,7 @@
                   @foreach ($balance as $item)
                   <tr>
                     <td>
-                      @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'manager')
+                      @if(Auth::user()->user_type === 'manager')
 
                       <form action="/billings/{{ $item->billing_id }}" method="POST">
                         @csrf
