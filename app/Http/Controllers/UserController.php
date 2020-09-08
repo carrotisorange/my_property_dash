@@ -54,14 +54,14 @@ class UserController extends Controller
         DB::table('users')->insert([
             'name' => $request->name,
             'email' => $request->email,
-            'status' => 'registered',
             'user_type' => $request->user_type,
             'property' => Auth::user()->property,
             'property_type' => Auth::user()->property_type,
             'property_ownership' => Auth::user()->property_ownership,
             'password' => Hash::make($request->password),
             'created_at' => Carbon::now(),
-            'account_type' => 'basic',
+            'account_type' => Auth::user()->account_type,
+            'trial_ends_at' => Auth::user()->trial_ends_at
         ]);
 
         return redirect('/users')->with('success', 'A new user has been added to the property!');
