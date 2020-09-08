@@ -119,10 +119,10 @@ class PaymentController extends Controller
                 'monthly_rent'=> $tenant->tenant_monthly_rent
             );
         
-            // Mail::send('emails.user-generated-mail', $data, function($message) use ($data){
-            //     $message->to($data['email']);
-            //     $message->subject('Welcome Message');
-            // });
+            Mail::send('emails.user-generated-mail', $data, function($message) use ($data){
+                $message->to($data['email']);
+                $message->subject('Welcome Message');
+            });
             
             DB::table('notifications')->insertGetId(
                 [
