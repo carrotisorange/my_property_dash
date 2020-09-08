@@ -490,7 +490,7 @@ class TenantController extends Controller
     public function update(Request $request, $unit_id, $tenant_id)
     { 
 
-        // $tenants = DB::table('tenants')
+        //  $tenants = DB::table('tenants')
         // ->join('units', 'unit_id', 'unit_tenant_id')
         // ->where('unit_property', Auth::user()->property)
         // ->where('tenant_status','active')
@@ -499,14 +499,6 @@ class TenantController extends Controller
         // ]);
 
         
-        // $tenants = DB::table('tenants')
-        // ->join('units', 'unit_id', 'unit_tenant_id')
-        // ->where('unit_property', Auth::user()->property)
-        // ->where('tenant_status','active')
-        // ->update([
-        //     'tenant_status' => 'pending'
-        // ]);
-
         if($request->action==='request to moveout'){
 
             DB::table('notifications')->insertGetId(
@@ -630,6 +622,8 @@ class TenantController extends Controller
                 'years_of_employment' => $request->years_of_employment,
 
                 'tenants_note' => $request->tenants_note,
+
+                'tenant_status' => 'pending'
 
                 // 'created_at' => null,
 

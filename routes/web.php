@@ -453,6 +453,7 @@ Route::get('/board', function(Request $request){
         ->fill(true)
         ->linetension(0.3);
 
+        
         $delinquent_accounts = DB::table('units')
         ->selectRaw('*,sum(billing_amt) as total_bills')
         ->join('tenants', 'unit_id', 'unit_tenant_id')
