@@ -394,6 +394,7 @@
                 
                 
                   <tr>
+                    <th>TENANT ID</th>
                     <th>BILL NO</th>
                     <th>DATE BILLED</th>
                     
@@ -409,6 +410,7 @@
                 </tr>
                   @foreach ($bills as $bill)
                   <tr>
+                    <td>{{ $bill->billing_tenant_id }}</td>
                     <td>{{ $bill->billing_no }}</th>  
                     <td>  {{ Carbon\Carbon::parse($bill->billing_date)->format('M d Y') }}</td>
                    

@@ -246,7 +246,7 @@ class PaymentController extends Controller
      */
     public function destroy($payment_id)
     {
-        DB::table('payments')->where('payment_id', $payment_id)->delete();
+        DB::table('payments')->where('payment_tenant_id', $payment_id)->delete();
 
         return back()->with('success', 'Payment has been successfully deleted!');
     }
