@@ -754,7 +754,7 @@ Route::get('units/{unit_id}/tenants/{tenant_id}/payments/{payment_id}', 'Payment
 Route::post('/payments', 'PaymentController@store')->middleware(['auth', 'verified']);
 Route::get('/payments/all', 'PaymentController@index')->name('show-all-payments')->middleware(['auth', 'verified']);
 Route::get('/payments/search', 'PaymentController@index')->middleware(['auth', 'verified']);
-Route::delete('/payments/{payment_id}', 'PaymentController@destroy')->middleware(['auth', 'verified']);
+Route::delete('tenants/{tenant_id}/payments/{payment_id}', 'PaymentController@destroy')->middleware(['auth', 'verified']);
 
 Route::get('/units/{unit_id}/tenants/{tenant_id}/payments/{payment_id}/dates/{payment_created}/export', 'TenantController@export')->middleware(['auth', 'verified']);
 

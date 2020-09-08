@@ -374,6 +374,7 @@
                       <th colspan="10">{{ Carbon\Carbon::parse($day)->addDay()->format('M d Y') }} ({{ $collection_list->count() }})</th>
                   </tr>
                   <tr>
+                    <th></th>
                           <th>AR NO</th>
                           <th>BILL NO</th>
                           <th>TENANT</th>
@@ -406,13 +407,13 @@
                             {{-- <a target="_blank" href="#" title="print invoice" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-print fa-sm text-white-50"></i></a> 
                             --}}
                           </td>
-                          {{-- <td>
-                              <form action="/payments/{{ $item->payment_id }}" method="POST">
-                                  @method('delete')
-                                  @csrf
-                                  <button type="submit" class="btn btn-danger">Delete</button>
-                              </form>
-                          </td> --}}
+                         <td>
+                          <form action="tenants/{{ $item->payment_tenant_id }}/payments/{{ $item->payment_id }}" method="POST">
+                            @csrf
+                            @method('delete')
+                            <button title="remove this payment" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"  onclick="return confirm('Are you sure you want perform this action?');"><i class="fas fa-times fa-sm text-white-50"></i></button>
+                          </form>
+                         </td>
                       </tr>
                   @endforeach
                       <tr>
