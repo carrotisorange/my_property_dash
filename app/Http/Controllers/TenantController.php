@@ -490,14 +490,6 @@ class TenantController extends Controller
     public function update(Request $request, $unit_id, $tenant_id)
     { 
 
-        //  $tenants = DB::table('tenants')
-        // ->join('units', 'unit_id', 'unit_tenant_id')
-        // ->where('unit_property', Auth::user()->property)
-        // ->where('tenant_status','active')
-        // ->update([
-        //     'tenant_status' => 'pending'
-        // ]);
-
         
         if($request->action==='request to moveout'){
 
