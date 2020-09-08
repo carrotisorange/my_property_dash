@@ -367,11 +367,11 @@ class TenantController extends Controller
             ->count();
 
             //get the number of last added bills
-            $current_bill_no = DB::table('units')
-            ->join('tenants', 'unit_id', 'unit_tenant_id')
-            ->join('billings', 'tenant_id', 'billing_tenant_id')
-            ->where('unit_property', Auth::user()->property)
-            ->max('billing_no') + 1;
+               $current_bill_no = DB::table('units')
+        ->join('tenants', 'unit_id', 'unit_tenant_id')
+        ->join('billings', 'tenant_id', 'billing_tenant_id')
+        ->where('unit_property', Auth::user()->property)
+        ->max('billing_no') + 1;
 
             //get the move in charges
             $movein_charges = DB::table('billings')

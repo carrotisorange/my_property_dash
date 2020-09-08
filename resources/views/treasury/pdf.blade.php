@@ -21,7 +21,7 @@
           <h5 class="text-black-50">{{ Auth::user()->property }}</h5>
           {{-- <p class="text-right"> <b>AR No:</b> {{ $payment_ar }}</p> --}}
           <ul style="list-style-type: none">
-            <li><b>Date:</b> {{ Carbon\Carbon::parse($tenant->payment_created)->format('M d Y') }}</li>
+            <li><b>Date:</b> {{ Carbon\Carbon::parse($payment_date)->format('M d Y') }}</li>
             <li><b>To:</b> {{ $tenant }}</li>
             <li><b>Room:</b> {{ $unit }} </li>
           </ul>
