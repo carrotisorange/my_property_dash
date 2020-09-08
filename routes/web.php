@@ -883,13 +883,28 @@ Route::get('/owners', function(){
 
 Route::get('/collections', function(){
     if(auth()->user()->status === 'registered' && (auth()->user()->user_type === 'billing' || auth()->user()->user_type === 'manager' || auth()->user()->user_type === 'treasury')){
-        $property = explode(",", Auth::user()->property);
+       
 
-            $collections = DB::table('tenants')
-          
-            ->join('billings', 'tenant_id', 'billing_tenant_id')
-            ->join('payments', 'payment_billing_no', 'billing_no')
-            // ->where('unit_property', Auth::user()->property)
+
+
+            // $collections = DB::table('tenants')
+
+            // ->join('billings', 'tenant_id', 'billing_tenant_id')
+            // ->join('payments', 'payment_billing_no', 'billing_no')
+            // // ->where('unit_property', Auth::user()->property)
+            // ->orderBy('payment_created', 'desc')
+            // ->orderBy('ar_number', 'desc')
+            // ->get()
+            // ->groupBy(function($item) {
+            //     return \Carbon\Carbon::parse($item->payment_created)->timestamp;
+            // });
+
+            $collections = DB::table('units')
+            ->leftJoin('tenants', 'unit_id', 'unit_tenant_id')
+           
+            ->leftJoin('payments', 'tenant_id', 'payment_tenant_id')
+            ->leftJoin('billings', 'payment_billing_no', 'billing_no')
+            ->where('unit_property', Auth::user()->property)
             ->orderBy('payment_created', 'desc')
             ->orderBy('ar_number', 'desc')
             ->get()
