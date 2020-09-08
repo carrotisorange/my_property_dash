@@ -371,7 +371,7 @@
               <table class="table table-striped">
                 @foreach ($collections as $day => $collection_list)
                   <tr>
-                      <th colspan="10">{{ Carbon\Carbon::parse($day)->addDay()->format('M d Y') }} ({{ $collection_list->count() }})</th>
+                      <th colspan="12">{{ Carbon\Carbon::parse($day)->addDay()->format('M d Y') }} ({{ $collection_list->count() }})</th>
                   </tr>
                   <tr>
                     
@@ -418,7 +418,7 @@
                   @endforeach
                       <tr>
                         <th>TOTAL</th>
-                        <th colspan="7" class="text-right">{{ number_format($collection_list->sum('amt_paid'),2) }}</th>
+                        <th colspan="8" class="text-right">{{ number_format($collection_list->sum('amt_paid'),2) }}</th>
                       </tr>
                     
                 @endforeach

@@ -229,7 +229,8 @@ class TenantController extends Controller
                     'billing_date' => session(Auth::user()->id.'movein_date'),
                     'billing_desc' =>  $request->input('desc'.$i),
                     'billing_amt' =>  $request->input('amt'.$i),
-                    'billing_status' => 'unpaid'
+                    'billing_start' =>  session(Auth::user()->id.'movein_date'),
+                    'billing_end'=> session(Auth::user()->id.'moveout_date'),
                 ]);
         }        
 
