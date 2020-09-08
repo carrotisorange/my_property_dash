@@ -130,7 +130,7 @@ class BillingController extends Controller
      */
     public function destroy($tenant_id, $billing_id)
     {
-        DB::table('billings')->where('billing_id', $billing_id)->delete();
+        DB::table('billings')->whereNull('billing_start')->whereNull('billing_end')->delete();
         return back()->with('success', 'Bill has been deleted');
     }
 }
