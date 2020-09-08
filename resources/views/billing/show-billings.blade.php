@@ -666,7 +666,9 @@
                   <small>Description</small>
                   <select form="addBillForm" name="billing_desc" class="form-control" required>
                     <option value="">Please select one</option>
+                    <option value="Advance Rent">Advance Rent</option>
                     <option value="Security Deposit (Utilities)" >Security Deposit (Utilities)</option>
+                    <option value="Security Deposit (Rent)" >Security Deposit (Rent)</option>
                     <option value="General Cleaning" >General Cleaning</option>
                     <option value="Management Fee" >Management Fee</option>
                     <option value="Rent">Rent</option>
