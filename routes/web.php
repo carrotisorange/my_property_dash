@@ -494,7 +494,7 @@ Route::get('/board', function(Request $request){
         ->join('units', 'unit_id', 'unit_tenant_id')
         ->where('actual_move_out_date', '>=', Carbon::now()->subMonths(9)->firstOfMonth())
         ->where('actual_move_out_date', '<=', Carbon::now()->subMonths(9)->endOfMonth())
-        ->where('unit_property', Auth::user()->property)
+        ->where('unit_property', Auth::user()->property)    
         ->where('tenant_status','inactive')
      
         ->count();
