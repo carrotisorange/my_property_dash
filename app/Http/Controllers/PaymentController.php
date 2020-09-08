@@ -56,15 +56,17 @@ class PaymentController extends Controller
      */
     public function store(Request $request){  
 
-        $movein_charges = DB::table('billings')
-        ->where('billing_tenant_id', $request->payment_tenant_id)
-        ->whereIn('billing_desc', ['Security Deposit (Utilities)', 'Security Deposit (Rent)', 'Advance Rent', 'Others', 'Management Fee', 'General Cleaning'])
-        ->where('billing_status', 'unpaid')
-        ->sum('billing_amt');
+        $balance = Billing::leftJoin('payments', 'billings.billing_no', '=', 'payments.payment_billing_no')
+       ->selectRaw('*, billings.billing_amt - IFNULL(sum(payments.amt_paid),0) as balance')
+       ->where('billing_tenant_id', $request->payment_tenant_id)
+       ->groupBy('billing_id')
+       ->havingRaw('balance > 0')
+       ->get();
+
 
         //payment for movein charges
        if($request->tenant_status === 'pending'){
-        if($movein_charges <= $request->amt_paid){
+        if($balance->sum('balance') <= $request->amt_paid){
             for($i = 1; $i<=$request->ctr; $i++){
             DB::table('payments')->insert(
                 [
@@ -83,16 +85,6 @@ class PaymentController extends Controller
                 ]
             );
             }
-
-            //change the billing status to paid,
-            DB::table('billings')
-            ->where('billing_tenant_id', $request->payment_tenant_id)
-            ->where('billing_status', 'unpaid')
-            ->update(
-                        [
-                            'billing_status' => 'paid'
-                        ]
-                    );
             
             //change the unit status to occupied.
             DB::table('units')
@@ -127,10 +119,10 @@ class PaymentController extends Controller
                 'monthly_rent'=> $tenant->tenant_monthly_rent
             );
         
-            Mail::send('emails.user-generated-mail', $data, function($message) use ($data){
-                $message->to($data['email']);
-                $message->subject('Welcome Message');
-            });
+            // Mail::send('emails.user-generated-mail', $data, function($message) use ($data){
+            //     $message->to($data['email']);
+            //     $message->subject('Welcome Message');
+            // });
             
             DB::table('notifications')->insertGetId(
                 [
