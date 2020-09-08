@@ -247,6 +247,13 @@ class PaymentController extends Controller
     public function destroy($payment_id)
     {
 
+        return  DB::table('units')
+        ->leftJoin('tenants', 'unit_id', 'unit_tenant_id')
+        ->leftJoin('payments', 'tenant_id', 'payment_tenant_id')
+        ->leftJoin('billings', 'payment_billing_no', 'billing_no')
+        ->where('unit_property', Auth::user()->property)
+        ->delete();
+
         DB::table('payments')->where('payment_id', $payment_id)->delete();
 
         return back()->with('success', 'Payment has been successfully deleted!');
