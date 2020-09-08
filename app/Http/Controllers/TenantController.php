@@ -497,7 +497,7 @@ class TenantController extends Controller
         ->update([
             'tenant_status' => 'pending'
         ]);
-        
+
         // if($request->action==='request to moveout'){
 
         //     DB::table('notifications')->insertGetId(
@@ -542,91 +542,91 @@ class TenantController extends Controller
         //     }
 
             return redirect('/units/'.$unit_id.'/tenants/'.$tenant_id)->with('success','Request to moveout has been sent!');
-        }
+    //     }
         
            
 
-        if($request->action==='approve to moveout'){
-            DB::table('notifications')->insertGetId(
-                [
-                    'notification_tenant_id' => $tenant_id,
-                    'notification_room_id' => $unit_id,
-                    'notification_user_id' => Auth::user()->id,
-                    'action' => 'request to moveout has been approved!',
-                    'created_at' => Carbon::now(),
-                ]
-            );
+    //     if($request->action==='approve to moveout'){
+    //         DB::table('notifications')->insertGetId(
+    //             [
+    //                 'notification_tenant_id' => $tenant_id,
+    //                 'notification_room_id' => $unit_id,
+    //                 'notification_user_id' => Auth::user()->id,
+    //                 'action' => 'request to moveout has been approved!',
+    //                 'created_at' => Carbon::now(),
+    //             ]
+    //         );
 
-            DB::table('tenants')
-            ->where('tenant_id', $tenant_id)
-            ->update(
-                [
-                    'updated_at' => Carbon::now(),
-                    'reason_for_moving_out' => $request->reason_for_moving_out,
-                    'actual_move_out_date' => $request->actual_move_out_date,
-                ]
-            );
+    //         DB::table('tenants')
+    //         ->where('tenant_id', $tenant_id)
+    //         ->update(
+    //             [
+    //                 'updated_at' => Carbon::now(),
+    //                 'reason_for_moving_out' => $request->reason_for_moving_out,
+    //                 'actual_move_out_date' => $request->actual_move_out_date,
+    //             ]
+    //         );
 
-            return redirect('/units/'.$unit_id.'/tenants/'.$tenant_id)->with('success','Request to moveout has been approved!');
+    //         return redirect('/units/'.$unit_id.'/tenants/'.$tenant_id)->with('success','Request to moveout has been approved!');
 
-        }
+    //     }
 
-        if($request->action==='open notification'){
-            DB::table('notifications')
-            ->where('notification_id', $request->notification_id)
-            ->update([
-                'updated_at' => Carbon::now()
-            ]);
+    //     if($request->action==='open notification'){
+    //         DB::table('notifications')
+    //         ->where('notification_id', $request->notification_id)
+    //         ->update([
+    //             'updated_at' => Carbon::now()
+    //         ]);
 
-            return redirect('/units/'.$unit_id.'/tenants/'.$tenant_id);
+    //         return redirect('/units/'.$unit_id.'/tenants/'.$tenant_id);
 
-        }
+    //     }
            
        
-        DB::table('tenants')
-        ->where('tenant_id', $tenant_id)
-        ->update([
-                'first_name' => $request->first_name,
-                'middle_name' => $request->middle_name,
-                'last_name' => $request->last_name,
-                'birthdate' => $request->birthdate,
-                'gender' => $request->gender,
-                'civil_status' => $request->civil_status,
-                'id_number' => $request->id_number,
+    //     DB::table('tenants')
+    //     ->where('tenant_id', $tenant_id)
+    //     ->update([
+    //             'first_name' => $request->first_name,
+    //             'middle_name' => $request->middle_name,
+    //             'last_name' => $request->last_name,
+    //             'birthdate' => $request->birthdate,
+    //             'gender' => $request->gender,
+    //             'civil_status' => $request->civil_status,
+    //             'id_number' => $request->id_number,
 
-                'contact_no' => $request->contact_no,
-                'email_address' => $request->email_address,
+    //             'contact_no' => $request->contact_no,
+    //             'email_address' => $request->email_address,
 
-                'barangay'=> $request->barangay,
-                'city' => $request->city,
-                'province' => $request->province,
-                'country' => $request->country,
-                'zip_code' => $request->zip_code,
+    //             'barangay'=> $request->barangay,
+    //             'city' => $request->city,
+    //             'province' => $request->province,
+    //             'country' => $request->country,
+    //             'zip_code' => $request->zip_code,
 
-                'guardian' => $request->guardian,
-                'guardian_relationship' => $request->guardian_relationship,
-                'guardian_contact_no' => $request->guardian_contact_no,
+    //             'guardian' => $request->guardian,
+    //             'guardian_relationship' => $request->guardian_relationship,
+    //             'guardian_contact_no' => $request->guardian_contact_no,
 
-                'high_school' => $request->high_school,
-                'high_school_address' =>$request->high_school_address,
-                'college_school' => $request->college_school,
-                'college_school_address' => $request->college_school_address,
-                'course' => $request->course,
-                'year_level' => $request->year_level,
+    //             'high_school' => $request->high_school,
+    //             'high_school_address' =>$request->high_school_address,
+    //             'college_school' => $request->college_school,
+    //             'college_school_address' => $request->college_school_address,
+    //             'course' => $request->course,
+    //             'year_level' => $request->year_level,
                 
-                'employer' => $request->employer,
-                'employer_address' => $request->employer_address,
-                'employer_contact_no' => $request->employer_contact_no,
-                'job' => $request->job,
-                'years_of_employment' => $request->years_of_employment,
+    //             'employer' => $request->employer,
+    //             'employer_address' => $request->employer_address,
+    //             'employer_contact_no' => $request->employer_contact_no,
+    //             'job' => $request->job,
+    //             'years_of_employment' => $request->years_of_employment,
 
-                'tenants_note' => $request->tenants_note,
+    //             'tenants_note' => $request->tenants_note,
 
-                // 'created_at' => null,
+    //             // 'created_at' => null,
 
-                // 'updated_at' => null
-        ]);
-       return redirect('/units/'.$unit_id.'/tenants/'.$tenant_id)->with('success','Tenant information has been updated!');
+    //             // 'updated_at' => null
+    //     ]);
+    //    return redirect('/units/'.$unit_id.'/tenants/'.$tenant_id)->with('success','Tenant information has been updated!');
     }
 
     public function moveout(Request $request, $unit_id, $tenant_id){      
