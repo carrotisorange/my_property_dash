@@ -383,7 +383,7 @@
                           <th colspan="2">PERIOD COVERED</th>
                           <th>FORM OF PAYMENT</th>
                           <th >AMOUNT</th>
-                         
+                         <th></th>
                           <th></th>
                       </tr>
                 </tr>
