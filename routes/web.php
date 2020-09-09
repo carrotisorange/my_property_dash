@@ -901,9 +901,8 @@ Route::get('/owners', function(){
 
 Route::get('/collections', function(){
     if(auth()->user()->status === 'registered' && (auth()->user()->user_type === 'billing' || auth()->user()->user_type === 'manager' || auth()->user()->user_type === 'treasury')){
-       
 
-            $collections = DB::table('units')
+             $collections = DB::table('units')
             ->leftJoin('tenants', 'unit_id', 'unit_tenant_id')
            
             ->leftJoin('payments', 'tenant_id', 'payment_tenant_id')
