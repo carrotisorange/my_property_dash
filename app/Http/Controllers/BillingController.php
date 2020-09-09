@@ -37,7 +37,6 @@ class BillingController extends Controller
      */
     public function store(Request $request)
     {
-
          $no_of_items = (int) $request->no_of_items; 
 
         $current_bill_no = DB::table('units')

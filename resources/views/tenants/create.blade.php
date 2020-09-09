@@ -1,15 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Account Payables</title>
+  <title>{{ session(Auth::user()->id.'building').' '.session(Auth::user()->id.'unit_no') }} | Create Tenant</title>
 
   <!-- Custom fonts for this template-->
   <link href="{{ asset('dashboard/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css"><link href="{{ asset('index/assets/img/favicon.ico') }}" rel="icon">
@@ -26,8 +24,8 @@
   <!-- Page Wrapper -->
   <div id="wrapper">
 
-      <!-- Sidebar -->
-      <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+       <!-- Sidebar -->
+       <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         {{-- <!-- Sidebar - Brand -->
         <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/dashboard">
@@ -64,7 +62,7 @@
             Interface
           </div>  
         @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' )
-        <li class="nav-item">
+        <li class="nav-item active">
           <a class="nav-link" href="/home">
             <i class="fas fa-home"></i>
             <span>Home</span></a>
@@ -139,7 +137,7 @@
           @endif
     
           @if(Auth::user()->user_type === 'manager')
-          <li class="nav-item active">
+          <li class="nav-item">
           <a class="nav-link" href="/account-payables">
           <i class="fas fa-hand-holding-usd"></i>
             <span>Account Payables</span></a>
@@ -165,7 +163,6 @@
         </div>
     
       </ul>  <!-- End of Sidebar -->
-    <!-- End of Sidebar -->
 
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
@@ -227,95 +224,6 @@
               </div>
             </li> 
 
-            <!-- Nav Item - Alerts -->
-            {{--     <li class="nav-item dropdown no-arrow mx-1">
-              <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-bell fa-fw"></i>
-                <!-- Counter - Alerts -->
-                @if($request_to_moveout->count() > 3)
-                  <span class="badge badge-danger badge-counter">{{ $request_to_moveout->count() }}+</span>
-                @else
-                  <span class="badge badge-danger badge-counter">{{ $request_to_moveout->count()  }}</span>
-                @endif
-              </a>
-              <!-- Dropdown - Alerts -->
-              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
-                <h6 class="dropdown-header">
-                  Alerts Center
-                </h6>
-                @foreach($request_to_moveout as $item)
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="mr-3">
-                  <div class="icon-circle bg-warning">
-                      <i class="fas fa-exclamation-triangle text-white"></i>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="small text-gray-500">{{Carbon\Carbon::parse($item->created_at)->format('M d Y')}}</div>
-                    <span class="font-weight-bold">{{ $item->building.' '.$item->unit_no }} is requesting to moveout.</span>
-                  </div>
-                </a> 
-                @endforeach 
-                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-              </div>
-            </li>  --}}
-
-            <!-- Nav Item - Messages -->
-            {{-- <li class="nav-item dropdown no-arrow mx-1">
-              <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-envelope fa-fw"></i>
-                <!-- Counter - Messages -->
-                <span class="badge badge-danger badge-counter">7</span>
-              </a>
-              <!-- Dropdown - Messages -->
-              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
-                <h6 class="dropdown-header">
-                  Message Center
-                </h6>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="https://source.unsplash.com/fn_BT9fwg_E/60x60" alt="">
-                    <div class="status-indicator bg-success"></div>
-                  </div>
-                  <div class="font-weight-bold">
-                    <div class="text-truncate">Hi there! I am wondering if you can help me with a problem I've been having.</div>
-                    <div class="small text-gray-500">Emily Fowler · 58m</div>
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="https://source.unsplash.com/AU4VPcFN4LE/60x60" alt="">
-                    <div class="status-indicator"></div>
-                  </div>
-                  <div>
-                    <div class="text-truncate">I have the photos that you ordered last month, how would you like them sent to you?</div>
-                    <div class="small text-gray-500">Jae Chun · 1d</div>
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="https://source.unsplash.com/CS2uCrpNzJY/60x60" alt="">
-                    <div class="status-indicator bg-warning"></div>
-                  </div>
-                  <div>
-                    <div class="text-truncate">Last month's report looks great, I am very happy with the progress so far, keep up the good work!</div>
-                    <div class="small text-gray-500">Morgan Alvarez · 2d</div>
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60" alt="">
-                    <div class="status-indicator bg-success"></div>
-                  </div>
-                  <div>
-                    <div class="text-truncate">Am I a good boy? The reason I ask is because someone told me that people say this to all dogs, even if they aren't good...</div>
-                    <div class="small text-gray-500">Chicken the Dog · 2w</div>
-                  </div>
-                </a>
-                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
-              </div>
-            </li> --}}
-
             <div class="topbar-divider d-none d-sm-block"></div>
 
             <!-- Nav Item - User Information -->
@@ -351,19 +259,204 @@
         </nav>
         <!-- End of Topbar -->
         <div class="container-fluid">
-         
-        <div class="d-sm-flex align-items-center justify-content-between mb-4">
-          <h1 class="h3 mb-0 text-gray-800">Account Payables</h1>
-
-          @if(Auth::user()->user_type === 'manager')
-          <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addPayables" data-whatever="@mdo"><i class="fas fa-plus fa-sm text-white-50"></i> Add Payables</a>
-          @endif
-        </div>
-        
+            <!-- Page Heading -->
     
+             <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/units/{{ session(Auth::user()->id.'unit_id') }}">{{ session(Auth::user()->id.'building').' '.session(Auth::user()->id.'unit_no') }}</a></li>
+              <li class="breadcrumb-item">Tenant</li>
+              {{-- <li class="breadcrumb-item">Contract</li>
+             <li class="breadcrumb-item">Payment</li>  --}}
+             
+            </ol> 
+        
+          @foreach (['danger', 'warning', 'success', 'info'] as $key)
+          @if(Session::has($key))
+         <p class="alert alert-{{ $key }}"> <i class="fas fa-times-circle"></i> {{ Session::get($key) }}</p>
+          @endif
+          @endforeach
+          <form id="addTenantForm1" action="/tenants" method="POST">
+            {{ csrf_field() }}
+        </form>
+    
+            <input form="addTenantForm1" type="hidden" value="{{ session(Auth::user()->id.'unit_id') }}" name="unit_id"> 
+            <div class="row">
+                <div class="col">
+                    <small class="">First Name <span class="text-danger">*</span></small>
+                    <input form="addTenantForm1" type="text" class="form-control @error('first_name') is-invalid @enderror" name="first_name" name="first_name" id="first_name" value="{{ session(Auth::user()->id.'first_name') }}" >
+                      @error('first_name')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                      @enderror
+                  </div>
+                <div class="col">
+                    <small class="">Middle Name</small>
+                    <input form="addTenantForm1" type="text" class="form-control" name="middle_name" id="middle_name" value="{{ session(Auth::user()->id.'middle_name') }}">
+                </div>
+                <div class="col">
+                    <small class="">Last Name  <span class="text-danger">*</span></small>
+                    <input form="addTenantForm1" type="text" class="form-control @error('last_name') is-invalid @enderror" name="last_name" id="last_name" value="{{ session(Auth::user()->id.'last_name') }}" >
+
+                    @error('last_name')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+                </div>
+                <br>
+            <div class="row">
+                <div class="col">
+                    <small class="">Birthdate </small>
+                    <input form="addTenantForm1" type="date" class="form-control @error('birthdate') is-invalid @enderror" name="birthdate" id="birthdate" value="{{ session(Auth::user()->id.'birthdate') }}" >
+
+                    @error('birthdate')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+                <div class="col">
+                    <small class="">Gender </small>
+                    <select form="addTenantForm1"  id="gender" name="gender" class="form-control @error('gender') is-invalid @enderror">        
+                        <option value="{{ session(Auth::user()->id.'gender') }}" selected>{{ session(Auth::user()->id.'gender') }}</option>
+                        <option value="male">male</option>
+                        <option value="female">female</option>
+                    </select>
+
+                    @error('gender')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+                <div class="col">
+                    <small class="">Civil Status</small>
+                    <select form="addTenantForm1"  id="civil_status" name="civil_status" class="form-control">
+<<<<<<< HEAD
+                        <option value="{{ session('civil_status') }}" selected>{{ session(Auth::user()->property.'civil_status') }}</option>
+=======
+                        <option value="{{ session('civil_status') }}" selected>{{ session(Auth::user()->id.'civil_status') }}</option>
+>>>>>>> 2eb802f2452916fccb70c38f9cb597fcf370e351
+                        <option value="single">single</option>
+                        <option value="married">married</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <small class="">ID/ID Number</small>
+                    <input form="addTenantForm1" type="text" class="form-control" name="id_number" id="id_number" value="{{ session(Auth::user()->id.'id_number') }}">
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col">
+                    <small class="">Mobile <span class="text-danger">*</span></small>
+                  <input form="addTenantForm1" type="text" class="form-control @error('contact_no') is-invalid @enderror" name="contact_no" id="contact_no" value="{{ session(Auth::user()->id.'contact_no') }}"  >
+
+                  @error('contact_no')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+                  @enderror
+                </div>
+                <div class="col">
+                    <small class="">Email <span class="text-danger">*</span></small>
+                  <input form="addTenantForm1" type="email" class="form-control @error('email_address') is-invalid @enderror" name="email_address" id="email_address" value="{{ session(Auth::user()->id.'email_address') }}" >
+
+                  @error('email_address')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+                  @enderror
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col">
+                  <small>Move-in date</small>
+                  <input form="addTenantForm1" type="date" class="form-control @error('movein_date') is-invalid @enderror" name="movein_date" id="movein_date" value="{{ session(Auth::user()->id.'movein_date') }}" required>
+    
+                  @error('movein_date')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+                  @enderror
+                </div>
+                <div class="col">
+                  <small>Move-out date</small>
+                  <input onkeyup="duration()" form="addTenantForm1" type="date" class="form-control @error('moveout_date') is-invalid @enderror" name="moveout_date" value="{{ session(Auth::user()->id.'moveout_date') }}" id="moveout_date" required>
+                  
+                  @error('moveout_date')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+                  @enderror
+                </div>
+                <div class="col">
+                    <small>Monthly rent</small>
+                    <input form="addTenantForm1" type="number" class="form-control @error('tenant_monthly_rent') is-invalid @enderror" name="tenant_monthly_rent" min="1" id="tenant_monthly_rent" value="{{ session(Auth::user()->id.'tenant_monthly_rent') }}" required>
+    
+                    @error('tenant_monthly_rent')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+              </div>
+            {{-- <div class="row">
+                <div class="col">
+                    <small class="">House No/Barangay</small>
+                    <input form="addTenantForm1" type="text" class="form-control" name="barangay" id="barangay" value="{{ session(Auth::user()->id.'barangay') }}">
+                </div>
+                <div class="col">
+                    <small class="">City</small>
+                    <input form="addTenantForm1" type="text" class="form-control" name="city" id="city" value="{{ session(Auth::user()->id.'city') }}">
+                </div>
+            </div>
+            <br> --}}
+            {{-- <div class="row">
+                <div class="col">
+                    <small class="">Province</small>
+                  <input form="addTenantForm1" type="text" class="form-control" name="province" id="province" value="{{ session(Auth::user()->id.'province') }}">
+                </div>
+                <div class="col">
+                    <small class="">Country</small>
+                    <input form="addTenantForm1" type="text" class="form-control" name="country" id="country" value="{{ session(Auth::user()->id.'country') }}">
+                </div>
+                <div class="col">
+                    <small class="">Zip Code</small>
+                    <input form="addTenantForm1" type="text" class="form-control" name="zip_code" id="zip_code" value="{{ session(Auth::user()->id.'zip_code') }}">
+                </div>
+            </div>
+            <br> --}}
+            {{-- <small><b>PERSON TO CONTACT IN CASE OF EMERGENCY</b></small>
+            <div class="row">   
+                <div class="col">
+                    <small class="">Name</small>
+                    <input form="addTenantForm1" type="text" class="form-control" name="guardian" id="guardian" value="{{ session(Auth::user()->id.'guardian') }}">
+                </div>
+                <div class="col">
+                    <small class="">Relationship to the tenant</small>
+                    <input form="addTenantForm1" type="text" class="form-control" name="guardian_relationship" id="guardian_relationship" value="{{ session(Auth::user()->id.'guardian_relationship') }}">
+                </div>
+                <div class="col">
+                    <small class="">Mobile</small>
+                    <input form="addTenantForm1" type="text" class="form-control" name="guardian_contact_no" id="guardian_contact_no" value="{{ session(Auth::user()->id.'guardian_contact_no') }}">
+                </div>
+           </div> --}}
+            
+            <br>
+            <p class="text-right">   
+                <a href="/units/{{ session(Auth::user()->id.'unit_id') }}" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</a>
+                <button type="submit" form="addTenantForm1" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-arrow-right fa-sm text-white-50" ></i> Submit</button>
+            </p>
+        
         
         </div>
 
+        
+        
+       
       </div>
       <!-- End of Main Content -->
 
@@ -388,30 +481,6 @@
     <i class="fas fa-angle-up"></i>
   </a>
 
-  <div class="modal fade" id="addPayables" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document">
-    <div class="modal-content">
-        <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel" >Enter payable information</h5>
-  
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-        </div>
-        <div class="modal-body">
-            <form id="addUMultipleUnitForm" action="/units/add-multiple" method="POST">
-                {{ csrf_field() }}
-            </form>
-  
-  
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button>
-            <button form="addUMultipleUnitForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;"><i class="fas fa-check"></i> Add Payables</button>
-            </div>
-    </div>
-    </div>
-  </div>
   <!-- Logout Modal-->
   <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">

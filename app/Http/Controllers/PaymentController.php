@@ -55,62 +55,59 @@ class PaymentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request){  
+        
+        // retrieve the number of payments to be added.
+        $no_of_payments = (int) $request->no_of_payments; 
 
-        $balance = Billing::leftJoin('payments', 'billings.billing_no', '=', 'payments.payment_billing_no')
-       ->selectRaw('*, billings.billing_amt - IFNULL(sum(payments.amt_paid),0) as balance')
-       ->where('billing_tenant_id', $request->payment_tenant_id)
-       ->whereIn('billing_desc', ['Security Deposit (Utilities)', 'Advance Rent', 'Security Deposit (Rent)'])
-       ->groupBy('billing_id')
-       ->havingRaw('balance > 0')
-       ->get();
-
-
-        //payment for movein charges
-       if($request->tenant_status === 'pending'){
-        if($balance->sum('balance') <= $request->amt_paid){
-            for($i = 1; $i<=$request->ctr; $i++){
+        //add all the payment to the database.
+        for($i = 1; $i<$no_of_payments; $i++){
+            
             DB::table('payments')->insert(
                 [
                     'payment_tenant_id' => $request->payment_tenant_id,
-                    'payment_billing_no' => $request->input('billno'.$i),
+                    
+                    'payment_billing_no' => $request->input('billing_no'.$i), 
+                    'amt_paid' => $request->input('amt_paid'.$i),
                     'payment_created' => $request->payment_created,
-                    'amt_paid' => $request->input('amt'.$i),
                     'or_number' => $request->or_number,
                     'ar_number' => $request->ar_number,
-                    'bank_name' => $request->bank_name,
-                    'form_of_payment' => $request->form_of_payment,
-                    'check_no' => $request->check_no,
+                    'bank_name' => $request->input('bank_name'.$i),
+                    'form_of_payment' => $request->input('form_of_payment'.$i),
+                    'check_no' => $request->input('cheque_no'.$i),
                     'date_deposited' => $request->date_deposited,
-                    'payment_note' =>  $request->input('desc'.$i),
                     'created_at' => Carbon::now(),
                 ]
-            );
-            }
-            
+           );
+        }
+
+        //do the action below if the tenant status is pending.
+        if($request->tenant_status === 'pending'){
             //change the unit status to occupied.
             DB::table('units')
-            ->where('unit_id', $request->unit_tenant_id)
-            ->update(
-                        [
-                            'status'=> 'occupied',
-                            'updated_at' => Carbon::now(), 
-                        ]
-                );
-
-            
+                ->where('unit_id', $request->unit_tenant_id)
+                ->update(
+                            [
+                                'status'=> 'occupied',
+                                'updated_at' => Carbon::now(), 
+                            ]
+                        );
+                    
             //change tenant's status to active.
             DB::table('tenants')
-            ->where('tenant_id', $request->payment_tenant_id)
-            ->update(
-                        [
-                            'tenant_status'=> 'active',
-                            'tenants_note' => 'new'
-                        ]
-                    );
+                ->where('tenant_id', $request->payment_tenant_id)
+                ->update(
+                            [
+                                'tenant_status'=> 'active',
+                                'tenants_note' => 'new'
+                            ]
+                        );
 
+            //retrieve all the tenant information
             $tenant = Tenant::findOrFail($request->payment_tenant_id);
+            //retrieve all the unit information
             $unit  = Unit::findOrFail($request->unit_tenant_id);
 
+            //assign the value of tenant and unit information to variable data
             $data = array(
                 'email' => $tenant->email_address,
                 'name' => $tenant->first_name,
@@ -119,27 +116,100 @@ class PaymentController extends Controller
                 'contract_starts_at'  => $tenant->moveout_date,
                 'monthly_rent'=> $tenant->tenant_monthly_rent
             );
-        
+
+            //send welcome email to the tenant
             // Mail::send('emails.user-generated-mail', $data, function($message) use ($data){
             //     $message->to($data['email']);
             //     $message->subject('Welcome Message');
             // });
-            
-            DB::table('notifications')->insertGetId(
-                [
-                    'notification_tenant_id' => $tenant->tenant_id,
-                    'notification_room_id' => $tenant->unit_tenant_id,
-                    'notification_user_id' => Auth::user()->id,
-                    'action' => 'has been added to the property!',
-                    'created_at' => Carbon::now(),
-                ]
-            );
-
-            return back()->with('success','Payment has been recorded!');
-        }else{
-            return back()->with('danger','Payment has been rejected. Insufficient amount!');
         }
-       }       
+
+        return back()->with('success', ($i-1).' payments have been added!');
+
+    //     $balance = Billing::leftJoin('payments', 'billings.billing_no', '=', 'payments.payment_billing_no')
+    //    ->selectRaw('*, billings.billing_amt - IFNULL(sum(payments.amt_paid),0) as balance')
+    //    ->where('billing_tenant_id', $request->payment_tenant_id)
+    //    ->whereIn('billing_desc', ['Security Deposit (Utilities)', 'Advance Rent', 'Security Deposit (Rent)'])
+    //    ->groupBy('billing_id')
+    //    ->havingRaw('balance > 0')
+    //    ->get();
+
+
+    //     //payment for movein charges
+    //    if($request->tenant_status === 'pending'){
+    //     if($balance->sum('balance') <= $request->amt_paid){
+    //         for($i = 1; $i<=$request->ctr; $i++){
+    //         DB::table('payments')->insert(
+    //             [
+    //                 'payment_tenant_id' => $request->payment_tenant_id,
+    //                 'payment_billing_no' => $request->input('billno'.$i),
+    //                 'payment_created' => $request->payment_created,
+    //                 'amt_paid' => $request->input('amt'.$i),
+    //                 'or_number' => $request->or_number,
+    //                 'ar_number' => $request->ar_number,
+    //                 'bank_name' => $request->bank_name,
+    //                 'form_of_payment' => $request->form_of_payment,
+    //                 'check_no' => $request->check_no,
+    //                 'date_deposited' => $request->date_deposited,
+    //                 'payment_note' =>  $request->input('desc'.$i),
+    //                 'created_at' => Carbon::now(),
+    //             ]
+    //         );
+    //         }
+            
+    //         //change the unit status to occupied.
+    //         DB::table('units')
+    //         ->where('unit_id', $request->unit_tenant_id)
+    //         ->update(
+    //                     [
+    //                         'status'=> 'occupied',
+    //                         'updated_at' => Carbon::now(), 
+    //                     ]
+    //             );
+
+            
+    //         //change tenant's status to active.
+    //         DB::table('tenants')
+    //         ->where('tenant_id', $request->payment_tenant_id)
+    //         ->update(
+    //                     [
+    //                         'tenant_status'=> 'active',
+    //                         'tenants_note' => 'new'
+    //                     ]
+    //                 );
+
+    //         $tenant = Tenant::findOrFail($request->payment_tenant_id);
+    //         $unit  = Unit::findOrFail($request->unit_tenant_id);
+
+    //         $data = array(
+    //             'email' => $tenant->email_address,
+    //             'name' => $tenant->first_name,
+    //             'unit' => $unit->building.' '.$unit->unit_no,
+    //             'contract_ends_at'  => $tenant->moveout_date,
+    //             'contract_starts_at'  => $tenant->moveout_date,
+    //             'monthly_rent'=> $tenant->tenant_monthly_rent
+    //         );
+        
+    //         // Mail::send('emails.user-generated-mail', $data, function($message) use ($data){
+    //         //     $message->to($data['email']);
+    //         //     $message->subject('Welcome Message');
+    //         // });
+            
+    //         DB::table('notifications')->insertGetId(
+    //             [
+    //                 'notification_tenant_id' => $tenant->tenant_id,
+    //                 'notification_room_id' => $tenant->unit_tenant_id,
+    //                 'notification_user_id' => Auth::user()->id,
+    //                 'action' => 'has been added to the property!',
+    //                 'created_at' => Carbon::now(),
+    //             ]
+    //         );
+
+    //         return back()->with('success','Payment has been recorded!');
+    //     }else{
+    //         return back()->with('danger','Payment has been rejected. Insufficient amount!');
+    //     }
+    //    }       
 
 
     //    $count_billed = DB::table('billings')
@@ -164,30 +234,27 @@ class PaymentController extends Controller
         //             ]
         //         ); 
  
-        $current_bill_no = DB::table('units')
-        ->join('tenants', 'unit_id', 'unit_tenant_id')
-        ->join('billings', 'tenant_id', 'billing_tenant_id')
-        ->where('unit_property', Auth::user()->property)
-        ->max('billing_no') + 1;
+        // $current_bill_no = DB::table('units')
+        // ->join('tenants', 'unit_id', 'unit_tenant_id')
+        // ->join('billings', 'tenant_id', 'billing_tenant_id')
+        // ->where('unit_property', Auth::user()->property)
+        // ->max('billing_no') + 1;
  
-         DB::table('payments')
-                 ->insert(
-                             [
-                                 'payment_tenant_id' => $request->payment_tenant_id,
-                                 'payment_billing_no' => $request->billing_no,
-                                 'payment_created' => $request->payment_created,
-                                 'amt_paid' => $request->amt_paid,
-                                 'ar_number' => $request->ar_number,
-                                 'bank_name' => $request->bank_name,
-                                 'form_of_payment' => $request->form_of_payment,
-                                 'check_no' => $request->check_no,
-                                 'date_deposited' => $request->date_deposited,
-                                 'created_at' => Carbon::now(),
-                             ]
-                         );
- 
- 
-             return back()->with('success','Payment has been recorded!');
+        //  DB::table('payments')
+        //          ->insert(
+        //                      [
+        //                          'payment_tenant_id' => $request->payment_tenant_id,
+        //                          'payment_billing_no' => $request->billing_no,
+        //                          'payment_created' => $request->payment_created,
+        //                          'amt_paid' => $request->amt_paid,
+        //                          'ar_number' => $request->ar_number,
+        //                          'bank_name' => $request->bank_name,
+        //                          'form_of_payment' => $request->form_of_payment,
+        //                          'check_no' => $request->check_no,
+        //                          'date_deposited' => $request->date_deposited,
+        //                          'created_at' => Carbon::now(),
+        //                      ]
+        //                  );
        
         
     }

@@ -56,9 +56,9 @@ class TenantController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function createTenantStep1()
+    public function create()
     {   
-        return view('admin.create-tenant-step-1');
+        return view('tenants.create');
     }
 
     public function postTenantStep1(Request $request, $unit_id){
@@ -68,8 +68,6 @@ class TenantController extends Controller
             'last_name' => 'required',
             'contact_no' => 'required',
             'email_address' => 'required',
-            'gender' => 'required',
-            'birthdate' => 'required',
         ]);
 
         $request->session()->put(Auth::user()->id.'type_of_tenant', 'student');
@@ -158,56 +156,74 @@ class TenantController extends Controller
     public function store(Request $request)
     {
 
+        $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'contact_no' => 'required',
+            'email_address' => 'required',
+        ]);
+
+        // if($request->moveout_date <= $request->movein_date){
+        //     $request->session()->put(Auth::user()->id.'movein_date', $request->movein_date);
+        //     $request->session()->put(Auth::user()->id.'moveout_date', $request->moveout_date);
+        //     $request->session()->put(Auth::user()->id.'tenant_monthly_rent', $request->tenant_monthly_rent);
+        //     return back()->with('danger', 'Invalid input. Make sure the moveout date is later than the movein date. ');
+        // }
+
+        // $request->session()->put(Auth::user()->id.'movein_date', $request->movein_date);
+        // $request->session()->put(Auth::user()->id.'moveout_date', $request->moveout_date);
+        // $request->session()->put(Auth::user()->id.'tenant_monthly_rent', $request->tenant_monthly_rent);
+
         //insert tenant to a specific unit
         $tenant_id = DB::table('tenants')->insertGetId(
             [
                 'unit_tenant_id' => session(Auth::user()->id.'unit_id'),
                 'tenant_unique_id' => '',
-                'first_name' => session(Auth::user()->id.'first_name'),
-                'middle_name' => session(Auth::user()->id.'middle_name'),
-                'last_name'=>session(Auth::user()->id.'last_name'),
-                'birthdate'=>session(Auth::user()->id.'birthdate'),
-                'gender' => session(Auth::user()->id.'gender'),
-                'civil_status'=>session(Auth::user()->id.'civil_status'),
-                'id_number' => session(Auth::user()->id.'id_number'),
+                'first_name' => $request->first_name,
+                'middle_name' => $request->middle_name,
+                'last_name'=> $request->last_name,
+                'birthdate'=>$request->birthdate,
+                'gender' => $request->gender,
+                'civil_status'=> $request->civil_status,
+                'id_number' => $request->id_number,
 
-                'country' => session(Auth::user()->id.'country'),
-                'province' => session(Auth::user()->id.'province'),
-                'city' => session(Auth::user()->id.'city'),
-                'barangay' => session(Auth::user()->id.'barangay'),
-                'zip_code' => session(Auth::user()->id.'zip_code'),
+                // 'country' => session(Auth::user()->id.'country'),
+                // 'province' => session(Auth::user()->id.'province'),
+                // 'city' => session(Auth::user()->id.'city'),
+                // 'barangay' => session(Auth::user()->id.'barangay'),
+                // 'zip_code' => session(Auth::user()->id.'zip_code'),
 
                 //contact number
-                'contact_no' => session(Auth::user()->id.'contact_no'),
-                'email_address' => session(Auth::user()->id.'email_address'),
+                'contact_no' => $request->contact_no,
+                'email_address' => $request->email_address,
 
                 //guardian information
-                'guardian' => session(Auth::user()->id.'guardian'),
-                'guardian_relationship' => session(Auth::user()->id.'guardian_relationship'),
-                'guardian_contact_no' => session(Auth::user()->id.'guardian_contact_no'),
+                // 'guardian' => session(Auth::user()->id.'guardian'),
+                // 'guardian_relationship' => session(Auth::user()->id.'guardian_relationship'),
+                // 'guardian_contact_no' => session(Auth::user()->id.'guardian_contact_no'),
 
                 //rent information
-                'tenant_monthly_rent' => session(Auth::user()->id.'tenant_monthly_rent'),
+                'tenant_monthly_rent' => $request->tenant_monthly_rent,
                 'type_of_tenant' => 'walk-in',
                 //change the tenant status to pending.
                 'tenant_status' => 'pending',
-                'movein_date'=> session(Auth::user()->id.'movein_date'),
-                'moveout_date'=> session(Auth::user()->id.'moveout_date'),
+                'movein_date'=> $request->movein_date,
+                'moveout_date'=> $request->moveout_date,
         
                 //information for student
-                'high_school' => session(Auth::user()->id.'high_school'),
-                'high_school_address' => session(Auth::user()->id.'high_school_address'),
-                'college_school' => session(Auth::user()->id.'college_school'),
-                'college_school_address' => session(Auth::user()->id.'college_school_address'),
-                'course' => session(Auth::user()->id.'course'),
-                'year_level' => session(Auth::user()->id.'year_level'),
+                // 'high_school' => session(Auth::user()->id.'high_school'),
+                // 'high_school_address' => session(Auth::user()->id.'high_school_address'),
+                // 'college_school' => session(Auth::user()->id.'college_school'),
+                // 'college_school_address' => session(Auth::user()->id.'college_school_address'),
+                // 'course' => session(Auth::user()->id.'course'),
+                // 'year_level' => session(Auth::user()->id.'year_level'),
              
-                     //information for working
-                'employer' => session(Auth::user()->id.'employer'),
-                'employer_address' => session(Auth::user()->id.'employer_address'),
-                'job' => session(Auth::user()->id.'job'),
-                'employer_contact_no' => session(Auth::user()->id.'employer_contact_no'),
-                'years_of_employment' => session(Auth::user()->id.'years_of_employment'),
+                //      //information for working
+                // 'employer' => session(Auth::user()->id.'employer'),
+                // 'employer_address' => session(Auth::user()->id.'employer_address'),
+                // 'job' => session(Auth::user()->id.'job'),
+                // 'employer_contact_no' => session(Auth::user()->id.'employer_contact_no'),
+                // 'years_of_employment' => session(Auth::user()->id.'years_of_employment'),
             
         ]);
 
@@ -239,53 +255,53 @@ class TenantController extends Controller
              ->update(
                         [
                             'status'=> 'reserved',
-                            'updated_at' => session(Auth::user()->id.'movein_date'),   
+                            'updated_at' => $request->movein_date,   
                         ]
                     );
 
         //delete all the session created during the tenant's registration.
-        $request->session()->forget(Auth::user()->id.'first_name');
-        $request->session()->forget(Auth::user()->id.'middle_name');
-        $request->session()->forget(Auth::user()->id.'last_name');
-        $request->session()->forget(Auth::user()->id.'birthdate');
-        $request->session()->forget(Auth::user()->id.'gender');
-        $request->session()->forget(Auth::user()->id.'civil_status');
-        $request->session()->forget(Auth::user()->id.'id_number');
+        // $request->session()->forget(Auth::user()->id.'first_name');
+        // $request->session()->forget(Auth::user()->id.'middle_name');
+        // $request->session()->forget(Auth::user()->id.'last_name');
+        // $request->session()->forget(Auth::user()->id.'birthdate');
+        // $request->session()->forget(Auth::user()->id.'gender');
+        // $request->session()->forget(Auth::user()->id.'civil_status');
+        // $request->session()->forget(Auth::user()->id.'id_number');
       
 
-        $request->session()->forget(Auth::user()->id.'zip_code');
-        $request->session()->forget(Auth::user()->id.'country');
-        $request->session()->forget(Auth::user()->id.'province');
-        $request->session()->forget(Auth::user()->id.'city');
-        $request->session()->forget(Auth::user()->id.'barangay');
+        // $request->session()->forget(Auth::user()->id.'zip_code');
+        // $request->session()->forget(Auth::user()->id.'country');
+        // $request->session()->forget(Auth::user()->id.'province');
+        // $request->session()->forget(Auth::user()->id.'city');
+        // $request->session()->forget(Auth::user()->id.'barangay');
 
-        $request->session()->forget(Auth::user()->id.'contact_no');
-        $request->session()->forget(Auth::user()->id.'email_address');
+        // $request->session()->forget(Auth::user()->id.'contact_no');
+        // $request->session()->forget(Auth::user()->id.'email_address');
 
-        $request->session()->forget(Auth::user()->id.'guardian');
-        $request->session()->forget(Auth::user()->id.'guardian_relationship');
-        $request->session()->forget(Auth::user()->id.'guardian_contact_no');
+        // // $request->session()->forget(Auth::user()->id.'guardian');
+        // // $request->session()->forget(Auth::user()->id.'guardian_relationship');
+        // // $request->session()->forget(Auth::user()->id.'guardian_contact_no');
         
-        $request->session()->forget(Auth::user()->id.'tenant_monthly_rent');
-        $request->session()->forget(Auth::user()->id.'type_of_tenant');
+        // $request->session()->forget(Auth::user()->id.'tenant_monthly_rent');
+        // // $request->session()->forget(Auth::user()->id.'type_of_tenant');
 
-        $request->session()->forget(Auth::user()->id.'movein_date');
-        $request->session()->forget(Auth::user()->id.'moveout_date');
+        // $request->session()->forget(Auth::user()->id.'movein_date');
+        // $request->session()->forget(Auth::user()->id.'moveout_date');
 
-        $request->session()->forget(Auth::user()->id.'high_school');
-        $request->session()->forget(Auth::user()->id.'high_school_address');
-        $request->session()->forget(Auth::user()->id.'college_school');
-        $request->session()->forget(Auth::user()->id.'college_school_address');
-        $request->session()->forget(Auth::user()->id.'course');
-        $request->session()->forget(Auth::user()->id.'year_level');
+        // $request->session()->forget(Auth::user()->id.'high_school');
+        // $request->session()->forget(Auth::user()->id.'high_school_address');
+        // $request->session()->forget(Auth::user()->id.'college_school');
+        // $request->session()->forget(Auth::user()->id.'college_school_address');
+        // $request->session()->forget(Auth::user()->id.'course');
+        // $request->session()->forget(Auth::user()->id.'year_level');
 
-        $request->session()->forget(Auth::user()->id.'employer');
-        $request->session()->forget(Auth::user()->id.'employer_address');
-        $request->session()->forget(Auth::user()->id.'job');
-        $request->session()->forget(Auth::user()->id.'years_of_employment');
-        $request->session()->forget(Auth::user()->id.'employer_contact_no');
+        // $request->session()->forget(Auth::user()->id.'employer');
+        // $request->session()->forget(Auth::user()->id.'employer_address');
+        // $request->session()->forget(Auth::user()->id.'job');
+        // $request->session()->forget(Auth::user()->id.'years_of_employment');
+        // $request->session()->forget(Auth::user()->id.'employer_contact_no');
 
-        if(Auth::user()->user->type === 'admin'){
+        if(Auth::user()->user_type === 'admin'){
             return redirect('/units/'.session(Auth::user()->id.'unit_id').'/tenants/'.$tenant_id)->with('success', 'New tenant has been added to the property!');
         }else{
             return redirect('/units/'.session(Auth::user()->id.'unit_id').'/tenants/'.$tenant_id.'/billings')->with('success', 'New tenant has been added to the property!');
@@ -409,14 +425,23 @@ class TenantController extends Controller
 
         $tenant = Tenant::findOrFail($tenant_id);
 
-        $collections = DB::table('units')
+
+    //   return  $collections = Billing::leftJoin('payments', 'billings.billing_no', '=', 'payments.payment_billing_no')
+    //     ->selectRaw('*, billing_amt - IFNULL(sum(amt_paid),0) as balance')
+    //     ->where('billing_tenant_id', $tenant_id)
+    //     ->groupBy('billing_id')
+    //     ->orderBy('billing_no', 'desc')
+    //     ->havingRaw('balance > 0')
+    //     ->get();
+
+         $collections = DB::table('units')
         ->leftJoin('tenants', 'unit_id', 'unit_tenant_id')
-       
         ->leftJoin('payments', 'tenant_id', 'payment_tenant_id')
         ->leftJoin('billings', 'payment_billing_no', 'billing_no')
         ->where('tenant_id', $tenant_id)
         ->orderBy('payment_created', 'desc')
         ->orderBy('ar_number', 'desc')
+        ->groupBy('payment_id')
         ->get()
         ->groupBy(function($item) {
             return \Carbon\Carbon::parse($item->payment_created)->timestamp;
@@ -656,9 +681,9 @@ class TenantController extends Controller
 
             $pdf = \PDF::loadView('admin.gatepass', $data)->setPaper('a4', 'portrait');
       
-            return $pdf->download($tenant->first_name.' '.$tenant->last_name.'.pdf');
+             return $pdf->download($tenant->first_name.' '.$tenant->last_name.'.pdf');
     
-        // return redirect('/units/'.$request->unit_tenant_id.'/tenants/'.$request->tenant_id)->with('success','Tenant has been moved out!');
+        //return redirect('/units/'.$request->unit_tenant_id.'/tenants/'.$request->tenant_id)->with('success','Tenant has been moved out!');
     }
 
     public function renew(Request $request, $unit_id, $tenant_id){
@@ -674,10 +699,10 @@ class TenantController extends Controller
           ->count();
 
         //retrieve the number of dynamically created.
-       $no_of_row = (int) $request->no_of_row; 
+       $no_of_items = (int) $request->no_of_items; 
         
         // if number of rows is greater than 1
-        if($no_of_row < 1){
+        if($no_of_items < 1){
             DB::table('tenants')
             ->where('tenant_id', $tenant_id)
             ->update([
@@ -692,15 +717,16 @@ class TenantController extends Controller
 
         }else{
             //insert all the additional charges
-            for($i = 1; $i<$no_of_row; $i++){
-
+            for($i = 1; $i<$no_of_items; $i++){
                 DB::table('billings')->insert(
                     [
-                        'billing_tenant_id' => $tenant_id,
+                        'billing_tenant_id' => $request->tenant_id,
                         'billing_no' => $current_bill_no++,
-                        'billing_date' => Carbon::now(),
-                        'billing_desc' =>  $request->input('desc'.$i),
-                        'billing_amt' =>  $request->input('amt'.$i)
+                        'billing_date' => $request->movein_date,
+                        'billing_start' =>  $request->input('billing_start'.$i),
+                        'billing_end' =>  $request->input('billing_end'.$i),
+                        'billing_desc' =>  $request->input('billing_desc'.$i),
+                        'billing_amt' =>  $request->input('billing_amt'.$i)
                     ]);
             }
 
@@ -946,22 +972,16 @@ class TenantController extends Controller
 
             $unit = Unit::findOrFail($unit_id);
 
-            //  $payment_breakdown = DB::table('payments')
-            // ->where('payment_tenant_id',$tenant_id)
-            // ->where('payment_created', $payment_created)
-            // ->where('amt_paid','>',0)
-            // ->get();
-
             $collections = DB::table('units')
-            ->leftJoin('tenants', 'unit_id', 'unit_tenant_id')
-           
-            ->leftJoin('payments', 'tenant_id', 'payment_tenant_id')
-            ->leftJoin('billings', 'payment_billing_no', 'billing_no')
-            ->where('tenant_id',$tenant_id)
-            ->where('payment_created', $payment_created)
-            ->orderBy('payment_created', 'desc')
-            ->orderBy('ar_number', 'desc')
-            ->get();
+                ->leftJoin('tenants', 'unit_id', 'unit_tenant_id')
+                ->leftJoin('payments', 'tenant_id', 'payment_tenant_id')
+                ->leftJoin('billings', 'payment_billing_no', 'billing_no')
+                ->where('tenant_id', $tenant_id)
+                ->orderBy('payment_created', 'desc')
+                ->orderBy('ar_number', 'desc')
+                ->groupBy('ar_number')
+                ->get();
+    
 
             $balance = Billing::leftJoin('payments', 'billings.billing_no', '=', 'payments.payment_billing_no')
             ->selectRaw('*, billings.billing_amt - IFNULL(sum(payments.amt_paid),0) as balance')
@@ -972,31 +992,15 @@ class TenantController extends Controller
             ->get();
 
             $payment = Payment::findOrFail($payment_id);
-
-            
-            // $payment_amt = DB::table('payments')
-            // ->where('payment_tenant_id',$tenant_id)
-            // ->where('payment_created', $payment_created)
-            // ->sum('amt_paid');
-
-            // $running_balance = DB::table('billings')
-            // ->where('billing_tenant_id', $tenant_id)
-            // ->where('billing_status', 'unpaid')
-            // ->sum('billing_amt');
             
             $data = [
-                
-                'tenant' => $tenant->first_name.' '.$tenant->last_name ,
-
-                'unit' => $unit->building.' '.$unit->unit_no,
-
-                'collections' => $collections,
-
-                'balance' => $balance,
-
-                'payment_date' => $payment->payment_created
-
-        ];
+                        'tenant' => $tenant->first_name.' '.$tenant->last_name ,
+                        'unit' => $unit->building.' '.$unit->unit_no,
+                        'collections' => $collections,
+                        'balance' => $balance,
+                        'payment_date' => $payment->payment_created,
+                        'payment_ar' => $payment->ar_number
+                    ];
 
             $pdf = \PDF::loadView('treasury.pdf', $data)->setPaper('a4', 'portrait');
       

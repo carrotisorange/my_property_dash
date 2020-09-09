@@ -19,7 +19,7 @@
       <div class="row">
         <div class="col-md-10">
           <h5 class="text-black-50">{{ Auth::user()->property }}</h5>
-          {{-- <p class="text-right"> <b>AR No:</b> {{ $payment_ar }}</p> --}}
+           <p class="text-right"> <b>AR No:</b> {{ $payment_ar }}</p> 
           <ul style="list-style-type: none">
             <li><b>Date:</b> {{ Carbon\Carbon::parse($payment_date)->format('M d Y') }}</li>
             <li><b>To:</b> {{ $tenant }}</li>
@@ -29,7 +29,7 @@
         <div class="table-responsive text-nowrap">
           <table class="table text-right">
             <tr>
-              <th>AR NO</th>
+              
               <th>BILL NO</th>
            
            
@@ -41,7 +41,7 @@
             </tr>
             @foreach ($collections as $item)
             <tr>
-              <td>{{ $item->ar_number }}</td>
+             
               <td>{{ $item->payment_billing_no }}</td>
             
               <td>{{ $item->billing_desc }}</td>

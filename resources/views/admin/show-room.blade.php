@@ -381,7 +381,7 @@
                     
                     
                         @if ($tenant_active->count() < $unit->max_occupancy)
-                        <a href="/units/{{ $unit->unit_id }}/tenant-step1" title="{{ $unit->max_occupancy - $tenant_active->count() }} remaining tenant/s to be fully occupied." type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                        <a href="/units/{{ $unit->unit_id }}/tenants-create" title="{{ $unit->max_occupancy - $tenant_active->count() }} remaining tenant/s to be fully occupied." type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                             <i class="fas fa-user-plus fa-sm text-white-50"></i> Add Tenant <span class="badge badge-light">{{  $tenant_active->count() }}/{{ $unit->max_occupancy }} </a>
 
                         @else

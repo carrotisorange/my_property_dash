@@ -769,7 +769,7 @@
         
         {{-- Modal for renewing tenant --}}
         <div class="modal fade" id="extendTenant" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Extend Contract</h5>
@@ -779,47 +779,43 @@
                 </button>
                 </div>
                 <div class="modal-body">
-                    <form id="extendTenantForm" action="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/renew" method="POST">
-                        {{ csrf_field() }}
+                    <form id="extendTenantForm" action="/units/{{ $unit->unit_id }}/tenants/{{ $tenant->tenant_id }}/renew" method="POST">
+                        @csrf
                     </form>
         
                     <div class="row">
-                        <div class="col">
+                        <div class="col-md-8">
                             <label for="movein_date">Enter the new movein date</label>
-                            <input type="date" form="extendTenantForm" class="form-control" name="movein_date" value="{{ $tenant->moveout_date }}" required>
+                            <input type="date" form="extendTenantForm" class="" name="movein_date" value="{{ $tenant->moveout_date }}" required>
+                            <input type="hidden" form="extendTenantForm" class="" name="action" value="extend_contract" required>
                             {{-- <input type="text" form="" class="form-control" name="" value="{{ Carbon\Carbon::parse($tenant->moveout_date)->format('M d Y') }}" required readonly> --}}
                         </div>
+
+                        <div class="col-md-4">
+                          <label for="moveout_date">Extend contract to</label>
+                          <input type="number" form="extendTenantForm" min="1" class="" name="no_of_months" min="1" placeholder="enter no of months" required >
+                          <input type="hidden" form="extendTenantForm" class="form-control" name="old_movein_date" value="{{ $tenant->movein_date }}" required>
+                      </div>
                     </div>
                     <br>
-                    <div class="row">
-                        <div class="col">
-                            <label for="moveout_date">Extend contract to</label>
-                            <input type="number" form="extendTenantForm" min="1" class="form-control" name="no_of_months" min="1" placeholder="enter no of months" required >
-                            <input type="hidden" form="extendTenantForm" class="form-control" name="old_movein_date" value="{{ $tenant->movein_date }}" required>
-                        </div>
-                    </div>
-                     <br>
+                
                     
                     <div class="row">
-                        <div class="col">
-                            
-                                Additonal Charges
-                                
-                                <small class="text-danger">(Optional)</small>
-                               
-                               <p class="text-right">
-                                <a id='remove_charges' class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-minus fa-sm text-white-50"></i> </a>
-                                <a id="add_charges" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> </a>     
+                        <div class="col"> 
+                               <p class="">
+                                <span id='remove_charges' class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-minus fa-sm text-white-50"></i> Remove Bill</span>
+                                <span id="add_charges" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Add Bill</span>     
                                </p>
                             
                             <br>
-                                <table class = "table table-hover " id="extend_table">
+                                <table class ="table table-bordered" id="extend_table">
                                     <tr>
-                                        <th class="text-center">#</th>
+                                        <th>Bill No</th>
                                         <th>Description</th>
+                                        <th colspan="2">Period Covered</th>
                                         <th>Amount</th>
                                     </tr>
-                                        <input form="extendTenantForm" type="hidden" id="no_of_row" name="no_of_row" >
+                                        <input form="extendTenantForm" type="hidden" id="no_of_items" name="no_of_items" >
                                     
                                     <tr id='row1'></tr>
                                 </table>
@@ -836,10 +832,10 @@
         
         {{-- Modal for warning message --}}
         <div class="modal fade" id="moveoutTenantWarning" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Outstanding Balance </h5>
+                <h5 class="modal-title" id="exampleModalLabel">Pending Balance </h5>
         
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -915,7 +911,7 @@
 
                 {{-- Modal for requesting to moveout --}}
                 <div class="modal fade" id="requestToMoveoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                  <div class="modal-dialog modal-lg" role="document">
+                  <div class="modal-dialog modal-xl" role="document">
                   <div class="modal-content">
                       <div class="modal-header">
                       <h5 class="modal-title" id="exampleModalLabel">Request Moveout </h5>
@@ -934,26 +930,25 @@
                         <input type="hidden" form="requestMoveoutForm" id="unit_tenant_id" name="unit_tenant_id" value="{{ $tenant->unit_tenant_id }}"required>
                         <input type="hidden" form="requestMoveoutForm" id="tenant_id" name="tenant_id" value="{{ $tenant->tenant_id }}"required>
                         <div class=" row">
-                          <div class="col">
+                          <div class="col-md-8">
                               <small>Moveout Date</small>
-                              <input type="date" form="requestMoveoutForm" class="form-control" name="actual_move_out_date" id="actual_moveout_date" value="{{ $tenant->moveout_date }}" required>
+                              <input type="date" form="requestMoveoutForm" name="actual_move_out_date" id="actual_moveout_date" value="{{ $tenant->moveout_date }}" required>
+                          </div>
+
+                          <div class="col-md-4">
+                            <small>Reason for Moving Out</small>
+                              <select form="requestMoveoutForm" name="reason_for_moving_out" id="reason_for_moving_out" required>
+                                  <option value="">Please select one</option>
+                                  <option value="end of contract">end of contract</option>
+                                  <option value="delinquent">delinquent</option>
+                                  <option value="force majeure">force majeure</option>
+                                  <option value="run away">run away</option>
+                                  <option value="unruly">unruly</option>
+                              </select>
                           </div>
                       </div>
                       <hr>
-                      <div class="row">
-                          <div class="col">
-                              <small>Reason for Moving Out</small>
-                                <select form="requestMoveoutForm" class="form-control" name="reason_for_moving_out" id="reason_for_moving_out" required>
-                                    <option value="">Please select one</option>
-                                    <option value="end of contract">end of contract</option>
-                                    <option value="delinquent">delinquent</option>
-                                    <option value="force majeure">force majeure</option>
-                                    <option value="run away">run away</option>
-                                    <option value="unruly">unruly</option>
-                                </select>
-                            </div>
-                      </div>
-                      <hr>
+                  
 
                       <div class="row">
                         <div class="col">
@@ -999,10 +994,10 @@
                       
                         <div class="row">
                           <div class="col">
-                            <small>Moveout Charges</small> 
-                            <p class="text-right">
-                              <a id='delete_row' class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-minus fa-sm text-white-50"></i> </a>
-                            <a id="add_row" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> </a>     
+                         
+                            <p class="">
+                              <span id='delete_row' class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-minus fa-sm text-white-50"></i> Remove Bill</span>
+                            <span id="add_row" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Add Bill</span>     
                             </p>
                               <div class="table-responsive text-nowrap">
                               <table class = "table table-bordered" id="tab_logic">
@@ -1208,12 +1203,14 @@
   //adding moveout charges upon moveout
     $(document).ready(function(){
         var i=1;
+        var current_bill_no  = {{ $current_bill_no }};
     $("#add_row").click(function(){
-        $('#addr'+i).html("<th id='value'>"+ (i) +"</th><td><input form='requestMoveoutForm' name='desc"+i+"' id='desc"+i+"' type='text' class='form-control input-md' required></td><td><input form='requestMoveoutForm' name='price"+i+"' id='price"+i+"' type='number' class='form-control input-md'></td><td><input form='requestMoveoutForm' name='qty"+i+"' id='qty"+i+"' type='number' class='form-control input-md'></td><td><input form='requestMoveoutForm'   name='amt"+i+"' id='amt"+i+"' type='number' min='1' class='form-control input-md' required></td>");
+        $('#addr'+i).html("<th id='value'>"+ (current_bill_no) +"</th><td><input form='requestMoveoutForm' name='desc"+i+"' id='desc"+i+"' type='text' required></td><td><input form='requestMoveoutForm' name='price"+i+"' id='price"+i+"' type='number'></td><td><input form='requestMoveoutForm' name='qty"+i+"' id='qty"+i+"' type='number'></td><td><input form='requestMoveoutForm'   name='amt"+i+"' id='amt"+i+"' type='number' min='1' required></td>");
 
 
      $('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
      i++;
+     current_bill_no++;
      document.getElementById('no_of_items').value = i;
 
     });
@@ -1222,17 +1219,18 @@
         if(i>1){
         $("#addr"+(i-1)).html('');
         i--;
+        current_bill_no--;
         document.getElementById('no_of_items').value = i;
         }
     });
 
         var j=1;
     $("#add_charges").click(function(){
-        $('#row'+j).html("<th class='text-center'>"+ (j) +"</th><td><select form='extendTenantForm' name='desc"+j+"' name='desc"+j+"' class='form-control' required><option value='Security Deposit (Rent)'>Security Deposit (Rent)</option><option value='Security Deposit (Utilities)'>Security Deposit (Utilities)</option><option value='Advance Rent'>Advance Rent</option><option value='Genenral Cleaning'>General Cleaning<option value='Management Fee'>Management Fee</option></select></td><td><input form='extendTenantForm' name='amt"+j+"' type='number' min='1' class='form-control input-md' required></td>");
-
+      $('#row'+j).html("<th>"+ (current_bill_no ) +"</th><td><select name='billing_desc"+j+"' form='extendTenantForm' id='billing_desc"+j+"'><option value='Security Deposit (Rent)'>Security Deposit (Rent)</option><option value='Security Deposit (Utilities)'>Security Deposit (Utilities)</option><option value='Advance Rent'>Advance Rent</option><option value='Rent'>Rent</option><option value='Electric'>Electric</option><option value='Water'>Water</option></select> <td><input form='extendTenantForm' name='billing_start"+j+"' id='billing_start"+j+"' type='date' required></td> <td><input form='extendTenantForm' name='billing_end"+j+"' id='billing_end"+j+"' type='date' required></td> <td><input form='extendTenantForm'   name='billing_amt"+j+"' id='billing_amt"+j+"' type='number' min='1' step='0.01' required></td>");
      $('#extend_table').append('<tr id="row'+(j+1)+'"></tr>');
      j++;
-        document.getElementById('no_of_row').value = j;
+     current_bill_no++;
+        document.getElementById('no_of_items').value = j;
 
  });
 
@@ -1240,7 +1238,8 @@
         if(j>1){
         $("#row"+(j-1)).html('');
         j--;
-        document.getElementById('no_of_row').value = j;
+        current_bill_no--;
+        document.getElementById('no_of_items').value = j;
         }
     });
 });

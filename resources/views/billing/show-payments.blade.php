@@ -358,48 +358,38 @@
           @endforeach
         <!-- 404 Error Text -->
 
-        @if(Auth::user()->user_type === 'treasury' || Auth::user()->user_type === 'manager')
-        <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> Go Back to Tenant</a>
-        @else
-        <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/billings" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> Go Back to Tenant</a>
-        @endif
-        
-
-      <br><br>
-
-        <div class="col-lg-12 mb-4">
+      
+      <h1 class="h3 mb-0 text-gray-800">{{ $tenant->first_name.' '.$tenant->last_name }}</h1>
+          <br>
           <!-- DataTales Example -->
-          <div class="card shadow mb-4">
-            <div class="card-header py-3">
+          
+            {{-- <div class="card-header py-3">
               <h6 class="m-0 font-weight-bold text-primary">PAYMENT HISTORY</h6>
-            </div>
-           <div class="card-body">
+            </div> --}}
+           
             <div class="table-responsive text-nowrap">
             <table class="table table-striped">
                 @foreach ($collections as $day => $collection_list)
                   <tr>
-                      <th colspan="9">{{ Carbon\Carbon::parse($day)->addDay()->format('M d Y') }} ({{ $collection_list->count()}})</th>
+                      <th colspan="10">{{ Carbon\Carbon::parse($day)->addDay()->format('M d Y') }} ({{ $collection_list->count()}})</th>
+                      
                   </tr>
                   <tr>
-                      <th></th>
+                      
                       <th>AR NO</th>
                       <th>BILL NO</th>
                       <th>ROOM</th>  
                       <th>DESCRIPTION</th>
                       <th colspan="2">PERIOD COVERED</th>
+                      <th>FORM OF PAYMENT</th>
                       <th class="text-right">AMOUNT</th>
-                      <th></th>
+                     
+                      <th colspan="2">ACTION</th>
                       </tr>
                 </tr>
                   @foreach ($collection_list as $item)
                   <tr>
-                    <td>
-                      <form action="/tenants/{{ $item->tenant_id }}/payments/{{ $item->payment_id }}" method="POST">
-                        @csrf
-                        @method('delete')
-                        <button title="remove this payment" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"  onclick="return confirm('Are you sure you want perform this action?');"><i class="fas fa-times fa-sm text-white-50"></i></button>
-                      </form>
-                    </td>   
+                   
                           <td>{{ $item->ar_number }}</td>
                           <td>{{ $item->payment_billing_no }}</td>
                             <td>{{ $item->building.' '.$item->unit_no }}</td> 
@@ -408,19 +398,22 @@
                             {{ $item->billing_start? Carbon\Carbon::parse($item->billing_start)->format('M d Y') : null}} -
                             {{ $item->billing_end? Carbon\Carbon::parse($item->billing_end)->format('M d Y') : null }}
                           </td>
+                          <td>{{ $item->form_of_payment }}</td>
                           <td class="text-right">{{ number_format($item->amt_paid,2) }}</td>
+                          
                           <td class="text-center">
                             <a title="export pdf" target="_blank" href="/units/{{ $item->unit_tenant_id }}/tenants/{{ $item->tenant_id }}/payments/{{ $item->payment_id }}/dates/{{$item->payment_created}}/export" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i></a>
                             {{-- <a target="_blank" href="#" title="print invoice" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-print fa-sm text-white-50"></i></a> 
                             --}}
                           </td>
-                          {{-- <td>
-                              <form action="/payments/{{ $item->payment_id }}" method="POST">
-                                  @method('delete')
-                                  @csrf
-                                  <button type="submit" class="btn btn-danger">Delete</button>
-                              </form>
-                          </td> --}}
+                          <td>
+                            <form action="/tenants/{{ $item->tenant_id }}/payments/{{ $item->payment_id }}" method="POST">
+                              @csrf
+                              @method('delete')
+                              <button title="remove this payment" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"  onclick="return confirm('Are you sure you want perform this action?');"><i class="fas fa-times fa-sm text-white-50"></i></button>
+                            </form>
+                          </td>   
+                         
                       </tr>
                   @endforeach
                       <tr>
@@ -431,10 +424,10 @@
                 @endforeach
             </table>
           </div>
-           </div>
-         </div>
+           
+        
  
-             </div>
+            
         </div>
 
       </div>

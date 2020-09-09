@@ -463,6 +463,7 @@
           <button data-toggle="modal" data-target="#editPaymentFooter" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" ><i class="fas fa-edit fa-sm text-white-50"></i> Edit Footer Message</button>
           @endif
           <br>
+          <br>
           {{-- Modal for editing payment footer message --}}
         <div class="modal fade" id="editPaymentFooter" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
@@ -496,7 +497,7 @@
         {{-- modal for adding payments. --}}
         
         <div class="modal fade" id="acceptPayment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-dialog modal-xl" role="document">
           <div class="modal-content">
               <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLabel">Enter Payment Information</h5>
@@ -509,105 +510,57 @@
                   <form id="acceptPaymentForm" action="/payments" method="POST">
                   {{ csrf_field() }}
                   </form>
-                  <?php 
-                        $billno = 1;
-                        $amt = 1;
-                        $desc = 1;
-                        $ctr =1;      
-                  ?>
-                  @foreach ($movein_charges as $item)
+           
+                  {{-- @foreach ($movein_charges as $item)
                       <input form="acceptPaymentForm"  type="hidden" name="ctr" value="{{ $ctr++ }}">
                       <input form="acceptPaymentForm"  type="hidden" name="desc{{ $desc++ }}" value="{{ $item->billing_desc }}">
                       <input form="acceptPaymentForm"  type="hidden" name="billno{{ $billno++ }}" value="{{ $item->billing_no }}">
                       <input form="acceptPaymentForm"  type="hidden" step="0.01" name="amt{{ $amt++ }}" value="{{ $item->billing_amt}}">
-                  @endforeach
-
-                  {{-- @for ($i = 0; $i < 3; $i++)
-
-                  @endfor   --}}
+                  @endforeach --}}
                   
-                  <div class="form-group row">
+                  <div class="row">
                       <div class="col-md-9">
                           <small for="">Date</small>
                       {{-- <input form="acceptPaymentForm" type="date" class="form-control" name="payment_created" value={{date('Y-m-d')}} required> --}}
-                      <input type="date" form="acceptPaymentForm" class="form-control" name="payment_created" value="{{ Carbon\Carbon::parse($tenant->movein_date)->format('Y-m-d') }}" required >
+                      <input type="date" form="acceptPaymentForm" class="" name="payment_created" value="{{ Carbon\Carbon::parse($tenant->movein_date)->format('Y-m-d') }}" required >
                       </div>
                       <div class="col-md-3">
                         <small for="">AR #</small>
-                        <input form="acceptPaymentForm" type="text" class="form-control" id="" name="ar_number" value="{{ $payment_ctr }}" required readonly>
+                        <input form="acceptPaymentForm" type="text" class="" id="" name="ar_number" value="{{ $payment_ctr }}" required readonly>
                     </div>
                   </div>
-                  @if($tenant->tenant_status === 'pending')
+                
+              <hr>
 
-                  @else
-                  <div class="form-group row">
-                    <div class="col">
-                        <small for="">Select Bill</small>
-                        <select form="acceptPaymentForm" class="form-control" name="billing_no" id="" required>
-                          @foreach ($balance as $item)
-                            <option value="{{ $item->billing_no }}"> 
-                              Bill No {{ $item->billing_no }}
-                             - {{ $item->billing_desc }}
-                                {{ $item->billing_start? Carbon\Carbon::parse($item->billing_start)->format('M d Y') : null}} -
-                                {{ $item->billing_end? Carbon\Carbon::parse($item->billing_end)->format('M d Y') : null }}
-                              worth {{ number_format($item->balance,2) }}
-                            </option>
-                          @endforeach
-                        </select>
-                    </div>
-
-                    {{-- <div class="col">
-                      <label for="">Period Covered</label>
-                      <div class="col">
-                        <select form="acceptPaymentForm" class="form-control" name="details" required>
-                          @foreach ($bills as $item)
-                          <option value="{{ $item->details }}">{{ $item->details }}</option>
-                          @endforeach
-                        </select>
-                       
-                      </div>
-                  </div> --}}
-                </div>
-                  @endif
-                 
-                  <div class="form-group row">
-                      <div class="col-md-8">
-                          <small>Form of Payment</small>
-                          <select form="acceptPaymentForm" class="form-control" name="form_of_payment" id="" required>
-                            <option value="" selected>Please select one</option>
-                              <option value="Cash">cash</option>
-                              <option value="Bank Deposit">bank deposit</option>
-                              <option value="Cheque">cheque</option>
-                          </select>
-                      </div>
-                      <div class="col-md-4">
-                          <small >Amount</small>
-                          <input form="acceptPaymentForm" type="number" class="form-control" id="" step="0.01" min="1" name="amt_paid" required>
-                          {{-- @if(Carbon\Carbon::now()->startOfMonth()->addDays(7)->format('d') <= Carbon\Carbon::now()->format('d') && $tenant->tenant_status !== 'pending')
-                          <input form="acceptPaymentForm" type="number" class="form-control" id="" step="0.01" min="1" name="amt_paid" value="{{ $bills->sum('billing_amt') +($bills->sum('billing_amt')*.1) }}" required>
-                          @else
-                          <input form="acceptPaymentForm" type="number" class="form-control" id="" step="0.01" min="1" name="amt_paid" value="{{ $bills->sum('billing_amt') }}" required>
-                          @endif --}}
-                      </div>
+                  <div class="row">
+                    <div class="col-md-12">
                    
-                  </div>
+                      <p class="text-left">
+                        <span id='delete_payment' class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-minus fa-sm text-white-50"></i> Remove Payment</span>
+                      <span id="add_payment" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Add Payment</span>     
+                      </p>
+                        <div class="table-responsive text-nowrap">
+                        <table class = "table table-bordered" id="payment">
+                            <tr>
+                                <th>#</th>
+                                <th>Bill</th>
+                                <th>Amount</th>
+                                <th>Form of Payment</th>
+                                <th>Bank Name</th>
+                                <th>Cheque No</th>
+                            </tr>
+                                <input form="acceptPaymentForm" type="hidden" id="no_of_payments" name="no_of_payments" >
+                            <tr id='payment1'></tr>
+                        </table>
+                      </div>
+                    </div>
+                  </div>        
                
                   <input type="hidden" form="acceptPaymentForm" id="payment_tenant_id" name="payment_tenant_id" value="{{ $tenant->tenant_id }}">
                   <input type="hidden" form="acceptPaymentForm" id="unit_tenant_id" name="unit_tenant_id" value="{{ $tenant->unit_tenant_id }}">
                   <input type="hidden" form="acceptPaymentForm" id="tenant_status" name="tenant_status" value="{{ $tenant->tenant_status }}">
-              
-                  <div class="form-group row">
-                    <div class="col">
-                        <small for="">Bank Name</small>
-                        <input form="acceptPaymentForm" class="form-control" type="text" name="bank_name">
-                        <small class="text-danger">For bank deposit only</small>
-                    </div>
-                    <div class="col">
-                        <small for="">Cheque No</small>
-                        <input form="acceptPaymentForm" class="form-control" type="text" name="cheque_no">
-                        <small class="text-danger">For cheque only</small>
-                    </div>
-                </div>
+                <hr>
+                 
               </div>
               <div class="modal-footer">
                   <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button>
@@ -648,7 +601,7 @@
               <div class="col">
                   <small>Billing Date</small>
                   {{-- <input type="date" form="addBillForm" class="form-control" name="billing_date" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}" required > --}}
-                  <input type="date" form="addBillForm" class="form-control" name="billing_date" value="{{ Carbon\Carbon::parse($tenant->movein_date)->format('Y-m-d') }}" required >
+                  <input type="date" form="addBillForm" class="" name="billing_date" value="{{ Carbon\Carbon::parse($tenant->movein_date)->format('Y-m-d') }}" required >
               </div>
             </div>
             {{-- <div class="row">
@@ -670,13 +623,13 @@
               <div class="col">
              
                 <p class="text-left">
-                  <a id='delete_row' class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-minus fa-sm text-white-50"></i> </a>
-                <a id="add_row" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> </a>     
+                  <span id='delete_row' class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-minus fa-sm text-white-50"></i> Remove Bill</span>
+                <span id="add_row" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Add Bill</span>     
                 </p>
                   <div class="table-responsive text-nowrap">
                   <table class = "table table-bordered" id="tab_logic">
                       <tr>
-                          <th>#</th>
+                          <th>Bill No</th>
                           <th>Description</th>
                           <th colspan="2">Period Covered</th>
                           <th>Amount</th>
@@ -739,6 +692,8 @@
     </div>
 
       </div>
+      </div>
+      
       <!-- End of Main Content -->
 
       <!-- Footer -->
@@ -824,12 +779,14 @@
   //adding moveout charges upon moveout
     $(document).ready(function(){
         var i=1;
+        var current_bill_no  = {{ $current_bill_no }};
     $("#add_row").click(function(){
-        $('#addr'+i).html("<th id='value'>"+ (i) +"</th><td><select name='billing_desc"+i+"' form='addBillForm' id='billing_desc"+i+"'><option value='Security Deposit (Rent)'>Security Deposit (Rent)</option><option value='Security Deposit (Utilities)'>Security Deposit (Utilities)</option><option value='Advance Rent'>Advance Rent</option><option value='Rent'>Rent</option><option value='Electric'>Electric</option><option value='Water'>Water</option></select> <td><input form='addBillForm' name='billing_start"+i+"' id='billing_start"+i+"' type='date' value='{{ Carbon\Carbon::parse($tenant->movein_date)->format('Y-m-d') }}' input-md'></td> <td><input form='addBillForm' name='billing_end"+i+"' id='billing_end"+i+"' type='date' value='{{ Carbon\Carbon::parse($tenant->moveout_date)->format('Y-m-d') }}'input-md'></td> <td><input form='addBillForm'   name='billing_amt"+i+"' id='billing_amt"+i+"' type='number' min='0' value='{{ $tenant->tenant_monthly_rent }}' input-md' required></td>");
+        $('#addr'+i).html("<th>"+ (current_bill_no ) +"</th><td><select name='billing_desc"+i+"' form='addBillForm' id='billing_desc"+i+"'><option value='Security Deposit (Rent)'>Security Deposit (Rent)</option><option value='Security Deposit (Utilities)'>Security Deposit (Utilities)</option><option value='Advance Rent'>Advance Rent</option><option value='Rent'>Rent</option><option value='Electric'>Electric</option><option value='Water'>Water</option></select> <td><input form='addBillForm' name='billing_start"+i+"' id='billing_start"+i+"' type='date' value='{{ Carbon\Carbon::parse($tenant->movein_date)->format('Y-m-d') }}'></td> <td><input form='addBillForm' name='billing_end"+i+"' id='billing_end"+i+"' type='date' value='{{ Carbon\Carbon::parse($tenant->moveout_date)->format('Y-m-d') }}'></td> <td><input form='addBillForm'   name='billing_amt"+i+"' id='billing_amt"+i+"' type='number' min='1' step='0.01' value='{{ $tenant->tenant_monthly_rent }}' required></td>");
 
 
      $('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
      i++;
+     current_bill_no++;
      document.getElementById('no_of_items').value = i;
 
     });
@@ -838,7 +795,27 @@
         if(i>1){
         $("#addr"+(i-1)).html('');
         i--;
+        current_bill_no--;
         document.getElementById('no_of_items').value = i;
+        }
+    });
+
+    var j=1;
+    $("#add_payment").click(function(){
+        $('#payment'+j).html("<th>"+ (j) +"</th><td><select form='acceptPaymentForm' name='billing_no"+j+"' id='billing_no"+j+"' required> @foreach ($balance as $item)<option value='{{ $item->billing_no }}'> Bill No {{ $item->billing_no }} | {{ $item->billing_desc }} | {{ $item->billing_start? Carbon\Carbon::parse($item->billing_start)->format('M d Y') : null}} - {{ $item->billing_end? Carbon\Carbon::parse($item->billing_end)->format('M d Y') : null }} | {{ number_format($item->balance,2) }} </option> @endforeach </select></td><td><input form='acceptPaymentForm' name='amt_paid"+j+"' id='amt_paid"+j+"' type='number' min='1' step='0.01' required></td><td><select form='acceptPaymentForm' name='form_of_payment"+j+"' required><option value='Cash'>Cash</option><option value='Bank Deposit'>Bank Deposit</option><option value='Cheque'>Cheque</option></select></td><td>  <input form='acceptPaymentForm' type='text' name='bank_name"+j+"'></td><td><input form='acceptPaymentForm' type='text' name='cheque_no"+j+"'></td>");
+
+
+     $('#payment').append('<tr id="payment'+(j+1)+'"></tr>');
+     j++;
+     document.getElementById('no_of_payments').value = j;
+
+    });
+
+    $("#delete_payment").click(function(){
+        if(j>1){
+        $("#payment"+(j-1)).html('');
+        j--;
+        document.getElementById('no_of_payments').value = j;
         }
     });
 
