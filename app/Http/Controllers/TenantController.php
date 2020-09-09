@@ -405,11 +405,10 @@ class TenantController extends Controller
             ->where('amt_paid','>',0)
             ->count();
 
-
              $balance = Billing::leftJoin('payments', 'billings.billing_no', '=', 'payments.payment_billing_no')
             ->selectRaw('*, billing_amt - IFNULL(sum(amt_paid),0) as balance')
             ->where('billing_tenant_id', $tenant_id)
-            ->groupBy('billing_id')
+            ->groupBy('billing_no')
             ->orderBy('billing_no', 'desc')
             ->havingRaw('balance > 0')
             ->get();
