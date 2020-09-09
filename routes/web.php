@@ -1,6 +1,6 @@
 <?php
 
-use App\Unit, App\UnitOwner, App\Tenant, App\User;
+use App\Unit, App\UnitOwner, App\Tenant, App\User, App\Billing;
 use Carbon\Carbon;
 use App\Charts\DashboardChart;
 use Illuminate\Http\Request;
@@ -454,16 +454,34 @@ Route::get('/board', function(Request $request){
         ->linetension(0.3);
 
         
-        $delinquent_accounts = DB::table('units')
-        ->selectRaw('*,sum(billing_amt) as total_bills')
-        ->join('tenants', 'unit_id', 'unit_tenant_id')
-        ->join('billings', 'tenant_id', 'billing_tenant_id')
-        ->where('unit_property', Auth::user()->property)
-        ->where('billing_date', '<', Carbon::now()->startOfMonth()->addDays(7))
+        // $delinquent_accounts = DB::table('units')
+        // ->selectRaw('*,sum(billing_amt) as total_bills')
+        // ->join('tenants', 'unit_id', 'unit_tenant_id')
+        // ->join('billings', 'tenant_id', 'billing_tenant_id')
+        // ->where('unit_property', Auth::user()->property)
+        // ->where('billing_date', '<', Carbon::now()->startOfMonth()->addDays(7))
+        // ->groupBy('tenant_id')
+        // ->where('billing_amt','>', 0)
+        // ->orderBy('total_bills', 'desc')
+        // ->paginate(10);
+
+        //  $delinquent_accounts = DB::table('units')
+        // ->leftJoin('tenants', 'unit_id', 'unit_tenant_id')
+        // ->leftJoin('payments', 'tenant_id', 'payment_tenant_id')
+        // ->leftJoin('billings', 'payment_billing_no', 'billing_no')
+        // ->selectRaw('*, billing_amt - IFNULL(sum(amt_paid),0) as balance')
+        // ->where('unit_property', Auth::user()->property)
+        // ->groupBy('tenant_id')
+        // ->havingRaw('balance > 0')
+        // ->get();
+
+       $delinquent_accounts = Billing::leftJoin('payments', 'billings.billing_no', '=', 'payments.payment_billing_no')
+       ->leftJoin('tenants', 'billing_tenant_id', 'tenant_id')
+       ->join('units', 'tenant_id', 'unit_tenant_id')
+        ->selectRaw('*, billing_amt - IFNULL(sum(amt_paid),0) as balance')
         ->groupBy('tenant_id')
-        ->where('billing_amt','>', 0)
-        ->orderBy('total_bills', 'desc')
-        ->paginate(10);
+        ->havingRaw('balance > 0')
+        ->get();
         
         $tenants_to_watch_out = DB::table('tenants')
         ->join('units', 'unit_id', 'unit_tenant_id')

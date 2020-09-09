@@ -679,13 +679,13 @@
                                   @endif
                                 </td>
                                 <td>
-                                  <a href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/billings">{{ number_format($item->total_bills,2) }}</a>
+                                  <a href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/billings">{{ number_format($item->balance,2) }}</a>
                                 </td>
                               </tr>
                               @endforeach
                             </tbody>
                           </table>
-                          {{ $delinquent_accounts->links() }}
+                          {{-- {{ $delinquent_accounts->links() }} --}}
                         </div>
                       </div>
                     </div>
