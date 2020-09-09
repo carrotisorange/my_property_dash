@@ -978,7 +978,7 @@ class TenantController extends Controller
                 ->where('tenant_id', $tenant_id)
                 ->orderBy('payment_created', 'desc')
                 ->orderBy('ar_number', 'desc')
-                ->groupBy('ar_number')
+                ->groupBy('payment_id')
                 ->get();
     
 
