@@ -22,19 +22,23 @@ class PaymentController extends Controller
         $search = $request->search;
 
         $request->session()->put(Auth::user()->id.'search_payment', $search);
-           $collections = DB::table('units')
-            ->join('tenants', 'unit_id', 'unit_tenant_id')
-            ->join('payments', 'tenant_id', 'payment_tenant_id')
-            ->where('unit_property', Auth::user()->property)
-            // ->whereIn('payment_note',['Rent', 'Electricity', 'Water', 'Surcharge'])
-            ->where('payment_created', $search)
-            ->orderBy('payment_created', 'desc')
-            ->orderBy('payment_created', 'desc')
-            ->get()
-            ->groupBy(function($item) {
-                return \Carbon\Carbon::parse($item->payment_created)->timestamp;
-            });
-    
+
+        
+        $collections = DB::table('units')
+        ->leftJoin('tenants', 'unit_id', 'unit_tenant_id')
+       
+        ->leftJoin('payments', 'tenant_id', 'payment_tenant_id')
+        ->leftJoin('billings', 'payment_billing_no', 'billing_no')
+        ->where('unit_property', Auth::user()->property)
+        ->where('payment_created', $search)
+        ->orderBy('payment_created', 'desc')
+        ->orderBy('ar_number', 'desc')
+        ->groupBy('payment_id')
+        ->get()
+        ->groupBy(function($item) {
+            return \Carbon\Carbon::parse($item->payment_created)->timestamp;
+        });
+
        return view('billing.collections', compact('collections'));
     }
 
