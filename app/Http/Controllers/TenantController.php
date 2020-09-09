@@ -976,6 +976,7 @@ class TenantController extends Controller
                 ->leftJoin('payments', 'tenant_id', 'payment_tenant_id')
                 ->leftJoin('billings', 'payment_billing_no', 'billing_no')
                 ->where('tenant_id', $tenant_id)
+                ->where('payment_created', $payment_created)
                 ->orderBy('payment_created', 'desc')
                 ->orderBy('ar_number', 'desc')
                 ->groupBy('payment_id')
