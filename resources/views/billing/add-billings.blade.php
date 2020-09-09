@@ -321,7 +321,7 @@
                   {{ $item->building.' '.$item->unit_no }}
               </td>
               <td>
-                  <input class="" type="text" form="add_billings" name="billing_desc{{ $desc_ctr++ }}" value="Security Deposit (Rent)" readonly>
+                  <input class="" type="text" form="add_billings" name="billing_desc{{ $desc_ctr++ }}" value="Advance Rent" readonly>
               </td>
                 {{-- <td>
                   @if($item->tenants_note === 'new' )
