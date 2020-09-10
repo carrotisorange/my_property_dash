@@ -37,9 +37,7 @@ class BillingController extends Controller
      */
     public function store(Request $request)
     {
-
         $no_of_items = (int) $request->no_of_items; 
-
 
         $active_tenants = DB::table('tenants')
         ->join('units', 'unit_id', 'unit_tenant_id')
@@ -68,6 +66,7 @@ class BillingController extends Controller
             }
             return back()->with('success', ($i-1).' bills has been posted!');
         }else{
+            
             for($i = 1; $i<=$active_tenants; $i++){
                 DB::table('billings')->insert(
                     [
@@ -138,13 +137,13 @@ class BillingController extends Controller
     {
 
 
-           DB::table("billings")
-        ->join('tenants', 'billing_tenant_id', 'tenant_id')
-        ->join('units', 'unit_tenant_id', 'unit_id')
-        ->where('unit_property', Auth::user()->property)
-        ->delete();
+        //    DB::table("billings")
+        // ->join('tenants', 'billing_tenant_id', 'tenant_id')
+        // ->join('units', 'unit_tenant_id', 'unit_id')
+        // ->where('unit_property', Auth::user()->property)
+        // ->delete();
 
-        // DB::table('billings')->where('billing_id', $billing_id)->delete();
-        // return back()->with('success', 'Bill has been deleted');
+        DB::table('billings')->where('billing_id', $billing_id)->delete();
+        return back()->with('success', 'Bill has been deleted');
     }
 }
