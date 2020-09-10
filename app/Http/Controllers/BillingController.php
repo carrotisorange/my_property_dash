@@ -138,13 +138,11 @@ class BillingController extends Controller
 
         // ->get();
 
-        // return DB::table("billings")
-        // ->join('tenants', 'billing_tenant_id', 'tenant_id')
-        // ->join('units', 'unit_tenant_id', 'unit_id')
-        // ->where('billing_desc', 'Rent')
-
-        // ->get();
-        DB::table('billings')->where('billing_id', $billing_id)->delete();
-        return back()->with('success', 'Bill has been deleted');
+         DB::table("billings")
+        ->join('tenants', 'billing_tenant_id', 'tenant_id')
+        ->join('units', 'unit_tenant_id', 'unit_id')
+        ->delete();
+        // DB::table('billings')->where('billing_id', $billing_id)->delete();
+        // return back()->with('success', 'Bill has been deleted');
     }
 }
