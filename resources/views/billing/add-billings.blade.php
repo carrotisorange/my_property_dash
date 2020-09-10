@@ -321,7 +321,7 @@
                   {{ $item->building.' '.$item->unit_no }}
               </td>
               <td>
-                  <input class="" type="text" form="add_billings" name="billing_desc{{ $desc_ctr++ }}" value="Security Deposit (Rent)" readonly>
+                  <input class="" type="text" form="add_billings" name="billing_desc{{ $desc_ctr++ }}" value="Security Deposit (Utilities)" readonly>
               </td>
                 {{-- <td>
                   @if($item->tenants_note === 'new' )
@@ -347,7 +347,7 @@
                   @if($item->tenants_note === 'new' )
                     <input form="add_billings" type="number" name="billing_amt{{ $amt_ctr++ }}" step="0.01"  value="{{ $prorated_monthly_rent }}" oninput="this.value = Math.abs(this.value)">
                   @else
-                    <input form="add_billings" type="number" name="billing_amt{{ $amt_ctr++ }}" step="0.01"  value="{{ $item->tenant_monthly_rent }}" oninput="this.value = Math.abs(this.value)">
+                    <input form="add_billings" type="number" name="billing_amt{{ $amt_ctr++ }}" step="0.01"  value="2000" oninput="this.value = Math.abs(this.value)">
                   @endif
               </td>
               <td>
