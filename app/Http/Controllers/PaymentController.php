@@ -65,12 +65,12 @@ class PaymentController extends Controller
 
         //add all the payment to the database.
         for($i = 1; $i<$no_of_payments; $i++){
-            
+             $explode = explode("-",  $request->input('billing_no'.$i));
             DB::table('payments')->insert(
                 [
-                    'payment_tenant_id' => $request->payment_tenant_id,
-                    
-                    'payment_billing_no' => $request->input('billing_no'.$i), 
+                    'payment_tenant_id' => $request->payment_tenant_id, 
+                    'payment_billing_no' => $explode[0], 
+                    'payment_billing_id' => $explode[1],
                     'amt_paid' => $request->input('amt_paid'.$i),
                     'payment_created' => $request->payment_created,
                     'or_number' => $request->or_number,

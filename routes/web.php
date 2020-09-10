@@ -880,7 +880,7 @@ Route::get('/users', function(){
 
 Route::get('/owners', function(){
     if( auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager'){
-        $property = explode(",", Auth::user()->property);
+        
       
             $owners = DB::table('units')
             ->join('unit_owners', 'unit_unit_owner_id', 'unit_owner_id')
