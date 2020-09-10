@@ -318,7 +318,7 @@
                   {{ $item->building.' '.$item->unit_no }}
               </td>
               <td>
-                  <input class="" type="text" form="add_billings" name="billing_desc{{ $desc_ctr++ }}" value="Security Deposit (Rent)" required readonly>
+                  <input class="" type="text" form="add_billings" name="billing_desc{{ $desc_ctr++ }}" value="Rent" required readonly>
               </td>
                 {{-- <td>
                   @if($item->tenants_note === 'new' )
@@ -332,8 +332,8 @@
                   <input form="add_billings" type="date" name="billing_start{{ $billing_start++  }}" value="{{ Carbon\Carbon::parse($item->movein_date)->format('Y-m-d') }}" required>
                   <input form="add_billings" type="date" name="billing_end{{ $billing_end++  }}" value="{{ Carbon\Carbon::now()->endOfMonth()->format('Y-m-d') }}" required>
                   @else
-                  <input form="add_billings" type="date" name="billing_start{{ $billing_start++  }}" value="{{ Carbon\Carbon::parse($item->movein_date)->format('Y-m-d') }}" required>
-                  <input form="add_billings" type="date" name="billing_end{{ $billing_end++  }}" value="{{ Carbon\Carbon::parse($item->moveout_date)->format('Y-m-d') }}" required>
+                  <input form="add_billings" type="date" name="billing_start{{ $billing_start++  }}" value="{{ Carbon\Carbon::now()->startOfMonth()->format('Y-m-d') }} }}" required>
+                  <input form="add_billings" type="date" name="billing_end{{ $billing_end++  }}" value="{{ Carbon\Carbon::now()->endOfMonth()->format('Y-m-d') }} }}" required>
                   @endif
               </td>
               <td>
