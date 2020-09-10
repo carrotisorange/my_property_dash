@@ -410,11 +410,11 @@ class TenantController extends Controller
             ->max('billing_no') + 1;
 
             //get the move in charges
-            $movein_charges = DB::table('billings')
-            ->where('billing_tenant_id', $tenant_id)
-            ->where('billing_amt','>',0)
-            ->whereIn('billing_desc', ['Security Deposit (Utilities)', 'Security Deposit (Rent)', 'Advance Rent', 'Others', 'Management Fee', 'General Cleaning'])
-            ->get();
+            // $movein_charges = DB::table('billings')
+            // ->where('billing_tenant_id', $tenant_id)
+            // ->where('billing_amt','>',0)
+            // ->whereIn('billing_desc', ['Security Deposit (Utilities)', 'Security Deposit (Rent)', 'Advance Rent', 'Others', 'Management Fee', 'General Cleaning'])
+            // ->get();
 
             //count the number of payments made
             $payments = DB::table('payments')
@@ -430,7 +430,7 @@ class TenantController extends Controller
             ->havingRaw('balance > 0')
             ->get();
 
-            return view('billing.show-billings', compact('current_bill_no','tenant','payment_ctr','payments', 'movein_charges', 'room', 'balance'));  
+            return view('billing.show-billings', compact('current_bill_no','tenant','payment_ctr','payments', 'room', 'balance'));  
         }else{
             return view('unregistered');
         }
