@@ -980,6 +980,7 @@ class TenantController extends Controller
                 ->orderBy('ar_number', 'desc')
                 ->groupBy('payment_id')
                 ->get();
+                
     
 
             $balance = Billing::leftJoin('payments', 'billings.billing_no', '=', 'payments.payment_billing_no')
