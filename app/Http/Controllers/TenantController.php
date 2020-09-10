@@ -400,7 +400,7 @@ class TenantController extends Controller
             ->join('tenants', 'unit_id', 'unit_tenant_id')
             ->join('payments', 'tenant_id', 'payment_tenant_id')
             ->where('unit_property', Auth::user()->property)
-            ->max('payment_id') + 1;
+            ->max('ar_number') + 1;
 
             //get the number of last added bills
             $current_bill_no = DB::table('units')
