@@ -56,7 +56,7 @@
 
       {{-- <h3 class="logo mr-auto"><a href="/" title="The Property Manager">The Property Manager</a></h3> --}}
       <!-- Uncomment below if you prefer to use an image logo -->
-       <a href="index.html" title="The Property Manager" class="logo mr-auto"><img src="{{ asset('/arsha/assets/img/logo.png') }}" alt="" class="img-fluid"></a> 
+       <a href="/" title="The Property Manager" class="logo mr-auto"><img src="{{ asset('/arsha/assets/img/logo.png') }}" alt="" class="img-fluid"></a> 
 
       <nav class="nav-menu d-none d-lg-block">
         <ul>

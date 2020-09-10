@@ -42,16 +42,16 @@
   <header id="header" class="fixed-top header-inner-pages">
     <div class="container d-flex align-items-center">
 
-      <h3 class="logo mr-auto"><img src="{{ asset('/arsha/assets/img/logo.png') }}" alt="" class="img-fluid"><a href="/" title="The Property Manager">The PM</h3>
+      <a href="/" title="The Property Manager" class="logo mr-auto"><img src="{{ asset('/arsha/assets/img/logo.png') }}" alt="" class="img-fluid"></a> 
       <!-- Uncomment below if you prefer to use an image logo -->
        {{-- <a href="index.html" class="logo mr-auto"><img src="{{ asset('/arsha/assets/img/logo.png') }}" alt="" class="img-fluid"></a> --}}
 
-      <nav class="nav-menu d-none d-lg-block">
+       <nav class="nav-menu d-none d-lg-block">
         <ul>
-          <li class=""><a href="/#hero">Home</a></li>
-          <li><a href="/#about">About</a></li>
-          <li><a href="/#services">Features</a></li>
-          <li><a href="/#pricing">Pricing</a></li>
+          <li class=""><a href="#hero">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#services">Features</a></li>
+          <li><a href="#pricing">Pricing</a></li>
          
           <li class="active"><a href="/resources">Resources</a></li>
           {{-- <li class="drop-down"><a href="">Resources</a>
@@ -71,12 +71,24 @@
               <li><a href="#">Drop Down 4</a></li>
             </ul>
           </li> --}}
-          <li><a href="#contact">Contact</a></li>
+          <li><a  href='#contact'>Contact</a></li>
+          {{-- <li><a href="/properties" target="_blank">Tenant Portal</a></li> --}}
+          <li><a href="/login" target="_blank">Owner Portal</a></li>
+          {{-- <li class="drop-down"><a href="">Login</a>
+            <ul>
+              <li><a href="/login" target="_blank">System User</a></li>
+              <li><a href="/properties" target="_blank">Tenant Portal</a></li>
+              <li><a href="/login" target="_blank">Owner Portal</a></li>
+             
+            </ul>
+          </li> --}}
 
         </ul>
       </nav><!-- .nav-menu -->
 
-      <a href="#about" class="get-started-btn scrollto">Get Started</a>
+      {{-- <a href="#about" class="get-started-btn scrollto">Get Started</a> --}}
+
+      <a href="/login"  target="_blank" class="get-started-btn scrollto">Login</a>
 
     </div>
   </header><!-- End Header -->
@@ -272,63 +284,61 @@
   </main><!-- End #main -->
 
    <!-- ======= Footer ======= -->
-   <footer id="footer">
+   <div class="footer-top">
+    <div class="container">
+      <div id="contact" class="row">
 
-    <div class="footer-top">
-      <div class="container">
-        <div class="row">
-
-          <div class="col-lg-3 col-md-6 footer-contact">
-            <h3>The PMO Co.</h3>
-            <p>
-              Baguio City <br>
-              Philippines, 2600<br>
-            <br>
-              <strong>Phone:</strong> +1 5589 55488 55<br>
-              <strong>Email:</strong> info@example.com<br>
-            </p>
-          </div>
-
-           <div class="col-lg-3 col-md-6 footer-links">
-            <h4>Useful Links</h4>
-            <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#hero">Home</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#about">About us</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#services">Features</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="/acceptable-use-policy">Acceptable Use Policy</a></li>
-            </ul>
-          </div>
-
-          <div class="col-lg-3 col-md-6 footer-links">
-            <h4>Features</h4>
-            <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Room Management</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Billing & Collection</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Expense Tracker</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Online Payment</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Job Order</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Landlord/Tenant Portal</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Concierge Service</a></li>
-            </ul>
-          </div>
-
-          <div class="col-lg-3 col-md-6 footer-links">
-            <h4>Our Social Networks</h4>
-            <p>Get in touch with us:</p>
-            <div class="social-links mt-3">
-              <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-              <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-              <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-              <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
-  
-            </div>
-          </div> 
-
+        <div class="col-lg-4 col-md-6 footer-contact">
+          <h3>The PMO Co.</h3>
+          <p>
+          {{--   Baguio City <br>
+            Philippines, 2600<br>
+          <br>
+            <strong>Phone:</strong> 09752826318<br> --}}
+            <strong>Email:</strong> customercare@thepropertymanager.online<br>
+          </p>
         </div>
+
+         <div class="col-lg-3 col-md-6 footer-links">
+          <h4>Useful Links</h4>
+          <ul>
+            <li><i class="bx bx-chevron-right"></i> <a href="#hero">Home</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="#about">About us</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="#services">Features</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="/terms-of-service">Terms of service</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="/privacy-policy">Privacy policy</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="/acceptable-use-policy">Acceptable Use Policy</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3 col-md-6 footer-links">
+          <h4>Features</h4>
+          <ul>
+            <li><i class="bx bx-chevron-right"></i> <a href="#">Room Management</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="#">Billing & Collection</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="#">Expense Tracker</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="#">Online Payment</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="#">Job Order</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="#">Landlord/Tenant Portal</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="#">Concierge Service</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-2 col-md-6 footer-links">
+          <h4>Our Social Networks</h4>
+          <p>Get in touch with us:</p>
+          <div class="social-links mt-3">
+            <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+            <a href="https://www.facebook.com/onlinepropertymanager"  target="_blank" class="facebook"><i class="bx bxl-facebook"></i></a>
+            <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+            {{-- <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a> --}}
+
+          </div>
+        </div> 
+
       </div>
     </div>
+  </div>
 
     <div class="container footer-bottom clearfix">
       <div class="copyright">
