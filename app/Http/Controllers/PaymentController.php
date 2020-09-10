@@ -63,6 +63,13 @@ class PaymentController extends Controller
         // retrieve the number of payments to be added.
         $no_of_payments = (int) $request->no_of_payments; 
 
+        //get the ar number
+        $payment_ctr = DB::table('units')
+        ->join('tenants', 'unit_id', 'unit_tenant_id')
+        ->join('payments', 'tenant_id', 'payment_tenant_id')
+        ->where('unit_property', Auth::user()->property)
+        ->max('payment_id') + 1;
+
         //add all the payment to the database.
         for($i = 1; $i<$no_of_payments; $i++){
              $explode = explode("-",  $request->input('billing_no'.$i));
@@ -74,7 +81,7 @@ class PaymentController extends Controller
                     'amt_paid' => $request->input('amt_paid'.$i),
                     'payment_created' => $request->payment_created,
                     'or_number' => $request->or_number,
-                    'ar_number' => $request->ar_number,
+                    'ar_number' => $request->payment_ctr,
                     'bank_name' => $request->input('bank_name'.$i),
                     'form_of_payment' => $request->input('form_of_payment'.$i),
                     'check_no' => $request->input('cheque_no'.$i),
@@ -318,9 +325,12 @@ class PaymentController extends Controller
      */
     public function destroy($tenant_id,$payment_id)
     {
-        DB::table('payments')->where('payment_id', $payment_id)->delete();
 
-        return back()->with('success', 'Payment has been successfully deleted!');
+        DB::table("payments")->delete();
+    
+        // DB::table('payments')->where('payment_id', $payment_id)->delete();
+
+        // return back()->with('success', 'Payment has been successfully deleted!');
     }
 
 }
