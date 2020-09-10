@@ -525,7 +525,6 @@ class TenantController extends Controller
      */
     public function update(Request $request, $unit_id, $tenant_id)
     { 
-        return $request->all();
         
         if($request->action==='request to moveout'){
 
@@ -550,7 +549,7 @@ class TenantController extends Controller
                 ]
             );
 
-            $no_of_items = (int) $request->no_of_items; 
+            $no_of_bills = (int) $request->no_of_bills; 
 
             //get the number of last added bills
             $current_bill_no = DB::table('units')
@@ -560,7 +559,7 @@ class TenantController extends Controller
             ->max('billing_no') + 1;
 
 
-            for($i = 1; $i<$no_of_items; $i++){
+            for($i = 1; $i<$no_of_bills; $i++){
                 DB::table('billings')->insert(
                     [
                         'billing_tenant_id' => $request->tenant_id,

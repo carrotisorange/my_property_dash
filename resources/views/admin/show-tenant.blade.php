@@ -823,8 +823,8 @@
                       </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button>
-                    <button form="extendTenantForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want to perform this action?');" ><i class="fas fa-check fa-sm text-white-50"></i> Extend</button>
+                    {{-- <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button> --}}
+                    <button form="extendTenantForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;" ><i class="fas fa-check fa-sm text-white-50"></i> Extend</button>
                 </div>
             </div>
             </div>
@@ -922,7 +922,7 @@
                       </div>
   
                       <div class="modal-body">
-                      <form id="requestMoveoutForm" action="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/moveout" method="POST">
+                      <form id="requestMoveoutForm" action="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}" method="POST">
                         @method('put')
                          @csrf
                         </form>
@@ -1004,11 +1004,11 @@
                                 <tr>
                                     <th>Bill No</th>
                                     <th>Description</th>
-                                    <th colspan="2">Period Covered</th>
+                                    
                                     <th>Amount</th>
                                     
                                 </tr>
-                                    <input form="addBillForm" type="hidden" id="no_of_items" name="no_of_items" >
+                                    <input form="requestMoveoutForm" type="hidden" id="no_of_bills" name="no_of_bills" >
                                 <tr id='addr1'></tr>
                             </table>
                           </div>
@@ -1019,9 +1019,9 @@
                        
                      </div>
                      <div class="modal-footer">
-                       <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button>
+                       {{-- <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button> --}}
                       
-                        <button type="submit" form="requestMoveoutForm" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-sign-out-alt fa-sm text-white-50"></i> Request Moveout</button>
+                        <button type="submit" form="requestMoveoutForm" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm" onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;"><i class="fas fa-sign-out-alt fa-sm text-white-50"></i> Request Moveout</button>
                      
                    </div>
                      
@@ -1205,13 +1205,13 @@
         var i=1;
         var current_bill_no  = {{ $current_bill_no }};
     $("#add_row").click(function(){
-        $('#addr'+i).html("<th id='value'>"+ (current_bill_no) +"</th><td><input form='requestMoveoutForm' name='billing_desc"+i+"' id='desc"+i+"' type='text' required></td><td><input form='requestMoveoutForm' name='price"+i+"' id='price"+i+"' type='number'></td><td><input form='requestMoveoutForm' name='qty"+i+"' id='qty"+i+"' type='number'></td><td><input form='requestMoveoutForm'   name='billing_amt"+i+"' id='amt"+i+"' type='number' min='1' required></td>");
+        $('#addr'+i).html("<th id='value'>"+ (current_bill_no) +"</th><td><input form='requestMoveoutForm' name='billing_desc"+i+"' id='desc"+i+"' type='text' required></td><td><input form='requestMoveoutForm'   name='billing_amt"+i+"' id='amt"+i+"' type='number' min='1' required></td>");
 
 
      $('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
      i++;
      current_bill_no++;
-     document.getElementById('no_of_items').value = i;
+     document.getElementById('no_of_bills').value = i;
 
     });
 
@@ -1220,7 +1220,7 @@
         $("#addr"+(i-1)).html('');
         i--;
         current_bill_no--;
-        document.getElementById('no_of_items').value = i;
+        document.getElementById('no_of_bills').value = i;
         }
     });
 
