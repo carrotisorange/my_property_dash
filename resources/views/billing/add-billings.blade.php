@@ -318,7 +318,7 @@
                   {{ $item->building.' '.$item->unit_no }}
               </td>
               <td>
-                  <input class="" type="text" form="add_billings" name="billing_desc{{ $desc_ctr++ }}" value="Security Deposit (Rent)" readonly>
+                  <input class="" type="text" form="add_billings" name="billing_desc{{ $desc_ctr++ }}" value="Security Deposit (Rent)" required readonly>
               </td>
                 {{-- <td>
                   @if($item->tenants_note === 'new' )
@@ -329,11 +329,11 @@
                 </td> --}}
               <td colspan="2">
                   @if($item->tenants_note === 'new' )
-                  <input form="add_billings" type="date" name="billing_start{{ $billing_start++  }}" value="{{ Carbon\Carbon::parse($item->movein_date)->format('Y-m-d') }}" >
-                  <input form="add_billings" type="date" name="billing_end{{ $billing_end++  }}" value="{{ Carbon\Carbon::now()->endOfMonth()->format('Y-m-d') }}" >
+                  <input form="add_billings" type="date" name="billing_start{{ $billing_start++  }}" value="{{ Carbon\Carbon::parse($item->movein_date)->format('Y-m-d') }}" required>
+                  <input form="add_billings" type="date" name="billing_end{{ $billing_end++  }}" value="{{ Carbon\Carbon::now()->endOfMonth()->format('Y-m-d') }}" required>
                   @else
-                  <input form="add_billings" type="date" name="billing_start{{ $billing_start++  }}" value="{{ Carbon\Carbon::parse($item->movein_date)->format('Y-m-d') }}" >
-                  <input form="add_billings" type="date" name="billing_end{{ $billing_end++  }}" value="{{ Carbon\Carbon::parse($item->moveout_date)->format('Y-m-d') }}" >
+                  <input form="add_billings" type="date" name="billing_start{{ $billing_start++  }}" value="{{ Carbon\Carbon::parse($item->movein_date)->format('Y-m-d') }}" required>
+                  <input form="add_billings" type="date" name="billing_end{{ $billing_end++  }}" value="{{ Carbon\Carbon::parse($item->moveout_date)->format('Y-m-d') }}" required>
                   @endif
               </td>
               <td>
@@ -342,9 +342,9 @@
                       $prorated_monthly_rent =  ($item->tenant_monthly_rent/30) * $prorated_rent;
                 ?>
                   @if($item->tenants_note === 'new' )
-                    <input form="add_billings" type="number" name="billing_amt{{ $amt_ctr++ }}" step="0.01"  value="{{ $prorated_monthly_rent }}" oninput="this.value = Math.abs(this.value)">
+                    <input form="add_billings" type="number" name="billing_amt{{ $amt_ctr++ }}" step="0.01"  value="{{ $prorated_monthly_rent }}" oninput="this.value = Math.abs(this.value)" required>
                   @else
-                    <input form="add_billings" type="number" name="billing_amt{{ $amt_ctr++ }}" step="0.01"  value="{{ $item->tenant_monthly_rent }}" oninput="this.value = Math.abs(this.value)">
+                    <input form="add_billings" type="number" name="billing_amt{{ $amt_ctr++ }}" step="0.01"  value="{{ $item->tenant_monthly_rent }}" oninput="this.value = Math.abs(this.value)" required>
                   @endif
               </td>
               <td>
@@ -360,7 +360,7 @@
         <br>
         <p class="text-right">
           <a href="/bills" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</a>
-          <button type="submit" form="add_billings" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"  onclick="return confirm('Are you sure you want perform this action?');"><i class="fas fa-check fa-sm text-white-50"></i> Add Bills</button>
+          <button type="submit" form="add_billings" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"  onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;"><i class="fas fa-check fa-sm text-white-50"></i> Add Bills</button>
       </p>
     </div>
 

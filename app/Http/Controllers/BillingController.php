@@ -40,6 +40,13 @@ class BillingController extends Controller
 
         $no_of_items = (int) $request->no_of_items; 
 
+
+        $active_tenants = DB::table('tenants')
+        ->join('units', 'unit_id', 'unit_tenant_id')
+        ->where('unit_property', Auth::user()->property)
+        ->where('tenant_status', 'active')
+        ->count();
+
         $current_bill_no = DB::table('units')
         ->join('tenants', 'unit_id', 'unit_tenant_id')
         ->join('billings', 'tenant_id', 'billing_tenant_id')
@@ -61,7 +68,7 @@ class BillingController extends Controller
             }
             return back()->with('success', ($i-1).' bills has been posted!');
         }else{
-            for($i = 1; $i<=$request->ctr; $i++){
+            for($i = 1; $i<=$active_tenants; $i++){
                 DB::table('billings')->insert(
                     [
                         'billing_no' => $current_bill_no++,
@@ -131,11 +138,13 @@ class BillingController extends Controller
     {
 
 
-        //   DB::table("billings")->delete();
-        // ->join('tenants', 'billing_tenant_id', 'tenant_id')
-        // ->join('units', 'unit_tenant_id', 'unit_id')
-        // ->delete();
-        DB::table('billings')->where('billing_id', $billing_id)->delete();
-        return back()->with('success', 'Bill has been deleted');
+           DB::table("billings")
+        ->join('tenants', 'billing_tenant_id', 'tenant_id')
+        ->join('units', 'unit_tenant_id', 'unit_id')
+        ->where('unit_property', Auth::user()->property)
+        ->delete();
+
+        // DB::table('billings')->where('billing_id', $billing_id)->delete();
+        // return back()->with('success', 'Bill has been deleted');
     }
 }
