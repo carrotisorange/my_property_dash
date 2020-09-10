@@ -59,11 +59,11 @@ class TenantController extends Controller
     public function create()
     {   
         //get the number of last added bills
-           $current_bill_no = DB::table('units')
+            $current_bill_no = DB::table('units')
             ->join('tenants', 'unit_id', 'unit_tenant_id')
             ->join('billings', 'tenant_id', 'billing_tenant_id')
             ->where('unit_property', Auth::user()->property)
-            ->count();
+            ->max('billing_no') + 1;
 
         return view('tenants.create', compact('current_bill_no'));
     }
@@ -707,11 +707,11 @@ class TenantController extends Controller
         $renewal_history = Tenant::findOrFail($tenant_id);
 
           //get the number of last added bills
-          $current_bill_no = DB::table('units')
-          ->join('tenants', 'unit_id', 'unit_tenant_id')
-          ->join('billings', 'tenant_id', 'billing_tenant_id')
-          ->where('unit_property', Auth::user()->property)
-          ->count();
+            $current_bill_no = DB::table('units')
+        ->join('tenants', 'unit_id', 'unit_tenant_id')
+        ->join('billings', 'tenant_id', 'billing_tenant_id')
+        ->where('unit_property', Auth::user()->property)
+        ->max('billing_no') + 1;
 
         //retrieve the number of dynamically created.
        $no_of_items = (int) $request->no_of_items; 
