@@ -922,9 +922,9 @@
                       </div>
   
                       <div class="modal-body">
-                      <form id="requestMoveoutForm" action="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}" method="POST">
+                      <form id="requestMoveoutForm" action="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/moveout" method="POST">
                         @method('put')
-                         {{ csrf_field() }}
+                         @csrf
                         </form>
                         <input form="requestMoveoutForm" type="hidden" name="action" value="request to moveout">
                         <input type="hidden" form="requestMoveoutForm" id="unit_tenant_id" name="unit_tenant_id" value="{{ $tenant->unit_tenant_id }}"required>
@@ -992,28 +992,28 @@
                       </div>
                       <hr>
                       
-                        <div class="row">
-                          <div class="col">
-                         
-                            <p class="">
-                              <span id='delete_row' class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-minus fa-sm text-white-50"></i> Remove Bill</span>
-                            <span id="add_row" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Add Bill</span>     
-                            </p>
-                              <div class="table-responsive text-nowrap">
-                              <table class = "table table-bordered" id="tab_logic">
-                                  <tr>
-                                      <th>#</th>
-                                      <th>Item</th>
-                                      <th>Price</th>
-                                      <th>Quantity</th>
-                                      <th>Item Total</th>
-                                  </tr>
-                                      <input form="requestMoveoutForm" type="hidden" id="no_of_items" name="no_of_items" >
-                                  <tr id='addr1'></tr>
-                              </table>
-                            </div>
+                      <div class="row">
+                        <div class="col">
+                       
+                          <p class="text-left">
+                            <span id='delete_row' class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-minus fa-sm text-white-50"></i> Remove Bill</span>
+                          <span id="add_row" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Add Bill</span>     
+                          </p>
+                            <div class="table-responsive text-nowrap">
+                            <table class = "table table-bordered" id="tab_logic">
+                                <tr>
+                                    <th>Bill No</th>
+                                    <th>Description</th>
+                                    <th colspan="2">Period Covered</th>
+                                    <th>Amount</th>
+                                    
+                                </tr>
+                                    <input form="addBillForm" type="hidden" id="no_of_items" name="no_of_items" >
+                                <tr id='addr1'></tr>
+                            </table>
                           </div>
                         </div>
+                      </div>
                         <br>
                         
                        
@@ -1205,7 +1205,7 @@
         var i=1;
         var current_bill_no  = {{ $current_bill_no }};
     $("#add_row").click(function(){
-        $('#addr'+i).html("<th id='value'>"+ (current_bill_no) +"</th><td><input form='requestMoveoutForm' name='desc"+i+"' id='desc"+i+"' type='text' required></td><td><input form='requestMoveoutForm' name='price"+i+"' id='price"+i+"' type='number'></td><td><input form='requestMoveoutForm' name='qty"+i+"' id='qty"+i+"' type='number'></td><td><input form='requestMoveoutForm'   name='amt"+i+"' id='amt"+i+"' type='number' min='1' required></td>");
+        $('#addr'+i).html("<th id='value'>"+ (current_bill_no) +"</th><td><input form='requestMoveoutForm' name='billing_desc"+i+"' id='desc"+i+"' type='text' required></td><td><input form='requestMoveoutForm' name='price"+i+"' id='price"+i+"' type='number'></td><td><input form='requestMoveoutForm' name='qty"+i+"' id='qty"+i+"' type='number'></td><td><input form='requestMoveoutForm'   name='billing_amt"+i+"' id='amt"+i+"' type='number' min='1' required></td>");
 
 
      $('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');

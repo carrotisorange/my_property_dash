@@ -58,7 +58,14 @@ class TenantController extends Controller
      */
     public function create()
     {   
-        return view('tenants.create');
+        //get the number of last added bills
+           $current_bill_no = DB::table('units')
+            ->join('tenants', 'unit_id', 'unit_tenant_id')
+            ->join('billings', 'tenant_id', 'billing_tenant_id')
+            ->where('unit_property', Auth::user()->property)
+            ->count();
+
+        return view('tenants.create', compact('current_bill_no'));
     }
 
     public function postTenantStep1(Request $request, $unit_id){
@@ -156,12 +163,6 @@ class TenantController extends Controller
     public function store(Request $request)
     {
 
-        $request->validate([
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'contact_no' => 'required',
-            'email_address' => 'required',
-        ]);
 
         // if($request->moveout_date <= $request->movein_date){
         //     $request->session()->put(Auth::user()->id.'movein_date', $request->movein_date);
@@ -229,11 +230,11 @@ class TenantController extends Controller
 
           //get the number of last added bills
 
-    //     $current_bill_no = DB::table('units')
-    //     ->join('tenants', 'unit_id', 'unit_tenant_id')
-    //     ->join('billings', 'tenant_id', 'billing_tenant_id')
-    //     ->where('unit_property', Auth::user()->property)
-    //     ->max('billing_no') + 1;
+        $current_bill_no = DB::table('units')
+        ->join('tenants', 'unit_id', 'unit_tenant_id')
+        ->join('billings', 'tenant_id', 'billing_tenant_id')
+        ->where('unit_property', Auth::user()->property)
+        ->max('billing_no') + 1;
                 
         
     //    //create movein charges of the tenant.
@@ -300,6 +301,22 @@ class TenantController extends Controller
         // $request->session()->forget(Auth::user()->id.'job');
         // $request->session()->forget(Auth::user()->id.'years_of_employment');
         // $request->session()->forget(Auth::user()->id.'employer_contact_no');
+
+       
+         $no_of_items = (int) $request->no_of_items; 
+
+        for($i = 1; $i<$no_of_items; $i++){
+            DB::table('billings')->insert(
+                [
+                    'billing_tenant_id' => $tenant_id,
+                    'billing_no' => $current_bill_no++,
+                    'billing_date' => $request->movein_date,
+                    'billing_start' =>  $request->movein_date,
+                    'billing_end' =>  $request->moveout_date,
+                    'billing_desc' =>  $request->input('billing_desc'.$i),
+                    'billing_amt' =>  $request->input('billing_amt'.$i)
+                ]);
+        }
 
         if(Auth::user()->user_type === 'admin'){
             return redirect('/units/'.session(Auth::user()->id.'unit_id').'/tenants/'.$tenant_id)->with('success', 'New tenant has been added to the property!');
@@ -508,7 +525,7 @@ class TenantController extends Controller
      */
     public function update(Request $request, $unit_id, $tenant_id)
     { 
-
+        return $request->all();
         
         if($request->action==='request to moveout'){
 
@@ -542,14 +559,15 @@ class TenantController extends Controller
             ->where('unit_property', Auth::user()->property)
             ->max('billing_no') + 1;
 
+
             for($i = 1; $i<$no_of_items; $i++){
                 DB::table('billings')->insert(
                     [
                         'billing_tenant_id' => $request->tenant_id,
                         'billing_no' => $current_bill_no++,
                         'billing_date' => $request->actual_move_out_date,
-                        'billing_desc' =>  $request->input('desc'.$i),
-                        'billing_amt' =>  $request->input('amt'.$i)
+                        'billing_desc' =>  $request->input('billing_desc'.$i),
+                        'billing_amt' =>  $request->input('billing_amt'.$i)
                     ]);
             }
 
