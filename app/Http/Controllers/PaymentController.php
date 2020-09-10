@@ -128,11 +128,14 @@ class PaymentController extends Controller
                 'monthly_rent'=> $tenant->tenant_monthly_rent
             );
 
-            //send welcome email to the tenant
-            Mail::send('emails.user-generated-mail', $data, function($message) use ($data){
+            if($tenant->email_address != null){
+                //send welcome email to the tenant
+                Mail::send('emails.user-generated-mail', $data, function($message) use ($data){
                 $message->to($data['email']);
                 $message->subject('Welcome Message');
             });
+            }
+           
         }
 
         return back()->with('success', ($i-1).' payments have been added!');
