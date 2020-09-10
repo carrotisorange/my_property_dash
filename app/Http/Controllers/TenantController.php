@@ -732,7 +732,7 @@ class TenantController extends Controller
 
         }else{
             //insert all the additional charges
-            for($i = 1; $i<$no_of_items; $i++){
+            for($i = 1; $i<=$no_of_items; $i++){
                 DB::table('billings')->insert(
                     [
                         'billing_tenant_id' => $request->tenant_id,
@@ -787,35 +787,27 @@ class TenantController extends Controller
             ->groupBy('tenant_id')
             ->get();
 
-            //get the number of last added bills
-            $billing_ctr = DB::table('units')
-            ->join('tenants', 'unit_id', 'unit_tenant_id')
-            ->join('billings', 'tenant_id', 'billing_tenant_id')
-            ->where('unit_property', Auth::user()->property)
-            ->count();
-
              //get the number of last added bills
              $current_bill_no = DB::table('units')
              ->join('tenants', 'unit_id', 'unit_tenant_id')
              ->join('billings', 'tenant_id', 'billing_tenant_id')
              ->where('unit_property', Auth::user()->property)
              ->max('billing_no') + 1;
-    
        
         if($request->billing_option === 'rent'){
-            return view('billing.add-billings', compact('active_tenants', 'billing_ctr','current_bill_no'));
+            return view('billing.add-billings', compact('active_tenants','current_bill_no'));
         }
 
         if($request->billing_option === 'electric'){
-            return view('billing.add-billings-electric', compact('active_tenants', 'billing_ctr','current_bill_no'));
+            return view('billing.add-billings-electric', compact('active_tenants','current_bill_no'));
         }
 
         if($request->billing_option === 'water'){
-            return view('billing.add-billings-water', compact('active_tenants', 'billing_ctr','current_bill_no'));
+            return view('billing.add-billings-water', compact('active_tenants','current_bill_no'));
         }
 
         if($request->billing_option === 'surcharge'){
-            return view('billing.add-billings-surcharge', compact('delinquent_tenants', 'billing_ctr','current_bill_no'));
+            return view('billing.add-billings-surcharge', compact('delinquent_tenants','current_bill_no'));
         }
         
     }
@@ -824,10 +816,10 @@ class TenantController extends Controller
 
         if($request->desc1 === 'Surcharge'){
            
-            for($i = 1; $i<=$request->ctr; $i++){
+            for($i = 1; $i<=$delinquent_tenants->count(); $i++){
                 DB::table('billings')->insert(
                     [
-                        'billing_no' => $request->input('billing_no'.$i),
+                        'billing_no' => $current_bill_no++,
                         'billing_tenant_id' => $request->input('tenant'.$i),
                         'billing_date' => Carbon::now()->addDays(7),
                         'billing_desc' =>  $request->input('desc'.$i),
@@ -850,10 +842,10 @@ class TenantController extends Controller
         }
         else{
 
-        for($i = 1; $i<=$request->ctr; $i++){
+        for($i = 1; $i<=$active_tenants->count(); $i++){
             DB::table('billings')->insert(
                 [
-                    'billing_no' => $request->input('billing_no'.$i),
+                    'billing_no' => $current_bill_no++,
                     'billing_tenant_id' => $request->input('tenant'.$i),
                     'billing_date' => Carbon::now()->firstOfMonth(),
                     'billing_desc' =>  $request->input('desc'.$i),

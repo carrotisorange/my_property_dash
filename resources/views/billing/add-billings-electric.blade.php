@@ -276,7 +276,7 @@
           </div>
         <!-- 404 Error Text -->
         <div class="table-responsive text-nowrap">
-        <form id="add_billings" action="/billings/" method="POST">
+        <form id="add_billings" action="/billings" method="POST">
            @csrf
             </form>
             <table class="table table-striped">

@@ -290,7 +290,6 @@
             </tr>
            <?php
              $ctr = 1;
-             $billing_no = 1;
              $desc_ctr = 1;
              $amt_ctr = 1;
              $id_ctr = 1;
@@ -298,8 +297,6 @@
              $billing_end = 1;
            ?>   
            @foreach($active_tenants as $item)
-
-           <input type="hidden" form="add_billings" name="billing_no{{ $billing_no++ }}" value="{{ $billing_ctr++ }}" required>
 
            <input type="hidden" form="add_billings" name="ctr" value="{{ $ctr++ }}" required>     
 
