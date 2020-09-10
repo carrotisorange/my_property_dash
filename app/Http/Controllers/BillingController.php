@@ -37,7 +37,8 @@ class BillingController extends Controller
      */
     public function store(Request $request)
     {
-         $no_of_items = (int) $request->no_of_items; 
+
+        $no_of_items = (int) $request->no_of_items; 
 
         $current_bill_no = DB::table('units')
         ->join('tenants', 'unit_id', 'unit_tenant_id')
@@ -58,56 +59,32 @@ class BillingController extends Controller
                         'billing_amt' =>  $request->input('billing_amt'.$i)
                     ]);
             }
-
             return back()->with('success', ($i-1).' bills has been posted!');
         }else{
-
-                for($i = 1; $i<=$request->ctr; $i++){
-                    DB::table('billings')->insert(
-                        [
-                            'billing_no' => $request->input('billing_no'.$i),
-                            'billing_tenant_id' => $request->input('billing_tenant_id'.$i),
-                            'billing_date' => $request->billing_date,
-                            'billing_start' => $request->input('billing_start'.$i),
-                            'billing_end' => $request->input('billing_end'.$i),
-                            'billing_desc' => $request->input('billing_desc'.$i),
-                            'billing_amt' =>  $request->input('billing_amt'.$i)
-                        ]);
+            for($i = 1; $i<$request->ctr; $i++){
+                DB::table('billings')->insert(
+                    [
+                        'billing_no' => $request->input('billing_no'.$i),
+                        'billing_tenant_id' => $request->input('billing_tenant_id'.$i),
+                        'billing_date' => $request->billing_date,
+                        'billing_start' => $request->input('billing_start'.$i),
+                        'billing_end' => $request->input('billing_end'.$i),
+                        'billing_desc' => $request->input('billing_desc'.$i),
+                        'billing_amt' =>  $request->input('billing_amt'.$i)
+                    ]);
         
-                        DB::table('tenants')
-                        ->where('tenant_id', $request->input('billing_tenant_id'.$i))
-                        ->where('tenant_status', 'active')
-                        ->where('tenants_note', 'new')
-                        ->update(
-                                    [
-                                        'tenants_note' => ''
-                                    ]
-                                );
-                }
-    
-                return redirect('/bills')->with('success', ($i-1).' '.$request->billing_desc1.' bills has been posted!');
-    
-           
-             
-                    // DB::table('billings')->insert(
-                    //     [
-                    //         'billing_no' => $request->billing_no,
-                    //         'billing_tenant_id' => $request->billing_tenant_id,
-                    //         'billing_date' => $request->billing_date,
-                    //         'billing_start' =>$request->billing_start,
-                    //         'billing_end' => $request->billing_end,
-                    //         'billing_desc' => $request->billing_desc,
-                    //         'billing_amt' =>  $request->billing_amt,
-                    //     ]);
-    
-    
-                    //     return back()->with('success', 'bill for '. $request->billing_desc.' '.$request->billing_amt .' has been posted!');
-                
-            
+                DB::table('tenants')
+                    ->where('tenant_id', $request->input('billing_tenant_id'.$i))
+                    ->where('tenant_status', 'active')
+                    ->where('tenants_note', 'new')
+                    ->update(
+                                [
+                                    'tenants_note' => ''
+                                ]
+                            );
+            }
+            return redirect('/bills')->with('success', ($i-1).' '.$request->billing_desc1.' bills has been posted!');
         }
-
-
-        
     }
 
     /**
@@ -152,11 +129,21 @@ class BillingController extends Controller
      */
     public function destroy($tenant_id, $billing_id)
     {
-        // DB::table("billings")
+
+        // return DB::table("billings")
+        // ->join('payments', 'billing_no', 'payment_billing_no')
+        
+        
+        // ->where('billing_id', $billing_id)
+
+        // ->get();
+
+        // return DB::table("billings")
         // ->join('tenants', 'billing_tenant_id', 'tenant_id')
         // ->join('units', 'unit_tenant_id', 'unit_id')
         // ->where('billing_desc', 'Rent')
-        // ->delete();
+
+        // ->get();
         DB::table('billings')->where('billing_id', $billing_id)->delete();
         return back()->with('success', 'Bill has been deleted');
     }

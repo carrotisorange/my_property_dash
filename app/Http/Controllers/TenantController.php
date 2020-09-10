@@ -405,14 +405,14 @@ class TenantController extends Controller
             ->where('amt_paid','>',0)
             ->count();
 
-             $balance = Billing::leftJoin('payments', 'billings.billing_no', '=', 'payments.payment_billing_no')
-            ->selectRaw('*, billing_amt - IFNULL(sum(amt_paid),0) as balance')
+            $balance = Billing::leftJoin('payments', 'billings.billing_id', '=', 'payments.payment_id') 
+            ->selectRaw('* ,billings.billing_amt - IFNULL(sum(payments.amt_paid),0) as balance')
+           
             ->where('billing_tenant_id', $tenant_id)
             ->groupBy('billing_no')
             ->orderBy('billing_no', 'desc')
             ->havingRaw('balance > 0')
             ->get();
-
 
             return view('billing.show-billings', compact('current_bill_no','tenant','payment_ctr','payments', 'movein_charges', 'room', 'balance'));  
         }else{
@@ -433,7 +433,7 @@ class TenantController extends Controller
     //     ->havingRaw('balance > 0')
     //     ->get();
 
-         $collections = DB::table('units')
+        $collections = DB::table('units')
         ->leftJoin('tenants', 'unit_id', 'unit_tenant_id')
         ->leftJoin('payments', 'tenant_id', 'payment_tenant_id')
         ->leftJoin('billings', 'payment_billing_no', 'billing_no')
