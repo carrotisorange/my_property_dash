@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
+
 return [
 
     /*
@@ -57,7 +59,7 @@ return [
 
     'from' => [
         'address' => env('MAIL_FROM_ADDRESS', 'thepropertymanager2020@gmail.com'),
-        'name' => env('MAIL_FROM_NAME',  App\Auth::user()->property ),
+        'name' => env('MAIL_FROM_NAME',  Auth::user()->property ),
     ],
 
     /*
