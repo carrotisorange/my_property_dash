@@ -967,7 +967,6 @@ Route::get('/account-payables', function(){
     }else{
         return view('unregistered');
     }
-   
 })->middleware(['auth', 'verified']);
 
 Route::get('/housekeeping', function(){

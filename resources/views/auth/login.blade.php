@@ -76,7 +76,7 @@
                       <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
                     </a> --}}
                   </form>
-                  <hr>
+                  {{-- <hr> --}}
                   <div class="text-center">
                     @if (Route::has('password.request'))
                         <a class="small btn-link" href="{{ route('password.request') }}">

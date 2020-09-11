@@ -513,7 +513,6 @@ class TenantController extends Controller
             return view('unregistered');
         }
 
-      
     }
 
     /**
@@ -558,7 +557,6 @@ class TenantController extends Controller
             ->where('unit_property', Auth::user()->property)
             ->max('billing_no') + 1;
 
-
             for($i = 1; $i<$no_of_bills; $i++){
                 DB::table('billings')->insert(
                     [
@@ -569,6 +567,34 @@ class TenantController extends Controller
                         'billing_amt' =>  $request->input('billing_amt'.$i)
                     ]);
             }
+                $tenant = Tenant::findOrFail($tenant_id);
+                $unit = Unit::findOrFail($unit_id);
+
+                $balance = Billing::leftJoin('payments', 'billings.billing_id', '=', 'payments.payment_billing_id') 
+                ->selectRaw('* ,billings.billing_amt - IFNULL(sum(payments.amt_paid),0) as balance')
+                ->where('billing_tenant_id', $tenant_id)
+                ->groupBy('billing_no')
+                ->orderBy('billing_no', 'desc')
+                ->havingRaw('balance > 0')
+                ->get();
+
+               //assign the value of tenant and unit information to variable data
+               $data = array(
+                'email' => $tenant->email_address,
+                'name' => $tenant->first_name,
+                'unit' => $unit->building.' '.$unit->unit_no,
+                'contract_ends_at'  => $tenant->moveout_date,
+                'contract_starts_at'  => $tenant->moveout_date,
+                'balance' => $balance
+            );
+
+                //send welcome email to the tenant
+                Mail::send('emails.send-request-moveout-mail', $data, function($message) use ($data){
+                    $message->to($data['email']);
+                    $message->subject('Request to Moveout');
+                });
+        
+         
 
             return redirect('/units/'.$unit_id.'/tenants/'.$tenant_id)->with('success','Request to moveout has been sent!');
         }

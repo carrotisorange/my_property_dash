@@ -399,12 +399,42 @@
         </button>
         </div>
         <div class="modal-body">
-            <form id="addUMultipleUnitForm" action="/units/add-multiple" method="POST">
-                {{ csrf_field() }}
-            </form>
-  
-  
-        </div>
+          <form id="addBillForm" action="/billings/" method="POST">
+             @csrf
+          </form>
+          
+          <div class="row">
+            <div class="col">
+                <small>Date</small>
+                <input type="date" form="addBillForm" class="form-control" name="billing_date" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}" required >
+             
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col">
+           
+              <p class="text-left">
+                <span id='delete_row' class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-minus fa-sm text-white-50"></i> Remove Bill</span>
+              <span id="add_row" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Add Bill</span>     
+              </p>
+                <div class="table-responsive text-nowrap">
+                <table class = "table table-bordered" id="tab_logic">
+                    <tr>
+                        <th>Bill No</th>
+                        <th>Description</th>
+                        <th colspan="2">Period Covered</th>
+                        <th>Amount</th>
+                        
+                    </tr>
+                        <input form="addBillForm" type="hidden" id="no_of_items" name="no_of_items" >
+                    <tr id='addr1'></tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          
+       </div>
         <div class="modal-footer">
             <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button>
             <button form="addUMultipleUnitForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;"><i class="fas fa-check"></i> Add Payables</button>
@@ -454,6 +484,36 @@
   <!-- Page level custom scripts -->
   <script src="{{ asset('/dashboard/js/demo/chart-area-demo.js') }}"></script>
   <script src="{{ asset('/dashboard/js/demo/chart-pie-demo.js') }}"></script>
+
+  <script type="text/javascript">
+
+    //adding moveout charges upon moveout
+      $(document).ready(function(){
+          var i=1;
+          
+      $("#add_row").click(function(){
+          $('#addr'+i).html("<th>"+ (i) +"</th><td><select name='billing_desc"+i+"' form='addBillForm' id='billing_desc"+i+"'><option value='Security Deposit (Rent)'>Security Deposit (Rent)</option><option value='Security Deposit (Utilities)'>Security Deposit (Utilities)</option><option value='Advance Rent'>Advance Rent</option><option value='Rent'>Rent</option><option value='Electric'>Electric</option><option value='Water'>Water</option></select> <td><input form='addBillForm' name='billing_start"+i+"' id='billing_start"+i+"' type='date' value=''></td> <td><input form='addBillForm' name='billing_end"+i+"' id='billing_end"+i+"' type='date' value=''></td> <td><input form='addBillForm'   name='billing_amt"+i+"' id='billing_amt"+i+"' type='number' min='1' step='0.01' value='' required></td>");
+  
+  
+       $('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
+       i++;
+       
+       document.getElementById('no_of_items').value = i;
+  
+      });
+  
+      $("#delete_row").click(function(){
+          if(i>1){
+          $("#addr"+(i-1)).html('');
+          i--;
+          
+          document.getElementById('no_of_items').value = i;
+          }
+      });
+    
+  });
+  </script>
+  
 
 </body>
 
