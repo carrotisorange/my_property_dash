@@ -59,7 +59,7 @@ return [
 
     'from' => [
         'address' => env('MAIL_FROM_ADDRESS', 'thepropertymanager2020@gmail.com'),
-        'name' => env('MAIL_FROM_NAME',  Auth::user()->property ),
+        'name' => env('MAIL_FROM_NAME',  'The Property Manager' ),
     ],
 
     /*
