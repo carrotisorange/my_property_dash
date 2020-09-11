@@ -118,18 +118,6 @@ class UserController extends Controller
      */
     public function update(Request $request, $user_id)
     {
-        if($request->action === 'change_electric_rate' ){
-            DB::table('users')
-            ->where('property', Auth::user()->property)
-            ->update(
-                    [
-                        'electric_rate_kwh' => $request->electric_rate_kwh,
-                    ]
-                );
-
-                return back()->with('success', 'Electric rate has been updated!');
-        } 
-        
         if($request->action === 'change_footer_message' ){
             DB::table('users')
             ->where('property', Auth::user()->property)

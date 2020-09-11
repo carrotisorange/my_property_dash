@@ -1280,6 +1280,18 @@ Route::post('/send/inquiry', function(Request $request){
  
 });
 
+Route::post('/users/{user_id}/rate', function(Request $request){
+    DB::table('users')
+    ->where('property', Auth::user()->property)
+    ->update(
+                [
+                    'electric_rate_kwh' => $request->electric_rate_kwh,
+                ]
+            );
+
+    return back()->with('success', 'Electric rate has been updated!');
+});
+
 Route::get('/privacy-policy', function(){
     return view('privacy-policy');
 });

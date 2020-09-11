@@ -263,10 +263,8 @@
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Electric Bill for {{ Carbon\Carbon::now()->format('M d Y')}}</h1>
             <div class="form-group">
-              <form id="changeRateForm" action="/users/{{ Auth::user()->id }}" method="POST">
+              <form id="changeRateForm" action="/users/{{ Auth::user()->id }}/rate" method="POST">
                 @csrf
-                @method('PUT')
-                <input form="changeRateForm" type="hidden" name="action" value="change_electric_rate">
                 RATE (KwH) <input form="changeRateForm" type="number" name="electric_rate_kwh" step="0.01" value="{{ Auth::user()->electric_rate_kwh }}" required>
                 <button form="changeRateForm" type="submit" id="addBillsButton" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" ><i class="fas fa-check"></i> Update Rate</button>
               </form>
@@ -301,7 +299,7 @@
              $billing_end = 1;
            ?>
            @foreach($active_tenants as $item)
-           <input class="col-md-4" type="hidden" form="add_billings" name="billing_no{{ $billing_no_ctr++ }}" value="{{ $billing_ctr++ }}" required>
+           
            <input class="form-control" type="hidden" form="add_billings" name="ctr" value="{{ $ctr++ }}" readonly>     
             <input type="hidden" form="add_billings" name="billing_tenant_id{{ $id_ctr++ }}" value="{{ $item->tenant_id }}">
 
