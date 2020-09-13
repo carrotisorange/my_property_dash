@@ -858,7 +858,7 @@ Route::get('/users', function(){
 
     if(auth()->user()->user_type === 'manager'){
         
-        if(Auth::user()->email === 'marthaleasingcourtyards@gmail.com'){
+        if(Auth::user()->email === 'thepropertymanager2020@gmail.com'){
             $users = DB::table('users')
             ->orderBy('user_current_status', 'desc')
             ->orderBy('last_login_at', 'desc')
