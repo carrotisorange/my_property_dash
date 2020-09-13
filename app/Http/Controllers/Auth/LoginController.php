@@ -54,7 +54,17 @@ class LoginController extends Controller
                     ]);
         }
 
+    
     protected $redirectTo = '/board';
+
+    // protected function redirectTo()
+    // {
+    //     if(Auth::user()->user_type =='root'){
+    //         return '/users';
+    //     }else{
+    //         return '/board';
+    //     }   
+    // }
 
     /**
      * Create a new controller instance.

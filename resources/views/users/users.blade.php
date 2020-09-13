@@ -361,15 +361,15 @@
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
           <h1 class="h3 mb-0 text-gray-800">Users</h1>
           @if(Auth::user()->account_type === 'basic')
-          <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls=""> <i class="fas fa-user-plus  fa-sm text-white-50"></i> Add User</a> 
+          <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="collapse" href="#addUserModal" role="button" aria-expanded="false" aria-controls=""> <i class="fas fa-user-plus  fa-sm text-white-50"></i> Add User</a> 
           @else
-          <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1"> <i class="fas fa-user-plus  fa-sm text-white-50"></i> Add User</a> 
+          <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="collapse" href="#addUserModal" role="button" aria-expanded="false" aria-controls="multiCollapseExample1"> <i class="fas fa-user-plus  fa-sm text-white-50"></i> Add User</a> 
           @endif
         </div>
 
         <div class="row">
             <div class="col">
-              <div class="collapse multi-collapse" id="multiCollapseExample1">
+              <div class="collapse multi-collapse" id="addUserModal">
                 <div class="card card-body">
                     <form id="addUserForm" action="/users" method="POST">
                         {{ csrf_field() }}
@@ -377,11 +377,23 @@
                     <div class="row">
                         <div class="col">
                             <small>Name</small>
-                            <input form="addUserForm" type="text" class="form-control" name="name" required>
+                            <input form="addUserForm"  id="name" type="text" class="form-control form-control-user @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" autocomplete="name" autofocus placeholder="Full Name" required>
+
+                            @error('name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                         <div class="col">
                             <small>Email</small>
-                            <input form="addUserForm" type="email" class="form-control" name="email" required>
+                            <input form="addUserForm"  id="email" type="email" class="form-control form-control-user @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" autocomplete="email" placeholder="Email" required>
+
+                        @error('email')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
                         </div>
                         <div class="col">
                            <small>Role</small>
@@ -411,9 +423,10 @@
                        
                     </div>
                     <br>
-                      <p class="text-right">
-                        <button form="addUserForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;"><i class="fas fa-check fa-sm text-white-50"></i> Add User</button>
-                      </p>
+                    <button form="addUserForm" type="submit" class="btn btn-primary btn-user btn-block" id="registerButton" onclick="this.form.submit(); this.disabled = true;">
+                       Register
+              </button>
+                    
 
                 </div>
               </div>
@@ -562,6 +575,7 @@
   <!-- Page level custom scripts -->
   <script src="{{ asset('/dashboard/js/demo/chart-area-demo.js') }}"></script>
   <script src="{{ asset('/dashboard/js/demo/chart-pie-demo.js') }}"></script>
+
 
 </body>
 
