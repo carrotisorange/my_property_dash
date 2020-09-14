@@ -422,7 +422,7 @@
               </div>
             </div>
         </div>
-<br><br>
+<br>
         @if(Auth::user()->email === 'thepropertymanager2020@gmail.com')
         <div class="row">
       
