@@ -303,7 +303,7 @@
             <div class="skills-content">
 
               <div class="progress">
-                <h4 class="skill">Properties <i class="val">{{ number_format($properties,0) }}</i></h4>
+                <h4 class="skill">Properties <i class="val">{{ number_format($properties-1,0) }}</i></h4>
                 {{-- <div class="progress-bar-wrap">
                   <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                 </div> --}}
