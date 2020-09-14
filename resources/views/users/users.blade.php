@@ -655,7 +655,7 @@
                                       <th>EMAIL</th>
                                       <th>ROLE</th>
                                       <th>PROPERTY</th>
-                                      <th>LOGIN</th>
+                                      <th>LOGIN AT</th>
                                       <th>STATUS</th>
                                    </tr>
                                    </thead>
