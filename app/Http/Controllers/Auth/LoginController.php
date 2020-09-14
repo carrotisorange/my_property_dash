@@ -47,11 +47,22 @@ class LoginController extends Controller
         {
             DB::table('users')
             ->where('id', Auth::user()->id)
-            ->update([
-                        'last_login_at' => Carbon::now(),
-                        'last_login_ip' => request()->ip(),
-                        'user_current_status' => 'online',
-                    ]);
+            ->update(
+                        [
+                            'last_login_at' => Carbon::now(),
+                            'last_login_ip' => request()->ip(),
+                            'user_current_status' => 'online',
+                        ]
+                );
+
+            DB::table('sessions')
+            ->insert(
+                        [
+                            'session_user_id' => Auth::user()->id,
+                            'session_last_login_at' => Carbon::now(),
+                            'session_last_login_ip' => request()->ip(),
+                        ]
+                    );
         }
 
     
@@ -76,10 +87,22 @@ class LoginController extends Controller
       
             DB::table('users')
                 ->where('id', Auth::user()->id)
-                ->update([
-                            'last_logout_at' => Carbon::now(),
-                            'user_current_status' => 'offline',
-                        ]);
+                ->update(
+                            [
+                                'last_logout_at' => Carbon::now(),
+                                'user_current_status' => 'offline',
+                            ]
+                    );
+            
+            DB::table('sessions')
+                ->insert(
+                            [   
+        
+                                'session_user_id' => Auth::user()->id,
+                                'session_last_logout_at' => Carbon::now(),
+                                'session_last_login_ip' => request()->ip(),
+                            ]
+                        );
 
         Auth::logout();
         return redirect('/login');

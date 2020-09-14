@@ -84,9 +84,12 @@ class UserController extends Controller
     {
         $user = User::findOrFail($user_id);
 
-         if($user->id === Auth::user()->id ){
-          
-            return view('users.show-user', compact('user'));
+        $manager = User::findOrFail(Auth::user()->id);
+
+        $sessions = DB::table('sessions')->where('session_user_id', $user_id)->get();
+
+         if(($user->id === Auth::user()->id) || ($manager->user_type === 'manager' && $user->property === $manager->property)){
+            return view('users.show-user', compact('user', 'sessions'));
          }else{
              return view('unregistered');
          }
@@ -103,7 +106,9 @@ class UserController extends Controller
     {
         $user = User::findOrFail($user_id);
 
-        if($user->id === Auth::user()->id ){
+        $manager = User::findOrFail(Auth::user()->id);
+
+        if(($user->id === Auth::user()->id) || ($manager->user_type === 'manager' && $user->property === $manager->property)){
 
             return view('users.edit-user', compact('user'));
         }
@@ -176,10 +181,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-
-        return $id;
       DB::table('concerns')->delete();
-
-        return back()->with('success', 'User has been deleted!');
+      return back()->with('success', 'User has been deleted!');
     }
 }

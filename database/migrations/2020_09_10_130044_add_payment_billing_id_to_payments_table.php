@@ -15,8 +15,6 @@ class AddPaymentBillingIdToPaymentsTable extends Migration
     {
         Schema::table('payments', function (Blueprint $table) {
             $table->unsignedBigInteger('payment_billing_id')->nullable();
-
-
             $table->foreign('payment_billing_id')->references('billing_id')->on('billings')->onDelete('cascade');
         });
     }

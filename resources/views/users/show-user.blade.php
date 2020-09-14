@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Profile</title>
+  <title>{{ $user->name }}</title>
 
   <!-- Custom fonts for this template-->
   <link href="{{ asset('dashboard/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css"><link href="{{ asset('index/assets/img/favicon.ico') }}" rel="icon">
@@ -228,94 +228,6 @@
               </div>
             </li> 
 
-            <!-- Nav Item - Alerts -->
-            {{--     <li class="nav-item dropdown no-arrow mx-1">
-              <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-bell fa-fw"></i>
-                <!-- Counter - Alerts -->
-                @if($request_to_moveout->count() > 3)
-                  <span class="badge badge-danger badge-counter">{{ $request_to_moveout->count() }}+</span>
-                @else
-                  <span class="badge badge-danger badge-counter">{{ $request_to_moveout->count()  }}</span>
-                @endif
-              </a>
-              <!-- Dropdown - Alerts -->
-              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
-                <h6 class="dropdown-header">
-                  Alerts Center
-                </h6>
-                @foreach($request_to_moveout as $item)
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="mr-3">
-                  <div class="icon-circle bg-warning">
-                      <i class="fas fa-exclamation-triangle text-white"></i>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="small text-gray-500">{{Carbon\Carbon::parse($item->created_at)->format('M d Y')}}</div>
-                    <span class="font-weight-bold">{{ $item->building.' '.$item->unit_no }} is requesting to moveout.</span>
-                  </div>
-                </a> 
-                @endforeach 
-                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-              </div>
-            </li>  --}}
-
-            <!-- Nav Item - Messages -->
-            {{-- <li class="nav-item dropdown no-arrow mx-1">
-              <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-envelope fa-fw"></i>
-                <!-- Counter - Messages -->
-                <span class="badge badge-danger badge-counter">7</span>
-              </a>
-              <!-- Dropdown - Messages -->
-              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
-                <h6 class="dropdown-header">
-                  Message Center
-                </h6>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="https://source.unsplash.com/fn_BT9fwg_E/60x60" alt="">
-                    <div class="status-indicator bg-success"></div>
-                  </div>
-                  <div class="font-weight-bold">
-                    <div class="text-truncate">Hi there! I am wondering if you can help me with a problem I've been having.</div>
-                    <div class="small text-gray-500">Emily Fowler · 58m</div>
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="https://source.unsplash.com/AU4VPcFN4LE/60x60" alt="">
-                    <div class="status-indicator"></div>
-                  </div>
-                  <div>
-                    <div class="text-truncate">I have the photos that you ordered last month, how would you like them sent to you?</div>
-                    <div class="small text-gray-500">Jae Chun · 1d</div>
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="https://source.unsplash.com/CS2uCrpNzJY/60x60" alt="">
-                    <div class="status-indicator bg-warning"></div>
-                  </div>
-                  <div>
-                    <div class="text-truncate">Last month's report looks great, I am very happy with the progress so far, keep up the good work!</div>
-                    <div class="small text-gray-500">Morgan Alvarez · 2d</div>
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60" alt="">
-                    <div class="status-indicator bg-success"></div>
-                  </div>
-                  <div>
-                    <div class="text-truncate">Am I a good boy? The reason I ask is because someone told me that people say this to all dogs, even if they aren't good...</div>
-                    <div class="small text-gray-500">Chicken the Dog · 2w</div>
-                  </div>
-                </a>
-                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
-              </div>
-            </li> --}}
 
             <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -375,7 +287,7 @@
               <div class="row">
                 <div class="col">
                   <small>Name</small>
-                  <input type="email" class="form-control form-control-user" value="{{ $user->name }}" disabled>
+                  <p>{{ $user->name }}</p>
                  
                 </div>
               </div>
@@ -383,7 +295,7 @@
               <div class="row">
                 <div class="col">
                   <small>Email</small>
-                  <input type="email" class="form-control form-control-user" value="{{ $user->email }}" disabled>
+                  <p>{{ $user->email }}</p>
                  
                 </div>
               </div>
@@ -391,7 +303,7 @@
               <div class="row">
                 <div class="col">
                   <small>User Type</small>
-                  <input type="email" class="form-control form-control-user" value="{{ $user->user_type }}" disabled>
+                  <p>{{ $user->user_type }}</p>
                  
                 </div>
               </div>
@@ -400,7 +312,7 @@
               <div class="row">
                 <div class="col">
                   <small>Plan</small>
-                  <input type="email" class="form-control form-control-user" value="{{ $user->account_type }}" disabled>
+                 <p>{{ $user->account_type }}</p>
                  
                 </div>
               </div>
@@ -408,7 +320,7 @@
               <div class="row">
                 <div class="col">
                   <small>Property</small>
-                  <input type="email" class="form-control form-control-user" value="{{ $user->property }}" disabled>
+                  <p>{{ $user->property }}</p>
                  
                 </div>
               </div>
@@ -416,7 +328,7 @@
               <div class="row">
                 <div class="col">
                   <small>Property Type</small>
-                  <input type="" class="form-control form-control-user" value="{{ $user->property_type }}" disabled>
+                 <p>{{ $user->property_type }}</p>
                  
                 </div>
               </div>
@@ -424,7 +336,7 @@
               <div class="row">
                 <div class="col">
                   <small>Property Ownership</small>
-                  <input type="email" class="form-control form-control-user" value="{{ $user->property_ownership }}" disabled>
+                  <p>{{ $user->property_ownership }}</p>
                  
                 </div>
               </div>
@@ -438,6 +350,45 @@
    
                </div>
             <!-- Page Heading -->
+
+            <div class="col-lg-12 mb-4">
+              <!-- DataTales Example -->
+              <div class="card shadow mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                 <h6 class="m-0 font-weight-bold text-primary">ACTIVITIES </h6>
+                  <div class="dropdown no-arrow">
+                  {{-- <a title="edit profile" href="/users/{{ $user->id }}/edit">
+                    <i class="fas fa-user-edit fa-fw text-gray-400"></i>
+                    </a> --}}
+                  </div>
+                  <!-- end -->
+                
+               </div>
+               <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <tr>
+                      
+                        <th>IP ADDRESS</th>
+                        <th>LOGIN AT</th>
+                        <th>LOGOUT AT</th>
+                      </tr>
+                      @foreach ($sessions as $item)
+                        <tr>
+                         
+                          <td>{{ $item->session_last_login_ip }}</td>
+                         <td>{{ $item->session_last_login_at? Carbon\Carbon::parse($item->session_last_login_at)->format('M d Y').' '.Carbon\Carbon::parse($item->session_last_login_at)->toTimeString() : null }}</td>
+                          
+                         <td>{{ $item->session_last_logout_at? Carbon\Carbon::parse($item->session_last_logout_at)->format('M d Y').' '.Carbon\Carbon::parse($item->session_last_logout_at)->toTimeString() : null }}</td>
+                 
+                        </tr>
+                      @endforeach
+                    </table>
+                  </div>
+               </div>
+             </div>
+     
+                 </div>
       
         </div>
         
