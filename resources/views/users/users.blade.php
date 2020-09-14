@@ -529,8 +529,8 @@
                                       <th>PROPERTY</th>
                                       <th>MANAGER</th>
                                       <th>ROOMS</th>
-                                      {{-- <th>PROPERTY TYPE</th>
-                                      <th>PROPERTY OWNERSHIP</th> --}}
+                                      <th>PROPERTY TYPE</th>
+                                      <th>PROPERTY OWNERSHIP</th>
                                       <th>PLAN</th>
                                       <th>CREATED AT</th>
                                       <th>EMAIL VERIFIED AT</th>
@@ -555,8 +555,8 @@
                                             {{ $item->count }}
                                             @endif
                                           </td>
-                                          {{-- <td>{{ $item->property_type }}</td>
-                                          <td>{{ $item->property_ownership }}</td> --}}
+                                          <td>{{ $item->property_type }}</td>
+                                          <td>{{ $item->property_ownership }}</td>
                                         <td>{{ $item->account_type }}</td>
                                         <td>{{ Carbon\Carbon::parse($item->created_at)->format('M d Y').' '.Carbon\Carbon::parse($item->created_at)->toTimeString() }}</td>
                                           <td>{{ Carbon\Carbon::parse($item->email_verified_at)->format('M d Y').' '.Carbon\Carbon::parse($item->email_verified_at)->toTimeString() }}</td>
