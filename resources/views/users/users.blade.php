@@ -650,7 +650,6 @@
                                  <table class="table table-striped" >
                                    <thead>
                                      <tr>
-                                    
                                       <th>USER</th>
                                       <th>EMAIL</th>
                                       <th>ROLE</th>
