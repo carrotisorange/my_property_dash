@@ -176,10 +176,10 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
+
+        return $id;
       DB::table('concerns')->delete();
 
-        // DB::table('units')->where('unit_property', 'Bayani Hall')->delete();
-
-        return redirect('/#users')->with('success', 'User has been deleted!');
+        return back()->with('success', 'User has been deleted!');
     }
 }

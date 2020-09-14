@@ -86,7 +86,7 @@ return [
 
     'username' => env('MAIL_USERNAME','thepropertymanager2020@gmail.com'),
 
-    'password' => env('MAIL_PASSWORD','efwvsnetubcygxmm'),
+    'password' => env('MAIL_PASSWORD','qxhhpokkrugquabr'),
 
     /*
     |--------------------------------------------------------------------------

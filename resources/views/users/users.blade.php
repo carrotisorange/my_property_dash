@@ -454,14 +454,15 @@
                 <th>LAST LOGIN</th>
                 <th>LAST LOGOUT</th>
                 <th>SESSION</th>
+              
               </tr>
           </thead>
           <tbody>
             @foreach ($users as $item)
            <tr>
               <td>{{ $item->id }}</td>
-               <td>{{ $item->name }}</td>
-               <td>{{ $item->created_at }}</td>
+               <td><a href="/users/{{ $item->id }}">{{ $item->name }}</a></td>
+               <td>{{ Carbon\Carbon::parse($item->created_at)->format('M d Y').' '.Carbon\Carbon::parse($item->created_at)->toTimeString() }}</td>
                <td>{{ $item->email }}</td>
                <td>{{ $item->user_type }}</td>
                <td>{{ $item->property }}</td>
@@ -469,12 +470,12 @@
               
                <td>{{ $item->property_ownership }}</td>
               
-               <td>{{ $item->email_verified_at }}</td>
-               <td>{{ $item->trial_ends_at }}</td>
+               <td>{{ Carbon\Carbon::parse($item->email_verified_at)->format('M d Y').' '.Carbon\Carbon::parse($item->email_verified_at)->toTimeString() }}</td>
+               <td>{{ Carbon\Carbon::parse($item->trial_ends_at)->format('M d Y').' '.Carbon\Carbon::parse($item->trial_ends_at)->toTimeString() }}</td>
                <td>{{ $item->account_type }}</td>
                <td>{{ $item->last_login_ip }}</td>
-               <td>{{ $item->last_login_at }}</td>
-               <td>{{ $item->last_logout_at }}</td>
+               <td>{{ Carbon\Carbon::parse($item->last_login_at)->format('M d Y').' '.Carbon\Carbon::parse($item->last_login_at)->toTimeString() }}</td>
+               <td>{{ Carbon\Carbon::parse($item->last_logout_at)->format('M d Y').' '.Carbon\Carbon::parse($item->last_logout_at)->toTimeString() }}</td>
                
                <?php  
                   $diffInMinutes = Carbon\Carbon::parse($item->last_logout_at)->diffInMinutes();
@@ -494,15 +495,16 @@
                     @endif
                  @endif
                 </td>      
-                <!-- <td>
-                <th>
+                
+            
+                {{-- <th>
                   <form action="/users/{{ $item->id }}" method="POST">
-                        @csrf
-                        @method('delete')
-                        <button type="submit">Delete</button>
-                    </form> 
-                </th>
-                </td> -->
+                      @csrf
+                      @method('delete')
+                      <button title="remove this user" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"  onclick="return confirm('Are you sure you want perform this action?');"><i class="fas fa-times fa-sm text-white-50"></i></button>
+                    </form>
+                </th> --}}
+              
            </tr>
            @endforeach
           </tbody>
