@@ -330,7 +330,6 @@ Route::get('/board', function(Request $request){
         ->where('payment_created', '>=', Carbon::now()->subMonths(11)->firstOfMonth())
         ->where('payment_created', '<=', Carbon::now()->subMonths(11)->endOfMonth())
         ->where('unit_property', Auth::user()->property)
-       
         ->sum('amt_paid');
 
         $collection_rate_2 = DB::table('units')
