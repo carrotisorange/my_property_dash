@@ -360,13 +360,13 @@
 
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
           <h1 class="h3 mb-0 text-gray-800">Users</h1>
-          @if(Auth::user()->account_type === 'Free')
-          <a title="Your plan can't add another user." class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="collapse" href="#/" role="button" aria-expanded="false" aria-controls=""> <i class="fas fa-user-plus  fa-sm text-white-50"></i> Add User</a> 
+          @if(Auth::user()->email === 'thepropertymanager2020@gmail.com' || Auth::user()->email !== 'Free')
+            <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="collapse" href="#addUserModal" role="button" aria-expanded="false" aria-controls=""> <i class="fas fa-user-plus  fa-sm text-white-50"></i> Add User</a> 
           @else
-          <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="collapse" href="#addUserModal" role="button" aria-expanded="false" aria-controls=""> <i class="fas fa-user-plus  fa-sm text-white-50"></i> Add User</a> 
+            <a title="Your plan can't add another user." class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="collapse" href="#/" role="button" aria-expanded="false" aria-controls=""> <i class="fas fa-user-plus  fa-sm text-white-50"></i> Add User</a> 
           @endif
         </div>
-
+        
         <div class="row">
             <div class="col">
               <div class="collapse multi-collapse" id="addUserModal">
@@ -422,7 +422,7 @@
               </div>
             </div>
         </div>
-
+<br><br>
         @if(Auth::user()->email === 'thepropertymanager2020@gmail.com')
         <div class="row">
       
@@ -433,7 +433,7 @@
               <div class="card-body">
                 <div class="row no-gutters align-items-center">
                   <div class="col mr-2">
-                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"><a class="text-primary" href="/tenants">  PROPERTIES</a></div>
+                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"><a class="text-primary" href="#/">  PROPERTIES</a></div>
                     <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $properties->count() }}</div>
                     {{-- <small>PENDING ({{ $pending_tenants->count() }})</small> --}}
                     
@@ -453,7 +453,7 @@
               <div class="card-body">
                 <div class="row no-gutters align-items-center">
                   <div class="col mr-2">
-                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1"><a class="text-info" href="/owners"> ACTIVE USERS</a> </div>
+                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1"><a class="text-info" href="#/"> ACTIVE USERS</a> </div>
                     <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $users->count() }}</div>
                     {{-- <small>|</small> --}}
                     
@@ -472,7 +472,7 @@
               <div class="card-body">
                 <div class="row no-gutters align-items-center">
                   <div class="col mr-2">
-                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1"><a class="text-success"  href="#active-concerns">  PAYING USERS</a></div>
+                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1"><a class="text-success"  href="#/">  PAYING USERS</a></div>
                     <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $paying_users->count() }}</div>
 {{--                            
                     <small>PENDING ({{ $pending_concerns->count() }})</small> --}}
@@ -492,7 +492,7 @@
               <div class="card-body">
                 <div class="row no-gutters align-items-center">
                   <div class="col mr-2">
-                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1"><a class="text-warning"  href="#active-concerns">  UNVERFIFIED USERS</a></div>
+                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1"><a class="text-warning"  href="#/">  UNVERFIFIED USERS</a></div>
                     <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $unverified_users->count() }}</div>
 {{--                            
                     <small>PENDING ({{ $pending_concerns->count() }})</small> --}}
@@ -573,6 +573,65 @@
         
                      
                         </div>
+
+                                                <!-- Content Row -->
+                                                <div class="row">
+                  
+                                                  <!-- Content Column -->
+                                                  <div class="col-lg-12 mb-4">
+                                                    <!-- DataTales Example -->
+                                                    <div class="card shadow mb-4">
+                                                     <div class="card-header py-3">
+                                                       <h6 class="m-0 font-weight-bold text-primary">UNVERIFIED USERS ({{ $unverified_users->count() }})</h6>
+                                                         
+                                                     </div>
+                                                     <div class="card-body">
+                                                      <div class="table-responsive text-nowrap">
+                                                         <table class="table table-striped" >
+                                                           <thead>
+                                                             <tr>
+                                                            
+                                                              <th>PROPERTY</th>
+                                                              <th>USER</th>
+                                                              <th>ROLE</th>
+                                                              <th>EMAIL ADDRESS</th>
+                                                             
+                                                              <th>PLAN</th>
+                                                              <th>CREATED AT</th>
+                                                             
+                                                             
+                                                           </tr>
+                                                           </thead>
+                                                           <tbody>
+                                                            @foreach ($unverified_users as $item)
+                                                                <tr>
+                                                                  <td>
+                                                                    {{ $item->property }}
+                                                                  </td>
+                                                                  <td>
+                                                                   
+                                                                    {{ $item->name }}
+                                                             
+                                                                  </td>
+                                                                  <td>{{ $item->user_type }}</td>
+                                                                  <td>{{ $item->email }}</td>
+                                                                 
+                                                                <td>{{ $item->account_type }}</td>
+                                                                <td>{{ Carbon\Carbon::parse($item->created_at)->format('M d Y').' '.Carbon\Carbon::parse($item->created_at)->toTimeString() }}</td>
+                                                                 
+                                                                </tr>
+                                                            @endforeach
+                                                           </tbody>
+                                                         </table>
+                                                        
+                                                       </div>
+                                                     </div>
+                                                   </div>
+                                           
+                                                       </div>
+                                
+                                             
+                                                </div>
         @endif
                        
                         <!-- Content Row -->
