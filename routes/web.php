@@ -475,13 +475,14 @@ Route::get('/board', function(Request $request){
 
        $delinquent_accounts = Billing::leftJoin('payments', 'billings.billing_no', '=', 'payments.payment_billing_no')
        ->leftJoin('tenants', 'billing_tenant_id', 'tenant_id')
-       ->join('units', 'tenant_id', 'unit_tenant_id')
+       ->lefJoin('units', 'tenant_id', 'unit_tenant_id')
        ->where('unit_property', Auth::user()->property)
         ->selectRaw('*, billing_amt - IFNULL(sum(amt_paid),0) as balance')
         ->groupBy('tenant_id')
         ->orderBy('balance', 'desc')
         ->havingRaw('balance > 0')
         ->get();
+        
         
         $tenants_to_watch_out = DB::table('tenants')
         ->join('units', 'unit_id', 'unit_tenant_id')
