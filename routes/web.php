@@ -473,7 +473,7 @@ Route::get('/board', function(Request $request){
         // ->havingRaw('balance > 0')
         // ->get();
 
-       $delinquent_accounts = Billing::leftJoin('payments', 'billings.billing_no', '=', 'payments.payment_billing_no')
+       $delinquent_accounts = Billing::leftJoin('payments', 'billings.billing_id', '=', 'payments.payment_billing_id') 
        ->leftJoin('tenants', 'billing_tenant_id', 'tenant_id')
        ->leftJoin('units', 'tenant_id', 'unit_tenant_id')
        ->where('unit_property', Auth::user()->property)
