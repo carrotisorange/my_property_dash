@@ -479,6 +479,7 @@ Route::get('/board', function(Request $request){
        ->where('unit_property', Auth::user()->property)
         ->selectRaw('*, billing_amt - IFNULL(sum(amt_paid),0) as balance')
         ->groupBy('tenant_id')
+        ->orderBy('balance', 'desc')
         ->havingRaw('balance > 0')
         ->get();
         
