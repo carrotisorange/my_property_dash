@@ -860,7 +860,7 @@ Route::get('/users', function(){
         if(Auth::user()->email === 'thepropertymanager2020@gmail.com'){
 
             $properties = User::where('user_type', 'manager')
-            ->join('units', 'property','unit_property')
+            ->leftJoin('units', 'property','unit_property')
             ->select('*','users.created_at as created_at',DB::raw('count(building) as count'))
             ->whereNotNull('account_type')
             ->groupBy('property')
