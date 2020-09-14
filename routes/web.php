@@ -859,6 +859,15 @@ Route::get('/users', function(){
     if(auth()->user()->user_type === 'manager'){
         
         if(Auth::user()->email === 'thepropertymanager2020@gmail.com'){
+
+            $properties = User::where('user_type', 'manager')
+            ->join('units', 'property','unit_property')
+            ->select('*','users.created_at as created_at',DB::raw('count(building) as count'))
+            ->whereNotNull('account_type')
+            ->groupBy('property')
+            ->orderBy('users.created_at','desc')
+            ->get();
+
             $users = DB::table('users')
             ->orderBy('user_current_status', 'desc')
             ->orderBy('last_login_at', 'desc')
@@ -869,6 +878,17 @@ Route::get('/users', function(){
             ->whereNotNull('session_last_login_at')
             ->whereDay('session_last_login_at', now()->day)
             ->get();
+
+            $paying_users = DB::table('users')
+            ->where('account_type','!=','Free')
+            ->whereNotNull('account_type')
+            ->whereNotNull('trial_ends_at')
+            ->get();
+
+            $unverified_users = DB::table('users')
+            ->whereNull('email_verified_at')
+            ->get();
+
         }else{
             $users = DB::table('users')
             ->where('property', Auth::user()->property)
@@ -882,9 +902,17 @@ Route::get('/users', function(){
             ->whereNotNull('session_last_login_at')
             ->whereDay('session_last_login_at', now()->day)
             ->get();
+
+            $paying_users = 0;
+
+            $unverified_users = 0;
+
+            $properties = 0;
+
+
         }
 
-        return view('users.users', compact('users', 'sessions'));
+        return view('users.users', compact('users', 'sessions', 'paying_users', 'unverified_users', 'properties'));
 
     }else{
         return view('unregistered');

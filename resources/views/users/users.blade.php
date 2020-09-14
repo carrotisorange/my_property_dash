@@ -422,6 +422,158 @@
               </div>
             </div>
         </div>
+
+        @if(Auth::user()->email === 'thepropertymanager2020@gmail.com')
+        <div class="row">
+      
+
+          <!-- Earnings (Monthly) Card Example -->
+          <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+              <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                  <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"><a class="text-primary" href="/tenants">  PROPERTIES</a></div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $properties->count() }}</div>
+                    {{-- <small>PENDING ({{ $pending_tenants->count() }})</small> --}}
+                    
+                  </div>
+                  <div class="col-auto">
+                    <i class="fas fa-home fa-2x text-gray-300"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        
+          <!-- Earnings (Monthly) Card Example -->
+          <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+              <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                  <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1"><a class="text-info" href="/owners"> ACTIVE USERS</a> </div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $users->count() }}</div>
+                    {{-- <small>|</small> --}}
+                    
+                  </div>
+                  <div class="col-auto">
+                    <i class="fas fa-user-check fa-2x text-gray-300"></i>
+                  
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+              <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                  <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1"><a class="text-success"  href="#active-concerns">  PAYING USERS</a></div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $paying_users->count() }}</div>
+{{--                            
+                    <small>PENDING ({{ $pending_concerns->count() }})</small> --}}
+                  </div>
+                  <div class="col-auto">
+                    <i class="fas fa-hand-holding-usd fa-2x text-gray-300"></i>
+                   
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Pending Requests Card Example -->
+          <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+              <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                  <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1"><a class="text-warning"  href="#active-concerns">  UNVERFIFIED USERS</a></div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $unverified_users->count() }}</div>
+{{--                            
+                    <small>PENDING ({{ $pending_concerns->count() }})</small> --}}
+                  </div>
+                  <div class="col-auto">
+                    <i class="fas fa-user-clock fa-2x text-gray-300"></i>
+              
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+       
+                        <!-- Content Row -->
+                        <div class="row">
+                  
+                          <!-- Content Column -->
+                          <div class="col-lg-12 mb-4">
+                            <!-- DataTales Example -->
+                            <div class="card shadow mb-4">
+                             <div class="card-header py-3">
+                               <h6 class="m-0 font-weight-bold text-primary">PROPERTIES ({{ $properties->count() }})</h6>
+                                 
+                             </div>
+                             <div class="card-body">
+                              <div class="table-responsive text-nowrap">
+                                 <table class="table table-striped" >
+                                   <thead>
+                                     <tr>
+                                    
+                                      <th>PROPERTY</th>
+                                      <th>MANAGER</th>
+                                      <th>ROOMS</th>
+                                      {{-- <th>PROPERTY TYPE</th>
+                                      <th>PROPERTY OWNERSHIP</th> --}}
+                                      <th>PLAN</th>
+                                      <th>CREATED AT</th>
+                                      <th>EMAIL VERIFIED AT</th>
+                                     
+                                   </tr>
+                                   </thead>
+                                   <tbody>
+                                    @foreach ($properties as $item)
+                                        <tr>
+                                          <td>
+                                            {{ $item->property }}
+                                          </td>
+                                          <td>
+                                            @if($item->user_type==='manager')
+                                            {{ $item->name }}
+                                            @endif
+                                          </td>
+                                          <td>
+                                            @if($item->property === 'The Courtyards')
+                                            {{ $item->count/2 }}
+                                            @else
+                                            {{ $item->count }}
+                                            @endif
+                                          </td>
+                                          {{-- <td>{{ $item->property_type }}</td>
+                                          <td>{{ $item->property_ownership }}</td> --}}
+                                        <td>{{ $item->account_type }}</td>
+                                        <td>{{ Carbon\Carbon::parse($item->created_at)->format('M d Y').' '.Carbon\Carbon::parse($item->created_at)->toTimeString() }}</td>
+                                          <td>{{ Carbon\Carbon::parse($item->email_verified_at)->format('M d Y').' '.Carbon\Carbon::parse($item->email_verified_at)->toTimeString() }}</td>
+                                        </tr>
+                                    @endforeach
+                                   </tbody>
+                                 </table>
+                                
+                               </div>
+                             </div>
+                           </div>
+                   
+                               </div>
+        
+                     
+                        </div>
+        @endif
                        
                         <!-- Content Row -->
                         <div class="row">
@@ -445,7 +597,7 @@
                                       <th>ROLE</th>
                                       <th>PROPERTY</th>
                                       <th>LOGIN</th>
-                                      <th>SESSION</th>
+                                      <th>STATUS</th>
                                    </tr>
                                    </thead>
                                    <tbody>
@@ -520,7 +672,7 @@
                                                                   <th>LAST LOGIN IP</th>
                                                                   <th>LAST LOGIN</th>
                                                                   <th>LAST LOGOUT</th>
-                                                                  <th>SESSION</th>
+                                                                  <th>STATUS</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
