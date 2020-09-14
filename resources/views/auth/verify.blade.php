@@ -31,7 +31,13 @@
   <!-- Sidebar Toggle (Topbar) -->
    <!-- Nav Item - Dashboard -->
 
-   <span class="mx-3">The Property Manager</span> 
+   <span class="mx-3">
+  @if(Auth::user()->property === null)
+  The Property Manager
+  @else
+  {{  Auth::user()->property}}
+  @endif
+  </span> 
   <!-- Topbar Navbar -->
   <ul class="navbar-nav ml-auto">
 
