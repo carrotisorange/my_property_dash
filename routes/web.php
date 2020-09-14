@@ -863,15 +863,28 @@ Route::get('/users', function(){
             ->orderBy('user_current_status', 'desc')
             ->orderBy('last_login_at', 'desc')
             ->get();
+
+             $sessions = DB::table('users')
+            ->join('sessions', 'id', 'session_user_id')
+            ->whereNotNull('session_last_login_at')
+            ->whereDay('session_last_login_at', now()->day)
+            ->get();
         }else{
             $users = DB::table('users')
             ->where('property', Auth::user()->property)
             ->orderBy('user_current_status', 'desc')
             ->orderBy('last_login_at', 'desc')
             ->get();
+
+            $sessions = DB::table('users')
+            ->join('sessions', 'id', 'session_user_id')
+            ->where('property', Auth::user()->property)
+            ->whereNotNull('session_last_login_at')
+            ->whereDay('session_last_login_at', now()->day)
+            ->get();
         }
 
-        return view('users.users', compact('users'));
+        return view('users.users', compact('users', 'sessions'));
 
     }else{
         return view('unregistered');
