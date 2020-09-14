@@ -886,6 +886,7 @@ Route::get('/users', function(){
 
             $unverified_users = DB::table('users')
             ->whereNull('email_verified_at')
+            ->orderBy('users.created_at', 'desc')
             ->get();
 
         }else{
