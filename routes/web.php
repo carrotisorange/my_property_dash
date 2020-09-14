@@ -942,7 +942,7 @@ Route::get('/owners', function(){
 })->middleware(['auth', 'verified']);
 
 Route::get('/collections', function(){
-    if(auth()->user()->status === 'registered' && (auth()->user()->user_type === 'billing' || auth()->user()->user_type === 'manager' || auth()->user()->user_type === 'treasury')){
+    if(auth()->user()->user_type === 'billing' || auth()->user()->user_type === 'manager' || auth()->user()->user_type === 'treasury'){
 
              $collections = DB::table('units')
             ->leftJoin('tenants', 'unit_id', 'unit_tenant_id')
