@@ -937,7 +937,7 @@ Route::get('/users', function(){
     ->where('email_verified_at', '>=', Carbon::now()->subMonths(6)->firstOfMonth())
     ->where('email_verified_at', '<=', Carbon::now()->subMonths(6)->endOfMonth())
  
-   
+    ->where('email', '!=','thepropertymanager2020@gmail.com')
     ->where('user_type', 'manager')
     ->whereNotNull('account_type')
     ->whereNotNull('email_verified_at')
