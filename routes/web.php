@@ -1022,6 +1022,7 @@ Route::get('/users', function(){
                                                            $signup_rate_12,
                                                         ]
                          )
+                        
     ->color("#858796")
     ->backgroundcolor("rgba(78, 115, 223, 0.05)")
     ->fill(true)
