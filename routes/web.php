@@ -856,17 +856,180 @@ Route::get('/concerns', function(){
 
 Route::get('/users', function(){
 
+    $properties = User::where('user_type', 'manager')
+    ->leftJoin('units', 'property','unit_property')
+    ->select('*','users.created_at as created_at',DB::raw('count(building) as count'))
+    ->whereNotNull('account_type')
+    ->where('email', '!=','thepropertymanager2020@gmail.com')
+    ->groupBy('property')
+    ->orderBy('users.created_at','desc')
+    ->get();
+
+    $paying_users = DB::table('users')
+    ->where('account_type','!=','Free')
+    ->whereNotNull('account_type')
+    ->whereNotNull('trial_ends_at')
+    ->get();
+
+    $unverified_users = DB::table('users')
+    ->whereNull('email_verified_at')
+    ->orderBy('users.created_at', 'desc')
+    ->get();
+
+    
+    // $users_created = DB::table('users')
+    // ->where('property', Auth::user()->property)
+    // ->groupBy('id')
+    // ->get()
+    // ->groupBy(function($item) {
+    //     return \Carbon\Carbon::parse($item->created_at)->timestamp;
+    // });;
+
+    $signup_rate_1 = DB::table('users')
+    ->where('email_verified_at', '>=', Carbon::now()->subMonths(11)->firstOfMonth())
+    ->where('email_verified_at', '<=', Carbon::now()->subMonths(11)->endOfMonth())
+ 
+    ->where('user_type', 'manager')
+    ->whereNotNull('account_type')
+    ->whereNotNull('email_verified_at')
+    ->count();
+
+    $signup_rate_2 = DB::table('users')
+    ->where('email_verified_at', '>=', Carbon::now()->subMonths(10)->firstOfMonth())
+    ->where('email_verified_at', '<=', Carbon::now()->subMonths(10)->endOfMonth())
+ 
+  
+    ->where('user_type', 'manager')
+    ->whereNotNull('account_type')
+    ->whereNotNull('email_verified_at')
+    ->count();
+
+    $signup_rate_3 = DB::table('users')
+    ->where('email_verified_at', '>=', Carbon::now()->subMonths(9)->firstOfMonth())
+    ->where('email_verified_at', '<=', Carbon::now()->subMonths(9)->endOfMonth())
+ 
+    ->where('user_type', 'manager')
+    ->whereNotNull('account_type')
+    ->whereNotNull('email_verified_at')
+    ->count();
+
+    $signup_rate_4 = DB::table('users')
+    ->where('email_verified_at', '>=', Carbon::now()->subMonths(8)->firstOfMonth())
+    ->where('email_verified_at', '<=', Carbon::now()->subMonths(8)->endOfMonth())
+ 
+  
+    ->where('user_type', 'manager')
+    ->whereNotNull('account_type')
+    ->whereNotNull('email_verified_at')
+    ->count();
+
+    $signup_rate_5 = DB::table('users')
+    ->where('email_verified_at', '>=', Carbon::now()->subMonths(7)->firstOfMonth())
+    ->where('email_verified_at', '<=', Carbon::now()->subMonths(7)->endOfMonth())
+ 
+   
+    ->where('user_type', 'manager')
+    ->whereNotNull('account_type')
+    ->whereNotNull('email_verified_at')
+    ->count();
+
+    $signup_rate_6 = DB::table('users')
+    ->where('email_verified_at', '>=', Carbon::now()->subMonths(6)->firstOfMonth())
+    ->where('email_verified_at', '<=', Carbon::now()->subMonths(6)->endOfMonth())
+ 
+   
+    ->where('user_type', 'manager')
+    ->whereNotNull('account_type')
+    ->whereNotNull('email_verified_at')
+    ->count();
+
+    $signup_rate_7 = DB::table('users')
+    ->where('email_verified_at', '>=', Carbon::now()->subMonths(5)->firstOfMonth())
+    ->where('email_verified_at', '<=', Carbon::now()->subMonths(5)->endOfMonth())
+ 
+    
+    ->where('user_type', 'manager')
+    ->whereNotNull('account_type')
+    ->whereNotNull('email_verified_at')
+    ->count();
+
+    $signup_rate_8 = DB::table('users')
+    ->where('email_verified_at', '>=', Carbon::now()->subMonths(4)->firstOfMonth())
+    ->where('email_verified_at', '<=', Carbon::now()->subMonths(4)->endOfMonth())
+ 
+    
+    ->where('user_type', 'manager')
+    ->whereNotNull('account_type')
+    ->whereNotNull('email_verified_at')
+    ->count();
+
+    $signup_rate_9 = DB::table('users')
+    ->where('email_verified_at', '>=', Carbon::now()->subMonths(3)->firstOfMonth())
+    ->where('email_verified_at', '<=', Carbon::now()->subMonths(3)->endOfMonth())
+ 
+   
+    ->where('user_type', 'manager')
+    ->whereNotNull('account_type')
+    ->whereNotNull('email_verified_at')
+    ->count();
+
+    $signup_rate_10 = DB::table('users')
+    ->where('email_verified_at', '>=', Carbon::now()->subMonths(2)->firstOfMonth())
+    ->where('email_verified_at', '<=', Carbon::now()->subMonths(2)->endOfMonth())
+ 
+
+    ->where('user_type', 'manager')
+    ->whereNotNull('account_type')
+    ->whereNotNull('email_verified_at')
+    ->count();
+
+    $signup_rate_11 = DB::table('users')
+    ->where('email_verified_at', '>=', Carbon::now()->subMonths(1)->firstOfMonth())
+    ->where('email_verified_at', '<=', Carbon::now()->subMonths(1)->endOfMonth())
+ 
+    ->where('user_type', 'manager')
+    ->whereNotNull('account_type')
+    ->whereNotNull('email_verified_at')
+    ->count();
+
+     $signup_rate_12 = DB::table('users')
+    ->where('email_verified_at', '>=', Carbon::now()->firstOfMonth())
+    ->where('email_verified_at', '<=', Carbon::now()->endOfMonth())
+    ->where('user_type', 'manager')
+    ->whereNotNull('account_type')
+    ->whereNotNull('email_verified_at')
+    ->count();
+
+    $signup_rate = new DashboardChart;
+    $signup_rate->barwidth(0.0);
+    $signup_rate->displaylegend(false);
+    $signup_rate->labels([Carbon::now()->subMonth(11)->format('M Y'),Carbon::now()->subMonth(10)->format('M Y'),Carbon::now()->subMonth(9)->format('M Y'),Carbon::now()->subMonth(8)->format('M Y'),Carbon::now()->subMonth(7)->format('M Y'),Carbon::now()->subMonth(6)->format('M Y'),Carbon::now()->subMonth(5)->format('M Y'),Carbon::now()->subMonth(4)->format('M Y'),Carbon::now()->subMonth(3)->format('M Y'),Carbon::now()->subMonths(2)->format('M Y'),Carbon::now()->subMonth()->format('M Y'),Carbon::now()->format('M Y')]);
+    $signup_rate->dataset('number of signups', 'line', [
+                                                           $signup_rate_1,
+                                                           $signup_rate_2,
+                                                           $signup_rate_3,
+                                                           $signup_rate_4,
+                                                           $signup_rate_5,
+                                                           $signup_rate_6,
+                                                           $signup_rate_7,                                         
+                                                           $signup_rate_8,
+                                                           $signup_rate_9,
+                                                           $signup_rate_10,
+                                                           $signup_rate_11,
+                                                           $signup_rate_12,
+                                                        ]
+                         )
+    ->color("#858796")
+    ->backgroundcolor("rgba(78, 115, 223, 0.05)")
+    ->fill(true)
+    ->linetension(0.3);
+
+
     if(auth()->user()->user_type === 'manager'){
         
         if(Auth::user()->email === 'thepropertymanager2020@gmail.com'){
 
-            $properties = User::where('user_type', 'manager')
-            ->leftJoin('units', 'property','unit_property')
-            ->select('*','users.created_at as created_at',DB::raw('count(building) as count'))
-            ->whereNotNull('account_type')
-            ->groupBy('property')
-            ->orderBy('users.created_at','desc')
-            ->get();
+          
 
             $users = DB::table('users')
             ->orderBy('user_current_status', 'desc')
@@ -879,17 +1042,7 @@ Route::get('/users', function(){
             ->whereDay('session_last_login_at', now()->day)
             ->get();
 
-            $paying_users = DB::table('users')
-            ->where('account_type','!=','Free')
-            ->whereNotNull('account_type')
-            ->whereNotNull('trial_ends_at')
-            ->get();
-
-            $unverified_users = DB::table('users')
-            ->whereNull('email_verified_at')
-            ->orderBy('users.created_at', 'desc')
-            ->get();
-
+          
         }else{
             $users = DB::table('users')
             ->where('property', Auth::user()->property)
@@ -904,16 +1057,10 @@ Route::get('/users', function(){
             ->whereDay('session_last_login_at', now()->day)
             ->get();
 
-            $paying_users = 0;
-
-            $unverified_users = 0;
-
-            $properties = 0;
-
 
         }
 
-        return view('users.users', compact('users', 'sessions', 'paying_users', 'unverified_users', 'properties'));
+        return view('users.users', compact('users', 'sessions', 'paying_users', 'unverified_users', 'properties','signup_rate'));
 
     }else{
         return view('unregistered');
