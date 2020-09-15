@@ -889,7 +889,7 @@ Route::get('/users', function(){
     $signup_rate_1 = DB::table('users')
     ->where('email_verified_at', '>=', Carbon::now()->subMonths(11)->firstOfMonth())
     ->where('email_verified_at', '<=', Carbon::now()->subMonths(11)->endOfMonth())
- 
+    ->where('email', '!=','thepropertymanager2020@gmail.com')
     ->where('user_type', 'manager')
     ->whereNotNull('account_type')
     ->whereNotNull('email_verified_at')
@@ -898,7 +898,7 @@ Route::get('/users', function(){
     $signup_rate_2 = DB::table('users')
     ->where('email_verified_at', '>=', Carbon::now()->subMonths(10)->firstOfMonth())
     ->where('email_verified_at', '<=', Carbon::now()->subMonths(10)->endOfMonth())
- 
+    ->where('email', '!=','thepropertymanager2020@gmail.com')
   
     ->where('user_type', 'manager')
     ->whereNotNull('account_type')
@@ -908,7 +908,7 @@ Route::get('/users', function(){
     $signup_rate_3 = DB::table('users')
     ->where('email_verified_at', '>=', Carbon::now()->subMonths(9)->firstOfMonth())
     ->where('email_verified_at', '<=', Carbon::now()->subMonths(9)->endOfMonth())
- 
+    ->where('email', '!=','thepropertymanager2020@gmail.com')
     ->where('user_type', 'manager')
     ->whereNotNull('account_type')
     ->whereNotNull('email_verified_at')
@@ -918,7 +918,7 @@ Route::get('/users', function(){
     ->where('email_verified_at', '>=', Carbon::now()->subMonths(8)->firstOfMonth())
     ->where('email_verified_at', '<=', Carbon::now()->subMonths(8)->endOfMonth())
  
-  
+    ->where('email', '!=','thepropertymanager2020@gmail.com')
     ->where('user_type', 'manager')
     ->whereNotNull('account_type')
     ->whereNotNull('email_verified_at')
@@ -927,7 +927,7 @@ Route::get('/users', function(){
     $signup_rate_5 = DB::table('users')
     ->where('email_verified_at', '>=', Carbon::now()->subMonths(7)->firstOfMonth())
     ->where('email_verified_at', '<=', Carbon::now()->subMonths(7)->endOfMonth())
- 
+    ->where('email', '!=','thepropertymanager2020@gmail.com')
    
     ->where('user_type', 'manager')
     ->whereNotNull('account_type')
@@ -948,7 +948,7 @@ Route::get('/users', function(){
     ->where('email_verified_at', '>=', Carbon::now()->subMonths(5)->firstOfMonth())
     ->where('email_verified_at', '<=', Carbon::now()->subMonths(5)->endOfMonth())
  
-    
+    ->where('email', '!=','thepropertymanager2020@gmail.com')
     ->where('user_type', 'manager')
     ->whereNotNull('account_type')
     ->whereNotNull('email_verified_at')
@@ -958,7 +958,7 @@ Route::get('/users', function(){
     ->where('email_verified_at', '>=', Carbon::now()->subMonths(4)->firstOfMonth())
     ->where('email_verified_at', '<=', Carbon::now()->subMonths(4)->endOfMonth())
  
-    
+    ->where('email', '!=','thepropertymanager2020@gmail.com')
     ->where('user_type', 'manager')
     ->whereNotNull('account_type')
     ->whereNotNull('email_verified_at')
@@ -967,7 +967,7 @@ Route::get('/users', function(){
     $signup_rate_9 = DB::table('users')
     ->where('email_verified_at', '>=', Carbon::now()->subMonths(3)->firstOfMonth())
     ->where('email_verified_at', '<=', Carbon::now()->subMonths(3)->endOfMonth())
- 
+    ->where('email', '!=','thepropertymanager2020@gmail.com')
    
     ->where('user_type', 'manager')
     ->whereNotNull('account_type')
@@ -977,7 +977,7 @@ Route::get('/users', function(){
     $signup_rate_10 = DB::table('users')
     ->where('email_verified_at', '>=', Carbon::now()->subMonths(2)->firstOfMonth())
     ->where('email_verified_at', '<=', Carbon::now()->subMonths(2)->endOfMonth())
- 
+    ->where('email', '!=','thepropertymanager2020@gmail.com')
 
     ->where('user_type', 'manager')
     ->whereNotNull('account_type')
@@ -987,7 +987,7 @@ Route::get('/users', function(){
     $signup_rate_11 = DB::table('users')
     ->where('email_verified_at', '>=', Carbon::now()->subMonths(1)->firstOfMonth())
     ->where('email_verified_at', '<=', Carbon::now()->subMonths(1)->endOfMonth())
- 
+    ->where('email', '!=','thepropertymanager2020@gmail.com')
     ->where('user_type', 'manager')
     ->whereNotNull('account_type')
     ->whereNotNull('email_verified_at')
@@ -996,6 +996,7 @@ Route::get('/users', function(){
      $signup_rate_12 = DB::table('users')
     ->where('email_verified_at', '>=', Carbon::now()->firstOfMonth())
     ->where('email_verified_at', '<=', Carbon::now()->endOfMonth())
+    ->where('email', '!=','thepropertymanager2020@gmail.com')
     ->where('user_type', 'manager')
     ->whereNotNull('account_type')
     ->whereNotNull('email_verified_at')
