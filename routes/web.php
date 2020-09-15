@@ -1040,7 +1040,7 @@ Route::get('/users', function(){
             ->orderBy('last_login_at', 'desc')
             ->whereNotNull('account_type')
             ->whereNotNull('email_verified_at')
-            ->where('email', 'thepropertymanager2020@gmail.com')
+            ->where('email', '!=','thepropertymanager2020@gmail.com')
             
             ->get();
 
