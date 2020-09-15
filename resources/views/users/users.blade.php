@@ -597,7 +597,7 @@
                                </div>
                              </div>
                            </div>
-                    ->where('email', '!=','thepropertymanager2020@gmail.com')
+                   
                                </div>
         
                      
