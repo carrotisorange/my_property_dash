@@ -636,10 +636,11 @@
                                             <a href="/users/{{ $item->id }}">{{ $item->name }}</a>
                                             
                                           </td>
-                                          <td>{{ $item->user_type }}</td>
                                           <td>
                                             {{ $item->property }}
                                           </td>
+                                          <td>{{ $item->user_type }}</td>
+                                    
                                          
                                          
                                          
