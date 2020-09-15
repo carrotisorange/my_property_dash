@@ -55,7 +55,7 @@
                                                 <table class="table table-striped">
                                                   @foreach ($sessions as $day => $logins)
                                                     <tr>
-                                                        <th colspan="6">{{ Carbon\Carbon::parse($day)->addDay()->format('M d Y') }} ({{ $logins->count() }})</th>
+                                                        <th colspan="6">{{ Carbon\Carbon::parse($day)->format('M d Y') }} ({{ $logins->count() }})</th>
                                                     </tr>
                                                     <tr>
                                                         <th>USER</th>
