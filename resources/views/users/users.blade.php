@@ -629,7 +629,7 @@
                                    </tr>
                                    </thead>
                                    <tbody>
-                                    @foreach ($properties as $item)
+                                    @foreach ($active_users as $item)
                                         <tr>
                                           <td>
                                            

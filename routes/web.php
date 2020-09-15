@@ -1028,7 +1028,7 @@ Route::get('/users', function(){
     ->fill(true)
     ->linetension(0.3);
 
-     $active_users = DB::table('users')
+    $active_users = DB::table('users')
     ->orderBy('user_current_status', 'desc')
     ->orderBy('last_login_at', 'desc')
     ->whereNotNull('account_type')
