@@ -34,6 +34,7 @@ Route::get('/', function(){
     $properties = User::where('user_type', 'manager')
     ->whereNotNull('account_type')
     ->where('email', '!=','thepropertymanager2020@gmail.com')
+    ->groupBy('property')
     ->count();
       
     $buildings = Unit::distinct()
