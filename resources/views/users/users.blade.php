@@ -545,7 +545,7 @@
                                           </td>
                                           <td>
                                             @if($item->user_type==='manager')
-                                            {{ $item->name }}
+                                            <td><a href="/users/{{ $item->id }}">{{ $item->name }}</a></td>
                                             @endif
                                           </td>
                                           <td>
@@ -610,7 +610,7 @@
                                                                   </td>
                                                                   <td>
                                                                    
-                                                                    {{ $item->name }}
+                                                                    <td><a href="/users/{{ $item->id }}">{{ $item->name }}</a></td>
                                                              
                                                                   </td>
                                                                   <td>{{ $item->user_type }}</td>
@@ -661,7 +661,7 @@
                                    <tbody>
                                     @foreach ($sessions as $item)
                                     <tr>
-                                      <td>{{ $item->name }}</td>
+                                      <td><a href="/users/{{ $item->id }}">{{ $item->name }}</a></td>
                                       <td>{{ $item->email }}</td>
                                       <td>{{ $item->user_type }}</td>
                                       <td>{{ $item->property }}</td>
