@@ -1512,7 +1512,7 @@ Route::get('/logins', function(){
     $sessions = DB::table('users')
     ->join('sessions', 'id', 'session_user_id')
     ->whereNotNull('session_last_login_at')
-    ->groupBy('session_last_login_at')
+    ->groupBy('session_id')
     ->orderBy('session_last_login_at', 'desc')
     ->get()
     ->groupBy(function($item) {
