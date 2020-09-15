@@ -1509,10 +1509,9 @@ Route::get('/acceptable-use-policy', function(){
 });
 
 Route::get('/logins', function(){
-      $sessions = DB::table('users')
+    $sessions = DB::table('users')
     ->join('sessions', 'id', 'session_user_id')
     ->whereNotNull('session_last_login_at')
-    ->whereDay('session_last_login_at', now()->day)
     ->get()
     ->groupBy(function($item) {
             return \Carbon\Carbon::parse($item->session_last_login_at)->timestamp;
