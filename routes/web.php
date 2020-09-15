@@ -1028,6 +1028,15 @@ Route::get('/users', function(){
     ->fill(true)
     ->linetension(0.3);
 
+     $active_users = DB::table('users')
+    ->orderBy('user_current_status', 'desc')
+    ->orderBy('last_login_at', 'desc')
+    ->whereNotNull('account_type')
+    ->whereNotNull('email_verified_at')
+    ->where('email', '!=','thepropertymanager2020@gmail.com')
+    
+    ->get();
+
 
     if(auth()->user()->user_type === 'manager'){
         
@@ -1038,11 +1047,9 @@ Route::get('/users', function(){
             $users = DB::table('users')
             ->orderBy('user_current_status', 'desc')
             ->orderBy('last_login_at', 'desc')
-            ->whereNotNull('account_type')
-            ->whereNotNull('email_verified_at')
-            ->where('email', '!=','thepropertymanager2020@gmail.com')
-            
             ->get();
+
+        
 
              $sessions = DB::table('users')
             ->join('sessions', 'id', 'session_user_id')
@@ -1068,7 +1075,7 @@ Route::get('/users', function(){
 
         }
 
-        return view('users.users', compact('users', 'sessions', 'paying_users', 'unverified_users', 'properties','signup_rate'));
+        return view('users.users', compact('users', 'sessions', 'paying_users', 'unverified_users', 'properties','signup_rate','active_users'));
 
     }else{
         return view('unregistered');

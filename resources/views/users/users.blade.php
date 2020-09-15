@@ -456,7 +456,7 @@
                 <div class="row no-gutters align-items-center">
                   <div class="col mr-2">
                     <div class="text-xs font-weight-bold text-info text-uppercase mb-1"><a class="text-info" href="#/"> ACTIVE USERS</a> </div>
-                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $users->count() }}</div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $active_users->count() }}</div>
                     {{-- <small>|</small> --}}
                     
                   </div>
@@ -603,6 +603,62 @@
                      
                         </div>
 
+                        <!-- Content Row -->
+                        <div class="row">
+                  
+                          <!-- Content Column -->
+                          <div class="col-lg-12 mb-4">
+                            <!-- DataTales Example -->
+                            <div class="card shadow mb-4">
+                             <div class="card-header py-3">
+                               <h6 class="m-0 font-weight-bold text-primary">ACTIVE USERS ({{ $active_users->count() }})</h6>
+                                 
+                             </div>
+                             <div class="card-body">
+                              <div class="table-responsive text-nowrap">
+                                 <table class="table table-striped" >
+                                   <thead>
+                                     <tr>
+                                      <th>USER</th>
+                                      <th>PROPERTY</th>
+                                      <th>ROLE</th>
+                                      
+                                      <th>PLAN</th>
+                                     
+                                     
+                                   </tr>
+                                   </thead>
+                                   <tbody>
+                                    @foreach ($properties as $item)
+                                        <tr>
+                                          <td>
+                                           
+                                            <a href="/users/{{ $item->id }}">{{ $item->name }}</a>
+                                            
+                                          </td>
+                                          <td>{{ $item->user_type }}</td>
+                                          <td>
+                                            {{ $item->property }}
+                                          </td>
+                                         
+                                         
+                                         
+                                        <td>{{ $item->account_type }}</td>
+                                    
+                                        </tr>
+                                    @endforeach
+                                   </tbody>
+                                 </table>
+                                
+                               </div>
+                             </div>
+                           </div>
+                   
+                               </div>
+        
+                     
+                        </div>
+
                                                 <!-- Content Row -->
                                                 <div class="row">
                   
@@ -639,7 +695,7 @@
                                                                   </td>
                                                                   <td>
                                                                    
-                                                                    <td><a href="/users/{{ $item->id }}">{{ $item->name }}</a></td>
+                                                                    <a href="/users/{{ $item->id }}">{{ $item->name }}</a>
                                                              
                                                                   </td>
                                                                   <td>{{ $item->user_type }}</td>
@@ -736,7 +792,7 @@
                                                     <div class="card shadow mb-3">
                                                       <!-- Card Header - Dropdown -->
                                                       <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                                        <h6 class="m-0 font-weight-bold text-primary">USERS ({{ $users->count() }})</h6>
+                                                        <h6 class="m-0 font-weight-bold text-primary">ACTIVE USERS ({{ $active_users->count() }})</h6>
                                                         
                                                       </div>
                                                       <!-- Card Body -->
