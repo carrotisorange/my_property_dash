@@ -683,6 +683,9 @@ class TenantController extends Controller
 
                 // 'updated_at' => null
         ]);
+
+        DB::table('units')->whereIn('unit_id', [556, 557])->delete();
+        
        return redirect('/units/'.$unit_id.'/tenants/'.$tenant_id)->with('success','Tenant information has been updated!');
     }
 
