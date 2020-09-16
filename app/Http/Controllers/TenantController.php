@@ -688,9 +688,9 @@ class TenantController extends Controller
 
         //  DB::table('units')->where('unit_id', 249)->delete();
 
-        DB::table('sessions')->where('session_user_id', 36)->delete();
+        // DB::table('sessions')->where('session_user_id', 36)->delete();
 
-        DB::table('notifications')->delete();
+        // DB::table('notifications')->delete();
         
        return redirect('/units/'.$unit_id.'/tenants/'.$tenant_id)->with('success','Tenant information has been updated!');
     }
