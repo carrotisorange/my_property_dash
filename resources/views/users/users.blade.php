@@ -594,8 +594,8 @@
                                          
                                         
                                         <td>{{ $item->account_type }}</td>
-                                        <td>{{ Carbon\Carbon::parse($item->created_at)->format('M d Y').' '.Carbon\Carbon::parse($item->created_at)->toTimeString() }}</td>
-                                          <td>{{ Carbon\Carbon::parse($item->email_verified_at)->format('M d Y').' '.Carbon\Carbon::parse($item->email_verified_at)->toTimeString() }}</td>
+                                        <td>{{ Carbon\Carbon::parse($item->created_at)->format('M d Y').'@'.Carbon\Carbon::parse($item->created_at)->toTimeString() }}</td>
+                                          <td>{{ Carbon\Carbon::parse($item->email_verified_at)->format('M d Y').'@'.Carbon\Carbon::parse($item->email_verified_at)->toTimeString() }}</td>
                                         </tr>
                                     @endforeach
                                    </tbody>
