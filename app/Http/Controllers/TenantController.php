@@ -679,9 +679,9 @@ class TenantController extends Controller
 
                  'tenant_status' => 'active'
 
-                // 'created_at' => null,
+                'created_at' => null,
 
-                // 'updated_at' => null
+                'updated_at' => null
         ]);
 
         // DB::table('units')->where('unit_id', 143)->delete();
