@@ -1059,7 +1059,7 @@ Route::get('/users', function(){
 
     if(auth()->user()->user_type === 'manager'){
         
-        if(Auth::user()->email === 'thepropertymanager2020@gmail.com' || Auth::user()->email ==='tecson.pamela@gmail.com'){
+        if(Auth::user()->email === 'thepropertymanager2020@gmail.com' ){
 
           
 
