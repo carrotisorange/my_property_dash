@@ -3,16 +3,15 @@
 
 <head>
 
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <style>
       body {
-          font: normal 7px Verdana, Arial, sans-serif;
+          font: 7px monospace;
           }
+      .table-condensed>thead>tr>th, .table-condensed>tbody>tr>th, .table-condensed>tfoot>tr>th, .table-condensed>thead>tr>td, .table-condensed>tbody>tr>td, .table-condensed>tfoot>tr>td {
+      padding: 3px;
+      }
     </style>
 
 </head>
@@ -20,10 +19,10 @@
 <body>
 
     <!-- End of Topbar -->
-    <div class="container">
-          <h5 class="text-black-50">{{ Auth::user()->property }}</h5>
-          {{-- <p class="text-right"> <b>AR #:</b> </p> --}}
-          <p>
+    <div class="container-fluid">
+          {{-- <h5 class="text-black-50">{{ Auth::user()->property }}</h5> --}}
+        <p class="font-italic"> Produced by {{ Auth::user()->name }} on {{ Carbon\Carbon::now() }} - {{ Auth::user()->property.' '.Auth::user()->property_type }}</p> 
+          
             <b>Date:</b> {{ Carbon\Carbon::now()->firstOfMonth()->format('M d Y') }}
             <br>
             <span class="text-danger"><b>Due Date:</b> {{ Carbon\Carbon::now()->firstOfMonth()->addDays(7)->format('M d Y') }}</span>
@@ -31,16 +30,16 @@
             <b>To:</b> {{ $tenant }}
             <br>
             <b>Room:</b> {{ $unit }}</b>
-          </p>
+          
        
           <p class="text-right">Statement of Accounts</p>
-          <div class="table-responsive text-nowrap">
-            <table class="table">
+          
+            <table class="table table-condensed">
               <tr>
                 <th>Bill No</th>
                 <th>Description</th>
                 <th colspan="2">Period Covered</th>
-                <th class="text-right" colspan="3">Amount</th>
+                <th class="text-right">Amount</th>
               </tr>
               @foreach ($bills as $item)
               <tr>
@@ -50,37 +49,37 @@
                     {{ $item->billing_start? Carbon\Carbon::parse($item->billing_start)->format('M d Y') : null}} -
                       {{ $item->billing_end? Carbon\Carbon::parse($item->billing_end)->format('M d Y') : null }}
                   </td>
-                  <th class="text-right" colspan="3">{{ number_format($item->balance,2) }}</th>
+                  <th class="text-right" >{{ number_format($item->balance,2) }}</th>
               </tr>
               @endforeach
+              <tr>
+                <th>Total</th>
+                <th class="text-right" colspan="4">{{ number_format($bills->sum('balance'),2) }} </th>
+               </tr>
+               @if($tenant_status === 'pending')
+   
+               @else
+               <tr>
+                 <th class="text-danger">Total On Due Date(+10%)</th>
+                 <th class="text-right text-danger" colspan="4">{{ number_format($bills->sum('balance') + ($bills->sum('balance') * .1) ,2) }}</th>
+                </tr>
+               @endif  
         
           </table>
-          <table class="table" >
-            <tr>
-             <th>TOTAL AMOUNT PAYABLE</th>
-             <th class="text-right">{{ number_format($bills->sum('balance'),2) }} </th>
-            </tr>
-            @if($tenant_status === 'pending')
-
-            @else
-            <tr>
-              <th class="text-danger">TOTAL AMOUNT PAYABLE AFTER DUE DATE (+10%)</th>
-              <th class="text-right text-danger">{{ number_format($bills->sum('balance') + ($bills->sum('balance') * .1) ,2) }}</th>
-             </tr>
-            @endif  
-          </table>
-          </div>
-         
   
+         
+        
+          <span>
             <pre>
-              <b>{{ Auth::user()->note }}</b>
+              {{ Auth::user()->note }}
+              For inquiries, please send to {{ Auth::user()->email }}
             </pre>
-
+          </span>
+          
+{{--           
+            <b>Posted by:</b> 
             <br>
-            <br>
-            <b>Posted by:</b> {{ Auth::user()->name }}
-            <br>
-            {{ ucfirst(Auth::user()->user_type).' of '. Auth::user()->property }}
+            {{ ucfirst(Auth::user()->user_type).' of '. Auth::user()->property }} --}}
           
 
 

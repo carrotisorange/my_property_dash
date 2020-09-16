@@ -1048,7 +1048,7 @@ class TenantController extends Controller
 
             $pdf = \PDF::loadView('treasury.pdf', $data)->setPaper('a4', 'portrait');
       
-            return $pdf->download($tenant->first_name.' '.$tenant->last_name.'.pdf');
+            return $pdf->download(Carbon::now().'-'.$tenant->first_name.'-'.$tenant->last_name.'-ar'.'.pdf');
     }
 
     public function exportBills ($unit_id, $tenant_id){
@@ -1077,9 +1077,9 @@ class TenantController extends Controller
 
     ];
 
-        $pdf = \PDF::loadView('billing.pdf', $data)->setPaper('a4', 'portrait');
+        $pdf = \PDF::loadView('billing.pdf', $data)->setPaper('a5', 'portrait');
   
-        return $pdf->download($tenant->first_name.' '.$tenant->last_name.'.pdf');
+        return $pdf->download(Carbon::now().'-'.$tenant->first_name.'-'.$tenant->last_name.'-soa'.'.pdf');
 }
 
     public function printGatePass($unit_id, $tenant_id){
