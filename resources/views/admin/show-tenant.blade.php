@@ -743,7 +743,7 @@
                 </button>
                 </div>
                 <div class="modal-body">
-                    <form id="moveoutTenantForm" action="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}" method="POST">
+                    <form id="moveoutTenantForm" action="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/moveout" method="POST">
                         {{ csrf_field() }}
                         @method('PUT')
                     </form>
