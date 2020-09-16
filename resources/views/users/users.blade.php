@@ -423,7 +423,7 @@
             </div>
         </div>
 
-        @if(Auth::user()->email === 'thepropertymanager2020@gmail.com')
+        @if(Auth::user()->email === 'thepropertymanager2020@gmail.com' || Auth::user()->email === '	tecson.pamela@gmail.com')
         
       
         <div class="row">
@@ -560,6 +560,7 @@
                                       <th>PROPERTY</th>
                                      
                                       <th>MANAGER</th>
+                                      <th>EMAIL</th>
                                       <th>ROOMS</th>
                                       <th>OCCUPANCY</th>
                                      
@@ -582,6 +583,7 @@
                                             <a href="/users/{{ $item->id }}">{{ $item->name }}</a>
                                             @endif
                                           </td>
+                                          <td>{{ $item->email }}</td>
                                           <td>
                                         
                                             {{ $item->count_units }}
@@ -591,7 +593,6 @@
                                             
                                             {{ number_format((   $item->count_units == 0 ? 0 : $item->occupied_units/$item->count_units) * 100, 2) }}%
                                           </td>
-                                         
                                         
                                         <td>{{ $item->account_type }}</td>
                                         <td>{{ Carbon\Carbon::parse($item->created_at)->format('M d Y').'@'.Carbon\Carbon::parse($item->created_at)->toTimeString() }}</td>
