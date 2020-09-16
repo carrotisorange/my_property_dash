@@ -740,9 +740,9 @@ Route::get('/home', function(){
 
     if(auth()->user()->user_type === 'manager' || auth()->user()->user_type === 'admin' ){
 
-        return $units_count = DB::table('units')
+        $units_count = DB::table('units')
             ->where('unit_property', Auth::user()->property)
-            ->get();
+            ->count();
 
         $units = DB::table('units')
             ->where('unit_property', Auth::user()->property)
