@@ -780,6 +780,20 @@ Route::delete('tenants/{tenant_id}/payments/{payment_id}', 'PaymentController@de
 
 Route::get('/units/{unit_id}/tenants/{tenant_id}/payments/{payment_id}/dates/{payment_created}/export', 'TenantController@export')->middleware(['auth', 'verified']);
 
+Route::get('/property/{property}/export', function(Request $request){
+     $collections = DB::table('units')
+    ->leftJoin('tenants', 'unit_id', 'unit_tenant_id')
+    ->leftJoin('payments', 'tenant_id', 'payment_tenant_id')
+    ->leftJoin('billings', 'payment_billing_no', 'billing_no')
+    ->where('unit_property', Auth::user()->property)
+    ->whereDate('payment_created', Carbon::now())
+    ->orderBy('payment_created', 'desc')
+    ->orderBy('ar_number', 'desc')
+    ->groupBy('payment_id')
+    ->get();
+
+})->middleware(['auth', 'verified']);
+
 
 //print gate pass
 Route::get('/units/{unit_id}/tenants/{tenant_id}/print/gatepass', 'TenantController@printGatePass')->middleware(['auth', 'verified']);
