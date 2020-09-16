@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Unit;
 use DB;
+use App\Unit;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 

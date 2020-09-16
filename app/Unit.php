@@ -2,13 +2,10 @@
 
 namespace App;
 
-use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Model;
 
 class Unit extends Model
 {
-    use Searchable;
-
     protected $primaryKey = 'unit_id';
 
     protected $fillable = [
@@ -32,5 +29,4 @@ class Unit extends Model
         return $this->belongsTo('App\UnitOwner', 'unit_owner_id');
     }
 
-    
 }
