@@ -588,13 +588,15 @@ class TenantController extends Controller
                 'balance' => $balance
             );
 
-                //send welcome email to the tenant
-                Mail::send('emails.send-request-moveout-mail', $data, function($message) use ($data){
+            if($tenant->email_address !== null){
+                 //send welcome email to the tenant
+                 Mail::send('emails.send-request-moveout-mail', $data, function($message) use ($data){
                     $message->to($data['email']);
                     $message->subject('Request to Moveout');
                 });
-        
-         
+            }
+            
+            
 
             return redirect('/units/'.$unit_id.'/tenants/'.$tenant_id)->with('success','Request to moveout has been sent!');
         }
