@@ -479,6 +479,7 @@ Route::get('/board', function(Request $request){
        ->join('tenants', 'billing_tenant_id', 'tenant_id')
        ->join('units', 'tenant_id', 'unit_tenant_id')
        ->where('unit_property', Auth::user()->property)
+       ->where('billing_date', '<', Carbon::now()->startOfMonth()->addDays(7))
         ->selectRaw('*, billing_amt - IFNULL(sum(amt_paid),0) as balance')
         ->groupBy('tenant_id')
         ->orderBy('balance', 'desc')
