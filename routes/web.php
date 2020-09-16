@@ -897,7 +897,6 @@ Route::get('/users', function(){
     ->whereNull('email_verified_at')
     ->orderBy('users.created_at', 'desc')
     ->get();
-
     
     // $users_created = DB::table('users')
     // ->where('property', Auth::user()->property)
@@ -1060,7 +1059,7 @@ Route::get('/users', function(){
 
     if(auth()->user()->user_type === 'manager'){
         
-        if(Auth::user()->email === 'thepropertymanager2020@gmail.com'){
+        if(Auth::user()->email === 'thepropertymanager2020@gmail.com' || Auth::user()->email ==='tecson.pamela@gmail.com'){
 
           
 
