@@ -560,7 +560,9 @@
                                       <th>PROPERTY</th>
                                       <th>MANAGER</th>
                                       <th>ROOMS</th>
+                                      <th>OCCUPANCY(%)</th>
                                       <th>PROPERTY TYPE</th>
+                                    
                                       <th>PROPERTY OWNERSHIP</th>
                                       <th>PLAN</th>
                                       <th>CREATED AT</th>
@@ -581,9 +583,13 @@
                                           </td>
                                           <td>
                                         
-                                            {{ $item->count }}
+                                            {{ $item->count_units }}
                                             
                                           </td>
+                                          <td>
+                                            {{ number_format(($item->occupied_units/$item->count_units) * 100, 2) }} 
+                                          </td>
+                                         
                                           <td>{{ $item->property_type }}</td>
                                           <td>{{ $item->property_ownership }}</td>
                                         <td>{{ $item->account_type }}</td>
