@@ -45,6 +45,7 @@ class LoginController extends Controller
 
         function authenticated(Request $request, $user)
         {
+           if(Auth::user()->email !== 'thepropertymanager2020@gmail.com' ){
             DB::table('users')
             ->where('id', Auth::user()->id)
             ->update(
@@ -63,6 +64,7 @@ class LoginController extends Controller
                             'session_last_login_ip' => request()->ip(),
                         ]
                     );
+           }
         }
 
     
@@ -85,6 +87,7 @@ class LoginController extends Controller
 
     public function logout(Request $request) {
       
+        if(Auth::user()->email !== 'thepropertymanager2020@gmail.com' ){
             DB::table('users')
                 ->where('id', Auth::user()->id)
                 ->update(
@@ -103,7 +106,7 @@ class LoginController extends Controller
                                 'session_last_login_ip' => request()->ip(),
                             ]
                         );
-
+        }
         Auth::logout();
         return redirect('/login');
       }
