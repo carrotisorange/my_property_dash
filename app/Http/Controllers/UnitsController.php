@@ -93,7 +93,7 @@ class UnitsController extends Controller
     {
         if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager'){
 
-            $unit = Unit::where('unit_property', Auth::user()->property)->findOrFail($unit_id);
+            $unit = Unit::findOrFail($unit_id);
 
             $unit_owner = DB::table('units')
             ->join('unit_owners', 'unit_unit_owner_id', 'unit_owner_id')
