@@ -558,12 +558,11 @@
                                      <tr>
                                     
                                       <th>PROPERTY</th>
+                                     
                                       <th>MANAGER</th>
                                       <th>ROOMS</th>
-                                      <th>OCCUPANCY(%)</th>
-                                      <th>PROPERTY TYPE</th>
-                                    
-                                      <th>PROPERTY OWNERSHIP</th>
+                                      <th>OCCUPANCY</th>
+                                     
                                       <th>PLAN</th>
                                       <th>CREATED AT</th>
                                       <th>EMAIL VERIFIED AT</th>
@@ -575,6 +574,8 @@
                                         <tr>
                                           <td>
                                             {{ $item->property }}
+                                            {{ $item->property_type }} with
+                                            {{ $item->property_ownership }}
                                           </td>
                                           <td>
                                             @if($item->user_type==='manager')
@@ -588,11 +589,10 @@
                                           </td>
                                           <td>
                                             
-                                            {{ number_format((   $item->count_units == 0 ? 0 : $item->occupied_units/$item->count_units) * 100, 2) }} 
+                                            {{ number_format((   $item->count_units == 0 ? 0 : $item->occupied_units/$item->count_units) * 100, 2) }}%
                                           </td>
                                          
-                                          <td>{{ $item->property_type }}</td>
-                                          <td>{{ $item->property_ownership }}</td>
+                                        
                                         <td>{{ $item->account_type }}</td>
                                         <td>{{ Carbon\Carbon::parse($item->created_at)->format('M d Y').' '.Carbon\Carbon::parse($item->created_at)->toTimeString() }}</td>
                                           <td>{{ Carbon\Carbon::parse($item->email_verified_at)->format('M d Y').' '.Carbon\Carbon::parse($item->email_verified_at)->toTimeString() }}</td>
