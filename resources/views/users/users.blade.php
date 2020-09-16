@@ -587,7 +587,8 @@
                                             
                                           </td>
                                           <td>
-                                            {{ number_format(($item->occupied_units/$item->count_units) * 100, 2) }} 
+                                            
+                                            {{ number_format((   $count_units == 0 ? 0 : $item->occupied_units/$item->count_units) * 100, 2) }} 
                                           </td>
                                          
                                           <td>{{ $item->property_type }}</td>
