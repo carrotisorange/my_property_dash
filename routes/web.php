@@ -781,7 +781,7 @@ Route::get('/units/{unit_id}/tenants/{tenant_id}/payments/{payment_id}/dates/{pa
 
 
 //print gate pass
-Route::post('/units/{unit_id}/tenants/{tenant_id}/print/gatepass', 'TenantController@printGatePass')->middleware(['auth', 'verified']);
+Route::get('/units/{unit_id}/tenants/{tenant_id}/print/gatepass', 'TenantController@printGatePass')->middleware(['auth', 'verified']);
 
 Route::get('/units/{unit_id}/tenants/{tenant_id}/billings/export', 'TenantController@exportBills')->middleware(['auth', 'verified']);
 
