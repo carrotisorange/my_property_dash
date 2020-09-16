@@ -742,7 +742,7 @@ Route::get('/home', function(){
 
         $units_count = DB::table('units')
             ->where('unit_property', Auth::user()->property)
-            ->count();
+            ->get();
 
         $units = DB::table('units')
             ->where('unit_property', Auth::user()->property)
