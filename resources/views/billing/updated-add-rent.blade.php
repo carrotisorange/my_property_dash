@@ -270,13 +270,13 @@
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Add Rental Bills</h1>
             <div class="form-group">
-              <form id="periodCoveredForm" action="/tenants/billings/{{ Carbon\Carbon::now()->startOfMonth()->format('Y-m-d') }}-{{ Carbon\Carbon::now()->endOfMonth()->format('Y-m-d') }}/" method="POST">
-                @csrf
-                Period Covered 
-                <input form="periodCoveredForm" type="date" name="billing_start" value="{{ Carbon\Carbon::now()->startOfMonth()->format('Y-m-d') }}" required>
-                <input form="periodCoveredForm" type="date" name="billing_end" value="{{ Carbon\Carbon::now()->endOfMonth()->format('Y-m-d') }}" required>
-                <button form="periodCoveredForm" type="submit" id="addBillsButton" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" ><i class="fas fa-check"></i> Change</button>
-              </form>
+                <form id="periodCoveredForm" action="/tenants/billings/{{ Carbon\Carbon::parse($updated_billing_start)->format('Y-m-d') }}-{{ Carbon\Carbon::parse($updated_billing_end)->format('Y-m-d') }}/" method="POST">
+                    @csrf
+                    Period Covered 
+                    <input form="periodCoveredForm" type="date" name="billing_start" value="{{ Carbon\Carbon::parse($updated_billing_start)->format('Y-m-d') }}" required>
+                    <input form="periodCoveredForm" type="date" name="billing_end" value="{{ Carbon\Carbon::parse($updated_billing_end)->format('Y-m-d') }}" required>
+                    <button form="periodCoveredForm" type="submit" id="addBillsButton" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" ><i class="fas fa-check"></i> Change</button>
+                  </form>
               
             </div>
           </div>
@@ -342,8 +342,8 @@
                   <input form="add_billings" type="date" name="billing_start{{ $billing_start++  }}" value="{{ Carbon\Carbon::parse($item->movein_date)->format('Y-m-d') }}" required>
                   <input form="add_billings" type="date" name="billing_end{{ $billing_end++  }}" value="{{ Carbon\Carbon::now()->endOfMonth()->format('Y-m-d') }}" required>
                   @else
-                  <input form="add_billings" type="date" name="billing_start{{ $billing_start++  }}" value="{{ Carbon\Carbon::now()->startOfMonth()->format('Y-m-d') }}" required>
-                  <input form="add_billings" type="date" name="billing_end{{ $billing_end++  }}" value="{{ Carbon\Carbon::now()->endOfMonth()->format('Y-m-d') }}" required>
+                  <input form="add_billings" type="date" name="billing_start{{ $billing_start++  }}" value="{{ Carbon\Carbon::parse($updated_billing_start)->startOfMonth()->format('Y-m-d') }}" required>
+                  <input form="add_billings" type="date" name="billing_end{{ $billing_end++  }}" value="{{ Carbon\Carbon::parse($updated_billing_end)->endOfMonth()->format('Y-m-d') }}" required>
                   @endif
               </td>
               <td>

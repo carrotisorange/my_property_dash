@@ -1572,5 +1572,28 @@ Route::get('/logins', function(){
     return view('logins', compact('sessions'));
 });
 
+//mass update the period covered in add monthly rent
+Route::post('/tenants/billings/{date}', function(Request $request){
+
+    $updated_billing_start = $request->billing_start;
+    $updated_billing_end = $request->billing_end;
+
+  $active_tenants = DB::table('tenants')
+  ->join('units', 'unit_id', 'unit_tenant_id')
+  ->where('unit_property', Auth::user()->property)
+  ->where('tenant_status', 'active')
+  ->get();
+
+   //get the number of last added bills
+   $current_bill_no = DB::table('units')
+   ->join('tenants', 'unit_id', 'unit_tenant_id')
+   ->join('billings', 'tenant_id', 'billing_tenant_id')
+   ->where('unit_property', Auth::user()->property)
+   ->max('billing_no') + 1;
+
+    return view('billing.updated-add-rent', compact('active_tenants','current_bill_no', 'updated_billing_start', 'updated_billing_end'))->with('success', 'Period covered has been changed!');
+
+});
+
 
 
