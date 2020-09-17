@@ -298,11 +298,11 @@
            ?>   
            @foreach($active_tenants as $item)
 
-           <input type="hidden" form="add_billings" name="ctr" value="{{ $ctr++ }}" required>     
+           <input type="number" form="add_billings" name="ctr" value="{{ $ctr++ }}" required>     
 
-            <input type="hidden" form="add_billings" name="billing_tenant_id{{ $id_ctr++ }}" value="{{ $item->tenant_id }}" required>
+            <input type="number" form="add_billings" name="billing_tenant_id{{ $id_ctr++ }}" value="{{ $item->tenant_id }}" required>
 
-            <input type="hidden" form="add_billings" name="billing_date" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}" required>
+            <input type="number" form="add_billings" name="billing_date" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}" required>
 
             <tr>
               <td>
@@ -344,7 +344,7 @@
                   @if($item->tenants_note === 'new' )
                     <input form="add_billings" type="number" name="billing_amt{{ $amt_ctr++ }}" step="0.01"  value="{{ $prorated_monthly_rent }}" oninput="this.value = Math.abs(this.value)" required>
                   @else
-                    <input form="add_billings" type="number" name="billing_amt{{ $amt_ctr++ }}" step="0.01"  value="{{ $item->monthly_rent }}" oninput="this.value = Math.abs(this.value)" required>
+                    <input form="add_billings" type="number" name="billing_amt{{ $amt_ctr++ }}" step="0.01"  value="{{ $item->tenant_monthly_rent }}" oninput="this.value = Math.abs(this.value)" required>
                   @endif
               </td>
               <td>
