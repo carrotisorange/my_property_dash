@@ -516,12 +516,12 @@
                   @endforeach --}}
                   
                   <div class="row">
-                      <div class="col-md-9">
+                      <div class="col-md-8">
                           <small for="">Date</small>
                       {{-- <input form="acceptPaymentForm" type="date" class="form-control" name="payment_created" value={{date('Y-m-d')}} required> --}}
                       <input type="date" form="acceptPaymentForm" class="" name="payment_created" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}" required >
                       </div>
-                      <div class="col-md-3">
+                      <div class="col-md-4">
                         <small for="">Acknowledgment Receipt No</small>
                         <input form="acceptPaymentForm" type="text" class="" id="" name="ar_number" value="{{ $payment_ctr }}" required readonly>
                     </div>
