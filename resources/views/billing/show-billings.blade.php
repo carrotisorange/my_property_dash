@@ -522,7 +522,7 @@
                       <input type="date" form="acceptPaymentForm" class="" name="payment_created" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}" required >
                       </div>
                       <div class="col-md-3">
-                        <small for="">AR #</small>
+                        <small for="">Acknowledgment Receipt No</small>
                         <input form="acceptPaymentForm" type="text" class="" id="" name="ar_number" value="{{ $payment_ctr }}" required readonly>
                     </div>
                   </div>

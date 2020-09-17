@@ -21,7 +21,7 @@
           
           {{-- <h5 class="text-black-50">{{ Auth::user()->property }}</h5> --}}
          
-          <b>AR No:</b> {{ $payment_ar }}
+          <b>Acknowledgment Receipt No:</b> {{ $payment_ar }}
           <br>
            <b>Date:</b> {{ Carbon\Carbon::parse($payment_date)->format('M d Y') }}
            <br>
