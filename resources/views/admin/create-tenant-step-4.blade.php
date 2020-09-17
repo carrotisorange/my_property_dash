@@ -373,23 +373,23 @@
               <div class="table-responsive text-nowrap">
                 <table class="table" id="tab_logic" width="90%" cellspacing="0" cellpadding="0">
                      <tr>
-                         <th>Bill No</th>
+                         <th>#</th>
                          <th>Description</th>
                          <th>Amount</th>
                      </tr>
                          <input form="addTenantForm4" type="hidden" id="no_of_items" name="no_of_items" value="3">
                      <tr id='addr0'>
-                         <td>{{ $current_bill_no }}</td>
+                         <td>1</td>
                          <td><input form="addTenantForm4"  type="text" name='desc0' id='desc0' value="Security Deposit (Rent)" readonly/></td>
                          <td><input oninput="this.value = Math.abs(this.value)" step="0.01" form="addTenantForm4"  onkeyup="computeTotal()" type="number" name='amt0' id='amt0' value="{{ session(Auth::user()->id.'tenant_monthly_rent') }}"/></td>
                      </tr>
                      <tr>
-                      <td>{{ $current_bill_no+1 }}</td>
+                      <td>2</td>
                      <td><input form="addTenantForm4"  type="text" name='desc1' id='desc1' class="" value="Advance Rent" readonly/></td>
                      <td><input oninput="this.value = Math.abs(this.value)" step="0.01" form="addTenantForm4"  onkeyup="computeTotal()" type="number" name='amt1' id='amt1' value="{{ session(Auth::user()->id.'tenant_monthly_rent') }}"/></td>
                     </tr>
                      <tr id='addr1'>
-                      <td>{{ $current_bill_no+2 }}</td>
+                      <td>3</td>
                         <td>
                           <select form="addTenantForm4" name='desc2' id='desc2'>
                             <option value="Security Deposit (Utilities)" >Security Deposit (Utilities)</option>
