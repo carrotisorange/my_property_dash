@@ -27,8 +27,6 @@
            <br>
            <b>To:</b> {{ $tenant }}
            <br>
-           <b>To:</b> {{ $tenant }}
-           <br>
            <b>Room:</b> {{ $unit }}</b>
 
          

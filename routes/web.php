@@ -1534,18 +1534,6 @@ Route::post('/send/inquiry', function(Request $request){
  
 });
 
-Route::post('/users/{user_id}/rate', function(Request $request){
-    DB::table('users')
-    ->where('property', Auth::user()->property)
-    ->update(
-                [
-                    'electric_rate_kwh' => $request->electric_rate_kwh,
-                ]
-            );
-
-    return back()->with('success', 'Electric rate has been updated!');
-});
-
 Route::get('/privacy-policy', function(){
     return view('privacy-policy');
 });
@@ -1573,7 +1561,7 @@ Route::get('/logins', function(){
 });
 
 //mass update the period covered in add monthly rent
-Route::post('/tenants/billings/{date}', function(Request $request){
+Route::post('/bills/rent/{date}', function(Request $request){
 
     $updated_billing_start = $request->billing_start;
     $updated_billing_end = $request->billing_end;
@@ -1591,7 +1579,38 @@ Route::post('/tenants/billings/{date}', function(Request $request){
    ->where('unit_property', Auth::user()->property)
    ->max('billing_no') + 1;
 
-    return view('billing.updated-add-rent', compact('active_tenants','current_bill_no', 'updated_billing_start', 'updated_billing_end'))->with('success', 'Period covered has been changed!');
+    return view('billing.add-rental-bill', compact('active_tenants','current_bill_no', 'updated_billing_start', 'updated_billing_end'))->with('success', 'Period covered has been changed!');
+
+});
+
+//mass update the period covered in add electric bill
+Route::post('/bills/electric/{date}', function(Request $request){
+
+    $updated_billing_start = $request->billing_start;
+    $updated_billing_end = $request->billing_end;
+    $electric_rate_kwh = $request->electric_rate_kwh;
+
+
+  $active_tenants = DB::table('tenants')
+  ->join('units', 'unit_id', 'unit_tenant_id')
+  ->where('unit_property', Auth::user()->property)
+  ->where('tenant_status', 'active')
+  ->get();
+
+   //get the number of last added bills
+   $current_bill_no = DB::table('units')
+   ->join('tenants', 'unit_id', 'unit_tenant_id')
+   ->join('billings', 'tenant_id', 'billing_tenant_id')
+   ->where('unit_property', Auth::user()->property)
+   ->max('billing_no') + 1;
+
+   DB::table('users')
+   ->where('id', Auth::user()->id)
+   ->update([
+        'electric_rate_kwh' => $request->electric_rate_kwh
+   ]);
+
+    return view('billing.add-electric-bill', compact('active_tenants','current_bill_no', 'updated_billing_start', 'updated_billing_end', 'electric_rate_kwh'))->with('success', 'Period covered has been changed!');
 
 });
 

@@ -373,10 +373,10 @@
                 <button type="submit" form="billingSurchargeForm" class="dropdown-item ">Surcharge</button>
                 <input type="hidden" form="billingSurchargeForm" name="billing_option" value="surcharge">
 
-              <form id="billingRentForm" action="/tenants/billings" method="POST">
+              <form id="billingRentForm" action="/bills/rent/{{ Carbon\Carbon::now()->firstOfMonth()->format('Y-m-d') }}-{{ Carbon\Carbon::now()->endOfMonth()->format('Y-m-d') }}" method="POST">
                 @csrf
               </form>
-              <form id="billingElectricForm" action="/tenants/billings" method="POST">
+              <form id="billingElectricForm" action=" /bills/electric/{{ Carbon\Carbon::now()->firstOfMonth()->format('Y-m-d') }}-{{ Carbon\Carbon::now()->endOfMonth()->format('Y-m-d') }}" method="POST">
                   @csrf
               </form>
               <form id="billingWaterForm" action="/tenants/billings" method="POST">
