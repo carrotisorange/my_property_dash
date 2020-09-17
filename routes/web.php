@@ -475,15 +475,18 @@ Route::get('/board', function(Request $request){
         // ->havingRaw('balance > 0')
         // ->get();
 
-       $delinquent_accounts = Billing::join('payments', 'billings.billing_id', '=', 'payments.payment_billing_id') 
-       ->join('tenants', 'billing_tenant_id', 'tenant_id')
-       ->join('units', 'tenant_id', 'unit_tenant_id')
+       $delinquent_accounts = Billing::leftJoin('payments', 'billings.billing_id', '=', 'payments.payment_billing_id') 
+       ->leftJoin('tenants', 'billing_tenant_id', 'tenant_id')
+       ->leftJoin('units', 'tenant_id', 'unit_tenant_id')
+       
         ->selectRaw('*, billing_amt - IFNULL(sum(amt_paid),0) as balance')
         ->where('unit_property', Auth::user()->property)
+       ->where('billing_date', '<', Carbon::now()->startOfMonth()->addDays(7))
         ->groupBy('tenant_id')
         ->orderBy('balance', 'desc')
         ->havingRaw('balance > 0')
-        ->paginate(10);
+        ->get();
+        
         
         $tenants_to_watch_out = DB::table('tenants')
         ->join('units', 'unit_id', 'unit_tenant_id')
@@ -499,6 +502,7 @@ Route::get('/board', function(Request $request){
         ->where('actual_move_out_date', '<=', Carbon::now()->subMonths(11)->endOfMonth())
         ->where('unit_property', Auth::user()->property)
         ->where('tenant_status','inactive')
+      
         ->count();
 
         $moveout_rate_2 = DB::table('tenants')
