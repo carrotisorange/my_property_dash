@@ -1187,10 +1187,10 @@ Route::get('/bills', function(){
         ->join('billings', 'tenant_id', 'billing_tenant_id')
         ->where('unit_property', Auth::user()->property)
         ->orderBy('billing_no', 'desc')
-        ->get();
-        // ->groupBy(function($item) {
-        //     return \Carbon\Carbon::parse($item->billing_date)->timestamp;
-        // });
+        ->get()
+        ->groupBy(function($item) {
+            return \Carbon\Carbon::parse($item->billing_date)->timestamp;
+        });
    
         return view('billing.bills', compact('bills'));
     }else{

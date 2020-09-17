@@ -359,7 +359,7 @@
           @endforeach
 
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Bills ({{ $bills->count() }})</h1>
+            <h1 class="h3 mb-0 text-gray-800">Bills </h1>
             <div class="dropdown show">
               <br>
               <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-plus fa-sm text-white-50"></i> Add Bills</a>
@@ -391,65 +391,63 @@
         <!-- 404 Error Text -->
         <div class="table-responsive text-nowrap">
           <table class="table table-striped">
+            @foreach ($bills as $day => $bill)
+              <tr>
+                  <th colspan="12">{{ Carbon\Carbon::parse($day)->addDay()->format('M d Y') }} ({{ $bill->count() }})</th>
+              </tr>
+              <tr>
                 
+                <th>BILL NO</th>
+                <th>DATE BILLED</th>
                 
-                  <tr>
-                  
-                    <th>BILL NO</th>
-                    <th>DATE BILLED</th>
-                    
-                    <th>TENANT</th>
-                    <th>ROOM</th>
-                    <th>DESCRIPTION</th>
-                   
-                    <th colspan="2">PERIOD COVERED</th>
-                    <th>AMOUNT</th>
-                    {{-- <th>STATUS</th> --}}
-                    <td></td>
-                  
-                </tr>
-                  @foreach ($bills as $bill)
-                  <tr>
+                <th>TENANT</th>
+                <th>ROOM</th>
+                <th>DESCRIPTION</th>
                
-                    <td>{{ $bill->billing_no }}</th>  
-                    <td>  {{ Carbon\Carbon::parse($bill->billing_date)->format('M d Y') }}</td>
-                   
-                    
-                    <td>
-                      @if(Auth::user()->user_type === 'billing')
-                      <a href="units/{{ $bill->unit_id }}/tenants/{{ $bill->tenant_id }}/billings">{{ $bill->first_name.' '.$bill->last_name }}</a>
-                      @else
-                        <a href="units/{{ $bill->unit_id }}/tenants/{{ $bill->tenant_id }}">{{ $bill->first_name.' '.$bill->last_name }}</a>
-                      @endif
-                    </td>
-                    <td>{{ $bill->building.' '.$bill->unit_no }}</td>
-                    <td>{{ $bill->billing_desc }}</td>
-                   
-                    <td colspan="2">
-                      {{ $bill->billing_start? Carbon\Carbon::parse($bill->billing_start)->format('M d Y') : null}} -
-                      {{ $bill->billing_end? Carbon\Carbon::parse($bill->billing_end)->format('M d Y') : null }}
-                    </td>
-                    <td><a href="units/{{ $bill->unit_id }}/tenants/{{ $bill->tenant_id }}/billings">{{ number_format($bill->billing_amt,2) }}</a></td>
-                    {{-- <td>
-                      @if($bill->billing_status === 'paid')
-                      <span class="badge badge-success">{{ $bill->billing_status }}</span>
-                       @else
-                      <span class="badge badge-danger">{{ $bill->billing_status }} </span>
-                       @endif 
-                      </td>--}}
-                      <td>
-                        @if(Auth::user()->user_type === 'manager')
-                        <form action="tenants/{{ $bill->billing_tenant_id }}/billings/{{ $bill->billing_id }}" method="POST">
-                          @csrf
-                          @method('delete')
-                          <button type="submit" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"  onclick="return confirm('Are you sure you want perform this action?');"><i class="fas fa-times fa-sm text-white-50"></i></button>
-                        </form>
-                        @endif
-                      </td>
-                    </tr>
-                  @endforeach
-           
-            </table>
+                <th colspan="2">PERIOD COVERED</th>
+                <th>AMOUNT</th>
+             
+                <td></td>
+                  </tr>
+            </tr>
+              @foreach ($bill as $item)
+              <tr>
+               
+                <td>{{ $item->billing_no }}</th>  
+                <td>  {{ Carbon\Carbon::parse($item->billing_date)->format('M d Y') }}</td>
+               
+                
+                <td>
+                  @if(Auth::user()->user_type === 'billing')
+                  <a href="units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/billings">{{ $item->first_name.' '.$item->last_name }}</a>
+                  @else
+                    <a href="units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}">{{ $item->first_name.' '.$item->last_name }}</a>
+                  @endif
+                </td>
+                <td>{{ $item->building.' '.$item->unit_no }}</td>
+                <td>{{ $item->billing_desc }}</td>
+               
+                <td colspan="2">
+                  {{ $item->billing_start? Carbon\Carbon::parse($item->billing_start)->format('M d Y') : null}} -
+                  {{ $item->billing_end? Carbon\Carbon::parse($item->billing_end)->format('M d Y') : null }}
+                </td>
+                <td><a href="units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/billings">{{ number_format($item->billing_amt,2) }}</a></td>
+             
+                  <td>
+                    @if(Auth::user()->user_type === 'manager')
+                    <form action="tenants/{{ $item->billing_tenant_id }}/billings/{{ $item->billing_id }}" method="POST">
+                      @csrf
+                      @method('delete')
+                      <button type="submit" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"  onclick="return confirm('Are you sure you want perform this action?');"><i class="fas fa-times fa-sm text-white-50"></i></button>
+                    </form>
+                    @endif
+                  </td>
+                </tr>
+              @endforeach
+                  
+                
+            @endforeach
+        </table>
         </div>
         </div>
       </div>
