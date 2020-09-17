@@ -271,7 +271,7 @@
                   Period Covered 
                   <input form="periodCoveredForm" type="date" name="billing_start" value="{{ Carbon\Carbon::parse($updated_billing_start)->format('Y-m-d') }}" required>
                   <input form="periodCoveredForm" type="date" name="billing_end" value="{{ Carbon\Carbon::parse($updated_billing_end)->format('Y-m-d') }}" required>
-                  Rate (KwH) <input form="periodCoveredForm" type="number" name="electric_rate_kwh" id="electric_rate_kwh" step="0.001" value="{{ $electric_rate_kwh? $electric_rate_kwh : Auth::user()->electric_rate_kwh }}" required oninput="autoCompute()">
+                  Current Electric Rate/KwH <input form="periodCoveredForm" type="number" name="electric_rate_kwh" id="electric_rate_kwh" step="0.001" value="{{ $electric_rate_kwh? $electric_rate_kwh : Auth::user()->electric_rate_kwh }}" required oninput="autoCompute()">
                   <button form="periodCoveredForm" type="submit" id="addBillsButton" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" ><i class="fas fa-check"></i> Change</button>
                 </form>
                 
@@ -338,7 +338,7 @@
                 </td>
                
               <td>
-                <input class="" type="number" form="add_billings" step="0.001" name="previous_reading{{ $previous_reading++ }}" id="id_previous_reading{{ $id_previous_reading++ }}" >
+                <input class="" type="number" form="add_billings" step="0.001" name="previous_reading{{ $previous_reading++ }}" id="id_previous_reading{{ $id_previous_reading++ }}" value={{ $item->previous_electric_reading }}>
               </td>
               <td>
                 <input class="" type="number" form="add_billings"step="0.001"  name="current_reading{{ $current_reading++ }}" id="id_current_reading{{ $id_current_reading++ }}" oninput="autoCompute({{ $ctr_current_reading++ }})" >

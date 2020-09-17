@@ -18,12 +18,7 @@
   <!-- Custom styles for this template-->
   <!-- Custom styles for this template-->
   <link href="{{ asset('dashboard/css/sb-admin-2.min.css') }}" rel="stylesheet">
-
-  <style>
-    table th {
-    width: auto !important;
-}
-  </style>
+  
 </head>
 
 <body id="page-top">
@@ -170,7 +165,7 @@
       </div>
   
     </ul>  <!-- End of Sidebar -->
-    <!-- End of Sidebar -->
+  <!-- End of Sidebar -->
 
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
@@ -232,102 +227,13 @@
               </div>
             </li> 
 
-            <!-- Nav Item - Alerts -->
-            {{--     <li class="nav-item dropdown no-arrow mx-1">
-              <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-bell fa-fw"></i>
-                <!-- Counter - Alerts -->
-                @if($request_to_moveout->count() > 3)
-                  <span class="badge badge-danger badge-counter">{{ $request_to_moveout->count() }}+</span>
-                @else
-                  <span class="badge badge-danger badge-counter">{{ $request_to_moveout->count()  }}</span>
-                @endif
-              </a>
-              <!-- Dropdown - Alerts -->
-              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
-                <h6 class="dropdown-header">
-                  Alerts Center
-                </h6>
-                @foreach($request_to_moveout as $item)
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="mr-3">
-                  <div class="icon-circle bg-warning">
-                      <i class="fas fa-exclamation-triangle text-white"></i>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="small text-gray-500">{{Carbon\Carbon::parse($item->created_at)->format('M d Y')}}</div>
-                    <span class="font-weight-bold">{{ $item->building.' '.$item->unit_no }} is requesting to moveout.</span>
-                  </div>
-                </a> 
-                @endforeach 
-                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-              </div>
-            </li> 
-
-            <!-- Nav Item - Messages -->
-            <li class="nav-item dropdown no-arrow mx-1">
-              <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-envelope fa-fw"></i>
-                <!-- Counter - Messages -->
-                <span class="badge badge-danger badge-counter">7</span>
-              </a>
-              <!-- Dropdown - Messages -->
-              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
-                <h6 class="dropdown-header">
-                  Message Center
-                </h6>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="https://source.unsplash.com/fn_BT9fwg_E/60x60" alt="">
-                    <div class="status-indicator bg-success"></div>
-                  </div>
-                  <div class="font-weight-bold">
-                    <div class="text-truncate">Hi there! I am wondering if you can help me with a problem I've been having.</div>
-                    <div class="small text-gray-500">Emily Fowler · 58m</div>
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="https://source.unsplash.com/AU4VPcFN4LE/60x60" alt="">
-                    <div class="status-indicator"></div>
-                  </div>
-                  <div>
-                    <div class="text-truncate">I have the photos that you ordered last month, how would you like them sent to you?</div>
-                    <div class="small text-gray-500">Jae Chun · 1d</div>
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="https://source.unsplash.com/CS2uCrpNzJY/60x60" alt="">
-                    <div class="status-indicator bg-warning"></div>
-                  </div>
-                  <div>
-                    <div class="text-truncate">Last month's report looks great, I am very happy with the progress so far, keep up the good work!</div>
-                    <div class="small text-gray-500">Morgan Alvarez · 2d</div>
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60" alt="">
-                    <div class="status-indicator bg-success"></div>
-                  </div>
-                  <div>
-                    <div class="text-truncate">Am I a good boy? The reason I ask is because someone told me that people say this to all dogs, even if they aren't good...</div>
-                    <div class="small text-gray-500">Chicken the Dog · 2w</div>
-                  </div>
-                </a>
-                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
-              </div>
-            </li> --}}
-
             <div class="topbar-divider d-none d-sm-block"></div>
 
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name }}</span>
-                <i class="fas fa-users-circle"></i> 
+                <i class="fas fa-users-circle"></i>
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -335,14 +241,7 @@
                  <i class="fas fa-user-circle  fa-sm fa-fw mr-2 text-gray-400"></i>
                   Profile
                 </a>
-                {{-- <a class="dropdown-item" href="#">
-                  <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Settings
-                </a>
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Activity Log
-                </a> --}}
+  
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -361,28 +260,45 @@
          <p class="alert alert-{{ $key }}"> <i class="fas fa-check-circle"></i> {{ Session::get($key) }}</p>
           @endif
           @endforeach
-
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Water Bill for {{ Carbon\Carbon::now()->format('M d Y')}}</h1>
-            {{-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> --}}
+            <h1 class="h3 mb-0 text-gray-800">Add Electric Bills</h1>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <form id="periodCoveredForm" action="/bills/water/{{ Carbon\Carbon::parse($updated_billing_start)->format('Y-m-d') }}-{{ Carbon\Carbon::parse($updated_billing_end)->format('Y-m-d') }}/" method="POST">
+                  @csrf
+                  Period Covered 
+                  <input form="periodCoveredForm" type="date" name="billing_start" value="{{ Carbon\Carbon::parse($updated_billing_start)->format('Y-m-d') }}" required>
+                  <input form="periodCoveredForm" type="date" name="billing_end" value="{{ Carbon\Carbon::parse($updated_billing_end)->format('Y-m-d') }}" required>
+                  Current Water Rate/CUM <input form="periodCoveredForm" type="number" name="water_rate_cum" id="electric_rate_kwh" step="0.001" value="{{ $water_rate_cum? $water_rate_cum : Auth::user()->water_rate_cum }}" required oninput="autoCompute()">
+                  <button form="periodCoveredForm" type="submit" id="addBillsButton" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" ><i class="fas fa-check"></i> Change</button>
+                </form>
+                
+              </div>
+            </div>
           </div>
         <!-- 404 Error Text -->
         <div class="table-responsive text-nowrap">
         <form id="add_billings" action="/billings" method="POST">
-            {{ csrf_field() }}
+           @csrf
             </form>
-     
-              <table class="table table-striped">
+            <table class="table table-striped">
             <tr>
-                <th class="text-center">BILL NO</th>
+                <th>#</th>
                 <th>NAME</th>
-                <th>ROOM</th>   
-                <th>DESCRIPTION</th>  
-                <th colspan="2">PERIOD COVERED</th>     
+                <th>ROOM</th>
+                 <th>DESCRIPTION</th> 
+               
+                <th>PREVIOUS READING</th>
+                <th>CURRENT READING</th>
+                <th>CONSUMPTION</th>
                 <th>AMOUNT</th>
+                <th colspan="2">PERIOD COVERED</th>
+                
             </tr>
            <?php
-             $ctr = 1;
+            $ctr = 1;
              $billing_no_ctr = 1;
              $desc_ctr = 1;
              $amt_ctr = 1;
@@ -390,48 +306,62 @@
              $details_ctr = 1;
              $billing_start = 1;
              $billing_end = 1;
-           ?>   
+             $previous_reading = 1;
+             $current_reading = 1;
+             $consumption = 1;
+             $id_previous_reading = 1;
+             $id_current_reading = 1;
+             $id_consumption = 1;
+             $ctr_previous_reading = 1;
+             $ctr_current_reading = 1;
+             $ctr_consumption = 1;
+             $id_amt = 1;
+           ?>
            @foreach($active_tenants as $item)
-           <input class="col-md-4" type="hidden" form="add_billings" name="billing_no{{ $billing_no_ctr++ }}" value="{{ $billing_ctr++ }}" required>
-           <input class="form-control" type="hidden" form="add_billings" name="ctr" value="{{ $ctr++ }}" readonly>     
+           
+              
             <input type="hidden" form="add_billings" name="billing_tenant_id{{ $id_ctr++ }}" value="{{ $item->tenant_id }}">
 
             <input type="hidden" form="add_billings" name="billing_date" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}" required>
-          
-
+ 
             <tr>
-              <th class="text-center" >{{ $current_bill_no++ }}</th>
-                <td>{{ $item->first_name.' '.$item->last_name }}
+              <td>{{ $ctr++ }}</td>
+                <td>
+                <a href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/billings">{{ $item->first_name.' '.$item->last_name }}</a> 
                   @if($item->tenants_note === 'new' )
                   <span class="badge badge-success">{{ $item->tenants_note }}</span>
                   @endif
+                
                 <td>{{ $item->building.' '.$item->unit_no }}</td>
                 <td>
                   <input class="" type="text" form="add_billings" name="billing_desc{{ $desc_ctr++ }}" value="Water" readonly>
                 </td>
-                <td colspan="2">
-                  @if($item->tenants_note === 'new' )
-                  <input form="add_billings" type="date" name="billing_start{{ $billing_start++  }}" value="{{ Carbon\Carbon::parse($item->movein_date)->format('Y-m-d') }}" >
-                  <input form="add_billings" type="date" name="billing_end{{ $billing_end++  }}" value="{{ Carbon\Carbon::now()->endOfMonth()->format('Y-m-d') }}" >
-                  @else
-                  <input form="add_billings" type="date" name="billing_start{{ $billing_start++  }}" value="{{ Carbon\Carbon::now()->firstOfMonth()->format('Y-m-d') }}" >
-                  <input form="add_billings" type="date" name="billing_end{{ $billing_end++  }}" value="{{ Carbon\Carbon::now()->endOfMonth()->format('Y-m-d') }}" >
-                  @endif
+               
+              <td>
+                <input class="" type="number" form="add_billings" step="0.001" name="previous_reading{{ $previous_reading++ }}" id="id_previous_reading{{ $id_previous_reading++ }}" value={{ $item->previous_water_reading }}>
+              </td>
+              <td>
+                <input class="" type="number" form="add_billings"step="0.001"  name="current_reading{{ $current_reading++ }}" id="id_current_reading{{ $id_current_reading++ }}" oninput="autoCompute({{ $ctr_current_reading++ }})" >
+              </td>
+              <td>
+                <input class="" type="number" form="add_billings" step="0.001" name="consumption{{ $consumption++ }}" id="id_consumption{{ $id_consumption++ }}"  required readonly>
               </td>
                 <td>
-                  <input form="add_billings" type="number" step="0.01" name="billing_amt{{ $amt_ctr++ }}" value="0" oninput="this.value = Math.abs(this.value)">
+                    <input form="add_billings" type="number" step="0.001" name="billing_amt{{ $amt_ctr++ }}" id="id_amt{{ $id_amt++ }}" value="0" required readonly>
                 </td>
+                <td colspan="2">
+                  <input form="add_billings" type="date" name="billing_start{{ $billing_start++  }}" value="{{ Carbon\Carbon::parse($updated_billing_start)->startOfMonth()->format('Y-m-d') }}" required>
+                  <input form="add_billings" type="date" name="billing_end{{ $billing_end++  }}" value="{{ Carbon\Carbon::parse($updated_billing_end)->endOfMonth()->format('Y-m-d') }}" required>
+              </td>
            </tr>
            @endforeach
         </table>
-            
-      
     </div>
     <br>
-    <p class="text-right">
-      <a href="/bills" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</a>
-      <button type="submit" form="add_billings" id="addBillsButton" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"  onclick="return confirm('Are you sure you want to perform this action?');"><i class="fas fa-check fa-sm text-white-50"></i> Add Bills</button>
-  </p>
+        <p class="text-right">
+            <a href="/bills" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm"><i class="fas fa-times"></i> Cancel</a>
+            <button type="submit" form="add_billings" id="addBillsButton" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"  onclick="return confirm('Are you sure you want to perform this action?');"><i class="fas fa-check"></i> Add Bills</button>
+        </p>
         </div>
 
       </div>
@@ -501,20 +431,23 @@
   <script src="{{ asset('/dashboard/js/demo/chart-area-demo.js') }}"></script>
   <script src="{{ asset('/dashboard/js/demo/chart-pie-demo.js') }}"></script>
 
-
   <script>
-    $(document).ready(function () {
+    function autoCompute(val) {
+      var previous_reading = 'id_previous_reading'+val;
+      var current_reading = 'id_current_reading'+val;
+      var consumption = 'id_consumption'+val;
+      var amt = 'id_amt'+val;
 
-        $("#addBilssButton").submit(function (e) {
+      var electric_rate_kwh = parseFloat(document.getElementById('electric_rate_kwh').value);
 
-            //disable the submit button
-            $("#addBillsButton").attr("disabled", true);
-         
-            return true;
-
-        });
-    });
+      var actual_consumption = document.getElementById(current_reading).value - document.getElementById(previous_reading).value;
+      
+      document.getElementById(consumption).value = parseFloat(actual_consumption,2);
+      document.getElementById(amt).value = parseFloat(actual_consumption) * electric_rate_kwh;
+     
+    }
   </script>
+
 </body>
 
 </html>

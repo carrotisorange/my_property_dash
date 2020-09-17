@@ -379,7 +379,7 @@
               <form id="billingElectricForm" action=" /bills/electric/{{ Carbon\Carbon::now()->firstOfMonth()->format('Y-m-d') }}-{{ Carbon\Carbon::now()->endOfMonth()->format('Y-m-d') }}" method="POST">
                   @csrf
               </form>
-              <form id="billingWaterForm" action="/tenants/billings" method="POST">
+              <form id="billingWaterForm" action=" /bills/water/{{ Carbon\Carbon::now()->firstOfMonth()->format('Y-m-d') }}-{{ Carbon\Carbon::now()->endOfMonth()->format('Y-m-d') }}" method="POST">
                   @csrf
               </form>
               <form id="billingSurchargeForm" action="/tenants/billings" method="POST">

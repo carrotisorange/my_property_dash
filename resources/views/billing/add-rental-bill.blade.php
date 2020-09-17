@@ -294,7 +294,7 @@
             
             <table class="table table-striped table-bordered">
             <tr>
-                <th>BILL NO</th>
+                <th>#</th>
                 <th>NAME</th>
                 <th>ROOM</th>   
                 <th>DESCRIPTION</th>

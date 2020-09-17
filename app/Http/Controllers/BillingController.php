@@ -37,6 +37,7 @@ class BillingController extends Controller
      */
     public function store(Request $request)
     {
+       
 
         $no_of_items = (int) $request->no_of_items; 
 
@@ -79,8 +80,32 @@ class BillingController extends Controller
                         'billing_desc' => $request->input('billing_desc'.$i),
                         'billing_amt' =>  $request->input('billing_amt'.$i)
                     ]);
-        
-                DB::table('tenants')
+
+                    if($request->billing_desc1 === 'Water'){
+                        DB::table('tenants')
+                        ->where('tenant_id', $request->input('billing_tenant_id'.$i))
+                        ->where('tenant_status', 'active')
+                       
+                        ->update(
+                                    [
+                                        
+                                        'previous_water_reading' => $request->input('current_reading'.$i),
+                                    ]
+                                );
+                    }elseif($request->billing_desc1 === 'Electricity'){
+                        DB::table('tenants')
+                        ->where('tenant_id', $request->input('billing_tenant_id'.$i))
+                        ->where('tenant_status', 'active')
+                        
+                        ->update(
+                                    [
+                                        
+                                        'previous_electric_reading' => $request->input('current_reading'.$i),
+                                    ]
+                                );
+                    }
+
+                    DB::table('tenants')
                     ->where('tenant_id', $request->input('billing_tenant_id'.$i))
                     ->where('tenant_status', 'active')
                     ->where('tenants_note', 'new')
@@ -89,6 +114,9 @@ class BillingController extends Controller
                                     'tenants_note' => ''
                                 ]
                             );
+                    
+        
+               
             }
             return redirect('/bills')->with('success', ($i-1).' '.$request->billing_desc1.' bills has been posted!');
         }

@@ -1614,5 +1614,37 @@ Route::post('/bills/electric/{date}', function(Request $request){
 
 });
 
+//mass update the period covered in add water bill
+Route::post('/bills/water/{date}', function(Request $request){
+
+    $updated_billing_start = $request->billing_start;
+    $updated_billing_end = $request->billing_end;
+    $water_rate_cum = $request->water_rate_cum;
+
+
+  $active_tenants = DB::table('tenants')
+  ->join('units', 'unit_id', 'unit_tenant_id')
+  ->where('unit_property', Auth::user()->property)
+  ->where('tenant_status', 'active')
+  ->get();
+
+   //get the number of last added bills
+   $current_bill_no = DB::table('units')
+   ->join('tenants', 'unit_id', 'unit_tenant_id')
+   ->join('billings', 'tenant_id', 'billing_tenant_id')
+   ->where('unit_property', Auth::user()->property)
+   ->max('billing_no') + 1;
+
+   DB::table('users')
+   ->where('id', Auth::user()->id)
+   ->update([
+        'water_rate_cum' => $request->water_rate_cum
+   ]);
+
+    return view('billing.add-water-bill', compact('active_tenants','current_bill_no', 'updated_billing_start', 'updated_billing_end', 'water_rate_cum'))->with('success', 'Period covered has been changed!');
+
+});
+
+
 
 
