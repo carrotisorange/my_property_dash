@@ -523,7 +523,7 @@
                       </div>
                       <div class="col-md-6">
                         <small for="">Acknowledgment Receipt No</small>
-                        <input form="acceptPaymentForm" type="text" class="" id="" name="ar_number" value="{{ Carbon\Carbon::now()->getPreciseTimestamp(0) }}" required readonly>
+                        <input form="acceptPaymentForm" type="text" class="" id="" name="ar_number" value="{{ Carbon\Carbon::now()->getPreciseTimestamp(3) }}" required readonly>
                     </div>
                   </div>
                 
