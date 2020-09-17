@@ -756,7 +756,7 @@
                               @endforeach
                             </tbody>
                           </table>
-                          {{-- {{ $delinquent_accounts->links() }} --}}
+                          {{ $delinquent_accounts->links() }}
                         </div>
                       </div>
                     </div>

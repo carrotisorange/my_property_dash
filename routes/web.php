@@ -475,7 +475,7 @@ Route::get('/board', function(Request $request){
         // ->havingRaw('balance > 0')
         // ->get();
 
-       $delinquent_accounts = Billing::leftJoin('payments', 'billings.billing_id', '=', 'payments.payment_billing_id') 
+       $delinquent_accounts = Billing::join('payments', 'billings.billing_id', '=', 'payments.payment_billing_id') 
        ->join('tenants', 'billing_tenant_id', 'tenant_id')
        ->join('units', 'tenant_id', 'unit_tenant_id')
         ->selectRaw('*, billing_amt - IFNULL(sum(amt_paid),0) as balance')
