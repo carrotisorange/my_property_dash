@@ -46,8 +46,6 @@ class BillingController extends Controller
         ->where('tenant_status', 'active')
         ->count();
 
-        return $request->ctr;
-
         $current_bill_no = DB::table('units')
         ->join('tenants', 'unit_id', 'unit_tenant_id')
         ->join('billings', 'tenant_id', 'billing_tenant_id')
@@ -70,7 +68,7 @@ class BillingController extends Controller
             return back()->with('success', ($i-1).' bills has been posted!');
         }else{
             
-            for($i = 1; $i<=$request->ctr; $i++){
+            for($i = 1; $i<=$active_tenants; $i++){
                 DB::table('billings')->insert(
                     [
                         'billing_no' => $current_bill_no++,

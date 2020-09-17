@@ -802,13 +802,12 @@ class TenantController extends Controller
     }
 
     public function add_billings(Request $request){
-    
-        $active_tenants = DB::table('tenants')
+
+        return $active_tenants = DB::table('tenants')
             ->join('units', 'unit_id', 'unit_tenant_id')
             ->where('unit_property', Auth::user()->property)
             ->where('tenant_status', 'active')
-            ->orderBy('movein_date', 'desc')
-            ->get();
+            ->count();
 
         $delinquent_tenants = DB::table('units')
             ->selectRaw('*,sum(billing_amt) as total_bills')
