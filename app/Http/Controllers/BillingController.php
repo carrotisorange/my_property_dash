@@ -142,7 +142,7 @@ class BillingController extends Controller
          ->join('tenants', 'billing_tenant_id', 'tenant_id')
          ->join('units', 'unit_tenant_id', 'unit_id')
         ->where('unit_property', Auth::user()->property)
-        ->whereDate('billing_date', Carbon::today())
+        ->where('billing_desc', 'Rent')
         ->delete();
 
         // DB::table('billings')->where('billing_id', $billing_id)->delete();
