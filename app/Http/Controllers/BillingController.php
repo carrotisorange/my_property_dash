@@ -170,7 +170,7 @@ class BillingController extends Controller
          ->join('tenants', 'billing_tenant_id', 'tenant_id')
          ->join('units', 'unit_tenant_id', 'unit_id')
         ->where('unit_property', Auth::user()->property)
-        ->where('billing_desc', 'Water')
+        ->whereIn('billing_desc', ['Water', 'Electric'])
         ->delete();
 
         // DB::table('billings')->where('billing_id', $billing_id)->delete();
