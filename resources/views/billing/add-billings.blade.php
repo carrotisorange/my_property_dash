@@ -299,10 +299,10 @@
            @foreach($active_tenants as $item)
 
            <input type="number" form="add_billings" name="ctr" value="{{ $ctr++ }}" required>     
-
-            <input type="number" form="add_billings" name="billing_tenant_id{{ $id_ctr++ }}" value="{{ $item->tenant_id }}" required>
-
-            <input type="number" form="add_billings" name="billing_date" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}" required>
+<br>
+            <input type="hidden" form="add_billings" name="billing_tenant_id{{ $id_ctr++ }}" value="{{ $item->tenant_id }}" required>
+<br>
+            <input type="hidden" form="add_billings" name="billing_date" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}" required>
 
             <tr>
               <td>
