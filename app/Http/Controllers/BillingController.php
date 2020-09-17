@@ -138,8 +138,8 @@ class BillingController extends Controller
 
 
          return   DB::table("billings")
-        // ->join('tenants', 'billing_tenant_id', 'tenant_id')
-        // ->join('units', 'unit_tenant_id', 'unit_id')
+         ->join('tenants', 'billing_tenant_id', 'tenant_id')
+         ->join('units', 'unit_tenant_id', 'unit_id')
         ->where('unit_property', Auth::user()->property)
         ->where('billing_date', Carbon::now()->format('M d Y'))
         ->get();
