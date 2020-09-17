@@ -453,28 +453,6 @@ Route::get('/board', function(Request $request){
         ->fill(true)
         ->linetension(0.3);
 
-        
-        // $delinquent_accounts = DB::table('units')
-        // ->selectRaw('*,sum(billing_amt) as total_bills')
-        // ->join('tenants', 'unit_id', 'unit_tenant_id')
-        // ->join('billings', 'tenant_id', 'billing_tenant_id')
-        // ->where('unit_property', Auth::user()->property)
-        // ->where('billing_date', '<', Carbon::now()->startOfMonth()->addDays(7))
-        // ->groupBy('tenant_id')
-        // ->where('billing_amt','>', 0)
-        // ->orderBy('total_bills', 'desc')
-        // ->paginate(10);
-
-        //  $delinquent_accounts = DB::table('units')
-        // ->leftJoin('tenants', 'unit_id', 'unit_tenant_id')
-        // ->leftJoin('payments', 'tenant_id', 'payment_tenant_id')
-        // ->leftJoin('billings', 'payment_billing_no', 'billing_no')
-        // ->selectRaw('*, billing_amt - IFNULL(sum(amt_paid),0) as balance')
-        // ->where('unit_property', Auth::user()->property)
-        // ->groupBy('tenant_id')
-        // ->havingRaw('balance > 0')
-        // ->get();
-
        $delinquent_accounts = Billing::leftJoin('payments', 'billings.billing_id', 'payments.payment_billing_id') 
        ->leftJoin('tenants', 'billing_tenant_id', 'tenant_id')
        ->leftJoin('units', 'tenant_id', 'unit_tenant_id')
@@ -485,7 +463,6 @@ Route::get('/board', function(Request $request){
         ->orderBy('balance', 'desc')
         ->havingRaw('balance > 0')
         ->get();
-        
         
         $tenants_to_watch_out = DB::table('tenants')
         ->join('units', 'unit_id', 'unit_tenant_id')
@@ -1374,9 +1351,25 @@ Route::get('login/facebook/callback', 'Auth\LoginController@handleProviderCallba
 Route::get('sign-in/google', 'Auth\LoginController@google');
 Route::get('sign-in/google/redirect', 'Auth\LoginController@googleRedirect');
 
-Route::get('/board/search', function(){
-    return 'asdasd';
-});
+Route::get('/board/search', function(Request $request){
+    return 'to be constructed';
+
+    // $search_item = $request->search;
+
+    // $search = DB::table('units')
+    // ->join('tenants', 'unit_tenant_id', 'tenant_id')
+    // ->join('unit_owners', 'unit_owner_id', 'unit_id')
+    // ->where('unit_property', Auth::user()->property)
+
+    // ->orWhere(function ($query) {
+    //     $query->where('unit_no', 1)
+    //           ->where('first_name', 'Krisha');
+    // })
+    // ->get();
+
+    // return view('search.search-board', compact('search'));
+
+})->middleware(['auth', 'verified']);
 
 Route::put('/users/{user_id}/property', function(Request $request){
 
