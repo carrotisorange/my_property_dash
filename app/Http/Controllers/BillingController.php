@@ -37,6 +37,7 @@ class BillingController extends Controller
      */
     public function store(Request $request)
     {
+
         $no_of_items = (int) $request->no_of_items; 
 
         $active_tenants = DB::table('tenants')
@@ -67,7 +68,7 @@ class BillingController extends Controller
             return back()->with('success', ($i-1).' bills has been posted!');
         }else{
             
-            for($i = 1; $i<=$active_tenants; $i++){
+            for($i = 1; $i<=$request->ctr; $i++){
                 DB::table('billings')->insert(
                     [
                         'billing_no' => $current_bill_no++,
