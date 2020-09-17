@@ -1024,8 +1024,6 @@ class TenantController extends Controller
                 ->orderBy('ar_number', 'desc')
                 ->groupBy('payment_id')
                 ->get();
-                
-    
 
             $balance = Billing::leftJoin('payments', 'billings.billing_no', '=', 'payments.payment_billing_no')
             ->selectRaw('*, billings.billing_amt - IFNULL(sum(payments.amt_paid),0) as balance')
@@ -1046,45 +1044,11 @@ class TenantController extends Controller
                         'payment_ar' => $payment->ar_number
                     ];
 
-            $pdf = \PDF::loadView('treasury.pdf', $data)->setPaper('a4', 'portrait');
+            $pdf = \PDF::loadView('treasury.ar', $data)->setPaper('a5', 'portrait');
       
             return $pdf->download(Carbon::now().'-'.$tenant->first_name.'-'.$tenant->last_name.'-ar'.'.pdf');
     }
 
-    public function exportBills ($unit_id, $tenant_id){
-
-        $tenant = Tenant::findOrFail($tenant_id);
-
-        $unit = Unit::findOrFail($unit_id);
-
-    
-        $bills = Billing::leftJoin('payments', 'billings.billing_no', '=', 'payments.payment_billing_no')
-        ->selectRaw('*, billings.billing_amt - IFNULL(sum(payments.amt_paid),0) as balance')
-        ->where('billing_tenant_id', $tenant_id)
-        ->groupBy('billing_id')
-        ->havingRaw('balance > 0')
-        ->get();
-     
-        $data = [
-            
-            'tenant' => $tenant->first_name.' '.$tenant->last_name ,
-
-            'tenant_status' => $tenant->tenant_status,
-
-            'unit' => $unit->building.' '.$unit->unit_no,
-
-            'bills' => $bills,
-
-    ];
-
-        $pdf = \PDF::loadView('billing.pdf', $data)->setPaper('a5', 'portrait');
-  
-        return $pdf->download(Carbon::now().'-'.$tenant->first_name.'-'.$tenant->last_name.'-soa'.'.pdf');
-}
-
-    public function printGatePass($unit_id, $tenant_id){
-        return $unit_id;
-    }
 }
 
 
