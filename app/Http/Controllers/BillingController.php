@@ -38,7 +38,7 @@ class BillingController extends Controller
     public function store(Request $request)
     {
 
-        $no_of_items = (int) $request->no_of_items; 
+        return $no_of_items = (int) $request->no_of_items; 
 
         $active_tenants = DB::table('tenants')
         ->join('units', 'unit_id', 'unit_tenant_id')
