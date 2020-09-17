@@ -585,9 +585,9 @@
                                                         <td>{{ $item->property }}</td>
                                                         <td>{{ Carbon\Carbon::parse($item->session_last_login_at)->toTimeString() }}</td>
                                                         <?php  
-                                                                                      $diffInMinutes = Carbon\Carbon::parse($item->last_logout_at)->diffInMinutes();
-                                                                                      $diffInHours = Carbon\Carbon::parse($item->last_logout_at)->diffInHours();
-                                                                                      $diffInDays = Carbon\Carbon::parse($item->last_logout_at)->diffInDays()
+                                                                                      $diffInMinutes = Carbon\Carbon::parse($item->session_last_logout_at)->diffInMinutes();
+                                                                                      $diffInHours = Carbon\Carbon::parse($item->session_last_logout_at)->diffInHours();
+                                                                                      $diffInDays = Carbon\Carbon::parse($item->session_last_logout_at)->diffInDays()
                                                                                    ?>
                                                                                    <td>
                                                                                       @if($item->user_current_status === 'online')
