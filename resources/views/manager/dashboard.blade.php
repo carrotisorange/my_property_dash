@@ -645,7 +645,7 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                      <div class="card-header py-3">
-                       <h6 class="m-0 font-weight-bold text-primary">TENANTS TO WATCH OUT</h6>
+                       <h6 class="m-0 font-weight-bold text-primary">EXPIRING CONTRACTS</h6>
                          
                      </div>
                      <div class="card-body">
@@ -718,7 +718,7 @@
                     <div class="card shadow mb-3">
                       <!-- Card Header - Dropdown -->
                       <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-primary">DELINQUENTS</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">DELINQUENT TENANTS</h6>
                         
                       </div>
                       <!-- Card Body -->

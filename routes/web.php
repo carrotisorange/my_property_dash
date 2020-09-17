@@ -501,7 +501,6 @@ Route::get('/board', function(Request $request){
         ->where('actual_move_out_date', '<=', Carbon::now()->subMonths(11)->endOfMonth())
         ->where('unit_property', Auth::user()->property)
         ->where('tenant_status','inactive')
-      
         ->count();
 
         $moveout_rate_2 = DB::table('tenants')
