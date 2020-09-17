@@ -483,7 +483,7 @@ Route::get('/board', function(Request $request){
         ->groupBy('tenant_id')
         ->orderBy('balance', 'desc')
         ->havingRaw('balance > 0')
-        ->get();
+        ->paginate(10);
         
         $tenants_to_watch_out = DB::table('tenants')
         ->join('units', 'unit_id', 'unit_tenant_id')
