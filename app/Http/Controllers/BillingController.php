@@ -40,11 +40,13 @@ class BillingController extends Controller
 
         $no_of_items = (int) $request->no_of_items; 
 
-        return $active_tenants = DB::table('tenants')
+         $active_tenants = DB::table('tenants')
         ->join('units', 'unit_id', 'unit_tenant_id')
         ->where('unit_property', Auth::user()->property)
         ->where('tenant_status', 'active')
         ->count();
+
+        return $request->ctr;
 
         $current_bill_no = DB::table('units')
         ->join('tenants', 'unit_id', 'unit_tenant_id')
