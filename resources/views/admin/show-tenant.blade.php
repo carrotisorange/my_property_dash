@@ -276,11 +276,11 @@
                 <span  href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addConcern" data-whatever="@mdo"><i class="far fa-comment-dots fa-sm text-white-50"></i> Add Concern</span>  
                 @endif
                 @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'manager')
-                <a href="{{ route('show-billings',['unit_id' => $tenant->unit_tenant_id, 'tenant_id'=>$tenant->tenant_id]) }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-file-invoice-dollar fa-sm text-white-50"></i> Show Bills <span class="badge badge-light">{{ $balance->count('balance') }}</span> </a>
+                <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/billings" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-file-invoice-dollar fa-sm text-white-50"></i> Show Bills <span class="badge badge-light">{{ $balance->count('balance') }}</span> </a>
                 @endif
-                @if(Auth::user()->user_type === 'treasury' || Auth::user()->user_type === 'manager')
-                <a href="#payment-history" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-dollar-sign fa-sm text-white-50"></i> Show Payments</a>
-                @endif
+                {{-- @if(Auth::user()->user_type === 'treasury' || Auth::user()->user_type === 'manager') --}}
+                <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/payments" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-dollar-sign fa-sm text-white-50"></i> Show Payments</a>
+                {{-- @endif --}}
                 
                 @if ($tenant->tenant_status === 'inactive' && $balance->sum('balance') > 0) 
                 <span  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#moveoutTenantWarning" data-whatever="@mdo"><i class="fas fa-external-link-alt fa-sm text-white-50"></i> Extend Contract</span>

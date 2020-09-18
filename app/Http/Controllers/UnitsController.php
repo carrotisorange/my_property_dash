@@ -186,6 +186,33 @@ class UnitsController extends Controller
          return back()->with('success', $request->no_of_rooms.' rooms have been added to the property!');
      }
 
+     public function show_edit_multiple_rooms(){
+         $units = DB::table('units')->where('unit_property', Auth::user()->property)->get();
+
+        return view('units.edit-units', compact('units'));
+     }
+
+     public function post_edit_multiple_rooms(Request $request){
+        $units_count = DB::table('units')->where('unit_property', Auth::user()->property)->count();
+
+        for($i = 1; $i<=$units_count; $i++){
+            DB::table('units')
+            ->where('unit_property', Auth::user()->property)
+            ->update(
+                [
+                    'unit_no' => $request->input('unit_no'.$i),
+                    'type_of_units' => $request->input('type_of_units'.$i),
+                    'status' => $request->input('status'.$i),
+                    'building' => $request->input('building'.$i),
+                    'floor_no' => $request->input('floor_no'.$i),
+                    'max_occupancy' => $request->input('max_occupancy'.$i),
+                    'monthly_rent' => $request->input('monthly_rent'.$i),
+                ]);
+        }
+        
+
+        return redirect('/home')->with('success', $units_count.' rooms have been updated!');
+     }
 
 
     /**

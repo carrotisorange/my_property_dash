@@ -1645,6 +1645,10 @@ Route::post('/bills/water/{date}', function(Request $request){
 
 });
 
+Route::get('/units/edit/{property}', 'UnitsController@show_edit_multiple_rooms')->middleware(['auth', 'verified']);
+
+Route::post('/units/edit/{property}', 'UnitsController@post_edit_multiple_rooms')->middleware(['auth', 'verified']);
+
 
 
 
