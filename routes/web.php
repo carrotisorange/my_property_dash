@@ -1662,7 +1662,7 @@ Route::put('/units/{unit_id}/tenants/{tenant_id}/edit/img', function(Request $re
 
   $filename = Auth::user()->property.''.Carbon::now()->getPreciseTimestamp(4).'.png';
 
-    $request->tenant_img->storeAs('tenants', $filename);
+  $request->tenant_img->storeAs('public/tenants', $filename);
 
     DB::table('tenants')
     ->where('tenant_id', $tenant_id)
