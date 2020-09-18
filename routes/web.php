@@ -766,7 +766,7 @@ Route::get('/property/{property}/export', function(Request $request){
     ->where('unit_property', Auth::user()->property)
     ->whereDate('payment_created', Carbon::now())
     ->orderBy('payment_created', 'desc')
-    ->orderBy('ar_number', 'desc')
+    ->orderBy('ar_no', 'desc')
     ->groupBy('payment_id')
     ->get();
 
@@ -1157,7 +1157,7 @@ Route::get('/collections', function(){
             ->leftJoin('billings', 'payment_billing_no', 'billing_no')
             ->where('unit_property', Auth::user()->property)
             ->orderBy('payment_created', 'desc')
-            ->orderBy('ar_number', 'desc')
+            ->orderBy('ar_no', 'desc')
             ->groupBy('payment_id')
             ->get()
             ->groupBy(function($item) {

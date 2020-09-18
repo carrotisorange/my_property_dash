@@ -526,7 +526,7 @@
                       </div>
                       <div class="col-md-6">
                         <small for="">Acknowledgment Receipt No</small>
-                        <input form="acceptPaymentForm" type="text" class="" id="" name="ar_number" value="{{ $payment_ctr }}" required readonly>
+                        <input form="acceptPaymentForm" type="text" class="" id="" name="ar_no" value="{{ $payment_ctr }}" required readonly>
                     </div>
                   </div>
                 

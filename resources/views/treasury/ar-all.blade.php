@@ -45,7 +45,7 @@
             @foreach ($collections as $item)
             <tr>
                 <th>{{ $ctr++ }}</th>
-                <td>{{ $item->ar_number }}</td>
+                <td>{{ $item->ar_no }}</td>
               <td>{{ $item->payment_billing_no }}</td>
             
               <td>{{ $item->billing_desc }}</td>

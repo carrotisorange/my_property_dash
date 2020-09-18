@@ -390,7 +390,7 @@
                   @foreach ($collection_list as $item)
                   <tr>
                    
-                          <td>{{ $item->ar_number }}</td>
+                          <td>{{ $item->ar_no }}</td>
                           <td>{{ $item->payment_billing_no }}</td>
                             <td>{{ $item->building.' '.$item->unit_no }}</td> 
                            <td>{{ $item->billing_desc }}</td> 

@@ -32,7 +32,7 @@ class PaymentController extends Controller
         ->where('unit_property', Auth::user()->property)
         ->where('payment_created', $search)
         ->orderBy('payment_created', 'desc')
-        ->orderBy('ar_number', 'desc')
+        ->orderBy('ar_no', 'desc')
         ->groupBy('payment_id')
         ->get()
         ->groupBy(function($item) {
@@ -68,7 +68,9 @@ class PaymentController extends Controller
             ->join('tenants', 'unit_id', 'unit_tenant_id')
             ->join('payments', 'tenant_id', 'payment_tenant_id')
             ->where('unit_property', Auth::user()->property)
-            ->max('ar_number') + 1;
+            ->max('ar_no') + 1;
+
+
 
         //add all the payment to the database.
         for($i = 1; $i<$no_of_payments; $i++){
@@ -80,8 +82,7 @@ class PaymentController extends Controller
                     'payment_billing_id' => $explode[1],
                     'amt_paid' => $request->input('amt_paid'.$i),
                     'payment_created' => $request->payment_created,
-                    'or_number' => $request->or_number,
-                    'ar_number' => $payment_ctr,
+                    'ar_no' => $payment_ctr,
                     'bank_name' => $request->input('bank_name'.$i),
                     'form_of_payment' => $request->input('form_of_payment'.$i),
                     'check_no' => $request->input('cheque_no'.$i),

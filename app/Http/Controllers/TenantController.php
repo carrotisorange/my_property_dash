@@ -400,8 +400,7 @@ class TenantController extends Controller
             ->join('tenants', 'unit_id', 'unit_tenant_id')
             ->join('payments', 'tenant_id', 'payment_tenant_id')
             ->where('unit_property', Auth::user()->property)
-            ->max('ar_number') + 1;
-            
+            ->max('ar_no') + 1;
             
 
             //get the number of last added bills
@@ -457,7 +456,7 @@ class TenantController extends Controller
         ->leftJoin('billings', 'payment_billing_no', 'billing_no')
         ->where('tenant_id', $tenant_id)
         ->orderBy('payment_created', 'desc')
-        ->orderBy('ar_number', 'desc')
+        ->orderBy('ar_no', 'desc')
         ->groupBy('payment_id')
         ->get()
         ->groupBy(function($item) {
@@ -1022,7 +1021,7 @@ class TenantController extends Controller
                 ->where('tenant_id', $tenant_id)
                 ->where('payment_created', $payment_created)
                 ->orderBy('payment_created', 'desc')
-                ->orderBy('ar_number', 'desc')
+                ->orderBy('ar_no', 'desc')
                 ->groupBy('payment_id')
                 ->get();
 
@@ -1042,7 +1041,7 @@ class TenantController extends Controller
                         'collections' => $collections,
                         'balance' => $balance,
                         'payment_date' => $payment->payment_created,
-                        'payment_ar' => $payment->ar_number
+                        'payment_ar' => $payment->ar_no
                     ];
 
             $pdf = \PDF::loadView('treasury.ar', $data)->setPaper('a5', 'portrait');
