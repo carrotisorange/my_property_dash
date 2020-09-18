@@ -759,7 +759,7 @@ Route::get('/units/{unit_id}/tenants/{tenant_id}/payments/{payment_id}/dates/{pa
 
 
 Route::get('/property/{property}/export', function(Request $request){
-     $collections = DB::table('units')
+    $collections = DB::table('units')
     ->leftJoin('tenants', 'unit_id', 'unit_tenant_id')
     ->leftJoin('payments', 'tenant_id', 'payment_tenant_id')
     ->leftJoin('billings', 'payment_billing_no', 'billing_no')
@@ -769,6 +769,15 @@ Route::get('/property/{property}/export', function(Request $request){
     ->orderBy('ar_number', 'desc')
     ->groupBy('payment_id')
     ->get();
+
+    $data = [
+        'collections' => $collections,
+    ];
+
+$pdf = \PDF::loadView('treasury.ar-all', $data)->setPaper('a5', 'portrait');
+
+return $pdf->download(Carbon::now().'-'.Auth::user()->property.'-ar'.'.pdf');
+
 
 })->middleware(['auth', 'verified']);
 
@@ -1558,7 +1567,7 @@ Route::get('/logins', function(){
      });
 
     return view('logins', compact('sessions'));
-});
+})->middleware(['auth', 'verified']);
 
 //mass update the period covered in add monthly rent
 Route::post('/bills/rent/{date}', function(Request $request){
@@ -1581,7 +1590,7 @@ Route::post('/bills/rent/{date}', function(Request $request){
 
     return view('billing.add-rental-bill', compact('active_tenants','current_bill_no', 'updated_billing_start', 'updated_billing_end'))->with('success', 'Period covered has been changed!');
 
-});
+})->middleware(['auth', 'verified']);
 
 //mass update the period covered in add electric bill
 Route::post('/bills/electric/{date}', function(Request $request){
@@ -1612,7 +1621,7 @@ Route::post('/bills/electric/{date}', function(Request $request){
 
     return view('billing.add-electric-bill', compact('active_tenants','current_bill_no', 'updated_billing_start', 'updated_billing_end', 'electric_rate_kwh'))->with('success', 'Period covered has been changed!');
 
-});
+})->middleware(['auth', 'verified']);
 
 //mass update the period covered in add water bill
 Route::post('/bills/water/{date}', function(Request $request){
@@ -1643,7 +1652,28 @@ Route::post('/bills/water/{date}', function(Request $request){
 
     return view('billing.add-water-bill', compact('active_tenants','current_bill_no', 'updated_billing_start', 'updated_billing_end', 'water_rate_cum'))->with('success', 'Period covered has been changed!');
 
-});
+})->middleware(['auth', 'verified']);
+
+Route::put('/units/{unit_id}/tenants/{tenant_id}/edit/img', function(Request $request, $unit_id,$tenant_id){
+
+    $request->validate([
+        'tenant_img' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+    ]);
+
+  $filename = Auth::user()->property.''.Carbon::now()->getPreciseTimestamp(4).'.png';
+
+    $request->tenant_img->storeAs('tenants', $filename);
+
+    DB::table('tenants')
+    ->where('tenant_id', $tenant_id)
+    ->update(
+            [
+                'tenant_img' => $filename
+            ]   
+        );
+
+    return back()->with('success', 'Tenant image has been updated!');
+})->middleware(['auth', 'verified']);
 
 Route::get('/units/edit/{property}', 'UnitsController@show_edit_multiple_rooms')->middleware(['auth', 'verified']);
 

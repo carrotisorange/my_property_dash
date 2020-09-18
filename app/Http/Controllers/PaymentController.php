@@ -132,7 +132,8 @@ class PaymentController extends Controller
                 //send welcome email to the tenant
                 Mail::send('emails.user-generated-mail', $data, function($message) use ($data){
                 $message->to($data['email']);
-                $message->subject('Welcome Message');
+             
+                $message->subject('Welcome Tenant');
             });
             }
            

@@ -313,15 +313,17 @@
             
             <br>
 
+            <div class="row">
+              <div class="col-md-8">
               <!-- DataTales Example -->
-            <div class="card shadow mb-4">
+              <div class="card shadow mb-4">
                 <div class="card-header py-3">
                   <h6 class="m-0 font-weight-bold text-primary">TENANT INFORMATION</h6>
                 </div>
                 <div class="card-body">
                  
                   <div class="table-responsive text-nowrap">
-                    <table class="table table-striped" >
+                    <table class="table" >
         
                              <input type="hidden" value="{{ ($tenant->updated_at) }}" id="approve_moveout_at"> 
                          
@@ -358,9 +360,7 @@
                               <td>Address</td>
                               <td>{{ $tenant->barangay.', '.$tenant->city.', '.$tenant->province.', '.$tenant->country.', '.$tenant->zip_code }}</td>
                           </tr>
-                          <tr>
-                              <th colspan="2">CONTACT INFORMATION</th>
-                          </tr>
+                      
                           <tr>
                               <td>Contact No</td>
                               <td>{{ $tenant->contact_no }}</td>
@@ -369,125 +369,157 @@
                               <td>Email Address</td>
                               <td>{{ $tenant->email_address }}</td>
                           </tr>
-                          <tr>
-                              <th colspan="2">PERSON TO CONTACT IN CASE OF EMERGENCY</th>
               
-                          </tr>
-                          <tr>
-                              <td>Name</td>
-                              <td>{{ $tenant->guardian }}</td>
-                          </tr>
-                          <tr>
-                              <td>Relationship with the tenant</td>
-                              <td>{{ $tenant->guardian_relationship }}</td>
-                          </tr>
-                          <tr>
-                              <td>Contact No</td>
-                              <td>{{ $tenant->guardian_contact_no }}</td>
-                          </tr>
-                          <tr>
-                            <th colspan="2">EDUCATIONAL BACKGROUND</th>
-                        </tr>
-                          <tr>
-                              <td>High School</td>
-                              <td>{{ $tenant->high_school.', '.$tenant->high_school_address }}</td>
-                          </tr>
-                          <tr>
-                              <td>College/University</td>
-                              <td>{{ $tenant->college_school.', '.$tenant->college_school_address }}</td>
-                          </tr>
-                          <tr>
-                              <td>Course/Year</td>
-                              <td>{{ $tenant->course.', '.$tenant->year_level }}</td>
-                          </tr>
-                        
-                          <tr>
-                            <th colspan="2">EMPLOYMENT BACKGROUND</th>
-            
-                        </tr>
-                          <tr>
-                              <td>Employer</td>
-                              <td>{{ $tenant->employer}}</td>
-                          </tr>
-                          <tr>
-                              <td>Address</td>
-                              <td>{{ $tenant->employer_address }}</td>
-                          </tr>
-                          <tr>
-                              <td>Contact No</td>
-                              <td>{{ $tenant->employer_contact_no }}</td>
-                          </tr>
-              
-                          <tr>
-                              <td>Job description</td>
-                              <td>{{ $tenant->job }}</td>
-                          </tr>
-                          <tr>
-                              <td>Years of employment</td>
-                              <td>{{ $tenant->years_of_employment }}</td>
-                          </tr>
-                          <tr>
-                            <th colspan="2">CONTRACT INFORMATION</th>
-                        </tr>
-                          <tr>
-                              <td>Monthly Rent</td>
-                              <td>{{ number_format($tenant->tenant_monthly_rent, 2) }}</td>
-                          </tr>
-                          <?php 
-                              $renewal_history = explode(",", $tenant->renewal_history); 
-                              $diffInDays =  number_format(Carbon\Carbon::now()->DiffInDays(Carbon\Carbon::parse($tenant->moveout_date), false))
-                          ?>
-                          <tr>
-                              <td>Current Contract Period</td>
-                              <td>{{ Carbon\Carbon::parse($tenant->movein_date)->format('M d Y').'-'.Carbon\Carbon::parse($tenant->moveout_date)->format('M d Y') }} 
-                                @if( $tenant->has_extended === 'renewed')
-                                <span class="badge badge-primary">{{ $tenant->has_extended}} 
-                                 
-                                 ({{ count($renewal_history)-1 }}x) 
-                               </span>  
-                                @endif
-                               @if($tenant->tenant_status === 'pending')
-                               @else
-                                  @if($diffInDays <= -1)
-                                  <span class="badge badge-danger">contract has lapsed {{ $diffInDays*-1 }} days ago</span> 
-                                  @else
-                                  <span class="badge badge-warning">contract expires in {{ $diffInDays }} days </span>
-                                  @endif
-                               @endif
-                              </td>
-                          </tr>
-                          <tr>
-                              <td>Previous Contracts</td>
-                              <?php $numberFormatter = new NumberFormatter('en_US', NumberFormatter::ORDINAL) ?>
-                              <td>
-                                  @for ($i = 1; $i < count($renewal_history); $i++)
-                                    @if($i<=0)
-                                    @else
-                                      {{ $numberFormatter->format($i-1) .' renewal: '.$renewal_history[$i] }}<br>
-                                    @endif
-                                  @endfor     
-                              </td>
-                          </tr>
-                           @if($tenant->tenant_status === 'inactive')
-                          <tr>
-                            <td>Actual Moveout Date</td>
-                            <td>
-                                {{ Carbon\Carbon::parse($tenant->actual_move_out_date)->format('M d Y') }}
-                            </td>
-                          </tr>
-                          @endif 
-                          @if($tenant->tenants_note !== 'new' )
-                          <tr>
-                              <td>Note</td>
-                              <td>
-                                  {{ $tenant->tenants_note }}
-                              </td>
-                          </tr>
-                          @endif
                       </table>
                     </div>
                 </div>
               </div>
+              </div>
+              <div class="col-md-4">
+              
+                <img  src="{{ $tenant->tenant_img? asset('/storage/tenants/'.$tenant->tenant_img): asset('/arsha/assets/img/no-image.png') }}" alt="..." class="img-thumbnail">
+               
+                <form id="uploadImageForm" action="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/edit/img" method="POST" enctype="multipart/form-data">
+                  @method('put')
+                  @csrf
+                </form>
+              <br>
+  
+                <input type="file" form="uploadImageForm" name="tenant_img" class="form-control @error('tenant_img') is-invalid @enderror">
+                @error('tenant_img')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+              @enderror
+                <br>
+               
+                <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm btn-user btn-block" form="uploadImageForm"><i class="fas fa-upload fa-sm text-white-50"></i> Upload </button>
+                {{-- <p class="text-right"><span title="upload image" href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/edit" data-toggle="modal" data-target="#uploadImageModal" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-upload fa-sm text-white-50"></i> </span></p> --}}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="table-responsive text-nowrap">
+                  <table class="table">
+                    <tr>
+                      <th colspan="2">PERSON TO CONTACT IN CASE OF EMERGENCY</th>
+                  
+                  </tr>
+                  <tr>
+                      <td>Name</td>
+                      <td>{{ $tenant->guardian }}</td>
+                  </tr>
+                  <tr>
+                      <td>Relationship with the tenant</td>
+                      <td>{{ $tenant->guardian_relationship }}</td>
+                  </tr>
+                  <tr>
+                      <td>Contact No</td>
+                      <td>{{ $tenant->guardian_contact_no }}</td>
+                  </tr>
+                  <tr>
+                    <th colspan="2">EDUCATIONAL BACKGROUND</th>
+                  </tr>
+                  <tr>
+                      <td>High School</td>
+                      <td>{{ $tenant->high_school.', '.$tenant->high_school_address }}</td>
+                  </tr>
+                  <tr>
+                      <td>College/University</td>
+                      <td>{{ $tenant->college_school.', '.$tenant->college_school_address }}</td>
+                  </tr>
+                  <tr>
+                      <td>Course/Year</td>
+                      <td>{{ $tenant->course.', '.$tenant->year_level }}</td>
+                  </tr>
+                  
+                  <tr>
+                    <th colspan="2">EMPLOYMENT BACKGROUND</th>
+                  
+                  </tr>
+                  <tr>
+                      <td>Employer</td>
+                      <td>{{ $tenant->employer}}</td>
+                  </tr>
+                  <tr>
+                      <td>Address</td>
+                      <td>{{ $tenant->employer_address }}</td>
+                  </tr>
+                  <tr>
+                      <td>Contact No</td>
+                      <td>{{ $tenant->employer_contact_no }}</td>
+                  </tr>
+                  
+                  <tr>
+                      <td>Job description</td>
+                      <td>{{ $tenant->job }}</td>
+                  </tr>
+                  <tr>
+                      <td>Years of employment</td>
+                      <td>{{ $tenant->years_of_employment }}</td>
+                  </tr>
+                  <tr>
+                    <th colspan="2">CONTRACT INFORMATION</th>
+                  </tr>
+                  <tr>
+                      <td>Monthly Rent</td>
+                      <td>{{ number_format($tenant->tenant_monthly_rent, 2) }}</td>
+                  </tr>
+                  <?php 
+                      $renewal_history = explode(",", $tenant->renewal_history); 
+                      $diffInDays =  number_format(Carbon\Carbon::now()->DiffInDays(Carbon\Carbon::parse($tenant->moveout_date), false))
+                  ?>
+                  <tr>
+                      <td>Current Contract Period</td>
+                      <td>{{ Carbon\Carbon::parse($tenant->movein_date)->format('M d Y').'-'.Carbon\Carbon::parse($tenant->moveout_date)->format('M d Y') }} 
+                        @if( $tenant->has_extended === 'renewed')
+                        <span class="badge badge-primary">{{ $tenant->has_extended}} 
+                         
+                         ({{ count($renewal_history)-1 }}x) 
+                       </span>  
+                        @endif
+                       @if($tenant->tenant_status === 'pending')
+                       @else
+                          @if($diffInDays <= -1)
+                          <span class="badge badge-danger">contract has lapsed {{ $diffInDays*-1 }} days ago</span> 
+                          @else
+                          <span class="badge badge-warning">contract expires in {{ $diffInDays }} days </span>
+                          @endif
+                       @endif
+                      </td>
+                  </tr>
+                  <tr>
+                      <td>Previous Contracts</td>
+                      <?php $numberFormatter = new NumberFormatter('en_US', NumberFormatter::ORDINAL) ?>
+                      <td>
+                          @for ($i = 1; $i < count($renewal_history); $i++)
+                            @if($i<=0)
+                            @else
+                              {{ $numberFormatter->format($i-1) .' renewal: '.$renewal_history[$i] }}<br>
+                            @endif
+                          @endfor     
+                      </td>
+                  </tr>
+                   @if($tenant->tenant_status === 'inactive')
+                  <tr>
+                    <td>Actual Moveout Date</td>
+                    <td>
+                        {{ Carbon\Carbon::parse($tenant->actual_move_out_date)->format('M d Y') }}
+                    </td>
+                  </tr>
+                  @endif 
+                  @if($tenant->tenants_note !== 'new' )
+                  <tr>
+                      <td>Note</td>
+                      <td>
+                          {{ $tenant->tenants_note }}
+                      </td>
+                  </tr>
+                  @endif
+                  </table>
+                </div>
+              </div>
+            </div>
 
               <div class="row" id="concerns-history">
                 <div class="col-md-12">
@@ -563,7 +595,7 @@
                             <h6 class="m-0 font-weight-bold text-primary">Payments</h6>            
                         </div>
                         <div class="card-body">
-                        <table class="table table-striped" table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
                 @foreach ($payments as $day => $collection_list)
                   <tr>
                       <th colspan="8">{{ Carbon\Carbon::parse($day)->addDay()->format('M d Y') }} ({{ $collection_list->count()}})</th>
@@ -1132,6 +1164,37 @@
                 </div>
             
             </div>
+
+            {{-- add/edit image of the tenant --}}
+                    {{-- Modal for warning message --}}
+        <div class="modal fade" id="uploadImageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-md" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Upload Image </h5>
+      
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+              </div>
+
+             
+              <div class="modal-body">
+               
+               
+             </div>
+             <div class="modal-footer">
+         
+               <button title="balance has to be settled before moving out." href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{  $tenant->tenant_id }}/billings" form="extendTenantForm" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-check fa-sm text-white-50"></i> Upload</button> 
+            
+           </div>
+           
+              
+            
+          </div>
+          </div>
+      
+      </div>
       </div>
       <!-- End of Main Content -->
 

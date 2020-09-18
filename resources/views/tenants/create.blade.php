@@ -357,7 +357,7 @@
                 </div>
                 <div class="col">
                     <small class="">Email <span class="text-danger">*</span></small>
-                  <input form="addTenantForm1" type="email" class="form-control" id="email_address" >
+                  <input form="addTenantForm1" type="email" class="form-control" name="email_address" id="email_address" required>
 
                   {{-- @error('email_address')
                   <span class="invalid-feedback" role="alert">

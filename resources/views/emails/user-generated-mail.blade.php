@@ -2,39 +2,41 @@
 <h3> Welcome, {{ $name }}! </h3>
 You're now officially a resident of {{ Auth::user()->property }}.
 <br><br>
-Your contract in unit {{ $unit }} starts from {{ Carbon\Carbon::parse($contract_starts_at)->format('M d Y') }} to {{ Carbon\Carbon::parse($contract_ends_at)->format('M d Y') }}.
-<br><br>
-The billing cycle starts every 1st day of the month, and if your movein date happens to be not on the first day of the month, 
-expect you're first bill to be prorated, meaning that you'll only have to pay from the date of you're movein 
-till last day of the current month.
+Your contract in unit {{ $unit }} is from {{ Carbon\Carbon::parse($contract_starts_at)->format('M d Y') }} to {{ Carbon\Carbon::parse($contract_ends_at)->format('M d Y') }}.
+Please take note that the billing cycle starts every 1st day of the month. If your movein date happens to be not on the first day of the month, then
+your first bill is prorated, which means that you'll only have to pay from the date of your movein to the last day of the current month.
 <br>
 <br>
 <b> Formula for computation of prorated rent:</b>
 <small>
     <br>
-    x = Last day of the month of your move in date.
+    x = Movein date.
     <br>
-    y = Actual move in date.
+    y = Last date of the month.
     <br>
-    z = Monthly Rent
+    z = Monthly rent
     <br>
     n = Number of days of the month of you move in.
     <br>
     =====================================
     <br>
-   <b>Prorated Rent = (( x- y ) / n ) * z  </b>
+   <b>Prorated Rent = (( y - x ) / n ) * z  </b>
 </small>
 
 <br><br>
-For the next succeeding months your rent will be Php {{ number_format($monthly_rent,2) }}except for the last month of your, which will again be prorated.
+For the succeeding months your rent will be Php {{ number_format($monthly_rent,2) }}, until the last month of your contract, which will again be prorated.
 <br><br>
-Please inform us atleast 1 month before your contract expires, otherwise your contract will be automatically extended to another month.
+<b>Extension/Moveout Process</b>
+<br>
+1. Tenant receives a 1 month notice regarding contract expiration.
+<br>
+2. Tenant responds to the email {{ Auth::user()->email }}. Otherwise, contract will be automatically extended to another month.
 <br><br>
-Thank you for choosing {{ Auth::user()->property }}. Enjoy your stay!
+Thank you for staying in {{ Auth::user()->property.' '.Auth::user()->property_type }}!
 <br>
 <br>
-<p><b>This is a system generated message, and we do not receive emails from this account, please direct all your inquiries and concerns through this email {{ Auth::user()->email }} instead. </b></p>
+<p><b>This is a system generated message, and we do not receive emails from this account. Please send all your inquiries and concerns through this email {{ Auth::user()->email }} instead. </b></p>
 <br>
 Thanks,<br>
-{{ Auth::user()->property }}
+{{ Auth::user()->property.' '.Auth::user()->property_type}}
 </p>

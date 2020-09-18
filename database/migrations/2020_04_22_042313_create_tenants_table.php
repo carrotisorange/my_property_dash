@@ -68,6 +68,8 @@ class CreateTenantsTable extends Migration
 
             $table->timestamps();
 
+         
+
             $table->foreign('unit_tenant_id')->references('unit_id')
                 ->on('units');
         });
