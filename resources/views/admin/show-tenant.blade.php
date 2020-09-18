@@ -587,7 +587,7 @@
                 </div>
             </div>
 
-            <!-- start -->
+            {{-- <!-- start -->
             <div class="row" id="payment-history">
                 <div class="col-md-12">
                     <div class="card shadow mb-4">
@@ -620,16 +620,9 @@
                           <td class="text-right">{{ number_format($item->amt_paid,2) }}</td>
                           <td class="text-center">
                             <a title="export pdf" target="_blank" href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/payments/{{ $item->payment_id }}/dates/{{$item->payment_created}}/export" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i></a>
-                            {{-- <a target="_blank" href="#" title="print invoice" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-print fa-sm text-white-50"></i></a> 
-                            --}}
+                            
                           </td>
-                          {{-- <td>
-                              <form action="/payments/{{ $item->payment_id }}" method="POST">
-                                  @method('delete')
-                                  @csrf
-                                  <button type="submit" class="btn btn-danger">Delete</button>
-                              </form>
-                          </td> --}}
+                     
                       </tr>
                   @endforeach
                       <tr>
@@ -644,7 +637,7 @@
                         </div>
                     </div>    
                 </div>
-            </div>
+            </div> --}}
 
           <!-- end -->
         </div>

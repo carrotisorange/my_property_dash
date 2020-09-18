@@ -396,12 +396,12 @@ class TenantController extends Controller
             $room = Unit::findOrFail($unit_id);
     
             //get the ar number
-            // $payment_ctr = DB::table('units')
-            // ->join('tenants', 'unit_id', 'unit_tenant_id')
-            // ->join('payments', 'tenant_id', 'payment_tenant_id')
-            // ->where('unit_property', Auth::user()->property)
-            // ->latest('ar_number')
-            // ->value('ar_number');
+            $payment_ctr = DB::table('units')
+            ->join('tenants', 'unit_id', 'unit_tenant_id')
+            ->join('payments', 'tenant_id', 'payment_tenant_id')
+            ->where('unit_property', Auth::user()->property)
+            ->max('ar_number') + 1;
+            
             
 
             //get the number of last added bills
@@ -432,7 +432,7 @@ class TenantController extends Controller
             ->havingRaw('balance > 0')
             ->get();
 
-            return view('billing.show-billings', compact('current_bill_no','tenant','payments', 'room', 'balance'));  
+            return view('billing.show-billings', compact('current_bill_no','tenant','payments', 'room', 'balance','payment_ctr'));  
         }else{
             return view('unregistered');
         }
