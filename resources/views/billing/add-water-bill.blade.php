@@ -269,9 +269,9 @@
                 <form id="periodCoveredForm" action="/bills/water/{{ Carbon\Carbon::parse($updated_billing_start)->format('Y-m-d') }}-{{ Carbon\Carbon::parse($updated_billing_end)->format('Y-m-d') }}/" method="POST">
                   @csrf
                   Period Covered 
-                  <input form="periodCoveredForm" type="date" name="billing_start" value="{{ Carbon\Carbon::parse($updated_billing_start)->format('Y-m-d') }}" required>
-                  <input form="periodCoveredForm" type="date" name="billing_end" value="{{ Carbon\Carbon::parse($updated_billing_end)->format('Y-m-d') }}" required>
-                  Current Water Rate/CUM <input form="periodCoveredForm" type="number" name="water_rate_cum" id="electric_rate_kwh" step="0.001" value="{{ $water_rate_cum? $water_rate_cum : Auth::user()->water_rate_cum }}" required oninput="autoCompute()">
+                  <input form="periodCoveredForm" type="date" name="billing_start" value="{{ Carbon\Carbon::parse($updated_billing_start)->startOfMonth()->format('Y-m-d') }}" required>
+                  <input form="periodCoveredForm" type="date" name="billing_end" value="{{ Carbon\Carbon::parse($updated_billing_end)->endOfMonth()->format('Y-m-d') }}" required>
+                  Current Water Rate/CUM <input form="periodCoveredForm" type="number" name="water_rate_cum" id="water_rate_cum" step="0.001" value="{{ $water_rate_cum? $water_rate_cum : Auth::user()->water_rate_cum }}" required oninput="autoCompute()">
                   <button form="periodCoveredForm" type="submit" id="addBillsButton" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" ><i class="fas fa-check"></i> Change</button>
                 </form>
                 

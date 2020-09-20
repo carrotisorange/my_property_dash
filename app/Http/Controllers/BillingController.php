@@ -68,9 +68,10 @@ class BillingController extends Controller
             }
             return back()->with('success', ($i-1).' bills has been posted!');
         }else{
-            
+          $no_of_billed = 1;
             for($i = 1; $i<=$active_tenants; $i++){
-            //    if($request->input('billing_amt'.$i) > 1){
+               if($request->input('billing_amt'.$i) > 0){
+                $no_of_billed++;
                 DB::table('billings')->insert(
                     [
                         'billing_no' => $current_bill_no++,
@@ -118,9 +119,9 @@ class BillingController extends Controller
                     
         
                
-            //    }
+               }
             }
-            return redirect('/bills')->with('success', ($i-1).' '.$request->billing_desc1.' bills has been posted!');
+            return redirect('/bills')->with('success', ($no_of_billed-1).' '.$request->billing_desc1.' bills has been posted!');
         }
     }
 
