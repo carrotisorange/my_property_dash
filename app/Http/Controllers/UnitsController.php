@@ -193,11 +193,12 @@ class UnitsController extends Controller
      }
 
      public function post_edit_multiple_rooms(Request $request){
-        $units_count = DB::table('units')->where('unit_property', Auth::user()->property)->count();
 
+         $units_count = DB::table('units')->where('unit_property', Auth::user()->property)->count();
+         
         for($i = 1; $i<=$units_count; $i++){
             DB::table('units')
-            ->where('unit_property', Auth::user()->property)
+            ->where('unit_id', $request->input('unit_id'.$i))
             ->update(
                 [
                     'unit_no' => $request->input('unit_no'.$i),

@@ -556,7 +556,7 @@
           <div class="form-group">
               <small >Enter the name of the building for the rooms</small>
               <input form="addUMultipleUnitForm" type="text" class="form-control" name="building" placeholder="ex. Building A, Building 1">
-              {{-- <small class="text-danger">please put a hyphen (-) between spaces</small> --}}
+              
           </div>
 
           <div class="form-group">
@@ -593,7 +593,7 @@
 
           
               <div class="form-group">
-                <small>Enter the max occupant of the rooms</small>
+                <small>Enter the number of occupant of the rooms</small>
                 <input form="addUMultipleUnitForm" type="number" value="1" min="0"  class="form-control" name="max_occupancy">
             </div>
        

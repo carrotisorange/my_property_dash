@@ -73,6 +73,7 @@
                                                     <tbody> 
                                                         <?php 
                                                             $ctr = 1;
+                                                            $unit_id = 1;
                                                             $unit_no = 1;
                                                             $type_of_units = 1;
                                                             $status =1;
@@ -84,13 +85,52 @@
                                                         @foreach ($units as $item)
                                                             <tr>
                                                                 <th> {{ $ctr++ }}</th>
-                                                                <td><input form="editUnitsForm" type="text" name="unit_no{{ $unit_no++  }}" id="" value="{{ $item->unit_no }}"></td>
-                                                                <td><input form="editUnitsForm" type="text" name="type_of_units{{ $type_of_units++  }}" id="" value="{{ $item->type_of_units }}"></td>
-                                                                <td><input form="editUnitsForm" type="text" name="status{{ $status++  }}" id="" value="{{ $item->status }}"></td>
+                                                                <td>
+                                                                  <input form="editUnitsForm" type="text" name="unit_no{{ $unit_no++  }}" id="" value="{{ $item->unit_no }}">
+                                                                  <input form="editUnitsForm" type="hidden" name="unit_id{{ $unit_id++  }}" id="" value="{{ $item->unit_id }}">
+                                                                </td>
+                                                                <td>
+                                                                  <select form="editUnitsForm" type="text" name="type_of_units{{ $type_of_units++  }}">
+                                                                    <option value="{{ $item->type_of_units }}" readonly selected class="bg-primary">{{ $item->type_of_units }}</option>
+                                                                    <option value="commercial">commercial</option>
+                                                                    <option value="residential">residential</option>
+                                                                </select>
+                                                                 
+                                                                </td>
+                                                                <td>
+                                                                  <select form="editUnitsForm" type="text" name="status{{ $status++  }}" id="" >
+                                                                    <option value="{{ $item->status }}" readonly selected class="bg-primary">{{ $item->status }}</option>
+                                                                    <option value="vacant">vacant</option>
+                                                                    <option value="occupied">occupied</option>
+                                                                    
+                                                                    <option value="reserved">reserved</option>
+                                                                </select>
+                                                                
+                                                                </td>
                                                                 <td><input form="editUnitsForm" type="text" name="building{{ $building++  }}" id="" value="{{ $item->building }}"></td>
-                                                                <td><input form="editUnitsForm" type="number" name="floor_no{{ $floor_no++  }}" id="" value="{{ $item->floor_no }}"></td>
+                                                                <td>
+                                                                  <select form="editUnitsForm" type="number" name="floor_no{{ $floor_no++ }}">
+                                                                    <option value="{{ $item->floor_no }}" readonly selected class="bg-primary">{{ $item->floor_no }}</option>
+                                                                    <option value="-5">5th basement</option>
+                                                                    <option value="-4">4th basement</option>
+                                                                    <option value="-3">3rd basement</option>
+                                                                    <option value="-2">2nd basement</option>
+                                                                    <option value="-1">1st basement</option>
+                                                                     
+                                                                      <option value="1">1st floor</option>
+                                                                      <option value="2">2nd floor</option>
+                                                                      <option value="3">3rd floor</option>
+                                                                      <option value="4">4th floor</option>
+                                                                      <option value="5">5th floor</option>
+                                                                      <option value="6">6th floor</option>
+                                                                      <option value="7">7th floor</option>
+                                                                      <option value="8">8th floor</option>
+                                                                      <option value="9">9th floor</option>
+                                                                  </select>
+                                                                 
+                                                                </td>
                                                                 <td><input form="editUnitsForm" type="number" name="max_occupancy{{ $max_occupancy++  }}" id="" value="{{ $item->max_occupancy }} "> pax</td>
-                                                                <td><input form="editUnitsForm" type="number" name="monthly_rent{{ $monthly_rent++  }}" id="" value="{{ number_format($item->monthly_rent,2) }}"></td>
+                                                                <td><input form="editUnitsForm" type="number" step="0.001" name="monthly_rent{{ $monthly_rent++  }}" id="" value="{{$item->monthly_rent }}"></td>
                                                             </tr>
                                                         @endforeach
                                                     </tbody>
@@ -100,7 +140,7 @@
                                            </div>
                                            <p class="text-right">
                                             <a href="/home" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</a>
-                                            {{-- <button type="submit" form="editUnitsForm" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"  onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;"><i class="fas fa-check fa-sm text-white-50"></i> Submit</button> --}}
+                                            <button type="submit" form="editUnitsForm" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"  onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;"><i class="fas fa-check fa-sm text-white-50"></i> Submit</button>
                                         </p>
                                          </div>
                                  
