@@ -550,7 +550,7 @@
       </div>
       <div class="modal-body">
           <form id="addUMultipleUnitForm" action="/units/add-multiple" method="POST">
-              {{ csrf_field() }}
+              @csrf
           </form>
 
           <div class="form-group">
@@ -573,7 +573,7 @@
                                     <option value="2">2nd floor</option>
                                     <option value="3">3rd floor</option>
                                     <option value="4">4th floor</option>
-                                    <option value="5">5ht floor</option>
+                                    <option value="5">5th floor</option>
                                     <option value="6">6th floor</option>
                                     <option value="7">7th floor</option>
                                     <option value="8">8th floor</option>

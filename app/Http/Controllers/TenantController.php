@@ -750,7 +750,7 @@ class TenantController extends Controller
         ->max('billing_no') + 1;
 
         //retrieve the number of dynamically created.
-       $no_of_items = (int) $request->no_of_items; 
+        $no_of_items = (int) $request->no_of_items; 
         
         // if number of rows is greater than 1
         if($no_of_items < 1){
@@ -768,7 +768,7 @@ class TenantController extends Controller
 
         }else{
             //insert all the additional charges
-            for($i = 1; $i<=$no_of_items; $i++){
+            for($i = 1; $i<$no_of_items; $i++){
                 DB::table('billings')->insert(
                     [
                         'billing_tenant_id' => $request->tenant_id,
