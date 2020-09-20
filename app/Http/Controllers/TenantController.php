@@ -992,7 +992,12 @@ class TenantController extends Controller
 
         //web unit status to occupied.
          DB::table('units')->where('unit_id', $request->unit_id)
-             ->update(['status'=> 'reserved']);
+             ->update(
+                        [
+                            'status'=> 'reserved',
+                            'monthly_rent' => $request->tenant_monthly_rent,
+                        ]
+                    );
 
         return redirect($request->unit_property.'/units/'.$request->unit_id.'/tenants/'.$tenant_id.'/reserved')->with('success', 'Your reservation has been successfully recorded!');
     }
