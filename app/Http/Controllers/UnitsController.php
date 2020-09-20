@@ -186,10 +186,21 @@ class UnitsController extends Controller
          return back()->with('success', $request->no_of_rooms.' rooms have been added to the property!');
      }
 
-     public function show_edit_multiple_rooms(){
-         $units = DB::table('units')->where('unit_property', Auth::user()->property)->get();
+     public function show_edit_multiple_rooms($property){
 
-        return view('units.edit-units', compact('units'));
+        if($property === Auth::user()->property){
+            $units = DB::table('units')
+            ->where('unit_property', Auth::user()->property)
+            ->orderBy('floor_no', 'asc')
+            ->orderBy('unit_no', 'asc')
+            ->get();
+    
+            return view('units.edit-units', compact('units'));
+        }else{
+            return view('unregistered');
+        }
+        
+ 
      }
 
      public function post_edit_multiple_rooms(Request $request){

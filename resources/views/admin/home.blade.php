@@ -363,8 +363,8 @@
                  @if(Auth::user()->user_type === 'manager')
                  <p>
                   <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addMultipleUnits" data-whatever="@mdo"><i class="fas fa-plus fa-sm text-white-50"></i> Add Rooms</a>
-                  <a href="/units/edit/{{ Auth::user()->property }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" ><i class="fas fa-edit fa-sm text-white-50"></i> Edit Rooms</a>
-                  <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm" data-toggle="modal" data-target="#addMultipleUnits" data-whatever="@mdo"><i class="fas fa-trash-alt fa-sm text-white-50"></i> Delete Rooms</a>
+                  <a href="/units/edit/{{ Auth::user()->property }}/{{ Carbon\Carbon::now()->getTimestamp() }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" ><i class="fas fa-edit fa-sm text-white-50"></i> Edit Rooms</a>
+                  {{-- <a href="/units/delete/{{ Auth::user()->property }}" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm" data-toggle="modal" data-target="#addMultipleUnits" data-whatever="@mdo"><i class="fas fa-trash-alt fa-sm text-white-50"></i> Delete Rooms</a> --}}
                  </p>
                  @endif
                 </div>

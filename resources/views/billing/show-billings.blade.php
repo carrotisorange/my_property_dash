@@ -411,14 +411,14 @@
                   @foreach ($balance as $item)
                   <tr>
                     <td>
-                      @if(Auth::user()->user_type === 'manager')
+                    
 
                       {{-- <form action="/tenants/{{ $item->billing_tenant_id }}/billings/{{ $item->billing_id }}" method="POST">
                         @csrf
                         @method('delete')
                         <button title="remove this bill" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"  onclick="return confirm('Are you sure you want perform this action?');"><i class="fas fa-times fa-sm text-white-50"></i></button>
                       </form> --}}
-                      @endif
+                    
                     </td>   
                       <td>{{ $item->billing_no }}</td>
               

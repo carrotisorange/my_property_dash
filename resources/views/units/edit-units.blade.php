@@ -67,7 +67,7 @@
                                                             <th>Floor No</th>
                                                             <th>Max Occupancy</th>
                                                             <th>Monthly Rent</th>
-
+                                                            <th></th>
                                                         </tr>
                                                     </thead>
                                                     <tbody> 
@@ -131,17 +131,26 @@
                                                                 </td>
                                                                 <td><input form="editUnitsForm" type="number" name="max_occupancy{{ $max_occupancy++  }}" id="" value="{{ $item->max_occupancy }} "> pax</td>
                                                                 <td><input form="editUnitsForm" type="number" step="0.001" name="monthly_rent{{ $monthly_rent++  }}" id="" value="{{$item->monthly_rent }}"></td>
+                                                                <td>
+                                                                  <form action="/units/{{ $item->unit_id }}" method="POST">
+                                                                    @csrf
+                                                                    @method('delete')
+                                                                    <button title="remove this bill" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"  onclick="return confirm('Are you sure you want perform this action?');"><i class="fas fa-times fa-sm text-white-50"></i></button>
+                                                                  </form> 
+                                                                </td>
                                                             </tr>
                                                         @endforeach
                                                     </tbody>
                                                   
                                               </table>
                                                </div>
+                                               <br>
+                                               <p class="text-right">
+                                                <a href="/home" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</a>
+                                                <button type="submit" form="editUnitsForm" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"  onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;"><i class="fas fa-check fa-sm text-white-50"></i> Save Changes</button>
+                                            </p>
                                            </div>
-                                           <p class="text-right">
-                                            <a href="/home" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</a>
-                                            <button type="submit" form="editUnitsForm" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"  onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;"><i class="fas fa-check fa-sm text-white-50"></i> Submit</button>
-                                        </p>
+                                           
                                          </div>
                                  
                                              </div>

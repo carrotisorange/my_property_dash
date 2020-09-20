@@ -1677,9 +1677,7 @@ Route::put('/units/{unit_id}/tenants/{tenant_id}/edit/img', function(Request $re
     return back()->with('success', 'Tenant image has been updated!');
 })->middleware(['auth', 'verified']);
 
-Route::get('/units/edit/{property}', 'UnitsController@show_edit_multiple_rooms')->middleware(['auth', 'verified']);
-
-Route::post('/units/edit/{property}', 'UnitsController@post_edit_multiple_rooms')->middleware(['auth', 'verified']);
+Route::get('/units/edit/{property}/{date}', 'UnitsController@show_edit_multiple_rooms')->middleware(['auth', 'verified']);
 
 
 
