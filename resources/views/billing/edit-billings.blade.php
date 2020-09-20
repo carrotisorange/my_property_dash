@@ -321,7 +321,7 @@
                         <input type="date" name="" value="{{ $item->billing_start? Carbon\Carbon::parse($item->billing_start)->format('Y-m-d') : null}}"> -
                         <input type="date" name="" value="{{ $item->billing_end? Carbon\Carbon::parse($item->billing_end)->format('Y-m-d') : null }}">
                       </td>
-                      <td class="text-right" colspan="3"><input type="number" name="" value="{{ number_format($item->balance,2) }}"></td>
+                      <td class="text-right" colspan="3"><input type="number" name="" value="{{  $item->balance }}"></td>
                              </tr>
                   @endforeach
             
