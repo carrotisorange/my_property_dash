@@ -60,15 +60,13 @@
    
                @else
                <tr>
-                 <th class="text-danger">Total On Due Date(+10%)</th>
+                 <th class="text-danger">Total After Due Date(+10%)</th>
                  <th class="text-right text-danger" colspan="4">{{ number_format($bills->sum('balance') + ($bills->sum('balance') * .1) ,2) }}</th>
                 </tr>
                @endif  
         
           </table>
   
-         
-        
           <span>
             <pre>
               {{ Auth::user()->note }}
@@ -76,12 +74,6 @@
             </pre>
           </span>
           
-{{--           
-            <b>Posted by:</b> 
-            <br>
-            {{ ucfirst(Auth::user()->user_type).' of '. Auth::user()->property }} --}}
-          
-
 
 </body>
 

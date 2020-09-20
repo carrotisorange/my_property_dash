@@ -367,7 +367,7 @@
           @endif
         
           @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'manager')
-          <a href="#" data-toggle="modal" data-target="#addBill" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Add Bill</a>
+          <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/billings/edit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-edit fa-sm text-gray-50"></i> Edit Bills</a>
           @endif
 
             @if(Auth::user()->user_type === 'treasury' || Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'billing')
@@ -394,7 +394,9 @@
                 <b>Room:</b> {{ $room->building.' '.$room->unit_no }}</b>
                
               </p>
-              <p class="text-right">Statement of Accounts  <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/billings/edit"><i class="fas fa-edit fa-sm text-gray-50"></i> Edit Bills</a></p>
+              <p class="text-right">Statement of Accounts  
+               
+              </p>
               <div class="table-responsive text-nowrap">
                 <table class="table">
                   <tr>
@@ -432,14 +434,14 @@
               </table>
               <table class="table">
                 <tr>
-                 <th>TOTAL AMOUNT PAYABLE</th>
+                 <th>Total</th>
                  <th class="text-right">{{ number_format($balance->sum('balance'),2) }} </th>
                 </tr>
                 @if($tenant->tenant_status === 'pending')
 
                 @else
                  <tr>
-                  <th class="text-danger">TOTAL AMOUNT PAYABLE AFTER DUE DATE (+10%)</th>
+                  <th class="text-danger">Total After Due Date(+10%)</th>
                   <th class="text-right text-danger">{{ number_format($balance->sum('balance') + ($balance->sum('balance') * .1) ,2) }}</th>
                  </tr> 
                 @endif
@@ -457,12 +459,6 @@
               {{ Auth::user()->note }}       
             </pre>
 
-
-          
-          @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'manager')
-          <button data-toggle="modal" data-target="#editPaymentFooter" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" ><i class="fas fa-edit fa-sm text-white-50"></i> Edit Footer Message</button>
-          @endif
-          <br>
           <br>
           {{-- Modal for editing payment footer message --}}
         <div class="modal fade" id="editPaymentFooter" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -510,13 +506,6 @@
                   <form id="acceptPaymentForm" action="/payments" method="POST">
                   {{ csrf_field() }}
                   </form>
-           
-                  {{-- @foreach ($movein_charges as $item)
-                      <input form="acceptPaymentForm"  type="hidden" name="ctr" value="{{ $ctr++ }}">
-                      <input form="acceptPaymentForm"  type="hidden" name="desc{{ $desc++ }}" value="{{ $item->billing_desc }}">
-                      <input form="acceptPaymentForm"  type="hidden" name="billno{{ $billno++ }}" value="{{ $item->billing_no }}">
-                      <input form="acceptPaymentForm"  type="hidden" step="0.01" name="amt{{ $amt++ }}" value="{{ $item->billing_amt}}">
-                  @endforeach --}}
                   
                   <div class="row">
                       <div class="col-md-6">
@@ -587,13 +576,7 @@
             <form id="addBillForm" action="/billings/" method="POST">
                @csrf
             </form>
-            {{-- <div class="row">
-              <div class="col">
-                  <small>Bill No</small>
-                  <input type="number" form="addBillForm" class="form-control" name="billing_no" value="{{ $current_bill_no }}" required readonly>
-                
-              </div>
-            </div> --}}
+           
             <input type="hidden" form="addBillForm" name="action" value="add_move_in_charges" required>
             <input type="hidden" form="addBillForm" name="tenant_id" value="{{ $tenant->tenant_id }}" required>
             
@@ -604,20 +587,7 @@
                   <input type="date" form="addBillForm" class="" name="billing_date" value="{{ Carbon\Carbon::parse($tenant->movein_date)->format('Y-m-d') }}" required >
               </div>
             </div>
-            {{-- <div class="row">
-              <div class="col">
-                  <small>Tenant</small>
-                  <input type="text" form="addBillForm" class="form-control" name="tenant" value="{{ $tenant->first_name.' '.$tenant->last_name }}" required readonly>
-                  <input type="hidden" form="addBillForm" class="form-control" name="billing_tenant_id" value="{{ $tenant->tenant_id }}" required readonly>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col">
-                  <small>Room</small>
-                  <input type="text" form="addBillForm" class="form-control" name="room" value="{{ $room->building.' '.$room->unit_no }}" required readonly>
-                  <input type="hidden" form="addBillForm" class="form-control" name="room_id" value="{{ $room->unit_id }}" required readonly>
-              </div>
-            </div> --}}
+           
             <br>
             <div class="row">
               <div class="col">
@@ -641,46 +611,7 @@
                 </div>
               </div>
             </div>
-            {{-- <div class="row">
-              <div class="col">
-                  <small>Description</small>
-                  <select form="addBillForm" name="billing_desc" class="form-control" required>
-                    <option value="">Please select one</option>
-                    <option value="Advance Rent">Advance Rent</option>
-                    <option value="Security Deposit (Utilities)" >Security Deposit (Utilities)</option>
-                    <option value="Security Deposit (Rent)" >Security Deposit (Rent)</option>
-                    <option value="General Cleaning" >General Cleaning</option>
-                    <option value="Management Fee" >Management Fee</option>
-                    <option value="Rent">Rent</option>
-                    <option value="Electric">Electric</option>
-                    <option value="Water">Water</option>
-                  </select>
-              </div>
-            </div>
-            
-            <div class="row">
-              <div class="col">
-                  <small>Period Covered</small >
-                  <br>
-                  <small>From</small>
-                  {{-- <input type="date"  form="addBillForm" class="form-control" name="billing_start"> --}}
-{{--                  
-                  <input type="date"  form="addBillForm" class="form-control" name="billing_start" value="{{ Carbon\Carbon::parse($tenant->movein_date)->format('Y-m-d') }}">
-                 
-                  <small>To</small> --}}
-                  {{-- <input type="date"  form="addBillForm" class="form-control" name="billing_end"> --}}
-{{--                   
-                  <input type="date"  form="addBillForm" class="form-control" name="billing_end"  value="{{ Carbon\Carbon::parse($tenant->moveout_date)->format('Y-m-d') }}"> 
-              </div> 
-            </div>
-            <div class="row">
-              <div class="col">
-                  <small>Amount</small>
-                  <input type="number" step="0.01" form="addBillForm" class="form-control" name="billing_amt" value="{{ $tenant->tenant_monthly_rent }}" required>
-                 
-              </div> 
-            </div>--}}
-            
+           
          </div>
          <div class="modal-footer">
            {{-- <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Close</button> --}}

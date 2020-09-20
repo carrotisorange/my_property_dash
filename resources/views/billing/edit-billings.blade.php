@@ -270,11 +270,9 @@
             @endif
             @endforeach
 
-          @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'treasury')
-          <a href="/tenants/search" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> Go Back to Tenants</a>
-          @else
-          <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> Go Back to Tenant</a>
-          @endif
+          <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/billings" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> Go Back to Bills</a>
+          <a href="#" data-toggle="modal" data-target="#addBill" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Add Bill</a>
+          <button data-toggle="modal" data-target="#editPaymentFooter" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" ><i class="fas fa-edit fa-sm text-white-50"></i> Edit Footer Message</button>
         
 
           <br><br>
@@ -290,6 +288,10 @@
                 <b>Room:</b> {{ $room->building.' '.$room->unit_no }}</b>
                
               </p>
+              <form id="editBillsForm" action="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/billings/edit" method="POST">
+                @csrf
+                @method('PUT')
+              </form>
               <p class="text-right">Statement of Accounts </p>
               <div class="table-responsive text-nowrap">
                 <table class="table">
@@ -302,6 +304,13 @@
                     <th class="text-right" colspan="3">Amount</th>
                     
                   </tr>
+
+                  <?php
+                    $billing_start_ctr = 1;
+                    $billing_end_ctr = 1;
+                    $billing_amt = 1;
+                    $billing_id_ctr =1;
+                  ?>
                   @foreach ($balance as $item)
                   <tr>
                     <td>
@@ -314,16 +323,17 @@
                       </form>
                       @endif
                     </td>   
-                      <td>{{ $item->billing_no }}</td>
+                      <td>{{ $item->billing_no }} <input form="editBillsForm" type="hidden" name="billing_id_ctr{{ $billing_id_ctr++ }}" value="{{ $item->billing_id }}"></td>
               
                       <td>{{ $item->billing_desc }}</td>
                       <td>
-                        <input type="date" name="" value="{{ $item->billing_start? Carbon\Carbon::parse($item->billing_start)->format('Y-m-d') : null}}"> -
-                        <input type="date" name="" value="{{ $item->billing_end? Carbon\Carbon::parse($item->billing_end)->format('Y-m-d') : null }}">
+                        <input form="editBillsForm" type="date" name="billing_start_ctr{{ $billing_start_ctr++ }}" value="{{ $item->billing_start? Carbon\Carbon::parse($item->billing_start)->format('Y-m-d') : null}}"> -
+                        <input form="editBillsForm"  type="date" name="billing_end_ctr{{ $billing_end_ctr++ }}" value="{{ $item->billing_end? Carbon\Carbon::parse($item->billing_end)->format('Y-m-d') : null }}">
                       </td>
-                      <td class="text-right" colspan="3"><input type="number" name="" value="{{  $item->balance }}"></td>
-                             </tr>
+                      <td class="text-right" colspan="3"><input form="editBillsForm" type="number" name="billing_amt_ctr{{ $billing_amt++ }}" value="{{  $item->balance }}"></td>
+                  </tr>
                   @endforeach
+                  
             
               </table>
               <table class="table">
@@ -331,19 +341,10 @@
                  <th>TOTAL AMOUNT PAYABLE</th>
                  <th class="text-right">{{ number_format($balance->sum('balance'),2) }} </th>
                 </tr>
-                @if($tenant->tenant_status === 'pending')
-
-                @else
-                 <tr>
-                  <th class="text-danger">TOTAL AMOUNT PAYABLE AFTER DUE DATE (+10%)</th>
-                  <th class="text-right text-danger">{{ number_format($balance->sum('balance') + ($balance->sum('balance') * .1) ,2) }}</th>
-                 </tr> 
-                @endif
-                 @if(Auth::user()->user_type === 'treasury' || Auth::user()->user_type === 'manager')
-                 <tr>
-                   <td colspan="2" class="text-right"><a href="#" data-toggle="modal" data-target="#acceptPayment" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Add Payment</a> </td>
-                 </tr>
-                 @endif     
+                <tr>
+                  <td colspan="2" class="text-right"><button form="editBillsForm" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;" ><i class="fas fa-check fa-sm text-white-50"></i> Save Changes</button> </td>
+                </tr>
+                  
               </table>
             </div>
             </div>
@@ -355,11 +356,7 @@
 
 
           
-          @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'manager')
-          <button data-toggle="modal" data-target="#editPaymentFooter" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" ><i class="fas fa-edit fa-sm text-white-50"></i> Edit Footer Message</button>
-          @endif
-          <br>
-          <br>
+            <br>
           {{-- Modal for editing payment footer message --}}
         <div class="modal fade" id="editPaymentFooter" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
@@ -389,85 +386,6 @@
             </div>
         
         </div>
-
-        {{-- modal for adding payments. --}}
-        
-        <div class="modal fade" id="acceptPayment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-xl" role="document">
-          <div class="modal-content">
-              <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Enter Payment Information</h5>
-              
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-              </button>
-              </div>
-              <div class="modal-body">
-                  <form id="acceptPaymentForm" action="/payments" method="POST">
-                  {{ csrf_field() }}
-                  </form>
-           
-                  {{-- @foreach ($movein_charges as $item)
-                      <input form="acceptPaymentForm"  type="hidden" name="ctr" value="{{ $ctr++ }}">
-                      <input form="acceptPaymentForm"  type="hidden" name="desc{{ $desc++ }}" value="{{ $item->billing_desc }}">
-                      <input form="acceptPaymentForm"  type="hidden" name="billno{{ $billno++ }}" value="{{ $item->billing_no }}">
-                      <input form="acceptPaymentForm"  type="hidden" step="0.01" name="amt{{ $amt++ }}" value="{{ $item->billing_amt}}">
-                  @endforeach --}}
-                  
-                  <div class="row">
-                      <div class="col-md-6">
-                          <small for="">Date</small>
-                      {{-- <input form="acceptPaymentForm" type="date" class="form-control" name="payment_created" value={{date('Y-m-d')}} required> --}}
-                      <input type="date" form="acceptPaymentForm" class="" name="payment_created" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}" required >
-                      </div>
-                      <div class="col-md-6">
-                        <small for="">Acknowledgment Receipt No</small>
-                        <input form="acceptPaymentForm" type="text" class="" id="" name="ar_no" value="{{ $payment_ctr }}" required readonly>
-                    </div>
-                  </div>
-                
-              <hr>
-
-                  <div class="row">
-                    <div class="col-md-12">
-                   
-                      <p class="text-left">
-                        <span id='delete_payment' class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-minus fa-sm text-white-50"></i> Remove Payment</span>
-                      <span id="add_payment" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" ><i class="fas fa-plus fa-sm text-white-50"></i> Add Payment</span>     
-                      </p>
-                        <div class="table-responsive text-nowrap">
-                        <table class = "table table-bordered" id="payment">
-                            <tr>
-                                <th>#</th>
-                                <th>Bill</th>
-                                <th>Amount</th>
-                                <th>Form of Payment</th>
-                                <th>Bank Name</th>
-                                <th>Cheque No</th>
-                            </tr>
-                                <input form="acceptPaymentForm" type="hidden" id="no_of_payments" name="no_of_payments" >
-                            <tr id='payment1'></tr>
-                        </table>
-                      </div>
-                    </div>
-                  </div>        
-               
-                  <input type="hidden" form="acceptPaymentForm" id="payment_tenant_id" name="payment_tenant_id" value="{{ $tenant->tenant_id }}">
-                  <input type="hidden" form="acceptPaymentForm" id="unit_tenant_id" name="unit_tenant_id" value="{{ $tenant->unit_tenant_id }}">
-                  <input type="hidden" form="acceptPaymentForm" id="tenant_status" name="tenant_status" value="{{ $tenant->tenant_status }}">
-                <hr>
-                 
-              </div>
-              <div class="modal-footer">
-                  {{-- <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button> --}}
-                  <button form="acceptPaymentForm" id ="addPaymentButton" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;" ><i class="fas fa-check fa-sm text-white-50f"></i> Submit</button>
-              </div>
-       
-          </div>
-          </div>
-
-
-      </div>
 
       <div class="modal fade" id="addBill" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl" role="document">
