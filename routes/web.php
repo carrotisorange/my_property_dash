@@ -1293,7 +1293,7 @@ Route::get('units/{unit_id}/owners/{unit_owner_id}/edit', 'UnitOwnersController@
 //routes for investors
 Route::get('/units/{unit_id}/owners/{unit_owner_id}', 'UnitOwnersController@show')->name('show-investor')->middleware(['auth', 'verified']);
 Route::post('/units', 'UnitsController@store')->middleware(['auth', 'verified']);
-Route::delete('/units/{$unit_id}', 'UnitsController@destroy')->middleware(['auth', 'verified']);
+Route::delete('/units/{unit_id}', 'UnitsController@destroy')->middleware(['auth', 'verified']);
 
 //route for searching investors
 Route::get('/owners/{unit_owner_id}', 'UnitOwnersController@search')->middleware(['auth', 'verified']);
