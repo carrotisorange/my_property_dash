@@ -437,6 +437,60 @@ class TenantController extends Controller
         }
     }
 
+    public function edit_billings($unit_id, $tenant_id){
+
+        
+        if(auth()->user()->user_type === 'billing' || auth()->user()->user_type === 'treasury' || auth()->user()->user_type === 'manager' ){
+            
+            //get the tenant information
+            $tenant = Tenant::findOrFail($tenant_id);
+
+            $room = Unit::findOrFail($unit_id);
+    
+            //get the ar number
+            $payment_ctr = DB::table('units')
+            ->join('tenants', 'unit_id', 'unit_tenant_id')
+            ->join('payments', 'tenant_id', 'payment_tenant_id')
+            ->where('unit_property', Auth::user()->property)
+            ->max('ar_no') + 1;
+            
+
+            //get the number of last added bills
+            $current_bill_no = DB::table('units')
+            ->join('tenants', 'unit_id', 'unit_tenant_id')
+            ->join('billings', 'tenant_id', 'billing_tenant_id')
+            ->where('unit_property', Auth::user()->property)
+            ->max('billing_no') + 1;
+
+            //get the move in charges
+            // $movein_charges = DB::table('billings')
+            // ->where('billing_tenant_id', $tenant_id)
+            // ->where('billing_amt','>',0)
+            // ->whereIn('billing_desc', ['Security Deposit (Utilities)', 'Security Deposit (Rent)', 'Advance Rent', 'Others', 'Management Fee', 'General Cleaning'])
+            // ->get();
+
+            //count the number of payments made
+            $payments = DB::table('payments')
+            ->where('payment_tenant_id', $tenant_id)
+            ->where('amt_paid','>',0)
+            ->count();
+
+            $balance = Billing::leftJoin('payments', 'billings.billing_id', '=', 'payments.payment_billing_id') 
+            ->selectRaw('* ,billings.billing_amt - IFNULL(sum(payments.amt_paid),0) as balance')
+            ->where('billing_tenant_id', $tenant_id)
+            ->groupBy('billing_no')
+            ->orderBy('billing_no', 'desc')
+            ->havingRaw('balance > 0')
+            ->get();
+
+            return view('billing.edit-billings', compact('current_bill_no','tenant','payments', 'room', 'balance','payment_ctr'));  
+        }else{
+            return view('unregistered');
+        }
+    }
+
+    
+
     public function show_payments($unit_id, $tenant_id){
 
         $tenant = Tenant::findOrFail($tenant_id);
