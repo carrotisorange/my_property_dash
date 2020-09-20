@@ -330,7 +330,7 @@
                         <input form="editBillsForm" type="date" name="billing_start_ctr{{ $billing_start_ctr++ }}" value="{{ $item->billing_start? Carbon\Carbon::parse($item->billing_start)->format('Y-m-d') : null}}"> -
                         <input form="editBillsForm"  type="date" name="billing_end_ctr{{ $billing_end_ctr++ }}" value="{{ $item->billing_end? Carbon\Carbon::parse($item->billing_end)->format('Y-m-d') : null }}">
                       </td>
-                      <td class="text-right" colspan="3"><input form="editBillsForm" type="number" name="billing_amt_ctr{{ $billing_amt++ }}" value="{{  $item->balance }}"></td>
+                      <td class="text-right" colspan="3"><input form="editBillsForm" type="number" name="billing_amt_ctr{{ $billing_amt++ }}" step="0.01" value="{{  $item->balance }}"></td>
                   </tr>
                   @endforeach
                   
