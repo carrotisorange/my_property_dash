@@ -191,6 +191,7 @@ class UnitsController extends Controller
         if($property === Auth::user()->property){
             $units = DB::table('units')
             ->where('unit_property', Auth::user()->property)
+            ->orderBy('building', 'asc')
             ->orderBy('floor_no', 'asc')
             ->orderBy('unit_no', 'asc')
             ->get();
