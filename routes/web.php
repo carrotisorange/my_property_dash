@@ -295,7 +295,7 @@ Route::get('/board', function(Request $request){
                                                 number_format(($all_tenants->count()-($movein_rate_10 + $movein_rate_11 + $movein_rate_12))/$units->count() * 100,2),
                                                 number_format(($all_tenants->count()-($movein_rate_11 + $movein_rate_12))/$units->count() * 100,2),
                                                 number_format(($all_tenants->count()-($movein_rate_12))/$units->count() * 100,2),
-                                                number_format(($units_occupied->count()/$units->count()) * 100,2)
+                                                number_format(($active_tenants->count()/$units->count()) * 100,2)
                                                 ])
             ->color("#858796")
             ->backgroundcolor("rgba(78, 115, 223, 0.05)")
