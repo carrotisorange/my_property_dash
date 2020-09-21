@@ -663,6 +663,7 @@
                                           <td>
                                             
                                             {{ number_format((   $item->count_units == 0 ? 0 : $item->occupied_units/$item->count_units) * 100, 2) }}%
+                                            ({{ $item->occupied_units.'/'.$item->count_units }})
                                           </td>
                                           <td>
                                             @if($item->user_type==='manager')
