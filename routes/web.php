@@ -901,7 +901,7 @@ Route::get('/users', function(){
     $properties = User::where('user_type', 'manager')
     ->leftJoin('units', 'property','unit_property')
     ->select('*','users.created_at as created_at')
-    ->selectRaw("count(building) as count_units")
+    ->selectRaw("count(unit_id) as count_units")
    
     ->selectRaw("count(case when units.status = 'occupied' then 1 end) as occupied_units")
     ->selectRaw("count(case when units.status = 'vacant' then 1 end) as vacant_units")
