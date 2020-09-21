@@ -49,7 +49,7 @@
                     {{ $item->billing_start? Carbon\Carbon::parse($item->billing_start)->format('M d Y') : null}} -
                       {{ $item->billing_end? Carbon\Carbon::parse($item->billing_end)->format('M d Y') : null }}
                   </td>
-                  <th class="text-right" >{{ number_format($item->balance,2) }}</th>
+                  <td class="text-right" >{{ number_format($item->balance,2) }}</td>
               </tr>
               @endforeach
               <tr>
