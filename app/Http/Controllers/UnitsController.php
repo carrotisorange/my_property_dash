@@ -205,6 +205,7 @@ class UnitsController extends Controller
      }
 
      public function post_edit_multiple_rooms(Request $request){
+   
 
          $units_count = DB::table('units')->where('unit_property', Auth::user()->property)->count();
          

@@ -1678,6 +1678,7 @@ Route::put('/units/{unit_id}/tenants/{tenant_id}/edit/img', function(Request $re
 })->middleware(['auth', 'verified']);
 
 Route::get('/units/edit/{property}/{date}', 'UnitsController@show_edit_multiple_rooms')->middleware(['auth', 'verified']);
+Route::put('/units/edit/{property}/{date}', 'UnitsController@post_edit_multiple_rooms')->middleware(['auth', 'verified']);
 
 
 

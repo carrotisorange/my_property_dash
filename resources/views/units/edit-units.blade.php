@@ -52,9 +52,11 @@
                                        
                                            <div class="card-body">
                                             <div class="table-responsive text-nowrap">
-                                                <form id="editUnitsForm" action="/units/edit/{{ Auth::user()->property }}" method="POST">
-                                                    
-                                                    {{ csrf_field() }}
+                                                <form id="editUnitsForm" action="/units/edit/{{ Auth::user()->property }}/{{ Carbon\Carbon::now()->getTimestamp()}}" method="POST">
+                                        
+                                                    @csrf
+                                                    @method('PUT')
+
                                                 </form>
                                                 <table class="table table-striped table-bordered">
                                                     <thead>
@@ -129,8 +131,8 @@
                                                                   </select>
                                                                  
                                                                 </td>
-                                                                <td><input form="editUnitsForm" type="number" name="max_occupancy{{ $max_occupancy++  }}" id="" value="{{ $item->max_occupancy }} "> pax</td>
-                                                                <td><input form="editUnitsForm" type="number" step="0.001" name="monthly_rent{{ $monthly_rent++  }}" id="" value="{{$item->monthly_rent }}"></td>
+                                                                <td><input form="editUnitsForm" type="number" name="max_occupancy{{ $max_occupancy++  }}" id="" min="1" value="{{ $item->max_occupancy }}"> pax</td>
+                                                                <td><input form="editUnitsForm" type="number" step="0.001" name="monthly_rent{{ $monthly_rent++  }}"  min="0" id="" value="{{$item->monthly_rent }}"></td>
                                                                 <td>
                                                                   <form action="/units/{{ $item->unit_id }}" method="POST">
                                                                     @csrf
