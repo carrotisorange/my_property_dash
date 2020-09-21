@@ -437,6 +437,10 @@
                           <small class="text-danger">Please add an email</small>
                           @endif
                         </div>
+                        <div class="col">
+                          <small for="">Monthly Rent</small>
+                          <input form="editTenantForm" class="form-control" type="number" name="tenant_monthly_rent" value="{{ $tenant->tenant_monthly_rent }}">
+                      </div>
                     </div>
                
                     <hr>
