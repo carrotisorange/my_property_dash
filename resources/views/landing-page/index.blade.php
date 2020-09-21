@@ -203,7 +203,7 @@
           <div class="col-lg-7 d-flex flex-column justify-content-center align-items-stretch  order-2 order-lg-1">
 
             <div class="content">
-              <h3>How it works?</strong></h3>
+              <h3>How it works? </strong></h3>
               <p>
                
               </p> 
@@ -331,6 +331,8 @@
               </div>
 
             </div>
+            <a href='http://www.freevisitorcounters.com'>http://freevisitorcounters.com</a> <script type='text/javascript' src='https://www.freevisitorcounters.com/auth.php?id=7180e340c80ea54a9be84bd65503abde5a674705'></script>
+            <script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/747321/t/0"></script>
 
           </div>
         </div>

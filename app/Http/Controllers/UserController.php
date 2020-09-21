@@ -181,6 +181,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
+        return $id;
       DB::table('concerns')->delete();
       return back()->with('success', 'User has been deleted!');
     }

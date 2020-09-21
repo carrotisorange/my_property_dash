@@ -279,7 +279,16 @@
                 <a title="edit profile" href="/users/{{ $user->id }}/edit">
                   <i class="fas fa-user-edit fa-fw text-gray-400"></i>
                   </a>
+                <form action="/users/{{ $user->id }}" method="POST">
+                  @csrf
+                  @method('DELETE')
+                  <a title="edit profile" href="/users/{{ $user->id }}">
+                    <i class="fas fa-user-times fa-fw text-gray-400"></i>
+                    </a>
+                </form>
+                  
                 </div>
+                
                 <!-- end -->
               
              </div>
