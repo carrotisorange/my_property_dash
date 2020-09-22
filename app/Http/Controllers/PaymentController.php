@@ -113,7 +113,7 @@ class PaymentController extends Controller
             DB::table('occupancy_rate')
                 ->insert(
                             [
-                                'occupancy_rate' => $occupied_units/$units * 100,
+                                'occupancy_rate' => ($occupied_units/$units) * 100,
                                 'occupancy_property' => Auth::user()->property,
                                 'occupancy_date' => Carbon::now()
                             ]

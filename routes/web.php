@@ -286,18 +286,18 @@ Route::get('/board', function(Request $request){
             $movein_rate->labels([Carbon::now()->subMonth(11)->format('M Y'),Carbon::now()->subMonth(10)->format('M Y'),Carbon::now()->subMonth(9)->format('M Y'),Carbon::now()->subMonth(8)->format('M Y'),Carbon::now()->subMonth(7)->format('M Y'),Carbon::now()->subMonth(6)->format('M Y'),Carbon::now()->subMonth(5)->format('M Y'),Carbon::now()->subMonth(4)->format('M Y'),Carbon::now()->subMonth(3)->format('M Y'),Carbon::now()->subMonths(2)->format('M Y'),Carbon::now()->subMonth()->format('M Y'),Carbon::now()->format('M Y')]);
             $movein_rate->dataset('Occupancy Rate: ', 'line', 
                                                 [
-                                                    DB::table('occupancy_rate')->where('occupancy_date', Carbon::today()->subMonth(11))->max('occupancy_rate'),
-                                                    DB::table('occupancy_rate')->where('occupancy_date', Carbon::today()->subMonth(10))->max('occupancy_rate'),
-                                                    DB::table('occupancy_rate')->where('occupancy_date', Carbon::today()->subMonth(9))->max('occupancy_rate'),
-                                                    DB::table('occupancy_rate')->where('occupancy_date', Carbon::today()->subMonth(8))->max('occupancy_rate'),
-                                                    DB::table('occupancy_rate')->where('occupancy_date', Carbon::today()->subMonth(7))->max('occupancy_rate'),
-                                                    DB::table('occupancy_rate')->where('occupancy_date', Carbon::today()->subMonth(6))->max('occupancy_rate'),
-                                                    DB::table('occupancy_rate')->where('occupancy_date', Carbon::today()->subMonth(5))->max('occupancy_rate'),
-                                                    DB::table('occupancy_rate')->where('occupancy_date', Carbon::today()->subMonth(4))->max('occupancy_rate'),
-                                                    DB::table('occupancy_rate')->where('occupancy_date', Carbon::today()->subMonth(3))->max('occupancy_rate'),
-                                                    DB::table('occupancy_rate')->where('occupancy_date', Carbon::today()->subMonth(2))->max('occupancy_rate'),
-                                                    DB::table('occupancy_rate')->where('occupancy_date', Carbon::today()->subMonth(1))->max('occupancy_rate'),
-                                                    DB::table('occupancy_rate')->where('occupancy_date', Carbon::today())->max('occupancy_rate'),
+                                                    DB::table('occupancy_rate')->where('occupancy_property', Auth::user()->property)->where('occupancy_date', Carbon::today()->subMonth(11))->max('occupancy_rate'),
+                                                    DB::table('occupancy_rate')->where('occupancy_property', Auth::user()->property)->where('occupancy_date', Carbon::today()->subMonth(10))->max('occupancy_rate'),
+                                                    DB::table('occupancy_rate')->where('occupancy_property', Auth::user()->property)->where('occupancy_date', Carbon::today()->subMonth(9))->max('occupancy_rate'),
+                                                    DB::table('occupancy_rate')->where('occupancy_property', Auth::user()->property)->where('occupancy_date', Carbon::today()->subMonth(8))->max('occupancy_rate'),
+                                                    DB::table('occupancy_rate')->where('occupancy_property', Auth::user()->property)->where('occupancy_date', Carbon::today()->subMonth(7))->max('occupancy_rate'),
+                                                    DB::table('occupancy_rate')->where('occupancy_property', Auth::user()->property)->where('occupancy_date', Carbon::today()->subMonth(6))->max('occupancy_rate'),
+                                                    DB::table('occupancy_rate')->where('occupancy_property', Auth::user()->property)->where('occupancy_date', Carbon::today()->subMonth(5))->max('occupancy_rate'),
+                                                    DB::table('occupancy_rate')->where('occupancy_property', Auth::user()->property)->where('occupancy_date', Carbon::today()->subMonth(4))->max('occupancy_rate'),
+                                                    DB::table('occupancy_rate')->where('occupancy_property', Auth::user()->property)->where('occupancy_date', Carbon::today()->subMonth(3))->max('occupancy_rate'),
+                                                    DB::table('occupancy_rate')->where('occupancy_property', Auth::user()->property)->where('occupancy_date', Carbon::today()->subMonth(2))->max('occupancy_rate'),
+                                                    DB::table('occupancy_rate')->where('occupancy_property', Auth::user()->property)->where('occupancy_date', Carbon::today()->subMonth(1))->max('occupancy_rate'),
+                                                    DB::table('occupancy_rate')->where('occupancy_property', Auth::user()->property)->where('occupancy_date', Carbon::today())->max('occupancy_rate'),
                                                 ]
                                 )
             ->color("#858796")
@@ -1682,6 +1682,8 @@ Route::put('/units/{unit_id}/tenants/{tenant_id}/edit/img', function(Request $re
 
 Route::get('/units/edit/{property}/{date}', 'UnitsController@show_edit_multiple_rooms')->middleware(['auth', 'verified']);
 Route::put('/units/edit/{property}/{date}', 'UnitsController@post_edit_multiple_rooms')->middleware(['auth', 'verified']);
+
+
 
 
 
