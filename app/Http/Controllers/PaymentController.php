@@ -102,7 +102,6 @@ class PaymentController extends Controller
                                 'updated_at' => Carbon::now(), 
                             ]
                         );
-            
 
             //update the occupancy rate
                

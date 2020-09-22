@@ -333,16 +333,16 @@ Route::get('/board', function(Request $request){
         $expenses_rate->displaylegend(false);
         $expenses_rate->labels([Carbon::now()->subMonth(11)->format('M Y'),Carbon::now()->subMonth(10)->format('M Y'),Carbon::now()->subMonth(9)->format('M Y'),Carbon::now()->subMonth(8)->format('M Y'),Carbon::now()->subMonth(7)->format('M Y'),Carbon::now()->subMonth(6)->format('M Y'),Carbon::now()->subMonth(5)->format('M Y'),Carbon::now()->subMonth(4)->format('M Y'),Carbon::now()->subMonth(3)->format('M Y'),Carbon::now()->subMonths(2)->format('M Y'),Carbon::now()->subMonth()->format('M Y'),Carbon::now()->format('M Y')]);
         $expenses_rate->dataset('Total collection', 'line', [
-            DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonth(11))->sum('amt'),
-            DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonth(10))->sum('amt'),
-            DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonth(9))->sum('amt'),
-            DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonth(8))->sum('amt'),
-            DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonth(7))->sum('amt'),
-            DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonth(6))->sum('amt'),
-            DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonth(5))->sum('amt'),
-            DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonth(4))->sum('amt'),
-            DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonth(3))->sum('amt'),
-            DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonth(2))->sum('amt'),
+            DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(11))->sum('amt'),
+            DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(10))->sum('amt'),
+            DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(9))->sum('amt'),
+            DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(8))->sum('amt'),
+            DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(7))->sum('amt'),
+            DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(6))->sum('amt'),
+            DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(5))->sum('amt'),
+            DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(4))->sum('amt'),
+            DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(3))->sum('amt'),
+            DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(2))->sum('amt'),
             DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonth(1))->sum('amt'),
             DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today())->sum('amt'),
                                                               
