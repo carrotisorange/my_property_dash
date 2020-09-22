@@ -227,94 +227,6 @@
               </div>
             </li> 
 
-            <!-- Nav Item - Alerts -->
-            {{--     <li class="nav-item dropdown no-arrow mx-1">
-              <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-bell fa-fw"></i>
-                <!-- Counter - Alerts -->
-                @if($request_to_moveout->count() > 3)
-                  <span class="badge badge-danger badge-counter">{{ $request_to_moveout->count() }}+</span>
-                @else
-                  <span class="badge badge-danger badge-counter">{{ $request_to_moveout->count()  }}</span>
-                @endif
-              </a>
-              <!-- Dropdown - Alerts -->
-              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
-                <h6 class="dropdown-header">
-                  Alerts Center
-                </h6>
-                @foreach($request_to_moveout as $item)
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="mr-3">
-                  <div class="icon-circle bg-warning">
-                      <i class="fas fa-exclamation-triangle text-white"></i>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="small text-gray-500">{{Carbon\Carbon::parse($item->created_at)->format('M d Y')}}</div>
-                    <span class="font-weight-bold">{{ $item->building.' '.$item->unit_no }} is requesting to moveout.</span>
-                  </div>
-                </a> 
-                @endforeach 
-                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-              </div>
-            </li>  --}}
-
-            <!-- Nav Item - Messages -->
-            {{-- <li class="nav-item dropdown no-arrow mx-1">
-              <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-envelope fa-fw"></i>
-                <!-- Counter - Messages -->
-                <span class="badge badge-danger badge-counter">7</span>
-              </a>
-              <!-- Dropdown - Messages -->
-              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
-                <h6 class="dropdown-header">
-                  Message Center
-                </h6>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="https://source.unsplash.com/fn_BT9fwg_E/60x60" alt="">
-                    <div class="status-indicator bg-success"></div>
-                  </div>
-                  <div class="font-weight-bold">
-                    <div class="text-truncate">Hi there! I am wondering if you can help me with a problem I've been having.</div>
-                    <div class="small text-gray-500">Emily Fowler · 58m</div>
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="https://source.unsplash.com/AU4VPcFN4LE/60x60" alt="">
-                    <div class="status-indicator"></div>
-                  </div>
-                  <div>
-                    <div class="text-truncate">I have the photos that you ordered last month, how would you like them sent to you?</div>
-                    <div class="small text-gray-500">Jae Chun · 1d</div>
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="https://source.unsplash.com/CS2uCrpNzJY/60x60" alt="">
-                    <div class="status-indicator bg-warning"></div>
-                  </div>
-                  <div>
-                    <div class="text-truncate">Last month's report looks great, I am very happy with the progress so far, keep up the good work!</div>
-                    <div class="small text-gray-500">Morgan Alvarez · 2d</div>
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60" alt="">
-                    <div class="status-indicator bg-success"></div>
-                  </div>
-                  <div>
-                    <div class="text-truncate">Am I a good boy? The reason I ask is because someone told me that people say this to all dogs, even if they aren't good...</div>
-                    <div class="small text-gray-500">Chicken the Dog · 2w</div>
-                  </div>
-                </a>
-                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
-              </div>
-            </li> --}}
 
             <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -330,14 +242,7 @@
                  <i class="fas fa-user-circle  fa-sm fa-fw mr-2 text-gray-400"></i>
                   Profile
                 </a>
-                {{-- <a class="dropdown-item" href="#">
-                  <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Settings
-                </a>
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Activity Log
-                </a> --}}
+               
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -351,15 +256,53 @@
         </nav>
         <!-- End of Topbar -->
         <div class="container-fluid">
+          @foreach (['danger', 'warning', 'success', 'info'] as $key)
+          @if(Session::has($key))
+         <p class="alert alert-{{ $key }}"> <i class="fas fa-check-circle"></i> {{ Session::get($key) }}</p>
+          @endif
+          @endforeach
          
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
           <h1 class="h3 mb-0 text-gray-800">Account Payables</h1>
-
-          @if(Auth::user()->user_type === 'manager')
-          <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addPayables" data-whatever="@mdo"><i class="fas fa-plus fa-sm text-white-50"></i> Add Payables</a>
-          @endif
         </div>
-        
+        <div class="row">
+          <div class="col-md-12">
+            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addPayables" data-whatever="@mdo"><i class="fas fa-plus fa-sm text-white-50"></i> Add Entry</a>
+            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addPayables" data-whatever="@mdo"><i class="fas fa-hand-holding-usd fa-sm text-white-50"></i> Request Funds</a>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="table-responsive text-nowrap">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Entry</th>
+                    <th>Added at</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php $ctr = 1; ?>
+                  @foreach ($entry as $item)
+                     <tr>
+                      <th>{{ $ctr++ }}</th>
+                      <td>{{ $item->payable_entry }}</td>
+                      <td>{{ Carbon\Carbon::parse($item->created_at)->format('M d Y') }}</td>
+                      <td> <form action="/account-payable/{{ $item->id }}/" method="POST">
+                        @csrf
+                        @method('delete')
+                        <button title="remove this entry" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"  onclick="return confirm('Are you sure you want perform this action?');"><i class="fas fa-times fa-sm text-white-50"></i></button>
+                      </form></td>
+                     </tr>
+                  @endforeach
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
     
         
         </div>
@@ -389,45 +332,34 @@
   </a>
 
   <div class="modal fade" id="addPayables" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-dialog modal-md" role="document">
     <div class="modal-content">
         <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel" >Enter payable information</h5>
+        <h5 class="modal-title" id="exampleModalLabel" >Add Entry</h5>
   
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
         </div>
         <div class="modal-body">
-          <form id="addBillForm" action="/billings/" method="POST">
+          <form id="addPayableEntryForm" action="/account-payable/add/{{ Auth::user()->property }}" method="POST">
              @csrf
           </form>
           
           <div class="row">
             <div class="col">
-                <small>Date</small>
-                <input type="date" form="addBillForm" class="form-control" name="billing_date" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}" required >
-             
-            </div>
-          </div>
-          <br>
-          <div class="row">
-            <div class="col">
            
-              <p class="text-left">
-                <span id='delete_row' class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-minus fa-sm text-white-50"></i> Remove Bill</span>
-              <span id="add_row" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Add Bill</span>     
+              <p class="text-right">
+                <span id='delete_entry' class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-minus fa-sm text-white-50"></i> Remove </span>
+              <span id="add_entry" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Add </span>     
               </p>
                 <div class="table-responsive text-nowrap">
                 <table class = "table table-bordered" id="tab_logic">
                     <tr>
-                        <th>Bill No</th>
-                        <th>Description</th>
-                        <th colspan="2">Period Covered</th>
-                        <th>Amount</th>
-                        
+                        <th>#</th>
+                        <th>Entry</th>
                     </tr>
-                        <input form="addBillForm" type="hidden" id="no_of_items" name="no_of_items" >
+                        <input form="addPayableEntryForm" type="hidden" id="no_of_entry" name="no_of_entry" >
                     <tr id='addr1'></tr>
                 </table>
               </div>
@@ -436,8 +368,8 @@
           
        </div>
         <div class="modal-footer">
-            <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button>
-            <button form="addUMultipleUnitForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;"><i class="fas fa-check"></i> Add Payables</button>
+            <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Close</button>
+            <button form="addPayableEntryForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;"><i class="fas fa-check"></i> Save</button>
             </div>
     </div>
     </div>
@@ -491,23 +423,23 @@
       $(document).ready(function(){
           var i=1;
           
-      $("#add_row").click(function(){
-          $('#addr'+i).html("<th>"+ (i) +"</th><td><select name='billing_desc"+i+"' form='addBillForm' id='billing_desc"+i+"'><option value='Security Deposit (Rent)'>Security Deposit (Rent)</option><option value='Security Deposit (Utilities)'>Security Deposit (Utilities)</option><option value='Advance Rent'>Advance Rent</option><option value='Rent'>Rent</option><option value='Electric'>Electric</option><option value='Water'>Water</option></select> <td><input form='addBillForm' name='billing_start"+i+"' id='billing_start"+i+"' type='date' value=''></td> <td><input form='addBillForm' name='billing_end"+i+"' id='billing_end"+i+"' type='date' value=''></td> <td><input form='addBillForm'   name='billing_amt"+i+"' id='billing_amt"+i+"' type='number' min='1' step='0.01' value='' required></td>");
+      $("#add_entry").click(function(){
+          $('#addr'+i).html("<th>"+ (i) +"</th><td><input class='col-md-12' form='addPayableEntryForm' name='payable_entry"+i+"' type='text'></td> ");
   
   
        $('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
        i++;
        
-       document.getElementById('no_of_items').value = i;
+       document.getElementById('no_of_entry').value = i;
   
       });
   
-      $("#delete_row").click(function(){
+      $("#delete_entry").click(function(){
           if(i>1){
           $("#addr"+(i-1)).html('');
           i--;
           
-          document.getElementById('no_of_items').value = i;
+          document.getElementById('no_of_entry').value = i;
           }
       });
     

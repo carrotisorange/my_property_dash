@@ -1084,7 +1084,12 @@ Route::get('/bills', function(){
 
 Route::get('/account-payables', function(){
     if( auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager'){
-        return view('account-payables.account-payables');
+
+       $entry = DB::table('payable_entry')
+       ->where('payable_entry_property', Auth::user()->property)
+       ->get();
+
+        return view('account-payables.account-payables', compact('entry'));
     }else{
         return view('unregistered');
     }
@@ -1553,6 +1558,28 @@ Route::put('/units/{unit_id}/tenants/{tenant_id}/edit/img', function(Request $re
 
 Route::get('/units/edit/{property}/{date}', 'UnitsController@show_edit_multiple_rooms')->middleware(['auth', 'verified']);
 Route::put('/units/edit/{property}/{date}', 'UnitsController@post_edit_multiple_rooms')->middleware(['auth', 'verified']);
+
+Route::post('/account-payable/add/{property}', function(Request $request){
+    $no_of_entry = (int) $request->no_of_entry;
+
+    for($i = 1; $i<$no_of_entry; $i++){
+        DB::table('payable_entry')->insert(
+            [
+                'payable_entry' =>  $request->input('payable_entry'.$i),
+                'payable_entry_property' => Auth::user()->property,
+                'created_at' => Carbon::now(),
+            ]);
+    }
+
+    return back()->with('success', 'Payable entry has been added!');
+});
+
+Route::delete('/account-payable/{id}', function(Request $request, $id){
+   
+    DB::table('payable_entry')->where('id', $id)->delete();
+
+    return back()->with('success', 'Payable entry has been deleted!');
+});
 
 
 
