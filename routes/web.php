@@ -351,7 +351,8 @@ Route::get('/board', function(Request $request){
                                                                        
                                                                     ]
                                 )
-    ->color("#858796");
+    ->color("#858796")
+    ->fill(false);
 
     $expenses_rate->dataset
                                 (
@@ -372,7 +373,8 @@ Route::get('/board', function(Request $request){
                                                                                                         
                                                                     ]
                                 )
-    ->color("#ff0000");
+    ->color("#ff0000")
+    ->fill(false);
         
         $expenses_rate->dataset
                                 (
@@ -394,9 +396,9 @@ Route::get('/board', function(Request $request){
                                                                    
                                     )
         
-        ->color("#008000")
-        // ->backgroundcolor("rgba(78, 115, 223, 0.05)")
-        
+        ->color("#000000")
+        ->backgroundcolor("rgba(78, 115, 223, 0.05)")
+        ->fill(false)
         ->linetension(0.4);
 
        $delinquent_accounts = Billing::leftJoin('payments', 'billings.billing_id', 'payments.payment_billing_id') 
