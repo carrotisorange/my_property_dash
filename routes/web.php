@@ -351,8 +351,9 @@ Route::get('/board', function(Request $request){
                                                                        
                                                                     ]
                                 )
-    ->color("#858796")
-    ->fill(false);
+    ->color("#000000")
+    ->fill(false)
+    ->backgroundcolor("#000000");
 
     $expenses_rate->dataset
                                 (
@@ -374,7 +375,8 @@ Route::get('/board', function(Request $request){
                                                                     ]
                                 )
     ->color("#ff0000")
-    ->fill(false);
+    ->fill(false)
+    ->backgroundcolor("#ff0000");
         
         $expenses_rate->dataset
                                 (
@@ -396,8 +398,8 @@ Route::get('/board', function(Request $request){
                                                                    
                                     )
         
-        ->color("#000000")
-        ->backgroundcolor("rgba(78, 115, 223, 0.05)")
+        ->color("#008000")
+        ->backgroundcolor("#008000")
         ->fill(false)
         ->linetension(0.4);
 
