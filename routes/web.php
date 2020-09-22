@@ -327,6 +327,31 @@ Route::get('/board', function(Request $request){
         ->fill(true)
         ->linetension(0.3);
 
+        $expenses_rate = new DashboardChart;
+
+        $expenses_rate->barwidth(0.0);
+        $expenses_rate->displaylegend(false);
+        $expenses_rate->labels([Carbon::now()->subMonth(11)->format('M Y'),Carbon::now()->subMonth(10)->format('M Y'),Carbon::now()->subMonth(9)->format('M Y'),Carbon::now()->subMonth(8)->format('M Y'),Carbon::now()->subMonth(7)->format('M Y'),Carbon::now()->subMonth(6)->format('M Y'),Carbon::now()->subMonth(5)->format('M Y'),Carbon::now()->subMonth(4)->format('M Y'),Carbon::now()->subMonth(3)->format('M Y'),Carbon::now()->subMonths(2)->format('M Y'),Carbon::now()->subMonth()->format('M Y'),Carbon::now()->format('M Y')]);
+        $expenses_rate->dataset('Total collection', 'line', [
+            DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonth(11))->sum('amt'),
+            DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonth(10))->sum('amt'),
+            DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonth(9))->sum('amt'),
+            DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonth(8))->sum('amt'),
+            DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonth(7))->sum('amt'),
+            DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonth(6))->sum('amt'),
+            DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonth(5))->sum('amt'),
+            DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonth(4))->sum('amt'),
+            DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonth(3))->sum('amt'),
+            DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonth(2))->sum('amt'),
+            DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonth(1))->sum('amt'),
+            DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today())->sum('amt'),
+                                                              
+            ])
+        ->color("#858796")
+        ->backgroundcolor("rgba(78, 115, 223, 0.05)")
+        ->fill(true)
+        ->linetension(0.3);
+
        $delinquent_accounts = Billing::leftJoin('payments', 'billings.billing_id', 'payments.payment_billing_id') 
        ->leftJoin('tenants', 'billing_tenant_id', 'tenant_id')
        ->leftJoin('units', 'tenant_id', 'unit_tenant_id')
@@ -555,7 +580,7 @@ Route::get('/board', function(Request $request){
             compact(
             'units', 'units_occupied','units_vacant', 'units_reserved',
             'active_tenants', 'pending_tenants', 'owners', 
-            'movein_rate','moveout_rate', 'renewed_chart', 'collection_rate', 'reason_for_moving_out_chart',
+            'movein_rate','moveout_rate', 'renewed_chart', 'collection_rate','expenses_rate', 'reason_for_moving_out_chart',
             'delinquent_accounts','tenants_to_watch_out',
             'collections_for_the_day','pending_concerns','active_concerns','concerns',
             'notifications','notifications_opened'
