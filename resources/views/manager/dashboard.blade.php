@@ -908,7 +908,7 @@
       
                 <div class="row">
       
-                  <!-- Area Chart -->
+                  {{-- <!-- Area Chart -->
                   <div class="col-xl-6 col-lg-6">
                     <div class="card shadow mb-4">
                       <!-- Card Header - Dropdown -->
@@ -925,14 +925,14 @@
                         
                       </div>
                     </div>
-                  </div>
+                  </div> --}}
 
                   <!-- Area Chart -->
-                  <div class="col-xl-6 col-lg-6">
+                  <div class="col-xl-12 col-lg-12">
                     <div class="card shadow mb-4">
                       <!-- Card Header - Dropdown -->
                       <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-primary">EXPENSES</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">REVENUE</h6>
                         <div class="dropdown no-arrow">
                          
                         </div>
@@ -1092,7 +1092,7 @@
 {!! $movein_rate->script() !!}
 {!! $renewed_chart->script() !!}
 {!! $moveout_rate->script() !!}
-{!! $collection_rate->script() !!}
+{{-- {!! $collection_rate->script() !!} --}}
 {!! $expenses_rate->script() !!}
 {!! $reason_for_moving_out_chart->script() !!}
 

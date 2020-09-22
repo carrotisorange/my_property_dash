@@ -303,54 +303,99 @@ Route::get('/board', function(Request $request){
         ->where('unit_property', Auth::user()->property)
         ->sum('amt_paid');
 
-        $collection_rate = new DashboardChart;
+        // $collection_rate = new DashboardChart;
 
-        $collection_rate->barwidth(0.0);
-        $collection_rate->displaylegend(false);
-        $collection_rate->labels([Carbon::now()->subMonth(11)->format('M Y'),Carbon::now()->subMonth(10)->format('M Y'),Carbon::now()->subMonth(9)->format('M Y'),Carbon::now()->subMonth(8)->format('M Y'),Carbon::now()->subMonth(7)->format('M Y'),Carbon::now()->subMonth(6)->format('M Y'),Carbon::now()->subMonth(5)->format('M Y'),Carbon::now()->subMonth(4)->format('M Y'),Carbon::now()->subMonth(3)->format('M Y'),Carbon::now()->subMonths(2)->format('M Y'),Carbon::now()->subMonth()->format('M Y'),Carbon::now()->format('M Y')]);
-        $collection_rate->dataset('Total collection', 'line', [
-            $collection_rate_1,
-            $collection_rate_2,
-            $collection_rate_3,
-            $collection_rate_4,
-            $collection_rate_5,
-            $collection_rate_6,
-            $collection_rate_7,
-            $collection_rate_8,
-            $collection_rate_9,
-            $collection_rate_10,
-            $collection_rate_11,
-            $collection_rate_12,
-                                                              ])
-        ->color("#858796")
-        ->backgroundcolor("rgba(78, 115, 223, 0.05)")
-        ->fill(true)
-        ->linetension(0.3);
+        // $collection_rate->barwidth(0.0);
+        // $collection_rate->displaylegend(false);
+        // $collection_rate->labels([Carbon::now()->subMonth(11)->format('M Y'),Carbon::now()->subMonth(10)->format('M Y'),Carbon::now()->subMonth(9)->format('M Y'),Carbon::now()->subMonth(8)->format('M Y'),Carbon::now()->subMonth(7)->format('M Y'),Carbon::now()->subMonth(6)->format('M Y'),Carbon::now()->subMonth(5)->format('M Y'),Carbon::now()->subMonth(4)->format('M Y'),Carbon::now()->subMonth(3)->format('M Y'),Carbon::now()->subMonths(2)->format('M Y'),Carbon::now()->subMonth()->format('M Y'),Carbon::now()->format('M Y')]);
+        // $collection_rate->dataset('Total collections', 'line', [
+        //     $collection_rate_1,
+        //     $collection_rate_2,
+        //     $collection_rate_3,
+        //     $collection_rate_4,
+        //     $collection_rate_5,
+        //     $collection_rate_6,
+        //     $collection_rate_7,
+        //     $collection_rate_8,
+        //     $collection_rate_9,
+        //     $collection_rate_10,
+        //     $collection_rate_11,
+        //     $collection_rate_12,
+        //                                                       ])
+        // ->color("#858796")
+        // ->backgroundcolor("rgba(78, 115, 223, 0.05)")
+        // ->fill(true)
+        // ->linetension(0.3);
 
         $expenses_rate = new DashboardChart;
 
         $expenses_rate->barwidth(0.0);
         $expenses_rate->displaylegend(false);
         $expenses_rate->labels([Carbon::now()->subMonth(11)->format('M Y'),Carbon::now()->subMonth(10)->format('M Y'),Carbon::now()->subMonth(9)->format('M Y'),Carbon::now()->subMonth(8)->format('M Y'),Carbon::now()->subMonth(7)->format('M Y'),Carbon::now()->subMonth(6)->format('M Y'),Carbon::now()->subMonth(5)->format('M Y'),Carbon::now()->subMonth(4)->format('M Y'),Carbon::now()->subMonth(3)->format('M Y'),Carbon::now()->subMonths(2)->format('M Y'),Carbon::now()->subMonth()->format('M Y'),Carbon::now()->format('M Y')]);
-        $expenses_rate->dataset('Total collection', 'line', [
-            DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(11))->sum('amt'),
-            DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(10))->sum('amt'),
-            DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(9))->sum('amt'),
-            DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(8))->sum('amt'),
-            DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(7))->sum('amt'),
-            DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(6))->sum('amt'),
-            DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(5))->sum('amt'),
-            DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(4))->sum('amt'),
-            DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(3))->sum('amt'),
-            DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(2))->sum('amt'),
-            DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonth(1))->sum('amt'),
-            DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today())->sum('amt'),
-                                                              
-            ])
+        $expenses_rate->dataset
+                                (
+                                    'Total expenses', 'line', 
+                                                                    [
+                                                                        DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(11))->sum('amt'),
+                                                                        DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(10))->sum('amt'),
+                                                                        DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(9))->sum('amt'),
+                                                                        DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(8))->sum('amt'),
+                                                                        DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(7))->sum('amt'),
+                                                                        DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(6))->sum('amt'),
+                                                                        DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(5))->sum('amt'),
+                                                                        DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(4))->sum('amt'),
+                                                                        DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(3))->sum('amt'),
+                                                                        DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(2))->sum('amt'),
+                                                                        DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonth(1))->sum('amt'),
+                                                                        DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today())->sum('amt'),                                               
+                                                                    ]
+                                )
+    ->color("#ff0000");
+
+    $expenses_rate->dataset
+                                (
+                                    'Total Revenue', 'line', 
+                                                                    [
+                                                                         $collection_rate_1 -  DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(11))->sum('amt'),
+                                                                         $collection_rate_2 -  DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(10))->sum('amt'),
+                                                                         $collection_rate_3 -  DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(9))->sum('amt'),
+                                                                         $collection_rate_4 - DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(8))->sum('amt'),
+                                                                         $collection_rate_5 -  DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(7))->sum('amt'),
+                                                                         $collection_rate_6 -  DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(6))->sum('amt'),
+                                                                         $collection_rate_7 -  DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(5))->sum('amt'),
+                                                                         $collection_rate_8 -  DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(4))->sum('amt'),
+                                                                         $collection_rate_9 -  DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(3))->sum('amt'),
+                                                                         $collection_rate_10 - DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(2))->sum('amt'),
+                                                                         $collection_rate_11-  DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonth(1))->sum('amt'),
+                                                                         $collection_rate_12 - DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today())->sum('amt')              ,                                 
+                                                                    ]
+                                )
+    ->color("#008000");
+        
+        $expenses_rate->dataset
+                                (
+                                    'Total collection', 'line', 
+                                                                    [
+                                                                        $collection_rate_1,
+                                                                        $collection_rate_2,
+                                                                        $collection_rate_3,
+                                                                        $collection_rate_4,
+                                                                        $collection_rate_5,
+                                                                        $collection_rate_6,
+                                                                        $collection_rate_7,
+                                                                        $collection_rate_8,
+                                                                        $collection_rate_9,
+                                                                        $collection_rate_10,
+                                                                        $collection_rate_11,
+                                                                        $collection_rate_12,
+                                                                    ],
+                                                                   
+                                    )
+        
         ->color("#858796")
         ->backgroundcolor("rgba(78, 115, 223, 0.05)")
-        ->fill(true)
-        ->linetension(0.3);
+        ->fill(false)
+        ->linetension(0.4);
 
        $delinquent_accounts = Billing::leftJoin('payments', 'billings.billing_id', 'payments.payment_billing_id') 
        ->leftJoin('tenants', 'billing_tenant_id', 'tenant_id')
@@ -580,7 +625,7 @@ Route::get('/board', function(Request $request){
             compact(
             'units', 'units_occupied','units_vacant', 'units_reserved',
             'active_tenants', 'pending_tenants', 'owners', 
-            'movein_rate','moveout_rate', 'renewed_chart', 'collection_rate','expenses_rate', 'reason_for_moving_out_chart',
+            'movein_rate','moveout_rate', 'renewed_chart','expenses_rate', 'reason_for_moving_out_chart',
             'delinquent_accounts','tenants_to_watch_out',
             'collections_for_the_day','pending_concerns','active_concerns','concerns',
             'notifications','notifications_opened'
