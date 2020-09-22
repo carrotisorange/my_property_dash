@@ -741,7 +741,7 @@ class TenantController extends Controller
 
                 'tenant_monthly_rent' => $request->tenant_monthly_rent,
 
-                //  'tenant_status' => 'active',
+                 'tenant_status' => 'pending',
 
                 // 'created_at' => null,
 
