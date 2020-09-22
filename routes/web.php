@@ -1082,18 +1082,7 @@ Route::get('/bills', function(){
    
 })->middleware(['auth', 'verified']);
 
-Route::get('/account-payables', function(){
-    if( auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager'){
 
-       $entry = DB::table('payable_entry')
-       ->where('payable_entry_property', Auth::user()->property)
-       ->get();
-
-        return view('account-payables.account-payables', compact('entry'));
-    }else{
-        return view('unregistered');
-    }
-})->middleware(['auth', 'verified']);
 
 Route::get('/housekeeping', function(){
     if(auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager'){
@@ -1559,6 +1548,25 @@ Route::put('/units/{unit_id}/tenants/{tenant_id}/edit/img', function(Request $re
 Route::get('/units/edit/{property}/{date}', 'UnitsController@show_edit_multiple_rooms')->middleware(['auth', 'verified']);
 Route::put('/units/edit/{property}/{date}', 'UnitsController@post_edit_multiple_rooms')->middleware(['auth', 'verified']);
 
+//account payable routes
+Route::get('/account-payables', function(){
+    if( auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager' || auth()->user()->user_type === 'ap'){
+
+       $entry = DB::table('payable_entry')
+       ->where('payable_entry_property', Auth::user()->property)
+       ->get();
+
+       $request = DB::table('payable_request')
+       ->where('property', Auth::user()->property)
+       ->get();
+
+        return view('account-payables.account-payables', compact('entry', 'request'));
+    }else{
+        return view('unregistered');
+    }
+})->middleware(['auth', 'verified']);
+
+//add entry 
 Route::post('/account-payable/add/{property}', function(Request $request){
     $no_of_entry = (int) $request->no_of_entry;
 
@@ -1574,6 +1582,7 @@ Route::post('/account-payable/add/{property}', function(Request $request){
     return back()->with('success', 'Payable entry has been added!');
 });
 
+//delete entry
 Route::delete('/account-payable/{id}', function(Request $request, $id){
    
     DB::table('payable_entry')->where('id', $id)->delete();
@@ -1581,6 +1590,63 @@ Route::delete('/account-payable/{id}', function(Request $request, $id){
     return back()->with('success', 'Payable entry has been deleted!');
 });
 
+//request funds
+Route::post('/account-payable/request/{property}', function(Request $request){
+
+     $no_of_request = (int) $request->no_of_request;
+
+     $current_payable_no = DB::table('payable_request')
+     ->where('property', Auth::user()->property)
+     ->max('no') + 1;
+
+    for($i = 1; $i<$no_of_request; $i++){
+        DB::table('payable_request')->insert(
+            [
+                'no' => $current_payable_no++,
+                'entry' =>  $request->input('entry'.$i),
+                'amt' =>  $request->input('amt'.$i),
+                'status' => 'pending',
+                'property' => Auth::user()->property,
+                'requested_by' => Auth::user()->name,
+                'created_at' => Carbon::now(),
+            ]);
+    }
+
+
+    return back()->with('success', 'Payable request has been created!');
+});
+
+//approve request
+Route::post('/request-payable/approve/{id}', function(Request $request, $id){   
+  
+    DB::table('payable_request')
+    ->where('id', $id)
+    ->update(
+                [
+                    'status' => 'approved',
+                    'updated_at' => Carbon::now(),
+                    'approved_by' => Auth::user()->name,
+                ]
+            );
+
+    return back()->with('success', 'Payable request has been approved!');
+});
+
+//disapprove request
+Route::post('/request-payable/disapprove/{id}', function(Request $request, $id){   
+  
+    DB::table('payable_request')
+    ->where('id', $id)
+    ->update(
+                [
+                    'status' => 'declined',
+                    'updated_at' => Carbon::now(),
+                    'approved_by' => Auth::user()->name,
+                ]
+            );
+
+    return back()->with('success', 'Payable request has been declined!');
+});
 
 
 

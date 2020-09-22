@@ -138,13 +138,13 @@
         </li>
         @endif
   
-        @if(Auth::user()->user_type === 'manager')
-        <li class="nav-item">
-        <a class="nav-link" href="/account-payables">
-        <i class="fas fa-hand-holding-usd"></i>
-          <span>Account Payables</span></a>
-      </li>
-      @endif
+            @if(Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'ap' || Auth::user()->user_type === 'admin')
+          <li class="nav-item">
+          <a class="nav-link" href="/account-payables">
+          <i class="fas fa-hand-holding-usd"></i>
+            <span>Account Payables</span></a>
+        </li>
+        @endif
   
       @if(Auth::user()->user_type === 'manager')
        <!-- Nav Item - Tables -->
@@ -400,6 +400,7 @@
                             <select class="form-control" form="addUserForm" name="user_type" required>
                                 <option value="">Please select one</option>
                                 <option value="admin">admin</option>
+                                <option value="ap">ap</option>
                                 <option value="billing">billing</option>
                                 <option value="manager">manager</option>
                                 <option value="treasury">treasury</option>

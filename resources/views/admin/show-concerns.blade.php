@@ -137,13 +137,13 @@
         </li>
         @endif
   
-        @if(Auth::user()->user_type === 'manager')
-        <li class="nav-item">
-        <a class="nav-link" href="/account-payables">
-        <i class="fas fa-hand-holding-usd"></i>
-          <span>Account Payables</span></a>
-      </li>
-      @endif
+            @if(Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'ap' || Auth::user()->user_type === 'admin')
+          <li class="nav-item">
+          <a class="nav-link" href="/account-payables">
+          <i class="fas fa-hand-holding-usd"></i>
+            <span>Account Payables</span></a>
+        </li>
+        @endif
   
       @if(Auth::user()->user_type === 'manager')
        <!-- Nav Item - Tables -->
