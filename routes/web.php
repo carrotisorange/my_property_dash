@@ -60,6 +60,9 @@ Route::get('/board', function(Request $request){
           return view('payment-info');
       }   
     else{
+
+        return DB::table('occupancy_rate')->where('occupancy_date', Carbon::today())->max('occupancy_rate');
+      
         $pending_concerns = DB::table('tenants')
         ->join('units', 'unit_id', 'unit_tenant_id')
         ->join('concerns', 'tenant_id', 'concern_tenant_id')
@@ -660,7 +663,6 @@ Route::get('/board', function(Request $request){
         ->where('unit_property', Auth::user()->property)
         ->where('payment_created', Carbon::today())
         ->get();
-
 
         $notifications = DB::table('notifications')
         ->select('*','notifications.created_at as created_at', 'notifications.updated_at as updated_at')
