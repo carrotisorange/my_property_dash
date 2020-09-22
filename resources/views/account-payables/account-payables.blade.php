@@ -555,7 +555,7 @@
       var j=1;
           
           $("#add_request").click(function(){
-              $('#request'+j).html("<th>"+ (j) +"</th><td><select form='requestFundsForm' name='entry"+j+"' >@foreach($entry as $item)<option value='{{ $item->payable_entry }}'>{{ $item->payable_entry }}</option> @endforeach</select></td><td><input form='requestFundsForm' name='amt"+j+"' type='number' step='0.001' required></td> ");
+              $('#request'+j).html("<th>"+ (j) +"</th><td><select form='requestFundsForm' name='entry"+j+"' required>@foreach($entry as $item)<option value='{{ $item->payable_entry }}'>{{ $item->payable_entry }}</option> @endforeach</select></td><td><input form='requestFundsForm' name='amt"+j+"' type='number' step='0.001' required></td> ");
       
       
            $('#request_table').append('<tr id="request'+(j+1)+'"></tr>');
