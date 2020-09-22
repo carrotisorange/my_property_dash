@@ -60,8 +60,6 @@ Route::get('/board', function(Request $request){
           return view('payment-info');
       }   
     else{
-
-        return DB::table('occupancy_rate')->where('occupancy_date', Carbon::today())->max('occupancy_rate');
       
         $pending_concerns = DB::table('tenants')
         ->join('units', 'unit_id', 'unit_tenant_id')
@@ -154,109 +152,109 @@ Route::get('/board', function(Request $request){
         
         ->get();
 
-        $movein_rate_1 = DB::table('tenants')
-        ->join('units', 'unit_id', 'unit_tenant_id')
-        ->where('movein_date', '>=', Carbon::now()->subMonths(11)->firstOfMonth())
-        ->where('movein_date', '<=', Carbon::now()->subMonths(11)->endOfMonth())
-        ->where('unit_property', Auth::user()->property)
-         ->whereIn('tenant_status',['active', 'inactive'])
+        // $movein_rate_1 = DB::table('tenants')
+        // ->join('units', 'unit_id', 'unit_tenant_id')
+        // ->where('movein_date', '>=', Carbon::now()->subMonths(11)->firstOfMonth())
+        // ->where('movein_date', '<=', Carbon::now()->subMonths(11)->endOfMonth())
+        // ->where('unit_property', Auth::user()->property)
+        //  ->whereIn('tenant_status',['active', 'inactive'])
        
-        ->count();
+        // ->count();
 
-        $movein_rate_2 = DB::table('tenants')
-        ->join('units', 'unit_id', 'unit_tenant_id')
-        ->where('movein_date', '>=', Carbon::now()->subMonths(10)->firstOfMonth())
-        ->where('movein_date', '<=', Carbon::now()->subMonths(10)->endOfMonth())
-        ->where('unit_property', Auth::user()->property)
-         ->whereIn('tenant_status',['active', 'inactive'])
+        // $movein_rate_2 = DB::table('tenants')
+        // ->join('units', 'unit_id', 'unit_tenant_id')
+        // ->where('movein_date', '>=', Carbon::now()->subMonths(10)->firstOfMonth())
+        // ->where('movein_date', '<=', Carbon::now()->subMonths(10)->endOfMonth())
+        // ->where('unit_property', Auth::user()->property)
+        //  ->whereIn('tenant_status',['active', 'inactive'])
         
-        ->count();
+        // ->count();
 
-        $movein_rate_3 = DB::table('tenants')
-        ->join('units', 'unit_id', 'unit_tenant_id')
-        ->where('movein_date', '>=', Carbon::now()->subMonths(9)->firstOfMonth())
-        ->where('movein_date', '<=', Carbon::now()->subMonths(9)->endOfMonth())
-        ->where('unit_property', Auth::user()->property)
-         ->whereIn('tenant_status',['active', 'inactive'])
+        // $movein_rate_3 = DB::table('tenants')
+        // ->join('units', 'unit_id', 'unit_tenant_id')
+        // ->where('movein_date', '>=', Carbon::now()->subMonths(9)->firstOfMonth())
+        // ->where('movein_date', '<=', Carbon::now()->subMonths(9)->endOfMonth())
+        // ->where('unit_property', Auth::user()->property)
+        //  ->whereIn('tenant_status',['active', 'inactive'])
       
-        ->count();
+        // ->count();
 
-        $movein_rate_4 = DB::table('tenants')
-        ->join('units', 'unit_id', 'unit_tenant_id')
-        ->where('movein_date', '>=', Carbon::now()->subMonths(8)->firstOfMonth())
-        ->where('movein_date', '<=', Carbon::now()->subMonths(8)->endOfMonth())
-        ->where('unit_property', Auth::user()->property)
-         ->whereIn('tenant_status',['active', 'inactive'])
+        // $movein_rate_4 = DB::table('tenants')
+        // ->join('units', 'unit_id', 'unit_tenant_id')
+        // ->where('movein_date', '>=', Carbon::now()->subMonths(8)->firstOfMonth())
+        // ->where('movein_date', '<=', Carbon::now()->subMonths(8)->endOfMonth())
+        // ->where('unit_property', Auth::user()->property)
+        //  ->whereIn('tenant_status',['active', 'inactive'])
        
-        ->count();
+        // ->count();
 
-        $movein_rate_5 = DB::table('tenants')
-        ->join('units', 'unit_id', 'unit_tenant_id')
-        ->where('movein_date', '>=', Carbon::now()->subMonths(7)->firstOfMonth())
-        ->where('movein_date', '<=', Carbon::now()->subMonths(7)->endOfMonth())
-        ->where('unit_property', Auth::user()->property)
-         ->whereIn('tenant_status',['active', 'inactive'])
+        // $movein_rate_5 = DB::table('tenants')
+        // ->join('units', 'unit_id', 'unit_tenant_id')
+        // ->where('movein_date', '>=', Carbon::now()->subMonths(7)->firstOfMonth())
+        // ->where('movein_date', '<=', Carbon::now()->subMonths(7)->endOfMonth())
+        // ->where('unit_property', Auth::user()->property)
+        //  ->whereIn('tenant_status',['active', 'inactive'])
 
-        ->count();
+        // ->count();
 
 
-        $movein_rate_6 = DB::table('tenants')
-        ->join('units', 'unit_id', 'unit_tenant_id')
-        ->where('movein_date', '>=', Carbon::now()->subMonths(6)->firstOfMonth())
-        ->where('movein_date', '<=', Carbon::now()->subMonths(6)->endOfMonth())
-        ->where('unit_property', Auth::user()->property)
-         ->whereIn('tenant_status',['active', 'inactive'])
+        // $movein_rate_6 = DB::table('tenants')
+        // ->join('units', 'unit_id', 'unit_tenant_id')
+        // ->where('movein_date', '>=', Carbon::now()->subMonths(6)->firstOfMonth())
+        // ->where('movein_date', '<=', Carbon::now()->subMonths(6)->endOfMonth())
+        // ->where('unit_property', Auth::user()->property)
+        //  ->whereIn('tenant_status',['active', 'inactive'])
     
-        ->count();
+        // ->count();
 
-        $movein_rate_7 = DB::table('tenants')
-        ->join('units', 'unit_id', 'unit_tenant_id')
-        ->where('movein_date', '>=', Carbon::now()->subMonths(5)->firstOfMonth())
-        ->where('movein_date', '<=', Carbon::now()->subMonths(5)->endOfMonth())
-        ->where('unit_property', Auth::user()->property)
-         ->whereIn('tenant_status',['active', 'inactive'])
+        // $movein_rate_7 = DB::table('tenants')
+        // ->join('units', 'unit_id', 'unit_tenant_id')
+        // ->where('movein_date', '>=', Carbon::now()->subMonths(5)->firstOfMonth())
+        // ->where('movein_date', '<=', Carbon::now()->subMonths(5)->endOfMonth())
+        // ->where('unit_property', Auth::user()->property)
+        //  ->whereIn('tenant_status',['active', 'inactive'])
 
-        ->count();
+        // ->count();
 
-        $movein_rate_8 = DB::table('tenants')
-        ->join('units', 'unit_id', 'unit_tenant_id')
-        ->where('movein_date', '>=', Carbon::now()->subMonths(4)->firstOfMonth())
-        ->where('movein_date', '<=', Carbon::now()->subMonths(4)->endOfMonth())
-        ->where('unit_property', Auth::user()->property)
-         ->whereIn('tenant_status',['active', 'inactive'])
-        ->count();
+        // $movein_rate_8 = DB::table('tenants')
+        // ->join('units', 'unit_id', 'unit_tenant_id')
+        // ->where('movein_date', '>=', Carbon::now()->subMonths(4)->firstOfMonth())
+        // ->where('movein_date', '<=', Carbon::now()->subMonths(4)->endOfMonth())
+        // ->where('unit_property', Auth::user()->property)
+        //  ->whereIn('tenant_status',['active', 'inactive'])
+        // ->count();
         
-        $movein_rate_9 = DB::table('tenants')
-        ->join('units', 'unit_id', 'unit_tenant_id')
-        ->where('movein_date', '>=', Carbon::now()->subMonths(3)->firstOfMonth())
-        ->where('movein_date', '<=', Carbon::now()->subMonths(3)->endOfMonth())
-        ->where('unit_property', Auth::user()->property)
-        ->where('unit_property', Auth::user()->property)
-        ->count();
+        // $movein_rate_9 = DB::table('tenants')
+        // ->join('units', 'unit_id', 'unit_tenant_id')
+        // ->where('movein_date', '>=', Carbon::now()->subMonths(3)->firstOfMonth())
+        // ->where('movein_date', '<=', Carbon::now()->subMonths(3)->endOfMonth())
+        // ->where('unit_property', Auth::user()->property)
+        // ->where('unit_property', Auth::user()->property)
+        // ->count();
 
-        $movein_rate_10 = DB::table('tenants')
-        ->join('units', 'unit_id', 'unit_tenant_id')
-        ->where('movein_date', '>=', Carbon::now()->subMonths(2)->firstOfMonth())
-        ->where('movein_date', '<=', Carbon::now()->subMonths(2)->endOfMonth())
-        ->where('unit_property', Auth::user()->property)
-         ->whereIn('tenant_status',['active', 'inactive'])
-        ->count();
+        // $movein_rate_10 = DB::table('tenants')
+        // ->join('units', 'unit_id', 'unit_tenant_id')
+        // ->where('movein_date', '>=', Carbon::now()->subMonths(2)->firstOfMonth())
+        // ->where('movein_date', '<=', Carbon::now()->subMonths(2)->endOfMonth())
+        // ->where('unit_property', Auth::user()->property)
+        //  ->whereIn('tenant_status',['active', 'inactive'])
+        // ->count();
 
-        $movein_rate_11 = DB::table('tenants')
-        ->join('units', 'unit_id', 'unit_tenant_id')
-        ->where('movein_date', '>=', Carbon::now()->subMonth()->firstOfMonth())
-        ->where('movein_date', '<=', Carbon::now()->subMonth()->endOfMonth())
-        ->where('unit_property', Auth::user()->property)
-         ->whereIn('tenant_status',['active', 'inactive'])
-        ->count();
+        // $movein_rate_11 = DB::table('tenants')
+        // ->join('units', 'unit_id', 'unit_tenant_id')
+        // ->where('movein_date', '>=', Carbon::now()->subMonth()->firstOfMonth())
+        // ->where('movein_date', '<=', Carbon::now()->subMonth()->endOfMonth())
+        // ->where('unit_property', Auth::user()->property)
+        //  ->whereIn('tenant_status',['active', 'inactive'])
+        // ->count();
 
-        $movein_rate_12 = DB::table('tenants')
-        ->join('units', 'unit_id', 'unit_tenant_id')
-        ->where('movein_date', '>=', Carbon::now()->firstOfMonth())
-        ->where('movein_date', '<=', Carbon::now()->endOfMonth())
-        ->where('unit_property', Auth::user()->property)
-         ->whereIn('tenant_status',['active', 'inactive'])
-        ->count();
+        // $movein_rate_12 = DB::table('tenants')
+        // ->join('units', 'unit_id', 'unit_tenant_id')
+        // ->where('movein_date', '>=', Carbon::now()->firstOfMonth())
+        // ->where('movein_date', '<=', Carbon::now()->endOfMonth())
+        // ->where('unit_property', Auth::user()->property)
+        //  ->whereIn('tenant_status',['active', 'inactive'])
+        // ->count();
 
         if($units->count() <= 0){
             $movein_rate = new DashboardChart;
@@ -286,20 +284,22 @@ Route::get('/board', function(Request $request){
             $movein_rate->barwidth(0.0);
             $movein_rate->displaylegend(false);
             $movein_rate->labels([Carbon::now()->subMonth(11)->format('M Y'),Carbon::now()->subMonth(10)->format('M Y'),Carbon::now()->subMonth(9)->format('M Y'),Carbon::now()->subMonth(8)->format('M Y'),Carbon::now()->subMonth(7)->format('M Y'),Carbon::now()->subMonth(6)->format('M Y'),Carbon::now()->subMonth(5)->format('M Y'),Carbon::now()->subMonth(4)->format('M Y'),Carbon::now()->subMonth(3)->format('M Y'),Carbon::now()->subMonths(2)->format('M Y'),Carbon::now()->subMonth()->format('M Y'),Carbon::now()->format('M Y')]);
-            $movein_rate->dataset('Occupancy Rate: ', 'line', [
-                                                number_format(($all_tenants->count()-($movein_rate_2 + $movein_rate_3 + $movein_rate_4 + $movein_rate_5 + $movein_rate_6 + $movein_rate_7 + $movein_rate_8 + $movein_rate_9 + $movein_rate_10 + $movein_rate_11 + $movein_rate_12))/$units->count() * 100,2),
-                                                number_format(($all_tenants->count()-($movein_rate_3 + $movein_rate_4 + $movein_rate_5 + $movein_rate_6 + $movein_rate_7 + $movein_rate_8 + $movein_rate_9 + $movein_rate_10 + $movein_rate_11 + $movein_rate_12))/$units->count() * 100,2),
-                                                number_format(($all_tenants->count()-($movein_rate_4 + $movein_rate_5 + $movein_rate_6 + $movein_rate_7 + $movein_rate_8 + $movein_rate_9 + $movein_rate_10 + $movein_rate_11 + $movein_rate_12))/$units->count() * 100,2),
-                                                number_format(($all_tenants->count()-($movein_rate_5 + $movein_rate_6 + $movein_rate_7 + $movein_rate_8 + $movein_rate_9 + $movein_rate_10 + $movein_rate_11 + $movein_rate_12))/$units->count() * 100,2),
-                                                number_format(($all_tenants->count()-($movein_rate_6 + $movein_rate_7 + $movein_rate_8 + $movein_rate_9 + $movein_rate_10 + $movein_rate_11 + $movein_rate_12))/$units->count() * 100,2),
-                                                number_format(($all_tenants->count()-($movein_rate_7 + $movein_rate_8 + $movein_rate_9 + $movein_rate_10 + $movein_rate_11 + $movein_rate_12))/$units->count() * 100,2),
-                                                number_format(($all_tenants->count()-($movein_rate_8 + $movein_rate_9 + $movein_rate_10 + $movein_rate_11 + $movein_rate_12))/$units->count() * 100,2),
-                                                number_format(($all_tenants->count()-($movein_rate_9 + $movein_rate_10 + $movein_rate_11 + $movein_rate_12))/$units->count() * 100,2),
-                                                number_format(($all_tenants->count()-($movein_rate_10 + $movein_rate_11 + $movein_rate_12))/$units->count() * 100,2),
-                                                number_format(($all_tenants->count()-($movein_rate_11 + $movein_rate_12))/$units->count() * 100,2),
-                                                number_format(($all_tenants->count()-($movein_rate_12))/$units->count() * 100,2),
-                                                number_format(($units_occupied->count()/$units->count()) * 100,2)
-                                                ])
+            $movein_rate->dataset('Occupancy Rate: ', 'line', 
+                                                [
+                                                    DB::table('occupancy_rate')->where('occupancy_date', Carbon::today()->subMonth(11))->max('occupancy_rate'),
+                                                    DB::table('occupancy_rate')->where('occupancy_date', Carbon::today()->subMonth(10))->max('occupancy_rate'),
+                                                    DB::table('occupancy_rate')->where('occupancy_date', Carbon::today()->subMonth(9))->max('occupancy_rate'),
+                                                    DB::table('occupancy_rate')->where('occupancy_date', Carbon::today()->subMonth(8))->max('occupancy_rate'),
+                                                    DB::table('occupancy_rate')->where('occupancy_date', Carbon::today()->subMonth(7))->max('occupancy_rate'),
+                                                    DB::table('occupancy_rate')->where('occupancy_date', Carbon::today()->subMonth(6))->max('occupancy_rate'),
+                                                    DB::table('occupancy_rate')->where('occupancy_date', Carbon::today()->subMonth(5))->max('occupancy_rate'),
+                                                    DB::table('occupancy_rate')->where('occupancy_date', Carbon::today()->subMonth(4))->max('occupancy_rate'),
+                                                    DB::table('occupancy_rate')->where('occupancy_date', Carbon::today()->subMonth(3))->max('occupancy_rate'),
+                                                    DB::table('occupancy_rate')->where('occupancy_date', Carbon::today()->subMonth(2))->max('occupancy_rate'),
+                                                    DB::table('occupancy_rate')->where('occupancy_date', Carbon::today()->subMonth(1))->max('occupancy_rate'),
+                                                    DB::table('occupancy_rate')->where('occupancy_date', Carbon::today())->max('occupancy_rate'),
+                                                ]
+                                )
             ->color("#858796")
             ->backgroundcolor("rgba(78, 115, 223, 0.05)")
             ->fill(true)
