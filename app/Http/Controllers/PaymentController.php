@@ -58,7 +58,7 @@ class PaymentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request){  
+    public function store(Request $request){ 
         
         // retrieve the number of payments to be added.
         $no_of_payments = (int) $request->no_of_payments; 
@@ -69,7 +69,6 @@ class PaymentController extends Controller
             ->join('payments', 'tenant_id', 'payment_tenant_id')
             ->where('unit_property', Auth::user()->property)
             ->max('ar_no') + 1;
-
 
 
         //add all the payment to the database.
@@ -103,6 +102,23 @@ class PaymentController extends Controller
                                 'updated_at' => Carbon::now(), 
                             ]
                         );
+            
+
+            //update the occupancy rate
+               
+            $units = DB::table('units')->where('unit_property', Auth::user()->property)->count();
+
+            $occupied_units = DB::table('units')->where('unit_property', Auth::user()->property)->where('status', 'occupied')->count();
+    
+            DB::table('occupancy_rate')
+                ->insert(
+                            [
+                                'occupancy_rate' => $occupied_units/$units * 100,
+                                'occupancy_property' => Auth::user()->property,
+                                'occupancy_date' => Carbon::now()
+                            ]
+                        );
+   
                     
             //change tenant's status to active.
             DB::table('tenants')
