@@ -763,6 +763,8 @@ class TenantController extends Controller
 
         $unit = Unit::findOrFail($unit_id);
 
+        
+
         DB::table('tenants')
         ->where('tenant_id', $request->tenant_id)
         ->update([
@@ -782,6 +784,21 @@ class TenantController extends Controller
                 'status' => 'vacant'
             ]);
         }
+
+        //update the occupancy rate
+               
+        $units = DB::table('units')->where('unit_property', Auth::user()->property)->count();
+
+        $occupied_units = DB::table('units')->where('unit_property', Auth::user()->property)->where('status', 'occupied')->count();
+  
+        DB::table('occupancy_rate')
+              ->insert(
+                          [
+                              'occupancy_rate' => ($occupied_units/$units) * 100,
+                              'occupancy_property' => Auth::user()->property,
+                              'occupancy_date' => Carbon::now()
+                          ]
+                      );
 
         $data = [
                 
