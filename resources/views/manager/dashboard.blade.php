@@ -733,7 +733,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                              @foreach($delinquent_accounts as $item)
+                              {{-- @foreach($delinquent_accounts as $item)
                               <tr>
                                 <td title="{{ $item->tenants_note }}">
                                   @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'treasury' )
@@ -754,7 +754,7 @@
                                 </td>
                               </tr>
                               @endforeach
-                            </tbody>
+                            </tbody> --}}
                           </table>
                           {{-- {{ $delinquent_accounts->links() }} --}}
                         </div>
