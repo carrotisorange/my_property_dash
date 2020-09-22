@@ -525,10 +525,10 @@ Route::get('/board', function(Request $request){
         ->count();
 
         $moveout_rate = new DashboardChart;
-        $moveout_rate->barwidth(0.0);
+  
         $moveout_rate->displaylegend(false);
         $moveout_rate->labels([Carbon::now()->subMonth(11)->format('M Y'),Carbon::now()->subMonth(10)->format('M Y'),Carbon::now()->subMonth(9)->format('M Y'),Carbon::now()->subMonth(8)->format('M Y'),Carbon::now()->subMonth(7)->format('M Y'),Carbon::now()->subMonth(6)->format('M Y'),Carbon::now()->subMonth(5)->format('M Y'),Carbon::now()->subMonth(4)->format('M Y'),Carbon::now()->subMonth(3)->format('M Y'),Carbon::now()->subMonths(2)->format('M Y'),Carbon::now()->subMonth()->format('M Y'),Carbon::now()->format('M Y')]);
-        $moveout_rate->dataset('number of moveouts', 'line', [
+        $moveout_rate->dataset('Moveouts', 'bar', [
                                                         $moveout_rate_1,
                                                         $moveout_rate_2,
                                                         $moveout_rate_3,
@@ -545,8 +545,8 @@ Route::get('/board', function(Request $request){
                         )
         ->color("#858796")
         ->backgroundcolor("rgba(78, 115, 223, 0.05)")
-        ->fill(true)
-        ->linetension(0.3);
+        ->fill(false)
+        ->linetension(0.1);
 
         $end_of_contract = DB::table('tenants')
         ->join('units', 'unit_id', 'unit_tenant_id')
