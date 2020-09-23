@@ -1290,7 +1290,7 @@ Route::get('/bills', function(){
         ->orderBy('billing_no', 'desc')
         ->get()
         ->groupBy(function($item) {
-            return \Carbon\Carbon::parse($item->billing_date)->timestamp;
+            return \Carbon\Carbon::parse($item->billing_start)->timestamp;
         });
    
         return view('billing.bills', compact('bills'));
