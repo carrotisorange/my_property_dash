@@ -151,11 +151,11 @@ Route::get('/board', function(Request $request){
         ->where('unit_property', Auth::user()->property)
         ->get();
 
-            $movein_rate = new DashboardChart;
-            $movein_rate->barwidth(0.0);
-            $movein_rate->displaylegend(false);
-            $movein_rate->labels([Carbon::now()->subMonth(11)->format('M Y'),Carbon::now()->subMonth(10)->format('M Y'),Carbon::now()->subMonth(9)->format('M Y'),Carbon::now()->subMonth(8)->format('M Y'),Carbon::now()->subMonth(7)->format('M Y'),Carbon::now()->subMonth(6)->format('M Y'),Carbon::now()->subMonth(5)->format('M Y'),Carbon::now()->subMonth(4)->format('M Y'),Carbon::now()->subMonth(3)->format('M Y'),Carbon::now()->subMonths(2)->format('M Y'),Carbon::now()->subMonth()->format('M Y'),Carbon::now()->format('M Y')]);
-            $movein_rate->dataset('Occupancy Rate: ', 'line', 
+        $movein_rate = new DashboardChart;
+        $movein_rate->barwidth(0.0);
+        $movein_rate->displaylegend(false);
+        $movein_rate->labels([Carbon::now()->subMonth(11)->format('M Y'),Carbon::now()->subMonth(10)->format('M Y'),Carbon::now()->subMonth(9)->format('M Y'),Carbon::now()->subMonth(8)->format('M Y'),Carbon::now()->subMonth(7)->format('M Y'),Carbon::now()->subMonth(6)->format('M Y'),Carbon::now()->subMonth(5)->format('M Y'),Carbon::now()->subMonth(4)->format('M Y'),Carbon::now()->subMonth(3)->format('M Y'),Carbon::now()->subMonths(2)->format('M Y'),Carbon::now()->subMonth()->format('M Y'),Carbon::now()->format('M Y')]);
+        $movein_rate->dataset('Occupancy Rate: ', 'line', 
                                                 [
                                                     DB::table('occupancy_rate')->where('occupancy_property', Auth::user()->property)->whereMonth('occupancy_date', Carbon::today()->subMonths(11)->month)->whereYear('occupancy_date', Carbon::today()->year)->orderBy('id')->limit(1)->pluck('occupancy_rate'),
                                                     DB::table('occupancy_rate')->where('occupancy_property', Auth::user()->property)->whereMonth('occupancy_date', Carbon::today()->subMonths(10)->month)->whereYear('occupancy_date', Carbon::today()->year)->orderBy('id')->limit(1)->pluck('occupancy_rate'),
@@ -173,7 +173,7 @@ Route::get('/board', function(Request $request){
                                 )
             ->color("#858796")
             ->backgroundcolor("rgba(78, 115, 223, 0.05)")
-            ->fill(true)
+            ->fill(false)
             ->linetension(0.3);
     
 
@@ -640,12 +640,12 @@ Route::get('/board', function(Request $request){
         }else{
             return view('manager.dashboard-condo', 
             compact(
-            'units', 'units_occupied','units_vacant', 'units_reserved',
-            'active_tenants', 'pending_tenants', 'owners', 
-            'movein_rate','moveout_rate', 'renewed_chart', 'collection_rate', 'reason_for_moving_out_chart',
-            'delinquent_accounts','tenants_to_watch_out',
-            'collections_for_the_day','pending_concerns','active_concerns','concerns',
-            'notifications','notifications_opened'
+                'units', 'units_occupied','units_vacant', 'units_reserved',
+                'active_tenants', 'pending_tenants', 'owners', 
+                'movein_rate','moveout_rate', 'renewed_chart','expenses_rate', 'reason_for_moving_out_chart',
+                'delinquent_accounts','tenants_to_watch_out',
+                'collections_for_the_day','pending_concerns','active_concerns','concerns',
+                'notifications','notifications_opened'
                     )
             );
         }
@@ -871,25 +871,136 @@ Route::get('/users', function(){
     ->whereNull('email_verified_at')
     ->orderBy('users.created_at', 'desc')
     ->get();
-    
-    // $users_created = DB::table('users')
-    // ->where('property', Auth::user()->property)
-    // ->groupBy('id')
-    // ->get()
-    // ->groupBy(function($item) {
-    //     return \Carbon\Carbon::parse($item->created_at)->timestamp;
-    // });;
+
 
     $signup_rate_1 = DB::table('users')
     ->where('email_verified_at', '>=', Carbon::now()->subMonths(11)->firstOfMonth())
     ->where('email_verified_at', '<=', Carbon::now()->subMonths(11)->endOfMonth())
     ->where('email', '!=','thepropertymanager2020@gmail.com')
     ->where('user_type', 'manager')
+  
+    ->whereNull('email_verified_at')
+    ->count();
+
+    $signup_rate_2 = DB::table('users')
+    ->where('email_verified_at', '>=', Carbon::now()->subMonths(10)->firstOfMonth())
+    ->where('email_verified_at', '<=', Carbon::now()->subMonths(10)->endOfMonth())
+    ->where('email', '!=','thepropertymanager2020@gmail.com')
+  
+    ->where('user_type', 'manager')
+    
+    ->whereNull('email_verified_at')
+    ->count();
+
+    $signup_rate_3 = DB::table('users')
+    ->where('email_verified_at', '>=', Carbon::now()->subMonths(9)->firstOfMonth())
+    ->where('email_verified_at', '<=', Carbon::now()->subMonths(9)->endOfMonth())
+    ->where('email', '!=','thepropertymanager2020@gmail.com')
+    ->where('user_type', 'manager')
+  
+    ->whereNull('email_verified_at')
+    ->count();
+
+    $signup_rate_4 = DB::table('users')
+    ->where('email_verified_at', '>=', Carbon::now()->subMonths(8)->firstOfMonth())
+    ->where('email_verified_at', '<=', Carbon::now()->subMonths(8)->endOfMonth())
+ 
+    ->where('email', '!=','thepropertymanager2020@gmail.com')
+    ->where('user_type', 'manager')
+  
+    ->whereNull('email_verified_at')
+    ->count();
+
+    $signup_rate_5 = DB::table('users')
+    ->where('email_verified_at', '>=', Carbon::now()->subMonths(7)->firstOfMonth())
+    ->where('email_verified_at', '<=', Carbon::now()->subMonths(7)->endOfMonth())
+    ->where('email', '!=','thepropertymanager2020@gmail.com')
+   
+    ->where('user_type', 'manager')
+     
+    ->whereNull('email_verified_at')
+    ->count();
+
+    $signup_rate_6 = DB::table('users')
+    ->where('email_verified_at', '>=', Carbon::now()->subMonths(6)->firstOfMonth())
+    ->where('email_verified_at', '<=', Carbon::now()->subMonths(6)->endOfMonth())
+ 
+    ->where('email', '!=','thepropertymanager2020@gmail.com')
+    ->where('user_type', 'manager')
+    
+    ->whereNull('email_verified_at')
+    ->count();
+
+    $signup_rate_7 = DB::table('users')
+    ->where('email_verified_at', '>=', Carbon::now()->subMonths(5)->firstOfMonth())
+    ->where('email_verified_at', '<=', Carbon::now()->subMonths(5)->endOfMonth())
+ 
+    ->where('email', '!=','thepropertymanager2020@gmail.com')
+    ->where('user_type', 'manager')
+     
+    ->whereNull('email_verified_at')
+    ->count();
+
+    $signup_rate_8 = DB::table('users')
+    ->where('email_verified_at', '>=', Carbon::now()->subMonths(4)->firstOfMonth())
+    ->where('email_verified_at', '<=', Carbon::now()->subMonths(4)->endOfMonth())
+ 
+    ->where('email', '!=','thepropertymanager2020@gmail.com')
+    ->where('user_type', 'manager')
+   
+    ->whereNull('email_verified_at')
+    ->count();
+
+    $signup_rate_9 = DB::table('users')
+    ->where('email_verified_at', '>=', Carbon::now()->subMonths(3)->firstOfMonth())
+    ->where('email_verified_at', '<=', Carbon::now()->subMonths(3)->endOfMonth())
+    ->where('email', '!=','thepropertymanager2020@gmail.com')
+   
+    ->where('user_type', 'manager')
+    
+    ->whereNull('email_verified_at')
+    ->count();
+
+    $signup_rate_10 = DB::table('users')
+    ->where('email_verified_at', '>=', Carbon::now()->subMonths(2)->firstOfMonth())
+    ->where('email_verified_at', '<=', Carbon::now()->subMonths(2)->endOfMonth())
+    ->where('email', '!=','thepropertymanager2020@gmail.com')
+
+    ->where('user_type', 'manager')
+     
+    ->whereNull('email_verified_at')
+    ->count();
+
+    $signup_rate_11 = DB::table('users')
+    ->where('email_verified_at', '>=', Carbon::now()->subMonths(1)->firstOfMonth())
+    ->where('email_verified_at', '<=', Carbon::now()->subMonths(1)->endOfMonth())
+    ->where('email', '!=','thepropertymanager2020@gmail.com')
+    ->where('user_type', 'manager')
+     
+    ->whereNull('email_verified_at')
+    ->count();
+
+     $signup_rate_12 = DB::table('users')
+    ->where('email_verified_at', '>=', Carbon::now()->firstOfMonth())
+    ->where('email_verified_at', '<=', Carbon::now()->endOfMonth())
+    ->where('email', '!=','thepropertymanager2020@gmail.com')
+    ->where('user_type', 'manager')
+   
+    ->whereNull('email_verified_at')
+    ->count();
+
+    
+    $verified_users_1 = DB::table('users')
+    ->where('email_verified_at', '>=', Carbon::now()->subMonths(11)->firstOfMonth())
+    ->where('email_verified_at', '<=', Carbon::now()->subMonths(11)->endOfMonth())
+    ->where('email', '!=','thepropertymanager2020@gmail.com')
+    ->where('user_type', 'manager')
+  
     ->whereNotNull('account_type')
     ->whereNotNull('email_verified_at')
     ->count();
 
-    $signup_rate_2 = DB::table('users')
+    $verified_users_2 = DB::table('users')
     ->where('email_verified_at', '>=', Carbon::now()->subMonths(10)->firstOfMonth())
     ->where('email_verified_at', '<=', Carbon::now()->subMonths(10)->endOfMonth())
     ->where('email', '!=','thepropertymanager2020@gmail.com')
@@ -899,7 +1010,7 @@ Route::get('/users', function(){
     ->whereNotNull('email_verified_at')
     ->count();
 
-    $signup_rate_3 = DB::table('users')
+    $verified_users_3 = DB::table('users')
     ->where('email_verified_at', '>=', Carbon::now()->subMonths(9)->firstOfMonth())
     ->where('email_verified_at', '<=', Carbon::now()->subMonths(9)->endOfMonth())
     ->where('email', '!=','thepropertymanager2020@gmail.com')
@@ -908,7 +1019,7 @@ Route::get('/users', function(){
     ->whereNotNull('email_verified_at')
     ->count();
 
-    $signup_rate_4 = DB::table('users')
+    $verified_users_4 = DB::table('users')
     ->where('email_verified_at', '>=', Carbon::now()->subMonths(8)->firstOfMonth())
     ->where('email_verified_at', '<=', Carbon::now()->subMonths(8)->endOfMonth())
  
@@ -918,7 +1029,7 @@ Route::get('/users', function(){
     ->whereNotNull('email_verified_at')
     ->count();
 
-    $signup_rate_5 = DB::table('users')
+    $verified_users_5 = DB::table('users')
     ->where('email_verified_at', '>=', Carbon::now()->subMonths(7)->firstOfMonth())
     ->where('email_verified_at', '<=', Carbon::now()->subMonths(7)->endOfMonth())
     ->where('email', '!=','thepropertymanager2020@gmail.com')
@@ -928,7 +1039,7 @@ Route::get('/users', function(){
     ->whereNotNull('email_verified_at')
     ->count();
 
-    $signup_rate_6 = DB::table('users')
+    $verified_users_6 = DB::table('users')
     ->where('email_verified_at', '>=', Carbon::now()->subMonths(6)->firstOfMonth())
     ->where('email_verified_at', '<=', Carbon::now()->subMonths(6)->endOfMonth())
  
@@ -938,7 +1049,7 @@ Route::get('/users', function(){
     ->whereNotNull('email_verified_at')
     ->count();
 
-    $signup_rate_7 = DB::table('users')
+    $verified_users_7 = DB::table('users')
     ->where('email_verified_at', '>=', Carbon::now()->subMonths(5)->firstOfMonth())
     ->where('email_verified_at', '<=', Carbon::now()->subMonths(5)->endOfMonth())
  
@@ -948,7 +1059,7 @@ Route::get('/users', function(){
     ->whereNotNull('email_verified_at')
     ->count();
 
-    $signup_rate_8 = DB::table('users')
+    $verified_users_8 = DB::table('users')
     ->where('email_verified_at', '>=', Carbon::now()->subMonths(4)->firstOfMonth())
     ->where('email_verified_at', '<=', Carbon::now()->subMonths(4)->endOfMonth())
  
@@ -958,7 +1069,7 @@ Route::get('/users', function(){
     ->whereNotNull('email_verified_at')
     ->count();
 
-    $signup_rate_9 = DB::table('users')
+    $verified_users_9 = DB::table('users')
     ->where('email_verified_at', '>=', Carbon::now()->subMonths(3)->firstOfMonth())
     ->where('email_verified_at', '<=', Carbon::now()->subMonths(3)->endOfMonth())
     ->where('email', '!=','thepropertymanager2020@gmail.com')
@@ -968,7 +1079,7 @@ Route::get('/users', function(){
     ->whereNotNull('email_verified_at')
     ->count();
 
-    $signup_rate_10 = DB::table('users')
+    $verified_users_10 = DB::table('users')
     ->where('email_verified_at', '>=', Carbon::now()->subMonths(2)->firstOfMonth())
     ->where('email_verified_at', '<=', Carbon::now()->subMonths(2)->endOfMonth())
     ->where('email', '!=','thepropertymanager2020@gmail.com')
@@ -978,7 +1089,7 @@ Route::get('/users', function(){
     ->whereNotNull('email_verified_at')
     ->count();
 
-    $signup_rate_11 = DB::table('users')
+    $verified_users_11 = DB::table('users')
     ->where('email_verified_at', '>=', Carbon::now()->subMonths(1)->firstOfMonth())
     ->where('email_verified_at', '<=', Carbon::now()->subMonths(1)->endOfMonth())
     ->where('email', '!=','thepropertymanager2020@gmail.com')
@@ -987,7 +1098,7 @@ Route::get('/users', function(){
     ->whereNotNull('email_verified_at')
     ->count();
 
-     $signup_rate_12 = DB::table('users')
+     $verified_users_12 = DB::table('users')
     ->where('email_verified_at', '>=', Carbon::now()->firstOfMonth())
     ->where('email_verified_at', '<=', Carbon::now()->endOfMonth())
     ->where('email', '!=','thepropertymanager2020@gmail.com')
@@ -997,29 +1108,60 @@ Route::get('/users', function(){
     ->count();
 
     $signup_rate = new DashboardChart;
-    $signup_rate->barwidth(0.0);
-    $signup_rate->displaylegend(false);
+
+    $signup_rate->barwidth(4.0);
+    $signup_rate->displaylegend(true);
     $signup_rate->labels([Carbon::now()->subMonth(11)->format('M Y'),Carbon::now()->subMonth(10)->format('M Y'),Carbon::now()->subMonth(9)->format('M Y'),Carbon::now()->subMonth(8)->format('M Y'),Carbon::now()->subMonth(7)->format('M Y'),Carbon::now()->subMonth(6)->format('M Y'),Carbon::now()->subMonth(5)->format('M Y'),Carbon::now()->subMonth(4)->format('M Y'),Carbon::now()->subMonth(3)->format('M Y'),Carbon::now()->subMonths(2)->format('M Y'),Carbon::now()->subMonth()->format('M Y'),Carbon::now()->format('M Y')]);
-    $signup_rate->dataset('number of signups', 'line', [
-                                                           $signup_rate_1,
-                                                           $signup_rate_2,
-                                                           $signup_rate_3,
-                                                           $signup_rate_4,
-                                                           $signup_rate_5,
-                                                           $signup_rate_6,
-                                                           $signup_rate_7,                                         
-                                                           $signup_rate_8,
-                                                           $signup_rate_9,
-                                                           $signup_rate_10,
-                                                           $signup_rate_11,
-                                                           $signup_rate_12,
-                                                        ]
-                         )
-                        
-    ->color("#858796")
-    ->backgroundcolor("rgba(78, 115, 223, 0.05)")
-    ->fill(true)
-    ->linetension(0.3);
+    $signup_rate->dataset
+                            (
+                                'Sign Ups', 'line', 
+                                                                [
+                                                                    $signup_rate_1,
+                                                                    $signup_rate_2,
+                                                                    $signup_rate_3,
+                                                                    $signup_rate_4,
+                                                                    $signup_rate_5,
+                                                                    $signup_rate_6,
+                                                                    $signup_rate_7,                                         
+                                                                    $signup_rate_8,
+                                                                    $signup_rate_9,
+                                                                    $signup_rate_10,
+                                                                    $signup_rate_11,
+                                                                    $signup_rate_12,
+                                                            
+                                                                   
+                                                                ]
+                            )
+->color("#0000FF")
+->fill(false)
+->backgroundcolor("#0000FF");
+    
+    $signup_rate->dataset
+                            (
+                                'Active Users', 'line', 
+                                                                [
+                                                                    
+                                                                    $verified_users_1,
+                                                                    $verified_users_2,
+                                                                    $verified_users_3,
+                                                                    $verified_users_4,
+                                                                    $verified_users_5,
+                                                                    $verified_users_6,
+                                                                    $verified_users_7,                                         
+                                                                    $verified_users_8,
+                                                                    $verified_users_9,
+                                                                    $verified_users_10,
+                                                                    $verified_users_11,
+                                                                    $verified_users_12,
+                                                                    
+                                                                ],
+                                                               
+                                )
+    
+    ->color("#008000")
+    ->backgroundcolor("#008000")
+    ->fill(false)
+    ->linetension(0.4);
 
     $active_users = DB::table('users')
     ->orderBy('user_current_status', 'desc')
@@ -1284,19 +1426,6 @@ Route::post('/billings', 'BillingController@store')->middleware(['auth', 'verifi
 
 //routes for personnels
 Route::post('/personnels', 'PersonnelController@store')->middleware(['auth', 'verified']);
-
-//tenant's online reservation
-Route::post('/reservation','TenantController@post_reservation');
-
-Route::get('/property', function(){
-
-
-    return view('properties.properties');
-});
-Route::get('/{properties}/units','UnitsController@show_vacant_units');
-Route::get('/{properties}/units/{unit_id}', 'UnitsController@show_reservation_form');
-Route::get('/{properties}/units/{unit_id}/tenants/{tenant_id}/reserved', 'TenantController@get_reservation');
-
 
 //routes for logging in using facebook
 Route::get('login/facebook', 'Auth\LoginController@redirectToProvider');
@@ -1722,6 +1851,11 @@ Route::post('/request-payable/disapprove/{id}', function(Request $request, $id){
             );
 
     return back()->with('success', 'Payable request has been declined!');
+});
+
+
+Route::get('/show', function(){
+    return view('show');
 });
 
 

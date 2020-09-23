@@ -176,6 +176,6 @@ class BillingController extends Controller
         // ->delete();
 
         DB::table('billings')->where('billing_id', $billing_id)->delete();
-        return back()->with('success', 'Bill has been deleted');
+        return back()->with('success', 'Bill has been deleted!');
     }
 }
