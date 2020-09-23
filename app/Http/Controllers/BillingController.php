@@ -64,7 +64,7 @@ class BillingController extends Controller
                         'billing_amt' =>  $request->input('billing_amt'.$i)
                     ]);
             }
-            return back()->with('success', ($i-1).' bills has been posted!');
+            return back()->with('success', ($i-1).' bills have been posted!');
         }else{
           $no_of_billed = 1;
             for($i = 1; $i<=$active_tenants; $i++){
@@ -119,7 +119,7 @@ class BillingController extends Controller
                
                }
             }
-            return redirect('/bills')->with('success', ($no_of_billed-1).' '.$request->billing_desc1.' bills has been posted!');
+            return redirect('/bills')->with('success', ($no_of_billed-1).' '.$request->billing_desc1.' bills have been posted!');
         }
     }
 
