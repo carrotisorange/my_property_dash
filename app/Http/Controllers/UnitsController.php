@@ -191,6 +191,7 @@ class UnitsController extends Controller
         if($property === Auth::user()->property){
             $units = DB::table('units')
             ->where('unit_property', Auth::user()->property)
+            ->where('status','<>','deleted')
             ->orderBy('building', 'asc')
             ->orderBy('floor_no', 'asc')
             ->orderBy('unit_no', 'asc')
@@ -207,7 +208,10 @@ class UnitsController extends Controller
      public function post_edit_multiple_rooms(Request $request){
    
 
-         $units_count = DB::table('units')->where('unit_property', Auth::user()->property)->count();
+         $units_count = DB::table('units')
+         ->where('unit_property', Auth::user()->property)
+         ->where('status','<>','deleted')
+         ->count();
          
         for($i = 1; $i<=$units_count; $i++){
             DB::table('units')
@@ -223,6 +227,22 @@ class UnitsController extends Controller
                     'monthly_rent' => $request->input('monthly_rent'.$i),
                 ]);
         }
+
+        $units = DB::table('units')
+        ->where('unit_property', Auth::user()
+        ->property)->where('status','<>','deleted')
+        ->count();
+
+        $occupied_units = DB::table('units')->where('unit_property', Auth::user()->property)->where('status', 'occupied')->count();
+
+        DB::table('occupancy_rate')
+            ->insert(
+                        [
+                            'occupancy_rate' => ($occupied_units/$units) * 100,
+                            'occupancy_property' => Auth::user()->property,
+                            'occupancy_date' => Carbon::now()
+                        ]
+                    );
         
 
         return redirect('/home')->with('success', $units_count.' rooms have been updated!');
@@ -250,21 +270,21 @@ class UnitsController extends Controller
     public function update(Request $request, $id)
     {
         
-        if($request->action === 'enroll_leasing'){
+        // if($request->action === 'enroll_leasing'){
 
-            DB::table('units')->where('unit_id', $id)
-            ->update([
-                'beds' => $request->beds,
-                'type_of_units' => 'leasing',
-                'monthly_rent' => $request->monthly_rent,
-                'date_enrolled' => Carbon::now(),
-                'contract_start' => $request->contract_start,
-                'contract_end' => $request->contract_end,
-                'max_occupancy' => $request->max_occupancy,
-            ]);
+        //     DB::table('units')->where('unit_id', $id)
+        //     ->update([
+        //         'beds' => $request->beds,
+        //         'type_of_units' => 'leasing',
+        //         'monthly_rent' => $request->monthly_rent,
+        //         'date_enrolled' => Carbon::now(),
+        //         'contract_start' => $request->contract_start,
+        //         'contract_end' => $request->contract_end,
+        //         'max_occupancy' => $request->max_occupancy,
+        //     ]);
 
-            return back()->with('success', 'The room has been enrolled to the leasing!');
-        }else{
+        //     return back()->with('success', 'The room has been enrolled to the leasing!');
+        // }else{
             DB::table('units')->where('unit_id', $id)
             ->update([
                 'unit_no' => $request->unit_no,
@@ -275,8 +295,26 @@ class UnitsController extends Controller
                 'type_of_units' => $request->type_of_units,
                 'monthly_rent' => $request->monthly_rent
             ]);
+
+            $units = DB::table('units')
+            ->where('unit_property', Auth::user()
+            ->property)->where('status','<>','deleted')
+            ->count();
+
+            $occupied_units = DB::table('units')->where('unit_property', Auth::user()->property)->where('status', 'occupied')->count();
+    
+            DB::table('occupancy_rate')
+                ->insert(
+                            [
+                                'occupancy_rate' => ($occupied_units/$units) * 100,
+                                'occupancy_property' => Auth::user()->property,
+                                'occupancy_date' => Carbon::now()
+                            ]
+                        );
+   
+                    
             return back()->with('success', 'Room information has been updated!');
-        }
+        // }
        
     }
 
@@ -289,7 +327,7 @@ class UnitsController extends Controller
         $buildings = DB::table('units')
         ->select('building',DB::raw('count(*) as count'))
         ->whereIn('status', ['vacant','reserved'])
-        ->where('type_of_units', 'leasing')
+        ->where('status','<>','deleted')
         ->where('unit_property', $property)
         ->groupBy('building')
         ->get();
@@ -297,7 +335,7 @@ class UnitsController extends Controller
         $units = DB::table('units')
         ->whereIn('status', ['vacant','reserved'])
         ->where('unit_property', $property)
-        ->where('type_of_units', 'leasing')
+        ->where('status','<>','deleted')
         ->get();
 
         return view('reservation-forms.show-vacant-units', compact('buildings','units'));
@@ -330,10 +368,31 @@ class UnitsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-         DB::table('units')->where('unit_id',$id )->delete();
+        DB::table('units')->where('unit_id', $id)
+            ->update([
+                'status' => 'deleted',
+            ]);
 
-        return back()->with('success', 'Room has been deleted!');
+            $selected_unit = Unit::findOrFail($id);
+            $units = DB::table('units')
+            ->where('unit_property', Auth::user()
+            ->property)->where('status','<>','deleted')
+            ->count();
+
+            $occupied_units = DB::table('units')->where('unit_property', Auth::user()->property)->where('status', 'occupied')->count();
+    
+            DB::table('occupancy_rate')
+                ->insert(
+                            [
+                                'occupancy_rate' => ($occupied_units/$units) * 100,
+                                'occupancy_property' => Auth::user()->property,
+                                'occupancy_date' => Carbon::now()
+                            ]
+                        );
+  
+
+        return back()->with('success', $selected_unit->unit_no.' has been deleted!');
     }
 }

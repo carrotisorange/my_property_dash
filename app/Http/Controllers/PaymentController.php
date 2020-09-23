@@ -105,7 +105,7 @@ class PaymentController extends Controller
 
             //update the occupancy rate
                
-            $units = DB::table('units')->where('unit_property', Auth::user()->property)->count();
+            $units = DB::table('units')->where('unit_property', Auth::user()->property)->where('status','<>','deleted')->count();
 
             $occupied_units = DB::table('units')->where('unit_property', Auth::user()->property)->where('status', 'occupied')->count();
     

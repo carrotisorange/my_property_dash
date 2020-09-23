@@ -95,6 +95,7 @@ Route::get('/board', function(Request $request){
 
         $units = DB::table('units')
         ->where('unit_property', Auth::user()->property)
+        ->where('status','<>','deleted')
         ->orderBy('building')
         ->orderBy('floor_no')
         ->orderBy('unit_no')
@@ -155,7 +156,7 @@ Route::get('/board', function(Request $request){
         ->where('occupancy_property', Auth::user()->property)
         ->whereMonth('occupancy_date', Carbon::today()->month)
         ->whereYear('occupancy_date', Carbon::today()->year)
-        ->orderBy('id')
+        ->orderBy('id', 'desc')
         ->limit(1)
         ->pluck('occupancy_rate');
 
@@ -165,17 +166,17 @@ Route::get('/board', function(Request $request){
         $movein_rate->labels([Carbon::now()->subMonth(11)->format('M Y'),Carbon::now()->subMonth(10)->format('M Y'),Carbon::now()->subMonth(9)->format('M Y'),Carbon::now()->subMonth(8)->format('M Y'),Carbon::now()->subMonth(7)->format('M Y'),Carbon::now()->subMonth(6)->format('M Y'),Carbon::now()->subMonth(5)->format('M Y'),Carbon::now()->subMonth(4)->format('M Y'),Carbon::now()->subMonth(3)->format('M Y'),Carbon::now()->subMonths(2)->format('M Y'),Carbon::now()->subMonth()->format('M Y'),Carbon::now()->format('M Y')]);
         $movein_rate->dataset('Occupancy Rate: ', 'line', 
                                                 [
-                                                    DB::table('occupancy_rate')->where('occupancy_property', Auth::user()->property)->whereMonth('occupancy_date', Carbon::today()->subMonths(11)->month)->whereYear('occupancy_date', Carbon::today()->year)->orderBy('id')->limit(1)->pluck('occupancy_rate'),
-                                                    DB::table('occupancy_rate')->where('occupancy_property', Auth::user()->property)->whereMonth('occupancy_date', Carbon::today()->subMonths(10)->month)->whereYear('occupancy_date', Carbon::today()->year)->orderBy('id')->limit(1)->pluck('occupancy_rate'),
-                                                    DB::table('occupancy_rate')->where('occupancy_property', Auth::user()->property)->whereMonth('occupancy_date', Carbon::today()->subMonths(9)->month)->whereYear('occupancy_date', Carbon::today()->year)->orderBy('id')->limit(1)->pluck('occupancy_rate'),
-                                                    DB::table('occupancy_rate')->where('occupancy_property', Auth::user()->property)->whereMonth('occupancy_date', Carbon::today()->subMonths(8)->month)->whereYear('occupancy_date', Carbon::today()->year)->orderBy('id')->limit(1)->pluck('occupancy_rate'),
-                                                    DB::table('occupancy_rate')->where('occupancy_property', Auth::user()->property)->whereMonth('occupancy_date', Carbon::today()->subMonths(7)->month)->whereYear('occupancy_date', Carbon::today()->year)->orderBy('id')->limit(1)->pluck('occupancy_rate'),
-                                                    DB::table('occupancy_rate')->where('occupancy_property', Auth::user()->property)->whereMonth('occupancy_date', Carbon::today()->subMonths(6)->month)->whereYear('occupancy_date', Carbon::today()->year)->orderBy('id')->limit(1)->pluck('occupancy_rate'),
-                                                    DB::table('occupancy_rate')->where('occupancy_property', Auth::user()->property)->whereMonth('occupancy_date', Carbon::today()->subMonths(5)->month)->whereYear('occupancy_date', Carbon::today()->year)->orderBy('id')->limit(1)->pluck('occupancy_rate'),
-                                                    DB::table('occupancy_rate')->where('occupancy_property', Auth::user()->property)->whereMonth('occupancy_date', Carbon::today()->subMonths(4)->month)->whereYear('occupancy_date', Carbon::today()->year)->orderBy('id')->limit(1)->pluck('occupancy_rate'),
-                                                    DB::table('occupancy_rate')->where('occupancy_property', Auth::user()->property)->whereMonth('occupancy_date', Carbon::today()->subMonths(3)->month)->whereYear('occupancy_date', Carbon::today()->year)->orderBy('id')->limit(1)->pluck('occupancy_rate'),
-                                                    DB::table('occupancy_rate')->where('occupancy_property', Auth::user()->property)->whereMonth('occupancy_date', Carbon::today()->subMonths(2)->month)->whereYear('occupancy_date', Carbon::today()->year)->orderBy('id')->limit(1)->pluck('occupancy_rate'),
-                                                    DB::table('occupancy_rate')->where('occupancy_property', Auth::user()->property)->whereMonth('occupancy_date', Carbon::today()->subMonth()->month)->whereYear('occupancy_date', Carbon::today()->year)->orderBy('id')->limit(1)->pluck('occupancy_rate'),
+                                                    DB::table('occupancy_rate')->where('occupancy_property', Auth::user()->property)->whereMonth('occupancy_date', Carbon::today()->subMonths(11)->month)->whereYear('occupancy_date', Carbon::today()->year)->orderBy('id','desc')->limit(1)->pluck('occupancy_rate'),
+                                                    DB::table('occupancy_rate')->where('occupancy_property', Auth::user()->property)->whereMonth('occupancy_date', Carbon::today()->subMonths(10)->month)->whereYear('occupancy_date', Carbon::today()->year)->orderBy('id','desc')->limit(1)->pluck('occupancy_rate'),
+                                                    DB::table('occupancy_rate')->where('occupancy_property', Auth::user()->property)->whereMonth('occupancy_date', Carbon::today()->subMonths(9)->month)->whereYear('occupancy_date', Carbon::today()->year)->orderBy('id','desc')->limit(1)->pluck('occupancy_rate'),
+                                                    DB::table('occupancy_rate')->where('occupancy_property', Auth::user()->property)->whereMonth('occupancy_date', Carbon::today()->subMonths(8)->month)->whereYear('occupancy_date', Carbon::today()->year)->orderBy('id','desc')->limit(1)->pluck('occupancy_rate'),
+                                                    DB::table('occupancy_rate')->where('occupancy_property', Auth::user()->property)->whereMonth('occupancy_date', Carbon::today()->subMonths(7)->month)->whereYear('occupancy_date', Carbon::today()->year)->orderBy('id','desc')->limit(1)->pluck('occupancy_rate'),
+                                                    DB::table('occupancy_rate')->where('occupancy_property', Auth::user()->property)->whereMonth('occupancy_date', Carbon::today()->subMonths(6)->month)->whereYear('occupancy_date', Carbon::today()->year)->orderBy('id','desc')->limit(1)->pluck('occupancy_rate'),
+                                                    DB::table('occupancy_rate')->where('occupancy_property', Auth::user()->property)->whereMonth('occupancy_date', Carbon::today()->subMonths(5)->month)->whereYear('occupancy_date', Carbon::today()->year)->orderBy('id','desc')->limit(1)->pluck('occupancy_rate'),
+                                                    DB::table('occupancy_rate')->where('occupancy_property', Auth::user()->property)->whereMonth('occupancy_date', Carbon::today()->subMonths(4)->month)->whereYear('occupancy_date', Carbon::today()->year)->orderBy('id','desc')->limit(1)->pluck('occupancy_rate'),
+                                                    DB::table('occupancy_rate')->where('occupancy_property', Auth::user()->property)->whereMonth('occupancy_date', Carbon::today()->subMonths(3)->month)->whereYear('occupancy_date', Carbon::today()->year)->orderBy('id','desc')->limit(1)->pluck('occupancy_rate'),
+                                                    DB::table('occupancy_rate')->where('occupancy_property', Auth::user()->property)->whereMonth('occupancy_date', Carbon::today()->subMonths(2)->month)->whereYear('occupancy_date', Carbon::today()->year)->orderBy('id','desc')->limit(1)->pluck('occupancy_rate'),
+                                                    DB::table('occupancy_rate')->where('occupancy_property', Auth::user()->property)->whereMonth('occupancy_date', Carbon::today()->subMonth()->month)->whereYear('occupancy_date', Carbon::today()->year)->orderBy('id','desc')->limit(1)->pluck('occupancy_rate'),
                                                     $current_occupancy_rate,
                                                 ]
                                 )
@@ -652,10 +653,12 @@ Route::get('/home', function(){
 
         $units_count = DB::table('units')
             ->where('unit_property', Auth::user()->property)
+            ->where('status','<>','deleted')
             ->count();
 
         $units = DB::table('units')
             ->where('unit_property', Auth::user()->property)
+            ->where('status','<>','deleted')
             ->orderBy('floor_no', 'asc')
             ->orderBy('unit_no', 'asc')
             ->get()
