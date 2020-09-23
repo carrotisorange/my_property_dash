@@ -296,7 +296,7 @@
     <div class="card shadow mb-4">
       <!-- Card Header - Dropdown -->
       <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-        <h6 class="m-0 font-weight-bold text-primary">OCCUPANCY RATE</h6>
+        <h6 class="m-0 font-weight-bold text-primary">OCCUPANCY RATE {{ $current_occupancy_rate}}%</h6>
       </div>
       <!-- Card Body -->
       <div class="card-body">
@@ -380,9 +380,14 @@
   <div class="col-lg-6 mb-4">
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
-     <div class="card-header py-3">
+     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
        <h6 class="m-0 font-weight-bold text-primary">EXPIRING CONTRACTS</h6>
-         
+       <div class="dropdown no-arrow">
+        <a href="#" class="dropdown-toggle" data-toggle="modal" data-target="" >
+        <i class="fas fa-thumbtack fa-sm fa-fw text-gray-400"></i>
+        </a>
+        
+      </div>
      </div>
      <div class="card-body">
       <div class="table-responsive text-nowrap">
@@ -428,7 +433,7 @@
                     <form action="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/alert/contract">
                       @csrf
                       @if(Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'admin')
-                      <button class="btn btn-primary d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" type="submit" onclick="this.form.submit(); this.disabled = true;"><i class="fas fa-paper-plane fa-sm text-white-50"></i> Send Email</button>
+                      <button class="btn btn-primary d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" type="submit" onclick="this.form.submit(); this.disabled = true;"><i class="fas fa-paper-plane fa-sm text-white-50"></i> Send Notice</button>
                       @else
                       <button class="btn btn-primary d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" title="for manager and admin access only" type="submit" onclick="this.form.submit(); this.disabled = true;" disabled><i class="fas fa-paper-plane fa-sm text-white-50"></i> Send Email</button>
                       @endif
@@ -437,8 +442,6 @@
                   </td>
                   <td><span class="badge badge-success">{{ $item->tenants_note }}</span></td>
              </tr>
-            
-            
              @endforeach
            </tbody>
          </table>
@@ -455,6 +458,12 @@
       <!-- Card Header - Dropdown -->
       <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
         <h6 class="m-0 font-weight-bold text-primary">DELINQUENTS</h6>
+        <div class="dropdown no-arrow">
+          <a href="#" class="dropdown-toggle" data-toggle="modal" data-target="" >
+          <i class="fas fa-thumbtack fa-sm fa-fw text-gray-400"></i>
+          </a>
+          
+        </div>
         
       </div>
       <!-- Card Body -->
@@ -546,7 +555,7 @@
     @endforeach
    </tbody>
  </table>
- <table class="table table-striped"" id="dataTable" width="100%" cellspacing="0">
+ <table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
   <tr>
    <th>TOTAL</th>
    <th class="text-right">{{ number_format($collections_for_the_day->sum('total'),2) }}</th>

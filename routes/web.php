@@ -151,6 +151,14 @@ Route::get('/board', function(Request $request){
         ->where('unit_property', Auth::user()->property)
         ->get();
 
+        $current_occupancy_rate = DB::table('occupancy_rate')
+        ->where('occupancy_property', Auth::user()->property)
+        ->whereMonth('occupancy_date', Carbon::today()->month)
+        ->whereYear('occupancy_date', Carbon::today()->year)
+        ->orderBy('id')
+        ->limit(1)
+        ->pluck('occupancy_rate');
+
         $movein_rate = new DashboardChart;
         $movein_rate->barwidth(0.0);
         $movein_rate->displaylegend(false);
@@ -168,7 +176,7 @@ Route::get('/board', function(Request $request){
                                                     DB::table('occupancy_rate')->where('occupancy_property', Auth::user()->property)->whereMonth('occupancy_date', Carbon::today()->subMonths(3)->month)->whereYear('occupancy_date', Carbon::today()->year)->orderBy('id')->limit(1)->pluck('occupancy_rate'),
                                                     DB::table('occupancy_rate')->where('occupancy_property', Auth::user()->property)->whereMonth('occupancy_date', Carbon::today()->subMonths(2)->month)->whereYear('occupancy_date', Carbon::today()->year)->orderBy('id')->limit(1)->pluck('occupancy_rate'),
                                                     DB::table('occupancy_rate')->where('occupancy_property', Auth::user()->property)->whereMonth('occupancy_date', Carbon::today()->subMonth()->month)->whereYear('occupancy_date', Carbon::today()->year)->orderBy('id')->limit(1)->pluck('occupancy_rate'),
-                                                    DB::table('occupancy_rate')->where('occupancy_property', Auth::user()->property)->whereMonth('occupancy_date', Carbon::today()->month)->whereYear('occupancy_date', Carbon::today()->year)->orderBy('id')->limit(1)->pluck('occupancy_rate'),
+                                                    $current_occupancy_rate,
                                                 ]
                                 )
             ->color("#858796")
@@ -302,30 +310,6 @@ Route::get('/board', function(Request $request){
         ->where('payment_created', '<=', Carbon::now()->endOfMonth())
         ->where('unit_property', Auth::user()->property)
         ->sum('amt_paid');
-
-        // $collection_rate = new DashboardChart;
-
-        // $collection_rate->barwidth(0.0);
-        // $collection_rate->displaylegend(false);
-        // $collection_rate->labels([Carbon::now()->subMonth(11)->format('M Y'),Carbon::now()->subMonth(10)->format('M Y'),Carbon::now()->subMonth(9)->format('M Y'),Carbon::now()->subMonth(8)->format('M Y'),Carbon::now()->subMonth(7)->format('M Y'),Carbon::now()->subMonth(6)->format('M Y'),Carbon::now()->subMonth(5)->format('M Y'),Carbon::now()->subMonth(4)->format('M Y'),Carbon::now()->subMonth(3)->format('M Y'),Carbon::now()->subMonths(2)->format('M Y'),Carbon::now()->subMonth()->format('M Y'),Carbon::now()->format('M Y')]);
-        // $collection_rate->dataset('Total collections', 'line', [
-        //     $collection_rate_1,
-        //     $collection_rate_2,
-        //     $collection_rate_3,
-        //     $collection_rate_4,
-        //     $collection_rate_5,
-        //     $collection_rate_6,
-        //     $collection_rate_7,
-        //     $collection_rate_8,
-        //     $collection_rate_9,
-        //     $collection_rate_10,
-        //     $collection_rate_11,
-        //     $collection_rate_12,
-        //                                                       ])
-        // ->color("#858796")
-        // ->backgroundcolor("rgba(78, 115, 223, 0.05)")
-        // ->fill(true)
-        // ->linetension(0.3);
 
         $expenses_rate = new DashboardChart;
 
@@ -634,7 +618,7 @@ Route::get('/board', function(Request $request){
             'movein_rate','moveout_rate', 'renewed_chart','expenses_rate', 'reason_for_moving_out_chart',
             'delinquent_accounts','tenants_to_watch_out',
             'collections_for_the_day','pending_concerns','active_concerns','concerns',
-            'notifications','notifications_opened'
+            'notifications','notifications_opened', 'current_occupancy_rate'
                     )
             );
         }else{
