@@ -674,15 +674,15 @@
         
                     <div class="row">
                         <div class="col-md-8">
-                            <label for="movein_date">Enter the new movein date</label>
-                            <input type="date" form="extendTenantForm" class="" name="movein_date" value="{{ $tenant->moveout_date }}" required>
+                            <label for="movein_date">New Move in Date</label>
+                            <input class='form-control' type="date" form="extendTenantForm" class="" name="movein_date" value="{{ $tenant->moveout_date }}" required>
                             <input type="hidden" form="extendTenantForm" class="" name="action" value="extend_contract" required>
                             {{-- <input type="text" form="" class="form-control" name="" value="{{ Carbon\Carbon::parse($tenant->moveout_date)->format('M d Y') }}" required readonly> --}}
                         </div>
 
                         <div class="col-md-4">
-                          <label for="moveout_date">Extend contract to</label>
-                          <input type="number" form="extendTenantForm" min="1" class="" name="no_of_months" min="1" placeholder="enter no of months" required >
+                          <label for="moveout_date">Extend Contract To</label>
+                          <input class='form-control' type="number" form="extendTenantForm" min="1" class="" name="no_of_months" min="1" placeholder="enter the number of months" required >
                           <input type="hidden" form="extendTenantForm" class="form-control" name="old_movein_date" value="{{ $tenant->movein_date }}" required>
                       </div>
                     </div>
@@ -692,11 +692,11 @@
                     <div class="row">
                         <div class="col"> 
                                <p class="">
-                                <span id='remove_charges' class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-minus fa-sm text-white-50"></i> Remove Bill</span>
-                                <span id="add_charges" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Add Bill</span>     
+                                <span id='remove_charges' class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-minus fa-sm text-white-50"></i> Remove</span>
+                                <span id="add_charges" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Add</span>     
                                </p>
                             
-                            <br>
+                            
                                 <table class ="table table-bordered" id="extend_table">
                                     <tr>
                                         <th>Bill No</th>
@@ -713,7 +713,7 @@
                 </div>
                 <div class="modal-footer">
                     {{-- <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button> --}}
-                    <button form="extendTenantForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;" ><i class="fas fa-check fa-sm text-white-50"></i> Extend</button>
+                    <button form="extendTenantForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;" ><i class="fas fa-check fa-sm text-white-50"></i> Submit</button>
                 </div>
             </div>
             </div>
@@ -821,12 +821,12 @@
                         <div class=" row">
                           <div class="col-md-8">
                               <small>Moveout Date</small>
-                              <input type="date" form="requestMoveoutForm" name="actual_move_out_date" id="actual_moveout_date" value="{{ $tenant->moveout_date }}" required>
+                              <input class='form-control col-md-6' type="date" form="requestMoveoutForm" name="actual_move_out_date" id="actual_moveout_date" value="{{ $tenant->moveout_date }}" required>
                           </div>
 
                           <div class="col-md-4">
-                            <small>Reason for Moving Out</small>
-                              <select form="requestMoveoutForm" name="reason_for_moving_out" id="reason_for_moving_out" required>
+                            <small>Select Reason of Moveout</small>
+                              <select class='form-control' form="requestMoveoutForm" name="reason_for_moving_out" id="reason_for_moving_out" required>
                                   <option value="">Please select one</option>
                                   <option value="end of contract">end of contract</option>
                                   <option value="delinquent">delinquent</option>
@@ -885,15 +885,16 @@
                         <div class="col">
                        <small>Moveout Charges</small>
                           <p class="text-left">
-                            <span id='delete_row' class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-minus fa-sm text-white-50"></i> Remove Bill</span>
-                          <span id="add_row" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Add Bill</span>     
+                            <span id='delete_row' class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-minus fa-sm text-white-50"></i> Remove</span>
+                          <span id="add_row" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Add </span>     
                           </p>
                             <div class="table-responsive text-nowrap">
                             <table class = "table table-bordered" id="tab_logic">
                                 <tr>
                                     <th>Bill No</th>
-                                    <th>Description</th>
-                                    
+                                    <th>Item</th>
+                                    <th>Price</th>
+                                    <th>Qty</th>
                                     <th>Amount</th>
                                     
                                 </tr>
@@ -1054,7 +1055,60 @@
 @endsection
 
 @section('scripts')
+<script type="text/javascript">
 
+  //adding moveout charges upon moveout
+    $(document).ready(function(){
+        var i=1;
+    $("#add_row").click(function(){
+        $('#addr'+i).html("<th id='value'>"+ (i) +"</th><td><input class='form-control' form='requestMoveoutForm' name='billing_desc"+i+"' id='desc"+i+"' type='text' required></td><td><input class='form-control' form='requestMoveoutForm'   name='price"+i+"' id='price"+i+"' type='number' min='1' required></td><td><input class='form-control' form='requestMoveoutForm'  oninput='autoCompute("+i+")' name='qty"+i+"' id='qty"+i+"' type='number' min='1' required></td><td><input class='form-control' form='requestMoveoutForm' name='billing_amt"+i+"' id='amt"+i+"' type='number' min='1' required readonly value='0'></td>");
+
+
+     $('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
+     i++;
+     document.getElementById('no_of_bills').value = i;
+
+
+    });
+
+    $("#delete_row").click(function(){
+        if(i>1){
+        $("#addr"+(i-1)).html('');
+        i--;
+        document.getElementById('no_of_bills').value = i;
+        }
+    });
+
+        var j=1;
+    $("#add_charges").click(function(){
+      $('#row'+j).html("<th>"+ (current_bill_no ) +"</th><td><select class='form-control' name='billing_desc"+j+"' form='extendTenantForm' id='billing_desc"+j+"'><option value='Security Deposit (Rent)'>Security Deposit (Rent)</option><option value='Security Deposit (Utilities)'>Security Deposit (Utilities)</option><option value='Advance Rent'>Advance Rent</option><option value='Rent'>Rent</option><option value='Electric'>Electric</option><option value='Water'>Water</option></select> <td><input class='form-control' form='extendTenantForm' name='billing_start"+j+"' id='billing_start"+j+"' type='date' value='{{ $tenant->moveout_date }}' required></td> <td><input class='form-control' form='extendTenantForm' name='billing_end"+j+"' id='billing_end"+j+"' type='date' required></td> <td><input class='form-control' form='extendTenantForm'   name='billing_amt"+j+"' id='billing_amt"+j+"' type='number' min='1' step='0.01' required></td>");
+     $('#extend_table').append('<tr id="row'+(j+1)+'"></tr>');
+     j++;
+     
+        document.getElementById('no_of_items').value = j;
+
+ });
+
+    $("#remove_charges").click(function(){
+        if(j>1){
+        $("#row"+(j-1)).html('');
+        j--;
+        
+        document.getElementById('no_of_items').value = j;
+        }
+    });
+});
+</script>
+
+<script>
+  function autoCompute(val) {
+    price = document.getElementById('price'+val).value;
+    qty = document.getElementById('qty'+val).value;
+    
+    amt = document.getElementById('amt'+val).value =  parseFloat(price) *  parseFloat(qty);
+   
+  }
+</script>
 @endsection
 
 

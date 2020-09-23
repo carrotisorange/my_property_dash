@@ -586,16 +586,17 @@ class TenantController extends Controller
     { 
         
         if($request->action==='request to moveout'){
+             $no_of_bills = (int) $request->no_of_bills; 
 
-            DB::table('notifications')->insertGetId(
-                [
-                    'notification_tenant_id' => $tenant_id,
-                    'notification_room_id' => $unit_id,
-                    'notification_user_id' => Auth::user()->id,
-                    'action' => 'has requested to moveout!',
-                    'created_at' => Carbon::now(),
-                ]
-            );
+            // DB::table('notifications')->insertGetId(
+            //     [
+            //         'notification_tenant_id' => $tenant_id,
+            //         'notification_room_id' => $unit_id,
+            //         'notification_user_id' => Auth::user()->id,
+            //         'action' => 'has requested to moveout!',
+            //         'created_at' => Carbon::now(),
+            //     ]
+            // );
 
             DB::table('tenants')
             ->where('tenant_id', $tenant_id)
@@ -608,7 +609,7 @@ class TenantController extends Controller
                 ]
             );
 
-            $no_of_bills = (int) $request->no_of_bills; 
+           
 
             //get the number of last added bills
             $current_bill_no = DB::table('units')
