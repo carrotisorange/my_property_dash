@@ -334,7 +334,7 @@ Route::get('/board', function(Request $request){
         $expenses_rate->labels([Carbon::now()->subMonth(11)->format('M Y'),Carbon::now()->subMonth(10)->format('M Y'),Carbon::now()->subMonth(9)->format('M Y'),Carbon::now()->subMonth(8)->format('M Y'),Carbon::now()->subMonth(7)->format('M Y'),Carbon::now()->subMonth(6)->format('M Y'),Carbon::now()->subMonth(5)->format('M Y'),Carbon::now()->subMonth(4)->format('M Y'),Carbon::now()->subMonth(3)->format('M Y'),Carbon::now()->subMonths(2)->format('M Y'),Carbon::now()->subMonth()->format('M Y'),Carbon::now()->format('M Y')]);
         $expenses_rate->dataset
                                 (
-                                    'Collection', 'line', 
+                                    'Collections', 'line', 
                                                                     [
                                                                         $collection_rate_1,
                                                                         $collection_rate_2,
@@ -380,7 +380,7 @@ Route::get('/board', function(Request $request){
         
         $expenses_rate->dataset
                                 (
-                                    'Revenue', 'line', 
+                                    'Revenues', 'line', 
                                                                     [
                                                                         $collection_rate_1 -  DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(11))->sum('amt'),
                                                                         $collection_rate_2 -  DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(10))->sum('amt'),
