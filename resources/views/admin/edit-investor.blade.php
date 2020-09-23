@@ -207,7 +207,7 @@
 
 <p class="text-right">   
     <a href="/units/{{ $unit->unit_id}}/owners/{{ $investor->unit_owner_id }}" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</a>
-    <button type="submit" form="editInvestorForm" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;"><i class="fas fa-check fa-sm text-white-50"></i> Update Owner</button>
+    <button type="submit" form="editInvestorForm" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;"><i class="fas fa-check fa-sm text-white-50"></i> Save Changes</button>
 </p>
 @endsection
 
