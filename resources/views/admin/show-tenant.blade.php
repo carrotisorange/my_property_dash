@@ -691,7 +691,7 @@
                     
                     <div class="row">
                         <div class="col"> 
-                               <p class="">
+                               <p class="text-right">
                                 <span id='remove_charges' class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-minus fa-sm text-white-50"></i> Remove</span>
                                 <span id="add_charges" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Add</span>     
                                </p>
