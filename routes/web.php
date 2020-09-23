@@ -1256,22 +1256,6 @@ Route::get('/collections', function(){
                 return \Carbon\Carbon::parse($item->payment_created)->timestamp;
             });
 
-            
-           
-            
-            // $collections = DB::table('units')
-            // ->select('*','payments.created_at as created_at', DB::raw('sum(amt_paid) as total'))
-            // ->join('tenants', 'unit_id', 'unit_tenant_id')
-            // ->join('payments', 'tenant_id', 'payment_tenant_id')
-            // ->where('unit_property', Auth::user()->property)
-            // ->groupBy('payment_created')
-            // ->orderBy('ar_number', 'desc')
-            // ->get()
-            
-            // ->groupBy(function($item) {
-            //     return \Carbon\Carbon::parse($item->payment_created)->timestamp;
-            // });
-
         return view('billing.collections', compact('collections'));
     }else{
         return view('unregistered');
