@@ -136,9 +136,9 @@
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
       <nav>
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
-          <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Profile</a>
-          <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Rooms</a>
-          <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Bills</a>
+          <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true"><i class="fas fa-user-tie fa-sm text-primary-50"></i> Profile</a>
+          <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="fas fa-home fa-sm text-primary-50"></i> Rooms</a>
+          <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false"><i class="fas fa-file-signature fa-sm text-primary-50"></i> Bills</a>
         </div>
       </nav>
         
@@ -152,14 +152,10 @@
       <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
         <div class="row">
           <div class="col-md-8">
-            <a href="/units/{{ $unit->unit_id }}/owners/{{ $investor->unit_owner_id }}/edit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" ><i class="fas fa-edit fa-sm text-white-50"></i> Edit Owner</a>
+            <a href="/units/{{ $unit->unit_id }}"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> Back</a>
+            <a href="/units/{{ $unit->unit_id }}/owners/{{ $investor->unit_owner_id }}/edit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" ><i class="fas fa-edit fa-sm text-white-50"></i> Edit</a>
             <br><br>
-           <div class="card shadow mb-4">
-             {{-- <div class="card-header py-3">
-               OWNER INFORMATION
-             </div> --}}
-             <div class="card-body">
-               
+  
                <div class="table-responsive text-nowrap">
                  <table class="table" >
                     <tr>
@@ -199,8 +195,8 @@
                
                  </table>
                </div>
-             </div>
-           </div>
+         
+           
           </div>
           <div class="col-md-4">
          
@@ -224,7 +220,45 @@
        
          </div> </div>
       </div>
-      <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">...</div>
+      <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+        <a href="#/"  data-toggle="modal" data-target="#addRoomModal" data-whatever="@mdo" type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+          <i class="fas fa-plus fa-sm text-white-50"></i> Add 
+        </a>
+        <br><br>
+        <div class="col-md-11 mx-auto">
+          <div class="table-responsive text-nowrap">
+            <?php $ctr = 1; ?>
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Room</th>
+                  <th>Building</th>
+                  <th>Type</th>
+                  <th>Floor No</th>
+                  <th>Status</th>
+                  <th>Monthly Rent</th>
+                  <th>Occupancy</th>
+                </tr>
+              </thead>
+             @foreach ($units as $item)
+             <tbody>
+              <tr>
+                <th>{{ $ctr++ }}</th>
+                <td><a href="/units/{{ $item->unit_id }}">{{ $item->unit_no }}</a></td>
+                <td>{{ $item->building }}</td>
+                <td>{{ $item->type_of_units }}</td>
+                <td>{{ $item->floor_no }}</td>
+                <td>{{ $item->status }}</td>
+                <td>{{ number_format($item->monthly_rent, 2) }}</td>
+                <td>{{ $item->max_occupancy }} pax</td>
+              </tr>
+            </tbody>
+             @endforeach
+            </table>
+          </div>
+        </div>
+      </div>
       <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
     </div>
   </div>

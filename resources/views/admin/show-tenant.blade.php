@@ -290,25 +290,28 @@
         <span  href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addConcern" data-whatever="@mdo"><i class="fas fa-plus fa-sm text-white-50"></i> Add</span>  
         <br><br>
         <div class="row" >
-          <div class="col-md-12">
+          <div class="col-md-11 mx-auto" >
         <div class="table-responsive text-nowrap">
-         <table class="table table-striped" >
+         <table class="table table-bordered" >
+           <?php $ctr = 1; ?>
            <thead>
              <tr>
+               <th>#</th>
                  <th>ID</th>
-                 <th>DATE REPORTED</th>
+                 <th>Date Reported</th>
                 
-                 <th>ROOM</th>
-                 <th>TYPE</th>
-                 <th>DESCRIPTION</th>
-                 <th>URGENCY</th>
-                 <th>STATUS</th>
+                 <th>Room</th>
+                 <th>Type of Concern</th>
+                 <th>Description</th>
+                 <th>Urgency</th>
+                 <th>Status</th>
                 
             </tr>
            </thead>
            <tbody>
              @foreach ($concerns as $item)
              <tr>
+               <th>{{ $ctr++ }}</th>
              <td>{{ $item->concern_id }}</td>
                <td>{{ Carbon\Carbon::parse($item->date_reported)->format('M d Y') }}</td>
                  
@@ -350,9 +353,7 @@
       </div>
       </div>
       <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-        <div class="row">
-          <div class="col-md-12">
-            
+               
     @if ($tenant->tenant_status === 'inactive' && $balance->sum('balance') > 0) 
     <span  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#moveoutTenantWarning" data-whatever="@mdo"><i class="fas fa-external-link-alt fa-sm text-white-50"></i> Extend</span>
     @else
@@ -378,9 +379,13 @@
       @endif
 
     @endif
-    <br><br>
+        <div class="row">
+          
+          <div class="col-md-11 mx-auto">
+     
+    <br>
             <div class="table-responsive text-nowrap">
-              <table class="table">
+              <table class="table table-bordered">
                 <tr>
                   <td>Room</td>
                   <td>{{ $unit->building.' '.$unit->unit_no }}</td>
@@ -447,16 +452,25 @@
       </div>
       <div class="tab-pane fade" id="nav-bills" role="tabpanel" aria-labelledby="nav-bill-tab">
         @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'manager')
-          {{-- <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/billings/edit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-edit fa-sm text-white-50"></i> Edit <span class="badge badge-light"></span> </a> --}}
-          <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/billings" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-ellipsis-v fa-sm text-white-50"></i> More <span class="badge badge-light"></span> </a>
+          {{-- <a href="#" data-toggle="modal" data-target="#addBill" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Add</a> --}}
+          <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/billings/edit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-edit fa-sm text-white-50"></i> Edit</a>
+          @if($balance->count() > 0)
+          <a  target="_blank" href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/bills/download" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Export</span></a>
+          @endif
+          @if($tenant->email_address !== null)
+          <a  target="_blank" href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/bills/send" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-paper-plane  fa-sm text-white-50"></i> Send</span></a>
+          @endif
         @endif
+
     <br>
     <br>
+    <div class="col-md-11 mx-auto">
     <div class="table-responsive">
       <div class="table-responsive text-nowrap">
-        <table class="table">
+        <table class="table table-bordered">
+          <?php $ctr=1; ?>
           <tr>
-          <td></td>
+         <th>#</th>
           <th>Date Billed</th>
             <th>Bill No</th>
             
@@ -467,7 +481,7 @@
           </tr>
           @foreach ($balance as $item)
           <tr>
-            <td></td>
+         <th>{{ $ctr++ }}</th>
             <td>
               {{Carbon\Carbon::parse($item->billing_date)->format('M d Y')}}
             </td>   
@@ -502,9 +516,11 @@
     </div>
     </div>
       </div>
+      </div>
       <div class="tab-pane fade" id="nav-payments" role="tabpanel" aria-labelledby="nav-payments-tab">
+        <div class="col-md-11 mx-auto">
         <div class="table-responsive text-nowrap">
-          <table class="table">
+          <table class="table table-bordered">
               @foreach ($collections as $day => $collection_list)
                 <tr>
                     <th colspan="10">{{ Carbon\Carbon::parse($day)->addDay()->format('M d Y') }} ({{ $collection_list->count()}})</th>
@@ -538,7 +554,7 @@
                         <td class="text-right">{{ number_format($item->amt_paid,2) }}</td>
                         
                         <td class="text-center">
-                          <a title="export pdf" target="_blank" href="/units/{{ $item->unit_tenant_id }}/tenants/{{ $item->tenant_id }}/payments/{{ $item->payment_id }}/dates/{{$item->payment_created}}/export" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i></a>
+                          <a title="export" target="_blank" href="/units/{{ $item->unit_tenant_id }}/tenants/{{ $item->tenant_id }}/payments/{{ $item->payment_id }}/dates/{{$item->payment_created}}/export" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i></a>
                           {{-- <a target="_blank" href="#" title="print invoice" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-print fa-sm text-white-50"></i></a> 
                           --}}
                         </td>
@@ -546,7 +562,7 @@
                           <form action="/tenants/{{ $item->tenant_id }}/payments/{{ $item->payment_id }}" method="POST">
                             @csrf
                             @method('delete')
-                            <button title="remove this payment" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"  onclick="return confirm('Are you sure you want perform this action?');"><i class="fas fa-times fa-sm text-white-50"></i></button>
+                            <button title="delete" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"  onclick="return confirm('Are you sure you want perform this action?');"><i class="fas fa-times fa-sm text-white-50"></i></button>
                           </form>
                         </td>   
                        
@@ -560,6 +576,7 @@
               @endforeach
           </table>
         </div>
+      </div>
       </div>
     </div>
   </div>
@@ -1226,23 +1243,6 @@
     amt = document.getElementById('amt'+val).value =  parseFloat(price) *  parseFloat(qty);
    
   }
-</script>
-
-<script>
-  $(document).ready(() => {
-  var url = window.location.href;
-  if (url.indexOf("#") > 0){
-  var activeTab = url.substring(url.indexOf("#") + 1);
-    $('.nav[role="tablist"] a[href="#'+activeTab+'"]').tab('show');
-  }
-
-  $('a[role="tab"]').on("click", function() {
-    var newUrl;
-    const hash = $(this).attr("href");
-      newUrl = url.split("#")[0] + hash;
-    history.replaceState(null, null, newUrl);
-  });
-});
 </script>
 @endsection
 

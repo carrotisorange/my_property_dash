@@ -81,8 +81,12 @@ class UnitOwnersController extends Controller
            ->get();
 
            $unit = Unit::findOrFail($unit_id);
+
+           $units = DB::table('units')
+           ->where('unit_unit_owner_id', $unit_owner_id)
+           ->get();
    
-            return view('admin.show-investor', compact('investor','unit'));
+            return view('admin.show-investor', compact('investor','unit', 'units'));
         }else{
             return view('unregistered');
         }

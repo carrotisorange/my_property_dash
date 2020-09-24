@@ -257,11 +257,11 @@
       <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
         @if ($tenant_active->count() < $unit->max_occupancy)
         <a href="/units/{{ $unit->unit_id }}/tenants-create" title="{{ $unit->max_occupancy - $tenant_active->count() }} remaining tenant/s to be fully occupied." type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-            <i class="fas fa-user-plus fa-sm text-white-50"></i> Tenant <span class="badge badge-light">{{  $tenant_active->count() }}/{{ $unit->max_occupancy }} </a>
+            <i class="fas fa-user-plus fa-sm text-white-50"></i> Add <span class="badge badge-light">{{  $tenant_active->count() }}/{{ $unit->max_occupancy }} </a>
   
         @else
         <a href="#/" title="{{ $unit->max_occupancy - $tenant_active->count() }} remaining tenant/s to be fully occupied." data-toggle="modal" data-target="#warningTenant" data-whatever="@mdo" type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-            <i class="fas fa-user-plus fa-sm text-white-50"></i> Tenant <span class="badge badge-light">{{  $tenant_active->count() }}/{{ $unit->max_occupancy }} 
+            <i class="fas fa-user-plus fa-sm text-white-50"></i> Add <span class="badge badge-light">{{  $tenant_active->count() }}/{{ $unit->max_occupancy }} 
           </a>
         @endif
         <br><br>
@@ -444,7 +444,7 @@
       <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
         
       <a href="#/" data-toggle="modal" data-target="#addInvestor" data-whatever="@mdo" type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-        <i class="fas fa-user-plus fa-sm text-white-50"></i> Owner
+        <i class="fas fa-user-plus fa-sm text-white-50"></i> Add
       </a>   
       <div class="col-md-11 mx-auto">
 
@@ -678,22 +678,7 @@
 @endsection
 
 @section('scripts')
-<script>
-  $(document).ready(() => {
-  var url = window.location.href;
-  if (url.indexOf("#") > 0){
-  var activeTab = url.substring(url.indexOf("#") + 1);
-    $('.nav[role="tablist"] a[href="#'+activeTab+'"]').tab('show');
-  }
 
-  $('a[role="tab"]').on("click", function() {
-    var newUrl;
-    const hash = $(this).attr("href");
-      newUrl = url.split("#")[0] + hash;
-    history.replaceState(null, null, newUrl);
-  });
-});
-</script>
 @endsection
 
 
