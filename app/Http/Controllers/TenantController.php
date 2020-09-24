@@ -341,8 +341,7 @@ class TenantController extends Controller
             $unit = Unit::findOrFail($unit_id);
 
             $personnels = DB::table('personnels')->where('personnel_property', Auth::user()->property)->get();
-        
-
+    
             $concerns = DB::table('tenants')
             ->join('units', 'unit_id', 'unit_tenant_id')
             ->join('concerns', 'tenant_id', 'concern_tenant_id')
@@ -353,16 +352,19 @@ class TenantController extends Controller
             ->orderBy('concern_status', 'desc')
             ->paginate(10);
 
-            $payments = DB::table('units')
-            ->join('tenants', 'unit_id', 'unit_tenant_id')
-            ->join('payments', 'tenant_id', 'payment_tenant_id')
-            ->where('unit_property', Auth::user()->property)
-            ->where('tenant_id', $tenant_id)            
+            $collections = DB::table('units')
+            ->leftJoin('tenants', 'unit_id', 'unit_tenant_id')
+            ->leftJoin('payments', 'tenant_id', 'payment_tenant_id')
+            ->leftJoin('billings', 'payment_billing_no', 'billing_no')
+            ->where('tenant_id', $tenant_id)
             ->orderBy('payment_created', 'desc')
+            ->orderBy('ar_no', 'desc')
+            ->groupBy('payment_id')
             ->get()
             ->groupBy(function($item) {
                 return \Carbon\Carbon::parse($item->payment_created)->timestamp;
             });
+        
 
               //get the number of last added bills
             $current_bill_no = DB::table('units')
@@ -380,7 +382,7 @@ class TenantController extends Controller
             ->get();
 
             
-                return view('admin.show-tenant', compact('tenant','personnels' , 'payments','concerns', 'current_bill_no', 'balance', 'unit'));  
+                return view('admin.show-tenant', compact('tenant','personnels' ,'concerns', 'current_bill_no', 'balance', 'unit', 'collections'));  
         }else{
                 return view('unregistered');
         }

@@ -131,68 +131,44 @@
 @endsection
 
 @section('content')
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+  <h1 class="h3 mb-0 text-gray-800">{{ $tenant->first_name.' '.$tenant->middle_name.' '.$tenant->last_name }}</h1>
+</div>
 <div class="row">
   <div class="col-md-12">
-    <a href="/units/{{ $tenant->unit_tenant_id }}"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> Back to room</a>
-    @if(Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'admin')
-    <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/edit"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-user-edit fa-sm text-white-50"></i> Edit Tenant</a>  
-    <span  href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addConcern" data-whatever="@mdo"><i class="far fa-comment-dots fa-sm text-white-50"></i> Add Concern</span>  
-    @endif
-    @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'manager')
-    <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/billings" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-file-invoice-dollar fa-sm text-white-50"></i> Show Bills <span class="badge badge-light">{{ $balance->count('balance') }}</span> </a>
-    @endif
-    {{-- @if(Auth::user()->user_type === 'treasury' || Auth::user()->user_type === 'manager') --}}
-    <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/payments" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-dollar-sign fa-sm text-white-50"></i> Show Payments</a>
-    {{-- @endif --}}
+    <nav>
+      <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true"><i class="fas fa-user fa-sm text-primary-50"></i> Profile</a>
+        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="fas fa-file-signature fa-sm text-primary-50"></i> Contracts</a>
+        <a class="nav-item nav-link" id="nav-bill-tab" data-toggle="tab" href="#nav-bills" role="tab" aria-controls="nav-bills" aria-selected="true"><i class="fas fa-file-invoice-dollar fa-sm text-primary-50"></i> Bills</a>
+        <a class="nav-item nav-link" id="nav-payment-tab" data-toggle="tab" href="#nav-payments" role="tab" aria-controls="nav-payments" aria-selected="true"><i class="fas fa-money-bill fa-sm text-primary-50"></i> Payments</a>
+        <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false"><i class="fas fa-tools fa-sm text-primary-50"></i> Concerns</a>
+      </div>
+    </nav>
     
-    @if ($tenant->tenant_status === 'inactive' && $balance->sum('balance') > 0) 
-    <span  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#moveoutTenantWarning" data-whatever="@mdo"><i class="fas fa-external-link-alt fa-sm text-white-50"></i> Extend Contract</span>
-    @else
-    <span  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#extendTenant" data-whatever="@mdo"><i class="fas fa-external-link-alt fa-sm text-white-50"></i> Extend Contract</span>
-    @endif
-   
-    @if ($tenant->tenant_status === 'active' || $tenant->tenant_status === 'pending')
-       
-          @if($tenant->created_at === null && $tenant->updated_at === null)
-          <span href="#" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm" data-toggle="modal" data-target="#requestToMoveoutModal" data-whatever="@mdo"><i class="fas fa-sign-out-alt fa-sm text-white-50"></i> Request Moveout</span>
-          @elseif($tenant->created_at !== null && $tenant->updated_at === null)
-            @if(Auth::user()->user_type === 'manager')
-            <span href="#" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm" data-toggle="modal" data-target="#approveToMoveoutModal" data-whatever="@mdo"><i class="fas fa-sign-out-alt fa-sm text-white-50"></i> Approve Moveout</span>
-            @else
-              <button title="Waiting for the manager to approve..." class="d-none d-sm-inline-block btn btn-sm btn-warning shadow-sm" ><i class="fas fa-clock fa-sm text-white-50"></i> Pending Moveout</button>
-            @endif
-          @else
-          @if($balance->sum('balance') > 0)
-          <span href="#" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm" data-toggle="modal" data-target="#moveoutTenantWarning" data-whatever="@mdo"><i class="fas fa-sign-out-alt fa-sm text-white-50"></i> Process Moveout</span>
-          @else
-          <button  href="#" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm" data-toggle="modal" data-target="#moveoutTenant" data-whatever="@mdo"><i class="fas fa-sign-out-alt fa-sm text-white-50"></i> Process Moveout</button>
-          @endif
-      @endif
-
-    @endif
   </div>
 </div>
-    
-
 <br>
-
+<div class="row">
+  <div class="col-md-12">
+    <div class="tab-content" id="nav-tabContent">
+      <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+        
 <div class="row">
   <div class="col-md-8">
-  <!-- DataTales Example -->
-  <div class="card shadow mb-4">
-    <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary">TENANT INFORMATION</h6>
-    </div>
-    <div class="card-body">
-     
+    <a href="/units/{{ $tenant->unit_tenant_id }}"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> Back</a>
+    @if(Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'admin')
+    <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/edit"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-user-edit fa-sm text-white-50"></i> Edit</a>  
+    @endif
+
+     <br><br>
       <div class="table-responsive text-nowrap">
         <table class="table" >
 
-                 <input type="hidden" value="{{ ($tenant->updated_at) }}" id="approve_moveout_at"> 
-             
- 
+                 {{-- <input type="hidden" value="{{ ($tenant->updated_at) }}" id="approve_moveout_at">  --}}
+            
               <tr>
-                  <td>Full Name</td>
+                  <td>Tenant:</td>
                   <td>{{ $tenant->first_name.' '.$tenant->middle_name.' '.$tenant->last_name }} 
                       @if($tenant->tenant_status === 'active')
                           <span class="badge badge-primary">{{ $tenant->tenant_status }}</span>
@@ -232,11 +208,59 @@
                   <td>Email Address</td>
                   <td>{{ $tenant->email_address }}</td>
               </tr>
-  
+             
+            <tr>
+                <td>Guardian</td>
+                <td>{{ $tenant->guardian }}</td>
+            </tr>
+            <tr>
+                <td>Relationship with the tenant</td>
+                <td>{{ $tenant->guardian_relationship }}</td>
+            </tr>
+            <tr>
+                <td>Contact No</td>
+                <td>{{ $tenant->guardian_contact_no }}</td>
+            </tr>
+           
+            <tr>
+                <td>High School</td>
+                <td>{{ $tenant->high_school.', '.$tenant->high_school_address }}</td>
+            </tr>
+            <tr>
+                <td>College/University</td>
+                <td>{{ $tenant->college_school.', '.$tenant->college_school_address }}</td>
+            </tr>
+            <tr>
+                <td>Course/Year</td>
+                <td>{{ $tenant->course.', '.$tenant->year_level }}</td>
+            </tr>
+            
+           
+            <tr>
+                <td>Employer</td>
+                <td>{{ $tenant->employer}}</td>
+            </tr>
+            <tr>
+                <td>Address</td>
+                <td>{{ $tenant->employer_address }}</td>
+            </tr>
+            <tr>
+                <td>Contact No</td>
+                <td>{{ $tenant->employer_contact_no }}</td>
+            </tr>
+            
+            <tr>
+                <td>Job description</td>
+                <td>{{ $tenant->job }}</td>
+            </tr>
+            <tr>
+                <td>Years of employment</td>
+                <td>{{ $tenant->years_of_employment }}</td>
+            </tr>
+              
+
           </table>
         </div>
-    </div>
-  </div>
   </div>
   <div class="col-md-4">
   
@@ -257,198 +281,292 @@
     <br>
    
     <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm btn-user btn-block" form="uploadImageForm"><i class="fas fa-upload fa-sm text-white-50"></i> Upload Image </button>
-    {{-- <p class="text-right"><span title="upload image" href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/edit" data-toggle="modal" data-target="#uploadImageModal" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-upload fa-sm text-white-50"></i> </span></p> --}}
+
   </div>
+
 </div>
-<div class="row">
-  <div class="col-md-12">
-    <div class="table-responsive text-nowrap">
+      </div>
+      <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+        <span  href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addConcern" data-whatever="@mdo"><i class="fas fa-plus fa-sm text-white-50"></i> Add</span>  
+        <br><br>
+        <div class="row" >
+          <div class="col-md-12">
+        <div class="table-responsive text-nowrap">
+         <table class="table table-striped" >
+           <thead>
+             <tr>
+                 <th>ID</th>
+                 <th>DATE REPORTED</th>
+                
+                 <th>ROOM</th>
+                 <th>TYPE</th>
+                 <th>DESCRIPTION</th>
+                 <th>URGENCY</th>
+                 <th>STATUS</th>
+                
+            </tr>
+           </thead>
+           <tbody>
+             @foreach ($concerns as $item)
+             <tr>
+             <td>{{ $item->concern_id }}</td>
+               <td>{{ Carbon\Carbon::parse($item->date_reported)->format('M d Y') }}</td>
+                 
+                 <td>{{ $item->building.' '.$item->unit_no }}</td>
+                 <td>
+                   
+                     {{ $item->concern_type }}
+                     
+                 </td>
+                 <td ><a title="{{ $item->concern_desc }}" href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/concerns/{{ $item->concern_id }}">{{ $item->concern_item }}</a></td>
+                 <td>
+                     @if($item->concern_urgency === 'urgent')
+                     <span class="badge badge-danger">{{ $item->concern_urgency }}</span>
+                     @elseif($item->concern_urgency === 'major')
+                     <span class="badge badge-warning">{{ $item->concern_urgency }}</span>
+                     @else
+                     <span class="badge badge-primary">{{ $item->concern_urgency }}</span>
+                     @endif
+                 </td>
+                 <td>
+                     @if($item->concern_status === 'pending')
+                     <span class="badge badge-warning">{{ $item->concern_status }}</span>
+                     @elseif($item->concern_status === 'active')
+                     <span class="badge badge-primary">{{ $item->concern_status }}</span>
+                     @else
+                     <span class="badge badge-secondary">{{ $item->concern_status }}</span>
+                     @endif
+                 </td>
+               
+             </tr>
+             @endforeach
+           </tbody>
+         </table>
+         {{ $concerns->links() }}
+       </div>
+                
+                
+          </div>
+      </div>
+      </div>
+      <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+        <div class="row">
+          <div class="col-md-12">
+            
+    @if ($tenant->tenant_status === 'inactive' && $balance->sum('balance') > 0) 
+    <span  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#moveoutTenantWarning" data-whatever="@mdo"><i class="fas fa-external-link-alt fa-sm text-white-50"></i> Extend</span>
+    @else
+    <span  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#extendTenant" data-whatever="@mdo"><i class="fas fa-external-link-alt fa-sm text-white-50"></i> Extend</span>
+    @endif
+   
+    @if ($tenant->tenant_status === 'active' || $tenant->tenant_status === 'pending')
+       
+          @if($tenant->created_at === null && $tenant->updated_at === null)
+          <span href="#" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm" data-toggle="modal" data-target="#requestToMoveoutModal" data-whatever="@mdo"><i class="fas fa-sign-out-alt fa-sm text-white-50"></i> Request Termination</span>
+          @elseif($tenant->created_at !== null && $tenant->updated_at === null)
+            @if(Auth::user()->user_type === 'manager')
+            <span href="#" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm" data-toggle="modal" data-target="#approveToMoveoutModal" data-whatever="@mdo"><i class="fas fa-sign-out-alt fa-sm text-white-50"></i> Request Termination</span>
+            @else
+              <button title="Waiting for the manager to approve..." class="d-none d-sm-inline-block btn btn-sm btn-warning shadow-sm" ><i class="fas fa-clock fa-sm text-white-50"></i> Pending Moveout</button>
+            @endif
+          @else
+          @if($balance->sum('balance') > 0)
+          <span href="#" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm" data-toggle="modal" data-target="#moveoutTenantWarning" data-whatever="@mdo"><i class="fas fa-sign-out-alt fa-sm text-white-50"></i> Terminate</span>
+          @else
+          <button  href="#" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm" data-toggle="modal" data-target="#moveoutTenant" data-whatever="@mdo"><i class="fas fa-sign-out-alt fa-sm text-white-50"></i> Terminate</button>
+          @endif
+      @endif
+
+    @endif
+    <br><br>
+            <div class="table-responsive text-nowrap">
+              <table class="table">
+                <tr>
+                  <td>Room</td>
+                  <td>{{ $unit->building.' '.$unit->unit_no }}</td>
+              </tr>
+              <tr>
+                  <td>Monthly Rent</td>
+                  <td>{{ number_format($tenant->tenant_monthly_rent, 2) }}</td>
+              </tr>
+              <?php 
+                  $renewal_history = explode(",", $tenant->renewal_history); 
+                  $diffInDays =  number_format(Carbon\Carbon::now()->DiffInDays(Carbon\Carbon::parse($tenant->moveout_date), false))
+              ?>
+              <tr>
+                  <td>Current Contract Period</td>
+                  <td>{{ Carbon\Carbon::parse($tenant->movein_date)->format('M d Y').'-'.Carbon\Carbon::parse($tenant->moveout_date)->format('M d Y') }} 
+                    @if( $tenant->has_extended === 'renewed')
+                    <span class="badge badge-primary">{{ $tenant->has_extended}} 
+                     
+                     ({{ count($renewal_history)-1 }}x) 
+                   </span>  
+                    @endif
+                   @if($tenant->tenant_status === 'pending')
+                   @else
+                      @if($diffInDays <= -1)
+                      <span class="badge badge-danger">contract has lapsed {{ $diffInDays*-1 }} days ago</span> 
+                      @else
+                      <span class="badge badge-warning">contract expires in {{ $diffInDays }} days </span>
+                      @endif
+                   @endif
+                  </td>
+              </tr>
+              <tr>
+                  <td>Previous Contracts</td>
+                  <?php $numberFormatter = new NumberFormatter('en_US', NumberFormatter::ORDINAL) ?>
+                  <td>
+                      @for ($i = 1; $i < count($renewal_history); $i++)
+                        @if($i<=0)
+                        @else
+                          {{ $numberFormatter->format($i-1) .' renewal: '.$renewal_history[$i] }}<br>
+                        @endif
+                      @endfor     
+                  </td>
+              </tr>
+               @if($tenant->tenant_status === 'inactive')
+              <tr>
+                <td>Actual Moveout Date</td>
+                <td>
+                    {{ Carbon\Carbon::parse($tenant->actual_move_out_date)->format('M d Y') }}
+                </td>
+              </tr>
+              @endif 
+              @if($tenant->tenants_note !== 'new' )
+              <tr>
+                  <td>Note</td>
+                  <td>
+                      {{ $tenant->tenants_note }}
+                  </td>
+              </tr>
+              @endif
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="nav-bills" role="tabpanel" aria-labelledby="nav-bill-tab">
+        @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'manager')
+          {{-- <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/billings/edit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-edit fa-sm text-white-50"></i> Edit <span class="badge badge-light"></span> </a> --}}
+          <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/billings" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-ellipsis-v fa-sm text-white-50"></i> More <span class="badge badge-light"></span> </a>
+        @endif
+    <br>
+    <br>
+    <div class="table-responsive">
+      <div class="table-responsive text-nowrap">
+        <table class="table">
+          <tr>
+          <td></td>
+          <th>Date Billed</th>
+            <th>Bill No</th>
+            
+            <th>Description</th>
+            <th>Period Covered</th>
+            <th class="text-right" colspan="3">Amount</th>
+            
+          </tr>
+          @foreach ($balance as $item)
+          <tr>
+            <td></td>
+            <td>
+              {{Carbon\Carbon::parse($item->billing_date)->format('M d Y')}}
+            </td>   
+
+              <td>{{ $item->billing_no }}</td>
+      
+              <td>{{ $item->billing_desc }}</td>
+              <td>
+                {{ $item->billing_start? Carbon\Carbon::parse($item->billing_start)->format('M d Y') : null}} -
+                {{ $item->billing_end? Carbon\Carbon::parse($item->billing_end)->format('M d Y') : null }}
+              </td>
+              <td class="text-right" colspan="3">{{ number_format($item->balance,2) }}</td>
+                     </tr>
+          @endforeach
+    
+      </table>
       <table class="table">
         <tr>
-          <th colspan="2">PERSON TO CONTACT IN CASE OF EMERGENCY</th>
-      
-      </tr>
-      <tr>
-          <td>Name</td>
-          <td>{{ $tenant->guardian }}</td>
-      </tr>
-      <tr>
-          <td>Relationship with the tenant</td>
-          <td>{{ $tenant->guardian_relationship }}</td>
-      </tr>
-      <tr>
-          <td>Contact No</td>
-          <td>{{ $tenant->guardian_contact_no }}</td>
-      </tr>
-      <tr>
-        <th colspan="2">EDUCATIONAL BACKGROUND</th>
-      </tr>
-      <tr>
-          <td>High School</td>
-          <td>{{ $tenant->high_school.', '.$tenant->high_school_address }}</td>
-      </tr>
-      <tr>
-          <td>College/University</td>
-          <td>{{ $tenant->college_school.', '.$tenant->college_school_address }}</td>
-      </tr>
-      <tr>
-          <td>Course/Year</td>
-          <td>{{ $tenant->course.', '.$tenant->year_level }}</td>
-      </tr>
-      
-      <tr>
-        <th colspan="2">EMPLOYMENT BACKGROUND</th>
-      
-      </tr>
-      <tr>
-          <td>Employer</td>
-          <td>{{ $tenant->employer}}</td>
-      </tr>
-      <tr>
-          <td>Address</td>
-          <td>{{ $tenant->employer_address }}</td>
-      </tr>
-      <tr>
-          <td>Contact No</td>
-          <td>{{ $tenant->employer_contact_no }}</td>
-      </tr>
-      
-      <tr>
-          <td>Job description</td>
-          <td>{{ $tenant->job }}</td>
-      </tr>
-      <tr>
-          <td>Years of employment</td>
-          <td>{{ $tenant->years_of_employment }}</td>
-      </tr>
-      <tr>
-        <th colspan="2">CONTRACT INFORMATION</th>
-      </tr>
-      <tr>
-          <td>Monthly Rent</td>
-          <td>{{ number_format($tenant->tenant_monthly_rent, 2) }}</td>
-      </tr>
-      <?php 
-          $renewal_history = explode(",", $tenant->renewal_history); 
-          $diffInDays =  number_format(Carbon\Carbon::now()->DiffInDays(Carbon\Carbon::parse($tenant->moveout_date), false))
-      ?>
-      <tr>
-          <td>Current Contract Period</td>
-          <td>{{ Carbon\Carbon::parse($tenant->movein_date)->format('M d Y').'-'.Carbon\Carbon::parse($tenant->moveout_date)->format('M d Y') }} 
-            @if( $tenant->has_extended === 'renewed')
-            <span class="badge badge-primary">{{ $tenant->has_extended}} 
-             
-             ({{ count($renewal_history)-1 }}x) 
-           </span>  
-            @endif
-           @if($tenant->tenant_status === 'pending')
-           @else
-              @if($diffInDays <= -1)
-              <span class="badge badge-danger">contract has lapsed {{ $diffInDays*-1 }} days ago</span> 
-              @else
-              <span class="badge badge-warning">contract expires in {{ $diffInDays }} days </span>
-              @endif
-           @endif
-          </td>
-      </tr>
-      <tr>
-          <td>Previous Contracts</td>
-          <?php $numberFormatter = new NumberFormatter('en_US', NumberFormatter::ORDINAL) ?>
-          <td>
-              @for ($i = 1; $i < count($renewal_history); $i++)
-                @if($i<=0)
-                @else
-                  {{ $numberFormatter->format($i-1) .' renewal: '.$renewal_history[$i] }}<br>
-                @endif
-              @endfor     
-          </td>
-      </tr>
-       @if($tenant->tenant_status === 'inactive')
-      <tr>
-        <td>Actual Moveout Date</td>
-        <td>
-            {{ Carbon\Carbon::parse($tenant->actual_move_out_date)->format('M d Y') }}
-        </td>
-      </tr>
-      @endif 
-      @if($tenant->tenants_note !== 'new' )
-      <tr>
-          <td>Note</td>
-          <td>
-              {{ $tenant->tenants_note }}
-          </td>
-      </tr>
-      @endif
+         <th>Total</th>
+         <th class="text-right">{{ number_format($balance->sum('balance'),2) }} </th>
+        </tr>
+        @if($tenant->tenant_status === 'pending')
+  
+        @else
+         <tr>
+          <th class="text-danger">Total After Due Date(+10%)</th>
+          <th class="text-right text-danger">{{ number_format($balance->sum('balance') + ($balance->sum('balance') * .1) ,2) }}</th>
+         </tr> 
+        @endif
+        
       </table>
+    </div>
+    </div>
+      </div>
+      <div class="tab-pane fade" id="nav-payments" role="tabpanel" aria-labelledby="nav-payments-tab">
+        <div class="table-responsive text-nowrap">
+          <table class="table">
+              @foreach ($collections as $day => $collection_list)
+                <tr>
+                    <th colspan="10">{{ Carbon\Carbon::parse($day)->addDay()->format('M d Y') }} ({{ $collection_list->count()}})</th>
+                    
+                </tr>
+                <tr>
+                    
+                    <th>AR No</th>
+                    <th>Bill No</th>
+                    <th>Room</th>  
+                    <th>Description</th>
+                    <th colspan="2">Period Covered</th>
+                    <th>Form of Payment</th>
+                    <th class="text-right">Amount</th>
+                   
+                    <th colspan="2">Action</th>
+                    </tr>
+              </tr>
+                @foreach ($collection_list as $item)
+                <tr>
+                 
+                        <td>{{ $item->ar_no }}</td>
+                        <td>{{ $item->payment_billing_no }}</td>
+                          <td>{{ $item->building.' '.$item->unit_no }}</td> 
+                         <td>{{ $item->billing_desc }}</td> 
+                         <td colspan="2">
+                          {{ $item->billing_start? Carbon\Carbon::parse($item->billing_start)->format('M d Y') : null}} -
+                          {{ $item->billing_end? Carbon\Carbon::parse($item->billing_end)->format('M d Y') : null }}
+                        </td>
+                        <td>{{ $item->form_of_payment }}</td>
+                        <td class="text-right">{{ number_format($item->amt_paid,2) }}</td>
+                        
+                        <td class="text-center">
+                          <a title="export pdf" target="_blank" href="/units/{{ $item->unit_tenant_id }}/tenants/{{ $item->tenant_id }}/payments/{{ $item->payment_id }}/dates/{{$item->payment_created}}/export" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i></a>
+                          {{-- <a target="_blank" href="#" title="print invoice" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-print fa-sm text-white-50"></i></a> 
+                          --}}
+                        </td>
+                        <td>
+                          <form action="/tenants/{{ $item->tenant_id }}/payments/{{ $item->payment_id }}" method="POST">
+                            @csrf
+                            @method('delete')
+                            <button title="remove this payment" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"  onclick="return confirm('Are you sure you want perform this action?');"><i class="fas fa-times fa-sm text-white-50"></i></button>
+                          </form>
+                        </td>   
+                       
+                    </tr>
+                @endforeach
+                    <tr>
+                      <th>TOTAL</th>
+                      <th colspan="7" class="text-right">{{ number_format($collection_list->sum('amt_paid'),2) }}</th>
+                    </tr>
+                    
+              @endforeach
+          </table>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
-  <div class="row" id="concerns-history">
-    <div class="col-md-12">
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">CONCERNS HISTORY</h6>            
-            </div>
-            <div class="card-body">
-              <div class="table-responsive text-nowrap">
-   
-   <table class="table table-striped" >
-     <thead>
-       <tr>
-           <th>ID</th>
-           <th>DATE REPORTED</th>
-          
-           <th>ROOM</th>
-           <th>TYPE</th>
-           <th>DESCRIPTION</th>
-           <th>URGENCY</th>
-           <th>STATUS</th>
-          
-      </tr>
-     </thead>
-     <tbody>
-       @foreach ($concerns as $item)
-       <tr>
-       <td>{{ $item->concern_id }}</td>
-         <td>{{ Carbon\Carbon::parse($item->date_reported)->format('M d Y') }}</td>
-           
-           <td>{{ $item->building.' '.$item->unit_no }}</td>
-           <td>
-             
-               {{ $item->concern_type }}
-               
-           </td>
-           <td ><a title="{{ $item->concern_desc }}" href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/concerns/{{ $item->concern_id }}">{{ $item->concern_item }}</a></td>
-           <td>
-               @if($item->concern_urgency === 'urgent')
-               <span class="badge badge-danger">{{ $item->concern_urgency }}</span>
-               @elseif($item->concern_urgency === 'major')
-               <span class="badge badge-warning">{{ $item->concern_urgency }}</span>
-               @else
-               <span class="badge badge-primary">{{ $item->concern_urgency }}</span>
-               @endif
-           </td>
-           <td>
-               @if($item->concern_status === 'pending')
-               <span class="badge badge-warning">{{ $item->concern_status }}</span>
-               @elseif($item->concern_status === 'active')
-               <span class="badge badge-primary">{{ $item->concern_status }}</span>
-               @else
-               <span class="badge badge-secondary">{{ $item->concern_status }}</span>
-               @endif
-           </td>
-         
-       </tr>
-       @endforeach
-     </tbody>
-   </table>
-   {{ $concerns->links() }}
- </div>
-            </div>
-        </div>    
-    </div>
-</div>
+
+
 
 {{-- <!-- start -->
 <div class="row" id="payment-history">
@@ -1108,6 +1226,23 @@
     amt = document.getElementById('amt'+val).value =  parseFloat(price) *  parseFloat(qty);
    
   }
+</script>
+
+<script>
+  $(document).ready(() => {
+  var url = window.location.href;
+  if (url.indexOf("#") > 0){
+  var activeTab = url.substring(url.indexOf("#") + 1);
+    $('.nav[role="tablist"] a[href="#'+activeTab+'"]').tab('show');
+  }
+
+  $('a[role="tab"]').on("click", function() {
+    var newUrl;
+    const hash = $(this).attr("href");
+      newUrl = url.split("#")[0] + hash;
+    history.replaceState(null, null, newUrl);
+  });
+});
 </script>
 @endsection
 

@@ -132,388 +132,354 @@
 
 @section('content')
 <div class="row">
-  <div class="col-md-6">
-    @if(Auth::user()->user_type === 'manager' )
-      <button type="button" title="edit room" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#editUnit" data-whatever="@mdo"><i class="fas fa-edit fa-sm text-white-50"></i> Edit Room</button> 
-    @endif 
-
-    @if(Auth::user()->property_ownership === 'Multiple Owners' && Auth::user()->user_type === 'manager' && Auth::user()->property_type !== 'Commercial Complex')
-    @if ($unit_owner->count() < 1)
-    <a href="#/" data-toggle="modal" data-target="#addInvestor" data-whatever="@mdo" type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-      <i class="fas fa-user-plus fa-sm text-white-50"></i> Add Owner
-    </a>   
-    @else
-     {{-- <button type="button" data-toggle="modal" data-target="#enrollLeasing" data-whatever="@mdo" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-      <i class="fas fa-toilet-paper fa-sm text-white-50"></i> Enroll To Leasing </button> --}}
-    @endif
-  @endif
-  
-  
-      @if ($tenant_active->count() < $unit->max_occupancy)
-      <a href="/units/{{ $unit->unit_id }}/tenants-create" title="{{ $unit->max_occupancy - $tenant_active->count() }} remaining tenant/s to be fully occupied." type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-          <i class="fas fa-user-plus fa-sm text-white-50"></i> Add Tenant <span class="badge badge-light">{{  $tenant_active->count() }}/{{ $unit->max_occupancy }} </a>
-
-      @else
-      <a href="#/" title="{{ $unit->max_occupancy - $tenant_active->count() }} remaining tenant/s to be fully occupied." data-toggle="modal" data-target="#warningTenant" data-whatever="@mdo" type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-          <i class="fas fa-user-plus fa-sm text-white-50"></i> Add Tenant <span class="badge badge-light">{{  $tenant_active->count() }}/{{ $unit->max_occupancy }} 
-        </a>
-   
- 
-   
-    @endif
-     
-     
-    
-      <br> <br>
-          <?php $numberFormatter = new NumberFormatter('en_US', NumberFormatter::ORDINAL) ?>
-
-            <!-- DataTales Example -->
-            <div class="card shadow mb-4">
-             <div class="card-header py-3">
-               <h6 class="m-0 font-weight-bold text-primary">ROOM INFORMATION</h6>
-             </div>
-             <div class="card-body">
-              <div class="table-responsive text-nowrap">
-            <table class="table">
-                 <tr>
-                      <td>Room No</td>
-                      <td>{{ $unit->unit_no }}</td>
-                 </tr>
-                 {{-- <tr>
-                  <th>LAST UPDATED AT</th>
-                  <td>{{ $unit->updated_at }}</td>
-             </tr> --}}
-                {{-- <tr>
-                  <th></th>
-                  <th>
-                       <form action="/units/{{ $unit->unit_id }}" method="POST">
-                        @csrf
-                        @method('delete')
-                        <button type="submit">Delete</button>
-                    </form> 
-                  </th>
-                </tr> --}}
-                  <tr>
-                      <td>Building</td>
-                      <td>{{ $unit->building }}</td>
-                 </tr>
-                 <tr>
-                      <td>Floor No</td>
-                      <td>{{ $numberFormatter->format($unit->floor_no) }}</td>
-                 </tr>
-                 <tr>
-                      <td>Room Type</td>
-                      <td>{{ $unit->type_of_units }}</td>
-                 </tr>
-               
-                 
-                 <tr>
-                  <td>Max Occupancy</td>
-                  <td>{{ $unit->max_occupancy }}</td>
-                </tr>
-                <tr>
-                      <td>Status</td>
-                      <td>
-                            @if($unit->status === 'occupied')
-                            <span class="badge badge-primary">{{ $unit->status }}</span>
-                            @elseif($unit->status === 'reserved')
-                                <span class="badge badge-warning">{{ $unit->status}} </span>
-                            @else
-                                <span class="badge badge-secondary">{{ $unit->status }}</span>
-                            @endif
-                      </td>
-                  </tr>
-                  <tr>
-                      <td>Monthly Rent <small>(excluding utilities)</small></td> 
-                      <td>{{ number_format($unit->monthly_rent,2) }}</td>
-
-                      <?php 
-                          session([Auth::user()->id.'tenant_monthly_rent'=> $unit->monthly_rent]);
-                          session([Auth::user()->id.'unit_id'=> $unit->unit_id]);
-                          session([Auth::user()->id.'unit_no'=> $unit->unit_no]);
-                          session([Auth::user()->id.'building'=> $unit->building]);
-                      ?>
-                  </tr>
-              
-             </table>
-            </div>
-             </div>
-           </div>
-   
-
-  </div>
-
-  
-  <div class="col-md-6">
+  <div class="col-md-12">
     <nav>
       <div class="nav nav-tabs" id="nav-tab" role="tablist">
-        <a class="nav-item nav-link active" data-toggle="tab" href="#active" role="tab" aria-controls="nav-home" aria-selected="true"><i class="fas fa-user-check fa-sm text-50"></i> Active  <span class="badge badge-light">{{ $tenant_active->count() }}</span></a>
-        <a class="nav-item nav-link"  data-toggle="tab" href="#reserved" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="fas fa-user-clock fa-sm text-50"></i> Reserved <span class="badge badge-light">{{ $tenant_reservations->count() }}</a>
-        <a class="nav-item nav-link"  data-toggle="tab" href="#inactive" role="tab" aria-controls="nav-contact" aria-selected="false"><i class="fas fa-user-times fa-sm text-50"></i> Inactive <span class="badge badge-light">{{ $tenant_inactive->count() }}</a>
+        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true"><i class="fas fa-home fa-sm text-primary-50"></i> Room</a>
+        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="fas fa-users fa-sm text-primary-50"></i> Tenants</a>
+        <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false"><i class="fas fa-user-tie fa-sm text-primary-50"></i> Owners</a>
+        <a class="nav-item nav-link" id="nav-bill-tab" data-toggle="tab" href="#nav-bill" role="tab" aria-controls="nav-bill" aria-selected="false"><i class="fas fa-file-signature fa-sm text-primary-50"></i> Bills</a>
+        <a class="nav-item nav-link" id="nav-concern-tab" data-toggle="tab" href="#nav-concern" role="tab" aria-controls="nav-concern" aria-selected="false"><i class="fas fa-tools fa-sm text-primary-50"></i> Concerns</a>
       </div>
     </nav>
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col-md-12">
     <div class="tab-content" id="nav-tabContent">
-      <div class="tab-pane fade show active" id="active" role="tabpanel" aria-labelledby="nav-home-tab">
-        <div class="table-responsive text-nowrap">
-        <table class="table">
-          @if($tenant_active->count() <= 0)
-          <tr>
-              <br><br><br>
-              <p class="text-center">No tenants found!</p>
-          </tr>
-          @else
-          <tr>
-              <th class="text-center">#</th>
-              <th>NAME</th>
-              <th>CONTRACT PERIOD</th>   
-          </tr>
-          <?php $ctr = 1; ?>   
-      @foreach ($tenant_active as $item)
-          <tr>
-              <th class="text-center">{{ $ctr++ }}</th>
-              <td><a href="{{ route('show-tenant',['unit_id'=> $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }} </a></td>
-              <td title="{{ Carbon\Carbon::now()->diffInDays(Carbon\Carbon::parse($item->moveout_date), false) }} days left">{{ Carbon\Carbon::parse($item->movein_date)->format('M d Y').'-'.Carbon\Carbon::parse($item->moveout_date)->format('M d Y') }}</>
-          </tr>
-      @endforeach
-          @endif                        
-      </table>
-        </div>
-      </div>
-      <div class="tab-pane fade" id="reserved" role="tabpanel" aria-labelledby="nav-profile-tab">
-        <div class="table-responsive text-nowrap">
-        <table class="table">
-          @if($tenant_reservations->count() <= 0)
-          <tr>
-              <br><br><br>
-              <p class="text-center">No tenants found!</p>
-          </tr>
-          @else
-          <tr>
-              <th class="text-center">#</th>
-              <th>NAME</th>
-              <th>RESERVED VIA</th>
-              <th>RESERVATION DATE</th>   
-                       
-              <th></th>
-          </tr>
-          <?php
-              $ctr = 1;
-          ?>   
-      @foreach ($tenant_reservations as $item)
-          <tr>
-              <th class="text-center">{{ $ctr++ }}</th>
-              <td><a href="{{ route('show-tenant',['unit_id'=> $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }} </a></td>
-              @if($item->type_of_tenant === 'online')
-              <td><a class="badge badge-success">{{ $item->type_of_tenant }}</td>
-              @else
-              <td><a class="badge badge-warning">{{ $item->type_of_tenant }}</td>
-              @endif
-              <td>{{ Carbon\Carbon::parse($item->created_at)->format('M d Y') }}</td>
-              <th>{{ Carbon\Carbon::now()->diffInDays(Carbon\Carbon::parse($item->created_at)->addDays(7), false) }} days before exp</th>
-          </tr>
-      @endforeach
-          @endif                        
-      </table>
-        </div>
-      </div>
-      <div class="tab-pane fade" id="inactive" role="tabpanel" aria-labelledby="nav-contact-tab">
-        <div class="table-responsive text-nowrap">
-        <table class="table">
-          @if($tenant_inactive->count() <= 0)
-          <tr>
-              <br><br><br>
-              <p class="text-center">No tenants found!</p>
-          </tr>
-          @else
-          <tr>
-              <th class="text-center">#</th>
-              <th>NAME</th>
-              
-              <th>MOVEOUT SINCE</th>   
-                       
-              <th></th>
-          </tr>
-          <?php
-              $ctr = 1;
-          ?>   
-      @foreach ($tenant_inactive as $item)
-          <tr>
-              <th class="text-center">{{ $ctr++ }}</th>
-              <td><a href="{{ route('show-tenant',['unit_id'=> $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }} </a></td>
-              
-              <td>{{ Carbon\Carbon::parse($item->moveout_date)->format('M d Y') }}</td>
-          </tr>
-      @endforeach
-          @endif                        
-      </table>
-        </div>
-      </div>
-    </div>
-  </div>    
-
-  <div class="col-lg-12 mb-4">
-      <!-- DataTales Example -->
-      <div class="card shadow mb-4">
-        <div class="card-header py-3">
-          <h6 class="m-0 font-weight-bold text-primary">OWNERS </h6>
-        </div>
-       <div class="card-body">
-        <div class="table-responsive text-nowrap">
-        <table class="table table-striped">
-        <tr>
-
-          <th>OWNER</th>
-          <th>EMAIL</th>
-          <th>MOBILE</th>
-          <th>REPRESENTATIVE</th>
-          <th>DATE PURCHASED</th>
-          <th>DATE ACCEPTED</th>
-          <th>ROOM TYPE</th>
-              </tr>
-              @foreach ($unit_owner as $item)
-              <tr>
-                 <td><a href="{{ route('show-investor',['unit_id'=> $item->unit_id, 'unit_owner_id'=>$item->unit_owner_id]) }}">{{ $item->unit_owner }} </a></td>
-          
-                <td>{{ $item-> investor_email_address}}</td>
-                <td>{{ $item->investor_contact_no }}</td>
-                <TD>{{ $item->investor_representative }}</TD>
-                <td>{{ Carbon\Carbon::parse($item->date_invested)->format('M d Y')}}</td> 
-                <td>{{ Carbon\Carbon::parse($item->date_accepted)->format('M d Y')}}</td> 
-                <td>{{ $item->type_of_units }}</td>
-              </tr>
-              @endforeach
-        
-              
-        </table>
-
-       
-      </div>
-       </div>
-     </div>
-
-        
-    </div>
-  
-
-
-<div class="col-lg-12 mb-4">
-<!-- DataTales Example -->
-<div class="card shadow mb-4">
-<div class="card-header py-3">
-<h6 class="m-0 font-weight-bold text-primary">BILLING HISTORY</h6>
-</div>
-<div class="card-body">
-<div class="table-responsive text-nowrap">
-<table class="table table-striped">
-<tr>
-  <th>BILL NO</th>
-  <th>TENANT</th>
-  <th>DESCRIPTION</th>
-  <th colspan="2">PERIOD COVERED</th>
-  <th>AMOUNT</th>
-
-</tr>
-@foreach ($unit_bills as $item)
-<tr>
-    <td>{{ $item->billing_no }}</td>
-    <td> <a href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}">{{ $item->first_name.' '.$item->last_name }}</a></td>
-    <td>{{ $item->billing_desc }}</td>
-    <td colspan="2">
-      {{ $item->billing_start? Carbon\Carbon::parse($item->billing_start)->format('M d Y') : null}} -
-      {{ $item->billing_end? Carbon\Carbon::parse($item->billing_end)->format('M d Y') : null }}
-    </td>
-    <td> <a href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/billings">{{ number_format($item->billing_amt,2) }}</a></td>
-
-    {{-- <td>
-    @if($item->billing_status === 'paid')
-    <span class="badge badge-success">{{ $item->billing_status }}</span>
-     @else
-    <span class="badge badge-danger">{{ $item->billing_status }} </span>
-     @endif
-     </td> --}}
-</tr>
-@endforeach
-
-
-</table>
-
-{{ $unit_bills->links() }}
-</div>
-</div>
-</div>
-
-
-</div> 
-
-<div class="col-lg-12 mb-4">
-<!-- DataTales Example -->
-<div class="card shadow mb-4">
-<div class="card-header py-3">
-<h6 class="m-0 font-weight-bold text-primary">CONCERNS HISTORY</h6>
-</div>
-<div class="card-body">
-<div class="table-responsive text-nowrap">
-
-<table class="table table-striped" >
-<thead>
- <tr>
-     <th>ID</th>
-     <th>DATE REPORTED</th>
-    <th>TENANT</th>
-
-     <th>TYPE</th>
-     <th>DESCRIPTION</th>
-     <th>URGENCY</th>
-     <th>STATUS</th>
-    
-</tr>
-</thead>
-<tbody>
- @foreach ($concerns as $item)
- <tr>
- <td>{{ $item->concern_id }}</td>
-   <td>{{ Carbon\Carbon::parse($item->date_reported)->format('M d Y') }}</td>
-   <td>
-          <a href="{{ route('show-tenant',['unit_id'=> $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a>
-      </td>
-    
-     <td>
-       
-         {{ $item->concern_type }}
-         
-     </td>
-     <td ><a title="{{ $item->concern_desc }}" href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/concerns/{{ $item->concern_id }}">{{ $item->concern_item }}</a></td>
-     <td>
-         @if($item->concern_urgency === 'urgent')
-         <span class="badge badge-danger">{{ $item->concern_urgency }}</span>
-         @elseif($item->concern_urgency === 'major')
-         <span class="badge badge-warning">{{ $item->concern_urgency }}</span>
-         @else
-         <span class="badge badge-primary">{{ $item->concern_urgency }}</span>
-         @endif
-     </td>
-     <td>
-         @if($item->concern_status === 'pending')
-         <span class="badge badge-warning">{{ $item->concern_status }}</span>
-         @elseif($item->concern_status === 'active')
-         <span class="badge badge-primary">{{ $item->concern_status }}</span>
-         @else
-         <span class="badge badge-secondary">{{ $item->concern_status }}</span>
-         @endif
-     </td>
    
- </tr>
- @endforeach
-</tbody>
-</table>
+      <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+        @if(Auth::user()->user_type === 'manager' )
+        <button type="button" title="edit room" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#editUnit" data-whatever="@mdo"><i class="fas fa-edit fa-sm text-white-50"></i> Edit</button> 
+      @endif 
+        <div class="col-md-11 mx-auto">
+         
+        <br>
+          <?php $numberFormatter = new NumberFormatter('en_US', NumberFormatter::ORDINAL) ?>
+          <div class="table-responsive text-nowrap">
+        <table class="table table-bordered">
+             <tr>
+                  <td>Room</td>
+                  <td>{{ $unit->unit_no }}</td>
+             </tr>
+              <tr>
+                  <td>Building</td>
+                  <td>{{ $unit->building }}</td>
+             </tr>
+             <tr>
+                  <td>Floor No</td>
+                  <td>{{ $numberFormatter->format($unit->floor_no) }}</td>
+             </tr>
+             <tr>
+                  <td>Room Type</td>
+                  <td>{{ $unit->type_of_units }}</td>
+             </tr>
+           
+             
+             <tr>
+              <td>Max Occupancy</td>
+              <td>{{ $unit->max_occupancy }}</td>
+            </tr>
+            <tr>
+                  <td>Status</td>
+                  <td>
+                        @if($unit->status === 'occupied')
+                        <span class="badge badge-primary">{{ $unit->status }}</span>
+                        @elseif($unit->status === 'reserved')
+                            <span class="badge badge-warning">{{ $unit->status}} </span>
+                        @else
+                            <span class="badge badge-secondary">{{ $unit->status }}</span>
+                        @endif
+                  </td>
+              </tr>
+              <tr>
+                  <td>Monthly Rent <small>(excluding utilities)</small></td> 
+                  <td>{{ number_format($unit->monthly_rent,2) }}</td>
+  
+                  <?php 
+                      session([Auth::user()->id.'tenant_monthly_rent'=> $unit->monthly_rent]);
+                      session([Auth::user()->id.'unit_id'=> $unit->unit_id]);
+                      session([Auth::user()->id.'unit_no'=> $unit->unit_no]);
+                      session([Auth::user()->id.'building'=> $unit->building]);
+                  ?>
+              </tr>
+          
+         </table>
+        </div>
+        </div>
+      </div>
 
-{{ $concerns->links() }}
-</div>
-</div>
-</div>
+      <div class="tab-pane fade" id="nav-bill" role="tabpanel" aria-labelledby="nav-bill-tab">
+        <div class="col-md-11 mx-auto">
+        <div class="table-responsive text-nowrap">
+          <table class="table table-bordered">
+          <tr>
+            <th>Bill No</th>
+            <th>Tenant</th>
+            <th>Description</th>
+            <th colspan="2">Period Covered</th>
+            <th>Amount</th>
+          
+          </tr>
+          @foreach ($unit_bills as $item)
+          <tr>
+              <td>{{ $item->billing_no }}</td>
+              <td> <a href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}">{{ $item->first_name.' '.$item->last_name }}</a></td>
+              <td>{{ $item->billing_desc }}</td>
+              <td colspan="2">
+                {{ $item->billing_start? Carbon\Carbon::parse($item->billing_start)->format('M d Y') : null}} -
+                {{ $item->billing_end? Carbon\Carbon::parse($item->billing_end)->format('M d Y') : null }}
+              </td>
+              <td> <a href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/billings">{{ number_format($item->billing_amt,2) }}</a></td>
+          
+              {{-- <td>
+              @if($item->billing_status === 'paid')
+              <span class="badge badge-success">{{ $item->billing_status }}</span>
+               @else
+              <span class="badge badge-danger">{{ $item->billing_status }} </span>
+               @endif
+               </td> --}}
+          </tr>
+          @endforeach
+          
+          
+          </table>
+          
+          {{ $unit_bills->links() }}
+          </div>
+      </div>
+      </div>
 
+      <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+        @if ($tenant_active->count() < $unit->max_occupancy)
+        <a href="/units/{{ $unit->unit_id }}/tenants-create" title="{{ $unit->max_occupancy - $tenant_active->count() }} remaining tenant/s to be fully occupied." type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <i class="fas fa-user-plus fa-sm text-white-50"></i> Tenant <span class="badge badge-light">{{  $tenant_active->count() }}/{{ $unit->max_occupancy }} </a>
+  
+        @else
+        <a href="#/" title="{{ $unit->max_occupancy - $tenant_active->count() }} remaining tenant/s to be fully occupied." data-toggle="modal" data-target="#warningTenant" data-whatever="@mdo" type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <i class="fas fa-user-plus fa-sm text-white-50"></i> Tenant <span class="badge badge-light">{{  $tenant_active->count() }}/{{ $unit->max_occupancy }} 
+          </a>
+        @endif
+        <br><br>
+        <div class="col-md-11 mx-auto">
+   
+     
 
-</div> 
+        <nav>
+          <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" data-toggle="tab" href="#active" role="tab" aria-controls="nav-home" aria-selected="true"><i class="fas fa-user-check fa-sm text-50"></i> Active  <span class="badge badge-light">{{ $tenant_active->count() }}</span></a>
+            <a class="nav-item nav-link"  data-toggle="tab" href="#reserved" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="fas fa-user-clock fa-sm text-50"></i> Reserved <span class="badge badge-light">{{ $tenant_reservations->count() }}</a>
+            <a class="nav-item nav-link"  data-toggle="tab" href="#inactive" role="tab" aria-controls="nav-contact" aria-selected="false"><i class="fas fa-user-times fa-sm text-50"></i> Inactive <span class="badge badge-light">{{ $tenant_inactive->count() }}</a>
+          </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+          <div class="tab-pane fade show active" id="active" role="tabpanel" aria-labelledby="nav-home-tab">
+            <div class="table-responsive text-nowrap">
+            <table class="table table-bordered">
+              @if($tenant_active->count() <= 0)
+              <tr>
+                  <br><br><br>
+                  <p class="text-center">No tenants found!</p>
+              </tr>
+              @else
+              <tr>
+                  <th class="text-center">#</th>
+                  <th>Tenant</th>
+                  <th>Contract Period</th>   
+                  <th>Monthly Rent</th>
+              </tr>
+              <?php $ctr = 1; ?>   
+          @foreach ($tenant_active as $item)
+              <tr>
+                  <th class="text-center">{{ $ctr++ }}</th>
+                  <td><a href="{{ route('show-tenant',['unit_id'=> $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }} </a></td>
+                  <td title="{{ Carbon\Carbon::now()->diffInDays(Carbon\Carbon::parse($item->moveout_date), false) }} days left">{{ Carbon\Carbon::parse($item->movein_date)->format('M d Y').'-'.Carbon\Carbon::parse($item->moveout_date)->format('M d Y') }}</>
+                    <td>{{ number_format($item->tenant_monthly_rent, 2) }}</td>
+                  </tr>
+          @endforeach
+              @endif                        
+          </table>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="reserved" role="tabpanel" aria-labelledby="nav-profile-tab">
+            <div class="table-responsive text-nowrap">
+            <table class="table table-bordered">
+              @if($tenant_reservations->count() <= 0)
+              <tr>
+                  <br><br><br>
+                  <p class="text-center">No tenants found!</p>
+              </tr>
+              @else
+              <tr>
+                  <th class="text-center">#</th>
+                  <th>Tenant</th>
+                  <th>Reserved Via</th>
+                  <th>Reserved On</th>   
+                           
+                  <th></th>
+              </tr>
+              <?php
+                  $ctr = 1;
+              ?>   
+          @foreach ($tenant_reservations as $item)
+              <tr>
+                  <th class="text-center">{{ $ctr++ }}</th>
+                  <td><a href="{{ route('show-tenant',['unit_id'=> $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }} </a></td>
+                  @if($item->type_of_tenant === 'online')
+                  <td><a class="badge badge-success">{{ $item->type_of_tenant }}</td>
+                  @else
+                  <td><a class="badge badge-warning">{{ $item->type_of_tenant }}</td>
+                  @endif
+                  <td>{{ Carbon\Carbon::parse($item->created_at)->format('M d Y') }}</td>
+                  <th>{{ Carbon\Carbon::now()->diffInDays(Carbon\Carbon::parse($item->created_at)->addDays(7), false) }} days before exp</th>
+              </tr>
+          @endforeach
+              @endif                        
+          </table>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="inactive" role="tabpanel" aria-labelledby="nav-contact-tab">
+            <div class="table-responsive text-nowrap">
+            <table class="table table-bordered">
+              @if($tenant_inactive->count() <= 0)
+              <tr>
+                  <br><br><br>
+                  <p class="text-center">No tenants found!</p>
+              </tr>
+              @else
+              <tr>
+                  <th class="text-center">#</th>
+                  <th>Tenant</th>
+                  
+                  <th>Inactive Since</th>   
+                  <th>Reason of Moveout</th>
+                  <th></th>
+              </tr>
+              <?php
+                  $ctr = 1;
+              ?>   
+          @foreach ($tenant_inactive as $item)
+              <tr>
+                  <th class="text-center">{{ $ctr++ }}</th>
+                  <td><a href="{{ route('show-tenant',['unit_id'=> $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }} </a></td>
+                  
+                  <td>{{ Carbon\Carbon::parse($item->moveout_date)->format('M d Y') }}</td>
+                  <td>{{ $item->reason_for_moving_out }}</td>
+              </tr>
+          @endforeach
+              @endif                        
+          </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+
+      <div class="tab-pane fade" id="nav-concern" role="tabpanel" aria-labelledby="nav-concern-tab">
+        <div class="col-md-11 mx-auto">
+        <div class="table-responsive text-nowrap">
+
+          <table class="table table-bordered" >
+          <thead>
+           <tr>
+               <th>#</th>
+               <th>Date Reported</th>
+              <th>Tenant</th>
+          
+               <th>Type of Concern</th>
+               <th>Description</th>
+               <th>Urgency</th>
+               <th>Status</th>
+              
+          </tr>
+          </thead>
+          <tbody>
+           @foreach ($concerns as $item)
+           <tr>
+           <td>{{ $item->concern_id }}</td>
+             <td>{{ Carbon\Carbon::parse($item->date_reported)->format('M d Y') }}</td>
+             <td>
+                    <a href="{{ route('show-tenant',['unit_id'=> $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a>
+                </td>
+              
+               <td>
+                 
+                   {{ $item->concern_type }}
+                   
+               </td>
+               <td ><a title="{{ $item->concern_desc }}" href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/concerns/{{ $item->concern_id }}">{{ $item->concern_item }}</a></td>
+               <td>
+                   @if($item->concern_urgency === 'urgent')
+                   <span class="badge badge-danger">{{ $item->concern_urgency }}</span>
+                   @elseif($item->concern_urgency === 'major')
+                   <span class="badge badge-warning">{{ $item->concern_urgency }}</span>
+                   @else
+                   <span class="badge badge-primary">{{ $item->concern_urgency }}</span>
+                   @endif
+               </td>
+               <td>
+                   @if($item->concern_status === 'pending')
+                   <span class="badge badge-warning">{{ $item->concern_status }}</span>
+                   @elseif($item->concern_status === 'active')
+                   <span class="badge badge-primary">{{ $item->concern_status }}</span>
+                   @else
+                   <span class="badge badge-secondary">{{ $item->concern_status }}</span>
+                   @endif
+               </td>
+             
+           </tr>
+           @endforeach
+          </tbody>
+          </table>
+          
+          {{ $concerns->links() }}
+          </div>
+      </div>
+      </div>
+      
+      <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+        
+      <a href="#/" data-toggle="modal" data-target="#addInvestor" data-whatever="@mdo" type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+        <i class="fas fa-user-plus fa-sm text-white-50"></i> Owner
+      </a>   
+      <div class="col-md-11 mx-auto">
+
+    <br>
+        <div class="table-responsive text-nowrap">
+          <table class="table table-bordered">
+          <tr>
+  
+            <th>Owner</th>
+            <th>Email</th>
+            <th>Mobile</th>
+            <th>Representative</th>
+            <th>Date Purchased</th>
+            <th>Date Accepted</th>
+            <th>Room Type</th>
+                </tr>
+                @foreach ($unit_owner as $item)
+                <tr>
+                   <td><a href="{{ route('show-investor',['unit_id'=> $item->unit_id, 'unit_owner_id'=>$item->unit_owner_id]) }}">{{ $item->unit_owner }} </a></td>
+            
+                  <td>{{ $item-> investor_email_address}}</td>
+                  <td>{{ $item->investor_contact_no }}</td>
+                  <TD>{{ $item->investor_representative }}</TD>
+                  <td>{{ Carbon\Carbon::parse($item->date_invested)->format('M d Y')}}</td> 
+                  <td>{{ Carbon\Carbon::parse($item->date_accepted)->format('M d Y')}}</td> 
+                  <td>{{ $item->type_of_units }}</td>
+                </tr>
+                @endforeach
+              
+          </table>
+  
+         
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="modal fade" id="editUnit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -709,7 +675,22 @@
 @endsection
 
 @section('scripts')
+<script>
+  $(document).ready(() => {
+  var url = window.location.href;
+  if (url.indexOf("#") > 0){
+  var activeTab = url.substring(url.indexOf("#") + 1);
+    $('.nav[role="tablist"] a[href="#'+activeTab+'"]').tab('show');
+  }
 
+  $('a[role="tab"]').on("click", function() {
+    var newUrl;
+    const hash = $(this).attr("href");
+      newUrl = url.split("#")[0] + hash;
+    history.replaceState(null, null, newUrl);
+  });
+});
+</script>
 @endsection
 
 
