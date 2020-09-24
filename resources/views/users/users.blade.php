@@ -429,15 +429,13 @@
                                     {{ $item->property_type }} with
                                     {{ $item->property_ownership }}
                                   </td>
-                                  <td>
-                                
-                                    {{ $item->count_units }}
-                                    
+                                  <?php $count_units = $item->reserved_units + $item->occupied_units + $item->vacant_units ?>
+                                  <td>{{ $count_units }}
                                   </td>
                                   <td>
                                     
-                                    {{ number_format((   $item->count_units == 0 ? 0 : $item->occupied_units/$item->count_units) * 100, 2) }}%
-                                    ({{ $item->occupied_units.'/'.$item->count_units }})
+                                    {{ number_format(( $count_units  == 0 ? 0 : $item->occupied_units/$count_units) * 100, 2) }}%
+                                    ({{ $item->occupied_units.'/'.$count_units }})
                                   </td>
                                   <td>
                                     @if($item->user_type==='manager')
