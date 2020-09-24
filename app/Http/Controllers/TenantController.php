@@ -464,6 +464,7 @@ class TenantController extends Controller
 
         if(auth()->user()->user_type === 'billing' || auth()->user()->user_type === 'manager' ){
 
+
             $balance = Billing::leftJoin('payments', 'billings.billing_id', '=', 'payments.payment_billing_id') 
             ->selectRaw('* ,billings.billing_amt - IFNULL(sum(payments.amt_paid),0) as balance')
             ->where('billing_tenant_id', $tenant_id)
@@ -472,8 +473,7 @@ class TenantController extends Controller
             ->havingRaw('balance > 0')
             ->get();
         
-            
-
+        
             for ($i=1; $i <= $balance->count(); $i++) { 
                 DB::table('billings')
                 ->where('billing_id', $request->input('billing_id_ctr'.$i))
@@ -486,6 +486,14 @@ class TenantController extends Controller
                             ]
                         );
                }
+
+               DB::table('users')
+               ->where('property', Auth::user()->property)
+               ->update(
+                       [
+                           'note' => $request->note,
+                       ]
+                   );
           
           
             return redirect('/units/'.$unit_id.'/tenants/'.$tenant_id.'/billings')->with('success','Bills has been updated!');

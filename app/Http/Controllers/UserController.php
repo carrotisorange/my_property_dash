@@ -129,17 +129,17 @@ class UserController extends Controller
      */
     public function update(Request $request, $user_id)
     {
-        if($request->action === 'change_footer_message' ){
-            DB::table('users')
-            ->where('property', Auth::user()->property)
-            ->update(
-                    [
-                        'note' => $request->note,
-                    ]
-                );
+        // if($request->action === 'change_footer_message' ){
+        //     DB::table('users')
+        //     ->where('property', Auth::user()->property)
+        //     ->update(
+        //             [
+        //                 'note' => $request->note,
+        //             ]
+        //         );
 
-                return back()->with('success', 'Footer message has been updated!');
-        }
+        //         return back()->with('success', 'Footer message has been updated!');
+        // }
 
 
         if($request->password === null){
