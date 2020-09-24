@@ -796,8 +796,9 @@ Route::get('/tenants', function(){
             $tenants = DB::table('tenants')
             ->join('units', 'unit_id', 'unit_tenant_id')
             ->where('unit_property', Auth::user()->property)
-            ->orderBy('tenant_status', 'asc')
+            
             ->orderBy('movein_date', 'desc')
+        
             ->get();
 
             $count_tenants = DB::table('tenants')
