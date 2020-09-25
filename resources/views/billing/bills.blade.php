@@ -163,22 +163,22 @@
 </div>
 <!-- 404 Error Text -->
 <div class="table-responsive text-nowrap">
-<table class="table table-striped">
+<table class="table table-bordered">
   @foreach ($bills as $day => $bill)
     <tr>
         <th colspan="12">{{ Carbon\Carbon::parse($day)->addDay()->format('M d Y') }}, TENANTS BILLED: ({{ $bill->count() }}) , TOTAL AMOUNT BILLED: ({{ number_format($bill->sum('billing_amt'),2) }})</th>
     </tr>
     <tr>
       
-      <th>BILL NO</th>
-      <th>DATE BILLED</th>
+      <th>Bill No</th>
       
-      <th>TENANT</th>
-      <th>ROOM</th>
-      <th>DESCRIPTION</th>
+      
+      <th>Tenant</th>
+      <th>Room</th>
+      <th>Description</th>
      
-      <th colspan="2">PERIOD COVERED</th>
-      <th>AMOUNT</th>
+      <th colspan="2">Period Covered</th>
+      <th>Amount</th>
    
       <td></td>
         </tr>
@@ -187,7 +187,7 @@
     <tr>
      
       <td>{{ $item->billing_no }}</th>  
-      <td>  {{ Carbon\Carbon::parse($item->billing_date)->format('M d Y') }}</td>
+      {{-- <td>  {{ Carbon\Carbon::parse($item->billing_date)->format('M d Y') }}</td> --}}
      
       
       <td>

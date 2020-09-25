@@ -37,7 +37,7 @@
           @endif
         
           @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'treasury')
-            <li class="nav-item">
+            <li class="nav-item active">
               <a class="nav-link" href="/tenants">
                 <i class="fas fa-users fa-chart-area"></i>
                 <span>Tenants</span></a>
@@ -90,7 +90,7 @@
             <!-- Nav Item - Tables -->
             <li class="nav-item">
               <a class="nav-link" href="/bills">
-                <i class="fas fa-file-invoice-dollar fa-table"></i>
+                <i class="fas fa-file-invoice-dollar"></i>
                 <span>Bills</span></a>
             </li>
            @endif
@@ -152,24 +152,27 @@
           
         </tr>
       </table>
-        <table class="table table-striped table-bordered">
+        <table class="table table-bordered">
           <thead>
+            <?php $ctr=1;?>
             <tr>
-                <th>TENANT</th>
-                <th>ROOM</th>
-                <th>STATUS</th>
-                <th>MOBILE</th>
-                <th>EMAIL</th>
-                <th>CONTRACT PERIOD</th>    
-                <th>MONTHLY RENT</th>
-                <th>GUARDIAN</th>
-                <th>RELATIONSHIP</th>
-                <th>GUARDIAN CONTACT</th>
+              <th>#</th>
+                <th>Tenant</th>
+                <th>Room</th>
+                <th>Status</th>
+                <th>Mobile</th>
+                <th>Email</th>
+                <th>Contract Period</th>    
+                <th>Monthly Rent</th>
+                <th>Guardian</th>
+                <th>Relationship</th>
+                <th>Mobile</th>
            </tr>
           </thead>
           <tbody>
             @foreach ($tenants as $item)
             <tr>
+              <th>{{ $ctr++ }}</th>
                 <td>
                     @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager')
                     <a href="{{ route('show-tenant',['unit_id'=> $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->middle_name.' '.$item->last_name }}

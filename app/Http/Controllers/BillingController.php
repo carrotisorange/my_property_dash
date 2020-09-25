@@ -37,7 +37,7 @@ class BillingController extends Controller
      */
     public function store(Request $request)
     {
-        $no_of_items = (int) $request->no_of_items; 
+        $no_of_bills = (int) $request->no_of_bills; 
 
          $active_tenants = DB::table('tenants')
         ->join('units', 'unit_id', 'unit_tenant_id')
@@ -52,7 +52,7 @@ class BillingController extends Controller
         ->max('billing_no') + 1;
         
         if($request->action === 'add_move_in_charges'){
-            for($i = 1; $i<$no_of_items; $i++){
+            for($i = 1; $i<$no_of_bills; $i++){
                 DB::table('billings')->insert(
                     [
                         'billing_tenant_id' => $request->tenant_id,

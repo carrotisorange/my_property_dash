@@ -394,11 +394,11 @@
          <table class="table table-striped" >
            <thead>
              <tr>
-               <th>TENANT</th>
-               <th>ROOM</th>
-               <th>STATUS</th>
-               <th>ACTION</th>
-               <th>ACTION STATUS</th>
+               <th>Tenant</th>
+               <th>Room</th>
+               <th>Status</th>
+               <th>Action</th>
+               <th>Remarks</th>
            </tr>
            </thead>
            <tbody>
@@ -472,9 +472,9 @@
           <table class="table table-striped">
             <thead>
               <tr>
-                <th>TENANT</th>
-                <th>ROOM</th>
-                <th>AMOUNT</th>
+                <th>Tenant</th>
+                <th>Room</th>
+                <th>Amount</th>
             </tr>
             </thead>
             <tbody>
@@ -517,7 +517,7 @@
 <h6 class="m-0 font-weight-bold text-primary">DAILY COLLECTION</h6>
 
 
-  <a title="export" target="_blank" href="/property/{{ Auth::user()->property }}/export"><i class="fas fa-download "></i></a>
+  <a title="export" target="_blank" href="/property/{{ Auth::user()->property }}/export"><i class="fas fa-download fa-sm fa-fw text-gray-400"></i></a>
 
 
 </div>
@@ -526,12 +526,12 @@
  <table class="table table-striped" >
    <thead>
     <tr>
-        <th>AR NO</th>
-        <th>BILL NO</th>
-        <th>TENANT</th>
-        <th>ROOM</th>
+        <th>AR No</th>
+        <th>Bill No</th>
+        <th>Tenant</th>
+        <th>Room</th>
         
-        <th>AMOUNT</th>
+        <th>Amount</th>
         <th></th>
     </tr>
     
@@ -555,7 +555,7 @@
     @endforeach
    </tbody>
  </table>
- <table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
+ <table class="table table-bordered">
   <tr>
    <th>TOTAL</th>
    <th class="text-right">{{ number_format($collections_for_the_day->sum('total'),2) }}</th>
@@ -577,33 +577,39 @@
         <div class="card-body">
           <div class="table-responsive text-nowrap">
 
-<table class="table table-striped">
+<table class="table table-bordered">
  <thead>
+   <?php $ctr=1;?>
    <tr>
-          <th>ID</th>
-          <th>DATE REPORTED</th>
-          <th>TENANT</th>
-          <th>ROOM</th>
-          <th>TYPE</th>
-          <th>DESCRIPTION</th>
-          <th>URGENCY</th>
-          <th>STATUS</th>
+          <th>#</th>
+          <th>Reported</th>
+          <th>Tenant</th>
+          <th>Room</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Urgency</th>
+          <th>Status</th>
          
      </tr>
  </thead>
  <tbody>
       @foreach ($concerns as $item)
       <tr>
-      <td>{{ $item->concern_id }}</td>
+      <td>{{ $ctr++ }}</td>
         <td>{{ Carbon\Carbon::parse($item->date_reported)->format('M d Y') }}</td>
           <td>
-              <a href="{{ route('show-tenant',['unit_id'=> $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a>
+            @if(Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'admin' )
+            <a href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}">{{ $item->first_name.' '.$item->last_name }}</a>
+            @else
+            <a href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/billings">{{ $item->first_name.' '.$item->last_name }}</a>
+            @endif
           </td>
-          <td> @if(Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'admin' )
+          <td> 
+            @if(Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'admin' )
             <a href="/units/{{ $item->unit_id }}">{{ $item->building.' '.$item->unit_no }}</a>
             @else
            {{ $item->building.' '.$item->unit_no }}
-            @endif</td>
+            @endif
           <td>
             
               {{ $item->concern_type }}

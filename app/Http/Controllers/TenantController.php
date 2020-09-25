@@ -426,7 +426,22 @@ class TenantController extends Controller
             ->havingRaw('balance > 0')
             ->get();
 
-            return view('billing.show-billings', compact('current_bill_no','tenant','payments', 'room', 'balance','payment_ctr'));  
+            
+            $collections = DB::table('units')
+            ->leftJoin('tenants', 'unit_id', 'unit_tenant_id')
+            ->leftJoin('payments', 'tenant_id', 'payment_tenant_id')
+            ->leftJoin('billings', 'payment_billing_no', 'billing_no')
+            ->where('tenant_id', $tenant_id)
+            ->orderBy('payment_created', 'desc')
+            ->orderBy('ar_no', 'desc')
+            ->groupBy('payment_id')
+            ->get()
+            ->groupBy(function($item) {
+                return \Carbon\Carbon::parse($item->payment_created)->timestamp;
+            });
+    
+
+            return view('billing.show-billings', compact('current_bill_no','tenant','payments', 'room', 'balance','payment_ctr', 'collections'));  
         }else{
             return view('unregistered');
         }
@@ -504,69 +519,6 @@ class TenantController extends Controller
         }
     }
 
-    
-
-    public function show_payments($unit_id, $tenant_id){
-
-        $tenant = Tenant::findOrFail($tenant_id);
-
-
-    //   return  $collections = Billing::leftJoin('payments', 'billings.billing_no', '=', 'payments.payment_billing_no')
-    //     ->selectRaw('*, billing_amt - IFNULL(sum(amt_paid),0) as balance')
-    //     ->where('billing_tenant_id', $tenant_id)
-    //     ->groupBy('billing_id')
-    //     ->orderBy('billing_no', 'desc')
-    //     ->havingRaw('balance > 0')
-    //     ->get();
-
-        $collections = DB::table('units')
-        ->leftJoin('tenants', 'unit_id', 'unit_tenant_id')
-        ->leftJoin('payments', 'tenant_id', 'payment_tenant_id')
-        ->leftJoin('billings', 'payment_billing_no', 'billing_no')
-        ->where('tenant_id', $tenant_id)
-        ->orderBy('payment_created', 'desc')
-        ->orderBy('ar_no', 'desc')
-        ->groupBy('payment_id')
-        ->get()
-        ->groupBy(function($item) {
-            return \Carbon\Carbon::parse($item->payment_created)->timestamp;
-        });
-    
-
-
-        // $collections = DB::table('units')
-        // ->join('tenants', 'unit_id', 'unit_tenant_id')
-        // // ->join('billings', 'tenant_id', 'billing_tenant_id')
-        // ->join('payments', 'tenant_id', 'payment_tenant_id')
-        // ->where('tenant_id', $tenant_id)
-        // // ->whereIn('payment_note',['Rent', 'Electricity', 'Water', 'Surcharge'])
-        // ->orderBy('payment_created', 'desc')
-        // ->orderBy('ar_number', 'desc')
-        // ->get()
-        // ->groupBy(function($item) {
-        //     return \Carbon\Carbon::parse($item->payment_created)->timestamp;
-        // });
-
-
-        // $collections = DB::table('units')
-        //     ->join('tenants', 'unit_id', 'unit_tenant_id')
-        //     ->join('payments', 'tenant_id', 'payment_tenant_id')
-        //     ->where('unit_property', Auth::user()->property)
-        //     ->where('tenant_id', $tenant_id)
-        //     ->where('amt_paid','>',0)
-        //     // ->whereIn('payment_note',['Rent', 'Electricity', 'Water', 'Surcharge'])
-            
-        //     ->orderBy('payment_created', 'desc')
-        //     ->orderBy('payment_id', 'desc')
-        //     ->get()
-        //     ->groupBy(function($item) {
-        //         return \Carbon\Carbon::parse($item->payment_created)->timestamp;
-        //     });
- 
-        return view('billing.show-payments', compact('collections', 'tenant'));
-    }
-
-
 
     /**
      * Show the form for editing the specified resource.
@@ -596,7 +548,7 @@ class TenantController extends Controller
     { 
         
         if($request->action==='request to moveout'){
-             $no_of_bills = (int) $request->no_of_bills; 
+            $no_of_charges = (int) $request->no_of_charges; 
 
             // DB::table('notifications')->insertGetId(
             //     [
@@ -628,7 +580,7 @@ class TenantController extends Controller
             ->where('unit_property', Auth::user()->property)
             ->max('billing_no') + 1;
 
-            for($i = 1; $i<$no_of_bills; $i++){
+            for($i = 1; $i<$no_of_charges; $i++){
                 DB::table('billings')->insert(
                     [
                         'billing_tenant_id' => $request->tenant_id,
@@ -853,7 +805,7 @@ class TenantController extends Controller
                 'renewal_history' => $renewal_history->renewal_history.', from '.Carbon::parse($request->old_movein_date)->format('M d Y').' to -'.Carbon::parse($request->movein_date)->format('M d Y')
             ]);
 
-            return back()->with('success', 'Tenant contract has been extended to '. $request->no_of_months.' months.');
+            return back()->with('success', 'Contract has been extended to '. $request->no_of_months.' months.');
 
         }else{
             //insert all the additional charges

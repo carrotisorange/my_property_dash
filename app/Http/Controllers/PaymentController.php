@@ -155,7 +155,7 @@ class PaymentController extends Controller
            
         }
 
-        return back()->with('success', ($i-1).' payments have been added!');
+        return redirect('/units/'.$request->unit_tenant_id.'/tenants/'.$request->payment_tenant_id.'/billings#nav-profile')->with('success', ($i-1).' payments have been added!');
    
     }
 

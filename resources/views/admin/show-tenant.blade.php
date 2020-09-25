@@ -140,8 +140,8 @@
       <div class="nav nav-tabs" id="nav-tab" role="tablist">
         <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true"><i class="fas fa-user fa-sm text-primary-50"></i> Profile</a>
         <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="fas fa-file-signature fa-sm text-primary-50"></i> Contracts</a>
-        <a class="nav-item nav-link" id="nav-bill-tab" data-toggle="tab" href="#nav-bills" role="tab" aria-controls="nav-bills" aria-selected="true"><i class="fas fa-file-invoice-dollar fa-sm text-primary-50"></i> Bills</a>
-        <a class="nav-item nav-link" id="nav-payment-tab" data-toggle="tab" href="#nav-payments" role="tab" aria-controls="nav-payments" aria-selected="true"><i class="fas fa-money-bill fa-sm text-primary-50"></i> Payments</a>
+        <a class="nav-item nav-link" id="nav-bill-tab" data-toggle="tab" href="#nav-bills" role="tab" aria-controls="nav-bills" aria-selected="true"><i class="fas fa-file-invoice-dollar fa-sm text-primary-50"></i> Bills <span class="badge badge-primary badge-counter">{{ $balance->count() }}</span></a>
+        <a class="nav-item nav-link" id="nav-payment-tab" data-toggle="tab" href="#nav-payments" role="tab" aria-controls="nav-payments" aria-selected="true"><i class="fas fa-money-bill fa-sm text-primary-50"></i> Payments <span class="badge badge-primary badge-counter">{{ $collections->count() }}</span></a>
         <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false"><i class="fas fa-tools fa-sm text-primary-50"></i> Concerns</a>
       </div>
     </nav>
@@ -156,7 +156,7 @@
         
 <div class="row">
   <div class="col-md-8">
-    <a href="/units/{{ $tenant->unit_tenant_id }}"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> Back</a>
+    <a href="/units/{{ $tenant->unit_tenant_id }}"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> Room</a>
     @if(Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'admin')
     <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/edit"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-user-edit fa-sm text-white-50"></i> Edit</a>  
     @endif
@@ -451,16 +451,17 @@
         </div>
       </div>
       <div class="tab-pane fade" id="nav-bills" role="tabpanel" aria-labelledby="nav-bill-tab">
+        <a href="#" data-toggle="modal" data-target="#addBill" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Add</a> 
         @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'manager')
-          {{-- <a href="#" data-toggle="modal" data-target="#addBill" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Add</a> --}}
           <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/billings/edit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-edit fa-sm text-white-50"></i> Edit</a>
+          @endif
           @if($balance->count() > 0)
           <a  target="_blank" href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/bills/download" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Export</span></a>
           @endif
           @if($tenant->email_address !== null)
           <a  target="_blank" href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/bills/send" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-paper-plane  fa-sm text-white-50"></i> Send</span></a>
           @endif
-        @endif
+      
 
     <br>
     <br>
@@ -540,6 +541,7 @@
                     </tr>
               </tr>
                 @foreach ($collection_list as $item)
+               
                 <tr>
                  
                         <td>{{ $item->ar_no }}</td>
@@ -559,11 +561,13 @@
                           --}}
                         </td>
                         <td>
+                          @if(Auth::user()->user_type === 'treasury' || Auth::user()->user_type === 'manager')
                           <form action="/tenants/{{ $item->tenant_id }}/payments/{{ $item->payment_id }}" method="POST">
                             @csrf
                             @method('delete')
                             <button title="delete" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"  onclick="return confirm('Are you sure you want perform this action?');"><i class="fas fa-times fa-sm text-white-50"></i></button>
                           </form>
+                          @endif
                         </td>   
                        
                     </tr>
@@ -583,61 +587,6 @@
 </div>
 
 
-
-
-{{-- <!-- start -->
-<div class="row" id="payment-history">
-    <div class="col-md-12">
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Payments</h6>            
-            </div>
-            <div class="card-body">
-            <table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
-    @foreach ($payments as $day => $collection_list)
-      <tr>
-          <th colspan="8">{{ Carbon\Carbon::parse($day)->addDay()->format('M d Y') }} ({{ $collection_list->count()}})</th>
-      </tr>
-      <tr>
-              <th>AR NO</th>
-              <th>BILL NO</th>
-              
-              <th>ROOM</th>
-              <th>DESCRIPTION</th>
-              <th class="text-right">AMOUNT</th>
-              <th></th>
-          </tr>
-    </tr>
-      @foreach ($collection_list as $item)
-      <tr>
-              <td>{{ $item->ar_number }}</td>
-              <td>{{ $item->payment_billing_no }}</td>
-              
-              <td>{{ $item->building.' '.$item->unit_no }}</td>
-              <td>{{ $item->payment_note }}</td>
-              <td class="text-right">{{ number_format($item->amt_paid,2) }}</td>
-              <td class="text-center">
-                <a title="export pdf" target="_blank" href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/payments/{{ $item->payment_id }}/dates/{{$item->payment_created}}/export" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i></a>
-                
-              </td>
-         
-          </tr>
-      @endforeach
-          <tr>
-            <th>TOTAL</th>
-            <th colspan="4" class="text-right">{{ number_format($collection_list->sum('amt_paid'),2) }}</th>
-          </tr>
-          <tr>
-              <th colspan="6"></th>
-          </tr>
-    @endforeach
-</table>
-            </div>
-        </div>    
-    </div>
-</div> --}}
-
-<!-- end -->
 
 
                 {{-- Modal for renewing tenant --}}
@@ -796,7 +745,7 @@
             <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Extend Contract</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Extend</h5>
         
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -826,7 +775,7 @@
                     
                     <div class="row">
                         <div class="col"> 
-                               <p class="text-right">
+                               <p class="">
                                 <span id='remove_charges' class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-minus fa-sm text-white-50"></i> Remove</span>
                                 <span id="add_charges" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Add</span>     
                                </p>
@@ -856,7 +805,7 @@
         
         {{-- Modal for warning message --}}
         <div class="modal fade" id="moveoutTenantWarning" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Pending Balance </h5>
@@ -870,8 +819,7 @@
                 <div class="modal-body">
                   <div class="row">
                     <div class="col">
-    
-                      <small>Breakdown</small>
+  
                       <div class="table-responsive text-nowrap">
                        
                         <table class="table table-bordered">
@@ -905,7 +853,7 @@
                          
                           @endforeach
                           <tr>
-                            <th colspan="4">TOTAL AMOUNT PAYABLE</th>
+                            <th colspan="4">Total</th>
                             <th class="text-right">{{ number_format($balance->sum('balance'),2) }} </th>
                           </tr>
                     
@@ -920,9 +868,9 @@
                <div class="modal-footer">
                  <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Close</button>
                  @if($balance->sum('balance') > 0)
-                 <button title="balance has to be settled before moving out." href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{  $tenant->tenant_id }}/billings" form="extendTenantForm" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" disabled><i class="fas fa-check fa-sm text-white-50"></i> Process Moveout</button> 
+                 <button title="balance has to be settled before moving out." href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{  $tenant->tenant_id }}/billings" form="extendTenantForm" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" disabled><i class="fas fa-check fa-sm text-white-50"></i> Terminate </button> 
                  @else
-                 <button href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{  $tenant->tenant_id }}/billings" form="extendTenantForm" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-check fa-sm text-white-50"></i> Process Moveout</button> 
+                 <button href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{  $tenant->tenant_id }}/billings" form="extendTenantForm" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-check fa-sm text-white-50"></i> Terminate</button> 
                  @endif
              </div>
              
@@ -1033,7 +981,7 @@
                                     <th>Amount</th>
                                     
                                 </tr>
-                                    <input form="requestMoveoutForm" type="hidden" id="no_of_bills" name="no_of_bills" >
+                                    <input form="requestMoveoutForm" type="hidden" id="no_of_charges" name="no_of_charges" >
                                 <tr id='addr1'></tr>
                             </table>
                           </div>
@@ -1187,6 +1135,66 @@
           </div>
       
       </div>
+
+      <div class="modal fade" id="addBill" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add Bill</h5>
+        
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+          </button>
+          </div>
+         <div class="modal-body">
+          <form id="addBillForm" action="/billings/" method="POST">
+             @csrf
+          </form>
+         
+          <input type="hidden" form="addBillForm" name="action" value="add_move_in_charges" required>
+          <input type="hidden" form="addBillForm" name="tenant_id" value="{{ $tenant->tenant_id }}" required>
+          
+          <div class="row">
+            <div class="col">
+                <small>Billing Date</small>
+                {{-- <input type="date" form="addBillForm" class="form-control" name="billing_date" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}" required > --}}
+                <input type="date" class="form-control" form="addBillForm" class="" name="billing_date" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}" required >
+            </div>
+          </div>
+         
+          <br>
+          <div class="row">
+            <div class="col">
+           
+              <p class="text-left">
+                <span id='delete_bill' class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-minus fa-sm text-white-50"></i> Remove</span>
+              <span id="add_bill" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Add</span>     
+              </p>
+                <div class="table-responsive text-nowrap">
+                <table class = "table table-bordered" id="table_bill">
+                    <tr>
+                        <th>#</th>
+                        <th>Description</th>
+                        <th colspan="2">Period Covered</th>
+                        <th>Amount</th>
+                        
+                    </tr>
+                        <input form="addBillForm" type="hidden" id="no_of_bills" name="no_of_bills" >
+                    <tr id='bill1'></tr>
+                </table>
+              </div>
+            </div>
+          </div>
+         
+        </div>
+        <div class="modal-footer">
+         {{-- <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Close</button> --}}
+         <button form="addBillForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;" ><i class="fas fa-check fa-sm text-white-50"></i> Submit</button>
+        </div> 
+        </div>
+        </div>
+        
+        </div>
 @endsection
 
 @section('scripts')
@@ -1201,7 +1209,7 @@
 
      $('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
      i++;
-     document.getElementById('no_of_bills').value = i;
+     document.getElementById('no_of_charges').value = i;
 
 
     });
@@ -1210,7 +1218,7 @@
         if(i>1){
         $("#addr"+(i-1)).html('');
         i--;
-        document.getElementById('no_of_bills').value = i;
+        document.getElementById('no_of_charges').value = i;
         }
     });
 
@@ -1232,6 +1240,25 @@
         document.getElementById('no_of_items').value = j;
         }
     });
+
+    var k=1;
+    $("#add_bill").click(function(){
+      $('#bill'+k).html("<th>"+ (k) +"</th><td><select class='form-control' name='billing_desc"+k+"' form='addBillForm' id='billing_desc"+k+"'><option value='Security Deposit (Rent)'>Security Deposit (Rent)</option><option value='Security Deposit (Utilities)'>Security Deposit (Utilities)</option><option value='Advance Rent'>Advance Rent</option><option value='Rent'>Rent</option><option value='Electric'>Electric</option><option value='Water'>Water</option></select> <td><input class='form-control' form='addBillForm' name='billing_start"+k+"' id='billing_start"+k+"' type='date' value='{{ $tenant->movein_date }}' required></td> <td><input class='form-control' form='addBillForm' name='billing_end"+k+"' id='billing_end"+k+"' type='date' value='{{ $tenant->moveout_date }}' required></td> <td><input class='form-control' form='addBillForm' name='billing_amt"+k+"' id='billing_amt"+k+"' type='number' min='1' step='0.01' required></td>");
+     $('#table_bill').append('<tr id="bill'+(k+1)+'"></tr>');
+     k++;
+     
+        document.getElementById('no_of_bills').value = k;
+
+ });
+
+    $("#delete_bill").click(function(){
+        if(k>1){
+        $("#bill"+(k-1)).html('');
+        k--;
+        
+        document.getElementById('no_of_bills').value = k;
+        }
+    });
 });
 </script>
 
@@ -1244,6 +1271,7 @@
    
   }
 </script>
+
 @endsection
 
 
