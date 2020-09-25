@@ -284,6 +284,7 @@
 
 </div>
 
+
 <div class="row">
   <!-- Area Chart -->
   <div class="col-xl-12 col-lg-12">
@@ -291,18 +292,7 @@
       <!-- Card Header - Dropdown -->
       <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
         <h6 class="m-0 font-weight-bold text-primary">SIGN UP RATE</h6>
-        {{-- <div class="dropdown no-arrow">
-          <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-          </a> 
-           <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-            <div class="dropdown-header">Dropdown Header:</div>
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div> 
-        </div> --}}
+        
       </div>
       <!-- Card Body -->
       <div class="card-body">
@@ -314,355 +304,259 @@
   </div>
           </div>
 
-                                  <!-- Content Row -->
-                                  <div class="row">
-          
-                                    <!-- Content Column -->
-                                    <div class="col-lg-12 mb-4">
-                                      <!-- DataTales Example -->
-                                      <div class="card shadow mb-4">
-                                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                          <h6 class="m-0 font-weight-bold text-primary">LOGINS ({{ $sessions->count() }})</h6>
-                                          <div class="dropdown no-arrow">
-                                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                              <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                            </a> 
-                                             <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                                              {{-- <div class="dropdown-header">Dropdown Header:</div> --}}
-                                              <a class="dropdown-item" target="_blank" href="/logins">See All</a>
-                                              {{-- <a class="dropdown-item" href="#">Another action</a>
-                                              <div class="dropdown-divider"></div>
-                                              <a class="dropdown-item" href="#">Something else here</a> --}}
-                                            </div> 
-                                          </div>
-                                        </div>
-                                   
-                                       <div class="card-body">
-                                        <div class="table-responsive text-nowrap">
-                                           <table class="table table-striped" >
-                                             <thead>
-                                               <tr>
-                                                <th>USER</th>
-                                                <th>EMAIL</th>
-                                                <th>ROLE</th>
-                                                <th>PROPERTY</th>
-                                                <th>LOGIN AT</th>
-                                                <th>STATUS</th>
-                                             </tr>
-                                             </thead>
-                                             <tbody>
-                                              @foreach ($sessions as $item)
-                                              <tr>
-                                                <td><a href="/users/{{ $item->id }}">{{ $item->name }}</a></td>
-                                                <td>{{ $item->email }}</td>
-                                                <td>{{ $item->user_type }}</td>
-                                                <td>{{ $item->property }}</td>
-                                                <td>{{ Carbon\Carbon::parse($item->session_last_login_at)->toTimeString() }}</td>
-                                                <?php  
-                                                                              $diffInMinutes = Carbon\Carbon::parse($item->session_last_logout_at)->diffInMinutes();
-                                                                              $diffInHours = Carbon\Carbon::parse($item->session_last_logout_at)->diffInHours();
-                                                                              $diffInDays = Carbon\Carbon::parse($item->session_last_logout_at)->diffInDays()
-                                                                           ?>
-                                                                           <td>
-                                                                              @if($item->user_current_status === 'online')
-                                                                             <span class="badge badge-success"> {{ $item->user_current_status }}</span>
-                                                                             @else
-                                                                              @if($diffInMinutes < 60)
-                                                                              <span class="badge badge-secondary"> {{ $diffInMinutes }} minutes ago</span> 
-                                                                                @elseif($diffInHours > 24)
-                                                                                <span class="badge badge-secondary"> {{ $diffInDays }} days ago</span>
-                                                                                @else
-                                                                                <span class="badge badge-secondary">  {{ $diffInHours }} hours ago</span>
-                                                                                @endif
-                                                                             @endif
-                                                                            </td> 
-                                              </tr>
-                                              @endforeach
-                                             </tbody>
-                                           </table>
-                                          
-                                         </div>
-                                       </div>
-                                     </div>
-                             
-                                         </div>
+          <div class="row">
+            <div class="col-md-12">
+              <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                  <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true"><i class="fas fa-sign-in-alt fa-sm text-primary-50"></i> Logins</a>
+                  <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="fas fa-building fa-sm text-primary-50"></i> Properties</a>
+                  <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false"><i class="fas fa-user-check fa-sm text-primary-50"></i> Active Users</a>
+                  <a class="nav-item nav-link" id="nav-unverified-tab" data-toggle="tab" href="#nav-unverified" role="tab" aria-controls="nav-unverified" aria-selected="false"><i class="fas fa-user-times fa-sm text-primary-50"></i> Unverified Users</a>
+                </div>
+              </nav>
+            </div>
+          </div>
+       
+            <div class="tab-content" id="nav-tabContent">
+              <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                <br>
+                 <div class="row">
+                  <div class="col-md-11 mx-auto">
+                    <div class="table-responsive text-nowrap">
+                      <table class="table table-bordered" >
+                        <?php $ctr=1; ?>
+                        <thead>
+                          <tr>
+                            <th>#</th>
+                           <th>User</th>
+                           <th>Email</th>
+                           <th>Role</th>
+                           <th>Property</th>
+                           <th>Login at</th>
+                           <th>Status</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                         @foreach ($sessions as $item)
+                         <tr>
+                          <th>{{ $ctr++ }}</th>
+                           <td><a href="/users/{{ $item->id }}">{{ $item->name }}</a></td>
+                           <td>{{ $item->email }}</td>
+                           <td>{{ $item->user_type }}</td>
+                           <td>{{ $item->property }}</td>
+                           <td>{{ Carbon\Carbon::parse($item->session_last_login_at)->toTimeString() }}</td>
+                           <?php  
+                                                         $diffInMinutes = Carbon\Carbon::parse($item->session_last_logout_at)->diffInMinutes();
+                                                         $diffInHours = Carbon\Carbon::parse($item->session_last_logout_at)->diffInHours();
+                                                         $diffInDays = Carbon\Carbon::parse($item->session_last_logout_at)->diffInDays()
+                                                      ?>
+                                                      <td>
+                                                         @if($item->user_current_status === 'online')
+                                                        <span class="badge badge-success"> {{ $item->user_current_status }}</span>
+                                                        @else
+                                                         @if($diffInMinutes < 60)
+                                                         <span class="badge badge-secondary"> {{ $diffInMinutes }} minutes ago</span> 
+                                                           @elseif($diffInHours > 24)
+                                                           <span class="badge badge-secondary"> {{ $diffInDays }} days ago</span>
+                                                           @else
+                                                           <span class="badge badge-secondary">  {{ $diffInHours }} hours ago</span>
+                                                           @endif
+                                                        @endif
+                                                       </td> 
+                         </tr>
+                         @endforeach
+                        </tbody>
+                      </table>
+                     
+                    </div>
                   
-                               
-                                  </div>
+                  
 
-
-                <!-- Content Row -->
-                <div class="row">
-          
-                  <!-- Content Column -->
-                  <div class="col-lg-12 mb-4">
-                    <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                     <div class="card-header py-3">
-                       <h6 class="m-0 font-weight-bold text-primary">PROPERTIES ({{ $properties->count() }})</h6>
+                  </div>
+                 </div>
+              </div>
+              <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                <br>
+                  <div class="col-md-11 mx-auto">
+                    <div class="table-responsive text-nowrap">
+                      <table class="table table-bordered" >
+                        <?php $ctr=1; ?>
+                        <thead>
+                          <tr>
+                            <th>#</th>
+                           <th>Property</th>
+                           <th>No of Rooms</th>
+                           <th>Occupancy Rate</th>
+                           <th>Manager</th>
+                           <th>Email</th>
                          
-                     </div>
-                     <div class="card-body">
-                      <div class="table-responsive text-nowrap">
-                         <table class="table table-striped" >
-                           <thead>
+                          
+                           <th>Plan</th>
+                           <th>Created At</th>
+                           <th>Email Verified At</th>
+                          
+                        </tr>
+                        </thead>
+                        <tbody>
+                         @foreach ($properties as $item)
                              <tr>
-                            
-                              <th>PROPERTY</th>
-                              <th>ROOMS</th>
-                              <th>OCCUPANCY</th>
-                              <th>MANAGER</th>
-                              <th>EMAIL</th>
-                            
-                             
-                              <th>PLAN</th>
-                              <th>CREATED AT</th>
-                              <th>EMAIL VERIFIED AT</th>
-                             
-                           </tr>
-                           </thead>
-                           <tbody>
-                            @foreach ($properties as $item)
-                                <tr>
-                                  <td>
-                                    {{ $item->property }}
-                                    {{ $item->property_type }} with
-                                    {{ $item->property_ownership }}
-                                  </td>
-                                  <?php $count_units = $item->reserved_units + $item->occupied_units + $item->vacant_units ?>
-                                  <td>{{ $count_units }}
-                                  </td>
-                                  <td>
-                                    
-                                    {{ number_format(( $count_units  == 0 ? 0 : $item->occupied_units/$count_units) * 100, 2) }}%
-                                    ({{ $item->occupied_units.'/'.$count_units }})
-                                  </td>
-                                  <td>
-                                    @if($item->user_type==='manager')
-                                    <a href="/users/{{ $item->id }}">{{ $item->name }}</a>
-                                    @endif
-                                  </td>
-                                  <td>{{ $item->email }}</td>
+                              <th>{{ $ctr++ }}</th>
+                               <td>
+                                 {{ $item->property }}
+                                 {{ $item->property_type }} with
+                                 {{ $item->property_ownership }}
+                               </td>
+                               <?php $count_units = $item->reserved_units + $item->occupied_units + $item->vacant_units ?>
+                               <td>{{ $count_units }}
+                               </td>
+                               <td>
                                  
-                                
-                                <td>{{ $item->account_type }}</td>
-                                <td>{{ Carbon\Carbon::parse($item->created_at)->format('M d Y').'@'.Carbon\Carbon::parse($item->created_at)->toTimeString() }}</td>
-                                  <td>{{ Carbon\Carbon::parse($item->email_verified_at)->format('M d Y').'@'.Carbon\Carbon::parse($item->email_verified_at)->toTimeString() }}</td>
-                                </tr>
-                            @endforeach
-                           </tbody>
-                         </table>
-                        
-                       </div>
-                     </div>
-                   </div>
-           
-                       </div>
-
-             
-                </div>
-
-                <!-- Content Row -->
-                <div class="row">
-          
-                  <!-- Content Column -->
-                  <div class="col-lg-12 mb-4">
-                    <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                     <div class="card-header py-3">
-                       <h6 class="m-0 font-weight-bold text-primary">ACTIVE USERS ({{ $active_users->count() }})</h6>
-                         
-                     </div>
-                     <div class="card-body">
-                      <div class="table-responsive text-nowrap">
-                         <table class="table table-striped" >
-                           <thead>
-                             <tr>
-                              <th>USER</th>
-                              <th>PROPERTY</th>
-                              <th>ROLE</th>
+                                 {{ number_format(( $count_units  == 0 ? 0 : $item->occupied_units/$count_units) * 100, 2) }}%
+                                 ({{ $item->occupied_units.'/'.$count_units }})
+                               </td>
+                               <td>
+                                 @if($item->user_type==='manager')
+                                 <a href="/users/{{ $item->id }}">{{ $item->name }}</a>
+                                 @endif
+                               </td>
+                               <td>{{ $item->email }}</td>
                               
-                              <th>PLAN</th>
                              
+                             <td>{{ $item->account_type }}</td>
+                             <td>{{ Carbon\Carbon::parse($item->created_at)->format('M d Y').'@'.Carbon\Carbon::parse($item->created_at)->toTimeString() }}</td>
+                               <td>{{ Carbon\Carbon::parse($item->email_verified_at)->format('M d Y').'@'.Carbon\Carbon::parse($item->email_verified_at)->toTimeString() }}</td>
+                             </tr>
+                         @endforeach
+                        </tbody>
+                      </table>
+                     
+                    </div>
+                  </div>
+              </div>
+              <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+               <br>
+               <div class="col-md-11 mx-auto">
+                <div class="table-responsive text-nowrap">
+                  <table class="table table-bordered" >
+                    <?php $ctr=1; ?>
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                       <th>User</th>
+                       <th>Property</th>
+                       <th>Role</th>
+                       
+                       <th>Plan</th>
+                      
+                      
+                    </tr>
+                    </thead>
+                    <tbody>
+                     @foreach ($active_users as $item)
+                         <tr>
+                           <th>{{ $ctr++ }}</th>
+                           <td>
+                            
+                             <a href="/users/{{ $item->id }}">{{ $item->name }}</a>
                              
-                           </tr>
-                           </thead>
-                           <tbody>
-                            @foreach ($active_users as $item)
-                                <tr>
-                                  <td>
-                                   
-                                    <a href="/users/{{ $item->id }}">{{ $item->name }}</a>
-                                    
-                                  </td>
-                                  <td>
-                                    {{ $item->property }}
-                                  </td>
-                                  <td>{{ $item->user_type }}</td>
-                            
-                                 
-                                 
-                                 
-                                <td>{{ $item->account_type }}</td>
-                            
-                                </tr>
-                            @endforeach
-                           </tbody>
-                         </table>
-                        
-                       </div>
-                     </div>
-                   </div>
-           
-                       </div>
-
-             
+                           </td>
+                           <td>
+                             {{ $item->property }}
+                           </td>
+                           <td>{{ $item->user_type }}</td>
+                     
+                          
+                          
+                          
+                         <td>{{ $item->account_type }}</td>
+                     
+                         </tr>
+                     @endforeach
+                    </tbody>
+                  </table>
+                 
                 </div>
-
-                                        <!-- Content Row -->
-                                        <div class="row">
-          
-                                          <!-- Content Column -->
-                                          <div class="col-lg-12 mb-4">
-                                            <!-- DataTales Example -->
-                                            <div class="card shadow mb-4">
-                                             <div class="card-header py-3">
-                                               <h6 class="m-0 font-weight-bold text-primary">UNVERIFIED USERS ({{ $unverified_users->count() }})</h6>
-                                                 
-                                             </div>
-                                             <div class="card-body">
-                                              <div class="table-responsive text-nowrap">
-                                                 <table class="table table-striped" >
-                                                   <thead>
-                                                     <tr>
-                                                    
-                                                      <th>PROPERTY</th>
-                                                      <th>USER</th>
-                                                      <th>ROLE</th>
-                                                      <th>EMAIL ADDRESS</th>
-                                                     
-                                                      <th>PLAN</th>
-                                                      <th>CREATED AT</th>
-                                                     
-                                                     
-                                                   </tr>
-                                                   </thead>
-                                                   <tbody>
-                                                    @foreach ($unverified_users as $item)
-                                                        <tr>
-                                                          <td>
-                                                            {{ $item->property }}
-                                                          </td>
-                                                          <td>
-                                                           
-                                                            <a href="/users/{{ $item->id }}">{{ $item->name }}</a>
-                                                     
-                                                          </td>
-                                                          <td>{{ $item->user_type }}</td>
-                                                          <td>{{ $item->email }}</td>
-                                                         
-                                                        <td>{{ $item->account_type }}</td>
-                                                        <td>{{ Carbon\Carbon::parse($item->created_at)->format('M d Y').' '.Carbon\Carbon::parse($item->created_at)->toTimeString() }}</td>
-                                                         
-                                                        </tr>
-                                                    @endforeach
-                                                   </tbody>
-                                                 </table>
-                                                
-                                               </div>
-                                             </div>
-                                           </div>
-                                   
-                                               </div>
+               </div>
+              </div>
+              <div class="tab-pane fade" id="nav-unverified" role="tabpanel" aria-labelledby="nav-unverified-tab">
+                <br>
+                <div class="col-md-11 mx-auto">
+                <div class="table-responsive text-nowrap">
+                  <table class="table table-bordered">
+                    <?php $ctr=1; ?>
+                    <thead>
+                      <tr>
+                          <th>#</th>
+                          <th>User</th>
+                          <th>Created at</th>
+                          <th>Email</th>
+                          <th>Role</th>
+                          <th>Property</th>
+                          <th>Type</th>
+                          <th>Ownership</th>
+                          <th>Email Verified At</th>
+                          <th>Trial Ends At</th>
+                          <th>Plan</th>
+                          <th>Last Login IP</th>
+                          <th>Last Login At</th>
+                          <th>Last Logout At</th>
+                          <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      @foreach ($users as $item)
+                     <tr>
+                      <th>{{ $ctr++ }}</th>
+                         <td><a href="/users/{{ $item->id }}">{{ $item->name }}</a></td>
+                         <td>{{ Carbon\Carbon::parse($item->created_at)->format('M d Y').' '.Carbon\Carbon::parse($item->created_at)->toTimeString() }}</td>
+                         <td>{{ $item->email }}</td>
+                         <td>{{ $item->user_type }}</td>
+                         <td>{{ $item->property }}</td>
+                         <td>{{ $item->property_type }}</td>
                         
-                                     
-                                        </div>
+                         <td>{{ $item->property_ownership }}</td>
+                        
+                         <td>{{ Carbon\Carbon::parse($item->email_verified_at)->format('M d Y').' '.Carbon\Carbon::parse($item->email_verified_at)->toTimeString() }}</td>
+                         <td>{{ Carbon\Carbon::parse($item->trial_ends_at)->format('M d Y').' '.Carbon\Carbon::parse($item->trial_ends_at)->toTimeString() }}</td>
+                         <td>{{ $item->account_type }}</td>
+                         <td>{{ $item->last_login_ip }}</td>
+                         <td>{{ Carbon\Carbon::parse($item->last_login_at)->format('M d Y').' '.Carbon\Carbon::parse($item->last_login_at)->toTimeString() }}</td>
+                         <td>{{ Carbon\Carbon::parse($item->last_logout_at)->format('M d Y').' '.Carbon\Carbon::parse($item->last_logout_at)->toTimeString() }}</td>
+                         
+                         <?php  
+                            $diffInMinutes = Carbon\Carbon::parse($item->last_logout_at)->diffInMinutes();
+                            $diffInHours = Carbon\Carbon::parse($item->last_logout_at)->diffInHours();
+                            $diffInDays = Carbon\Carbon::parse($item->last_logout_at)->diffInDays()
+                         ?>
+                         <td>
+                            @if($item->user_current_status === 'online')
+                           <span class="badge badge-success"> {{ $item->user_current_status }}</span>
+                           @else
+                            @if($diffInMinutes < 60)
+                            <span class="badge badge-secondary"> {{ $diffInMinutes }} minutes ago</span> 
+                              @elseif($diffInHours > 24)
+                              <span class="badge badge-secondary"> {{ $diffInDays }} days ago</span>
+                              @else
+                              <span class="badge badge-secondary">  {{ $diffInHours }} hours ago</span>
+                              @endif
+                           @endif
+                          </td>      
+                        
+                     </tr>
+                     @endforeach
+                    </tbody>
+                  </table>
+                </div> 
+              </div>
+              </div>
+            </div>
+          
 @endif
                
 
 
 
-                                        <!-- Content Row -->
-                                        <div class="row">
-          
-                                                <!-- Pie Chart -->
-                                          <div class="col-xl-12 col-lg-12">
-                                            <div class="card shadow mb-3">
-                                              <!-- Card Header - Dropdown -->
-                                              <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                                <h6 class="m-0 font-weight-bold text-primary"> USERS ({{ $users->count() }})</h6>
-                                                
-                                              </div>
-                                              <!-- Card Body -->
-                                              <div class="card-body">
-                                                <div class="table-responsive text-nowrap">
-                                                  <table class="table table-striped">
-                                                    <thead>
-                                                      <tr>
-                                                        <th>ID</th>
-                                                          <th>USER</th>
-                                                          <th>CREATED AT</th>
-                                                          <th>EMAIL</th>
-                                                          <th>ROLE</th>
-                                                          <th>PROPERTY</th>
-                                                          <th>PROPERTY TYPE</th>
-                                                          <th>PROPERTY OWNERSHIP</th>
-                                                          <th>EMAIL VERIFIED AT</th>
-                                                          <th>TRIAL ENDS AT</th>
-                                                          <th>PLAN</th>
-                                                          <th>LAST LOGIN IP</th>
-                                                          <th>LAST LOGIN</th>
-                                                          <th>LAST LOGOUT</th>
-                                                          <th>STATUS</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                      @foreach ($users as $item)
-                                                     <tr>
-                                                        <td>{{ $item->id }}</td>
-                                                         <td><a href="/users/{{ $item->id }}">{{ $item->name }}</a></td>
-                                                         <td>{{ Carbon\Carbon::parse($item->created_at)->format('M d Y').' '.Carbon\Carbon::parse($item->created_at)->toTimeString() }}</td>
-                                                         <td>{{ $item->email }}</td>
-                                                         <td>{{ $item->user_type }}</td>
-                                                         <td>{{ $item->property }}</td>
-                                                         <td>{{ $item->property_type }}</td>
-                                                        
-                                                         <td>{{ $item->property_ownership }}</td>
-                                                        
-                                                         <td>{{ Carbon\Carbon::parse($item->email_verified_at)->format('M d Y').' '.Carbon\Carbon::parse($item->email_verified_at)->toTimeString() }}</td>
-                                                         <td>{{ Carbon\Carbon::parse($item->trial_ends_at)->format('M d Y').' '.Carbon\Carbon::parse($item->trial_ends_at)->toTimeString() }}</td>
-                                                         <td>{{ $item->account_type }}</td>
-                                                         <td>{{ $item->last_login_ip }}</td>
-                                                         <td>{{ Carbon\Carbon::parse($item->last_login_at)->format('M d Y').' '.Carbon\Carbon::parse($item->last_login_at)->toTimeString() }}</td>
-                                                         <td>{{ Carbon\Carbon::parse($item->last_logout_at)->format('M d Y').' '.Carbon\Carbon::parse($item->last_logout_at)->toTimeString() }}</td>
-                                                         
-                                                         <?php  
-                                                            $diffInMinutes = Carbon\Carbon::parse($item->last_logout_at)->diffInMinutes();
-                                                            $diffInHours = Carbon\Carbon::parse($item->last_logout_at)->diffInHours();
-                                                            $diffInDays = Carbon\Carbon::parse($item->last_logout_at)->diffInDays()
-                                                         ?>
-                                                         <td>
-                                                            @if($item->user_current_status === 'online')
-                                                           <span class="badge badge-success"> {{ $item->user_current_status }}</span>
-                                                           @else
-                                                            @if($diffInMinutes < 60)
-                                                            <span class="badge badge-secondary"> {{ $diffInMinutes }} minutes ago</span> 
-                                                              @elseif($diffInHours > 24)
-                                                              <span class="badge badge-secondary"> {{ $diffInDays }} days ago</span>
-                                                              @else
-                                                              <span class="badge badge-secondary">  {{ $diffInHours }} hours ago</span>
-                                                              @endif
-                                                           @endif
-                                                          </td>      
-                                                        
-                                                     </tr>
-                                                     @endforeach
-                                                    </tbody>
-                                                  </table>
-                                                </div>                                                      </div>
-                                            </div>
-                                          </div>
-                                        </div>
+                               
 
 <br>
 
