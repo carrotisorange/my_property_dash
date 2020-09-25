@@ -1338,8 +1338,6 @@ Route::post('/tenants/billings-post', 'TenantController@post_billings')->middlew
 Route::delete('tenants/{tenant_id}/billings/{billing_id}', 'BillingController@destroy')->middleware(['auth', 'verified']);
 
 
-Route::get('/units/{unit_id}/tenants/{tenant_id}/payments', 'TenantController@show_payments')->name('show-payments')->middleware(['auth', 'verified']);
-
 //route for searching tenant
 Route::get('/tenants/search', 'TenantController@search')->middleware(['auth', 'verified']);
 
