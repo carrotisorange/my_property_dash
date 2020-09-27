@@ -452,7 +452,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                     @foreach ($active_users as $item)
+                     @foreach ($unverified_users as $item)
                          <tr>
                            <th>{{ $ctr++ }}</th>
                            <td>
