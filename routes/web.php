@@ -1209,13 +1209,13 @@ Route::get('/owners', function(){
     if( auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager'){
         
       
-            $owners = DB::table('units')
-            ->join('unit_owners', 'unit_unit_owner_id', 'unit_owner_id')
+            $owners = DB::table('unit_owners')
+            ->join('units', 'unit_id_foreign', 'unit_id')
             ->where('unit_property', Auth::user()->property)
             ->get();
 
-            $count_owners = DB::table('units')
-            ->join('unit_owners', 'unit_owner_id', 'unit_unit_owner_id')
+            $count_owners = DB::table('unit_owners')
+            ->join('units', 'unit_id_foreign', 'unit_id')
             ->where('unit_property', Auth::user()->property)
             ->count();
         
@@ -1337,6 +1337,8 @@ Route::post('/tenants/billings', 'TenantController@add_billings')->name("add-bil
 Route::post('/tenants/billings-post', 'TenantController@post_billings')->middleware(['auth', 'verified']);
 Route::delete('tenants/{tenant_id}/billings/{billing_id}', 'BillingController@destroy')->middleware(['auth', 'verified']);
 
+//delete owners
+Route::delete('owners/{owner_id}', 'UnitOwnersController@destroy')->middleware(['auth', 'verified']);
 
 //route for searching tenant
 Route::get('/tenants/search', 'TenantController@search')->middleware(['auth', 'verified']);
@@ -1824,10 +1826,13 @@ Route::post('/request-payable/disapprove/{id}', function(Request $request, $id){
 
 
 Route::get('/show', function(){
-    return 
-    $unit_owner = DB::table('units')
-    ->join('unit_owners', 'unit_id', 'unit_unit_owner_id')
-    ->get();  
+    $owners = DB::table('units')
+    ->join('unit_owners', 'unit_unit_owner_id', 'unit_owner_id')
+    ->where('unit_property', Auth::user()->property)
+    ->get();
+
+    return view('show', compact('owners'));
+    
 });
 
 

@@ -27,14 +27,14 @@ class UnitOwnersController extends Controller
         //create session for the search
         $request->session()->put(Auth::user()->id.'search_owner', $search);
 
-        $owners = DB::table('units')
-            ->join('unit_owners', 'unit_unit_owner_id', 'unit_owner_id')
+        $owners = DB::table('unit_owners')
+            ->join('units', 'unit_id_foreign', 'unit_id')
             ->where('unit_property', Auth::user()->property)
             ->whereRaw("unit_owner like '%$search%' ")
-            ->paginate(10);
+            ->get();
 
-        $count_owners = DB::table('units')
-            ->join('unit_owners', 'unit_owner_id', 'unit_unit_owner_id')
+            $count_owners = DB::table('unit_owners')
+            ->join('units', 'unit_id_foreign', 'unit_id')
             ->where('unit_property', Auth::user()->property)
             ->count();
 
@@ -150,6 +150,8 @@ class UnitOwnersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::table('unit_owners')->where('unit_owner_id', $id)->delete();
+
+        return back();
     }
 }

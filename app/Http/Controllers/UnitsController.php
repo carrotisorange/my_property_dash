@@ -207,46 +207,25 @@ class UnitsController extends Controller
      }
 
      public function post_edit_multiple_rooms(Request $request){
-   
-
-         $units_count = DB::table('units')
-         ->where('unit_property', Auth::user()->property)
-         ->where('status','<>','deleted')
-         ->count();
-         
-        for($i = 1; $i<=$units_count; $i++){
-            DB::table('units')
-            ->where('unit_id', $request->input('unit_id'.$i))
+    
+        for($i = 1; $i<=231; $i++){
+            DB::table('unit_owners')
+            ->where('unit_owner_id', $request->input('owner'.$i))
             ->update(
                 [
-                    'unit_no' => $request->input('unit_no'.$i),
-                    'type_of_units' => $request->input('type_of_units'.$i),
-                    'status' => $request->input('status'.$i),
-                    'building' => $request->input('building'.$i),
-                    'floor_no' => $request->input('floor_no'.$i),
-                    'max_occupancy' => $request->input('max_occupancy'.$i),
-                    'monthly_rent' => $request->input('monthly_rent'.$i),
+                    'unit_id_foreign' => $request->input('unit'.$i),
+                   
                 ]);
+
+                DB::table('units')
+                ->where('unit_id', $request->input('unit'.$i))
+                ->update(
+                    [
+                        'unit_unit_owner_id' => null,
+                       
+                    ]);
         }
-
-        $units = DB::table('units')
-        ->where('unit_property', Auth::user()
-        ->property)->where('status','<>','deleted')
-        ->count();
-
-        $occupied_units = DB::table('units')->where('unit_property', Auth::user()->property)->where('status', 'occupied')->count();
-
-        DB::table('occupancy_rate')
-            ->insert(
-                        [
-                            'occupancy_rate' => ($occupied_units/$units) * 100,
-                            'occupancy_property' => Auth::user()->property,
-                            'occupancy_date' => Carbon::now()
-                        ]
-                    );
         
-
-        return redirect('/home')->with('success', $units_count.' rooms have been updated!');
      }
 
 

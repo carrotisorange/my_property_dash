@@ -149,37 +149,39 @@
 <div class="table-responsive text-nowrap">
       <table class="table">
         <tr>
-          <td colspan="6">Showing <b>{{ $owners->count() }} </b> of {{  $count_owners }}  tenants </td>
+          <td colspan="6">Showing <b>{{ $owners->count() }} </b> of {{  $count_owners }}  owners </td>
           
         </tr>
       </table>
-        <table class="table table-striped table-bordered">
+        <table class="table table-bordered">
             <thead>
+              <?php $ctr=1; ?>
                 <tr>
-                  
-                   <th>OWNER</th>
-                   <th>ROOM</th>
-                   <th>EMAIL</th>
-                   <th>MOBILE</th>
-                   <th>REPRESENTATIVE</th>
+                  <th>#</th>
+                   <th>Owner</th>
+                   <th>Room</th>
+                   <th>Email</th>
+                   <th>Mobile</th>
+                   <th>Representative</th>
           
-                   <th>DATE ACCEPTED</th>
-                   <th>ROOM TYPE</th>
-                   <th>MAX OCCUPANCY</th>
-                   <th>MONTHLY RENT</th>
-                   <th>STATUS</th>
-                   
+                   <th>Date Accepted</th>
+                   <th>Room Type</th>
+                   <th>Occupancy</th>
+                   <th>Monthly Rent</th>
+                   <th>Status</th>
+                   <td></td>
                </tr>
             </thead>   
                <tbody>
                @foreach ($owners as $item)
                <tr>
+                 <th>{{ $ctr++ }}</th>
                 <td><a href="{{ route('show-investor',['unit_id'=> $item->unit_id, 'unit_owner_id'=>$item->unit_owner_id]) }}">{{ $item->unit_owner }} </a></td>
                    
                    <td><a href="/units/{{ $item->unit_id }}">{{ $item->building.' '.$item->unit_no }}</a></td>
                    
                   
-                   <td>{{ $item-> investor_email_address}}</td>
+                   <td>{{ $item->investor_email_address}}</td>
                    <td>{{ $item->investor_contact_no }}</td>
                    <TD>{{ $item->investor_representative }}</TD>
                    <td> {{ $item->date_accepted ? Carbon\Carbon::parse($item->date_accepted)->format('M d Y') : null}}</td>
@@ -188,6 +190,13 @@
                    <td>{{ $item->max_occupancy }} pax</td>
                    <td>{{ number_format($item->monthly_rent, 2) }}</td>
                    <td>{{ $item->status }}</td>
+                   <td>
+                     <form action="/owners/{{ $item->unit_owner_id }}" method="POST">
+                    @csrf
+                    @method('delete')
+                    <button title="remove" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"  onclick="return confirm('Are you sure you want perform this action?');"><i class="fas fa-times fa-sm text-white-50"></i></button>
+                  </form>
+                </td>
                </tr>
                @endforeach
                </tbody>

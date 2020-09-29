@@ -172,7 +172,15 @@
              </tr>
              <tr>
                   <td>Floor No</td>
-                  <td>{{ $numberFormatter->format($unit->floor_no) }}</td>
+           
+                  <td>
+                    @if($unit->floor_no <= 0)
+                    {{ $numberFormatter->format($unit->floor_no) }} basement
+                    @else
+                    {{ $numberFormatter->format($unit->floor_no) }} floor
+                    @endif
+                    
+                  </td>
              </tr>
              <tr>
                   <td>Room Type</td>
@@ -182,7 +190,7 @@
              
              <tr>
               <td>Max Occupancy</td>
-              <td>{{ $unit->max_occupancy }}</td>
+              <td>{{ $unit->max_occupancy }} pax</td>
             </tr>
             <tr>
                   <td>Status</td>
@@ -470,8 +478,8 @@
                   <td>{{ $item-> investor_email_address}}</td>
                   <td>{{ $item->investor_contact_no }}</td>
                   <TD>{{ $item->investor_representative }}</TD>
-                  <td>{{ Carbon\Carbon::parse($item->date_invested)->format('M d Y')}}</td> 
-                  <td>{{ Carbon\Carbon::parse($item->date_accepted)->format('M d Y')}}</td> 
+                  <td>{{ $item->date_invested? Carbon\Carbon::parse($item->date_invested)->format('M d Y'): null}}</td> 
+                  <td>{{ $item->date_accepted? Carbon\Carbon::parse($item->date_accepted)->format('M d Y'): null}}</td> 
                   
                 </tr>
                 @endforeach

@@ -149,11 +149,11 @@
                
               <div class="col">
                 <small>Mobile</small>
-                <input form="editInvestorForm" class="form-control" type="email" name="investor_contact_no" value="{{ $investor->investor_contact_no }}" >
+                <input form="editInvestorForm" class="form-control" type="text" name="investor_contact_no" value="{{ $investor->investor_contact_no }}" >
             </div>
             <div class="col">
               <small>Email</small>
-              <input form="editInvestorForm" class="form-control" type="text" name="investor_email_address" value="{{ $investor->investor_email_address }}" >
+              <input form="editInvestorForm" class="form-control" type="emailf" name="investor_email_address" value="{{ $investor->investor_email_address }}" >
           </div>  
                
             </div>
@@ -207,7 +207,7 @@
 
 <p class="text-right">   
     <a href="/units/{{ $unit->unit_id}}/owners/{{ $investor->unit_owner_id }}" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</a>
-    <button type="submit" form="editInvestorForm" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;"><i class="fas fa-check fa-sm text-white-50"></i> Save Changes</button>
+    <button type="submit" form="editInvestorForm" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" ><i class="fas fa-check fa-sm text-white-50"></i> Save Changes</button>
 </p>
 @endsection
 
