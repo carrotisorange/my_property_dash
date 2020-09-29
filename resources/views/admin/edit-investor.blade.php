@@ -148,11 +148,11 @@
                 </div>
                
               <div class="col">
-                <small>Email</small>
+                <small>Mobile</small>
                 <input form="editInvestorForm" class="form-control" type="email" name="investor_contact_no" value="{{ $investor->investor_contact_no }}" >
             </div>
             <div class="col">
-              <small>Mobile</small>
+              <small>Email</small>
               <input form="editInvestorForm" class="form-control" type="text" name="investor_email_address" value="{{ $investor->investor_email_address }}" >
           </div>  
                
