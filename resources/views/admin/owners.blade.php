@@ -169,7 +169,7 @@
                    <th>Occupancy</th>
                    <th>Monthly Rent</th>
                    <th>Status</th>
-                   <td></td>
+                   {{-- <td></td> --}}
                </tr>
             </thead>   
                <tbody>
@@ -190,13 +190,13 @@
                    <td>{{ $item->max_occupancy }} pax</td>
                    <td>{{ number_format($item->monthly_rent, 2) }}</td>
                    <td>{{ $item->status }}</td>
-                   <td>
+                   {{-- <td>
                      <form action="/owners/{{ $item->unit_owner_id }}" method="POST">
                     @csrf
                     @method('delete')
                     <button title="remove" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"  onclick="return confirm('Are you sure you want perform this action?');"><i class="fas fa-times fa-sm text-white-50"></i></button>
                   </form>
-                </td>
+                </td> --}}
                </tr>
                @endforeach
                </tbody>
