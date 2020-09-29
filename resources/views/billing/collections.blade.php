@@ -154,14 +154,14 @@
         </tr>
         <tr>
           
-                <th>AR NO</th>
-                <th>BILL NO</th>
-                <th>TENANT</th>
-                <th>ROOM</th>
-                <th>DESCRIPTION</th>
-                <th colspan="2">PERIOD COVERED</th>
-                <th>FORM OF PAYMENT</th>
-                <th >AMOUNT</th>
+                <th>Ar No</th>
+                <th>Bill No</th>
+                <th>Tenant</th>
+                <th>Room</th>
+                <th>Description</th>
+                <th colspan="2">Period Covered</th>
+                <th>Form of Payment</th>
+                <th >Amount</th>
                <th></th>
                 <th></th>
             </tr>

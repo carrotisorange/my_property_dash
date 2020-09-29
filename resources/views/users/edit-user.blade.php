@@ -179,21 +179,14 @@
   <hr> --}}
   <div class="row">
     <div class="col">
-      <small>New Password</small>
-      <input form="editUserForm" id="password" type="password" class="form-control form-control-user @error('password') is-invalid @enderror" name="password" autocomplete="password">
-      <small class="text-danger">Changing your password will log you out of the application.</small>
-      @error('password')
-          <span class="invalid-feedback" role="alert">
-              <strong>{{ $message }}</strong>
-          </span>
-      @enderror
+      
     </div>
   </div>
   <div class="row">
     <div class="col">
       <p class="text-right">
         <a href="/users/{{ Auth::user()->id }}" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</a>
-        <button form="editUserForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want perform this action?');"><i class="fas fa-check fa-sm text-white-50"></i> Save Changes</button>
+       
       </p>
     </div>
   </div>

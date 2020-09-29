@@ -131,135 +131,139 @@
 @endsection
 
 @section('content')
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+  <h1 class="h3 mb-0 text-gray-800">{{ $user->name }}</h1>
+</div>
+      
+    <div class="row">
+      <div class="col-md-12">
+        <nav>
+          <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="nav-profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="nav-profile" aria-selected="true"><i class="fas fa-user fa-sm text-primary-50"></i> Profile</a>
+            <a class="nav-item nav-link" id="nav-property-tab" data-toggle="tab" href="#property" role="tab" aria-controls="nav-property" aria-selected="false"><i class="fas fa-home fa-sm text-primary-50"></i> Property</a>
+            <a class="nav-item nav-link" id="nav-session-tab" data-toggle="tab" href="#session" role="tab" aria-controls="nav-session" aria-selected="false"><i class="fas fa-sign-in-alt fa-sm text-primary-50"></i> Sessions</a>
+            <a class="nav-item nav-link" id="nav-session-tab" data-toggle="tab" href="#settings" role="tab" aria-controls="nav-settings" aria-selected="false"><i class="fas fa-user-cog fa-sm text-primary-50"></i> Settings</a>
+          </div>
+        </nav>
+      </div>
+    </div>
  
-<div class="col-lg-12 mb-4">
-  <!-- DataTales Example -->
-  <div class="card shadow mb-4">
-    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-     <h6 class="m-0 font-weight-bold text-primary">PROFILE </h6>
-      <div class="dropdown no-arrow">
-      <a title="edit profile" href="/users/{{ $user->id }}/edit">
-        <i class="fas fa-user-edit fa-fw text-gray-400"></i>
-        </a>
-      <form action="/users/{{ $user->id }}" method="POST">
-        @csrf
-        @method('DELETE')
-        <a title="edit profile" href="/users/{{ $user->id }}">
-          <i class="fas fa-user-times fa-fw text-gray-400"></i>
-          </a>
-      </form>
+   <div class="row">
+     <div class="col-md-12">
+      <div class="tab-content" id="nav-tabContent">
         
-      </div>
-      
-      <!-- end -->
-    
-   </div>
-   <div class="card-body">
-    <div class="row">
-      <div class="col">
-        <small>Name</small>
-        <p>{{ $user->name }}</p>
-       
-      </div>
-    </div>
-    
-    <div class="row">
-      <div class="col">
-        <small>Email</small>
-        <p>{{ $user->email }}</p>
-       
-      </div>
-    </div>
-  
-    <div class="row">
-      <div class="col">
-        <small>User Type</small>
-        <p>{{ $user->user_type }}</p>
-       
-      </div>
-    </div>
-  
-  <hr>
-    <div class="row">
-      <div class="col">
-        <small>Plan</small>
-       <p>{{ $user->account_type }}</p>
-       
-      </div>
-    </div>
-    
-    <div class="row">
-      <div class="col">
-        <small>Property</small>
-        <p>{{ $user->property }}</p>
-       
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col">
-        <small>Property Type</small>
-       <p>{{ $user->property_type }}</p>
-       
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col">
-        <small>Property Ownership</small>
-        <p>{{ $user->property_ownership }}</p>
-       
-      </div>
-    </div>
-
-
-
-    
-
-   </div>
- </div>
-
-     </div>
-  <!-- Page Heading -->
-
-  <div class="col-lg-12 mb-4">
-    <!-- DataTales Example -->
-    <div class="card shadow mb-4">
-      <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-       <h6 class="m-0 font-weight-bold text-primary">ACTIVITIES </h6>
-        <div class="dropdown no-arrow">
-        {{-- <a title="edit profile" href="/users/{{ $user->id }}/edit">
-          <i class="fas fa-user-edit fa-fw text-gray-400"></i>
-          </a> --}}
+        <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+          
+          <br><br>
+            <div class="col-md-11 mx-auto">
+              <small>Name</small>
+              <p>{{ $user->name }}</p>
+              <hr>
+              <small>Email</small>
+              <p>{{ $user->email }}</p>
+              <hr>
+              <small>Role</small>
+              <p>{{ $user->user_type }}</p>
+              <hr>
+              <small>Plan</small>
+              <p>{{ $user->account_type }}</p>
+            </div>
         </div>
-        <!-- end -->
-      
-     </div>
-     <div class="card-body">
-        <div class="table-responsive">
-          <table class="table">
-            <tr>
-            
-              <th>IP ADDRESS</th>
-              <th>LOGIN AT</th>
-              <th>LOGOUT AT</th>
-            </tr>
-            @foreach ($sessions as $item)
-              <tr>
-               
-                <td>{{ $item->session_last_login_ip }}</td>
-               <td>{{ $item->session_last_login_at? Carbon\Carbon::parse($item->session_last_login_at)->format('M d Y').' '.Carbon\Carbon::parse($item->session_last_login_at)->toTimeString() : null }}</td>
-                
-               <td>{{ $item->session_last_logout_at? Carbon\Carbon::parse($item->session_last_logout_at)->format('M d Y').' '.Carbon\Carbon::parse($item->session_last_logout_at)->toTimeString() : null }}</td>
-       
-              </tr>
-            @endforeach
-          </table>
+        <div class="tab-pane fade" id="property" role="tabpanel" aria-labelledby="nav-property-tab">
+          <br><br>
+          <div class="col-md-11 mx-auto">
+            <small>Property</small>
+            <p>{{ $user->property }}</p>
+            <hr>
+            <small>Type</small>
+            <p>{{ $user->property_type }}</p>
+            <hr>
+            <small>Ownership</small>
+            <p>{{ $user->property_ownership }}</p>
+          
+
+          </div>
         </div>
+        <div class="tab-pane fade" id="session" role="tabpanel" aria-labelledby="nav-session-tab">  
+          <br><br>
+
+          <div class="col-md-11 mx-auto">
+            <div class="table-responsive">
+              <table class="table table-bordered">
+                <?php $ctr = 1; ?>
+                <tr>
+                  <th>#</th>  
+                  <th>IP Address</th>
+                  <th>Login At</th>
+                  <th>Logout At</th>
+                </tr>
+                @foreach ($sessions as $item)
+                  <tr>
+                   <th>{{ $ctr++ }}</th>
+                    <td>{{ $item->session_last_login_ip }}</td>
+                   <td>{{ $item->session_last_login_at? Carbon\Carbon::parse($item->session_last_login_at)->format('M d Y').' '.Carbon\Carbon::parse($item->session_last_login_at)->toTimeString() : null }}</td>
+                    
+                   <td>{{ $item->session_last_logout_at? Carbon\Carbon::parse($item->session_last_logout_at)->format('M d Y').' '.Carbon\Carbon::parse($item->session_last_logout_at)->toTimeString() : null }}</td>
+           
+                  </tr>
+                @endforeach
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="nav-settings-tab">  
+          <br><br>
+          <div class="col-md-11 mx-auto">
+            <form id="editUserForm" action="/users/{{ $user->id }}" method="POST">
+              @method('put')
+              {{ csrf_field() }}
+            </form>
+              <small>Name</small>
+              <input form="editUserForm" id="name" type="text" class="form-control form-control-user @error('name') is-invalid @enderror" name="name" value="{{ $user->name }}" required autocomplete="name" >
+                    @error('name')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+              <hr>
+              <small>Email</small>
+              <input form="editUserForm" id="email" type="email" class="form-control form-control-user @error('email') is-invalid @enderror" name="email" value="{{ $user->email }}" required autocomplete="email">
+                    @error('email')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+              <hr>
+              <small>New Password</small>
+              <input form="editUserForm" id="password" type="password" class="form-control form-control-user @error('password') is-invalid @enderror" name="password" autocomplete="password">
+                    <small class="text-danger">Changing your password will log you out of the application.</small>
+                    @error('password')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+              <p class="text-right">
+                <button form="editUserForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want perform this action?');"><i class="fas fa-check fa-sm text-white-50"></i> Save Changes</button>
+              </p>
+
+              <hr>
+              @if(Auth::user()->user_type === 'manager')
+              <small>Warning: Account deletion is can't be undone. </small>
+              <br>
+              <form action="/users/{{ $user->id }}" method="POST">
+                @csrf
+                @method('delete')
+                <button type="submit" class="col-md-3 btn btn-danger btn-user btn-block" id="registerButton" onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;">
+                  <i class="fas fa-trash fa-sm text-white-50"></i> Delete
+                </button>
+              </form>
+              @endif
+             
+          </div>
+        </div>
+      </div>
      </div>
    </div>
-
-       </div>
 
 @endsection
 
