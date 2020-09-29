@@ -53,10 +53,12 @@ class UnitsController extends Controller
     public function store(Request $request)
     {
         //insert investor to a specific unit.
-       $id = DB::table('unit_owners')->insertGetId(
+       DB::table('unit_owners')->insert
+       (
             [
                 // 'date_invested' => $request->date_invested,
                 'unit_owner' => $request->unit_owner,
+                'unit_id_foreign' => $request->unit_id,
                 // 'discount' => $request->discount,
                 // 'investment_price' => $request->investment_price,
                 // 'investment_type'=> $request->investment_type,
@@ -72,13 +74,13 @@ class UnitsController extends Controller
         );
 
         //insert the id of the newly created investor to the unit.
-        DB::table('units')
-            ->where('unit_id', $request->unit_id)
-            ->update(
-                        [
-                            'unit_unit_owner_id' => $id,
-                        ]
-                    );
+        // DB::table('units')
+        //     ->where('unit_id', $request->unit_id)
+        //     ->update(
+        //                 [
+        //                     'unit_unit_owner_id' => $id,
+        //                 ]
+        //             );
 
     return redirect('/units/'.$request->unit_id.'/owners/'.$id.'/edit')->with('success', 'Owner has been added to the property! Please provide more information.');
     }
@@ -95,9 +97,9 @@ class UnitsController extends Controller
 
             $unit = Unit::findOrFail($unit_id);
 
-            $unit_owner = DB::table('units')
-            ->join('unit_owners', 'unit_unit_owner_id', 'unit_owner_id')
-            ->where('unit_id', $unit_id)->get();  
+            $unit_owner = DB::table('unit_owners')
+            ->join('units', 'unit_id_foreign', 'unit_id')
+            ->where('unit_id_foreign', $unit_id)->get();  
     
             $tenant_active = DB::table('tenants')
             ->join('units', 'unit_id', 'unit_tenant_id')

@@ -1824,7 +1824,10 @@ Route::post('/request-payable/disapprove/{id}', function(Request $request, $id){
 
 
 Route::get('/show', function(){
-    return view('show');
+    return 
+    $unit_owner = DB::table('units')
+    ->join('unit_owners', 'unit_id', 'unit_unit_owner_id')
+    ->get();  
 });
 
 

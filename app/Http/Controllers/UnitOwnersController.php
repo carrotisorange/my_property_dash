@@ -139,7 +139,7 @@ class UnitOwnersController extends Controller
             'date_accepted' => $request->date_accepted,
         ]);
 
-        return redirect('/units/'.$unit_id)->with('success', 'Owner information has been updated!');
+        return redirect('/units/'.$unit_id.'#owners')->with('success', 'Owner information has been updated!');
     }
 
     /**

@@ -451,26 +451,28 @@
     <br>
         <div class="table-responsive text-nowrap">
           <table class="table table-bordered">
+            <?php $ctr=1;?>
           <tr>
-  
+            <th>#</th>
             <th>Owner</th>
             <th>Email</th>
             <th>Mobile</th>
             <th>Representative</th>
             <th>Date Purchased</th>
             <th>Date Accepted</th>
-            <th>Room Type</th>
+            
                 </tr>
                 @foreach ($unit_owner as $item)
                 <tr>
-                   <td><a href="{{ route('show-investor',['unit_id'=> $item->unit_id, 'unit_owner_id'=>$item->unit_owner_id]) }}">{{ $item->unit_owner }} </a></td>
+                  <th>{{ $ctr++ }}</th>
+                   <td><a href="{{ route('show-investor',['unit_id'=> $item->unit_id_foreign, 'unit_owner_id'=>$item->unit_owner_id]) }}">{{ $item->unit_owner }} </a></td>
             
                   <td>{{ $item-> investor_email_address}}</td>
                   <td>{{ $item->investor_contact_no }}</td>
                   <TD>{{ $item->investor_representative }}</TD>
                   <td>{{ Carbon\Carbon::parse($item->date_invested)->format('M d Y')}}</td> 
                   <td>{{ Carbon\Carbon::parse($item->date_accepted)->format('M d Y')}}</td> 
-                  <td>{{ $item->type_of_units }}</td>
+                  
                 </tr>
                 @endforeach
               
@@ -571,7 +573,7 @@
   <div class="modal-dialog" role="document">
   <div class="modal-content">
       <div class="modal-header">
-      <h5 class="modal-title" id="exampleModalLabel">Enter the owner information</h5>
+      <h5 class="modal-title" id="exampleModalLabel">Add Owner</h5>
       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
       </button>
@@ -597,8 +599,8 @@
           </div>            
       </div>
       <div class="modal-footer">
-      <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button>
-      <button type="submit" form="addInvestorForm" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;"><i class="fas fa-check fa-sm text-white-50"></i> Add Owner</button>  
+      {{-- <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button> --}}
+      <button type="submit" form="addInvestorForm" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;"><i class="fas fa-check fa-sm text-white-50"></i> Submit</button>  
       </div>
   </div>
   </div>
