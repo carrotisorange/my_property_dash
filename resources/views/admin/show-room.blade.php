@@ -225,7 +225,10 @@
         <div class="col-md-11 mx-auto">
         <div class="table-responsive text-nowrap">
           <table class="table table-bordered">
+            <?php $ctr=1; ?>
           <tr>
+            <th>#</th>
+            <th>Date Billed</th>
             <th>Bill No</th>
             <th>Tenant</th>
             <th>Description</th>
@@ -235,6 +238,10 @@
           </tr>
           @foreach ($bills as $item)
           <tr>
+            <th>{{ $ctr++ }}</th>
+            <td>
+              {{Carbon\Carbon::parse($item->billing_date)->format('M d Y')}}
+            </td>   
               <td>{{ $item->billing_no }}</td>
               <td> <a href="/units/{{ $unit->unit_id }}/tenants/{{ $item->tenant_id }}">{{ $item->first_name.' '.$item->last_name }}</a></td>
               <td>{{ $item->billing_desc }}</td>
