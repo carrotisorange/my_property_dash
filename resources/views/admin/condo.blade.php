@@ -135,7 +135,6 @@
   <h1 class="h3 mb-0 text-gray-800">Home</h1>
  @if(Auth::user()->user_type === 'manager')
  <p>
- 
   <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addMultipleUnits" data-whatever="@mdo"><i class="fas fa-plus fa-sm text-white-50"></i> Add</a>
   <a href="/units/edit/{{ Auth::user()->property }}/{{ Carbon\Carbon::now()->getTimestamp() }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" ><i class="fas fa-edit fa-sm text-white-50"></i> Edit</a>
   {{-- <a href="/units/delete/{{ Auth::user()->property }}" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm" data-toggle="modal" data-target="#addMultipleUnits" data-whatever="@mdo"><i class="fas fa-trash-alt fa-sm text-white-50"></i> Delete Rooms</a> --}}
@@ -145,7 +144,7 @@
 
 <nav>
   <div class="nav nav-tabs" id="nav-tab" role="tablist">
-    <a class="nav-item nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">All<span id="count_rooms" class="badge badge-light">{{ $units_count }}</span></a>
+    <a class="nav-item nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">{{ Auth::user()->property }}<span id="count_rooms" class="badge badge-light">{{ $units_count }}</span></a>
     @foreach ($buildings as $building)
     <a class="nav-item nav-link" id="{{ $building->building }}-tab" data-toggle="tab" href="#{{ $building->building }}" role="tab" aria-controls="{{ $building->building }}" aria-selected="false">{{ $building->building }}<span class="badge badge-light">{{ $building  ->count }}</span></a>
     @endforeach
