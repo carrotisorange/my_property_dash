@@ -155,7 +155,12 @@ class PaymentController extends Controller
            
         }
 
-        return redirect('/units/'.$request->unit_tenant_id.'/tenants/'.$request->payment_tenant_id.'/billings#nav-profile')->with('success', ($i-1).' payments have been added!');
+        if(Auth::user()->user_type === 'manager'){
+            return redirect('/units/'.$request->unit_tenant_id.'/tenants/'.$request->payment_tenant_id.'/#nav-payments')->with('success', ($i-1).' payments have been added!');
+        }else{
+            return redirect('/units/'.$request->unit_tenant_id.'/tenants/'.$request->payment_tenant_id.'/billings#nav-profile')->with('success', ($i-1).' payments have been added!');
+        }
+        
    
     }
 
@@ -216,10 +221,18 @@ class PaymentController extends Controller
     {
 
         // DB::table("payments")->delete();
+
+        $tenant = Tenant::findOrFail($tenant_id);
     
         DB::table('payments')->where('payment_id', $payment_id)->delete();
 
-        return back()->with('success', 'Payment has been successfully deleted!');
+    
+        if(Auth::user()->user_type === 'manager'){
+            return redirect('/units/'.$tenant->unit_tenant_id.'/tenants/'.$tenant->tenant_id.'/#nav-payments')->with('success',' Payment has been deleted!');
+        }else{
+            return redirect('/units/'.$tenant->unit_tenant_id.'/tenants/'.$tenant->tenant_id.'/billings#nav-profile')->with('success', ' payments has been deleted!');
+        }
+        
     }
 
 }

@@ -138,11 +138,11 @@
   <div class="col-md-12">
     <nav>
       <div class="nav nav-tabs" id="nav-tab" role="tablist">
-        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true"><i class="fas fa-user fa-sm text-primary-50"></i> Profile</a>
-        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="fas fa-file-signature fa-sm text-primary-50"></i> Contracts</a>
-        <a class="nav-item nav-link" id="nav-bill-tab" data-toggle="tab" href="#nav-bills" role="tab" aria-controls="nav-bills" aria-selected="true"><i class="fas fa-file-invoice-dollar fa-sm text-primary-50"></i> Bills <span class="badge badge-primary badge-counter">{{ $balance->count() }}</span></a>
-        <a class="nav-item nav-link" id="nav-payment-tab" data-toggle="tab" href="#nav-payments" role="tab" aria-controls="nav-payments" aria-selected="true"><i class="fas fa-money-bill fa-sm text-primary-50"></i> Payments <span class="badge badge-primary badge-counter">{{ $collections->count() }}</span></a>
-        <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false"><i class="fas fa-tools fa-sm text-primary-50"></i> Concerns</a>
+        <a class="nav-item nav-link active" id="nav-profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="nav-profile" aria-selected="true"><i class="fas fa-user fa-sm text-primary-50"></i> Profile</a>
+        <a class="nav-item nav-link" id="nav-contracts-tab" data-toggle="tab" href="#contracts" role="tab" aria-controls="nav-contracts" aria-selected="false"><i class="fas fa-file-signature fa-sm text-primary-50"></i> Contracts</a>
+        <a class="nav-item nav-link" id="nav-bills-tab" data-toggle="tab" href="#bills" role="tab" aria-controls="nav-bills" aria-selected="true"><i class="fas fa-file-invoice-dollar fa-sm text-primary-50"></i> Bills <span class="badge badge-primary badge-counter">{{ $balance->count() }}</span></a>
+        <a class="nav-item nav-link" id="nav-payments-tab" data-toggle="tab" href="#payments" role="tab" aria-controls="nav-payments" aria-selected="true"><i class="fas fa-money-bill fa-sm text-primary-50"></i> Payments <span class="badge badge-primary badge-counter">{{ $collections->count() }}</span></a>
+        <a class="nav-item nav-link" id="nav-concerns-tab" data-toggle="tab" href="#concerns" role="tab" aria-controls="nav-concern" aria-selected="false"><i class="fas fa-tools fa-sm text-primary-50"></i> Concerns</a>
       </div>
     </nav>
     
@@ -152,7 +152,7 @@
 <div class="row">
   <div class="col-md-12">
     <div class="tab-content" id="nav-tabContent">
-      <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+      <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="nav-profile-tab">
         
 <div class="row">
   <div class="col-md-8">
@@ -286,7 +286,7 @@
 
 </div>
       </div>
-      <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+      <div class="tab-pane fade" id="concerns" role="tabpanel" aria-labelledby="nav-concerns-tab">
         <span  href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addConcern" data-whatever="@mdo"><i class="fas fa-plus fa-sm text-white-50"></i> Add</span>  
         <br><br>
         <div class="row" >
@@ -297,7 +297,7 @@
            <thead>
              <tr>
                <th>#</th>
-                 <th>ID</th>
+               
                  <th>Date Reported</th>
                 
                  <th>Room</th>
@@ -312,7 +312,7 @@
              @foreach ($concerns as $item)
              <tr>
                <th>{{ $ctr++ }}</th>
-             <td>{{ $item->concern_id }}</td>
+            
                <td>{{ Carbon\Carbon::parse($item->date_reported)->format('M d Y') }}</td>
                  
                  <td>{{ $item->building.' '.$item->unit_no }}</td>
@@ -345,14 +345,14 @@
              @endforeach
            </tbody>
          </table>
-         {{ $concerns->links() }}
+        
        </div>
                 
                 
           </div>
       </div>
       </div>
-      <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+      <div class="tab-pane fade" id="contracts" role="tabpanel" aria-labelledby="nav-contracts-tab">
                
     @if ($tenant->tenant_status === 'inactive' && $balance->sum('balance') > 0) 
     <span  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#moveoutTenantWarning" data-whatever="@mdo"><i class="fas fa-external-link-alt fa-sm text-white-50"></i> Extend</span>
@@ -417,18 +417,16 @@
                    @endif
                   </td>
               </tr>
-              <tr>
-                  <td>Previous Contracts</td>
+              
                   <?php $numberFormatter = new NumberFormatter('en_US', NumberFormatter::ORDINAL) ?>
-                  <td>
-                      @for ($i = 1; $i < count($renewal_history); $i++)
-                        @if($i<=0)
-                        @else
-                          {{ $numberFormatter->format($i-1) .' renewal: '.$renewal_history[$i] }}<br>
-                        @endif
-                      @endfor     
+                  @for ($i = 1; $i < count($renewal_history); $i++)
+                  <tr>
+                   <td>{{$numberFormatter->format($i) }} contract</td>
+                  <td> 
+                      {{ $renewal_history[$i] }}<br>         
                   </td>
               </tr>
+              @endfor  
                @if($tenant->tenant_status === 'inactive')
               <tr>
                 <td>Actual Moveout Date</td>
@@ -450,7 +448,7 @@
           </div>
         </div>
       </div>
-      <div class="tab-pane fade" id="nav-bills" role="tabpanel" aria-labelledby="nav-bill-tab">
+      <div class="tab-pane fade" id="bills" role="tabpanel" aria-labelledby="nav-bills-tab">
         <a href="#" data-toggle="modal" data-target="#addBill" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Add</a> 
         @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'manager')
           <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/billings/edit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-edit fa-sm text-white-50"></i> Edit</a>
@@ -518,7 +516,11 @@
     </div>
       </div>
       </div>
-      <div class="tab-pane fade" id="nav-payments" role="tabpanel" aria-labelledby="nav-payments-tab">
+      <div class="tab-pane fade" id="payments" role="tabpanel" aria-labelledby="nav-payments-tab">
+        @if(Auth::user()->user_type === 'treasury' || Auth::user()->user_type === 'manager')
+        <a href="#" data-toggle="modal" data-target="#acceptPayment" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Add</a>
+        @endif 
+        <br><br>
         <div class="col-md-11 mx-auto">
         <div class="table-responsive text-nowrap">
           <table class="table table-bordered">
@@ -1195,6 +1197,78 @@
         </div>
         
         </div>
+
+        {{-- modal for adding payments. --}}
+
+<div class="modal fade" id="acceptPayment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl" role="document">
+  <div class="modal-content">
+      <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">Add Payment</h5>
+      
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+      </button>
+      </div>
+      <div class="modal-body">
+          <form id="acceptPaymentForm" action="/payments" method="POST">
+          {{ csrf_field() }}
+          </form>
+          
+          <div class="row">
+              <div class="col-md-9">
+                  <small for="">Date</small>
+              {{-- <input form="acceptPaymentForm" type="date" class="form-control" name="payment_created" value={{date('Y-m-d')}} required> --}}
+              <input  class='form-control col-md-4' type="date" form="acceptPaymentForm" class="" name="payment_created" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}" required >
+              </div>
+              <div class="col-md-3">
+                <small for="">Acknowledgment Receipt No</small>
+                <input class='form-control col-md-6' form="acceptPaymentForm" type="text" class="" id="" name="ar_no" value="{{ $payment_ctr }}" required readonly>
+            </div>
+          </div>
+        
+      <hr>
+  
+          <div class="row">
+            <div class="col-md-12">
+           
+              <p class="text-left">
+                <span id='delete_payment' class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-minus fa-sm text-white-50"></i> Remove</span>
+              <span id="add_payment" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" ><i class="fas fa-plus fa-sm text-white-50"></i> Add</span>     
+              </p>
+                <div class="table-responsive text-nowrap">
+                <table class = "table table-bordered" id="payment">
+                    <tr>
+                        <th>#</th>
+                        <th>Bill</th>
+                        <th>Amount</th>
+                        <th>Form of Payment</th>
+                        <th>Bank Name</th>
+                        <th>Cheque No</th>
+                    </tr>
+                        <input form="acceptPaymentForm" type="hidden" id="no_of_payments" name="no_of_payments" >
+                    <tr id='payment1'></tr>
+                </table>
+              </div>
+            </div>
+          </div>        
+       
+          <input type="hidden" form="acceptPaymentForm" id="payment_tenant_id" name="payment_tenant_id" value="{{ $tenant->tenant_id }}">
+          <input type="hidden" form="acceptPaymentForm" id="unit_tenant_id" name="unit_tenant_id" value="{{ $tenant->unit_tenant_id }}">
+          <input type="hidden" form="acceptPaymentForm" id="tenant_status" name="tenant_status" value="{{ $tenant->tenant_status }}">
+        <hr>
+         
+      </div>
+      <div class="modal-footer">
+          {{-- <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button> --}}
+          <button form="acceptPaymentForm" id ="addPaymentButton" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;" ><i class="fas fa-check fa-sm text-white-50f"></i> Submit</button>
+      </div>
+  
+  </div>
+  </div>
+  
+  
+  </div>
 @endsection
 
 @section('scripts')
@@ -1272,6 +1346,30 @@
   }
 </script>
 
+<script type="text/javascript">
+
+  //adding moveout charges upon moveout
+    $(document).ready(function(){
+    var j=1;
+    $("#add_payment").click(function(){
+        $('#payment'+j).html("<th>"+ (j) +"</th><td><select class='form-control' form='acceptPaymentForm' name='billing_no"+j+"' id='billing_no"+j+"' required> @foreach ($balance as $item)<option value='{{ $item->billing_no.'-'.$item->billing_id }}'> Bill No {{ $item->billing_no }} | {{ $item->billing_desc }} | {{ $item->billing_start? Carbon\Carbon::parse($item->billing_start)->format('M d Y') : null}} - {{ $item->billing_end? Carbon\Carbon::parse($item->billing_end)->format('M d Y') : null }} | {{ number_format($item->balance,2) }} </option> @endforeach </select></td><td><input class='form-control'  form='acceptPaymentForm' name='amt_paid"+j+"' id='amt_paid"+j+"' type='number' min='1' step='0.01' required></td><td><select class='form-control'  form='acceptPaymentForm' name='form_of_payment"+j+"' required><option value='Cash'>Cash</option><option value='Bank Deposit'>Bank Deposit</option><option value='Cheque'>Cheque</option></select></td><td>  <input class='form-control'  form='acceptPaymentForm' type='text' name='bank_name"+j+"'></td><td><input class='form-control'  form='acceptPaymentForm' type='text' name='cheque_no"+j+"'></td>");
+  
+  
+     $('#payment').append('<tr id="payment'+(j+1)+'"></tr>');
+     j++;
+     document.getElementById('no_of_payments').value = j;
+  
+    });
+  
+    $("#delete_payment").click(function(){
+        if(j>1){
+        $("#payment"+(j-1)).html('');
+        j--;
+        document.getElementById('no_of_payments').value = j;
+        }
+    });
+  });
+  </script>
 @endsection
 
 

@@ -350,7 +350,7 @@ class TenantController extends Controller
             ->orderBy('date_reported', 'desc')
             ->orderBy('concern_urgency', 'desc')
             ->orderBy('concern_status', 'desc')
-            ->paginate(10);
+            ->get();
 
             $collections = DB::table('units')
             ->leftJoin('tenants', 'unit_id', 'unit_tenant_id')
@@ -381,8 +381,15 @@ class TenantController extends Controller
             ->havingRaw('balance > 0')
             ->get();
 
+              //get the ar number
+              $payment_ctr = DB::table('units')
+              ->join('tenants', 'unit_id', 'unit_tenant_id')
+              ->join('payments', 'tenant_id', 'payment_tenant_id')
+              ->where('unit_property', Auth::user()->property)
+              ->max('ar_no') + 1;
+
             
-                return view('admin.show-tenant', compact('tenant','personnels' ,'concerns', 'current_bill_no', 'balance', 'unit', 'collections'));  
+                return view('admin.show-tenant', compact('tenant','personnels' ,'concerns', 'current_bill_no', 'balance', 'unit', 'collections', 'payment_ctr'));  
         }else{
                 return view('unregistered');
         }

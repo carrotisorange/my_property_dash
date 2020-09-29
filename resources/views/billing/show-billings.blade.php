@@ -514,8 +514,6 @@
       document.getElementById('no_of_payments').value = j;
       }
   });
-
-  
 });
 </script>
 @endsection

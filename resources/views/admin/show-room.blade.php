@@ -138,11 +138,11 @@
   <div class="col-md-12">
     <nav>
       <div class="nav nav-tabs" id="nav-tab" role="tablist">
-        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true"><i class="fas fa-home fa-sm text-primary-50"></i> Room</a>
-        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="fas fa-users fa-sm text-primary-50"></i> Tenants</a>
-        <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false"><i class="fas fa-user-tie fa-sm text-primary-50"></i> Owners</a>
-        <a class="nav-item nav-link" id="nav-bill-tab" data-toggle="tab" href="#nav-bill" role="tab" aria-controls="nav-bill" aria-selected="false"><i class="fas fa-file-signature fa-sm text-primary-50"></i> Bills</a>
-        <a class="nav-item nav-link" id="nav-concern-tab" data-toggle="tab" href="#nav-concern" role="tab" aria-controls="nav-concern" aria-selected="false"><i class="fas fa-tools fa-sm text-primary-50"></i> Concerns</a>
+        <a class="nav-item nav-link active" id="nav-room-tab" data-toggle="tab" href="#room" role="tab" aria-controls="nav-room" aria-selected="true"><i class="fas fa-home fa-sm text-primary-50"></i> Room</a>
+        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="fas fa-users fa-sm text-primary-50"></i> Tenants</a>
+        <a class="nav-item nav-link" id="nav-owners-tab" data-toggle="tab" href="#owners" role="tab" aria-controls="nav-owners" aria-selected="false"><i class="fas fa-user-tie fa-sm text-primary-50"></i> Owners</a>
+        <a class="nav-item nav-link" id="nav-bills-tab" data-toggle="tab" href="#bills" role="tab" aria-controls="nav-bills" aria-selected="false"><i class="fas fa-file-signature fa-sm text-primary-50"></i> Bills</a>
+        <a class="nav-item nav-link" id="nav-concerns-tab" data-toggle="tab" href="#concerns" role="tab" aria-controls="nav-concerns" aria-selected="false"><i class="fas fa-tools fa-sm text-primary-50"></i> Concerns</a>
       </div>
     </nav>
   </div>
@@ -152,7 +152,7 @@
   <div class="col-md-12">
     <div class="tab-content" id="nav-tabContent">
    
-      <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+      <div class="tab-pane fade show active" id="room" role="tabpanel" aria-labelledby="nav-room-tab">
         @if(Auth::user()->user_type === 'manager' )
         <button type="button" title="edit room" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#editUnit" data-whatever="@mdo"><i class="fas fa-edit fa-sm text-white-50"></i> Edit</button> 
       @endif 
@@ -213,7 +213,7 @@
         </div>
       </div>
 
-      <div class="tab-pane fade" id="nav-bill" role="tabpanel" aria-labelledby="nav-bill-tab">
+      <div class="tab-pane fade" id="bills" role="tabpanel" aria-labelledby="nav-bills-tab">
         <div class="col-md-11 mx-auto">
         <div class="table-responsive text-nowrap">
           <table class="table table-bordered">
@@ -254,7 +254,7 @@
       </div>
       </div>
 
-      <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+      <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="nav-profile-tab">
         @if ($tenant_active->count() < $unit->max_occupancy)
         <a href="/units/{{ $unit->unit_id }}/tenants-create" title="{{ $unit->max_occupancy - $tenant_active->count() }} remaining tenant/s to be fully occupied." type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
             <i class="fas fa-user-plus fa-sm text-white-50"></i> Add <span class="badge badge-light">{{  $tenant_active->count() }}/{{ $unit->max_occupancy }} </a>
@@ -271,9 +271,9 @@
 
         <nav>
           <div class="nav nav-tabs" id="nav-tab" role="tablist">
-            <a class="nav-item nav-link active" data-toggle="tab" href="#active" role="tab" aria-controls="nav-home" aria-selected="true"><i class="fas fa-user-check fa-sm text-50"></i> Active  <span class="badge badge-light">{{ $tenant_active->count() }}</span></a>
-            <a class="nav-item nav-link"  data-toggle="tab" href="#reserved" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="fas fa-user-clock fa-sm text-50"></i> Reserved <span class="badge badge-light">{{ $tenant_reservations->count() }}</a>
-            <a class="nav-item nav-link"  data-toggle="tab" href="#inactive" role="tab" aria-controls="nav-contact" aria-selected="false"><i class="fas fa-user-times fa-sm text-50"></i> Inactive <span class="badge badge-light">{{ $tenant_inactive->count() }}</a>
+            <a class="nav-item nav-link active" data-toggle="tab" href="#active" role="tab" aria-controls="nav-home" aria-selected="true"><i class="fas fa-user-check fa-sm text-50"></i> Active  <span class="badge badge-primary">{{ $tenant_active->count() }}</span></a>
+            <a class="nav-item nav-link"  data-toggle="tab" href="#reserved" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="fas fa-user-clock fa-sm text-50"></i> Reserved <span class="badge badge-primary">{{ $tenant_reservations->count() }}</a>
+            <a class="nav-item nav-link"  data-toggle="tab" href="#inactive" role="tab" aria-controls="nav-contact" aria-selected="false"><i class="fas fa-user-times fa-sm text-50"></i> Inactive <span class="badge badge-primary">{{ $tenant_inactive->count() }}</a>
           </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
@@ -379,7 +379,7 @@
       </div>
       </div>
 
-      <div class="tab-pane fade" id="nav-concern" role="tabpanel" aria-labelledby="nav-concern-tab">
+      <div class="tab-pane fade" id="concerns" role="tabpanel" aria-labelledby="nav-concerns-tab">
         <div class="col-md-11 mx-auto">
         <div class="table-responsive text-nowrap">
 
@@ -441,7 +441,7 @@
       </div>
       </div>
       
-      <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+      <div class="tab-pane fade" id="owners" role="tabpanel" aria-labelledby="nav-owners-tab">
         
       <a href="#/" data-toggle="modal" data-target="#addInvestor" data-whatever="@mdo" type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
         <i class="fas fa-user-plus fa-sm text-white-50"></i> Add

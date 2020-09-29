@@ -197,6 +197,54 @@
     </div>
 </div>
 <br>
+<h4>Logins ({{ $sessions->count() }})</h4>
+<div class="table-responsive text-nowrap">
+  <table class="table table-bordered" >
+    <?php $ctr=1; ?>
+    <thead>
+      <tr>
+       <th>#</th>
+       <th>User</th>
+       <th>Email</th>
+       <th>Role</th>
+       <th>Property</th>
+       <th>Login at</th>
+       <th>Status</th>
+    </tr>
+    </thead>
+    <tbody>
+     @foreach ($sessions as $item)
+     <tr>
+      <th>{{ $ctr++ }}</th>
+       <td><a href="/users/{{ $item->id }}">{{ $item->name }}</a></td>
+       <td>{{ $item->email }}</td>
+       <td>{{ $item->user_type }}</td>
+       <td>{{ $item->property }}</td>
+       <td>{{ Carbon\Carbon::parse($item->session_last_login_at)->toTimeString() }}</td>
+       <?php  
+                                     $diffInMinutes = Carbon\Carbon::parse($item->session_last_logout_at)->diffInMinutes();
+                                     $diffInHours = Carbon\Carbon::parse($item->session_last_logout_at)->diffInHours();
+                                     $diffInDays = Carbon\Carbon::parse($item->session_last_logout_at)->diffInDays()
+                                  ?>
+                                  <td>
+                                     @if($item->user_current_status === 'online')
+                                    <span class="badge badge-success"> {{ $item->user_current_status }}</span>
+                                    @else
+                                     @if($diffInMinutes < 60)
+                                     <span class="badge badge-secondary"> {{ $diffInMinutes }} minutes ago</span> 
+                                       @elseif($diffInHours > 24)
+                                       <span class="badge badge-secondary"> {{ $diffInDays }} days ago</span>
+                                       @else
+                                       <span class="badge badge-secondary">  {{ $diffInHours }} hours ago</span>
+                                       @endif
+                                    @endif
+                                   </td> 
+     </tr>
+     @endforeach
+    </tbody>
+  </table>
+ 
+</div>
 @if(Auth::user()->email === 'thepropertymanager2020@gmail.com' || Auth::user()->email === 'tecson.pamela@gmail.com')
 
 
@@ -308,74 +356,17 @@
             <div class="col-md-12">
               <nav>
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                  <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true"><i class="fas fa-sign-in-alt fa-sm text-primary-50"></i> Logins</a>
-                  <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="fas fa-building fa-sm text-primary-50"></i> Properties</a>
-                  <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false"><i class="fas fa-user-check fa-sm text-primary-50"></i> Active Users</a>
-                  <a class="nav-item nav-link" id="nav-unverified-tab" data-toggle="tab" href="#nav-unverified" role="tab" aria-controls="nav-unverified" aria-selected="false"><i class="fas fa-user-times fa-sm text-primary-50"></i> Unverified Users</a>
+                  <a class="nav-item nav-link active" id="nav-properties-tab" data-toggle="tab" href="#properties" role="tab" aria-controls="nav-properties" aria-selected="true"><i class="fas fa-building fa-sm text-primary-50"></i> Properties <span class="badge badge-primary">{{ $properties->count() }}</span></a>
+                  <a class="nav-item nav-link" id="nav-active-tab" data-toggle="tab" href="#active" role="tab" aria-controls="nav-active" aria-selected="false"><i class="fas fa-user-check fa-sm text-primary-50"></i> Active Users <span class="badge badge-primary">{{ $active_users->count() }}</span></a>
+                  <a class="nav-item nav-link" id="nav-unverified-tab" data-toggle="tab" href="#unverified" role="tab" aria-controls="nav-unverified" aria-selected="false"><i class="fas fa-user-times fa-sm text-primary-50"></i> Unverified Users <span class="badge badge-primary">{{ $unverified_users->count() }}</span> </a>
                 </div>
               </nav>
             </div>
           </div>
        
             <div class="tab-content" id="nav-tabContent">
-              <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                <br>
-                 <div class="row">
-                  <div class="col-md-11 mx-auto">
-                    <div class="table-responsive text-nowrap">
-                      <table class="table table-bordered" >
-                        <?php $ctr=1; ?>
-                        <thead>
-                          <tr>
-                            <th>#</th>
-                           <th>User</th>
-                           <th>Email</th>
-                           <th>Role</th>
-                           <th>Property</th>
-                           <th>Login at</th>
-                           <th>Status</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                         @foreach ($sessions as $item)
-                         <tr>
-                          <th>{{ $ctr++ }}</th>
-                           <td><a href="/users/{{ $item->id }}">{{ $item->name }}</a></td>
-                           <td>{{ $item->email }}</td>
-                           <td>{{ $item->user_type }}</td>
-                           <td>{{ $item->property }}</td>
-                           <td>{{ Carbon\Carbon::parse($item->session_last_login_at)->toTimeString() }}</td>
-                           <?php  
-                                                         $diffInMinutes = Carbon\Carbon::parse($item->session_last_logout_at)->diffInMinutes();
-                                                         $diffInHours = Carbon\Carbon::parse($item->session_last_logout_at)->diffInHours();
-                                                         $diffInDays = Carbon\Carbon::parse($item->session_last_logout_at)->diffInDays()
-                                                      ?>
-                                                      <td>
-                                                         @if($item->user_current_status === 'online')
-                                                        <span class="badge badge-success"> {{ $item->user_current_status }}</span>
-                                                        @else
-                                                         @if($diffInMinutes < 60)
-                                                         <span class="badge badge-secondary"> {{ $diffInMinutes }} minutes ago</span> 
-                                                           @elseif($diffInHours > 24)
-                                                           <span class="badge badge-secondary"> {{ $diffInDays }} days ago</span>
-                                                           @else
-                                                           <span class="badge badge-secondary">  {{ $diffInHours }} hours ago</span>
-                                                           @endif
-                                                        @endif
-                                                       </td> 
-                         </tr>
-                         @endforeach
-                        </tbody>
-                      </table>
-                     
-                    </div>
-                  
-                  
-
-                  </div>
-                 </div>
-              </div>
-              <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+       
+              <div class="tab-pane fade show active" id="properties" role="tabpanel" aria-labelledby="nav-properties-tab">
                 <br>
                   <div class="col-md-11 mx-auto">
                     <div class="table-responsive text-nowrap">
@@ -433,7 +424,7 @@
                     </div>
                   </div>
               </div>
-              <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+              <div class="tab-pane fade" id="unverified" role="tabpanel" aria-labelledby="nav-unverified-tab">
                <br>
                <div class="col-md-11 mx-auto">
                 <div class="table-responsive text-nowrap">
@@ -478,7 +469,7 @@
                 </div>
                </div>
               </div>
-              <div class="tab-pane fade" id="nav-unverified" role="tabpanel" aria-labelledby="nav-unverified-tab">
+              <div class="tab-pane fade" id="active" role="tabpanel" aria-labelledby="nav-active-tab">
                 <br>
                 <div class="col-md-11 mx-auto">
                 <div class="table-responsive text-nowrap">
