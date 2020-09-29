@@ -208,7 +208,7 @@ class UnitsController extends Controller
 
      public function post_edit_multiple_rooms(Request $request){
     
-        for($i = 1; $i<=231; $i++){
+        for($i = 1; $i<=325; $i++){
             DB::table('unit_owners')
             ->where('unit_owner_id', $request->input('owner'.$i))
             ->update(
