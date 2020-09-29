@@ -437,7 +437,7 @@
                        <th>Property</th>
                        <th>Role</th>
                        
-                       <th>Plan</th>
+                       <th>Created at</th>
                       
                       
                     </tr>
@@ -459,7 +459,8 @@
                           
                           
                           
-                         <td>{{ $item->account_type }}</td>
+                           <td>{{ Carbon\Carbon::parse($item->created_at)->format('M d Y').'@'.Carbon\Carbon::parse($item->created_at)->toTimeString() }}</td>
+                     
                      
                          </tr>
                      @endforeach
