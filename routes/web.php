@@ -791,7 +791,7 @@ Route::get('/notifications', function(){
 
 Route::get('/tenants', function(){
 
-    if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'treasury' && (Auth::user()->property_type === 'Apartment Rentals' || Auth::user()->property_type === 'Dormitory')){
+    if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'treasury' ){
         
             $tenants = DB::table('tenants')
             ->join('units', 'unit_id', 'unit_tenant_id')
