@@ -131,14 +131,17 @@
 @endsection
 
 @section('content')
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+  <h1 class="h3 mb-0 text-gray-800">{{ $investor->unit_owner}}</h1>
+</div>
 <div class="row">
   <div class="col-md-12">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
       <nav>
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
-          <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true"><i class="fas fa-user-tie fa-sm text-primary-50"></i> Profile</a>
-          <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="fas fa-home fa-sm text-primary-50"></i> Rooms</a>
-          <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false"><i class="fas fa-file-signature fa-sm text-primary-50"></i> Bills</a>
+          <a class="nav-item nav-link active" id="nav-owner-tab" data-toggle="tab" href="#owner" role="tab" aria-controls="nav-owner" aria-selected="true"><i class="fas fa-user-tie fa-sm text-primary-50"></i> Profile</a>
+          <a class="nav-item nav-link" id="nav-rooms-tab" data-toggle="tab" href="#rooms" role="tab" aria-controls="nav-rooms" aria-selected="false"><i class="fas fa-home fa-sm text-primary-50"></i> Rooms <span class="badge badge-primary">{{ $units->count() }}</span></a>
+          <a class="nav-item nav-link" id="nav-bills-tab" data-toggle="tab" href="#bills" role="tab" aria-controls="nav-bills" aria-selected="false"><i class="fas fa-file-signature fa-sm text-primary-50"></i> Bills</a>
         </div>
       </nav>
         
@@ -149,7 +152,7 @@
 <div class="row">
   <div class="col-md-12">
     <div class="tab-content" id="nav-tabContent">
-      <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+      <div class="tab-pane fade show active" id="owner" role="tabpanel" aria-labelledby="nav-owner-tab">
         <div class="row">
           <div class="col-md-8">
             <a href="/units/{{ $unit->unit_id }}"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> Back</a>
@@ -220,11 +223,11 @@
        
          </div> </div>
       </div>
-      <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-        <a href="#/"  data-toggle="modal" data-target="#addRoomModal" data-whatever="@mdo" type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+      <div class="tab-pane fade" id="rooms" role="tabpanel" aria-labelledby="nav-rooms-tab">
+        {{-- <a href="#/"  data-toggle="modal" data-target="#addRoomModal" data-whatever="@mdo" type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
           <i class="fas fa-plus fa-sm text-white-50"></i> Add 
         </a>
-        <br><br>
+        <br><br> --}}
         <div class="col-md-11 mx-auto">
           <div class="table-responsive text-nowrap">
             <?php $ctr = 1; ?>
@@ -259,7 +262,71 @@
           </div>
         </div>
       </div>
-      <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
+      <div class="tab-pane fade" id="bills" role="tabpanel" aria-labelledby="nav-bills-tab">
+        {{-- <a href="#" data-toggle="modal" data-target="#addBill" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Add</a> 
+        @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'manager')
+          <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/billings/edit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-edit fa-sm text-white-50"></i> Edit</a>
+          @endif
+          @if($balance->count() > 0)
+          <a  target="_blank" href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/bills/download" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Export</span></a>
+          @endif
+          @if($tenant->email_address !== null)
+          <a  target="_blank" href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/bills/send" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-paper-plane  fa-sm text-white-50"></i> Send</span></a>
+          @endif --}}
+
+    <div class="col-md-11 mx-auto">
+    <div class="table-responsive">
+      <div class="table-responsive text-nowrap">
+        <table class="table table-bordered">
+          <?php $ctr=1; ?>
+          <tr>
+         <th>#</th>
+          <th>Date Billed</th>
+            <th>Bill No</th>
+            
+            <th>Description</th>
+            <th>Period Covered</th>
+            <th class="text-right" colspan="3">Amount</th>
+            
+          </tr>
+          @foreach ($balance as $item)
+          <tr>
+         <th>{{ $ctr++ }}</th>
+            <td>
+              {{Carbon\Carbon::parse($item->billing_date)->format('M d Y')}}
+            </td>   
+
+              <td>{{ $item->billing_no }}</td>
+      
+              <td>{{ $item->billing_desc }}</td>
+              <td>
+                {{ $item->billing_start? Carbon\Carbon::parse($item->billing_start)->format('M d Y') : null}} -
+                {{ $item->billing_end? Carbon\Carbon::parse($item->billing_end)->format('M d Y') : null }}
+              </td>
+              <td class="text-right" colspan="3">{{ number_format($item->balance,2) }}</td>
+                     </tr>
+          @endforeach
+    
+      </table>
+      <table class="table">
+        <tr>
+         <th>Total</th>
+         <th class="text-right">{{ number_format($balance->sum('balance'),2) }} </th>
+        </tr>
+        {{-- @if($tenant->tenant_status === 'pending')
+  
+        @else
+         <tr>
+          <th class="text-danger">Total After Due Date(+10%)</th>
+          <th class="text-right text-danger">{{ number_format($balance->sum('balance') + ($balance->sum('balance') * .1) ,2) }}</th>
+         </tr> 
+        @endif --}}
+        
+      </table>
+    </div>
+    </div>
+      </div>
+      </div>
     </div>
   </div>
 </div>

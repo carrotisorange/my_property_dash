@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
-use App\UnitOwner, App\Unit;
+use App\UnitOwner, App\Unit, App\Billing;
 use Illuminate\Support\Facades\Auth;
 
 class UnitOwnersController extends Controller
@@ -82,11 +82,21 @@ class UnitOwnersController extends Controller
 
            $unit = Unit::findOrFail($unit_id);
 
-           $units = DB::table('units')
-           ->where('unit_unit_owner_id', $unit_owner_id)
+           $units = DB::table('unit_owners')
+           ->join('units', 'unit_id_foreign', 'unit_id')
+           ->where('unit_id_foreign', $unit_id)
+           ->get();
+
+            $balance = Billing::leftJoin('payments', 'billings.billing_no', '=', 'payments.payment_billing_no')
+           ->leftJoin('units', 'payment_tenant_id', 'unit_id')
+           ->selectRaw('*, billings.billing_amt - IFNULL(sum(payments.amt_paid),0) as balance')
+           ->where('unit_id', $unit_id)
+           ->groupBy('billing_id')
+           ->orderBy('billing_no', 'desc')
+           ->havingRaw('balance > 0')
            ->get();
    
-            return view('admin.show-investor', compact('investor','unit', 'units'));
+            return view('admin.show-investor', compact('investor','unit', 'units', 'balance'));
         }else{
             return view('unregistered');
         }

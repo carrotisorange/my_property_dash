@@ -388,7 +388,7 @@
               <table class="table table-bordered">
                 <tr>
                   <td>Room</td>
-                  <td>{{ $unit->building.' '.$unit->unit_no }}</td>
+                  <td><a href="/units/{{ $unit->unit_id }}">{{ $unit->building.' '.$unit->unit_no }}</a></td>
               </tr>
               <tr>
                   <td>Monthly Rent</td>
