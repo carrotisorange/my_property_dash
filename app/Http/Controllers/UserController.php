@@ -108,13 +108,9 @@ class UserController extends Controller
 
         $manager = User::findOrFail(Auth::user()->id);
 
-        if(($user->id === Auth::user()->id) || ($manager->user_type === 'manager' && $user->property === $manager->property)){
-
+      
             return view('users.edit-user', compact('user'));
-        }
-        else{
-            return view('unregistered');
-        }
+    
 
        
         
