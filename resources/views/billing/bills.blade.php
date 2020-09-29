@@ -135,7 +135,7 @@
   <h1 class="h3 mb-0 text-gray-800">Bills </h1>
   <div class="dropdown show">
     <br>
-    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-plus fa-sm text-white-50"></i> Add Bills</a>
+    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-plus fa-sm text-white-50"></i> Add</a>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
       <button type="submit" form="billingRentForm" class="dropdown-item "> Rent</button>
       <input type="hidden" form="billingRentForm" name="billing_option" value="rent">
