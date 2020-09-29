@@ -144,9 +144,9 @@
 
 <nav>
   <div class="nav nav-tabs" id="nav-tab" role="tablist">
-    <a class="nav-item nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">{{ Auth::user()->property }}<span id="count_rooms" class="badge badge-primary">{{ $units_count }}</span></a>
+    <a class="nav-item nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">{{ Auth::user()->property }} <span id="count_rooms" class="badge badge-primary">{{ $units_count }}</span></a>
     @foreach ($buildings as $building)
-    <a class="nav-item nav-link" id="{{ $building->building }}-tab" data-toggle="tab" href="#{{ $building->building }}" role="tab" aria-controls="{{ $building->building }}" aria-selected="false">{{ $building->building }}<span class="badge badge-primary">{{ $building  ->count }}</span></a>
+    <a class="nav-item nav-link" id="{{ $building->building }}-tab" data-toggle="tab" href="#{{ $building->building }}" role="tab" aria-controls="{{ $building->building }}" aria-selected="false">{{ $building->building }} <span class="badge badge-primary">{{ $building  ->count }}</span></a>
     @endforeach
   </div>
 </nav>
