@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
-use App\Unit;
+use App\Unit, App\Billing;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
@@ -118,14 +118,14 @@ class UnitsController extends Controller
             ->where('tenant_status', 'pending')
             ->get();
             
-            $unit_bills = DB::table('units')
-            ->join('tenants', 'unit_id', 'unit_tenant_id')
-            ->join('billings', 'tenant_id', 'billing_tenant_id')
-            ->where('unit_id', $unit_id)
-            ->where('billing_amt','>', 0)
-            ->orderBy('billing_date', 'desc')
-            ->orderBy('billing_no', 'desc')
-            ->paginate(10);
+            $bills = Billing::leftJoin('payments', 'billings.billing_no', '=', 'payments.payment_billing_no')
+           ->join('tenants', 'billing_tenant_id', 'tenant_id')
+           ->selectRaw('*, billings.billing_amt - IFNULL(sum(payments.amt_paid),0) as balance')
+           ->where('unit_tenant_id', $unit_id)
+           ->groupBy('billing_id')
+           ->orderBy('billing_no', 'desc')
+           ->havingRaw('balance > 0')
+           ->get();
 
             $concerns = DB::table('tenants')
             ->join('units', 'unit_id', 'unit_tenant_id')
@@ -134,13 +134,13 @@ class UnitsController extends Controller
             ->orderBy('date_reported', 'desc')
             ->orderBy('concern_urgency', 'desc')
             ->orderBy('concern_status', 'desc')
-            ->paginate(10);
+            ->get();
 
                 if(Auth::user()->property_type === 'Apartment Rentals' || Auth::user()->property_type === 'Dormitory'){
-                    return view('admin.show-room',compact('unit', 'unit_owner', 'tenant_active', 'tenant_inactive', 'tenant_reservations', 'unit_bills', 'concerns'));
+                    return view('admin.show-room',compact('unit', 'unit_owner', 'tenant_active', 'tenant_inactive', 'tenant_reservations', 'bills', 'concerns'));
                 }
                 else{
-                    return view('admin.show-unit',compact('unit', 'unit_owner', 'tenant_active', 'tenant_inactive', 'tenant_reservations', 'unit_bills', 'concerns'));
+                    return view('admin.show-unit',compact('unit', 'unit_owner', 'tenant_active', 'tenant_inactive', 'tenant_reservations', 'bills', 'concerns'));
                 }
         }else{
                 return view('unregistered');

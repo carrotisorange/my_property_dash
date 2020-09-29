@@ -141,7 +141,7 @@
         <a class="nav-item nav-link active" id="nav-room-tab" data-toggle="tab" href="#room" role="tab" aria-controls="nav-room" aria-selected="true"><i class="fas fa-home fa-sm text-primary-50"></i> Room</a>
         <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="fas fa-users fa-sm text-primary-50"></i> Tenants</a>
         <a class="nav-item nav-link" id="nav-owners-tab" data-toggle="tab" href="#owners" role="tab" aria-controls="nav-owners" aria-selected="false"><i class="fas fa-user-tie fa-sm text-primary-50"></i> Owners</a>
-        <a class="nav-item nav-link" id="nav-bills-tab" data-toggle="tab" href="#bills" role="tab" aria-controls="nav-bills" aria-selected="false"><i class="fas fa-file-signature fa-sm text-primary-50"></i> Bills</a>
+        <a class="nav-item nav-link" id="nav-bills-tab" data-toggle="tab" href="#bills" role="tab" aria-controls="nav-bills" aria-selected="false"><i class="fas fa-file-signature fa-sm text-primary-50"></i> Bills <span class="badge badge-primary badge-counter">{{ $balance->count() }}</span></a>
         <a class="nav-item nav-link" id="nav-concerns-tab" data-toggle="tab" href="#concerns" role="tab" aria-controls="nav-concerns" aria-selected="false"><i class="fas fa-tools fa-sm text-primary-50"></i> Concerns</a>
       </div>
     </nav>
@@ -233,10 +233,10 @@
             <th>Amount</th>
           
           </tr>
-          @foreach ($unit_bills as $item)
+          @foreach ($balance as $item)
           <tr>
               <td>{{ $item->billing_no }}</td>
-              <td> <a href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}">{{ $item->first_name.' '.$item->last_name }}</a></td>
+              <td> <a href="/units/{{ $unit->unit_id }}/tenants/{{ $item->tenant_id }}">{{ $item->first_name.' '.$item->last_name }}</a></td>
               <td>{{ $item->billing_desc }}</td>
               <td colspan="2">
                 {{ $item->billing_start? Carbon\Carbon::parse($item->billing_start)->format('M d Y') : null}} -
@@ -244,20 +244,21 @@
               </td>
               <td> <a href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/billings">{{ number_format($item->billing_amt,2) }}</a></td>
           
-              {{-- <td>
-              @if($item->billing_status === 'paid')
-              <span class="badge badge-success">{{ $item->billing_status }}</span>
-               @else
-              <span class="badge badge-danger">{{ $item->billing_status }} </span>
-               @endif
-               </td> --}}
+
           </tr>
           @endforeach
           
           
           </table>
+          <table class="table">
+            <tr>
+             <th>Total</th>
+             <th class="text-right">{{ number_format($balance->sum('balance'),2) }} </th>
+            </tr>
+           
+          </table>
           
-          {{ $unit_bills->links() }}
+         
           </div>
       </div>
       </div>

@@ -141,7 +141,7 @@
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
           <a class="nav-item nav-link active" id="nav-owner-tab" data-toggle="tab" href="#owner" role="tab" aria-controls="nav-owner" aria-selected="true"><i class="fas fa-user-tie fa-sm text-primary-50"></i> Profile</a>
           <a class="nav-item nav-link" id="nav-rooms-tab" data-toggle="tab" href="#rooms" role="tab" aria-controls="nav-rooms" aria-selected="false"><i class="fas fa-home fa-sm text-primary-50"></i> Rooms <span class="badge badge-primary">{{ $units->count() }}</span></a>
-          <a class="nav-item nav-link" id="nav-bills-tab" data-toggle="tab" href="#bills" role="tab" aria-controls="nav-bills" aria-selected="false"><i class="fas fa-file-signature fa-sm text-primary-50"></i> Bills</a>
+          <a class="nav-item nav-link" id="nav-bills-tab" data-toggle="tab" href="#bills" role="tab" aria-controls="nav-bills" aria-selected="false"><i class="fas fa-file-signature fa-sm text-primary-50"></i> Bills <span class="badge badge-primary badge-counter">{{ $bills->count() }}</span></a>
         </div>
       </nav>
         
@@ -283,13 +283,13 @@
          <th>#</th>
           <th>Date Billed</th>
             <th>Bill No</th>
-            
+  
             <th>Description</th>
             <th>Period Covered</th>
             <th class="text-right" colspan="3">Amount</th>
             
           </tr>
-          @foreach ($balance as $item)
+          @foreach ($bills as $item)
           <tr>
          <th>{{ $ctr++ }}</th>
             <td>
@@ -311,16 +311,9 @@
       <table class="table">
         <tr>
          <th>Total</th>
-         <th class="text-right">{{ number_format($balance->sum('balance'),2) }} </th>
+         <th class="text-right">{{ number_format($bills->sum('balance'),2) }} </th>
         </tr>
-        {{-- @if($tenant->tenant_status === 'pending')
-  
-        @else
-         <tr>
-          <th class="text-danger">Total After Due Date(+10%)</th>
-          <th class="text-right text-danger">{{ number_format($balance->sum('balance') + ($balance->sum('balance') * .1) ,2) }}</th>
-         </tr> 
-        @endif --}}
+     
         
       </table>
     </div>

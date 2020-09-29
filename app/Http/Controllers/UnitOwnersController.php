@@ -86,17 +86,18 @@ class UnitOwnersController extends Controller
            ->join('units', 'unit_id_foreign', 'unit_id')
            ->where('unit_id_foreign', $unit_id)
            ->get();
-
-            $balance = Billing::leftJoin('payments', 'billings.billing_no', '=', 'payments.payment_billing_no')
-           ->leftJoin('units', 'payment_tenant_id', 'unit_id')
+  
+           $bills = Billing::leftJoin('payments', 'billings.billing_no', '=', 'payments.payment_billing_no')
+           ->join('tenants', 'billing_tenant_id', 'tenant_id')
+           
            ->selectRaw('*, billings.billing_amt - IFNULL(sum(payments.amt_paid),0) as balance')
-           ->where('unit_id', $unit_id)
+           ->where('unit_tenant_id', $unit_id)
            ->groupBy('billing_id')
            ->orderBy('billing_no', 'desc')
            ->havingRaw('balance > 0')
            ->get();
    
-            return view('admin.show-investor', compact('investor','unit', 'units', 'balance'));
+            return view('admin.show-investor', compact('investor','unit', 'units', 'bills'));
         }else{
             return view('unregistered');
         }
