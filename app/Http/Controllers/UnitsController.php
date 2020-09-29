@@ -53,8 +53,7 @@ class UnitsController extends Controller
     public function store(Request $request)
     {
         //insert investor to a specific unit.
-       DB::table('unit_owners')->insert
-       (
+       $id = DB::table('unit_owners')->insertGetId(
             [
                 // 'date_invested' => $request->date_invested,
                 'unit_owner' => $request->unit_owner,
