@@ -147,8 +147,8 @@ Route::get('/board', function(Request $request){
         ->orderBy('movein_date', 'desc')
         ->get();
 
-        $owners = DB::table('units')
-        ->join('unit_owners', 'unit_unit_owner_id', 'unit_owner_id')
+        $owners = DB::table('unit_owners')
+        ->join('units', 'unit_id_foreign', 'unit_id')
         ->where('unit_property', Auth::user()->property)
         ->get();
 
@@ -1825,15 +1825,15 @@ Route::post('/request-payable/disapprove/{id}', function(Request $request, $id){
 });
 
 
-Route::get('/show', function(){
-    $owners = DB::table('units')
-    ->join('unit_owners', 'unit_unit_owner_id', 'unit_owner_id')
-    ->where('unit_property', Auth::user()->property)
-    ->get();
+// Route::get('/show', function(){
+//     $owners = DB::table('units')
+//     ->join('unit_owners', 'unit_unit_owner_id', 'unit_owner_id')
+//     ->where('unit_property', Auth::user()->property)
+//     ->get();
 
-    return view('show', compact('owners'));
+//     return view('show', compact('owners'));
     
-});
+// });
 
 
 
