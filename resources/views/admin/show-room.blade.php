@@ -233,7 +233,7 @@
             <th>Amount</th>
           
           </tr>
-          @foreach ($balance as $item)
+          @foreach ($bills as $item)
           <tr>
               <td>{{ $item->billing_no }}</td>
               <td> <a href="/units/{{ $unit->unit_id }}/tenants/{{ $item->tenant_id }}">{{ $item->first_name.' '.$item->last_name }}</a></td>
@@ -253,7 +253,7 @@
           <table class="table">
             <tr>
              <th>Total</th>
-             <th class="text-right">{{ number_format($balance->sum('balance'),2) }} </th>
+             <th class="text-right">{{ number_format($bills->sum('balance'),2) }} </th>
             </tr>
            
           </table>
