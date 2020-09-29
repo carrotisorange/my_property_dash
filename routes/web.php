@@ -1159,6 +1159,13 @@ Route::get('/users', function(){
     
     ->get();
 
+    $users = DB::table('users')
+    ->orderBy('user_current_status', 'desc')
+    ->orderBy('last_login_at', 'desc')
+    ->whereNotNull('account_type')
+    ->where('property', Auth::user()->property)
+    ->get();
+
 
     if(auth()->user()->user_type === 'manager'){
         
@@ -1197,7 +1204,7 @@ Route::get('/users', function(){
 
         }
 
-        return view('users.users', compact('users', 'sessions', 'paying_users', 'unverified_users', 'properties','signup_rate','active_users'));
+        return view('users.users', compact('users', 'sessions', 'paying_users', 'unverified_users', 'properties','signup_rate','active_users', 'users'));
 
     }else{
         return view('unregistered');

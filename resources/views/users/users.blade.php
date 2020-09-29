@@ -245,6 +245,35 @@
   </table>
  
 </div>
+<h4>Users ({{ $users->count() }})</h4>
+<div class="table-responsive text-nowrap">
+  <table class="table table-bordered" >
+    <?php $ctr=1; ?>
+    <thead>
+      <tr>
+       <th>#</th>
+       <th>User</th>
+       <th>Email</th>
+       <th>Role</th>
+       <th>Property</th>
+       <th>Login at</th>
+   
+    </tr>
+    </thead>
+    <tbody>
+     @foreach ($users as $item)
+     <tr>
+      <th>{{ $ctr++ }}</th>
+       <td><a href="/users/{{ $item->id }}">{{ $item->name }}</a></td>
+       <td>{{ $item->email }}</td>
+       <td>{{ $item->user_type }}</td>
+       <td>{{ $item->property }}</td>
+       
+     @endforeach
+    </tbody>
+  </table>
+ 
+</div>
 @if(Auth::user()->email === 'thepropertymanager2020@gmail.com' || Auth::user()->email === 'tecson.pamela@gmail.com')
 
 <br>
