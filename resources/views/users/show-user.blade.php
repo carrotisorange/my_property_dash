@@ -248,7 +248,7 @@
 
               <hr>
               @if(Auth::user()->user_type === 'manager')
-              <small>Warning: Account deletion is can't be undone. </small>
+              <small>Warning: Account deletion can't be undone. </small>
               <br>
               <form action="/users/{{ $user->id }}" method="POST">
                 @csrf
