@@ -40,7 +40,7 @@ class ConcernController extends Controller
 
        $concern_id = DB::table('concerns')->insertGetId(
             [
-                'concern_tenant_id' => $request->tenant_id,
+                'concern_tenant_id' => $request->reported_by,
                 'date_reported' => $request->date_reported,
                 'concern_type'=> $request->concern_type,
                 'concern_urgency' => $request->concern_urgency,
@@ -53,7 +53,7 @@ class ConcernController extends Controller
                 'is_paid' => 'unpaid',
             ]);
 
-            return redirect('/units/'.$request->unit_tenant_id.'/tenants/'.$request->tenant_id.'/concerns/'.$concern_id)->with('success', 'Concern has been added to the property!');
+            return redirect('/units/'.$request->unit_tenant_id.'/tenants/'.$request->reported_by.'/concerns/'.$concern_id)->with('success', 'Concern has been added to the property!');
     }
 
     /**

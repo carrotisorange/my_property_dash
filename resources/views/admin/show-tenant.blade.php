@@ -300,7 +300,7 @@
 </div>
       </div>
       <div class="tab-pane fade" id="concerns" role="tabpanel" aria-labelledby="nav-concerns-tab">
-        <span  href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addConcern" data-whatever="@mdo"><i class="fas fa-plus fa-sm text-white-50"></i> Add</span>  
+        <a  href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addConcern" data-whatever="@mdo"><i class="fas fa-plus fa-sm text-white-50"></i> Add</a>  
         <br><br>
         <div class="row" >
           <div class="col-md-11 mx-auto" >
@@ -672,18 +672,7 @@
                             </div>
                         </div>
                         <br>
-                        <!-- <div class="row">
-                          <div class="col">
-                              <label for="">Under Warranty</label>
-                              <select class="form-control" form="concernForm" name="is_warranty" id="" required>
-                                <option value="" selected>Please select one</option>
-                                <option value="yes">yes</option>
-                                <option value="no">no</option>
-                                <option value="na">na</option>
-                              </select>
-                          </div>
-                      </div>
-                      <br> -->
+                       
                       <div class="row">
                         <div class="col">
                             <small>Short Description</small>
@@ -692,13 +681,7 @@
                         </div>
                       </div>  
                       <br>
-                      <!-- <div class="row">
-                        <div class="col">
-                            <label for="movein_date">Quantity</label>
-                            <input type="number" oninput="this.value = Math.abs(this.value)" form="concernForm" class="form-control" name="concern_qty" required >
-                        </div>
-                      </div>
-                      <br> -->
+                      
                        <div class="row">
                             <div class="col">
                                 <small>Details of the concern</small>

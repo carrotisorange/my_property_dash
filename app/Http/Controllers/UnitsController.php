@@ -98,7 +98,8 @@ class UnitsController extends Controller
 
             $unit_owner = DB::table('unit_owners')
             ->join('units', 'unit_id_foreign', 'unit_id')
-            ->where('unit_id_foreign', $unit_id)->get();  
+            ->where('unit_id_foreign', $unit_id)
+            ->get();  
     
             $tenant_active = DB::table('tenants')
             ->join('units', 'unit_id', 'unit_tenant_id')
@@ -135,13 +136,14 @@ class UnitsController extends Controller
             ->orderBy('concern_urgency', 'desc')
             ->orderBy('concern_status', 'desc')
             ->get();
+            
 
-                if(Auth::user()->property_type === 'Apartment Rentals' || Auth::user()->property_type === 'Dormitory'){
+                // if(Auth::user()->property_type === 'Apartment Rentals' || Auth::user()->property_type === 'Dormitory'){
                     return view('admin.show-room',compact('unit', 'unit_owner', 'tenant_active', 'tenant_inactive', 'tenant_reservations', 'bills', 'concerns'));
-                }
-                else{
-                    return view('admin.show-unit',compact('unit', 'unit_owner', 'tenant_active', 'tenant_inactive', 'tenant_reservations', 'bills', 'concerns'));
-                }
+                // }
+                // else{
+                //     return view('admin.show-unit',compact('unit', 'unit_owner', 'tenant_active', 'tenant_inactive', 'tenant_reservations', 'bills', 'concerns'));
+                // }
         }else{
                 return view('unregistered');
         }

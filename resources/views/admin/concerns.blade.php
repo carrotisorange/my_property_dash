@@ -157,13 +157,10 @@
            
               <td>{{ Carbon\Carbon::parse($item->date_reported)->format('M d Y') }}</td>
                 <td>
-                    <a href="{{ route('show-tenant',['unit_id'=> $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a>
+                    <a href="units/{{$item->unit_id}}/tenants/{{$item->tenant_id}}">{{ $item->first_name.' '.$item->last_name }}</a>
                 </td>
-                <td>{{ $item->building.' '.$item->unit_no }}</td>
-                <td>
-                  
-                    {{ $item->concern_type }}
-                    
+                <td><a href="units/{{$item->unit_id}}">{{ $item->building.' '.$item->unit_no }}</a></td>
+                <td>{{ $item->concern_type }}
                 </td>
                 <td ><a title="{{ $item->concern_desc }}" href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/concerns/{{ $item->concern_id }}">{{ $item->concern_item }}</a></td>
                 <td>

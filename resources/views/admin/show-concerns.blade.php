@@ -272,14 +272,14 @@
                 <input type="date" form="editConcernDetailsForm" class="form-control" name="date_reported" value="{{ $concern->date_reported }}" required>
             </div>
         </div>
-        
+        <br>
         <div class="row">
             <div class="col">
                 <small>Description</small>
                 <input type="text" form="editConcernDetailsForm" class="form-control" name="concern_item" value="{{ $concern->concern_item }}" required>
             </div>
         </div>
-      
+      <br>
         <div class="row">
             <div class="col">
                 <small>Type</small>
@@ -298,7 +298,7 @@
                 </select>
             </div>
         </div>
-
+<br>
         <div class="row">
             <div class="col">
                 <small>Urgency</small>
@@ -310,7 +310,7 @@
                 </select>
             </div>
         </div>
-
+<br>
         <div class="row">
             <div class="col">
                 <small>Status</small>
@@ -322,7 +322,7 @@
                 </select>
             </div>
         </div>
-
+<br>
         <div class="row">
           <div class="col">
               <small>Concern</small>

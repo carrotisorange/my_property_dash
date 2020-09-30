@@ -15,7 +15,7 @@ class Concern extends Model
                         'date_reported',
                         'is_warranty',
                         'concern_urgency',
-
+                        'owner_id_foreign',
                         'concern_item',
                         'concern_qty',
                         'concern_desc',
@@ -23,13 +23,18 @@ class Concern extends Model
                         'concern_amt',
                         'is_paid',
                         'rating'
-
     ];
 
     public function tenant()
     {
     return $this->belongsTo('App\Tenant', 'concern_tenant_id');
     }
+
+    public function owner()
+    {
+    return $this->belongsTo('App\Owner', 'owner_id_foreign');
+    }
+
 
     public function personnel()
     {

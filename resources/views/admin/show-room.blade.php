@@ -142,7 +142,7 @@
         <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="fas fa-users fa-sm text-primary-50"></i> Tenants</a>
         <a class="nav-item nav-link" id="nav-owners-tab" data-toggle="tab" href="#owners" role="tab" aria-controls="nav-owners" aria-selected="false"><i class="fas fa-user-tie fa-sm text-primary-50"></i> Owners</a>
         <a class="nav-item nav-link" id="nav-bills-tab" data-toggle="tab" href="#bills" role="tab" aria-controls="nav-bills" aria-selected="false"><i class="fas fa-file-signature fa-sm text-primary-50"></i> Bills <span class="badge badge-primary badge-counter">{{ $bills->count() }}</span></a>
-        <a class="nav-item nav-link" id="nav-concerns-tab" data-toggle="tab" href="#concerns" role="tab" aria-controls="nav-concerns" aria-selected="false"><i class="fas fa-tools fa-sm text-primary-50"></i> Concerns</a>
+        <a class="nav-item nav-link" id="nav-concerns-tab" data-toggle="tab" href="#concerns" role="tab" aria-controls="nav-concerns" aria-selected="false"><i class="fas fa-tools fa-sm text-primary-50"></i> Concerns <span class="badge badge-primary badge-counter">{{ $concerns->count() }}</span></a>
       </div>
     </nav>
   </div>
@@ -371,8 +371,8 @@
                   <th class="text-center">#</th>
                   <th>Tenant</th>
                   
-                  <th>Inactive Since</th>   
-                  <th>Reason of Moveout</th>
+                  <th>Inactive since</th>   
+                  <th>Reason for moving out</th>
                   <th></th>
               </tr>
               <?php
@@ -396,6 +396,8 @@
       </div>
 
       <div class="tab-pane fade" id="concerns" role="tabpanel" aria-labelledby="nav-concerns-tab">
+        <a  href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addConcern" data-whatever="@mdo"><i class="fas fa-plus fa-sm text-white-50"></i> Add</a>  
+        <br><br>
         <div class="col-md-11 mx-auto">
         <div class="table-responsive text-nowrap">
 
@@ -404,7 +406,7 @@
            <tr>
                <th>#</th>
                <th>Date Reported</th>
-              <th>Tenant</th>
+              <th>Reported By</th>
           
                <th>Type of Concern</th>
                <th>Description</th>
@@ -506,7 +508,7 @@
   <div class="modal-dialog" role="document">
   <div class="modal-content">
       <div class="modal-header">
-      <h5 class="modal-title" id="exampleModalLabel">Edit Room Information</h5>
+      <h5 class="modal-title" id="exampleModalLabel">Edit Room</h5>
       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
       </button>
@@ -577,8 +579,8 @@
       </form>
       </div>
       <div class="modal-footer">
-      <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button>
-      <button type="submit" form="editUnitForm" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;"><i class="fas fa-check fa-sm text-white-50"></i> Save Changes</button>  
+     
+      <button type="submit" form="editUnitForm" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" "this.disabled = true;"><i class="fas fa-check fa-sm text-white-50"></i> Save Changes</button>  
       </div>
   </div>
   </div>
@@ -616,7 +618,7 @@
       </div>
       <div class="modal-footer">
       {{-- <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button> --}}
-      <button type="submit" form="addInvestorForm" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;"><i class="fas fa-check fa-sm text-white-50"></i> Submit</button>  
+      <button type="submit" form="addInvestorForm" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="this.form.submit(); this.disabled = true;"><i class="fas fa-check fa-sm text-white-50"></i> Submit</button>  
       </div>
   </div>
   </div>
@@ -692,6 +694,103 @@
               
           </div>
           </div>
+</div>
+
+<div class="modal fade" id="addConcern" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md" role="document">
+  <div class="modal-content">
+      <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">Add Concern</h5>
+
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+      </button>
+      </div>
+      <div class="modal-body">
+          <form id="concernForm" action="/concerns" method="POST">
+              {{ csrf_field() }}
+          </form>
+
+          {{-- <input type="hidden" form="concernForm" id="tenant_id" name="tenant_id" value="{{ $tenant->tenant_id }}"required> --}}
+          <input type="hidden" form="concernForm" id="unit_tenant_id" name="unit_tenant_id" value="{{ $unit->unit_id }}"required>
+
+          <div class="row">
+            <div class="col">
+                <small>Date Reported</small>
+                <input type="date" form="concernForm" class="form-control" name="date_reported" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}" required >
+            </div>
+        </div>
+        <br>
+          <div class="row">
+            <div class="col">
+                <small>Reported By</small>
+                <select class="form-control" form="concernForm" name="reported_by" id="" required>
+                  <option value="">Please select one</option>
+                  @foreach ($tenant_active as $item)
+                  <option value="{{ $item->tenant_id }}">{{ $item->first_name.' '.$item->last_name }} (tenant)</option>
+                  @endforeach
+                 
+                </select>
+            </div>
+        </div>
+        <br>
+          <div class="row">
+              <div class="col">
+                 <small>Type of Concern</small>
+                  <select class="form-control" form="concernForm" name="concern_type" id="" required>
+                    <option value="" selected>Please select one</option>
+                    <option value="billing">billing</option>
+                    <option value="employee">employee</option>
+                    <option value="internet">internet</option>
+                    <option value="neighbour">neighbour</option>
+                    <option value="noise">noise</option>
+                    <option value="odours">odours</option>
+                    <option value="parking">parking</option>
+                    <option value="pets">pets</option>
+                    <option value="repair">repair</option>
+                    <option value="others">others</option>
+                  </select>
+              </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col">
+               <small>Urgency</small>
+                <select class="form-control" form="concernForm" name="concern_urgency" id="" required>
+                  <option value="" selected>Please select one</option>
+                  <option value="minor">minor</option>
+                  <option value="major">major</option>
+                  <option value="urgent">urgent</option>
+                </select>
+            </div>
+        </div>
+        <br>
+       
+      <div class="row">
+        <div class="col">
+            <small>Short Description</small>
+            <small class="text-danger">(What is your concern all about?)</small>
+            <input type="text" form="concernForm" class="form-control" name="concern_item" required >
+        </div>
+      </div>  
+      <br>
+      
+       <div class="row">
+            <div class="col">
+                <small>Details of the concern</small>
+                
+                <textarea form="concernForm" rows="7" class="form-control" name="concern_desc" required></textarea>
+            </div>
+        </div>
+        <br>
+        
+      </div>
+      <div class="modal-footer">
+
+          <button type="submit" form="concernForm" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;"><i class="fas fa-check fa-sm text-white-50"></i> Submit</button>
+      </div>
+  </div>
+  </div>
 </div>
 @endsection
 
