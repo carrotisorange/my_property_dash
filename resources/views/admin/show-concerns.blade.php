@@ -326,8 +326,8 @@
         <div class="row">
           <div class="col">
               <small>Concern</small>
-             <textarea form="editConcernDetailsForm" class="form-control" name="concern_desc" id="" cols="30" rows="10" value="{{ $concern->concern_desc }}">
-             
+             <textarea form="editConcernDetailsForm" class="form-control" name="concern_desc" id="" cols="30" rows="10" >
+              The tenant reports a flickering light and the rusty cabinet hinges in her unit.
              </textarea>
           </div>
       </div>
