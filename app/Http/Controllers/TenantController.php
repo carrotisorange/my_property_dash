@@ -366,6 +366,11 @@ class TenantController extends Controller
             });
         
 
+            $collections_count = DB::table('payments')
+           
+            ->where('payment_tenant_id', $tenant_id)
+            ->count();
+
               //get the number of last added bills
             $current_bill_no = DB::table('units')
             ->join('tenants', 'unit_id', 'unit_tenant_id')
@@ -389,7 +394,7 @@ class TenantController extends Controller
               ->max('ar_no') + 1;
 
             
-                return view('admin.show-tenant', compact('tenant','personnels' ,'concerns', 'current_bill_no', 'balance', 'unit', 'collections', 'payment_ctr'));  
+                return view('admin.show-tenant', compact('tenant','personnels' ,'concerns', 'current_bill_no', 'balance', 'unit', 'collections', 'payment_ctr','collections_count'));  
         }else{
                 return view('unregistered');
         }

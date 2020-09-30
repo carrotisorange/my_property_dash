@@ -44,7 +44,7 @@
             </li>
             @endif
       
-        @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'treasury' && (Auth::user()->property_ownership === 'Multiple Owners'))
+       @if((Auth::user()->user_type === 'admin' && Auth::user()->property_ownership === 'Multiple Owners') || (Auth::user()->user_type === 'manager' && Auth::user()->property_ownership === 'Multiple Owners'))
         <!-- Nav Item - Tables -->
         <li class="nav-item">
             <a class="nav-link" href="#/">

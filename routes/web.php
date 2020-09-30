@@ -770,25 +770,6 @@ Route::put('/units/{unit_id}/tenants/{tenant_id}/moveout', 'TenantController@mov
 Route::post('/units/{unit_id}/tenants/{tenant_id}/renew', 'TenantController@renew')->middleware(['auth', 'verified']);
 Route::delete('/tenants/{tenant_id}', 'TenantController@destroy')->middleware(['auth', 'verified']);
 
-Route::get('/notifications', function(){
-
-    if(auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager' || auth()->user()->user_type === 'treasury' || auth()->user()->user_type === 'billing'){
-        
-        $notifications = DB::table('notifications')
-        ->select('*','notifications.updated_at as updated_at')
-        ->join('units', 'unit_id', 'notification_room_id')
-        ->join('tenants', 'tenant_id', 'notification_tenant_id')
-        ->where('unit_property', Auth::user()->property)
-        ->orderBy('notifications.created_at', 'desc')
-        ->get();
-       
-        return view('all-notifications', compact('notifications'));
-    }else{
-        return view('unregistered');
-    }
-
-})->middleware(['auth', 'verified']);
-
 Route::get('/tenants', function(){
 
     if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'treasury' ){
@@ -1324,18 +1305,6 @@ Route::get('/job-orders', function(){
 Route::get('/units/{unit_id}/tenants-create', 'TenantController@create')->middleware(['auth', 'verified']);
 Route::post('/units/{unit_id}/tenants/add', 'TenantController@store')->middleware(['auth', 'verified']);
 
-// //step2
-// Route::get('/units/{unit_id}/tenant-step2', 'TenantController@createTenantStep2')->middleware(['auth', 'verified']);
-// Route::post('/units/{unit_id}/tenant-step2', 'TenantController@postTenantStep2')->middleware(['auth', 'verified']);
-
-// //step3
-// Route::get('/units/{unit_id}/tenant-step3', 'TenantController@createTenantStep3')->middleware(['auth', 'verified']);
-// Route::post('/units/{unit_id}/tenant-step3', 'TenantController@postTenantStep3')->middleware(['auth', 'verified']);
-
-// //step-4
-// Route::get('/units/{unit_id}/tenant-step4', 'TenantController@createTenantStep4')->middleware(['auth', 'verified']);
-// Route::post('/units/{unit_id}/tenant-step4', 'TenantController@postTenantStep4')->middleware(['auth', 'verified']);
-
 //routes for billings
 Route::get('/units/{unit_id}/tenants/{tenant_id}/billings', 'TenantController@show_billings')->name('show-billings')->middleware(['auth', 'verified']);
 Route::get('/units/{unit_id}/tenants/{tenant_id}/billings/edit', 'TenantController@edit_billings')->middleware(['auth', 'verified']);
@@ -1373,22 +1342,6 @@ Route::put('/users/{user_id}', 'UserController@update')->middleware(['auth', 've
 Route::delete('/users/{user_id}', 'UserController@destroy')->middleware(['auth', 'verified']);
 
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout')->middleware(['auth', 'verified']);
-
-// //step1
-// Route::get('/units/{unit_id}/tenant-step1', 'TenantController@createTenantStep1')->middleware(['auth', 'verified']);
-// Route::post('/units/{unit_id}/tenant-step1', 'TenantController@postTenantStep1')->middleware(['auth', 'verified']);
-
-// //step2
-// Route::get('/units/{unit_id}/tenant-step2', 'TenantController@createTenantStep2')->middleware(['auth', 'verified']);
-// Route::post('/units/{unit_id}/tenant-step2', 'TenantController@postTenantStep2')->middleware(['auth', 'verified']);
-
-// //step3
-// Route::get('/units/{unit_id}/tenant-step3', 'TenantController@createTenantStep3')->middleware(['auth', 'verified']);
-// Route::post('/units/{unit_id}/tenant-step3', 'TenantController@postTenantStep3')->middleware(['auth', 'verified']);
-
-// //step-4
-// Route::get('/units/{unit_id}/tenant-step4', 'TenantController@createTenantStep4')->middleware(['auth', 'verified']);
-// Route::post('/units/{unit_id}/tenant-step4', 'TenantController@postTenantStep4')->middleware(['auth', 'verified']);
 
 //concerns
 Route::post('/concerns', 'ConcernController@store')->middleware(['auth', 'verified']);
@@ -1464,6 +1417,9 @@ Route::put('/users/{user_id}/plan', function(Request $request){
 
 });
 
+//routes for registration
+
+//post the desired plan
 Route::post('/users/{user_id}/charge', function(Request $request){
 
     if(Auth::user()->account_type === 'Free'){
@@ -1517,112 +1473,9 @@ Route::post('/users/{user_id}/charge', function(Request $request){
 
 });
 
-//sending tenant for contract extension
-Route::get('/units/{unit_id}/tenants/{tenant_id}/alert/contract', function(Request $request, $unit_id, $tenant_id){
+//routes for bills 
 
-    $tenant = Tenant::findOrFail($tenant_id);
-    $unit  = Unit::findOrFail($unit_id);
-
-    $diffInDays =  number_format(Carbon::now()->DiffInDays(Carbon::parse($tenant->moveout_date), false));
-
-    $data = array(
-        'email' => $tenant->email_address,
-        'name' => $tenant->first_name,
-        'unit' => $unit->building.' '.$unit->unit_no,
-        'contract_ends_at'  => $tenant->moveout_date,
-        'days_before_moveout' => $diffInDays
-    );
-
-    Mail::send('emails.send-contract-alert-mail', $data, function($message) use ($data){
-        
-        $message->to($data['email']);
-        $message->subject('Contract Alert');
-    });
-
-    DB::table('tenants')
-    ->where('tenant_id', $tenant->tenant_id)
-    ->update([
-        'tenants_note' => 'Email has been sent!'
-    ]);
-    
-    return back()->with('success', 'Email  has been sent to '. $tenant->first_name.' of '. $unit->building.' '.$unit->unit_no);
-
-})->middleware(['auth', 'verified']);
-
-//sending tenant for contract extension
-Route::get('/units/{unit_id}/tenants/{tenant_id}/alert/contract', function(Request $request, $unit_id, $tenant_id){
-
-    $tenant = Tenant::findOrFail($tenant_id);
-    $unit  = Unit::findOrFail($unit_id);
-
-    $diffInDays =  number_format(Carbon::now()->DiffInDays(Carbon::parse($tenant->moveout_date), false));
-
-    $data = array(
-        'email' => $tenant->email_address,
-        'name' => $tenant->first_name,
-        'unit' => $unit->building.' '.$unit->unit_no,
-        'contract_ends_at'  => $tenant->moveout_date,
-        'days_before_moveout' => $diffInDays
-    );
-
-    Mail::send('emails.send-contract-alert-mail', $data, function($message) use ($data){
-        
-        $message->to($data['email']);
-        $message->subject('Contract Alert');
-    });
-
-    DB::table('tenants')
-    ->where('tenant_id', $tenant->tenant_id)
-    ->update([
-        'tenants_note' => 'Email has been sent!'
-    ]);
-    
-    return back()->with('success', 'Email  has been sent to '. $tenant->first_name.' of '. $unit->building.' '.$unit->unit_no);
-
-})->middleware(['auth', 'verified']);
-
-Route::post('/send/inquiry', function(Request $request){
-
-    $request->validate([
-        'name' => 'required',
-        'email' => 'required',
-        'subject' => 'required',
-        'message' => 'required',
-    ]);
-
-    return $request->all();
-    
-    return redirect('/#contact');
- 
-});
-
-Route::get('/privacy-policy', function(){
-    return view('privacy-policy');
-});
-
-Route::get('/terms-of-service', function(){
-    return view('terms-of-service');
-});
-
-Route::get('/acceptable-use-policy', function(){
-    return view('acceptable-use-policy');
-});
-
-Route::get('/logins', function(){
-    $sessions = DB::table('users')
-    ->join('sessions', 'id', 'session_user_id')
-    ->whereNotNull('session_last_login_at')
-    ->groupBy('session_id')
-    ->orderBy('session_last_login_at', 'desc')
-    ->get()
-    ->groupBy(function($item) {
-            return \Carbon\Carbon::parse($item->session_last_login_at)->timestamp;
-     });
-
-    return view('logins', compact('sessions'));
-})->middleware(['auth', 'verified']);
-
-//mass update the period covered in add monthly rent
+//post the period covered in rental bill
 Route::post('/bills/rent/{date}', function(Request $request){
 
     $updated_billing_start = $request->billing_start;
@@ -1645,7 +1498,7 @@ Route::post('/bills/rent/{date}', function(Request $request){
 
 })->middleware(['auth', 'verified']);
 
-//mass update the period covered in add electric bill
+//post the period covered in add electric bill
 Route::post('/bills/electric/{date}', function(Request $request){
 
     $updated_billing_start = $request->billing_start;
@@ -1676,7 +1529,7 @@ Route::post('/bills/electric/{date}', function(Request $request){
 
 })->middleware(['auth', 'verified']);
 
-//mass update the period covered in add water bill
+//post the period covered in add water bill
 Route::post('/bills/water/{date}', function(Request $request){
 
     $updated_billing_start = $request->billing_start;
@@ -1707,6 +1560,42 @@ Route::post('/bills/water/{date}', function(Request $request){
 
 })->middleware(['auth', 'verified']);
 
+
+// routes for tenants 
+
+//send notice for contract extension 
+Route::get('/units/{unit_id}/tenants/{tenant_id}/alert/contract', function(Request $request, $unit_id, $tenant_id){
+
+    $tenant = Tenant::findOrFail($tenant_id);
+    $unit  = Unit::findOrFail($unit_id);
+
+    $diffInDays =  number_format(Carbon::now()->DiffInDays(Carbon::parse($tenant->moveout_date), false));
+
+    $data = array(
+        'email' => $tenant->email_address,
+        'name' => $tenant->first_name,
+        'unit' => $unit->building.' '.$unit->unit_no,
+        'contract_ends_at'  => $tenant->moveout_date,
+        'days_before_moveout' => $diffInDays
+    );
+
+    Mail::send('emails.send-contract-alert-mail', $data, function($message) use ($data){
+        
+        $message->to($data['email']);
+        $message->subject('Contract Alert');
+    });
+
+    DB::table('tenants')
+    ->where('tenant_id', $tenant->tenant_id)
+    ->update([
+        'tenants_note' => 'Email has been sent!'
+    ]);
+    
+    return back()->with('success', 'Email  has been sent to '. $tenant->first_name.' of '. $unit->building.' '.$unit->unit_no);
+
+})->middleware(['auth', 'verified']);
+
+//post tenant image
 Route::put('/units/{unit_id}/tenants/{tenant_id}/edit/img', function(Request $request, $unit_id,$tenant_id){
 
     $request->validate([
@@ -1728,10 +1617,20 @@ Route::put('/units/{unit_id}/tenants/{tenant_id}/edit/img', function(Request $re
     return back()->with('success', 'Tenant image has been updated!');
 })->middleware(['auth', 'verified']);
 
+
+//routes for rooms/units
+
+//show multiple units for editing
 Route::get('/units/edit/{property}/{date}', 'UnitsController@show_edit_multiple_rooms')->middleware(['auth', 'verified']);
+
+//post changes to multiple units
 Route::put('/units/edit/{property}/{date}', 'UnitsController@post_edit_multiple_rooms')->middleware(['auth', 'verified']);
 
-//account payable routes
+
+
+//routes for account payable functions
+
+//show account payable page
 Route::get('/account-payables', function(){
     if( auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager' || auth()->user()->user_type === 'ap'){
 
@@ -1749,7 +1648,7 @@ Route::get('/account-payables', function(){
     }
 })->middleware(['auth', 'verified']);
 
-//add entry 
+//add payable entry
 Route::post('/account-payable/add/{property}', function(Request $request){
     $no_of_entry = (int) $request->no_of_entry;
 
@@ -1765,7 +1664,7 @@ Route::post('/account-payable/add/{property}', function(Request $request){
     return back()->with('success', 'Payable entry has been added!');
 });
 
-//delete entry
+//delete payable entry
 Route::delete('/account-payable/{id}', function(Request $request, $id){
    
     DB::table('payable_entry')->where('id', $id)->delete();
@@ -1773,7 +1672,7 @@ Route::delete('/account-payable/{id}', function(Request $request, $id){
     return back()->with('success', 'Payable entry has been deleted!');
 });
 
-//request funds
+//request for funds
 Route::post('/account-payable/request/{property}', function(Request $request){
 
      $no_of_request = (int) $request->no_of_request;
@@ -1799,7 +1698,8 @@ Route::post('/account-payable/request/{property}', function(Request $request){
     return back()->with('success', 'Payable request has been created!');
 });
 
-//approve request
+
+//approve fund request
 Route::post('/request-payable/approve/{id}', function(Request $request, $id){   
   
     DB::table('payable_request')
@@ -1815,7 +1715,7 @@ Route::post('/request-payable/approve/{id}', function(Request $request, $id){
     return back()->with('success', 'Payable request has been approved!');
 });
 
-//disapprove request
+//disapprove fund request
 Route::post('/request-payable/disapprove/{id}', function(Request $request, $id){   
   
     DB::table('payable_request')
@@ -1841,6 +1741,25 @@ Route::post('/request-payable/disapprove/{id}', function(Request $request, $id){
 //     return view('show', compact('owners'));
     
 // });
+
+
+//routes for resources in landing page
+
+//show privacy policy
+Route::get('/privacy-policy', function(){
+    return view('privacy-policy');
+});
+
+//show terms of service
+Route::get('/terms-of-service', function(){
+    return view('terms-of-service');
+});
+
+
+//show acceptable use policy
+Route::get('/acceptable-use-policy', function(){
+    return view('acceptable-use-policy');
+});
 
 
 

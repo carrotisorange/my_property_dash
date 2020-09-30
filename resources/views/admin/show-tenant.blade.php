@@ -44,7 +44,7 @@
             </li>
             @endif
       
-        @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'treasury' && (Auth::user()->property_ownership === 'Multiple Owners'))
+       @if((Auth::user()->user_type === 'admin' && Auth::user()->property_ownership === 'Multiple Owners') || (Auth::user()->user_type === 'manager' && Auth::user()->property_ownership === 'Multiple Owners'))
         <!-- Nav Item - Tables -->
         <li class="nav-item">
             <a class="nav-link" href="/owners">
@@ -131,6 +131,7 @@
 @endsection
 
 @section('content')
+<?php   $diffInDays =  number_format(Carbon\Carbon::now()->DiffInDays(Carbon\Carbon::parse($tenant->moveout_date), false)) ?>
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
   <h1 class="h3 mb-0 text-gray-800">{{ $tenant->first_name.' '.$tenant->middle_name.' '.$tenant->last_name }}</h1>
 </div>
@@ -138,10 +139,19 @@
   <div class="col-md-12">
     <nav>
       <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        @if($tenant->email_address === null || $tenant->contact_no === null)
+        <a class="nav-item nav-link active" id="nav-profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="nav-profile" aria-selected="true"><i class="fas fa-user fa-sm text-primary-50"></i> Profile <span class="badge badge-warning"><i class="fas fa-exclamation-triangle"></i></span></a>
+        @else
         <a class="nav-item nav-link active" id="nav-profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="nav-profile" aria-selected="true"><i class="fas fa-user fa-sm text-primary-50"></i> Profile</a>
-        <a class="nav-item nav-link" id="nav-contracts-tab" data-toggle="tab" href="#contracts" role="tab" aria-controls="nav-contracts" aria-selected="false"><i class="fas fa-file-signature fa-sm text-primary-50"></i> Contracts</a>
+        @endif
+       
+        @if($diffInDays <= 30)
+        <a class="nav-item nav-link" id="nav-contracts-tab" data-toggle="tab" href="#contracts" role="tab" aria-controls="nav-contracts" aria-selected="false"><i class="fas fa-file-signature fa-sm text-primary-50"></i> Contracts <span class="badge badge-warning"><i class="fas fa-exclamation-triangle"></i></span></a>
+         @else
+         <a class="nav-item nav-link" id="nav-contracts-tab" data-toggle="tab" href="#contracts" role="tab" aria-controls="nav-contracts" aria-selected="false"><i class="fas fa-file-signature fa-sm text-primary-50"></i> Contracts</a>
+         @endif 
         <a class="nav-item nav-link" id="nav-bills-tab" data-toggle="tab" href="#bills" role="tab" aria-controls="nav-bills" aria-selected="true"><i class="fas fa-file-invoice-dollar fa-sm text-primary-50"></i> Bills <span class="badge badge-primary badge-counter">{{ $balance->count() }}</span></a>
-        <a class="nav-item nav-link" id="nav-payments-tab" data-toggle="tab" href="#payments" role="tab" aria-controls="nav-payments" aria-selected="true"><i class="fas fa-money-bill fa-sm text-primary-50"></i> Payments <span class="badge badge-primary badge-counter">{{ $collections->count() }}</span></a>
+        <a class="nav-item nav-link" id="nav-payments-tab" data-toggle="tab" href="#payments" role="tab" aria-controls="nav-payments" aria-selected="true"><i class="fas fa-money-bill fa-sm text-primary-50"></i> Payments <span class="badge badge-primary badge-counter">{{ $collections_count }}</span></a>
         <a class="nav-item nav-link" id="nav-concerns-tab" data-toggle="tab" href="#concerns" role="tab" aria-controls="nav-concern" aria-selected="false"><i class="fas fa-tools fa-sm text-primary-50"></i> Concerns</a>
       </div>
     </nav>
@@ -162,6 +172,9 @@
     @endif
 
      <br><br>
+     @if($tenant->email_address === null || $tenant->contact_no === null)
+    <p class="text-danger">Email address or mobile is missing!</p>
+     @endif
       <div class="table-responsive text-nowrap">
         <table class="table" >
 
@@ -353,12 +366,18 @@
       </div>
       </div>
       <div class="tab-pane fade" id="contracts" role="tabpanel" aria-labelledby="nav-contracts-tab">
-               
-    @if ($tenant->tenant_status === 'inactive' && $balance->sum('balance') > 0) 
-    <span  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#moveoutTenantWarning" data-whatever="@mdo"><i class="fas fa-external-link-alt fa-sm text-white-50"></i> Extend</span>
-    @else
-    <span  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#extendTenant" data-whatever="@mdo"><i class="fas fa-external-link-alt fa-sm text-white-50"></i> Extend</span>
-    @endif
+
+      
+        @if($diffInDays <= 30 )
+        <span  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#sendNotice" data-whatever="@mdo"><i class="fas fa-paper-plane fa-sm text-white-50"></i> Send Notice</span> 
+        @if ($tenant->tenant_status === 'inactive'|| $balance->sum('balance') <= 0) 
+        <span  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#extendTenant" data-whatever="@mdo"><i class="fas fa-external-link-alt fa-sm text-white-50"></i> Extend</span>
+        @else
+        <span  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#moveoutTenantWarning" data-whatever="@mdo"><i class="fas fa-external-link-alt fa-sm text-white-50"></i> Extend</span>
+        @endif
+       
+        
+        @endif
    
     @if ($tenant->tenant_status === 'active' || $tenant->tenant_status === 'pending')
        
@@ -379,11 +398,15 @@
       @endif
 
     @endif
+    
         <div class="row">
           
           <div class="col-md-11 mx-auto">
      
     <br>
+    @if($diffInDays <= 30)
+    <p class="text-danger">Contract expires in {{ $diffInDays }} days!</p>
+    @endif
             <div class="table-responsive text-nowrap">
               <table class="table table-bordered">
                 <tr>
@@ -396,7 +419,7 @@
               </tr>
               <?php 
                   $renewal_history = explode(",", $tenant->renewal_history); 
-                  $diffInDays =  number_format(Carbon\Carbon::now()->DiffInDays(Carbon\Carbon::parse($tenant->moveout_date), false))
+                  
               ?>
               <tr>
                   <td>Current Contract Period</td>
@@ -455,10 +478,11 @@
           @endif
           @if($balance->count() > 0)
           <a  target="_blank" href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/bills/download" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Export</span></a>
-          @endif
           @if($tenant->email_address !== null)
           <a  target="_blank" href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/bills/send" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-paper-plane  fa-sm text-white-50"></i> Send</span></a>
           @endif
+          @endif
+        
       
 
     <br>
@@ -869,11 +893,7 @@
                </div>
                <div class="modal-footer">
                  <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Close</button>
-                 @if($balance->sum('balance') > 0)
-                 <button title="balance has to be settled before moving out." href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{  $tenant->tenant_id }}/billings" form="extendTenantForm" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" disabled><i class="fas fa-check fa-sm text-white-50"></i> Terminate </button> 
-                 @else
-                 <button href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{  $tenant->tenant_id }}/billings" form="extendTenantForm" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-check fa-sm text-white-50"></i> Terminate</button> 
-                 @endif
+                
              </div>
              
                 
@@ -1269,6 +1289,48 @@
   
   
   </div>
+
+         {{-- Modal for warning message --}}
+         <div class="modal fade" id="sendNotice" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-md" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Send Notice</h5>
+              
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+              </div>
+              <div class="modal-body">
+                  <span class="text-justify">
+                      <h5>Hello, {{ $tenant->first_name }}!</h5>
+                  
+                      <p>Your contract in <b>{{ $unit->building.' '.$unit->unit_no }}</b> is set to expire on <b>{{ Carbon\Carbon::parse($tenant->moveout_date)->format('M d Y') }}</b>, exactly <b>{{ $diffInDays }} days </b> from now. 
+                          
+                      Would you like to extend your contract?If yes, for how long? </p>
+                  
+                      <p><b>This is a system generated message, and we do not receive emails from this account. Please let us know your response atleast a week before your moveout date through this email {{ Auth::user()->email }} instead. </b></p>
+                  
+                      Sincerely,
+                      <br>
+                      {{ Auth::user()->property }}
+                    </span>
+                    <hr>
+                  
+                    <form action="/units/{{ $unit->unit_id }}/tenants/{{ $tenant->tenant_id }}/alert/contract">
+                      @csrf
+                    <span>
+                      <p class="text-right">
+                      <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Close</button>
+                      <button class="btn btn-primary d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" title="for manager and admin access only" type="submit" onclick="this.form.submit(); this.disabled = true;"><i class="fas fa-paper-plane fa-sm text-white-50"></i> Send</button>
+                      </p>
+                    </form>
+                  </p>
+              </div>
+              
+          </div>
+          </div>
+</div>
 @endsection
 
 @section('scripts')

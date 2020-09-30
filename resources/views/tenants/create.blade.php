@@ -44,7 +44,7 @@
             </li>
             @endif
       
-        @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'treasury' && (Auth::user()->property_ownership === 'Multiple Owners'))
+       @if((Auth::user()->user_type === 'admin' && Auth::user()->property_ownership === 'Multiple Owners') || (Auth::user()->user_type === 'manager' && Auth::user()->property_ownership === 'Multiple Owners'))
         <!-- Nav Item - Tables -->
         <li class="nav-item">
             <a class="nav-link" href="/owners">
@@ -218,7 +218,7 @@
 <div class="row">
     <div class="col">
         <small class="">Mobile <span class="text-danger">*</span></small>
-      <input form="addTenantForm1" type="text" class="form-control " name="contact_no" id="contact_no"  >
+      <input form="addTenantForm1" type="text" class="form-control " name="contact_no" id="contact_no" >
 
       {{-- @error('contact_no')
       <span class="invalid-feedback" role="alert">
@@ -228,7 +228,7 @@
     </div>
     <div class="col">
         <small class="">Email <span class="text-danger">*</span></small>
-      <input form="addTenantForm1" type="email" class="form-control" name="email_address" id="email_address" value="thepropertymanager2020@gmail.com" required>
+      <input form="addTenantForm1" type="email" class="form-control" name="email_address" id="email_address" value="">
 
       {{-- @error('email_address')
       <span class="invalid-feedback" role="alert">
