@@ -199,6 +199,12 @@
                       @endif
                   </td>
              </tr>
+             <tr>
+               <td colspan="2">Concern</td>
+             </tr>
+             <tr>
+               <td colspan="2" class="text-center">{{ $concern->concern_desc }}</td>
+             </tr>
             
             
              </table>
@@ -225,6 +231,7 @@
             </p>
           </form>
           <hr>
+          
          @foreach ($responses as $item)
          <div class="card">
           <div class="card-body">
@@ -315,6 +322,15 @@
                 </select>
             </div>
         </div>
+
+        <div class="row">
+          <div class="col">
+              <small>Concern</small>
+             <textarea form="editConcernDetailsForm" class="form-control" name="concern_desc" id="" cols="30" rows="10" value="{{ $concern->concern_desc }}">
+             
+             </textarea>
+          </div>
+      </div>
 
       </div>
       <div class="modal-footer">

@@ -36,11 +36,7 @@ class ConcernController extends Controller
     public function store(Request $request)
     {
 
-        // DB::table('personnels')->insert([
-        //     'personnel_name' => 'Juan',
-        //     'personnel_contact_no' => '123123123',
-        //     'personnel_availability' => 'yes'
-        // ]);
+   
 
        $concern_id = DB::table('concerns')->insertGetId(
             [
@@ -50,6 +46,7 @@ class ConcernController extends Controller
                 'concern_urgency' => $request->concern_urgency,
                 'is_warranty' => 'na',
                 'concern_item' => $request->concern_item,
+                'concern_desc' => $request->concern_desc,
                 'concern_qty' => $request->concern_qty,
                 'concern_status' => 'pending',
                 'concern_personnel_id' => 1,
@@ -112,12 +109,14 @@ class ConcernController extends Controller
      */
     public function update(Request $request, $concern_id)
     {
+
         DB::table('concerns')
         ->where('concern_id', $concern_id)
         ->update([
             'date_reported' => $request->date_reported,
             'concern_item' => $request->concern_item,
             'concern_type' => $request->concern_type,
+            'concern_desc' => $request->concern_desc,
             'concern_urgency' => $request->concern_urgency,
             'concern_status' => $request->concern_status,
      
