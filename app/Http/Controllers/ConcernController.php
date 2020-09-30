@@ -52,7 +52,6 @@ class ConcernController extends Controller
                 'concern_item' => $request->concern_item,
                 'concern_qty' => $request->concern_qty,
                 'concern_status' => 'pending',
-                'concern_desc' => $request->concern_desc,
                 'concern_personnel_id' => 1,
                 'is_paid' => 'unpaid',
             ]);
@@ -112,31 +111,29 @@ class ConcernController extends Controller
             'concern_item' => $request->concern_item,
             'concern_type' => $request->concern_type,
             'concern_urgency' => $request->concern_urgency,
-            // 'concern_status' => $request->concern_status,
-            'concern_desc' => $request->concern_desc, 
-            'action_taken' => $request->action_taken,
-            'feedback' => $request->feedback,
+            'concern_status' => $request->concern_status,
+     
         ]);
 
 
-        DB::table('concerns')
-        ->where('concern_id', $concern_id)
-        ->where('action_taken', 'not like', '%CLOSED%')
-        ->whereNotNull('action_taken')
-        ->update([
-            'concern_status' => 'active',
-        ]);
+        // DB::table('concerns')
+        // ->where('concern_id', $concern_id)
+        // ->where('action_taken', 'not like', '%CLOSED%')
+        // ->whereNotNull('action_taken')
+        // ->update([
+        //     'concern_status' => 'active',
+        // ]);
 
-        DB::table('concerns')
-        ->where('concern_id', $concern_id)
-        ->where('action_taken', 'like', '%CLOSED%')
-        ->update([
-            'updated_at' => Carbon::now(),
-            'concern_status' => 'closed',
-        ]);
+        // DB::table('concerns')
+        // ->where('concern_id', $concern_id)
+        // ->where('action_taken', 'like', '%CLOSED%')
+        // ->update([
+        //     'updated_at' => Carbon::now(),
+        //     'concern_status' => 'closed',
+        // ]);
 
 
-        return back()->with('success', 'Concern information has been updated!');
+        return back()->with('success', 'Concern has been updated!');
     }
 
     /**

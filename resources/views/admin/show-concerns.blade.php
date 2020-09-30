@@ -44,7 +44,7 @@
             </li>
             @endif
       
-       @if((Auth::user()->user_type === 'admin' && Auth::user()->property_ownership === 'Multiple Owners') || (Auth::user()->user_type === 'manager' && Auth::user()->property_ownership === 'Multiple Owners'))
+        @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'treasury' && (Auth::user()->property_ownership === 'Multiple Owners'))
         <!-- Nav Item - Tables -->
         <li class="nav-item">
             <a class="nav-link" href="/owners">
@@ -132,438 +132,179 @@
 
 @section('content')
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-  <h1 class="h3 mb-0 text-gray-800">Concern ID: {{ $concern->concern_id }}</h1>
+  <h1 class="h3 mb-0 text-gray-800">{{ $unit->building.' '.$unit->unit_no }}</h1>
 </div>
-  <div class="row">
-      <div class="col-md-6">
-                  <div class="card shadow mb-4">
-                     <div class="card-header py-3">
-                       <h6 class="m-0 font-weight-bold text-primary">TENANT INFORMATION</h6>
-                     </div>
-                     <div class="card-body">
-                      <div class="table-responsive text-nowrap">
-                    <table class="table table-striped">
-                         <tr>
-                              <td>Tenant</th>
-                              <td><a href="/units/{{ $unit->unit_id }}/tenants/{{ $tenant->tenant_id }}/">{{ $tenant->first_name.' '.$tenant->last_name }}</a></td>
-                         </tr>
-                         <tr>
-                              <td>Mobile</td>
-                              <td>{{ $tenant->contact_no }}</td>
-                         </tr>
-                         <tr>
-                              <td>Email</td>
-                              <td>{{ $tenant->email_address}}</td>
-                         </tr>
-                         <tr>
-                            <td>Room</td>
-                              <td><a href="/units/{{ $unit->unit_id }}">{{ $unit->building.' '.$unit->unit_no }}</a></td>
-                         </tr>
-                     </table>
-                    </div>
-                     </div>
-                   </div>
-           
-      </div>
 
-      <div class="col-md-6">
-                  <div class="card shadow mb-4">
-                                     <!-- Card Header - Dropdown -->
-                    <div class="
-                    ">
-                      <h6 class="m-0 font-weight-bold text-primary">CONCERN INFORMATION</h6>
-                      <!-- start -->
-                      <div class="dropdown no-arrow">
-                        <a href="#" class="dropdown-toggle" data-toggle="modal" data-target="#editConcernDetails" >
-                        <i class="fas fa-edit fa-sm fa-fw text-gray-400"></i>
-                        </a>
-                        <!-- <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                          <div class="dropdown-header">Dropdown Header:</div>
-                          <a class="dropdown-item" href="#">Action</a>
-                          <a class="dropdown-item" href="#">Another action</a>
-                          <div class="dropdown-divider"></div>
-                          <a class="dropdown-item" href="#">Something else here</a>
-                        </div> -->
-                      </div>
-                      <!-- end -->
-                    </div>
-                     <div class="card-body">
-                  <div class="table table-striped"-responsive text-nowrap">
-                    <table class="table table-striped" table-bordered" width="100%" cellspacing="0">
-                          <tr>
-                              <td>Date Reported</td>
-                              <td>{{ Carbon\Carbon::parse($concern->date_reported)->format('M d Y') }}</td>
-                         </tr>
-                         <tr>
-                              <td>Description</td>
-                              <td>{{ $concern->concern_item }}</td>
-                         </tr>
-                         <tr>
-                              <td>Type</td>
-                              <td>
-                                {{ $concern->concern_type }}
-                              </td>
-                         </tr>
-                         <!-- <tr>
-                              <th>UNDER WARRANTY</th>
-                              <td>{{ $concern->is_warranty }}</td>
-                         </tr> -->
-                         <tr>
-                              <td>Urgency</td>
-                              <td>
-                                @if($concern->concern_urgency === 'urgent')
-                                <span class="badge badge-danger">{{ $concern->concern_urgency }}</span>
-                                @elseif($concern->concern_urgency === 'major')
-                                <span class="badge badge-warning">{{ $concern->concern_urgency }}</span>
-                                @else
-                                <span class="badge badge-primary">{{ $concern->concern_urgency }}</span>
-                                @endif
-                              </td>
-                         </tr>
-                         <tr>
-                            <td>Status</td>
-                              <td>
-                                  @if($concern->concern_status === 'pending')
-                                  <span class="badge badge-warning">{{ $concern->concern_status }} for {{ number_format(Carbon\Carbon::parse($concern->date_reported)->DiffInDays(Carbon\Carbon::now()), 0) }} days</span>
-                                  @elseif($concern->concern_status === 'active')
-                                  <span class="badge badge-primary">{{ $concern->concern_status }} for {{ number_format(Carbon\Carbon::parse($concern->date_reported)->DiffInDays(Carbon\Carbon::now()), 0) }} days </span> 
-                                  @else
-                                  <span class="badge badge-secondary">{{ $concern->concern_status }} on {{ Carbon\Carbon::parse($concern->updated_at)->format('M d Y')}}</span> 
-                                  @endif
-                              </td>
-                         </tr>
-                        
-                     </table>
-                    </div>
-                     </div>
-                   </div>
-           
+<div class="row">
+  <div class="col-md-12">
+    <nav>
+      <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <a class="nav-item nav-link active" id="nav-concern-tab" data-toggle="tab" href="#concern" role="tab" aria-controls="nav-concern" aria-selected="true"><i class="far fa-comment-dots fa-sm text-primary-50"></i> Concern</a>
+        <a class="nav-item nav-link" id="nav-responses-tab" data-toggle="tab" href="#responses" role="tab" aria-controls="nav-responses" aria-selected="false"><i class="fas fa-reply fa-sm text-primary-50"></i> Responses</a>
+        <a class="nav-item nav-link" id="nav-expenses-tab" data-toggle="tab" href="#expenses" role="tab" aria-controls="nav-expenses" aria-selected="false"><i class="fas fa-dollar-sign fa-sm text-primary-50"></i> Expenses</a>
       </div>
-      
+    </nav>
   </div>
-  
-  <div class="row">
-      <div class="col-md-12">
-          <div class="card shadow mb-4">
-          <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">DETAILS OF THE CONCERN</h6>
-                      <!-- start -->
-                      <div class="dropdown no-arrow">
-                        <a href="#" class="dropdown-toggle" data-toggle="modal" data-target="#editConcernFullDetails" >
-                        <i class="fas fa-edit fa-sm fa-fw text-gray-400"></i>
-                        </a>
-                        <!-- <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                          <div class="dropdown-header">Dropdown Header:</div>
-                          <a class="dropdown-item" href="#">Action</a>
-                          <a class="dropdown-item" href="#">Another action</a>
-                          <div class="dropdown-divider"></div>
-                          <a class="dropdown-item" href="#">Something else here</a>
-                        </div> -->
-                      </div>
-                      <!-- end -->
-                    </div>
-          
-              <div class="card-body">
-                  <p>{{ $concern->concern_desc }}</p>
-              </div>
-          </div>    
-      </div>
-  </div>
-
-  <div class="row">
-      <div class="col-md-12">
-      <div class="card shadow mb-4">
-          <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">ACTION THAT HAS BEEN TAKEN TO ADDRESS THE CONCERN</h6>
-                      <!-- start -->
-                      <div class="dropdown no-arrow">
-                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                          <div class="dropdown-header">Select Action:</div>
-                          <a class="dropdown-item" href="#" data-toggle="modal" data-target="#editActionTakenForm" >Edit Details</a>
-                          <div class="dropdown-divider"></div>
-                          <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createJobOrderModal">Create job order</a>
-                        </div> 
-                      </div>
-                      <!-- end -->
-                    </div>
-          
-              <div class="card-body">
-              <p id="action_taken">{{ $concern->action_taken }}</p>
-              </div>
-          </div>   
-            
-      </div>
-  </div>
-
-  <div class="row">
-      <div class="col-md-12">
-          <div class="card shadow mb-4">
-          <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">FEEDBACK BY THE TENANT TO THE CONCERN</h6>
-                      <!-- start -->
-                      <div class="dropdown no-arrow">
-                        <a href="#" class="dropdown-toggle" data-toggle="modal" data-target="#editFeedbackConcern" >
-                        <i class="fas fa-edit fa-sm fa-fw text-gray-400"></i>
-                        </a>
-                        <!-- <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                          <div class="dropdown-header">Dropdown Header:</div>
-                          <a class="dropdown-item" href="#">Action</a>
-                          <a class="dropdown-item" href="#">Another action</a>
-                          <div class="dropdown-divider"></div>
-                          <a class="dropdown-item" href="#">Something else here</a>
-                        </div> -->
-                      </div>
-                      <!-- end -->
-                    </div>
-          
-              <div class="card-body">
-              <p>{{ $concern->feedback }}</p>
-              </div>
-          </div>   
-
-      </div>
-  </div>
-
-  <div class="modal fade" id="editConcernDetails" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-md" role="document">
-    <div class="modal-content">
-        <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Edit Concern Information</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-        </div>
-        <div class="modal-body">
-        <form id="editConcernDetailsForm" action="/concerns/{{ $concern->concern_id }}" method="POST">
-          @method('put')
-          {{ csrf_field() }}
-        </form>
-          <div class="row">
-              <div class="col">
-                  <small>Date reported</small>
-                  <input type="date" form="editConcernDetailsForm" class="form-control" name="date_reported" value="{{ $concern->date_reported }}" required>
-              </div>
-          </div>
-          
-          <div class="row">
-              <div class="col">
-                  <small>Description</small>
-                  <input type="text" form="editConcernDetailsForm" class="form-control" name="concern_item" value="{{ $concern->concern_item }}" required>
-              </div>
-          </div>
-        
-          <div class="row">
-              <div class="col">
-                  <small>Type</small>
-                  <select class="form-control" form="editConcernDetailsForm" name="concern_type" id="" required>
-                      <option value="{{ $concern->concern_type }}" readonly selected class="bg-primary">{{ $concern->concern_type }}</option>
-                      <option value="billing">billing</option>
-                      <option value="internet">internet</option>
-                      <option value="employee">employee</option>
-                      <option value="neighbour">neighbour</option>
-                      <option value="noise">noise</option>
-                      <option value="odours">odours</option>
-                      <option value="parking">parking</option>
-                      <option value="pets">pets</option>
-                      <option value="repair">repair</option>
-                      <option value="others">others</option>
-                  </select>
-              </div>
-          </div>
-
-          <div class="row">
-              <div class="col">
-                  <small>Urgency</small>
-                  <select class="form-control" form="editConcernDetailsForm" name="concern_urgency" id="" required>
-                      <option value="{{ $concern->concern_urgency }}" readonly selected class="bg-primary">{{ $concern->concern_urgency }}</option>
-                     <option value="minor">minor</option>
-                     <option value="major">major</option>
-                     <option value="urgent">urgent</option>
-                  </select>
-              </div>
-          </div>
-
-          {{-- <div class="row">
-              <div class="col">
-                  <small>Status</small>
-                  <select class="form-control" form="editConcernDetailsForm" name="concern_status" id="" required>
-                      <option value="{{ $concern->concern_status }}" readonly selected class="bg-primary">{{ $concern->concern_status }}</option>
-                     <option value="pending">pending</option>
-                     <option value="active">active</option>
-                     <option value="closed">closed</option>
-                  </select>
-              </div>
-          </div> --}}
-
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button>
-            <button form="editConcernDetailsForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want to perform this action?');" ><i class="fas fa-check fa-sm text-white-50"></i> Update</button>
-        </div>
-    </div>
-    </div>
-
 </div>
-
-<div class="modal fade" id="editConcernFullDetails" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-md" role="document">
-    <div class="modal-content">
-        <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Enter the details of the concern</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-        </div>
-        <div class="modal-body">
-        <form id="editConcernDetailsForm" action="/concerns/{{ $concern->concern_id }}" method="POST">
-          @method('put')
-          {{ csrf_field() }}
-        </form>
-          <div class="row">
-              <div class="col">
-                  <small></small>
-                  <textarea form="editConcernDetailsForm" class="form-control" name="concern_desc" cols="30" rows="10">{{ $concern->concern_desc }}</textarea>
-              </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button>
-            <button form="editConcernDetailsForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want to perform this action?');" ><i class="fas fa-check fa-sm text-white-50"></i> Add Details</button>
-        </div>
-    </div>
-    </div>
-</div>
-
-<div class="modal fade" id="editActionTakenForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-md" role="document">
-    <div class="modal-content">
-        <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Enter the action taken to address the concern</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-        </div>
-        <div class="modal-body">
-        <form id="editConcernDetailsForm" action="/concerns/{{ $concern->concern_id }}" method="POST">
-          @method('put')
-          {{ csrf_field() }}
-        </form>
-          <div class="row">
-              <div class="col">
-                  <small></small>
-                  <textarea form="editConcernDetailsForm" class="form-control" name="action_taken" cols="30" rows="10">{{ $concern->action_taken }}</textarea>
-              </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button>
-            <button form="editConcernDetailsForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want to perform this action?');" ><i class="fas fa-check fa-sm text-white-50"></i> Add Action</button>
-        </div>
-    </div>
-    </div>
-</div>
-
-
-<div class="modal fade" id="editFeedbackConcern" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-md" role="document">
-    <div class="modal-content">
-        <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Enter the feedback of the tenant to the concern</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-        </div>
-        <div class="modal-body">
-        <form id="editConcernDetailsForm" action="/concerns/{{ $concern->concern_id }}" method="POST">
-          @method('put')
-          {{ csrf_field() }}
-        </form>
-          <div class="row">
-              <div class="col">
-                  <small></small>
-                  <textarea form="editConcernDetailsForm" class="form-control" name="feedback" cols="30" rows="10">{{ $concern->feedback }}</textarea>
-              </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button>
-            <button form="editConcernDetailsForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want to perform this action?');" ><i class="fas fa-check fa-sm text-white-50"></i> Add Feedback</button>
-        </div>
-    </div>
-    </div>
-</div>
-
-<div class="modal fade" id="createJobOrderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-        <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Enter Job Order Information</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-        </div>
-        <div class="modal-body">
-        <form id="editConcernDetailsForm" action="/joborders/{{ $concern->concern_id }}" method="POST">
-          @method('put')
-          {{ csrf_field() }}
-        </form>
-        
-          <div class="row">
-              <div class="col">
-                  <small>Tenant</small>
-                  <p>{{ $tenant->first_name.' '.$tenant->last_name }}</p>
-              </div>
-
-              <div class="col">
-                <small>Mobile</small>
-                <p>{{ $tenant->contact_no }}</p>
-              </div>
-            
-              <div class="col">
-                  <small>Room</small>
-                  <p>{{ $unit->building.' '.$unit->unit_no }}</p>
-              </div>
-             
-          </div>
-          <label for="">Concern/Request</label>
-          <div class="row">
-            <div class="col">
-                <small></small>
-                <textarea form="editConcernDetailsForm" class="form-control" name="concern_desc" cols="30" rows="10">{{ $concern->concern_desc }}</textarea>
-            </div>
-          </div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="tab-content" id="nav-tabContent">
+      <div class="tab-pane fade show active" id="concern" role="tabpanel" aria-labelledby="nav-concern-tab">
+        <br>
+        <a href="#" data-toggle="modal" data-target="#editConcernDetails" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-edit fa-sm text-white-50"></i> Edit</a> 
+        <div class="col-md-11 mx-auto">
           <br>
-          <label for="">Request for materials</label>
-          <div class="row">
-            <div class="col">
-              <a id='delete_row' class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-minus fa-sm text-white-50"></i></a>
-                  <a id="add_row" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i></a>     
-                  <br>  
-                  <br>
-                  <table class = "table table-hover " id="tab_logic">
-                    <tr>
-                        <th class="text-center">#</th>
-                        <th>Item</th>
-                        <th>Qty</th>
-                        <th>Price</th>
-                        <th>Total</th>
-                    </tr>
-                        <input form="moveoutTenantForm" type="hidden" id="no_of_items" name="no_of_items" >
-                    <tr id='addr1'></tr>
-                  </table>
+          <div class="table-responsive text-nowrap">
+            <table class="table table-bordered">
+              <tr>
+                <td>Date Reported</td>
+                <td>{{ Carbon\Carbon::parse($concern->date_reported)->format('M d Y') }}</td>
+              </tr>
+                 <tr>
+                      <td>Reported by</th>
+                      <td><a href="/units/{{ $unit->unit_id }}/tenants/{{ $tenant->tenant_id }}/">{{ $tenant->first_name.' '.$tenant->last_name }}</a></td>
+                 </tr>     
+             <tr>
+                  <td>Description</td>
+                  <td>{{ $concern->concern_item }}</td>
+             </tr>
+             <tr>
+                  <td>Type</td>
+                  <td>
+                    {{ $concern->concern_type }}
+                  </td>
+             </tr>
+            
+             <tr>
+                  <td>Urgency</td>
+                  <td>
+                    @if($concern->concern_urgency === 'urgent')
+                    <span class="badge badge-danger">{{ $concern->concern_urgency }}</span>
+                    @elseif($concern->concern_urgency === 'major')
+                    <span class="badge badge-warning">{{ $concern->concern_urgency }}</span>
+                    @else
+                    <span class="badge badge-primary">{{ $concern->concern_urgency }}</span>
+                    @endif
+                  </td>
+             </tr>
+             <tr>
+                <td>Status</td>
+                  <td>
+                      @if($concern->concern_status === 'pending')
+                      <span class="badge badge-warning">{{ $concern->concern_status }} for {{ number_format(Carbon\Carbon::parse($concern->date_reported)->DiffInDays(Carbon\Carbon::now()), 0) }} days</span>
+                      @elseif($concern->concern_status === 'active')
+                      <span class="badge badge-primary">{{ $concern->concern_status }} for {{ number_format(Carbon\Carbon::parse($concern->date_reported)->DiffInDays(Carbon\Carbon::now()), 0) }} days </span> 
+                      @else
+                      <span class="badge badge-secondary">{{ $concern->concern_status }} on {{ Carbon\Carbon::parse($concern->updated_at)->format('M d Y')}}</span> 
+                      @endif
+                  </td>
+             </tr>
+             <tr>
+               <td colspan="2">Concern</td>
+             </tr>
+             <tr>
+               <td colspan="2" class="text-center">{{ $concern->concern_desc }}</td>
+             </tr>
+            
+             </table>
             </div>
-          </div>
         </div>
-        <div class="modal-footer">
-            <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button>
-            <button form="editConcernDetailsForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want to perform this action?');" ><i class="fas fa-check fa-sm text-white-50"></i> Create Job Order</button>
+      </div>
+      <div class="tab-pane fade" id="responses" role="tabpanel" aria-labelledby="nav-responses-tab">
+        <br>
+        <a href="#" data-toggle="modal" data-target="#addResponse" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Add</a> 
+        <div class="col-md-11 mx-auto"> 
+          <br>
+
         </div>
+      </div>
+      <div class="tab-pane fade" id="expenses" role="tabpanel" aria-labelledby="nav-expenses-tab">...</div>
     </div>
-    </div>
+  </div>
 </div>
+
+
+<div class="modal fade" id="editConcernDetails" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md" role="document">
+  <div class="modal-content">
+      <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">Edit Concern</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+      </button>
+      </div>
+      <div class="modal-body">
+      <form id="editConcernDetailsForm" action="/concerns/{{ $concern->concern_id }}" method="POST">
+        @method('put')
+        {{ csrf_field() }}
+      </form>
+        <div class="row">
+            <div class="col">
+                <small>Date reported</small>
+                <input type="date" form="editConcernDetailsForm" class="form-control" name="date_reported" value="{{ $concern->date_reported }}" required>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col">
+                <small>Description</small>
+                <input type="text" form="editConcernDetailsForm" class="form-control" name="concern_item" value="{{ $concern->concern_item }}" required>
+            </div>
+        </div>
+      
+        <div class="row">
+            <div class="col">
+                <small>Type</small>
+                <select class="form-control" form="editConcernDetailsForm" name="concern_type" id="" required>
+                    <option value="{{ $concern->concern_type }}" readonly selected class="bg-primary">{{ $concern->concern_type }}</option>
+                    <option value="billing">billing</option>
+                    <option value="internet">internet</option>
+                    <option value="employee">employee</option>
+                    <option value="neighbour">neighbour</option>
+                    <option value="noise">noise</option>
+                    <option value="odours">odours</option>
+                    <option value="parking">parking</option>
+                    <option value="pets">pets</option>
+                    <option value="repair">repair</option>
+                    <option value="others">others</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <small>Urgency</small>
+                <select class="form-control" form="editConcernDetailsForm" name="concern_urgency" id="" required>
+                    <option value="{{ $concern->concern_urgency }}" readonly selected class="bg-primary">{{ $concern->concern_urgency }}</option>
+                   <option value="minor">minor</option>
+                   <option value="major">major</option>
+                   <option value="urgent">urgent</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <small>Status</small>
+                <select class="form-control" form="editConcernDetailsForm" name="concern_status" id="" required>
+                    <option value="{{ $concern->concern_status }}" readonly selected class="bg-primary">{{ $concern->concern_status }}</option>
+                   <option value="pending">pending</option>
+                   <option value="active">active</option>
+                   <option value="closed">closed</option>
+                </select>
+            </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+
+          <button form="editConcernDetailsForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want to perform this action?');" ><i class="fas fa-check fa-sm text-white-50"></i> Save Changes</button>
+      </div>
+  </div>
+  </div>
+
+</div>
+
 @endsection
 
 @section('scripts')

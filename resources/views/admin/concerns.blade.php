@@ -136,23 +136,25 @@
 </div>
 <div class="table-responsive text-nowrap">
      
-        <table class="table table-striped" >
+        <table class="table table-bordered" >
           <thead>
+            <?php $ctr=1; ?>
             <tr>
-                <th>ID</th>
-                <th>DATE REPORTED</th>
-                <th>TENANT</th>
-                <th>ROOM</th>
-                <th>TYPE</th>
-                <th>DESCRIPTION</th>
-                <th>URGENCY</th>
-                <th>STATUS</th> 
+                <th>#</th>
+                <th>Date Reported</th>
+                <th>Reported By</th>
+                <th>Room</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Urgency</th>
+                <th>Status</th> 
            </tr>
           </thead>
           <tbody>
             @foreach ($concerns as $item)
             <tr>
-            <td>{{ $item->concern_id }}</td>
+              <th>{{ $ctr++ }}</th>
+           
               <td>{{ Carbon\Carbon::parse($item->date_reported)->format('M d Y') }}</td>
                 <td>
                     <a href="{{ route('show-tenant',['unit_id'=> $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a>
