@@ -1762,6 +1762,24 @@ Route::get('/acceptable-use-policy', function(){
 });
 
 
+//routes for response
+
+//add response
+Route::post('/responses', function(Request $request){
+    DB::table('responses')
+    ->insertGetId(
+          [
+              'concern_id_foreign' => $request->concern_id,
+              'response' => $request->response,
+              'posted_by' => Auth::user()->name,
+              'created_at' => Carbon::now(),
+          ]
+    );
+
+    return redirect('/units/'.$request->unit_id.'/tenants/'.$request->tenant_id.'/concerns/'.$request->concern_id.'#responses')->with('success', 'Your response has been posted !');
+})->middleware(['auth', 'verified']);
+
+
 
 
 

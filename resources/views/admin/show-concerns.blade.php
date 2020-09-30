@@ -140,7 +140,7 @@
     <nav>
       <div class="nav nav-tabs" id="nav-tab" role="tablist">
         <a class="nav-item nav-link active" id="nav-concern-tab" data-toggle="tab" href="#concern" role="tab" aria-controls="nav-concern" aria-selected="true"><i class="far fa-comment-dots fa-sm text-primary-50"></i> Concern</a>
-        <a class="nav-item nav-link" id="nav-responses-tab" data-toggle="tab" href="#responses" role="tab" aria-controls="nav-responses" aria-selected="false"><i class="fas fa-reply fa-sm text-primary-50"></i> Responses</a>
+        <a class="nav-item nav-link" id="nav-responses-tab" data-toggle="tab" href="#responses" role="tab" aria-controls="nav-responses" aria-selected="false"><i class="fas fa-reply fa-sm text-primary-50"></i> Responses <span class="badge badge-primary badge-counter">{{ $responses->count() }}</span></a>
         <a class="nav-item nav-link" id="nav-expenses-tab" data-toggle="tab" href="#expenses" role="tab" aria-controls="nav-expenses" aria-selected="false"><i class="fas fa-dollar-sign fa-sm text-primary-50"></i> Expenses</a>
       </div>
     </nav>
@@ -199,23 +199,44 @@
                       @endif
                   </td>
              </tr>
-             <tr>
-               <td colspan="2">Concern</td>
-             </tr>
-             <tr>
-               <td colspan="2" class="text-center">{{ $concern->concern_desc }}</td>
-             </tr>
+            
             
              </table>
             </div>
         </div>
       </div>
       <div class="tab-pane fade" id="responses" role="tabpanel" aria-labelledby="nav-responses-tab">
-        <br>
-        <a href="#" data-toggle="modal" data-target="#addResponse" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Add</a> 
+      
+       
+        {{-- <a href="#" data-toggle="modal" data-target="#addResponse" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Add</a>  --}}
         <div class="col-md-11 mx-auto"> 
-          <br>
-
+          <br>   
+          <blockquote class="blockquote mb-0">Concern</blockquote><p>{{ $concern->concern_desc }}</p>
+          <hr>
+          <form action="/responses" method="POST">
+            @csrf
+            <textarea class="form-control" name="response" id="" cols="30" rows="3" placeholder="type your response here..."></textarea>
+            <input type="hidden" name="concern_id" value="{{ $concern->concern_id }}">
+            <input type="hidden" name="unit_id" value="{{ $unit->unit_id }}">
+            <input type="hidden" name="tenant_id" value="{{ $tenant->tenant_id }}">
+            <br>
+            <p class="text-right">
+              <button type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="this.form.submit(); this.disabled = true;"><i class="fas fa-reply fa-sm text-white-50"></i> response </button>
+            </p>
+          </form>
+          <hr>
+         @foreach ($responses as $item)
+         <div class="card">
+          <div class="card-body">
+            <blockquote class="blockquote mb-0">
+              <p>{{ $item->response }}</p>
+              <footer class="blockquote-footer">posted by <cite title="Source Title">{{ $item->posted_by }}</cite> on {{ Carbon\Carbon::parse($item->created_at)->format('M d Y H:m:s') }}</footer>
+            </blockquote>
+          </div>
+        </div>
+        <br>
+         @endforeach
+     
         </div>
       </div>
       <div class="tab-pane fade" id="expenses" role="tabpanel" aria-labelledby="nav-expenses-tab">...</div>
@@ -304,6 +325,33 @@
   </div>
 
 </div>
+
+{{-- <div class="modal fade" id="addResponse" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md" role="document">
+  <div class="modal-content">
+      <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">Add Response</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+      </button>
+      </div>
+      <div class="modal-body">
+     
+        <div class="row">
+            <div class="col">
+                <small>Date reported</small>
+                <input type="date" form="editConcernDetailsForm" class="form-control" name="date_reported" value="{{ $concern->date_reported }}" required>
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+
+          <button form="editConcernDetailsForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want to perform this action?');" ><i class="fas fa-check fa-sm text-white-50"></i> Save Changes</button>
+      </div>
+  </div>
+  </div>
+
+</div> --}}
 
 @endsection
 

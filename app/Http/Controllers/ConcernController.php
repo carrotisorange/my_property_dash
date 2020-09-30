@@ -75,9 +75,17 @@ class ConcernController extends Controller
 
             $concern = Concern::findOrFail($concern_id);
 
+            $responses = DB::table('concerns')
+            
+            ->join('responses', 'concern_id', 'concern_id_foreign')
+            ->select('*', 'responses.created_at as created_at')
+            ->where('concern_id', $concern_id)
+            ->orderBy('responses.created_at', 'desc')
+            ->get();
+
             
       
-       return view('admin.show-concerns', compact('tenant','unit','concern'));
+       return view('admin.show-concerns', compact('tenant','unit','concern', 'responses'));
    }else{
        return view('unregistered');
    }
