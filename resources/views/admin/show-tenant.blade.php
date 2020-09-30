@@ -366,10 +366,11 @@
       </div>
       </div>
       <div class="tab-pane fade" id="contracts" role="tabpanel" aria-labelledby="nav-contracts-tab">
-
       
         @if($diffInDays <= 30 )
         <span  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#sendNotice" data-whatever="@mdo"><i class="fas fa-paper-plane fa-sm text-white-50"></i> Send Notice</span> 
+        @endif
+
         @if ($tenant->tenant_status === 'inactive'|| $balance->sum('balance') <= 0) 
         <span  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#extendTenant" data-whatever="@mdo"><i class="fas fa-external-link-alt fa-sm text-white-50"></i> Extend</span>
         @else
@@ -377,7 +378,6 @@
         @endif
        
         
-        @endif
    
     @if ($tenant->tenant_status === 'active' || $tenant->tenant_status === 'pending')
        
