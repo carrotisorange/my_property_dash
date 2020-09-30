@@ -245,6 +245,7 @@
   </table>
  
 </div>
+<br>
 <h4>Users ({{ $users->count() }})</h4>
 <div class="table-responsive text-nowrap">
   <table class="table table-bordered" >
