@@ -154,7 +154,7 @@
         </tr>
         <tr>
           
-                <th>Ar No</th>
+                <th>AR No</th>
                 <th>Bill No</th>
                 <th>Tenant</th>
                 <th>Room</th>
