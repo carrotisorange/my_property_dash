@@ -169,7 +169,7 @@
                 <form action="/account-payable/{{ $item->id }}/" method="POST">
                   @csrf
                   @method('delete')
-                  <button title="remove this entry" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"  onclick="return confirm('Are you sure you want perform this action?');"><i class="fas fa-times fa-sm text-white-50"></i></button>
+                  <button title="remove this entry" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"  onclick="return confirm('Are you sure you want perform this action?');"><i class="fas fa-trash fa-sm text-white-50"></i></button>
                 </form>
                 @endif
                </td>
@@ -276,8 +276,8 @@
         
      </div>
       <div class="modal-footer">
-          <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Close</button>
-          <button form="addPayableEntryForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;"><i class="fas fa-check"></i> Save</button>
+
+          <button form="addPayableEntryForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" ><i class="fas fa-check"></i> Save</button>
           </div>
   </div>
   </div>
@@ -321,8 +321,8 @@
         
      </div>
       <div class="modal-footer">
-          <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Close</button>
-          <button form="requestFundsForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;"><i class="fas fa-check"></i> Save</button>
+
+          <button form="requestFundsForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" ><i class="fas fa-check"></i> Save</button>
           </div>
   </div>
   </div>
@@ -335,7 +335,7 @@
           var i=1;
           
       $("#add_entry").click(function(){
-          $('#addr'+i).html("<th>"+ (i) +"</th><td><input class='col-md-12' form='addPayableEntryForm' name='payable_entry"+i+"' type='text'></td> ");
+          $('#addr'+i).html("<th>"+ (i) +"</th><td><input class='form-control' form='addPayableEntryForm' name='payable_entry"+i+"' type='text'></td> ");
   
   
        $('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
@@ -357,7 +357,7 @@
       var j=1;
           
           $("#add_request").click(function(){
-              $('#request'+j).html("<th>"+ (j) +"</th><td><select form='requestFundsForm' name='entry"+j+"' required>@foreach($entry as $item)<option value='{{ $item->payable_entry }}'>{{ $item->payable_entry }}</option> @endforeach</select></td><td><input form='requestFundsForm' name='amt"+j+"' type='number' step='0.001' required></td> ");
+              $('#request'+j).html("<th>"+ (j) +"</th><td><select class='form-control' form='requestFundsForm' name='entry"+j+"' required>@foreach($entry as $item)<option value='{{ $item->payable_entry }}'>{{ $item->payable_entry }}</option> @endforeach</select></td><td><input class='form-control' form='requestFundsForm' name='amt"+j+"' type='number' step='0.001' required></td> ");
       
       
            $('#request_table').append('<tr id="request'+(j+1)+'"></tr>');
