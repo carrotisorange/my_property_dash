@@ -1774,7 +1774,7 @@ Route::post('/responses', function(Request $request){
           ]
     );
 
-    return redirect('/units/'.$request->unit_id.'/tenants/'.$request->tenant_id.'/concerns/'.$request->concern_id.'#responses')->with('success', 'Your response has been posted !');
+    return redirect('/units/'.$request->unit_id.'/tenants/'.$request->tenant_id.'/concerns/'.$request->concern_id.'#responses')->with('success', 'Your response has been posted!');
 })->middleware(['auth', 'verified']);
 
 
