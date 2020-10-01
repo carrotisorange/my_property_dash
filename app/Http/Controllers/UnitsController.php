@@ -232,11 +232,14 @@ class UnitsController extends Controller
         }
 
         $units = DB::table('units')
-        ->where('unit_property', Auth::user()
-        ->property)->where('status','<>','deleted')
+        ->where('unit_property', Auth::user()->property)
+        ->where('status','<>','deleted')
         ->count();
 
-        $occupied_units = DB::table('units')->where('unit_property', Auth::user()->property)->where('status', 'occupied')->count();
+        $occupied_units = DB::table('units')
+        ->where('unit_property', Auth::user()->property)
+        ->where('status', 'occupied')
+        ->count();
 
         DB::table('occupancy_rate')
             ->insert(
@@ -300,11 +303,14 @@ class UnitsController extends Controller
             ]);
 
             $units = DB::table('units')
-            ->where('unit_property', Auth::user()
-            ->property)->where('status','<>','deleted')
+            ->where('unit_property', Auth::user()->property)
+            ->where('status','<>','deleted')
             ->count();
 
-            $occupied_units = DB::table('units')->where('unit_property', Auth::user()->property)->where('status', 'occupied')->count();
+            $occupied_units = DB::table('units')
+            ->where('unit_property', Auth::user()->property)
+            ->where('status', 'occupied')
+            ->count();
     
             DB::table('occupancy_rate')
                 ->insert(
@@ -380,11 +386,14 @@ class UnitsController extends Controller
 
             $selected_unit = Unit::findOrFail($id);
             $units = DB::table('units')
-            ->where('unit_property', Auth::user()
-            ->property)->where('status','<>','deleted')
+            ->where('unit_property', Auth::user()->property)
+            ->where('status','<>','deleted')
             ->count();
 
-            $occupied_units = DB::table('units')->where('unit_property', Auth::user()->property)->where('status', 'occupied')->count();
+            $occupied_units = DB::table('units')
+            ->where('unit_property', Auth::user()->property)
+            ->where('status', 'occupied')
+            ->count();
     
             DB::table('occupancy_rate')
                 ->insert(

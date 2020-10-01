@@ -147,7 +147,7 @@
 </form>
 </div>
 <div class="table-responsive text-nowrap">
-    <table class="table table-striped">
+    <table class="table table-bordered">
       @foreach ($collections as $day => $collection_list)
         <tr>
             <th colspan="12">{{ Carbon\Carbon::parse($day)->addDay()->format('M d Y') }}, PAYMENTS MADE: ({{ $collection_list->count() }}) , TOTAL AMOUNT OF PAYMENTS: ({{ number_format($collection_list->sum('amt_paid'),2) }})</th>
