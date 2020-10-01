@@ -154,9 +154,7 @@ Route::get('/board', function(Request $request){
 
         $current_occupancy_rate = DB::table('occupancy_rate')
         ->where('occupancy_property', Auth::user()->property)
-        ->whereMonth('occupancy_date', Carbon::today()->month)
-        ->whereYear('occupancy_date', Carbon::today()->year)
-        ->orderBy('id', 'desc')
+        ->latest('occupancy_date')
         ->limit(1)
         ->pluck('occupancy_rate');
 
