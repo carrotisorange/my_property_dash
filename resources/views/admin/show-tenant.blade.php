@@ -550,7 +550,7 @@
           <table class="table table-bordered">
               @foreach ($collections as $day => $collection_list)
                 <tr>
-                    <th colspan="10">{{ Carbon\Carbon::parse($day)->addDay()->format('M d Y') }}, PAYMENTS MADE: ({{ $collection_list->count() }}) , TOTAL AMOUNT OF PAYMENTS: ({{ number_format($collection_list->sum('amt_paid'),2) }})</th>
+                    <th colspan="10">{{ Carbon\Carbon::parse($day)->addDay()->format('M d Y') }} ({{ $collection_list->count() }})</th>
                     
                 </tr>
                 <tr>
@@ -1248,6 +1248,8 @@
                         <th>Form of Payment</th>
                         <th>Bank Name</th>
                         <th>Cheque No</th>
+                        <th>Mgmt Fee</th>
+                        <th>Net Rent</th>
                     </tr>
                         <input form="acceptPaymentForm" type="hidden" id="no_of_payments" name="no_of_payments" >
                     <tr id='payment1'></tr>
@@ -1318,21 +1320,15 @@
 
 @section('scripts')
 <script type="text/javascript">
-
   //adding moveout charges upon moveout
     $(document).ready(function(){
         var i=1;
     $("#add_row").click(function(){
         $('#addr'+i).html("<th id='value'>"+ (i) +"</th><td><input class='form-control' form='requestMoveoutForm' name='billing_desc"+i+"' id='desc"+i+"' type='text' required></td><td><input class='form-control' form='requestMoveoutForm'    oninput='autoCompute("+i+")' name='price"+i+"' id='price"+i+"' type='number' min='1' required></td><td><input class='form-control' form='requestMoveoutForm'  oninput='autoCompute("+i+")' name='qty"+i+"' id='qty"+i+"' value='1' type='number' min='1' required></td><td><input class='form-control' form='requestMoveoutForm' name='billing_amt"+i+"' id='amt"+i+"' type='number' min='1' required readonly value='0'></td>");
-
-
      $('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
      i++;
      document.getElementById('no_of_charges').value = i;
-
-
     });
-
     $("#delete_row").click(function(){
         if(i>1){
         $("#addr"+(i-1)).html('');
@@ -1340,7 +1336,6 @@
         document.getElementById('no_of_charges').value = i;
         }
     });
-
         var j=1;
     $("#add_charges").click(function(){
       $('#row'+j).html("<th>"+ (j) +"</th><td><select class='form-control' name='billing_desc"+j+"' form='extendTenantForm' id='billing_desc"+j+"'><option value='Security Deposit (Rent)'>Security Deposit (Rent)</option><option value='Security Deposit (Utilities)'>Security Deposit (Utilities)</option><option value='Advance Rent'>Advance Rent</option><option value='Rent'>Rent</option><option value='Electric'>Electric</option><option value='Water'>Water</option></select> <td><input class='form-control' form='extendTenantForm' name='billing_start"+j+"' id='billing_start"+j+"' type='date' value='{{ $tenant->moveout_date }}' required></td> <td><input class='form-control' form='extendTenantForm' name='billing_end"+j+"' id='billing_end"+j+"' type='date' required></td> <td><input class='form-control' form='extendTenantForm'   name='billing_amt"+j+"' id='billing_amt"+j+"' type='number' min='1' step='0.01' required></td>");
@@ -1348,9 +1343,7 @@
      j++;
      
         document.getElementById('no_of_items').value = j;
-
  });
-
     $("#remove_charges").click(function(){
         if(j>1){
         $("#row"+(j-1)).html('');
@@ -1359,7 +1352,6 @@
         document.getElementById('no_of_items').value = j;
         }
     });
-
     var k=1;
     $("#add_bill").click(function(){
       $('#bill'+k).html("<th>"+ (k) +"</th><td><select class='form-control' name='billing_desc"+k+"' form='addBillForm' id='billing_desc"+k+"'><option value='Security Deposit (Rent)'>Security Deposit (Rent)</option><option value='Security Deposit (Utilities)'>Security Deposit (Utilities)</option><option value='Advance Rent'>Advance Rent</option><option value='Rent'>Rent</option><option value='Electric'>Electric</option><option value='Water'>Water</option></select> <td><input class='form-control' form='addBillForm' name='billing_start"+k+"' id='billing_start"+k+"' type='date' value='{{ $tenant->movein_date }}' required></td> <td><input class='form-control' form='addBillForm' name='billing_end"+k+"' id='billing_end"+k+"' type='date' value='{{ $tenant->moveout_date }}' required></td> <td><input class='form-control' form='addBillForm' name='billing_amt"+k+"' id='billing_amt"+k+"' type='number' min='1' step='0.01' required></td>");
@@ -1367,9 +1359,7 @@
      k++;
      
         document.getElementById('no_of_bills').value = k;
-
  });
-
     $("#delete_bill").click(function(){
         if(k>1){
         $("#bill"+(k-1)).html('');
@@ -1392,12 +1382,11 @@
 </script>
 
 <script type="text/javascript">
-
   //adding moveout charges upon moveout
     $(document).ready(function(){
     var j=1;
     $("#add_payment").click(function(){
-        $('#payment'+j).html("<th>"+ (j) +"</th><td><select class='form-control' form='acceptPaymentForm' name='billing_no"+j+"' id='billing_no"+j+"' required> @foreach ($balance as $item)<option value='{{ $item->billing_no.'-'.$item->billing_id }}'> Bill No {{ $item->billing_no }} | {{ $item->billing_desc }} | {{ $item->billing_start? Carbon\Carbon::parse($item->billing_start)->format('M d Y') : null}} - {{ $item->billing_end? Carbon\Carbon::parse($item->billing_end)->format('M d Y') : null }} | {{ number_format($item->balance,2) }} </option> @endforeach </select></td><td><input class='form-control'  form='acceptPaymentForm' name='amt_paid"+j+"' id='amt_paid"+j+"' type='number' min='1' step='0.01' required></td><td><select class='form-control'  form='acceptPaymentForm' name='form_of_payment"+j+"' required><option value='Cash'>Cash</option><option value='Bank Deposit'>Bank Deposit</option><option value='Cheque'>Cheque</option></select></td><td>  <input class='form-control'  form='acceptPaymentForm' type='text' name='bank_name"+j+"'></td><td><input class='form-control'  form='acceptPaymentForm' type='text' name='cheque_no"+j+"'></td>");
+        $('#payment'+j).html("<th>"+ (j) +"</th><td><select form='acceptPaymentForm' name='billing_no"+j+"' id='billing_no"+j+"' required><option selected>Please select bill</option>@foreach ($balance as $item)<option value='{{ $item->billing_no.'-'.$item->billing_id }}'> Bill No {{ $item->billing_no }} | {{ $item->billing_desc }} | {{ $item->billing_start? Carbon\Carbon::parse($item->billing_start)->format('M d Y') : null}} - {{ $item->billing_end? Carbon\Carbon::parse($item->billing_end)->format('M d Y') : null }} | {{ number_format($item->balance,2) }} </option> @endforeach </select></td><td><input form='acceptPaymentForm' name='amt_paid"+j+"' id='amt_paid"+j+"' type='number' min='1' step='0.01' required></td><td><select form='acceptPaymentForm' name='form_of_payment"+j+"' required><option value='Cash'>Cash</option><option value='Bank Deposit'>Bank Deposit</option><option value='Cheque'>Cheque</option></select></td><td>  <input  form='acceptPaymentForm' type='text' name='bank_name"+j+"'></td><td><input  form='acceptPaymentForm' type='text' name='cheque_no"+j+"'></td><td>  <input  form='acceptPaymentForm' name='mgmt_fee"+j+"' id='mgmt_fee"+j+"' type='number' min='1' step='0.01'></td><td>  <input form='acceptPaymentForm' name='net_rent"+j+"' id='net_rent"+j+"' type='number' min='1' step='0.01'></td>");
   
   
      $('#payment').append('<tr id="payment'+(j+1)+'"></tr>');
@@ -1416,6 +1405,3 @@
   });
   </script>
 @endsection
-
-
-

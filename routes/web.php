@@ -154,7 +154,7 @@ Route::get('/board', function(Request $request){
 
         $current_occupancy_rate = DB::table('occupancy_rate')
         ->where('occupancy_property', Auth::user()->property)
-        ->latest('occupancy_date')
+        ->latest('id')
         ->limit(1)
         ->pluck('occupancy_rate');
 
@@ -317,7 +317,7 @@ Route::get('/board', function(Request $request){
         $expenses_rate->labels([Carbon::now()->subMonth(11)->format('M Y'),Carbon::now()->subMonth(10)->format('M Y'),Carbon::now()->subMonth(9)->format('M Y'),Carbon::now()->subMonth(8)->format('M Y'),Carbon::now()->subMonth(7)->format('M Y'),Carbon::now()->subMonth(6)->format('M Y'),Carbon::now()->subMonth(5)->format('M Y'),Carbon::now()->subMonth(4)->format('M Y'),Carbon::now()->subMonth(3)->format('M Y'),Carbon::now()->subMonths(2)->format('M Y'),Carbon::now()->subMonth()->format('M Y'),Carbon::now()->format('M Y')]);
         $expenses_rate->dataset
                                 (
-                                    'Collections', 'line', 
+                                    'Revenue', 'line', 
                                                                     [
                                                                         $collection_rate_1,
                                                                         $collection_rate_2,
@@ -363,7 +363,7 @@ Route::get('/board', function(Request $request){
         
         $expenses_rate->dataset
                                 (
-                                    'Revenues', 'line', 
+                                    'Income', 'line', 
                                                                     [
                                                                         $collection_rate_1 -  DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(11))->sum('amt'),
                                                                         $collection_rate_2 -  DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(10))->sum('amt'),
@@ -403,7 +403,7 @@ Route::get('/board', function(Request $request){
         ->orderBy('moveout_date')
         ->where('tenant_status', 'active')
         ->where('moveout_date', '<=', Carbon::now()->addMonth())
-        ->paginate(10);
+        ->get();
 
         $moveout_rate_1 = DB::table('tenants')
         ->join('units', 'unit_id', 'unit_tenant_id')
@@ -585,15 +585,19 @@ Route::get('/board', function(Request $request){
         $reason_for_moving_out_chart->dataset('', 'pie', [number_format(($inactive_tenants->count() == 0 ? 0 : $end_of_contract->count()/$inactive_tenants->count()) * 100,1),number_format(($inactive_tenants->count() == 0 ? 0 : $delinquent->count()/$inactive_tenants->count()) * 100,1),number_format(($inactive_tenants->count() == 0 ? 0 : $force_majeure->count()/$inactive_tenants->count()) * 100,1),number_format(($inactive_tenants->count() == 0 ? 0 : $run_away->count()/$inactive_tenants->count()) * 100,1), number_format(($inactive_tenants->count() == 0 ? 0 : $unruly->count()/$inactive_tenants->count()) * 100,1),])
         ->backgroundColor(['#008000', '#FF0000','#0E0601','#DE7835','#211979']);
 
+
         $collections_for_the_day = DB::table('units')
-        ->select('*', DB::raw('sum(amt_paid) as total'))
-        ->join('tenants', 'unit_id', 'unit_tenant_id')
-        ->join('payments', 'tenant_id', 'payment_tenant_id')
-        ->groupBy('tenant_id')
+        ->leftJoin('tenants', 'unit_id', 'unit_tenant_id')
+        ->leftJoin('unit_owners', 'unit_id', 'unit_id_foreign')
+        ->leftJoin('payments', 'tenant_id', 'payment_tenant_id')
+        ->leftJoin('billings', 'payment_billing_no', 'billing_no')
         ->where('unit_property', Auth::user()->property)
         ->where('payment_created', Carbon::today())
+        ->orderBy('payment_created', 'desc')
+        ->orderBy('ar_no', 'desc')
+        ->groupBy('payment_id')
         ->get();
-
+    
         $notifications = DB::table('notifications')
         ->select('*','notifications.created_at as created_at', 'notifications.updated_at as updated_at')
         ->join('units', 'unit_id', 'notification_room_id')

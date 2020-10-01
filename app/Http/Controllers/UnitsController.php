@@ -322,7 +322,7 @@ class UnitsController extends Controller
                         );
    
                     
-            return back()->with('success', 'Room information has been updated!');
+            return back()->with('success', 'Room has been updated!');
         // }
        
     }

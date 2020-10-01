@@ -15,7 +15,7 @@ class Concern extends Model
                         'date_reported',
                         'is_warranty',
                         'concern_urgency',
-                        'owner_id_foreign',
+                        'unit_id_foreign',
                         'concern_item',
                         'concern_qty',
                         'concern_desc',
