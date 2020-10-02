@@ -261,6 +261,7 @@
              </div>
             </div>
           </div>
+          <br>
           <div class="table-responsive text-nowrap">
           <table class="table">
             <thead>
