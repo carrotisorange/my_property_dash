@@ -231,9 +231,12 @@
     </div>
     <br>
 
-  <pre>
-    {{ Auth::user()->note }}       
+    <pre>
+      <textarea class="form-control" name="note" id="" cols="30" rows="10">
+      {{ Auth::user()->note }}
+      </textarea> 
   </pre>
+
   </div>
   <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
     
