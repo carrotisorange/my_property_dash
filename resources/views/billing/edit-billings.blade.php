@@ -217,7 +217,7 @@
 </div>
 
   <pre>
-      <textarea form="editBillsForm" class="form-control" name="note" id="" cols="30" rows="10">
+      <textarea form="editBillsForm" class="" name="note" id="" cols="30" rows="10">
       {{ Auth::user()->note }}
       </textarea> 
   </pre>

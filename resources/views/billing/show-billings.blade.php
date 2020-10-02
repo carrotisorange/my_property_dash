@@ -229,10 +229,9 @@
       </div>
       </div>
     </div>
-    <br>
 
     <pre>
-      <textarea class="form-control" name="note" id="" cols="30" rows="10" readonly>
+      <textarea class="" name="note" id="" cols="30" rows="10" readonly>
       {{ Auth::user()->note }}
       </textarea> 
   </pre>
