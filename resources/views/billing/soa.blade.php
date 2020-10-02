@@ -67,12 +67,12 @@
         
           </table>
   
-          <span>
+        
             <pre>
               {{ Auth::user()->note }}
             
             </pre>
-          </span>
+  
           
 
 </body>
