@@ -149,7 +149,7 @@
         @if(auth()->user()->user_type === 'ap' || auth()->user()->user_type === 'manager' )
         <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="collapse" href="#addEntry" role="button" aria-expanded="false" aria-controls=""> <i class="fas fa-plus  fa-sm text-white-50"></i> Add</a> 
         @endif
-        <br>
+        <br><br>
         <div class="col-md-11 mx-auto">
           <div class="collapse multi-collapse" id="addEntry">
             <div class="card card-body">
