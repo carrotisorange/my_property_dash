@@ -64,14 +64,19 @@
                  <th class="text-right text-danger" colspan="4">{{ number_format($bills->sum('balance') + ($bills->sum('balance') * .1) ,2) }}</th>
                 </tr>
                @endif  
-        
+                
+          </table>
+          <table>
+            <tr>
+              <td>
+               <pre>
+                {{ Auth::user()->note }}
+               </pre>
+              </td>
+            </tr>
           </table>
   
-          <span>
-            <textarea class="form-control" name="note" id="" cols="30" rows="10" readonly>
-              {{ Auth::user()->note }}
-              </textarea> 
-          </span>
+          
           
 
 </body>
