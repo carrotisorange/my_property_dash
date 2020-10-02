@@ -154,10 +154,11 @@
   <table class="table table-striped table-bordered">
   <tr>
       <th>#</th>
+      <th colspan="2">Period Covered</th>     
       <th>Tenant</th>
       <th>Room</th>   
       <th>Description</th>
-      <th colspan="2">Period Covered</th>     
+    
       <th>Amount</th>
       <th></th>
  
@@ -182,6 +183,15 @@
     <td>
       {{ $ctr++ }}
     </td>
+    <td colspan="2">
+      @if($item->tenants_note === 'new' )
+      <input form="add_billings" type="date" name="billing_start{{ $billing_start++  }}" value="{{ Carbon\Carbon::parse($item->movein_date)->format('Y-m-d') }}" required>
+      <input form="add_billings" type="date" name="billing_end{{ $billing_end++  }}" value="{{ Carbon\Carbon::now()->endOfMonth()->format('Y-m-d') }}" required>
+      @else
+      <input form="add_billings" type="date" name="billing_start{{ $billing_start++  }}" value="{{ Carbon\Carbon::parse($updated_billing_start)->startOfMonth()->format('Y-m-d') }}" required>
+      <input form="add_billings" type="date" name="billing_end{{ $billing_end++  }}" value="{{ Carbon\Carbon::parse($updated_billing_end)->endOfMonth()->format('Y-m-d') }}" required>
+      @endif
+  </td>
     <td>
       <a href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/billings">{{ $item->first_name.' '.$item->last_name }}</a> 
         @if($item->tenants_note === 'new' )
@@ -201,15 +211,7 @@
           <input form="add_billings" type="text"  name="details{{ $details_ctr++  }}" value="{{ Carbon\Carbon::now()->startOfMonth()->format('M d') }}-{{ Carbon\Carbon::now()->endOfMonth()->format('d Y') }}" >
         @endif
       </td> --}}
-    <td colspan="2">
-        @if($item->tenants_note === 'new' )
-        <input form="add_billings" type="date" name="billing_start{{ $billing_start++  }}" value="{{ Carbon\Carbon::parse($item->movein_date)->format('Y-m-d') }}" required>
-        <input form="add_billings" type="date" name="billing_end{{ $billing_end++  }}" value="{{ Carbon\Carbon::now()->endOfMonth()->format('Y-m-d') }}" required>
-        @else
-        <input form="add_billings" type="date" name="billing_start{{ $billing_start++  }}" value="{{ Carbon\Carbon::parse($updated_billing_start)->startOfMonth()->format('Y-m-d') }}" required>
-        <input form="add_billings" type="date" name="billing_end{{ $billing_end++  }}" value="{{ Carbon\Carbon::parse($updated_billing_end)->endOfMonth()->format('Y-m-d') }}" required>
-        @endif
-    </td>
+ 
     <td>
       <?php 
             $prorated_rent =  Carbon\Carbon::parse($item->movein_date)->DiffInDays(Carbon\Carbon::now()->endOfMonth());
