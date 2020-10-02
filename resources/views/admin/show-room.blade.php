@@ -580,7 +580,7 @@
       </div>
       <div class="modal-footer">
      
-      <button type="submit" form="editUnitForm" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" "this.disabled = true;"><i class="fas fa-check fa-sm text-white-50"></i> Save Changes</button>  
+      <button type="submit" form="editUnitForm" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" this.disabled = true;><i class="fas fa-check fa-sm text-white-50"></i> Save Changes</button>  
       </div>
   </div>
   </div>

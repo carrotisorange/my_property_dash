@@ -1638,6 +1638,7 @@ Route::get('/account-payables', function(){
 
        $entry = DB::table('payable_entry')
        ->where('payable_entry_property', Auth::user()->property)
+       ->orderBy('created_at', 'desc')
        ->get();
 
        $request = DB::table('payable_request')
@@ -1658,6 +1659,7 @@ Route::post('/account-payable/add/{property}', function(Request $request){
         DB::table('payable_entry')->insert(
             [
                 'payable_entry' =>  $request->input('payable_entry'.$i),
+                'payable_entry_desc' => $request->input('payable_entry_desc'.$i),
                 'payable_entry_property' => Auth::user()->property,
                 'created_at' => Carbon::now(),
             ]);
@@ -1677,6 +1679,8 @@ Route::delete('/account-payable/{id}', function(Request $request, $id){
 //request for funds
 Route::post('/account-payable/request/{property}', function(Request $request){
 
+    return $request->all();
+    
      $no_of_request = (int) $request->no_of_request;
 
      $current_payable_no = DB::table('payable_request')
@@ -1689,6 +1693,7 @@ Route::post('/account-payable/request/{property}', function(Request $request){
                 'no' => $current_payable_no++,
                 'entry' =>  $request->input('entry'.$i),
                 'amt' =>  $request->input('amt'.$i),
+                'note' =>  $request->input('note'.$i),
                 'status' => 'pending',
                 'property' => Auth::user()->property,
                 'requested_by' => Auth::user()->name,
