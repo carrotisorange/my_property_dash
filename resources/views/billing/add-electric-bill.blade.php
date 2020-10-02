@@ -156,16 +156,17 @@
   </form>
   <table class="table table-striped">
   <tr>
+    
       <th>#</th>
-      <th>NAME</th>
-      <th>ROOM</th>
-       <th>DESCRIPTION</th> 
+      <th colspan="2">Period Covered</th>
+      <th>Tenant</th>
+      <th>Room</th>
+       <th>Description</th> 
      
-      <th>PREVIOUS READING</th>
-      <th>CURRENT READING</th>
-      <th>CONSUMPTION</th>
-      <th>AMOUNT</th>
-      <th colspan="2">PERIOD COVERED</th>
+      <th>Previous Reading</th>
+      <th>Current Reading</th>
+      <th>Current Consumption</th>
+      <th>Amount</th>
       
   </tr>
  <?php
@@ -197,6 +198,10 @@
 
   <tr>
     <td>{{ $ctr++ }}</td>
+    <td colspan="2">
+      <input form="add_billings" type="date" name="billing_start{{ $billing_start++  }}" value="{{ Carbon\Carbon::parse($updated_billing_start)->startOfMonth()->format('Y-m-d') }}" required>
+      <input form="add_billings" type="date" name="billing_end{{ $billing_end++  }}" value="{{ Carbon\Carbon::parse($updated_billing_end)->endOfMonth()->format('Y-m-d') }}" required>
+  </td>
       <td>
       <a href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/billings">{{ $item->first_name.' '.$item->last_name }}</a> 
         @if($item->tenants_note === 'new' )
@@ -220,10 +225,7 @@
       <td>
           <input form="add_billings" type="number" step="0.001" name="billing_amt{{ $amt_ctr++ }}" id="id_amt{{ $id_amt++ }}" value="0" required readonly>
       </td>
-      <td colspan="2">
-        <input form="add_billings" type="date" name="billing_start{{ $billing_start++  }}" value="{{ Carbon\Carbon::parse($updated_billing_start)->startOfMonth()->format('Y-m-d') }}" required>
-        <input form="add_billings" type="date" name="billing_end{{ $billing_end++  }}" value="{{ Carbon\Carbon::parse($updated_billing_end)->endOfMonth()->format('Y-m-d') }}" required>
-    </td>
+     
  </tr>
  @endforeach
 </table>

@@ -154,11 +154,11 @@
   <table class="table table-striped table-bordered">
   <tr>
       <th>#</th>
-      <th>NAME</th>
-      <th>ROOM</th>   
-      <th>DESCRIPTION</th>
-      <th colspan="2">PERIOD COVERED</th>     
-      <th>AMOUNT</th>
+      <th>Tenant</th>
+      <th>Room</th>   
+      <th>Description</th>
+      <th colspan="2">Period Covered</th>     
+      <th>Amount</th>
       <th></th>
  
   </tr>
