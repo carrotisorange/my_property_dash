@@ -232,7 +232,7 @@
     <br>
 
     <pre>
-      <textarea class="form-control" name="note" id="" cols="30" rows="10">
+      <textarea class="form-control" name="note" id="" cols="30" rows="10" readonly>
       {{ Auth::user()->note }}
       </textarea> 
   </pre>

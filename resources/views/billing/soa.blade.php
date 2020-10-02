@@ -67,12 +67,11 @@
         
           </table>
   
-          <span>
-            <pre>
+      
+            <textarea class="form-control" name="note" id="" cols="30" rows="10" readonly>
               {{ Auth::user()->note }}
-              For inquiries, please send to {{ Auth::user()->email }}
-            </pre>
-          </span>
+              </textarea> 
+      
           
 
 </body>
