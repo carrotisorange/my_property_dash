@@ -671,6 +671,7 @@ Route::get('/home', function(){
         $buildings = DB::table('units')
             ->select('building', 'status', DB::raw('count(*) as count'))
             ->where('unit_property', Auth::user()->property)
+            ->where('status','<>','deleted')
             ->groupBy('building')
             ->get('building', 'status','count');   
 
