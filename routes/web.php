@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\TenantRegisteredMail;
 use App\Mail\SendContractAlertEmail;
 
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,8 +21,8 @@ use App\Mail\SendContractAlertEmail;
 
 Auth::routes(['verify'=> true]);
 
-Route::get('/resources', function(){
-    return view('landing-page.resources');
+Route::get('/blogs', function(){
+    return view('landing-page.blogs');
 });
 
 Route::get('/', function(){

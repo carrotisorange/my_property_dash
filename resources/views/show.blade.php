@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.sm-2.template')
 
 @section('content')
 <table class="table table-bordered">

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.sm-2.template')
 
 @section('title', 'Electric Bill')
 

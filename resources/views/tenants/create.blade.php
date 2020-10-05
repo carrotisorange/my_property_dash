@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.sm-2.template')
 
 @section('title',  session(Auth::user()->id.'building').' '.session(Auth::user()->id.'unit_no'))
 

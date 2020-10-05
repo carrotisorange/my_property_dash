@@ -36,9 +36,9 @@
 
         <!-- Topbar -->
         <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-          @include('layouts.header')
+          @include('layouts.sm-2.header')
         </nav>
-        @include('layouts.notifications')
+        @include('layouts.sm-2.notifications')
         <div class="container-fluid">
           @yield('content')
         </div>
@@ -48,7 +48,7 @@
       <!-- End of Main Content -->
 
       <!-- Footer -->
-     @include('layouts.footer')
+     @include('layouts.sm-2.footer')
       <!-- End of Footer -->
 
     </div>
@@ -61,9 +61,10 @@
     <a class="scroll-to-top rounded" href="#page-top">
       <i class="fas fa-angle-up"></i>
     </a>
+    
 
     <!-- Logout Modal-->
-    @include('layouts.logout')
+    @include('layouts.sm-2.logout')
 
   <!-- Bootstrap core JavaScript-->
   <script src="{{ asset('/dashboard/vendor/jquery/jquery.min.js') }}"></script>
