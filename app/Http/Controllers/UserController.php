@@ -70,7 +70,7 @@ class UserController extends Controller
             'trial_ends_at' => Auth::user()->trial_ends_at
         ]);
 
-        return redirect('/users')->with('success', 'A new user has been added to the property!');
+        return redirect('/users')->with('success', 'A new user has been added!');
 
     }
 

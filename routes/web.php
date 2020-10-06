@@ -612,7 +612,7 @@ Route::get('/board', function(Request $request){
         ->where('unit_property', Auth::user()->property)
         ->count();
   
-        if(Auth::user()->property_type === 'Apartment Rentals' || Auth::user()->property_type === 'Dormitory'){
+        // if(Auth::user()->property_type === 'Apartment Rentals' || Auth::user()->property_type === 'Dormitory'){
             return view('manager.dashboard', 
             compact(
             'units', 'units_occupied','units_vacant', 'units_reserved',
@@ -623,22 +623,8 @@ Route::get('/board', function(Request $request){
             'notifications','notifications_opened', 'current_occupancy_rate'
                     )
             );
-        }else{
-            return view('manager.dashboard-condo', 
-            compact(
-                'units', 'units_occupied','units_vacant', 'units_reserved',
-                'active_tenants', 'pending_tenants', 'owners', 
-                'movein_rate','moveout_rate', 'renewed_chart','expenses_rate', 'reason_for_moving_out_chart',
-                'delinquent_accounts','tenants_to_watch_out',
-                'collections_for_the_day','pending_concerns','active_concerns','concerns',
-                'notifications','notifications_opened'
-                    )
-            );
         }
         
-
-        
-    }
 
 })->middleware(['auth', 'verified']);
 
