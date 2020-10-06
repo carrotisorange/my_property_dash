@@ -624,7 +624,7 @@ Route::get('/board', function(Request $request){
                     )
             );
         }else{
-            return view('manager.dashboard-condo', 
+            return view('manager.dashboard', 
             compact(
                 'units', 'units_occupied','units_vacant', 'units_reserved',
                 'active_tenants', 'pending_tenants', 'owners', 
