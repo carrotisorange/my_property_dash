@@ -623,22 +623,7 @@ Route::get('/board', function(Request $request){
             'notifications','notifications_opened', 'current_occupancy_rate'
                     )
             );
-<<<<<<< HEAD
-=======
-        }else{
-            return view('manager.dashboard', 
-            compact(
-                'units', 'units_occupied','units_vacant', 'units_reserved',
-                'active_tenants', 'pending_tenants', 'owners', 
-                'movein_rate','moveout_rate', 'renewed_chart','expenses_rate', 'reason_for_moving_out_chart',
-                'delinquent_accounts','tenants_to_watch_out',
-                'collections_for_the_day','pending_concerns','active_concerns','concerns',
-                'notifications','notifications_opened'
-                    )
-            );
->>>>>>> c7f3ce348e662ddb98de675306b2b737d1492db4
-        }
-        
+        }        
 
 })->middleware(['auth', 'verified']);
 
