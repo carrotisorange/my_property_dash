@@ -21,9 +21,9 @@ use App\Mail\SendContractAlertEmail;
 
 Auth::routes(['verify'=> true]);
 
-Route::get('/blogs', function(){
-    return view('landing-page.blogs');
-});
+Route::get('/blogs', 'BlogController@index');
+
+Route::post('/blogs', 'BlogController@store')->middleware(['auth', 'verified']);
 
 Route::get('/', function(){
     $clients = DB::table('users')

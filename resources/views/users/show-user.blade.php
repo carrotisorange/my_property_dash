@@ -143,6 +143,7 @@
             <a class="nav-item nav-link" id="nav-property-tab" data-toggle="tab" href="#property" role="tab" aria-controls="nav-property" aria-selected="false"><i class="fas fa-home fa-sm text-primary-50"></i> Property</a>
             <a class="nav-item nav-link" id="nav-session-tab" data-toggle="tab" href="#session" role="tab" aria-controls="nav-session" aria-selected="false"><i class="fas fa-sign-in-alt fa-sm text-primary-50"></i> Sessions</a>
             <a class="nav-item nav-link" id="nav-session-tab" data-toggle="tab" href="#settings" role="tab" aria-controls="nav-settings" aria-selected="false"><i class="fas fa-user-cog fa-sm text-primary-50"></i> Settings</a>
+            <a class="nav-item nav-link" id="nav-session-tab" data-toggle="tab" href="#blogs" role="tab" aria-controls="nav-blogs" aria-selected="false"><i class="fas fa-blog fa-sm text-primary-50"></i> Blogs</a>
           </div>
         </nav>
       </div>
@@ -260,6 +261,52 @@
               @endif
              
           </div>
+        </div>
+        <div class="tab-pane fade" id="blogs" role="tabpanel" aria-labelledby="nav-blogs-tab">
+          
+          <br>
+            <div class="col-md-11 mx-auto">
+              <form action="/blogs" method="POST">
+                @csrf
+                <input class="form-control" type="text" name="title" placeholder="Title" required>
+                <br>
+                <select class="form-control" name="category" id="" required>
+                  <option value="">Please select category</option>
+                  <option value="Condominium & Homeowners Associations">Condominium & Homeowners Associations</option>
+                  <option value="Investment Property">Investment Property</option>
+                  <option value="Maintenance & Repair">Maintenance & Repair</option>
+                  <option value="Property Management">Property Management</option>
+                  <option value="Real Estate Trends">Real Estate Trends</option>
+                  <option value="Tenants">Tenants</option>
+                  <option value="Taxes & Finances">Taxes & Finances</option>
+          
+                </select>
+                <br>
+                <textarea class="form-control" name="body" id="" cols="30" rows="15" placeholder="Body" required></textarea>
+                
+                <br>
+                
+                <input type="file" name="image" class="form-control">
+                <br>
+                <p class="text-right">                
+                  <button type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="this.form.submit(); this.disabled = true;"><i class="fas fa-share fa-sm text-white-50"></i> share </button>
+                </p>
+              </form>
+            </div>
+            <br>
+            @foreach ($blogs as $item)
+            <div class="col-md-11 mx-auto">
+             
+              <div class="jumbotron bg-transparent">
+                <header class="blockquote-header text-right">{{ $item->category }}</header>
+                <h3 class="">{{ $item->title }}</h3>
+                <p class="lead text-justify">{{ $item->body }}</p>
+                <hr class="my-4">
+                <footer class="blockquote-footer">{{ $item->name }} <cite title="Source Title">on {{ Carbon\Carbon::parse($item->created_at)->format('M d Y') }}</cite></footer>
+               
+              </div>
+            </div>
+            @endforeach
         </div>
       </div>
      </div>

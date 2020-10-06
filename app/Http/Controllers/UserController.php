@@ -88,8 +88,14 @@ class UserController extends Controller
 
         $sessions = DB::table('sessions')->where('session_user_id', $user_id)->get();
 
+        $blogs = DB::table('users')
+        ->join('blogs', 'users.id','user_id_foreign')
+        ->select('*', 'blogs.created_at as created_at')
+        ->orderBy('blogs.id', 'asc')
+        ->get();
+
          if(($user->id === Auth::user()->id) || ($manager->user_type === 'manager' && $user->property === $manager->property) || Auth::user()->email === 'thepropertymanager2020@gmail.com'){
-            return view('users.show-user', compact('user', 'sessions'));
+            return view('users.show-user', compact('user', 'sessions', 'blogs'));
          }else{
              return view('unregistered');
          }

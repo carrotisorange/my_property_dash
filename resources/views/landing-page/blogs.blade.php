@@ -23,23 +23,36 @@
 @endsection
 
 @section('content')
-<br><br><br><br><br><br>
-  <div class="col-md-9 mx-auto">
-    <h5>Guidelines on Concessions on Residential and Commercial Rents During Covid 19 in the Philippines.</h5>
-    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img class="d-block w-100" src="{{ asset('/arsha/assets/img/blog1.jpg') }}" alt="First slide">
-          
-        </div>
-        
-      </div>
-      
+<br><br><br><br>
+@foreach ($featured_blog as $item)
+  <div class="col-md-8 mx-auto">
+    <div class="jumbotron bg-transparent">
+      <header class="blockquote-header text-right">{{ $item->category }}</header>
+      <h3 class="">{{ $item->title }}</h3>
+      <p class="lead text-justify">{{ $item->body }}</p>
+      <hr class="my-4">
+      <footer class="blockquote-footer">{{ $item->name }} <cite title="Source Title">on {{ Carbon\Carbon::parse($item->created_at)->format('M d Y') }}</cite></footer>
+     
     </div>
-    <br>
-    <footer class="blockquote-footer">Pamela Tecson <cite title="Source Title">on {{ Carbon\Carbon::now()->format('M d Y') }}</cite></footer>
   </div>
-
+  @endforeach
+  <hr>
+  <div class="col-md-11 mx-auto">
+    <div class="row">
+       @foreach ($previous_blogs as $item)
+       <div class="col">
+        <div class="jumbotron bg-transparent">
+          <header class="blockquote-header text-right">{{ $item->category }}</header>
+          <h3 class="">{{ $item->title }}</h3>
+          <p class="lead text-justify">{{ $item->body }}</p>
+          <hr class="my-4">
+          <footer class="blockquote-footer">{{ $item->name }} <cite title="Source Title">on {{ Carbon\Carbon::parse($item->created_at)->format('M d Y') }}</cite></footer>
+         
+        </div>
+      </div>   
+       @endforeach
+    </div>
+  </div>
 @endsection
 @section('scripts')
 

@@ -221,10 +221,9 @@
           <hr>
           <form action="/responses" method="POST">
             @csrf
-            <textarea class="form-control" name="response" id="" cols="30" rows="3" placeholder="type your response here..."></textarea>
-            <input type="hidden" name="concern_id" value="{{ $concern->concern_id }}">
-            <input type="hidden" name="unit_id" value="{{ $unit->unit_id }}">
-            <input type="hidden" name="tenant_id" value="{{ $tenant->tenant_id }}">
+            
+            <textarea class="form-control" name="body" id="" cols="30" rows="3" placeholder="type your response here..."></textarea>
+           
             <br>
             <p class="text-right">
               <button type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="this.form.submit(); this.disabled = true;"><i class="fas fa-reply fa-sm text-white-50"></i> response </button>
