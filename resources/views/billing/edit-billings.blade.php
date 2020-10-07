@@ -216,15 +216,13 @@
   </div>
 </div>
 
-  <pre>
+<p>Message footer</p>
       <textarea form="editBillsForm" class="form-control" name="note" id="" cols="20" rows="10">
       {{ Auth::user()->note }}
       </textarea> 
-  </pre>
 
 
 
-  <br>
 {{-- Modal for editing payment footer message --}}
 <div class="modal fade" id="editPaymentFooter" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
@@ -345,6 +343,11 @@
   
   });
   </script> 
+
+<script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+<script>
+CKEDITOR.replace( 'note' );
+</script>
 @endsection
 
 

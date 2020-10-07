@@ -38,6 +38,7 @@
   @endforeach
   <hr>
   <div class="col-md-11 mx-auto">
+    Previous Blogs
     <div class="row">
        @foreach ($previous_blogs as $item)
        <div class="col">
@@ -53,8 +54,6 @@
   </div>
 @endsection
 @section('scripts')
-
-<script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
 
 @endsection
 

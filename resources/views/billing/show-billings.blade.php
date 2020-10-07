@@ -230,11 +230,10 @@
       </div>
     </div>
 
-    <pre>
+
       
-      {{ Auth::user()->note }}
-    
-  </pre>
+      <p>{!! Auth::user()->note !!}</p>
+
 
   </div>
   <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">

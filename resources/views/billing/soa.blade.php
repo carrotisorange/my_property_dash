@@ -68,10 +68,9 @@
           </table>
   
         
-            <pre>
-              {{ Auth::user()->note }}
-            
-            </pre>
+            <p>
+              {!! Auth::user()->note !!}
+            </p>
   
           
 
