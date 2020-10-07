@@ -1,6 +1,6 @@
 @extends('layouts.sm-2.template')
 
-@section('title', 'Job Orders')
+@section('title', 'Dashboard')
 
 @section('sidebar')
       <!-- Nav Item - Dashboard -->
@@ -17,7 +17,7 @@
            <!-- Heading -->
       
           <!-- Nav Item - Pages Collapse Menu -->
-          <li class="nav-item">
+          <li class="nav-item active">
                 <a class="nav-link" href="/board">
                   <i class="fas fa-fw fa-tachometer-alt"></i>
                   <span>Dashboard</span></a>
@@ -28,13 +28,13 @@
             <div class="sidebar-heading">
               Interface
             </div>  
-            @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' )
+          @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' )
           <li class="nav-item">
             <a class="nav-link" href="/home">
               <i class="fas fa-home"></i>
               <span>Home</span></a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item active">
             <a class="nav-link" href="/calendar">
               <i class="fas fa-calendar-alt"></i>
               <span>Calendar</span></a>
@@ -49,7 +49,7 @@
             </li>
             @endif
       
-       @if((Auth::user()->user_type === 'admin' && Auth::user()->property_ownership === 'Multiple Owners') || (Auth::user()->user_type === 'manager' && Auth::user()->property_ownership === 'Multiple Owners'))
+        @if((Auth::user()->user_type === 'admin' && Auth::user()->property_ownership === 'Multiple Owners') || (Auth::user()->user_type === 'manager' && Auth::user()->property_ownership === 'Multiple Owners'))
         <!-- Nav Item - Tables -->
         <li class="nav-item">
             <a class="nav-link" href="/owners">
@@ -68,7 +68,7 @@
         @endif
     
         @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' )
-        <li class="nav-item active">
+        <li class="nav-item">
             <a class="nav-link" href="/job-orders">
               <i class="fas fa-tools fa-table"></i>
               <span>Job Orders</span></a>
@@ -137,14 +137,13 @@
 
 @section('content')
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-  <h1 class="h3 mb-0 text-gray-800">Job Orders</h1>
-  <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls=""> <i class="fas fa-user-plus  fa-sm text-white-50"></i> Add Housekeeping</a> 
-  
+    <h1 class="h3 mb-0 text-gray-800">Calendar</h1>
 </div>
+
 @endsection
 
 @section('scripts')
-
+ 
 @endsection
 
 

@@ -34,6 +34,11 @@
               <i class="fas fa-home"></i>
               <span>Home</span></a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/calendar">
+              <i class="fas fa-calendar-alt"></i>
+              <span>Calendar</span></a>
+          </li>
           @endif
         
           @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'treasury')
@@ -567,7 +572,7 @@
     </tr>
     @endforeach
     <tr>
-      <th>TOTAL</th>
+      <th>Total</th>
       <th class="text-right" colspan="9">{{ number_format($collections_for_the_day->sum('amt_paid'),2) }}</th>
      </tr>
    </tbody>

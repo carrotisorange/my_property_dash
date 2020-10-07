@@ -22,16 +22,19 @@ class BlogController extends Controller
         $featured_blog = DB::table('users')
         ->join('blogs', 'users.id','user_id_foreign')
         ->select('*', 'blogs.created_at as created_at')
+        ->where('published', '1')
         ->latest('blogs.id')
         ->limit(1)
         ->get();
 
-        $blogs = DB::table('blogs')->count();
+        $blogs = DB::table('blogs')->where('published', '1')->count();
 
-        $previous_blogs = DB::table('users')
+         $previous_blogs = DB::table('users')
         ->join('blogs', 'users.id','user_id_foreign')
         ->select('*', 'blogs.created_at as created_at')
+        ->where('published', '1')
         ->orderBy('blogs.id', 'asc')
+        
         ->limit($blogs-1)
         ->get();
 
@@ -91,6 +94,7 @@ class BlogController extends Controller
             'title' => $request->title,
             'category' => $request->category,
             'body' => $request->body,
+            'published' => 0,
             'user_id_foreign' => Auth::user()->id,
             'created_at' => Carbon::now()
         ]);

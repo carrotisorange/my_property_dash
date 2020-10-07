@@ -23,6 +23,10 @@ Auth::routes(['verify'=> true]);
 
 Route::get('/blogs', 'BlogController@index');
 
+Route::get('/calendar', function(){
+    return view('admin.calendar');
+});
+
 Route::post('/blogs', 'BlogController@store')->middleware(['auth', 'verified']);
 
 Route::post('ckeditor/image_upload', 'BlogController@upload')->name('upload');

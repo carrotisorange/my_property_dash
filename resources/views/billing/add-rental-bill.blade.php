@@ -28,11 +28,16 @@
             <div class="sidebar-heading">
               Interface
             </div>  
-          @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' )
+            @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' )
           <li class="nav-item">
             <a class="nav-link" href="/home">
               <i class="fas fa-home"></i>
               <span>Home</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/calendar">
+              <i class="fas fa-calendar-alt"></i>
+              <span>Calendar</span></a>
           </li>
           @endif
         
