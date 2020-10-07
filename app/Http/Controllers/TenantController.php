@@ -352,10 +352,11 @@ class TenantController extends Controller
             ->orderBy('concern_status', 'desc')
             ->get();
 
-            $collections = DB::table('units')
+             $collections = DB::table('units')
             ->leftJoin('tenants', 'unit_id', 'unit_tenant_id')
-            ->leftJoin('payments', 'tenant_id', 'payment_tenant_id')
-            ->leftJoin('billings', 'payment_billing_no', 'billing_no')
+           
+            ->leftJoin('billings', 'tenant_id', 'billing_Tenant_id')
+            ->leftJoin('payments', 'payment_billing_no', 'billing_no')
             ->where('tenant_id', $tenant_id)
             ->orderBy('payment_created', 'desc')
             ->orderBy('ar_no', 'desc')
@@ -441,8 +442,9 @@ class TenantController extends Controller
             
             $collections = DB::table('units')
             ->leftJoin('tenants', 'unit_id', 'unit_tenant_id')
-            ->leftJoin('payments', 'tenant_id', 'payment_tenant_id')
-            ->leftJoin('billings', 'payment_billing_no', 'billing_no')
+           
+            ->leftJoin('billings', 'tenant_id', 'billing_Tenant_id')
+            ->leftJoin('payments', 'payment_billing_no', 'billing_no')
             ->where('tenant_id', $tenant_id)
             ->orderBy('payment_created', 'desc')
             ->orderBy('ar_no', 'desc')

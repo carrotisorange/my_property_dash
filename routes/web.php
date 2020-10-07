@@ -1207,10 +1207,10 @@ Route::get('/collections', function(){
     if(auth()->user()->user_type === 'billing' || auth()->user()->user_type === 'manager' || auth()->user()->user_type === 'treasury'){
 
              $collections = DB::table('units')
-            ->leftJoin('tenants', 'unit_id', 'unit_tenant_id')
+             ->leftJoin('tenants', 'unit_id', 'unit_tenant_id')
            
-            ->leftJoin('payments', 'tenant_id', 'payment_tenant_id')
-            ->leftJoin('billings', 'payment_billing_no', 'billing_no')
+             ->leftJoin('billings', 'tenant_id', 'billing_Tenant_id')
+             ->leftJoin('payments', 'payment_billing_no', 'billing_no')
             ->where('unit_property', Auth::user()->property)
             ->orderBy('payment_created', 'desc')
             ->orderBy('ar_no', 'desc')
