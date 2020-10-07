@@ -91,7 +91,8 @@ class UserController extends Controller
         $blogs = DB::table('users')
         ->join('blogs', 'users.id','user_id_foreign')
         ->select('*', 'blogs.created_at as created_at')
-        ->orderBy('blogs.id', 'asc')
+        ->orderBy('blogs.id', 'desc')
+        ->where('user_id_foreign', Auth::user()->id)
         ->get();
 
          if(($user->id === Auth::user()->id) || ($manager->user_type === 'manager' && $user->property === $manager->property) || Auth::user()->email === 'thepropertymanager2020@gmail.com'){

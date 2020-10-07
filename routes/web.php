@@ -25,6 +25,8 @@ Route::get('/blogs', 'BlogController@index');
 
 Route::post('/blogs', 'BlogController@store')->middleware(['auth', 'verified']);
 
+Route::post('ckeditor/image_upload', 'BlogController@upload')->name('upload');
+
 Route::get('/', function(){
     $clients = DB::table('users')
     ->where('user_type', 'admin')

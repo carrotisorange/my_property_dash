@@ -282,12 +282,12 @@
           
                 </select>
                 <br>
-                <textarea class="form-control" name="body" id="" cols="30" rows="15" placeholder="Body" required></textarea>
+                <textarea class="form-control" name="body" id="" cols="30" rows="30" placeholder="Body" required></textarea>
                 
                 <br>
                 
-                <input type="file" name="image" class="form-control">
-                <br>
+                {{-- <input type="file" name="image" class="form-control">
+                <br> --}}
                 <p class="text-right">                
                   <button type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="this.form.submit(); this.disabled = true;"><i class="fas fa-share fa-sm text-white-50"></i> share </button>
                 </p>
@@ -300,8 +300,8 @@
               <div class="jumbotron bg-transparent">
                 <header class="blockquote-header text-right">{{ $item->category }}</header>
                 <h3 class="">{{ $item->title }}</h3>
-                <p class="lead text-justify">{{ $item->body }}</p>
-                <hr class="my-4">
+                <p class="">{!! $item->body !!}</p>
+              
                 <footer class="blockquote-footer">{{ $item->name }} <cite title="Source Title">on {{ Carbon\Carbon::parse($item->created_at)->format('M d Y') }}</cite></footer>
                
               </div>
@@ -315,6 +315,14 @@
 @endsection
 
 @section('scripts')
+	
+<script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+<script>
+  CKEDITOR.replace( 'body', {
+      filebrowserUploadUrl: "{{route('upload', ['_token' => csrf_token() ])}}",
+      filebrowserUploadMethod: 'form'
+  });
+  </script>
 
 @endsection
 
