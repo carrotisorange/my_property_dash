@@ -185,8 +185,28 @@ class UnitsController extends Controller
              'created_at'=> Carbon::now(),
          ]);
         }
+
+        $units = DB::table('units')
+        ->where('unit_property', Auth::user()->property)
+        ->where('status','<>','deleted')
+        ->count();
+
+        $occupied_units = DB::table('units')
+        ->where('unit_property', Auth::user()->property)
+        ->where('status', 'occupied')
+        ->count();
+
+        DB::table('occupancy_rate')
+            ->insert(
+                        [
+                            'occupancy_rate' => ($occupied_units/$units) * 100,
+                            'occupancy_property' => Auth::user()->property,
+                            'occupancy_date' => Carbon::now()
+                        ]
+                    );
+        
  
-         return back()->with('success', $request->no_of_rooms.' rooms have been added to the property!');
+         return back()->with('success', $request->no_of_rooms.' room/s have been added!');
      }
 
      public function show_edit_multiple_rooms($property){

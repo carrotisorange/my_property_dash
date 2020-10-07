@@ -157,7 +157,7 @@ Route::get('/board', function(Request $request){
         ->where('unit_property', Auth::user()->property)
         ->get();
 
-        $current_occupancy_rate = DB::table('occupancy_rate')
+         $current_occupancy_rate = DB::table('occupancy_rate')
         ->where('occupancy_property', Auth::user()->property)
         ->latest('id')
         ->limit(1)
