@@ -147,13 +147,14 @@
 </form>
 </div>
 <div class="table-responsive text-nowrap">
-    <table class="table table-bordered">
+    <table class="table">
       @foreach ($collections as $day => $collection_list)
         <tr>
             <th colspan="12">{{ Carbon\Carbon::parse($day)->addDay()->format('M d Y') }} ({{ $collection_list->count() }})</th>
         </tr>
+        <?php $ctr=1;?>
         <tr>
-          
+                <th class="text-center">#</th>
                 <th>AR No</th>
                 <th>Bill No</th>
                 <th>Tenant</th>
@@ -162,12 +163,13 @@
                 <th colspan="2">Period Covered</th>
                 <th>Form of Payment</th>
                 <th >Amount</th>
-               <th></th>
-                <th></th>
+               <th colspan="2" class="text-center">Action</th>
+                
             </tr>
       </tr>
         @foreach ($collection_list as $item)
         <tr>
+                <th class="text-center">{{ $ctr++ }}</th>
                 <td>{{ $item->ar_no }}</td>
                 <td>{{ $item->payment_billing_no }}</td>
                 {{-- <td><a href="units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}">{{ $item->first_name.' '.$item->last_name }}</a></td> --}}
@@ -197,8 +199,8 @@
             </tr>
         @endforeach
             <tr>
-              <th>TOTAL</th>
-              <th colspan="8" class="text-right">{{ number_format($collection_list->sum('amt_paid'),2) }}</th>
+              <th>Total</th>
+              <th colspan="9" class="text-right">{{ number_format($collection_list->sum('amt_paid'),2) }}</th>
             </tr>
           
       @endforeach

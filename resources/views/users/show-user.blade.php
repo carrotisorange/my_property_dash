@@ -282,6 +282,7 @@
           
                 </select>
                 <br>
+                <p>Body</p>
                 <textarea class="form-control" name="body" id="body" cols="30" rows="30" placeholder="Body" required></textarea>
                 
                 <br>

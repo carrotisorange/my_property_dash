@@ -156,9 +156,9 @@ class PaymentController extends Controller
         }
 
         if(Auth::user()->user_type === 'manager'){
-            return redirect('/units/'.$request->unit_tenant_id.'/tenants/'.$request->payment_tenant_id.'/#nav-payments')->with('success', ($i-1).' payments have been added!');
+            return redirect('/units/'.$request->unit_tenant_id.'/tenants/'.$request->payment_tenant_id.'/#payments')->with('success', ($i-1).' payments have been added!');
         }else{
-            return redirect('/units/'.$request->unit_tenant_id.'/tenants/'.$request->payment_tenant_id.'/billings#nav-profile')->with('success', ($i-1).' payments have been added!');
+            return redirect('/units/'.$request->unit_tenant_id.'/tenants/'.$request->payment_tenant_id.'/billings#profile')->with('success', ($i-1).' payments have been added!');
         }
         
    

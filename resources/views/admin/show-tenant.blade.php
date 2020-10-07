@@ -547,14 +547,15 @@
         <br><br>
         <div class="col-md-11 mx-auto">
         <div class="table-responsive text-nowrap">
-          <table class="table table-bordered">
+          <table class="table">
               @foreach ($collections as $day => $collection_list)
                 <tr>
                     <th colspan="10">{{ Carbon\Carbon::parse($day)->addDay()->format('M d Y') }} ({{ $collection_list->count() }})</th>
                     
                 </tr>
                 <tr>
-                    
+                  <?php $ctr = 1; ?>
+                    <th>#</th>
                     <th>AR No</th>
                     <th>Bill No</th>
                     <th>Room</th>  
@@ -563,13 +564,13 @@
                     <th>Form of Payment</th>
                     <th class="text-right">Amount</th>
                    
-                    <th colspan="2">Action</th>
+                    <th colspan="2" class="text-center">Action</th>
                     </tr>
               </tr>
                 @foreach ($collection_list as $item)
                
                 <tr>
-                 
+                      <th>{{ $ctr++ }}</th>
                         <td>{{ $item->ar_no }}</td>
                         <td>{{ $item->payment_billing_no }}</td>
                           <td>{{ $item->building.' '.$item->unit_no }}</td> 
@@ -586,7 +587,7 @@
                           {{-- <a target="_blank" href="#" title="print invoice" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-print fa-sm text-white-50"></i></a> 
                           --}}
                         </td>
-                        <td>
+                        <td class="text-center">
                           @if(Auth::user()->user_type === 'treasury' || Auth::user()->user_type === 'manager')
                           <form action="/tenants/{{ $item->tenant_id }}/payments/{{ $item->payment_id }}" method="POST">
                             @csrf
@@ -600,7 +601,7 @@
                 @endforeach
                     <tr>
                       <th>TOTAL</th>
-                      <th colspan="7" class="text-right">{{ number_format($collection_list->sum('amt_paid'),2) }}</th>
+                      <th colspan="8" class="text-right">{{ number_format($collection_list->sum('amt_paid'),2) }}</th>
                     </tr>
                     
               @endforeach
