@@ -237,7 +237,7 @@
                   <th colspan="12">{{ $day }} ({{ $list->count() }})</th>
               </tr>
               <?php $ctr=1;?>
-              <?php $ctr=1;?>
+            
             <tr>
               <th class="text-center">#</th>
               <th class="text-center">Payable No</th>

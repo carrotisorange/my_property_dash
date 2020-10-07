@@ -592,12 +592,12 @@ Route::get('/board', function(Request $request){
         ->leftJoin('unit_owners', 'unit_id', 'unit_id_foreign')
         ->leftJoin('billings', 'tenant_id', 'billing_Tenant_id')
         ->leftJoin('payments', 'payment_billing_no', 'billing_no')
-        ->where('unit_property', Auth::user()->property)
-        ->where('payment_created', Carbon::today())
-        ->orderBy('payment_created', 'desc')
-        ->orderBy('ar_no', 'desc')
-        ->groupBy('payment_id')
-        ->get();
+       ->where('unit_property', Auth::user()->property)
+       ->whereDate('payment_created', Carbon::now())
+       ->orderBy('payment_created', 'desc')
+       ->groupBy('payment_id')
+       ->get();
+
     
         $notifications = DB::table('notifications')
         ->select('*','notifications.created_at as created_at', 'notifications.updated_at as updated_at')
