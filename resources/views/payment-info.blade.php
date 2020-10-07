@@ -56,7 +56,32 @@
 </style>
 </head>
 
-<body class="bg-gradient-primary">
+<body class="">
+
+    <!-- Load Facebook SDK for JavaScript -->
+    <div id="fb-root"></div>
+    <script>
+      window.fbAsyncInit = function() {
+        FB.init({
+          xfbml            : true,
+          version          : 'v8.0'
+        });
+      };
+  
+      (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+  
+    <!-- Your Chat Plugin code -->
+    <div class="fb-customerchat"
+      attribution=setup_tool
+      page_id="580584885947359">
+    </div>
+    
   <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
     <!-- Sidebar Toggle (Topbar) -->
@@ -89,16 +114,17 @@
   
   </nav>
 
-  <div class="container">
+  <div class="col-md-5 mx-auto">
 
    
     <div class="card o-hidden border-0 shadow-lg my-5">
-      <div class="card-body p-0">
+      <div class="card-body">
        
         
         <!-- Nested Row within Card Body -->
         <div class="row">
-          <div class="col-lg-7 d-none d-lg-block">
+
+          {{-- <div class="col-lg-7 d-none d-lg-block">
             <div class="p-5">
                 <div class="">
                   <h1 class="h4 text-gray-900 mb-4">User and Company Profile</h1>
@@ -131,8 +157,8 @@
       
                 </div>
                
-          </div>
-          <div class="col-lg-5">
+          </div> --}}
+          <div class="mx-auto">
            
                 
           @if(Auth::user()->account_type === null)
@@ -178,7 +204,7 @@
   
             
             <div class="form-group">
-              <select class="form-control" name="account_type" id="">
+              <select class="form-control" name="account_type" id="" onchange='this.form.submit()'>
                 <option value="{{ Auth::user()->account_type }}">{{ Auth::user()->account_type }}</option>
                 <option value="Free">Free | 20 rooms | ₱0/mo </option>
                 <option value="Medium">Medium | 50 rooms | ₱950/mo </option>
@@ -187,9 +213,9 @@
                 <option value="Corporate">Corporate | 500 rooms | ₱4800/mo</option>
               </select>
           </div>
-          <button form="selectingPlanForm" type="submit" class="btn btn-primary btn-user btn-block" id="registerButton" onclick="this.form.submit(); this.disabled = true;"> 
+          {{-- <button form="selectingPlanForm" type="submit" class="btn btn-primary btn-user btn-block" id="registerButton" onclick="this.form.submit(); this.disabled = true;"> 
             Change Plan
-         </button>
+         </button> --}}
   
         </form>
     
@@ -215,7 +241,7 @@
   
             
             <div class="form-group">
-              <select class="form-control" name="account_type" id="">
+              <select class="form-control" name="account_type" id="" onchange='this.form.submit()'>
                 <option value="{{ Auth::user()->account_type }}">{{ Auth::user()->account_type }}</option>
                 <option value="Free">Free | 20 rooms | ₱0/mo </option>
                 <option value="Medium">Medium | 50 rooms | ₱950/mo</option>
@@ -224,9 +250,9 @@
                 <option value="Corporate">Corporate | 500 rooms | ₱4800/mo </option>
               </select>
           </div>
-          <button form="selectingPlanForm" type="submit" class="btn btn-primary btn-user btn-block" id="registerButton" onclick="this.form.submit(); this.disabled = true;"> 
+          {{-- <button form="selectingPlanForm" type="submit" class="btn btn-primary btn-user btn-block" id="registerButton" onclick="this.form.submit(); this.disabled = true;"> 
             Change Plan
-         </button>
+         </button> --}}
   
         </form>
     
@@ -259,7 +285,7 @@
            @endforeach
            <br>
            
-           <button type="submit" name="myButton" class="btn btn-primary btn-user btn-block"> Submit Payment</button>
+           <button type="submit" name="myButton" class="btn btn-primary btn-user btn-block"> Submit</button>
          </form>
    
            </div>
@@ -273,8 +299,9 @@
       </div>
     </div>
     
-
+    <br><br>
   </div>
+ 
         <!-- Logout Modal-->
         <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">

@@ -20,14 +20,42 @@
   <link href="{{ asset('dashboard/css/sb-admin-2.min.css') }}" rel="stylesheet">
   <link href="{{ asset('index/assets/img/favicon.ico') }}" rel="icon">
 
+  <style>
+    .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+    background-color: #8629f8 !important;
+}
+  </style>
+
 </head>
 
-<body class="bg-gradient-primary">
+<body class="">
+    <!-- Load Facebook SDK for JavaScript -->
+    <div id="fb-root"></div>
+    <script>
+      window.fbAsyncInit = function() {
+        FB.init({
+          xfbml            : true,
+          version          : 'v8.0'
+        });
+      };
+  
+      (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+  
+    <!-- Your Chat Plugin code -->
+    <div class="fb-customerchat"
+      attribution=setup_tool
+      page_id="580584885947359">
+    </div>
 
-  <div class="container">
+  <div class="col-md-5 mx-auto">
 
-    <!-- Outer Row -->
-    <div class="row justify-content-center">
+
 
       <div class="col-xl-10 col-lg-12 col-md-9">
 
@@ -38,8 +66,8 @@
             </form>
             <!-- Nested Row within Card Body -->
             <div class="row">
-              <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
-              <div class="col-lg-6">
+            
+              <div class="col-lg-12">
                 <div class="p-5">
                   <div class="text-center">
                     <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
@@ -96,9 +124,6 @@
 
       </div>
 
-    </div>
-
-  </div>
 
   <!-- Bootstrap core JavaScript-->
   <script src="{{ asset('dashboard/vendor/jquery/jquery.min.js') }}"></script>

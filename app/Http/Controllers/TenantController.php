@@ -302,7 +302,26 @@ class TenantController extends Controller
         // $request->session()->forget(Auth::user()->id.'years_of_employment');
         // $request->session()->forget(Auth::user()->id.'employer_contact_no');
 
-       
+        $units = DB::table('units')
+        ->where('unit_property', Auth::user()->property)
+        ->where('status','<>','deleted')
+        ->count();
+
+        $occupied_units = DB::table('units')
+        ->where('unit_property', Auth::user()->property)
+        ->where('status', 'occupied')
+        ->count();
+
+        DB::table('occupancy_rate')
+            ->insert(
+                        [
+                            'occupancy_rate' => ($occupied_units/$units) * 100,
+                            'occupancy_property' => Auth::user()->property,
+                            'occupancy_date' => Carbon::now()
+                        ]
+                    );
+
+
          $no_of_items = (int) $request->no_of_items; 
 
         for($i = 1; $i<$no_of_items; $i++){
@@ -319,9 +338,9 @@ class TenantController extends Controller
         }
 
         if(Auth::user()->user_type === 'admin'){
-            return redirect('/units/'.session(Auth::user()->id.'unit_id').'/tenants/'.$tenant_id)->with('success', 'New tenant has been added to the property!');
+            return redirect('/units/'.session(Auth::user()->id.'unit_id').'/tenants/'.$tenant_id)->with('success', 'New tenant has been added!');
         }else{
-            return redirect('/units/'.session(Auth::user()->id.'unit_id').'/tenants/'.$tenant_id.'/billings')->with('success', 'New tenant has been added to the property!');
+            return redirect('/units/'.session(Auth::user()->id.'unit_id').'/tenants/'.$tenant_id.'/billings')->with('success', 'New tenant has been added!');
         }
 
        
@@ -739,8 +758,6 @@ class TenantController extends Controller
         $tenant = Tenant::findOrFail($tenant_id);
 
         $unit = Unit::findOrFail($unit_id);
-
-        
 
         DB::table('tenants')
         ->where('tenant_id', $request->tenant_id)

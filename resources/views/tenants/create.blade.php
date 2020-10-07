@@ -281,8 +281,8 @@
     <div class="col">
    
       <p class="">
-        <span id='delete_row' class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-minus fa-sm text-white-50"></i> Remove Bill</span>
-      <span id="add_row" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Add Bill</span>     
+        <a href="#/" id='delete_row' class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-check-circle fa-sm text-white-50"></i> Remove Bill</a>
+      <a href="#/" id="add_row" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-times-circle fa-sm text-white-50"></i> Add Bill</a>     
       </p>
         <div class="table-responsive text-nowrap">
         <table class = "table table-bordered" id="tab_logic">
