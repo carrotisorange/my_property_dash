@@ -591,10 +591,11 @@ Route::get('/board', function(Request $request){
         ->leftJoin('tenants', 'unit_id', 'unit_tenant_id')
         ->leftJoin('unit_owners', 'unit_id', 'unit_id_foreign')
         ->leftJoin('billings', 'tenant_id', 'billing_tenant_id')
-             ->leftJoin('payments', 'payment_billing_id', 'billing_id')
+        ->leftJoin('payments', 'payment_billing_id', 'billing_id')
        ->where('unit_property', Auth::user()->property)
        ->whereDate('payment_created', Carbon::now())
        ->orderBy('payment_created', 'desc')
+       ->orderBy('ar_no', 'desc')
        ->groupBy('payment_id')
        ->get();
 
