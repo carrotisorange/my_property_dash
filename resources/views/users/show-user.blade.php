@@ -282,7 +282,7 @@
           
                 </select>
                 <br>
-                <textarea class="form-control" name="body" id="" cols="30" rows="30" placeholder="Body" required></textarea>
+                <textarea class="form-control" name="body" id="body" cols="30" rows="30" placeholder="Body" required></textarea>
                 
                 <br>
                 
@@ -316,14 +316,6 @@
 
 @section('scripts')
 	
-<script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
-<script>
-  CKEDITOR.replace( 'body', {
-      filebrowserUploadUrl: "{{route('upload', ['_token' => csrf_token() ])}}",
-      filebrowserUploadMethod: 'form'
-  });
-  </script>
-
 @endsection
 
 

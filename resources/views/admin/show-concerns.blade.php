@@ -346,10 +346,13 @@
 
 @endsection
 @section('scripts')
-<script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+<script src="//cdn.ckeditor.com/4.15.0/full/ckeditor.js"></script>
 <script>
-CKEDITOR.replace( 'response' );
-</script>
+  CKEDITOR.replace( 'response', {
+      filebrowserUploadUrl: "{{route('upload', ['_token' => csrf_token() ])}}",
+      filebrowserUploadMethod: 'form',
+  });
+  </script>
 @endsection
 
 
