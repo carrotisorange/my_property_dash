@@ -1,6 +1,54 @@
 @extends('layouts.sm-2.template')
+@section('css')
+<link href="{{ asset('fullcalendar/lib/main.css') }}" rel='stylesheet' />
+<style>
 
-@section('title', 'Dashboard')
+  
+    #external-events {
+ 
+     
+      width: 100%;
+      padding: 0 10px;
+      border: 1px solid #ccc;
+      background: #eee;
+     
+    }
+  
+    #external-events h4 {
+      font-size: 16px;
+      margin-top: 0;
+      padding-top: 1em;
+    }
+  
+    #external-events .fc-event {
+      margin: 3px 0;
+      cursor: move;
+    }
+  
+    #external-events p {
+      margin: 1.5em 0;
+      font-size: 11px;
+      color: #666;
+    }
+  
+    #external-events p input {
+      margin: 0;
+      vertical-align: middle;
+    }
+  
+    #calendar-wrap {
+     
+    }
+  
+    #calendar {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+  
+  </style>
+@endsection
+
+@section('title', 'Calendar')
 
 @section('sidebar')
       <!-- Nav Item - Dashboard -->
@@ -138,13 +186,130 @@
 @section('content')
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Calendar</h1>
+    <a  href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addEvent" data-whatever="@mdo"><i class="fas fa-calendar-check fa-sm text-white-50"></i> Add</a>  
 </div>
+<div class='row'>
 
+    <div class="col-md-3">
+        <div id='external-events'>
+            <h4>Draggable Events</h4>
+      
+            <div id='external-events-list'>
+              @foreach ($events as $item)
+              <div class='fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event'>
+                <div class='fc-event-main'>{{ $item->event_name }}</div>
+              </div>
+              @endforeach
+              
+            </div>
+      
+            <p>
+              <input type='checkbox' id='drop-remove' checked/>
+              <label for='drop-remove'>remove after drop</label>
+            </p>
+          </div>
+    </div>
+
+   <div class="col-md-9">
+    <div id='calendar-wrap'>
+        <div id='calendar'></div>
+      </div>
+   </div>
+
+  </div>
+  <br>
+           {{-- Modal for warning message --}}
+           <div class="modal fade" id="addEvent" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Event</h5>
+                
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                  <form id="eventForm" action="/event" method="POST">
+                    @csrf
+                    <input form="eventForm" type="text" class="form-control" name="event_name" required>
+                  
+                 
+                </form>
+                </div>
+                <div class="modal-footer">
+                    <p class="text-right">
+                        <button form="eventForm" class="btn btn-primary d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" type="submit" onclick="this.form.submit(); this.disabled = true;"><i class="fas fa-check fa-sm text-white-50"></i> Submit</button>
+                    </p>
+                </div>
+                
+            </div>
+            </div>
+  </div>
 @endsection
 
 @section('scripts')
- 
+<script src="{{ asset('fullcalendar/lib/main.js') }}"></script>
+<script>
+
+  document.addEventListener('DOMContentLoaded', function() {
+
+    /* initialize the external events
+    -----------------------------------------------------------------*/
+
+    var containerEl = document.getElementById('external-events-list');
+    new FullCalendar.Draggable(containerEl, {
+      itemSelector: '.fc-event',
+      eventData: function(eventEl) {
+        return {
+          title: eventEl.innerText.trim()
+        }
+      }
+    });
+
+    //// the individual way to do it
+    // var containerEl = document.getElementById('external-events-list');
+    // var eventEls = Array.prototype.slice.call(
+    //   containerEl.querySelectorAll('.fc-event')
+    // );
+    // eventEls.forEach(function(eventEl) {
+    //   new FullCalendar.Draggable(eventEl, {
+    //     eventData: {
+    //       title: eventEl.innerText.trim(),
+    //     }
+    //   });
+    // });
+
+    /* initialize the calendar
+    -----------------------------------------------------------------*/
+
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      headerToolbar: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+      },
+      editable: true,
+      selectable: true,
+      droppable: true, // this allows things to be dropped onto the calendar
+      drop: function(arg) {
+        // is the "remove after drop" checkbox checked?
+        if (document.getElementById('drop-remove').checked) {
+          // if so, remove the element from the "Draggable Events" list
+          arg.draggedEl.parentNode.removeChild(arg.draggedEl);
+        }
+      },
+      eventResize:function(){
+        alert('even Resize')
+      },
+    dayClick:function(date, event, view){
+
+      }
+    });
+    calendar.render();
+
+  });
+
+</script>
 @endsection
-
-
-

@@ -23,9 +23,9 @@ Auth::routes(['verify'=> true]);
 
 Route::get('/blogs', 'BlogController@index');
 
-Route::get('/calendar', function(){
-    return view('admin.calendar');
-});
+Route::get('/calendar', 'EventController@index')->middleware(['auth', 'verified']);
+
+Route::post('/event', 'EventController@store')->middleware(['auth', 'verified']);
 
 Route::post('/blogs', 'BlogController@store')->middleware(['auth', 'verified']);
 
