@@ -1665,8 +1665,6 @@ Route::delete('/account-payable/{id}', function(Request $request, $id){
 
 //request for funds
 Route::post('/account-payable/request/{property}', function(Request $request){
-
-    return $request->all();
     
      $no_of_request = (int) $request->no_of_request;
 
