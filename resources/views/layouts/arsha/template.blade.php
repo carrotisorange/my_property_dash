@@ -77,7 +77,6 @@ theme_color="#7646ff"
 logged_in_greeting="Hi! How can we help you?"
 logged_out_greeting="Hi! How can we help you?">
   </div>
-
   @section('nav-bar')
   @show
   <!-- ======= Header ======= -->
