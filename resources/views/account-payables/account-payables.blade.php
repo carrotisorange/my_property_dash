@@ -1,6 +1,6 @@
 @extends('layouts.sm-2.template')
 
-@section('title', 'Account Payables')
+@section('title', 'Payables')
 
 @section('sidebar')
       <!-- Nav Item - Dashboard -->
@@ -105,9 +105,9 @@
       
                @if(Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'ap' || Auth::user()->user_type === 'admin')
             <li class="nav-item active">
-            <a class="nav-link" href="/account-payables">
+            <a class="nav-link" href="/payables">
             <i class="fas fa-hand-holding-usd"></i>
-              <span>Account Payables</span></a>
+              <span>Payables</span></a>
           </li>
           @endif
       
@@ -136,7 +136,8 @@
     <nav>
       <div class="nav nav-tabs" id="nav-tab" role="tablist">
         <a class="nav-item nav-link active" id="nav-entries-tab" data-toggle="tab" href="#entries" role="tab" aria-controls="nav-entries" aria-selected="true"><i class="fas fa-sticky-note fa-sm text-primary-50"></i> Entries</a>
-        <a class="nav-item nav-link" id="nav-requests-tab" data-toggle="tab" href="#requests" role="tab" aria-controls="nav-requests" aria-selected="false"><i class="fas fa-hand-holding-usd fa-sm text-primary-50"></i> Requests</a>
+        <a class="nav-item nav-link" id="nav-payables-tab" data-toggle="tab" href="#payables" role="tab" aria-controls="nav-payables" aria-selected="false"><i class="fas fa-hand-holding-usd fa-sm text-primary-50"></i> Payables</a>
+        <a class="nav-item nav-link" id="nav-expense-report-tab" data-toggle="tab" href="#expense-report" role="tab" aria-controls="nav-expense-report" aria-selected="false"><i class="fas fa-chart-bar fa-sm text-primary-50"></i> Expense Report</a>
       </div>
     </nav>
   </div>
@@ -177,7 +178,7 @@
                     </div>
                   
                     <p class="text-right">
-                      <button form="addPayableEntryForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" ><i class="fas fa-check"></i> Save</button>
+                      <button form="addPayableEntryForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="this.form.submit(); this.disabled = true;"><i class="fas fa-check"></i> Save</button>
                      </p>
                 
              </div>
@@ -226,7 +227,68 @@
           </div>
         </div>
       </div>
-      <div class="tab-pane fade" id="requests" role="tabpanel" aria-labelledby="nav-requests-tab">
+
+      <div class="tab-pane fade" id="expense-report" role="tabpanel" aria-labelledby="nav-expense-report-tab">
+        <br>
+        <div class="table-responsive text-nowrap">
+          <table class="table">
+            @foreach ($expense_report as $day => $list)
+              <tr>
+                  <th colspan="12">{{ $day }} ({{ $list->count() }})</th>
+              </tr>
+              <?php $ctr=1;?>
+              <?php $ctr=1;?>
+            <tr>
+              <th class="text-center">#</th>
+              <th class="text-center">Payable No</th>
+                <th>Entry</th>
+                
+                <th>Requested</th>
+                <th>Requester</th>
+                <th>Note</th>
+                <th>Released</th>
+                <th class="text-right">Amount</th>
+                {{-- @if(Auth::user()->user_type === 'manager')
+                <th colspan="2" class="text-center">Action</th>
+                @endif --}}
+              </tr>
+                  </tr>
+            </tr>
+              @foreach ($list as $item)
+            
+              <tr>
+               <th class="text-center">{{ $ctr++ }}</th>
+               <th class="text-center">{{ $item->no }}</th>
+               <td>{{ $item->entry }}</td>
+              
+               <td>{{ Carbon\Carbon::parse($item->created_at)->format('M d Y') }}</td>
+               <td>{{ $item->requested_by }}</td>
+               <td>{{ $item->note? $item->note: '-' }}</td>       
+               <td>{{ Carbon\Carbon::parse($item->updated_at)->format('M d Y') }}</td>    
+               <td class="text-right">{{ number_format($item->amt, 2) }}</td> 
+               {{-- @if(Auth::user()->user_type === 'manager')
+               <td class="text-center"> 
+                 <form action="/" method="POST">
+                 @csrf
+                 <button title="release" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm"  onclick="this.form.submit(); this.disabled = true;"><i class="fas fa-check-circle fa-sm text-white-50"></i></button>
+               </form>
+             @endif --}}
+              
+              </tr>
+           @endforeach
+       
+                  <tr>
+                    <th>Total</th>
+                    <th colspan="7" class="text-right">{{ number_format($list->sum('amt'),2) }}</th>
+                  </tr>
+                
+            @endforeach
+        </table>
+         
+          </div>
+      </div>
+
+      <div class="tab-pane fade" id="payables" role="tabpanel" aria-labelledby="nav-payables-tab">
         <br>
         <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="collapse" href="#requestFunds" role="button" aria-expanded="false" aria-controls=""> <i class="fas fa-plus  fa-sm text-white-50"></i> Add</a> 
         <br><br>
@@ -234,7 +296,7 @@
           <div class="collapse multi-collapse" id="requestFunds">
             <div class="card card-body">
               <div class="modal-body">
-                <h3>Request Funds</h3>
+                <h3>Request Payables</h3>
                 <form id="requestFundsForm" action="/account-payable/request/{{ Auth::user()->property }}" method="POST">
                   @csrf
                </form>
@@ -256,66 +318,207 @@
                     </div>
                   
                     <p class="text-right">
-                      <button form="requestFundsForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" ><i class="fas fa-check"></i> Save</button>
+                      <button form="requestFundsForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="this.form.submit(); this.disabled = true;"><i class="fas fa-check"></i> Save</button>
                      </p>
              </div>
             </div>
           </div>
           <br>
-          <div class="table-responsive text-nowrap">
-          <table class="table">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Entry</th>
-                <th>Amount</th>
-                <th>Date Requested</th>
-                <th>Requested By</th>
-                <th>Status</th>
-                <th>Date Approved</th>
-              
-                <th colspan="3">Action</th>
+          <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+              <a class="nav-item nav-link active" id="nav-pending-tab" data-toggle="tab" href="#pending" role="tab" aria-controls="nav-pending" aria-selected="true"><i class="fas fa-clock fa-sm text-primary-50"></i> Pending <span class="badge badge-primary badge-counter">{{ $pending->count() }}</span></a>
+              <a class="nav-item nav-link" id="nav-approved-tab" data-toggle="tab" href="#approved" role="tab" aria-controls="nav-approved" aria-selected="false"><i class="fas fa-check-circle fa-sm text-primary-50"></i> Approved</a>
+              <a class="nav-item nav-link" id="nav-declined-tab" data-toggle="tab" href="#released" role="tab" aria-controls="nav-released" aria-selected="false"><i class="fas fa-clipboard-check fa-sm text-primary-50"></i> Released</a>
+              <a class="nav-item nav-link" id="nav-declined-tab" data-toggle="tab" href="#declined" role="tab" aria-controls="nav-declined" aria-selected="false"><i class="fas fa-times-circle fa-sm text-primary-50"></i> Declined</a>
+            </div>
+          </nav>
+          <br>
+          <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="pending" role="tabpanel" aria-labelledby="nav-pending-tab">
+              <div class="table-responsive text-nowrap">
+                <table class="table">
+                  <thead>
+                    <?php $ctr=1;?>
+                    <tr>
+                      <th class="text-center">#</th>
+                      <th class="text-center">Payable No</th>
+                      <th>Entry</th>
+                      <th>Amount</th>
+                      <th>Requested</th>
+                      <th>Requester</th>
+                      <th>Note</th>
+                      @if(Auth::user()->user_type === 'manager')
+                      <th colspan="2" class="text-center">Action</th>
+                      @endif
+                    
+                      {{-- <th colspan="2" class="text-center">Action</th> --}}
+                      
+                    </tr>
+                  </thead>
+                  <tbody>
+                   
+                    @foreach ($pending as $item)
+                       <tr>
+                         <th class="text-center">{{ $ctr++ }}</th>
+                        <th class="text-center">{{ $item->no }}</th>
+                        <td>{{ $item->entry }}</td>
+                        <td>{{ number_format($item->amt, 2) }}</td>
+                        <td>{{ Carbon\Carbon::parse($item->created_at)->format('M d Y') }}</td>
+                        <td>{{ $item->requested_by }}</td>
+                        <td>{{ $item->note? $item->note: '-' }}</td>    
+                       
+                        @if(Auth::user()->user_type === 'manager')
+                        <td class="text-center"> 
+                          
+                          <form action="/request-payable/disapprove/{{ $item->id }}/" method="POST">
+                          @csrf
+                          <button title="decline" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"  onclick="this.form.submit(); this.disabled = true;"><i class="fas fa-times-circle fa-sm text-white-50"></i></button>
+                        </form>
+                     
+ 
+                      </td> 
+                      <td class="text-center">
+                        <form action="/request-payable/approve/{{ $item->id }}/" method="POST">
+                          @csrf
                 
-              </tr>
-            </thead>
-            <tbody>
-             
-              @foreach ($request as $item)
-                 <tr>
-                  <th>{{ $item->no }}</th>
-                  <td>{{ $item->entry }}</td>
-                  <td>{{ number_format($item->amt, 2) }}</td>
-                  <td>{{ Carbon\Carbon::parse($item->created_at)->format('M d Y') }}</td>
-                  <td>{{ $item->requested_by }}</td>
-                  <td>{{ $item->status }}</td>
-                 
-                   <td>{{ $item->updated_at? Carbon\Carbon::parse($item->updated_at)->format('M d Y'): '-' }}</td>
-                  {{-- <td>{{ $item->approved_by? $item->approved_by: 'pending' }}</td> --}} 
-                  
-                  <td> 
-                    @if($item->status === 'pending')
-                    <form action="/request-payable/disapprove/{{ $item->id }}/" method="POST">
-                    @csrf
-                    <button title="disapprove this request" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"  onclick="return confirm('Are you sure you want perform this action?');"><i class="fas fa-times fa-sm text-white-50"></i></button>
-                  </form>
-                  @else
-                  
-                  @endif
-                </td>
-                <td>
-                  <form action="/request-payable/approve/{{ $item->id }}/" method="POST">
-                    @csrf
-          
-                    <button title="approve this request" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm"  onclick="return confirm('Are you sure you want perform this action?');"><i class="fas fa-check fa-sm text-white-50"></i></button>
-                  </form>
-                </td>
-                 
-                
-                 
-                 </tr>
-              @endforeach
-            </tbody>
-          </table>
+                          <button title="approve" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm"  onclick="this.form.submit(); this.disabled = true;"><i class="fas fa-check-circle fa-sm text-white-50"></i></button>
+                        </form>
+                      </td> 
+                       
+                      
+                      @endif
+                        
+                       
+                       </tr>
+                    @endforeach
+                  </tbody>
+                </table>
+                </div>
+            </div>
+           
+            <div class="tab-pane fade" id="approved" role="tabpanel" aria-labelledby="nav-approved-tab">
+              <div class="table-responsive text-nowrap">
+                <table class="table">
+                  <?php $ctr=1;?>
+                  <tr>
+                    <th class="text-center">#</th>
+                    <th class="text-center">Payable No</th>
+                      <th>Entry</th>
+                      <th>Amount</th>
+                      <th>Requested</th>
+                      <th>Requester</th>
+                      <th>Note</th>
+                      <th>Aprroved</th>
+                      
+                      @if(Auth::user()->user_type === 'manager')
+                      <th colspan="2" class="text-center">Action</th>
+                      @endif
+                    </tr>
+                  </thead>
+                  <tbody>
+                   
+                    @foreach ($approved as $item)
+                       <tr>
+                        <th class="text-center">{{ $ctr++ }}</th>
+                        <th class="text-center">{{ $item->no }}</th>
+                        <td>{{ $item->entry }}</td>
+                        <td>{{ number_format($item->amt, 2) }}</td>
+                        <td>{{ Carbon\Carbon::parse($item->created_at)->format('M d Y') }}</td>
+                        <td>{{ $item->requested_by }}</td>
+                        <td>{{ $item->note? $item->note: '-' }}</td>       
+                        <td>{{ Carbon\Carbon::parse($item->updated_at)->format('M d Y') }}</td>     
+                        @if(Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'ap')
+                        <td class="text-center"> 
+                          <form action="/request-payable/release/{{ $item->id }}/" method="POST">
+                          @csrf
+                          <button title="release" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm"  onclick="this.form.submit(); this.disabled = true;"><i class="fas fa-check-circle fa-sm text-white-50"></i></button>
+                        </form>
+                      @endif
+                       
+                       </tr>
+                    @endforeach
+                  </tbody>
+                </table>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="released" role="tabpanel" aria-labelledby="nav-released-tab">
+              <div class="table-responsive text-nowrap">
+                <table class="table">
+                  <?php $ctr=1;?>
+                  <tr>
+                    <th class="text-center">#</th>
+                    <th class="text-center">Payable No</th>
+                      <th>Entry</th>
+                      <th>Amount</th>
+                      <th>Requested</th>
+                      <th>Requester</th>
+                      <th>Note</th>
+                      <th>Released</th>
+                      
+                      {{-- @if(Auth::user()->user_type === 'manager')
+                      <th colspan="2" class="text-center">Action</th>
+                      @endif --}}
+                    </tr>
+                  </thead>
+                  <tbody>
+                   
+                    @foreach ($released as $item)
+                       <tr>
+                        <th class="text-center">{{ $ctr++ }}</th>
+                        <th class="text-center">{{ $item->no }}</th>
+                        <td>{{ $item->entry }}</td>
+                        <td>{{ number_format($item->amt, 2) }}</td>
+                        <td>{{ Carbon\Carbon::parse($item->created_at)->format('M d Y') }}</td>
+                        <td>{{ $item->requested_by }}</td>
+                        <td>{{ $item->note? $item->note: '-' }}</td>       
+                        <td>{{ Carbon\Carbon::parse($item->updated_at)->format('M d Y') }}</td>     
+                        {{-- @if(Auth::user()->user_type === 'manager')
+                        <td class="text-center"> 
+                          <form action="/" method="POST">
+                          @csrf
+                          <button title="release" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm"  onclick="this.form.submit(); this.disabled = true;"><i class="fas fa-check-circle fa-sm text-white-50"></i></button>
+                        </form>
+                      @endif --}}
+                       
+                       </tr>
+                    @endforeach
+                  </tbody>
+                </table>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="declined" role="tabpanel" aria-labelledby="nav-declined-tab">
+              <div class="table-responsive text-nowrap">
+                <table class="table">
+                  <?php $ctr=1;?>
+                  <tr>
+                    <th class="text-center">#</th>
+                    <th class="text-center">Payable No</th>
+                      <th>Entry</th>
+                      <th>Amount</th>
+                      <th>Requested</th>
+                      <th>Requester</th>
+                      <th>Note</th>
+                      <th>Declined</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                   
+                    @foreach ($declined as $item)
+                       <tr>
+                        <th class="text-center">{{ $ctr++ }}</th>
+                        <th class="text-center">{{ $item->no }}</th>
+                        <td>{{ $item->entry }}</td>
+                        <td>{{ number_format($item->amt, 2) }}</td>
+                        <td>{{ Carbon\Carbon::parse($item->created_at)->format('M d Y') }}</td>
+                        <td>{{ $item->requested_by }}</td>
+                        <td>{{ $item->note? $item->note: '-' }}</td>       
+                        <td>{{ Carbon\Carbon::parse($item->updated_at)->format('M d Y') }}</td>            
+                       </tr>
+                    @endforeach
+                  </tbody>
+                </table>
+                </div>
+            </div>
           </div>
         </div>
       </div>
@@ -352,7 +555,7 @@
       var j=1;
           
           $("#add_request").click(function(){
-              $('#request'+j).html("<th>"+ (j) +"</th><td><select class='form-control' form='requestFundsForm' name='entry"+j+"' required>@foreach($entry as $item)<option value='{{ $item->payable_entry }}'>{{ $item->payable_entry }}</option> @endforeach</select></td><td><input class='form-control' form='requestFundsForm' name='amt"+j+"' type='number' step='0.001' required></td><td><input class='form-control' form='requestFundsForm' name='note"+i+"' type='text'></td>");
+              $('#request'+j).html("<th>"+ (j) +"</th><td><select class='form-control' form='requestFundsForm' name='entry"+j+"' required><option>Please select entry</option>@foreach($entry as $item)<option value='{{ $item->payable_entry }}'>{{ $item->payable_entry }}</option> @endforeach</select></td><td><input class='form-control' form='requestFundsForm' name='amt"+j+"' type='number' step='0.001' required></td><td><input class='form-control' form='requestFundsForm' name='note"+i+"' type='text'></td>");
       
       
            $('#request_table').append('<tr id="request'+(j+1)+'"></tr>');

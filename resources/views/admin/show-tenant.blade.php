@@ -105,9 +105,9 @@
       
                @if(Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'ap' || Auth::user()->user_type === 'admin')
             <li class="nav-item">
-            <a class="nav-link" href="/account-payables">
+            <a class="nav-link" href="/payables">
             <i class="fas fa-hand-holding-usd"></i>
-              <span>Account Payables</span></a>
+              <span>Payables</span></a>
           </li>
           @endif
       
@@ -490,10 +490,10 @@
     <div class="col-md-11 mx-auto">
     <div class="table-responsive">
       <div class="table-responsive text-nowrap">
-        <table class="table table-bordered">
+        <table class="table">
           <?php $ctr=1; ?>
           <tr>
-         <th>#</th>
+         <th class="text-center">#</th>
           <th>Date Billed</th>
             <th>Bill No</th>
             
@@ -504,7 +504,7 @@
           </tr>
           @foreach ($balance as $item)
           <tr>
-         <th>{{ $ctr++ }}</th>
+         <th class="text-center">{{ $ctr++ }}</th>
             <td>
               {{Carbon\Carbon::parse($item->billing_date)->format('M d Y')}}
             </td>   
@@ -555,7 +555,7 @@
                 </tr>
                 <tr>
                   <?php $ctr = 1; ?>
-                    <th>#</th>
+                    <th class="text-center">#</th>
                     <th>AR No</th>
                     <th>Bill No</th>
                     <th>Room</th>  
@@ -570,7 +570,7 @@
                 @foreach ($collection_list as $item)
                
                 <tr>
-                      <th>{{ $ctr++ }}</th>
+                      <th class="text-center">{{ $ctr++ }}</th>
                         <td>{{ $item->ar_no }}</td>
                         <td>{{ $item->payment_billing_no }}</td>
                           <td>{{ $item->building.' '.$item->unit_no }}</td> 

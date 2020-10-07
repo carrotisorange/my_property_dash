@@ -105,9 +105,9 @@
       
                @if(Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'ap' || Auth::user()->user_type === 'admin')
             <li class="nav-item">
-            <a class="nav-link" href="/account-payables">
+            <a class="nav-link" href="/payables">
             <i class="fas fa-hand-holding-usd"></i>
-              <span>Account Payables</span></a>
+              <span>Payables</span></a>
           </li>
           @endif
       
@@ -136,15 +136,15 @@
 </div>
 <nav>
   <div class="nav nav-tabs" id="nav-tab" role="tablist">
-    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true"><i class="fas fa-file-invoice-dollar fa-sm text-primary-50"></i> Bills <span class="badge badge-primary badge-counter">{{ $balance->count() }}</span></a>
-    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false"> <i class="fas fa-money-bill fa-sm text-primary-50"></i> Payments </a>
+    <a class="nav-item nav-link active" id="nav-bills-tab" data-toggle="tab" href="#bills" role="tab" aria-controls="nav-bills" aria-selected="true"><i class="fas fa-file-invoice-dollar fa-sm text-primary-50"></i> Bills <span class="badge badge-primary badge-counter">{{ $balance->count() }}</span></a>
+    <a class="nav-item nav-link" id="nav-payments-tab" data-toggle="tab" href="#payments" role="tab" aria-controls="nav-payments" aria-selected="false"> <i class="fas fa-money-bill fa-sm text-primary-50"></i> Payments </a>
     {{-- <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</a> --}}
   </div>
 </nav>
 
 <div class="tab-content" id="nav-tabContent">
   <br>
-  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+  <div class="tab-pane fade show active" id="bills" role="tabpanel" aria-labelledby="nav-bills-tab">
     <a href="/board" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> Dashboard</a>
 
     @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'treasury')
@@ -236,7 +236,7 @@
 
 
   </div>
-  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+  <div class="tab-pane fade" id="payments" role="tabpanel" aria-labelledby="nav-payments-tab">
     
     @if(Auth::user()->user_type === 'treasury' || Auth::user()->user_type === 'manager')
     <a href="#" data-toggle="modal" data-target="#acceptPayment" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Add</a>

@@ -343,18 +343,18 @@ Route::get('/board', function(Request $request){
                                 (
                                     'Expenses', 'line', 
                                                                     [
-                                                                        DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(11))->sum('amt'),
-                                                                        DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(10))->sum('amt'),
-                                                                        DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(9))->sum('amt'),
-                                                                        DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(8))->sum('amt'),
-                                                                        DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(7))->sum('amt'),
-                                                                        DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(6))->sum('amt'),
-                                                                        DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(5))->sum('amt'),
-                                                                        DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(4))->sum('amt'),
-                                                                        DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(3))->sum('amt'),
-                                                                        DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(2))->sum('amt'),
-                                                                        DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonth(1))->sum('amt'),
-                                                                        DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today())->sum('amt'),      
+                                                                        DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'released')->whereDate('updated_at', Carbon::today()->subMonths(11))->sum('amt'),
+                                                                        DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'released')->whereDate('updated_at', Carbon::today()->subMonths(10))->sum('amt'),
+                                                                        DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'released')->whereDate('updated_at', Carbon::today()->subMonths(9))->sum('amt'),
+                                                                        DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'released')->whereDate('updated_at', Carbon::today()->subMonths(8))->sum('amt'),
+                                                                        DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'released')->whereDate('updated_at', Carbon::today()->subMonths(7))->sum('amt'),
+                                                                        DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'released')->whereDate('updated_at', Carbon::today()->subMonths(6))->sum('amt'),
+                                                                        DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'released')->whereDate('updated_at', Carbon::today()->subMonths(5))->sum('amt'),
+                                                                        DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'released')->whereDate('updated_at', Carbon::today()->subMonths(4))->sum('amt'),
+                                                                        DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'released')->whereDate('updated_at', Carbon::today()->subMonths(3))->sum('amt'),
+                                                                        DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'released')->whereDate('updated_at', Carbon::today()->subMonths(2))->sum('amt'),
+                                                                        DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'released')->whereDate('updated_at', Carbon::today()->subMonth(1))->sum('amt'),
+                                                                        DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'released')->whereDate('updated_at', Carbon::today())->sum('amt'),      
                                                                                                         
                                                                     ]
                                 )
@@ -1620,7 +1620,7 @@ Route::put('/units/edit/{property}/{date}', 'UnitsController@post_edit_multiple_
 //routes for account payable functions
 
 //show account payable page
-Route::get('/account-payables', function(){
+Route::get('/payables', function(){
     if( auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager' || auth()->user()->user_type === 'ap'){
 
        $entry = DB::table('payable_entry')
@@ -1628,11 +1628,39 @@ Route::get('/account-payables', function(){
        ->orderBy('created_at', 'desc')
        ->get();
 
-       $request = DB::table('payable_request')
+       $pending = DB::table('payable_request')
        ->where('property', Auth::user()->property)
+       ->where('status', 'pending')
        ->get();
 
-        return view('account-payables.account-payables', compact('entry', 'request'));
+       $approved = DB::table('payable_request')
+       ->where('property', Auth::user()->property)
+       ->where('status', 'approved')
+       ->get();
+
+       
+       $released = DB::table('payable_request')
+       ->where('property', Auth::user()->property)
+       ->where('status', 'released')
+       ->get();
+
+        $expense_report = DB::table('payable_request')
+       ->where('property', Auth::user()->property)
+       ->where('status', 'released')
+       ->orderBy('updated_at', 'desc')
+       ->get()
+       ->groupBy(function($item) {
+           return \Carbon\Carbon::parse($item->updated_at)->format('M d Y');
+       });
+
+   
+
+       $declined = DB::table('payable_request')
+       ->where('property', Auth::user()->property)
+       ->where('status', 'declined')
+       ->get();
+
+        return view('account-payables.account-payables', compact('entry','pending','approved','declined','released','expense_report'));
     }else{
         return view('unregistered');
     }
@@ -1652,7 +1680,7 @@ Route::post('/account-payable/add/{property}', function(Request $request){
             ]);
     }
 
-    return back()->with('success', 'Payable entry has been added!');
+    return redirect('/payables#entries')->with('success', 'Entry has been added!');
 });
 
 //delete payable entry
@@ -1660,7 +1688,7 @@ Route::delete('/account-payable/{id}', function(Request $request, $id){
    
     DB::table('payable_entry')->where('id', $id)->delete();
 
-    return back()->with('success', 'Payable entry has been deleted!');
+    return redirect('/payables#entries')->with('success', 'Entry has been deleted!');
 });
 
 //request for funds
@@ -1687,7 +1715,7 @@ Route::post('/account-payable/request/{property}', function(Request $request){
     }
 
 
-    return back()->with('success', 'Payable request has been created!');
+    return redirect('/payables#payables')->with('success', 'Request has been created!');
 });
 
 
@@ -1704,7 +1732,7 @@ Route::post('/request-payable/approve/{id}', function(Request $request, $id){
                 ]
             );
 
-    return back()->with('success', 'Payable request has been approved!');
+    return redirect('/payables#payables')->with('success', 'Payable request has been approved!');
 });
 
 //disapprove fund request
@@ -1720,7 +1748,23 @@ Route::post('/request-payable/disapprove/{id}', function(Request $request, $id){
                 ]
             );
 
-    return back()->with('success', 'Payable request has been declined!');
+    return redirect('/payables#payables')->with('success', 'Request has been declined!');
+});
+
+//release fund request
+Route::post('/request-payable/release/{id}', function(Request $request, $id){   
+  
+    DB::table('payable_request')
+    ->where('id', $id)
+    ->update(
+                [
+                    'status' => 'released',
+                    'updated_at' => Carbon::now(),
+                    'approved_by' => Auth::user()->name,
+                ]
+            );
+
+    return redirect('/payables#released')->with('success', 'Request has been released!');
 });
 
 

@@ -105,9 +105,9 @@
       
                @if(Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'ap' || Auth::user()->user_type === 'admin')
             <li class="nav-item">
-            <a class="nav-link" href="/account-payables">
+            <a class="nav-link" href="/payables">
             <i class="fas fa-hand-holding-usd"></i>
-              <span>Account Payables</span></a>
+              <span>Payables</span></a>
           </li>
           @endif
       
@@ -160,13 +160,14 @@
     <p class="text-right">Statement of Accounts </p>
     <div class="table-responsive text-nowrap">
       <table class="table">
+        <?php $ctr=1; ?>
         <tr>
-       
+          <th class="text-center">#</th>
           <th>Bill No</th>
          
           <th>Description</th>
-          <th>Period Covered</th>
-          <th class="text-right" colspan="3">Amount</th>
+          <th colspan="2">Period Covered</th>
+          <th>Amount</th>
           <td></td>
         </tr>
 
@@ -178,15 +179,17 @@
         ?>
         @foreach ($balance as $item)
         <tr>
-        
+            <th class="text-center">{{ $ctr++ }}</th>
             <td>{{ $item->billing_no }} <input form="editBillsForm" type="hidden" name="billing_id_ctr{{ $billing_id_ctr++ }}" value="{{ $item->billing_id }}"></td>
     
             <td>{{ $item->billing_desc }}</td>
             <td>
-              <input form="editBillsForm" type="date" name="billing_start_ctr{{ $billing_start_ctr++ }}" value="{{ $item->billing_start? Carbon\Carbon::parse($item->billing_start)->format('Y-m-d') : null}}"> -
-              <input form="editBillsForm"  type="date" name="billing_end_ctr{{ $billing_end_ctr++ }}" value="{{ $item->billing_end? Carbon\Carbon::parse($item->billing_end)->format('Y-m-d') : null }}">
+              <input class="form-control" form="editBillsForm" type="date" name="billing_start_ctr{{ $billing_start_ctr++ }}" value="{{ $item->billing_start? Carbon\Carbon::parse($item->billing_start)->format('Y-m-d') : null}}"> 
             </td>
-            <td class="text-right" colspan="3"><input form="editBillsForm" type="number" name="billing_amt_ctr{{ $billing_amt++ }}" step="0.01" value="{{  $item->balance }}"></td>
+            <td>
+              <input class="form-control" form="editBillsForm"  type="date" name="billing_end_ctr{{ $billing_end_ctr++ }}" value="{{ $item->billing_end? Carbon\Carbon::parse($item->billing_end)->format('Y-m-d') : null }}">
+            </td>
+            <td><input class="form-control" form="editBillsForm" type="number" name="billing_amt_ctr{{ $billing_amt++ }}" step="0.01" value="{{  $item->balance }}"></td>
             <td>
               @if(Auth::user()->user_type === 'manager')
   
@@ -199,29 +202,21 @@
             </td>   
           </tr>
         @endforeach
-        
-  
-    </table>
-    <table class="table">
-      <tr>
-       <th>Total</th>
-       <th class="text-right">{{ number_format($balance->sum('balance'),2) }} </th>
-      </tr>
-      <tr>
-        <td colspan="2" class="text-right"><button form="editBillsForm" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;" ><i class="fas fa-check fa-sm text-white-50"></i> Save Changes</button> </td>
-      </tr>
-        
+        <tr>
+          <th>Total</th>
+          <th colspan="5" class="text-right">{{ number_format($balance->sum('balance'),2) }} </th>
+         </tr>    
     </table>
   </div>
+  <p>Message footer</p>
+  <textarea form="editBillsForm" class="form-control" name="note" id="" cols="20" rows="10">
+    {{ Auth::user()->note }}
+    </textarea> 
+    <br>
+    <p class="text-right"><button form="editBillsForm" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;" ><i class="fas fa-check fa-sm text-white-50"></i> Save Changes</button> </p>
   </div>
+  <br>
 </div>
-
-<p>Message footer</p>
-      <textarea form="editBillsForm" class="form-control" name="note" id="" cols="20" rows="10">
-      {{ Auth::user()->note }}
-      </textarea> 
-
-
 
 {{-- Modal for editing payment footer message --}}
 <div class="modal fade" id="editPaymentFooter" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -253,65 +248,66 @@
 
 </div>
 
+
 <div class="modal fade" id="addBill" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-<div class="modal-dialog modal-xl" role="document">
-<div class="modal-content">
-  <div class="modal-header">
-  <h5 class="modal-title" id="exampleModalLabel">Enter Bill Information </h5>
-
-  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-  </button>
-  </div>
- <div class="modal-body">
-  <form id="addBillForm" action="/billings/" method="POST">
-     @csrf
-
-  <input type="hidden" form="addBillForm" name="action" value="add_move_in_charges" required>
-  <input type="hidden" form="addBillForm" name="tenant_id" value="{{ $tenant->tenant_id }}" required>
+  <div class="modal-dialog modal-xl" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Add Bill</h5>
   
-  <div class="row">
-    <div class="col">
-        <small>Billing Date</small>
-        {{-- <input type="date" form="addBillForm" class="form-control" name="billing_date" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}" required > --}}
-        <input type="date" form="addBillForm" class="" name="billing_date" value="{{ Carbon\Carbon::parse($tenant->movein_date)->format('Y-m-d') }}" required >
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
     </div>
-  </div>
-
-  <br>
-  <div class="row">
-    <div class="col">
+   <div class="modal-body">
+    <form id="addBillForm" action="/billings/" method="POST">
+       @csrf
+    </form>
    
-      <p class="text-left">
-        <span id='delete_row' class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-minus fa-sm text-white-50"></i> Remove Bill</span>
-      <span id="add_row" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Add Bill</span>     
-      </p>
-        <div class="table-responsive text-nowrap">
-        <table class = "table table-bordered" id="tab_logic">
-            <tr>
-                <th>#</th>
-                <th>Description</th>
-                <th colspan="2">Period Covered</th>
-                <th>Amount</th>
-                
-            </tr>
-                <input form="addBillForm" type="hidden" id="no_of_items" name="no_of_items" >
-            <tr id='addr1'></tr>
-        </table>
+    <input type="hidden" form="addBillForm" name="action" value="add_move_in_charges" required>
+    <input type="hidden" form="addBillForm" name="tenant_id" value="{{ $tenant->tenant_id }}" required>
+    
+    <div class="row">
+      <div class="col">
+          <small>Billing Date</small>
+          {{-- <input type="date" form="addBillForm" class="form-control" name="billing_date" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}" required > --}}
+          <input type="date" class="form-control" form="addBillForm" class="" name="billing_date" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}" required >
       </div>
     </div>
+   
+    <br>
+    <div class="row">
+      <div class="col">
+     
+        <p class="text-left">
+          <span id='delete_bill' class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-minus fa-sm text-white-50"></i> Remove</span>
+        <span id="add_bill" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Add</span>     
+        </p>
+          <div class="table-responsive text-nowrap">
+          <table class = "table table-bordered" id="table_bill">
+              <tr>
+                  <th>#</th>
+                  <th>Description</th>
+                  <th colspan="2">Period Covered</th>
+                  <th>Amount</th>
+                  
+              </tr>
+                  <input form="addBillForm" type="hidden" id="no_of_bills" name="no_of_bills" >
+              <tr id='bill1'></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+   
+  </div>
+  <div class="modal-footer">
+   {{-- <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Close</button> --}}
+   <button form="addBillForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;" ><i class="fas fa-check fa-sm text-white-50"></i> Submit</button>
+  </div> 
+  </div>
   </div>
   
-  
-</div>
-<div class="modal-footer">
- {{-- <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Close</button> --}}
- <button form="addBillForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;" ><i class="fas fa-check fa-sm text-white-50"></i> Submit</button>
-</div> 
-</div>
-</div>
-
-</div>
+  </div>
 @endsection
 
 @section('scripts')
@@ -338,6 +334,23 @@
         i--;
         current_bill_no--;
         document.getElementById('no_of_items').value = i;
+        }
+    });
+
+    var k=1;
+    $("#add_bill").click(function(){
+      $('#bill'+k).html("<th>"+ (k) +"</th><td><select class='form-control' name='billing_desc"+k+"' form='addBillForm' id='billing_desc"+k+"'><option value='Security Deposit (Rent)'>Security Deposit (Rent)</option><option value='Security Deposit (Utilities)'>Security Deposit (Utilities)</option><option value='Advance Rent'>Advance Rent</option><option value='Rent'>Rent</option><option value='Electric'>Electric</option><option value='Water'>Water</option></select> <td><input class='form-control' form='addBillForm' name='billing_start"+k+"' id='billing_start"+k+"' type='date' value='{{ $tenant->movein_date }}' required></td> <td><input class='form-control' form='addBillForm' name='billing_end"+k+"' id='billing_end"+k+"' type='date' value='{{ $tenant->moveout_date }}' required></td> <td><input class='form-control' form='addBillForm' name='billing_amt"+k+"' id='billing_amt"+k+"' type='number' min='1' step='0.01' required></td>");
+     $('#table_bill').append('<tr id="bill'+(k+1)+'"></tr>');
+     k++;
+     
+        document.getElementById('no_of_bills').value = k;
+ });
+    $("#delete_bill").click(function(){
+        if(k>1){
+        $("#bill"+(k-1)).html('');
+        k--;
+        
+        document.getElementById('no_of_bills').value = k;
         }
     });
   
