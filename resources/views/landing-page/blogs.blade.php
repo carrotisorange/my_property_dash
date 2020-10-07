@@ -44,7 +44,7 @@
         <div class="jumbotron bg-transparent">
           <header class="blockquote-header text-right">{{ $item->category }}</header>
           <h3 class="">{{ $item->title }}</h3>
-          <p class="">{{ $item->body }}</p>
+          <p class="">{!! $item->body !!}</p>
           <footer class="blockquote-footer">{{ $item->name }} <cite title="Source Title">on {{ Carbon\Carbon::parse($item->created_at)->format('M d Y') }}</cite></footer>
         </div>
       </div>   
