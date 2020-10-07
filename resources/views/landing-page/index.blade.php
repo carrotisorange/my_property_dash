@@ -3,7 +3,7 @@
 @section('title', 'The Property Manager')
 
 @section('nav-bar')
-<header id="header" class="fixed-top ">
+<header id="header" class="fixed-top">
   <div class="container d-flex align-items-center">
       <h3 class="logo mr-auto"><img src="{{ asset('/arsha/assets/img/logo.png') }}" alt="" class=""><a href="/"></a></h3> 
       <!-- Uncomment below if you prefer to use an image logo -->
