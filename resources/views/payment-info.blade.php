@@ -21,6 +21,12 @@
 
   <script src="https://js.stripe.com/v3/"></script>
 
+  <style>
+    .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+    background-color: #8629f8 !important;
+}
+  </style>
+
 <style>
 /**
  * The CSS shown here will not be introduced in the Quickstart guide, but shows
@@ -158,7 +164,7 @@
                 </div>
                
           </div> --}}
-          <div class="mx-auto">
+          <div class="col-md-12">
            
                 
           @if(Auth::user()->account_type === null)
@@ -285,7 +291,7 @@
            @endforeach
            <br>
            
-           <button type="submit" name="myButton" class="btn btn-primary btn-user btn-block"> Submit</button>
+           <button type="submit" name="myButton" class="btn btn-primary btn-user btn-block"> Finish</button>
          </form>
    
            </div>

@@ -21,9 +21,38 @@
   <!-- Custom styles for this template-->
   <link href="{{ asset('dashboard/css/sb-admin-2.min.css') }}" rel="stylesheet">
 
+  <style>
+    .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+    background-color: #8629f8 !important;
+}
+  </style> 
+  
 </head>
 
-<body class="bg-gradient-primary">
+<body class="">
+    <!-- Load Facebook SDK for JavaScript -->
+    <div id="fb-root"></div>
+    <script>
+      window.fbAsyncInit = function() {
+        FB.init({
+          xfbml            : true,
+          version          : 'v8.0'
+        });
+      };
+  
+      (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+  
+    <!-- Your Chat Plugin code -->
+    <div class="fb-customerchat"
+      attribution=setup_tool
+      page_id="580584885947359">
+    </div>
 
      <!-- Topbar -->
  <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
@@ -62,7 +91,7 @@
   </ul>
 
 </nav>
-  <div class="container">
+  <div class="col-md-5 mx-auto">
 
     <div class="card o-hidden border-0 shadow-lg my-5">
       <div class="card-body p-0">
@@ -70,13 +99,11 @@
         
         <!-- Nested Row within Card Body -->
         <div class="row">
-          <div class="col-lg-6 d-none d-lg-block bg-register-image">
-          
-          </div>
-          <div class="col-lg-6">
+        
+          <div class="col-lg-12">
             <div class="p-5">
               <div class="">
-                <h1 class="h4 text-gray-900 mb-4">Email Verification</h1>
+                <h1 class="h4 text-gray-900 mb-4">Verify your email...</h1>
               </div>
               
               @if (session('resent'))
@@ -100,7 +127,7 @@
             </div>
       
           
-            <div class="form-group">
+            {{-- <div class="form-group">
               <small>Name</small>
               <p>{{ Auth::user()->name }}</p>
           </div>
@@ -109,7 +136,7 @@
               <small>Email</small>
               <p>{{ Auth::user()->email }}</p>
           </div>
-          <br>
+          <br> --}}
           
        
               </div>

@@ -20,9 +20,15 @@
   <link href="{{ asset('/dashboard/css/sb-admin-2.min.css') }}" rel="stylesheet">
   <link href="{{ asset('index/assets/img/favicon.ico') }}" rel="icon">
 
+  <style>
+    .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+    background-color: #8629f8 !important;
+}
+  </style>
+  
 </head>
 
-<body class="bg-gradient-primary">
+<body class="">
        <!-- Topbar -->
      <!-- Topbar -->
      <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
@@ -56,7 +62,7 @@
     
     </nav>
 
-  <div class="container">
+  <div class="col-md-5 mx-auto">
 
     <div class="card o-hidden border-0 shadow-lg my-5">
       <div class="card-body p-0">
@@ -64,8 +70,8 @@
         
         <!-- Nested Row within Card Body -->
         <div class="row">
-          <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
-          <div class="col-lg-7">
+         
+          <div class="col-lg-12">
             <div class="p-5">
               <div class="">
                 <h1 class="h4 text-gray-900 mb-4">Property Profile</h1>
@@ -78,7 +84,7 @@
                
              
              <div class="form-group">
-                 <small>Name of your property</small>
+                 <small>Name</small>
                   <input form="addPropertyForm" id="property" type="text" class="form-control @error('property') is-invalid @enderror" name="property" value="{{ old('property') }}" required autocomplete="property" placeholder="Name of your property">
               
                   @error('property')
@@ -90,11 +96,11 @@
                 </div>
                 
               
-                <div class="form-group row">
+                <div class="form-group ">
             
                 
-               <div class="col-sm-6">
-                 <small>Property Type</small>
+               
+                 <small>Type</small>
                  <select form="addPropertyForm" id="property_type" type="text" class="form-control @error('property_type') is-invalid @enderror" name="property_type" value="{{ old('property_type') }}" required autocomplete="property_type" required>
                    <option value="">Please select one</option>
                    <option value="Dormitory">Dormitory</option>
@@ -111,8 +117,8 @@
                    </div>
 
                         
-                <div class="col-sm-6">
-                  <small>Property Ownership</small>
+                   <div class="form-group ">
+                  <small>Ownership</small>
                   <select form="addPropertyForm" id="property_ownership" class="form-control form @error('property_ownership') is-invalid @enderror" name="property_ownership" value="{{ old('property_ownership') }}" required autocomplete="property_ownership">
                     <option value="">Please select one</option>
                     <option value="Single Owner">Single Owner</option>
@@ -125,12 +131,14 @@
                         </span>
                     @enderror
                     </div>
-                  </div> 
-                  <hr>
 
                     <button form="addPropertyForm" type="submit" class="btn btn-primary btn-user btn-block" id="registerButton" onclick="this.form.submit(); this.disabled = true;"> 
-                       Next
-                    </button>
+                      Submit
+                   </button>
+                  </div> 
+                
+
+                   
     
               </div>
              
