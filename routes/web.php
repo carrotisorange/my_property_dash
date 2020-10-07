@@ -590,8 +590,8 @@ Route::get('/board', function(Request $request){
         $collections_for_the_day = DB::table('units')
         ->leftJoin('tenants', 'unit_id', 'unit_tenant_id')
         ->leftJoin('unit_owners', 'unit_id', 'unit_id_foreign')
-        ->leftJoin('billings', 'tenant_id', 'billing_Tenant_id')
-        ->leftJoin('payments', 'payment_billing_no', 'billing_no')
+        ->leftJoin('billings', 'tenant_id', 'billing_tenant_id')
+             ->leftJoin('payments', 'payment_billing_id', 'billing_id')
        ->where('unit_property', Auth::user()->property)
        ->whereDate('payment_created', Carbon::now())
        ->orderBy('payment_created', 'desc')
@@ -1208,9 +1208,8 @@ Route::get('/collections', function(){
 
              $collections = DB::table('units')
              ->leftJoin('tenants', 'unit_id', 'unit_tenant_id')
-           
-             ->leftJoin('billings', 'tenant_id', 'billing_Tenant_id')
-             ->leftJoin('payments', 'payment_billing_no', 'billing_no')
+             ->leftJoin('billings', 'tenant_id', 'billing_tenant_id')
+             ->leftJoin('payments', 'payment_billing_id', 'billing_id')
             ->where('unit_property', Auth::user()->property)
             ->orderBy('payment_created', 'desc')
             ->orderBy('ar_no', 'desc')

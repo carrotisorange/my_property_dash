@@ -355,8 +355,8 @@ class TenantController extends Controller
              $collections = DB::table('units')
             ->leftJoin('tenants', 'unit_id', 'unit_tenant_id')
            
-            ->leftJoin('billings', 'tenant_id', 'billing_Tenant_id')
-            ->leftJoin('payments', 'payment_billing_no', 'billing_no')
+            ->leftJoin('billings', 'tenant_id', 'billing_tenant_id')
+            ->leftJoin('payments', 'payment_billing_id', 'billing_id')
             ->where('tenant_id', $tenant_id)
             ->orderBy('payment_created', 'desc')
             ->orderBy('ar_no', 'desc')
@@ -443,8 +443,8 @@ class TenantController extends Controller
             $collections = DB::table('units')
             ->leftJoin('tenants', 'unit_id', 'unit_tenant_id')
            
-            ->leftJoin('billings', 'tenant_id', 'billing_Tenant_id')
-            ->leftJoin('payments', 'payment_billing_no', 'billing_no')
+            ->leftJoin('billings', 'tenant_id', 'billing_tenant_id')
+             ->leftJoin('payments', 'payment_billing_id', 'billing_id')
             ->where('tenant_id', $tenant_id)
             ->orderBy('payment_created', 'desc')
             ->orderBy('ar_no', 'desc')
