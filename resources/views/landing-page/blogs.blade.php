@@ -29,7 +29,7 @@
     <div class="jumbotron bg-transparent">
       <header class="blockquote-header text-right">{{ $item->category }}</header>
       <h3 class="">{{ $item->title }}</h3>
-      <p class="lead text-justify">{{ $item->body }}</p>
+      <p class="lead text-justify">{!! $item->body !!}</p>
       <hr class="my-4">
       <footer class="blockquote-footer">{{ $item->name }} <cite title="Source Title">on {{ Carbon\Carbon::parse($item->created_at)->format('M d Y') }}</cite></footer>
      
@@ -53,6 +53,8 @@
   </div>
 @endsection
 @section('scripts')
+
+<script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
 
 @endsection
 

@@ -36,8 +36,6 @@ class ConcernController extends Controller
     public function store(Request $request)
     {
 
-   
-
        $concern_id = DB::table('concerns')->insertGetId(
             [
                 'concern_tenant_id' => $request->reported_by,

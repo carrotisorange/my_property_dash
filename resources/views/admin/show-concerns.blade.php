@@ -221,8 +221,10 @@
           <hr>
           <form action="/responses" method="POST">
             @csrf
-            
-            <textarea class="form-control" name="body" id="" cols="30" rows="3" placeholder="type your response here..."></textarea>
+            <input type="hidden" name="concern_id" value={{ $concern->concern_id }}>
+            <input type="hidden" name="unit_id" value={{ $unit->unit_id }}>
+            <input type="hidden" name="tenant_id" value={{ $tenant->tenant_id }}>
+            <textarea class="form-control" name="response" id="" cols="30" rows="3" placeholder="type your response here..."></textarea>
            
             <br>
             <p class="text-right">
@@ -234,12 +236,13 @@
          @foreach ($responses as $item)
          <div class="card">
           <div class="card-body">
-            <blockquote class="blockquote mb-0">
-              <p>{{ $item->response }}</p>
-              <footer class="blockquote-footer">posted by <cite title="Source Title">{{ $item->posted_by }}</cite> on {{ Carbon\Carbon::parse($item->created_at)->format('M d Y H:m:s') }}</footer>
-            </blockquote>
+
+              <p>{!! $item->response !!}</p>
+              
+           
           </div>
         </div>
+        <p class="blockquote-footer text-right"><cite title="Source Title">{{ $item->posted_by }}</cite> on {{ Carbon\Carbon::parse($item->created_at)->format('M d Y H:m:s') }}</p>
         <br>
          @endforeach
      
@@ -325,8 +328,8 @@
         <div class="row">
           <div class="col">
               <small>Concern</small>
-             <textarea form="editConcernDetailsForm" class="form-control" name="concern_desc" id="" cols="30" rows="10" value="{{ $concern->concern_desc }}">
-              The tenant reports a flickering light and the rusty cabinet hinges in her unit.
+             <textarea form="editConcernDetailsForm" class="form-control" name="concern_desc" id="" cols="30" rows="10">
+              {{ $concern->concern_desc }}
              </textarea>
           </div>
       </div>
@@ -341,68 +344,12 @@
 
 </div>
 
-{{-- <div class="modal fade" id="addResponse" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-md" role="document">
-  <div class="modal-content">
-      <div class="modal-header">
-      <h5 class="modal-title" id="exampleModalLabel">Add Response</h5>
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-      </button>
-      </div>
-      <div class="modal-body">
-     
-        <div class="row">
-            <div class="col">
-                <small>Date reported</small>
-                <input type="date" form="editConcernDetailsForm" class="form-control" name="date_reported" value="{{ $concern->date_reported }}" required>
-            </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-
-          <button form="editConcernDetailsForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want to perform this action?');" ><i class="fas fa-check fa-sm text-white-50"></i> Save Changes</button>
-      </div>
-  </div>
-  </div>
-
-</div> --}}
-
 @endsection
-
 @section('scripts')
-<script type="text/javascript">
-  $(document).ready(function(){
-      var i=1;
-  $("#add_row").click(function(){
-      $('#addr'+i).html("<th>"+ (i) +"</th><td><input form='moveoutTenantForm' name='desc"+i+"' id='desc"+i+"' type='text' class='form-control input-md'></td><td><input form='moveoutTenantForm'   name='qty"+i+"' id='qty"+i+"' type='number' min='1' class='form-control input-md' required></td><td><input form='moveoutTenantForm'   name='price"+i+"' id='price"+i+"' type='number' min='1' class='form-control input-md' required></td><td><input form='moveoutTenantForm' step='0.01' name='amt"+i+"' id='amt"+i+"' type='number' min='1' class='form-control input-md' readonly required></td>");
-
-
-   $('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
-   i++;
-
-   document.getElementById('no_of_items').value = i;
-});
-
-  $("#delete_row").click(function(){
-      if(i>1){
-      $("#addr"+(i-1)).html('');
-      i--;
-      document.getElementById('no_of_items').value = i;
-      }
-  });
-});
-</script>
+<script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
 <script>
-$(document).ready(function(){
-
-  if(document.getElementById('action_taken').innerHTML === ""){
-    $("#editActionTakenForm").modal('show');
-  }
-
-});
+CKEDITOR.replace( 'response' );
 </script>
-
 @endsection
 
 
