@@ -530,7 +530,7 @@
    <thead>
     <?php $ctr=1;?>
     <tr>
-      <th>#</th>
+      <th class="text-center">#</th>
         <th>AR No</th>
         <th>Bill No</th>
         <th>Room</th>
@@ -547,14 +547,12 @@
    <tbody>
     @foreach ($collections_for_the_day as $item)
     <tr>
-      <th>{{ $ctr++ }}</th>
+      <th class="text-center">{{ $ctr++ }}</th>
       <td>{{ $item->ar_no }}</td>
        <td>{{ $item->payment_billing_no }}</td>
        <td>{{ $item->building.' '.$item->unit_no }}</td>
         <td>{{ $item->first_name.' '.$item->last_name }}</td>
         <td>{{ $item->unit_owner }}</td>
-       
-        
         <td>
           {{ $item->billing_desc }}</td>
         <td colspan="2">
