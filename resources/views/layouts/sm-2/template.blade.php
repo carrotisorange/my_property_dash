@@ -18,6 +18,7 @@
   <link href="{{ asset('dashboard/css/sb-admin-2.min.css') }}" rel="stylesheet">
   
   @yield('css')
+  
 
 </head>
 
@@ -50,12 +51,12 @@
        <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
              <!-- Nav Item - Dashboard -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/board">
+        {{-- <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/board">
           <div class="sidebar-brand-icon">
              <i class="fab fa-product-hunt"></i>
           </div>
           <div class="sidebar-brand-text mx-3">{{ Auth::user()->property }}<sup></sup></div>
-        </a>
+        </a> --}}
     
         <!-- Divider -->
         <hr class="sidebar-divider my-0">
