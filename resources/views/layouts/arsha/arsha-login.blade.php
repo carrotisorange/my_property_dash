@@ -37,8 +37,8 @@
 
   <div class="col-md-5 mx-auto">
     <div class="col-xl-12 col-lg-12 col-md-12">
-        <div class="card o-hidden border-0 shadow-lg my-5">
-            <div class="card-body p-0">
+        <div class="card shadow-lg my-5 rounded">
+            <div class="card-body p-1">
                 <div class="p-5">
                     @yield('content')
                 </div>
