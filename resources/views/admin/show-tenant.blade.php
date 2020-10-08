@@ -605,7 +605,7 @@
                     </tr>
                 @endforeach
                     <tr>
-                      <th>TOTAL</th>
+                      <th>Total</th>
                       <th colspan="8" class="text-right">{{ number_format($collection_list->sum('amt_paid'),2) }}</th>
                     </tr>
                     
