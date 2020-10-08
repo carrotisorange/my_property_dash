@@ -583,15 +583,6 @@ class TenantController extends Controller
         if($request->action==='request to moveout'){
             $no_of_charges = (int) $request->no_of_charges; 
 
-            // DB::table('notifications')->insertGetId(
-            //     [
-            //         'notification_tenant_id' => $tenant_id,
-            //         'notification_room_id' => $unit_id,
-            //         'notification_user_id' => Auth::user()->id,
-            //         'action' => 'has requested to moveout!',
-            //         'created_at' => Carbon::now(),
-            //     ]
-            // );
 
             DB::table('tenants')
             ->where('tenant_id', $tenant_id)
@@ -660,15 +651,6 @@ class TenantController extends Controller
            
 
         if($request->action==='approve to moveout'){
-            DB::table('notifications')->insertGetId(
-                [
-                    'notification_tenant_id' => $tenant_id,
-                    'notification_room_id' => $unit_id,
-                    'notification_user_id' => Auth::user()->id,
-                    'action' => 'request to moveout has been approved!',
-                    'created_at' => Carbon::now(),
-                ]
-            );
 
             DB::table('tenants')
             ->where('tenant_id', $tenant_id)
@@ -681,17 +663,6 @@ class TenantController extends Controller
             );
 
             return redirect('/units/'.$unit_id.'/tenants/'.$tenant_id)->with('success','Request to moveout has been approved!');
-
-        }
-
-        if($request->action==='open notification'){
-            DB::table('notifications')
-            ->where('notification_id', $request->notification_id)
-            ->update([
-                'updated_at' => Carbon::now()
-            ]);
-
-            return redirect('/units/'.$unit_id.'/tenants/'.$tenant_id);
 
         }
            
@@ -747,8 +718,6 @@ class TenantController extends Controller
         //  DB::table('units')->where('unit_id', 249)->delete();
 
         // DB::table('sessions')->where('session_user_id', 36)->delete();
-
-        // DB::table('notifications')->delete();
         
        return redirect('/units/'.$unit_id.'/tenants/'.$tenant_id)->with('success','Tenant information has been updated!');
     }

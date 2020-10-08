@@ -56,12 +56,12 @@ Route::get('/', function(){
 }); 
 
 Route::get('/board', function(Request $request){
-    if(Auth::user()->property === null){
+    if(Auth::user()->property == null ){
         return view('property-profile');
-    }elseif(Auth::user()->property !== null &&  Auth::user()->account_type === null){
+    }elseif(Auth::user()->property !== null &&  Auth::user()->account_type == null){
         return view('payment-info');
     }
-      elseif(Auth::user()->property !== null && Auth::user()->account_type !== null && Auth::user()->trial_ends_at === null){
+      elseif(Auth::user()->property !== null && Auth::user()->account_type !== null && Auth::user()->trial_ends_at == null){
           return view('payment-info');
       }   
     else{
@@ -602,22 +602,6 @@ Route::get('/board', function(Request $request){
        ->orderBy('ar_no', 'desc')
        ->groupBy('payment_id')
        ->get();
-
-    
-        $notifications = DB::table('notifications')
-        ->select('*','notifications.created_at as created_at', 'notifications.updated_at as updated_at')
-        ->join('units', 'unit_id', 'notification_room_id')
-        ->join('tenants', 'tenant_id', 'notification_tenant_id')
-        ->where('unit_property', Auth::user()->property)
-        ->orderBy('notifications.created_at', 'desc')
-        ->limit(5)
-        ->get();
-
-        $notifications_opened = DB::table('notifications')
-        ->join('units', 'unit_id', 'notification_room_id')
-        ->join('tenants', 'tenant_id', 'notification_tenant_id')
-        ->where('unit_property', Auth::user()->property)
-        ->count();
   
         // if(Auth::user()->property_type === 'Apartment Rentals' || Auth::user()->property_type === 'Dormitory'){
             return view('manager.dashboard', 
@@ -627,7 +611,7 @@ Route::get('/board', function(Request $request){
             'movein_rate','moveout_rate', 'renewed_chart','expenses_rate', 'reason_for_moving_out_chart',
             'delinquent_accounts','tenants_to_watch_out',
             'collections_for_the_day','pending_concerns','active_concerns','concerns',
-            'notifications','notifications_opened', 'current_occupancy_rate'
+            'current_occupancy_rate'
                     )
             );
         }        

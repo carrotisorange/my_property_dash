@@ -1,193 +1,71 @@
-</html>
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.arsha.arsha-login')
 
-<head>
+@section('title', 'The Property Manager | Property')
 
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
+@section('content')
 
-  <title>The Property Manager | Property Profile</title>
+<div class="">
+  <h1 class="h4 text-gray-900 mb-4">Property Profile</h1>
+</div>
 
-  <!-- Custom fonts for this template-->
-  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+  <form class="user" id="addPropertyForm" action="/users/{{ Auth::user()->id }}/property" method="POST">
+  @method('put')
+  {{ csrf_field() }}
+ 
+ 
 
-  <!-- Custom styles for this template-->
-  <link href="{{ asset('/dashboard/css/sb-admin-2.min.css') }}" rel="stylesheet">
-  <link href="{{ asset('index/assets/img/favicon.ico') }}" rel="icon">
+<div class="form-group">
 
-  <style>
-    .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
-    background-color: #8629f8 !important;
-}
-  </style>
-  
-</head>
+    <input form="addPropertyForm" id="property" type="text" class="form-control form-control-user @error('property') is-invalid @enderror" name="property" value="{{ old('property') }}" required autocomplete="property" placeholder="Name of your property">
 
-<body class="">
-       <!-- Topbar -->
-     <!-- Topbar -->
-     <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-      <!-- Sidebar Toggle (Topbar) -->
-       <!-- Nav Item - Dashboard -->
-       <span class="mx-3">The Property Manager</span>
-    
-      <!-- Topbar Navbar -->
-      <ul class="navbar-nav ml-auto">
-    
-        <div class="topbar-divider d-none d-sm-block"></div>
-    
-        <!-- Nav Item - User Information -->
-        <li class="nav-item dropdown no-arrow">
-          <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name }}</span>
-            <i class="fas fa-users-circle"></i> 
-          </a>
-          <!-- Dropdown - User Information -->
-          <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-    
-            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-              <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-              Logout
-            </a>
-          </div>
-        </li>
-    
-      </ul>
-    
-    </nav>
-
-  <div class="col-md-5 mx-auto">
-
-    <div class="card o-hidden border-0 shadow-lg my-5">
-      <div class="card-body p-0">
-       
-        
-        <!-- Nested Row within Card Body -->
-        <div class="row">
-         
-          <div class="col-lg-12">
-            <div class="p-5">
-              <div class="">
-                <h1 class="h4 text-gray-900 mb-4">Property Profile</h1>
-              </div>
-              
-                <form id="addPropertyForm" action="/users/{{ Auth::user()->id }}/property" method="POST">
-                @method('put')
-                {{ csrf_field() }}
-                </form>
-               
-             
-             <div class="form-group">
-                 <small>Name</small>
-                  <input form="addPropertyForm" id="property" type="text" class="form-control @error('property') is-invalid @enderror" name="property" value="{{ old('property') }}" required autocomplete="property" placeholder="Name of your property">
-              
-                  @error('property')
-                     <span class="invalid-feedback" role="alert">
-                         <strong>{{ $message }}</strong>
-                     </span>
-                 @enderror
-              
-                </div>
-                
-              
-                <div class="form-group ">
-            
-                
-               
-                 <small>Type</small>
-                 <select form="addPropertyForm" id="property_type" type="text" class="form-control @error('property_type') is-invalid @enderror" name="property_type" value="{{ old('property_type') }}" required autocomplete="property_type" required>
-                   <option value="">Please select one</option>
-                   <option value="Dormitory">Dormitory</option>
-                   <option value="Apartment Rentals">Apartment Rentals</option>
-                   <option value="Commercial Complex">Commercial Complex</option>
-                   <option value="Condominium Associations">Condominium Associations</option>
-                 </select>
-              
-                    @error('property_type')
-                       <span class="invalid-feedback" role="alert">
-                           <strong>{{ $message }}</strong>
-                       </span>
-                   @enderror
-                   </div>
-
-                        
-                   <div class="form-group ">
-                  <small>Ownership</small>
-                  <select form="addPropertyForm" id="property_ownership" class="form-control form @error('property_ownership') is-invalid @enderror" name="property_ownership" value="{{ old('property_ownership') }}" required autocomplete="property_ownership">
-                    <option value="">Please select one</option>
-                    <option value="Single Owner">Single Owner</option>
-                    <option value="Multiple Owners">Multiple Owners</option>
-                  </select>
-              
-                     @error('property_ownership')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                    </div>
-
-                    <button form="addPropertyForm" type="submit" class="btn btn-primary btn-user btn-block" id="registerButton" onclick="this.form.submit(); this.disabled = true;"> 
-                      Submit
-                   </button>
-                  </div> 
-                
-
-                   
-    
-              </div>
-             
-            </div>
-            
-          </div>
-          
-        </div>
-      </div>
-    </div>
+    @error('property')
+       <span class="invalid-feedback" role="alert">
+           <strong>{{ $message }}</strong>
+       </span>
+   @enderror
 
   </div>
+  
 
-      <!-- Logout Modal-->
-      <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-              <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">×</span>
-              </button>
-            </div>
-            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-            <div class="modal-footer">
-              <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-              <a class="btn btn-danger" href="{{ route('logout') }}"
-                    onclick="event.preventDefault();
-                    document.getElementById('logout-form').submit();">
-                  Logout
-            </a>
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                @csrf
-            </form>
-            </div>
-          </div>
-        </div>
+  <div class="form-group">
+
+   <select form="addPropertyForm" id="property_type" class="form-control @error('property_type') is-invalid @enderror" name="property_type" value="{{ old('property_type') }}" required>
+     <option value="">Select property type</option>
+     <option value="Dormitory">Dormitory</option>
+     <option value="Apartment Rentals">Apartment Rentals</option>
+     <option value="Commercial Complex">Commercial Complex</option>
+     <option value="Condominium Associations">Condominium Associations</option>
+   </select>
+
+      @error('property_type')
+         <span class="invalid-feedback" role="alert">
+             <strong>{{ $message }}</strong>
+         </span>
+     @enderror
+     </div>
+
+          
+     <div class="form-group ">
+    <select form="addPropertyForm" id="property_ownership" class="form-control form @error('property_ownership') is-invalid @enderror" name="property_ownership" value="{{ old('property_ownership') }}" required autocomplete="property_ownership">
+      <option value="">Select ownership</option>
+      <option value="Single Owner">Single Owner</option>
+      <option value="Multiple Owners">Multiple Owners</option>
+    </select>
+
+       @error('property_ownership')
+          <span class="invalid-feedback" role="alert">
+              <strong>{{ $message }}</strong>
+          </span>
+      @enderror
       </div>
 
-  <!-- Bootstrap core JavaScript-->
-  <script src="{{ asset('/dashboard/vendor/jquery/jquery.min.js') }}"></script>
-  <script src="{{ asset('/dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+      <button form="addPropertyForm" type="submit" class="btn btn-primary btn-user btn-block" id="registerButton" onclick="this.form.submit(); this.disabled = true;"> 
+        Submit
+     </button>
+    </form>
+@endsection
 
-  <!-- Core plugin JavaScript-->
-  <script src="{{ asset('/dashboard/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+@section('scripts')
 
-  <!-- Custom scripts for all pages-->
-  <script src="{{ asset('/dashboard/js/sb-admin-2.min.js') }}"></script>
+@endsection
 
-</body>
-
-</html>
