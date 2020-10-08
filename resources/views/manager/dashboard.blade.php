@@ -3,17 +3,7 @@
 @section('title', 'Dashboard')
 
 @section('sidebar')
-      <!-- Nav Item - Dashboard -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/board">
-            <div class="sidebar-brand-icon">
-               <i class="fab fa-product-hunt"></i>
-            </div>
-            <div class="sidebar-brand-text mx-3">{{ Auth::user()->property }}<sup></sup></div>
-          </a>
-      
-          <!-- Divider -->
-          <hr class="sidebar-divider my-0">
-      
+  
            <!-- Heading -->
       
           <!-- Nav Item - Pages Collapse Menu -->
