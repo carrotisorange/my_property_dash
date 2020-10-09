@@ -232,7 +232,7 @@
                               </select>
                              
                             </td>
-                            <td><input form="editUnitsForm" type="number" name="max_occupancy{{ $max_occupancy++  }}" id="" min="1" value="{{ $item->max_occupancy }}"> pax</td>
+                            <td><input form="editUnitsForm" type="number" name="max_occupancy{{ $max_occupancy++  }}" id="" min="0" value="{{ $item->max_occupancy }}"> pax</td>
                             <td><input form="editUnitsForm" type="number" step="0.001" name="monthly_rent{{ $monthly_rent++  }}"  min="0" id="" value="{{$item->monthly_rent }}"></td>
                             <td>
                               <form action="/units/{{ $item->unit_id }}" method="POST">
