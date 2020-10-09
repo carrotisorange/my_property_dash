@@ -51,7 +51,7 @@ class ConcernController extends Controller
                 'is_paid' => 'unpaid',
             ]);
 
-            return redirect('/units/'.$request->unit_tenant_id.'/tenants/'.$request->reported_by.'/concerns/'.$concern_id)->with('success', 'Concern has been added to the property!');
+            return redirect('/units/'.$request->unit_tenant_id.'/tenants/'.$request->reported_by.'/concerns/'.$concern_id)->with('success', 'Concern has been!');
     }
 
     /**
