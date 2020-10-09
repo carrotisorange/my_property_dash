@@ -1197,8 +1197,7 @@
         </div>
         
         </div>
-
-        {{-- modal for adding payments. --}}
+{{-- modal for adding payments. --}}
 
 <div class="modal fade" id="acceptPayment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl" role="document">
@@ -1216,12 +1215,12 @@
           </form>
           
           <div class="row">
-              <div class="col-md-9">
+              <div class="col-md-6">
                   <small for="">Date</small>
               {{-- <input form="acceptPaymentForm" type="date" class="form-control" name="payment_created" value={{date('Y-m-d')}} required> --}}
-              <input  class='form-control col-md-4' type="date" form="acceptPaymentForm" class="" name="payment_created" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}" required >
+              <input  class='form-control col-md-6' type="date" form="acceptPaymentForm" class="" name="payment_created" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}" required >
               </div>
-              <div class="col-md-3">
+              <div class="col-md-6">
                 <small for="">Acknowledgment Receipt No</small>
                 <input class='form-control col-md-6' form="acceptPaymentForm" type="text" class="" id="" name="ar_no" value="{{ $payment_ctr }}" required readonly>
             </div>
@@ -1233,8 +1232,8 @@
             <div class="col-md-12">
            
               <p class="text-left">
-                <span id='delete_payment' class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-minus fa-sm text-white-50"></i> Remove</span>
-              <span id="add_payment" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" ><i class="fas fa-plus fa-sm text-white-50"></i> Add</span>     
+                <a href="#/" id='delete_payment' class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-times-circle fa-sm text-white-50"></i> Remove</a>
+              <a href="#/" id="add_payment" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" ><i class="fas fa-check-circle fa-sm text-white-50"></i> Add</a>     
               </p>
                 <div class="table-responsive text-nowrap">
                 <table class = "table table-bordered" id="payment">
@@ -1245,8 +1244,6 @@
                         <th>Form of Payment</th>
                         <th>Bank Name</th>
                         <th>Cheque No</th>
-                        <th>Mgmt Fee</th>
-                        <th>Net Rent</th>
                     </tr>
                         <input form="acceptPaymentForm" type="hidden" id="no_of_payments" name="no_of_payments" >
                     <tr id='payment1'></tr>
@@ -1379,11 +1376,12 @@
 </script>
 
 <script type="text/javascript">
+
   //adding moveout charges upon moveout
     $(document).ready(function(){
     var j=1;
     $("#add_payment").click(function(){
-        $('#payment'+j).html("<th>"+ (j) +"</th><td><select form='acceptPaymentForm' name='billing_no"+j+"' id='billing_no"+j+"' required><option selected>Please select bill</option>@foreach ($balance as $item)<option value='{{ $item->billing_no.'-'.$item->billing_id }}'> Bill No {{ $item->billing_no }} | {{ $item->billing_desc }} | {{ $item->billing_start? Carbon\Carbon::parse($item->billing_start)->format('M d Y') : null}} - {{ $item->billing_end? Carbon\Carbon::parse($item->billing_end)->format('M d Y') : null }} | {{ number_format($item->balance,2) }} </option> @endforeach </select></td><td><input form='acceptPaymentForm' name='amt_paid"+j+"' id='amt_paid"+j+"' type='number' min='1' step='0.01' required></td><td><select form='acceptPaymentForm' name='form_of_payment"+j+"' required><option value='Cash'>Cash</option><option value='Bank Deposit'>Bank Deposit</option><option value='Cheque'>Cheque</option></select></td><td>  <input  form='acceptPaymentForm' type='text' name='bank_name"+j+"'></td><td><input  form='acceptPaymentForm' type='text' name='cheque_no"+j+"'></td><td>  <input  form='acceptPaymentForm' name='mgmt_fee"+j+"' id='mgmt_fee"+j+"' type='number' min='1' step='0.01'></td><td>  <input form='acceptPaymentForm' name='net_rent"+j+"' id='net_rent"+j+"' type='number' min='1' step='0.01'></td>");
+        $('#payment'+j).html("<th>"+ (j) +"</th><td><select class='form-control' form='acceptPaymentForm' name='billing_no"+j+"' id='billing_no"+j+"' required><option >Please select bill</option> @foreach ($balance as $item)<option value='{{ $item->billing_no.'-'.$item->billing_id }}'> Bill No {{ $item->billing_no }} | {{ $item->billing_desc }} | {{ $item->billing_start? Carbon\Carbon::parse($item->billing_start)->format('M d Y') : null}} - {{ $item->billing_end? Carbon\Carbon::parse($item->billing_end)->format('M d Y') : null }} | {{ number_format($item->balance,2) }} </option> @endforeach </select></td><td><input class='form-control'  form='acceptPaymentForm' name='amt_paid"+j+"' id='amt_paid"+j+"' type='number' min='1' step='0.01' required></td><td><select class='form-control'  form='acceptPaymentForm' name='form_of_payment"+j+"' required><option value='Cash'>Cash</option><option value='Bank Deposit'>Bank Deposit</option><option value='Cheque'>Cheque</option></select></td><td>  <input class='form-control'  form='acceptPaymentForm' type='text' name='bank_name"+j+"'></td><td><input class='form-control'  form='acceptPaymentForm' type='text' name='cheque_no"+j+"'></td>");
   
   
      $('#payment').append('<tr id="payment'+(j+1)+'"></tr>');
@@ -1400,5 +1398,5 @@
         }
     });
   });
-  </script>
+</script>
 @endsection

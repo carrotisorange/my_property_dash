@@ -73,7 +73,7 @@ class PaymentController extends Controller
 
         //add all the payment to the database.
         for($i = 1; $i<$no_of_payments; $i++){
-             $explode = explode("-",  $request->input('billing_no'.$i));
+             $explode = explode("-", $request->input('billing_no'.$i));
             DB::table('payments')->insert(
                 [
                     'payment_tenant_id' => $request->payment_tenant_id, 
@@ -156,9 +156,9 @@ class PaymentController extends Controller
         }
 
         if(Auth::user()->user_type === 'manager'){
-            return redirect('/units/'.$request->unit_tenant_id.'/tenants/'.$request->payment_tenant_id.'/#payments')->with('success', ($i-1).' payments have been added!');
+            return redirect('/units/'.$request->unit_tenant_id.'/tenants/'.$request->payment_tenant_id.'/#payments')->with('success', ($i-1).' payment/s have been added!');
         }else{
-            return redirect('/units/'.$request->unit_tenant_id.'/tenants/'.$request->payment_tenant_id.'/billings#profile')->with('success', ($i-1).' payments have been added!');
+            return redirect('/units/'.$request->unit_tenant_id.'/tenants/'.$request->payment_tenant_id.'/billings#profile')->with('success', ($i-1).' payment/s have been added!');
         }
         
    
