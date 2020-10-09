@@ -649,14 +649,8 @@ Route::get('/home', function(){
             ->where('status','<>','deleted')
             ->groupBy('building')
             ->get('building', 'status','count');   
-
-        if(Auth::user()->property_type === 'Apartment Rentals' || Auth::user()->property_type === 'Dormitory' ){
+       
             return view('admin.home',compact('units','buildings', 'units_count'));
-        }
-        else{
-            return view('admin.condo',compact('units','buildings', 'units_count'));
-        }
-        
       
     }
 })->middleware(['auth', 'verified']);

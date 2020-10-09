@@ -214,7 +214,7 @@ class UnitsController extends Controller
         if($property === Auth::user()->property){
             $units = DB::table('units')
             ->where('unit_property', Auth::user()->property)
-            ->where('status','<>','deleted')
+            // ->where('status','<>','deleted')
             ->orderBy('building', 'asc')
             ->orderBy('floor_no', 'asc')
             ->orderBy('unit_no', 'asc')
@@ -229,11 +229,10 @@ class UnitsController extends Controller
      }
 
      public function post_edit_multiple_rooms(Request $request){
-   
-
-         $units_count = DB::table('units')
+      
+      $units_count = DB::table('units')
          ->where('unit_property', Auth::user()->property)
-         ->where('status','<>','deleted')
+        //  ->where('status','<>','deleted')
          ->count();
          
         for($i = 1; $i<=$units_count; $i++){
