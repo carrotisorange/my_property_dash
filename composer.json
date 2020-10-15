@@ -20,7 +20,8 @@
         "laravel/scout": "^8.0",
         "laravel/socialite": "^4.4",
         "laravel/tinker": "^2.0",
-        "laravel/ui": "^1.2"
+        "laravel/ui": "^1.2",
+        "luigel/laravel-paymongo": "^1.2"
     },
     "require-dev": {
         "facade/ignition": "^1.4",

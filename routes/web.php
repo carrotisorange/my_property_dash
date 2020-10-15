@@ -370,18 +370,18 @@ Route::get('/board', function(Request $request){
                                 (
                                     'Income', 'line', 
                                                                     [
-                                                                        $collection_rate_1 -  DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(11))->sum('amt'),
-                                                                        $collection_rate_2 -  DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(10))->sum('amt'),
-                                                                        $collection_rate_3 -  DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(9))->sum('amt'),
-                                                                        $collection_rate_4 - DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(8))->sum('amt'),
-                                                                        $collection_rate_5 -  DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(7))->sum('amt'),
-                                                                        $collection_rate_6 -  DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(6))->sum('amt'),
-                                                                        $collection_rate_7 -  DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(5))->sum('amt'),
-                                                                        $collection_rate_8 -  DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(4))->sum('amt'),
-                                                                        $collection_rate_9 -  DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(3))->sum('amt'),
-                                                                        $collection_rate_10 - DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonths(2))->sum('amt'),
-                                                                        $collection_rate_11-  DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today()->subMonth(1))->sum('amt'),
-                                                                        $collection_rate_12 - DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'approved')->whereDate('created_at', Carbon::today())->sum('amt')              ,                                 
+                                                                        $collection_rate_1 -  DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'released')->whereDate('updated_at', Carbon::today()->subMonths(11))->sum('amt'),
+                                                                        $collection_rate_2 -  DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'released')->whereDate('updated_at', Carbon::today()->subMonths(10))->sum('amt'),
+                                                                        $collection_rate_3 -  DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'released')->whereDate('updated_at', Carbon::today()->subMonths(9))->sum('amt'),
+                                                                        $collection_rate_4 - DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'released')->whereDate('updated_at', Carbon::today()->subMonths(8))->sum('amt'),
+                                                                        $collection_rate_5 -  DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'released')->whereDate('updated_at', Carbon::today()->subMonths(7))->sum('amt'),
+                                                                        $collection_rate_6 -  DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'released')->whereDate('updated_at', Carbon::today()->subMonths(6))->sum('amt'),
+                                                                        $collection_rate_7 -  DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'released')->whereDate('updated_at', Carbon::today()->subMonths(5))->sum('amt'),
+                                                                        $collection_rate_8 -  DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'released')->whereDate('updated_at', Carbon::today()->subMonths(4))->sum('amt'),
+                                                                        $collection_rate_9 -  DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'released')->whereDate('updated_at', Carbon::today()->subMonths(3))->sum('amt'),
+                                                                        $collection_rate_10 - DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'released')->whereDate('updated_at', Carbon::today()->subMonths(2))->sum('amt'),
+                                                                        $collection_rate_11-  DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'released')->whereDate('updated_at', Carbon::today()->subMonth(1))->sum('amt'),
+                                                                        $collection_rate_12 - DB::table('payable_request')->where('property', Auth::user()->property)->where('status', 'released')->whereDate('updated_at', Carbon::today())->sum('amt')              ,                                 
                                                                     ],
                                                                    
                                     )
@@ -1405,7 +1405,7 @@ Route::post('/users/{user_id}/charge', function(Request $request){
          return back();
     }else{
         
-        Stripe\Stripe::setApiKey('sk_test_51HJukYJRwyQ1aYnq47AXjpdfByCMtKxJJqcsORmKtMmSvliAuxnYuGTLRpTQVmuKAbPvMW7KdBn361qSNR13HTH700pQjYbkVO');
+        // Stripe\Stripe::setApiKey('sk_test_51HJukYJRwyQ1aYnq47AXjpdfByCMtKxJJqcsORmKtMmSvliAuxnYuGTLRpTQVmuKAbPvMW7KdBn361qSNR13HTH700pQjYbkVO');
 
         $charge = 0;
 
@@ -1420,12 +1420,12 @@ Route::post('/users/{user_id}/charge', function(Request $request){
         }
     
        try{
-        Stripe\Charge::create(array(
-            "amount" => $charge,
-            "currency" => "php",
-            'source' => $request->stripeToken,
-            'description' => Auth::user()->name.' | '.Auth::user()->property.' | ' . Auth::user()->property_type.' | '.Auth::user()->property_ownership.' | '.Auth::user()->account_type.' | '.$charge,
-        ));
+        // Stripe\Charge::create(array(
+        //     "amount" => $charge,
+        //     "currency" => "php",
+        //     'source' => $request->stripeToken,
+        //     'description' => Auth::user()->name.' | '.Auth::user()->property.' | ' . Auth::user()->property_type.' | '.Auth::user()->property_ownership.' | '.Auth::user()->account_type.' | '.$charge,
+        // ));
     
         DB::table('users')
         ->where('id', Auth::user()->id)

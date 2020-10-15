@@ -266,8 +266,8 @@
        <td><a href="/users/{{ $item->id }}">{{ $item->name }}</a></td>
        <td>{{ $item->email }}</td>
        <td>{{ $item->user_type }}</td>
-        <td>{{ Carbon\Carbon::parse($item->created_at)->format('M d Y').'@'.Carbon\Carbon::parse($item->created_at)->toTimeString() }}</td>
-        <td>{{ Carbon\Carbon::parse($item->email_verified_at)->format('M d Y').'@'.Carbon\Carbon::parse($item->email_verified_at)->toTimeString() }}</td>
+        <td>{{ Carbon\Carbon::parse($item->created_at)->format('M d Y').' '.Carbon\Carbon::parse($item->created_at)->toTimeString() }}</td>
+        <td>{{ Carbon\Carbon::parse($item->email_verified_at)->format('M d Y').' '.Carbon\Carbon::parse($item->email_verified_at)->toTimeString() }}</td>
      
        
      @endforeach
@@ -444,8 +444,8 @@
                               
                              
                              <td>{{ $item->account_type }}</td>
-                             <td>{{ Carbon\Carbon::parse($item->created_at)->format('M d Y').'@'.Carbon\Carbon::parse($item->created_at)->toTimeString() }}</td>
-                               <td>{{ Carbon\Carbon::parse($item->email_verified_at)->format('M d Y').'@'.Carbon\Carbon::parse($item->email_verified_at)->toTimeString() }}</td>
+                             <td>{{ Carbon\Carbon::parse($item->created_at)->format('M d Y').' '.Carbon\Carbon::parse($item->created_at)->toTimeString() }}</td>
+                               <td>{{ Carbon\Carbon::parse($item->email_verified_at)->format('M d Y').' '.Carbon\Carbon::parse($item->email_verified_at)->toTimeString() }}</td>
                              </tr>
                          @endforeach
                         </tbody>
@@ -489,7 +489,7 @@
                           
                           
                           
-                           <td>{{ Carbon\Carbon::parse($item->created_at)->format('M d Y').'@'.Carbon\Carbon::parse($item->created_at)->toTimeString() }}</td>
+                           <td>{{ Carbon\Carbon::parse($item->created_at)->format('M d Y').' '.Carbon\Carbon::parse($item->created_at)->toTimeString() }}</td>
                      
                      
                          </tr>
