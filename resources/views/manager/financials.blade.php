@@ -1,6 +1,6 @@
 @extends('layouts.sm-2.template')
 
-@section('title', 'Owners')
+@section('title', 'Financials')
 
 @section('sidebar')
    
@@ -42,7 +42,7 @@
       
        @if((Auth::user()->user_type === 'admin' && Auth::user()->property_ownership === 'Multiple Owners') || (Auth::user()->user_type === 'manager' && Auth::user()->property_ownership === 'Multiple Owners'))
         <!-- Nav Item - Tables -->
-        <li class="nav-item active">
+        <li class="nav-item">
             <a class="nav-link" href="/owners">
             <i class="fas fa-user-tie"></i>
             <span>Owners</span></a>
@@ -92,13 +92,13 @@
            @endif
       
            @if(Auth::user()->user_type === 'treasury' || Auth::user()->user_type === 'manager')
-              <li class="nav-item">
+              <li class="nav-item ">
               <a class="nav-link" href="/collections">
                 <i class="fas fa-file-invoice-dollar"></i>
                 <span>Collections</span></a>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item active">
               <a class="nav-link" href="/financials">
                 <i class="fas fa-coins"></i>
                 <span>Financials</span></a>
@@ -134,78 +134,56 @@
 
 @section('content')
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-  <h1 class="h3 mb-0 text-gray-800">Owners</h1>
-  <form  action="/owners/search" method="GET" >
+  <h1 class="h3 mb-0 text-gray-800">Financials</h1>
+
+  <form  action="/payments/search" method="GET" >
     @csrf
     <div class="input-group">
-        <input type="text" class="form-control" name="search" placeholder="Search for owner..." value="{{ session(Auth::user()->id.'search_owner') }}" required>
-        <div class="input-group-append">
-          <button class="btn btn-primary" type="submit">
-            <i class="fas fa-search fa-sm"></i>
-          </button>
-        </div>
-    </div>
+      <input type="date" class="form-control" name="search" value="{{ session(Auth::user()->id.'search_payment') }}" required>
+      <div class="input-group-append">
+        <button class="btn btn-primary" type="submit">
+          <i class="fas fa-search fa-sm"></i>
+        </button>
+      </div>
+  </div>
 </form>
 </div>
-
 <div class="table-responsive text-nowrap">
-      <table class="table">
+  <table class="table">
+      @foreach ($expenses as $day => $collection_list)
         <tr>
-          <td colspan="6">Showing <b>{{ $owners->count() }} </b> of {{  $count_owners }}  owners </td>
-          
+            <th colspan="12">{{ Carbon\Carbon::parse($day)->addDay()->format('M d Y') }} ({{ $collection_list->count() }})</th>
         </tr>
-      </table>
-        <table class="table table-bordered">
-            <thead>
-              <?php $ctr=1; ?>
-                <tr>
-                  <th>#</th>
-                   <th>Owner</th>
-                   <th>Room</th>
-                   <th>Email</th>
-                   <th>Mobile</th>
-                   <th>Representative</th>
+        <?php $ctr=1;?>
+        <tr class="text-right">
+                <th class="text-center">#</th>
+                <th>No</th>
+                <th>Entry</th>
+                <th>Requested By</th>
+                <th>Approved By</th>
+                <th class="text-right">Amount</th>
+        
+                
+            </tr>
+      </tr>
+        @foreach ($collection_list as $item)
+        <tr class="text-right">
+                <th class="text-center">{{ $ctr++ }}</th>
+                <td>{{ $item->no }}</td>
+                <td>{{ $item->entry }}</td>
+                <td>{{ $item->requested_by }}</td>
+                <td>{{ $item->approved_by }}</td>
+                <td class="text-right">{{ number_format($item->amt, 2) }}</td>
+            </tr>
+        @endforeach
+            <tr>
+              <th>Total</th>
+              <th colspan="5" class="text-right">{{ number_format($collection_list->sum('amt'),2) }}</th>
+            </tr>
           
-                   <th>Date Accepted</th>
-                   <th>Room Type</th>
-                   <th>Occupancy</th>
-                   <th>Monthly Rent</th>
-                   <th>Status</th>
-                   {{-- <td></td> --}}
-               </tr>
-            </thead>   
-               <tbody>
-               @foreach ($owners as $item)
-               <tr>
-                 <th>{{ $ctr++ }}</th>
-                <td><a href="{{ route('show-investor',['unit_id'=> $item->unit_id, 'unit_owner_id'=>$item->unit_owner_id]) }}">{{ $item->unit_owner }} </a></td>
-                   
-                   <td><a href="/units/{{ $item->unit_id }}">{{ $item->building.' '.$item->unit_no }}</a></td>
-                   
-                  
-                   <td>{{ $item->investor_email_address}}</td>
-                   <td>{{ $item->investor_contact_no }}</td>
-                   <TD>{{ $item->investor_representative }}</TD>
-                   <td> {{ $item->date_accepted ? Carbon\Carbon::parse($item->date_accepted)->format('M d Y') : null}}</td>
- 
-                   <td>{{ $item->type_of_units }}</td>
-                   <td>{{ $item->max_occupancy }} pax</td>
-                   <td>{{ number_format($item->monthly_rent, 2) }}</td>
-                   <td>{{ $item->status }}</td>
-                   {{-- <td>
-                     <form action="/owners/{{ $item->unit_owner_id }}" method="POST">
-                    @csrf
-                    @method('delete')
-                    <button title="remove" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"  onclick="return confirm('Are you sure you want perform this action?');"><i class="fas fa-times fa-sm text-white-50"></i></button>
-                  </form>
-                </td> --}}
-               </tr>
-               @endforeach
-               </tbody>
-        </table>
-       
-      </div>
-
+      @endforeach
+  </table>
+   </div>
 @endsection
 
 @section('scripts')

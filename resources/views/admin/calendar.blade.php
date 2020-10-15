@@ -145,6 +145,12 @@
                 <i class="fas fa-file-invoice-dollar"></i>
                 <span>Collections</span></a>
             </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="/financials">
+                <i class="fas fa-coins"></i>
+                <span>Financials</span></a>
+            </li>
             @endif
       
                @if(Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'ap' || Auth::user()->user_type === 'admin')
