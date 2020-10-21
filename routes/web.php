@@ -41,7 +41,7 @@ Route::get('/', function(){
     ->where('user_type', 'manager')
     ->where('email', '!=','thepropertymanager2020@gmail.com')
     ->count();
-      
+
     $buildings = Unit::distinct()
     ->count('building');
 
@@ -53,7 +53,7 @@ Route::get('/', function(){
     ->count();
 
     return view('landing-page.index', compact('clients','properties', 'buildings', 'rooms', 'tenants'));
-}); 
+});
 
 Route::get('/board', function(Request $request){
     if(Auth::user()->property == null ){
@@ -63,9 +63,8 @@ Route::get('/board', function(Request $request){
     }
       elseif(Auth::user()->property !== null && Auth::user()->account_type !== null && Auth::user()->trial_ends_at == null){
           return view('payment-info');
-      }   
+      }
     else{
-      
         $pending_concerns = DB::table('tenants')
         ->join('units', 'unit_id', 'unit_tenant_id')
         ->join('concerns', 'tenant_id', 'concern_tenant_id')
@@ -137,7 +136,7 @@ Route::get('/board', function(Request $request){
         ->orderBy('movein_date', 'desc')
         ->get();
 
-                
+
         $inactive_tenants = DB::table('tenants')
         ->join('units', 'unit_id', 'unit_tenant_id')
         ->where('unit_property', Auth::user()->property)
@@ -167,7 +166,7 @@ Route::get('/board', function(Request $request){
         $movein_rate->barwidth(0.0);
         $movein_rate->displaylegend(false);
         $movein_rate->labels([Carbon::now()->subMonth(11)->format('M Y'),Carbon::now()->subMonth(10)->format('M Y'),Carbon::now()->subMonth(9)->format('M Y'),Carbon::now()->subMonth(8)->format('M Y'),Carbon::now()->subMonth(7)->format('M Y'),Carbon::now()->subMonth(6)->format('M Y'),Carbon::now()->subMonth(5)->format('M Y'),Carbon::now()->subMonth(4)->format('M Y'),Carbon::now()->subMonth(3)->format('M Y'),Carbon::now()->subMonths(2)->format('M Y'),Carbon::now()->subMonth()->format('M Y'),Carbon::now()->format('M Y')]);
-        $movein_rate->dataset('Occupancy Rate: ', 'line', 
+        $movein_rate->dataset('Occupancy Rate: ', 'line',
                                                 [
                                                     DB::table('occupancy_rate')->where('occupancy_property', Auth::user()->property)->whereMonth('occupancy_date', Carbon::today()->subMonths(11)->month)->whereYear('occupancy_date', Carbon::today()->year)->orderBy('id','desc')->limit(1)->pluck('occupancy_rate'),
                                                     DB::table('occupancy_rate')->where('occupancy_property', Auth::user()->property)->whereMonth('occupancy_date', Carbon::today()->subMonths(10)->month)->whereYear('occupancy_date', Carbon::today()->year)->orderBy('id','desc')->limit(1)->pluck('occupancy_rate'),
@@ -187,7 +186,7 @@ Route::get('/board', function(Request $request){
             ->backgroundcolor("rgba(78, 115, 223, 0.05)")
             ->fill(false)
             ->linetension(0.3);
-    
+
 
         $renewed_contracts = DB::table('tenants')
         ->join('units', 'unit_id', 'unit_tenant_id')
@@ -196,7 +195,7 @@ Route::get('/board', function(Request $request){
         ->where('has_extended', 'renewed')
         ->where('tenant_status', '!=', 'inactive')
         ->get();
-    
+
         $terminated_contracts = DB::table('tenants')
         ->join('units', 'unit_id', 'unit_tenant_id')
         ->where('unit_property', Auth::user()->property)
@@ -234,7 +233,7 @@ Route::get('/board', function(Request $request){
         ->where('payment_created', '>=', Carbon::now()->subMonths(9)->firstOfMonth())
         ->where('payment_created', '<=', Carbon::now()->subMonths(9)->endOfMonth())
         ->where('unit_property', Auth::user()->property)
-       
+
         ->sum('amt_paid');
 
         $collection_rate_4 = DB::table('units')
@@ -243,7 +242,7 @@ Route::get('/board', function(Request $request){
         ->where('payment_created', '>=', Carbon::now()->subMonths(8)->firstOfMonth())
         ->where('payment_created', '<=', Carbon::now()->subMonths(8)->endOfMonth())
         ->where('unit_property', Auth::user()->property)
-       
+
         ->sum('amt_paid');
 
         $collection_rate_5 = DB::table('units')
@@ -252,7 +251,7 @@ Route::get('/board', function(Request $request){
         ->where('payment_created', '>=', Carbon::now()->subMonths(7)->firstOfMonth())
         ->where('payment_created', '<=', Carbon::now()->subMonths(7)->endOfMonth())
         ->where('unit_property', Auth::user()->property)
-       
+
         ->sum('amt_paid');
 
         $collection_rate_6 = DB::table('units')
@@ -261,18 +260,18 @@ Route::get('/board', function(Request $request){
         ->where('payment_created', '>=', Carbon::now()->subMonths(6)->firstOfMonth())
         ->where('payment_created', '<=', Carbon::now()->subMonths(6)->endOfMonth())
         ->where('unit_property', Auth::user()->property)
-       
+
         ->sum('amt_paid');
-    
+
         $collection_rate_7 = DB::table('units')
         ->join('tenants', 'unit_id', 'unit_tenant_id')
         ->join('payments', 'tenant_id', 'payment_tenant_id')
         ->where('payment_created', '>=', Carbon::now()->subMonths(5)->firstOfMonth())
         ->where('payment_created', '<=', Carbon::now()->subMonths(5)->endOfMonth())
         ->where('unit_property', Auth::user()->property)
-       
+
         ->sum('amt_paid');
-    
+
         $collection_rate_8 = DB::table('units')
         ->join('tenants', 'unit_id', 'unit_tenant_id')
         ->join('payments', 'tenant_id', 'payment_tenant_id')
@@ -281,16 +280,16 @@ Route::get('/board', function(Request $request){
         ->where('unit_property', Auth::user()->property)
         ->whereRaw("payment_note like '%Rent%' ")
         ->sum('amt_paid');
-    
+
         $collection_rate_9 = DB::table('units')
         ->join('tenants', 'unit_id', 'unit_tenant_id')
         ->join('payments', 'tenant_id', 'payment_tenant_id')
         ->where('payment_created', '>=', Carbon::now()->subMonths(3)->firstOfMonth())
         ->where('payment_created', '<=', Carbon::now()->subMonths(3)->endOfMonth())
         ->where('unit_property', Auth::user()->property)
-        
+
         ->sum('amt_paid');
-    
+
          $collection_rate_10 = DB::table('units')
         ->join('tenants', 'unit_id', 'unit_tenant_id')
         ->join('payments', 'tenant_id', 'payment_tenant_id')
@@ -298,7 +297,7 @@ Route::get('/board', function(Request $request){
         ->where('payment_created', '<=', Carbon::now()->subMonths(2)->endOfMonth())
         ->where('unit_property', Auth::user()->property)
         ->sum('amt_paid');
-    
+
          $collection_rate_11 = DB::table('units')
         ->join('tenants', 'unit_id', 'unit_tenant_id')
         ->join('payments', 'tenant_id', 'payment_tenant_id')
@@ -306,7 +305,7 @@ Route::get('/board', function(Request $request){
         ->where('payment_created', '<=', Carbon::now()->subMonth()->firstOfMonth())
         ->where('unit_property', Auth::user()->property)
         ->sum('amt_paid');
-    
+
          $collection_rate_12 = DB::table('units')
         ->join('tenants', 'unit_id', 'unit_tenant_id')
         ->join('payments', 'tenant_id', 'payment_tenant_id')
@@ -405,7 +404,7 @@ Route::get('/board', function(Request $request){
         $expenses_rate->labels([Carbon::now()->subMonth(11)->format('M Y'),Carbon::now()->subMonth(10)->format('M Y'),Carbon::now()->subMonth(9)->format('M Y'),Carbon::now()->subMonth(8)->format('M Y'),Carbon::now()->subMonth(7)->format('M Y'),Carbon::now()->subMonth(6)->format('M Y'),Carbon::now()->subMonth(5)->format('M Y'),Carbon::now()->subMonth(4)->format('M Y'),Carbon::now()->subMonth(3)->format('M Y'),Carbon::now()->subMonths(2)->format('M Y'),Carbon::now()->subMonth()->format('M Y'),Carbon::now()->format('M Y')]);
         $expenses_rate->dataset
                                 (
-                                    'Collection', 'line', 
+                                    'Collection', 'line',
                                                                     [
                                                                         $collection_rate_1,
                                                                         $collection_rate_2,
@@ -419,7 +418,7 @@ Route::get('/board', function(Request $request){
                                                                         $collection_rate_10,
                                                                         $collection_rate_11,
                                                                         $collection_rate_12,
-                                                                       
+
                                                                     ]
                                 )
     ->color("#0000FF")
@@ -428,7 +427,7 @@ Route::get('/board', function(Request $request){
 
     $expenses_rate->dataset
                                 (
-                                    'Expenses', 'line', 
+                                    'Expenses', 'line',
                                                                     [
                                                                         $expenses_1,
                                                                         $expenses_2,
@@ -441,16 +440,16 @@ Route::get('/board', function(Request $request){
                                                                         $expenses_9,
                                                                         $expenses_10,
                                                                         $expenses_11,
-                                                                        $expenses_12                                 
+                                                                        $expenses_12
                                                                     ]
                                 )
     ->color("#ff0000")
     ->fill(false)
     ->backgroundcolor("#ff0000");
-        
+
         $expenses_rate->dataset
                                 (
-                                    'Income', 'line', 
+                                    'Income', 'line',
                                                                     [
                                                                         $collection_rate_1 -  $expenses_1,
                                                                         $collection_rate_2 -  $expenses_2,
@@ -463,17 +462,17 @@ Route::get('/board', function(Request $request){
                                                                         $collection_rate_9 - $expenses_9,
                                                                         $collection_rate_10 -$expenses_10,
                                                                         $collection_rate_11-  $expenses_11,
-                                                                        $collection_rate_12 - $expenses_12                              
+                                                                        $collection_rate_12 - $expenses_12
                                                                     ],
-                                                                   
+
                                     )
-        
+
         ->color("#008000")
         ->backgroundcolor("#008000")
         ->fill(false)
         ->linetension(0.4);
 
-       $delinquent_accounts = Billing::leftJoin('payments', 'billings.billing_id', 'payments.payment_billing_id') 
+       $delinquent_accounts = Billing::leftJoin('payments', 'billings.billing_id', 'payments.payment_billing_id')
        ->leftJoin('tenants', 'billing_tenant_id', 'tenant_id')
        ->leftJoin('units', 'tenant_id', 'unit_tenant_id')
         ->selectRaw('*, billing_amt - IFNULL(sum(amt_paid),0) as balance')
@@ -483,7 +482,7 @@ Route::get('/board', function(Request $request){
         ->orderBy('balance', 'desc')
         ->havingRaw('balance > 0')
         ->get();
-        
+
         $tenants_to_watch_out = DB::table('tenants')
         ->join('units', 'unit_id', 'unit_tenant_id')
         ->where('unit_property', Auth::user()->property)
@@ -506,16 +505,16 @@ Route::get('/board', function(Request $request){
         ->where('actual_move_out_date', '<=', Carbon::now()->subMonths(10)->endOfMonth())
         ->where('unit_property', Auth::user()->property)
         ->where('tenant_status','inactive')
-       
+
         ->count();
 
         $moveout_rate_3 = DB::table('tenants')
         ->join('units', 'unit_id', 'unit_tenant_id')
         ->where('actual_move_out_date', '>=', Carbon::now()->subMonths(9)->firstOfMonth())
         ->where('actual_move_out_date', '<=', Carbon::now()->subMonths(9)->endOfMonth())
-        ->where('unit_property', Auth::user()->property)    
+        ->where('unit_property', Auth::user()->property)
         ->where('tenant_status','inactive')
-     
+
         ->count();
 
         $moveout_rate_4 = DB::table('tenants')
@@ -524,7 +523,7 @@ Route::get('/board', function(Request $request){
         ->where('actual_move_out_date', '<=', Carbon::now()->subMonths(8)->endOfMonth())
         ->where('unit_property', Auth::user()->property)
         ->where('tenant_status','inactive')
-      
+
         ->count();
 
         $moveout_rate_5 = DB::table('tenants')
@@ -533,7 +532,7 @@ Route::get('/board', function(Request $request){
         ->where('actual_move_out_date', '<=', Carbon::now()->subMonths(7)->endOfMonth())
         ->where('unit_property', Auth::user()->property)
         ->where('tenant_status','inactive')
-  
+
         ->count();
 
         $moveout_rate_6 = DB::table('tenants')
@@ -542,7 +541,7 @@ Route::get('/board', function(Request $request){
         ->where('actual_move_out_date', '<=', Carbon::now()->subMonths(6)->endOfMonth())
         ->where('unit_property', Auth::user()->property)
         ->where('tenant_status','inactive')
-      
+
         ->count();
 
         $moveout_rate_7 = DB::table('tenants')
@@ -551,9 +550,9 @@ Route::get('/board', function(Request $request){
         ->where('actual_move_out_date', '<=', Carbon::now()->subMonths(5)->endOfMonth())
         ->where('unit_property', Auth::user()->property)
         ->where('tenant_status','inactive')
-      
+
         ->count();
-    
+
         $moveout_rate_8 = DB::table('tenants')
         ->join('units', 'unit_id', 'unit_tenant_id')
         ->where('actual_move_out_date', '>=', Carbon::now()->subMonths(4)->firstOfMonth())
@@ -561,7 +560,7 @@ Route::get('/board', function(Request $request){
         ->where('unit_property', Auth::user()->property)
         ->where('tenant_status','inactive')
         ->count();
-    
+
         $moveout_rate_9= DB::table('tenants')
         ->join('units', 'unit_id', 'unit_tenant_id')
         ->where('actual_move_out_date', '>=', Carbon::now()->subMonths(3)->firstOfMonth())
@@ -569,7 +568,7 @@ Route::get('/board', function(Request $request){
         ->where('unit_property', Auth::user()->property)
         ->where('tenant_status','inactive')
         ->count();
-    
+
         $moveout_rate_10= DB::table('tenants')
         ->join('units', 'unit_id', 'unit_tenant_id')
         ->where('actual_move_out_date', '>=', Carbon::now()->subMonths(2)->firstOfMonth())
@@ -577,7 +576,7 @@ Route::get('/board', function(Request $request){
         ->where('unit_property', Auth::user()->property)
         ->where('tenant_status','inactive')
         ->count();
-    
+
         $moveout_rate_11 = DB::table('tenants')
         ->join('units', 'unit_id', 'unit_tenant_id')
         ->where('actual_move_out_date', '>=', Carbon::now()->subMonth()->firstOfMonth())
@@ -585,7 +584,7 @@ Route::get('/board', function(Request $request){
         ->where('unit_property', Auth::user()->property)
         ->where('tenant_status','inactive')
         ->count();
-    
+
         $moveout_rate_12 = DB::table('tenants')
         ->join('units', 'unit_id', 'unit_tenant_id')
         ->where('actual_move_out_date', '>=', Carbon::now()->firstOfMonth())
@@ -595,7 +594,7 @@ Route::get('/board', function(Request $request){
         ->count();
 
         $moveout_rate = new DashboardChart;
-  
+
         $moveout_rate->displaylegend(false);
         $moveout_rate->labels([Carbon::now()->subMonth(11)->format('M Y'),Carbon::now()->subMonth(10)->format('M Y'),Carbon::now()->subMonth(9)->format('M Y'),Carbon::now()->subMonth(8)->format('M Y'),Carbon::now()->subMonth(7)->format('M Y'),Carbon::now()->subMonth(6)->format('M Y'),Carbon::now()->subMonth(5)->format('M Y'),Carbon::now()->subMonth(4)->format('M Y'),Carbon::now()->subMonth(3)->format('M Y'),Carbon::now()->subMonths(2)->format('M Y'),Carbon::now()->subMonth()->format('M Y'),Carbon::now()->format('M Y')]);
         $moveout_rate->dataset('Moveouts', 'bar', [
@@ -657,7 +656,7 @@ Route::get('/board', function(Request $request){
         ->where('tenant_status', 'inactive')
         ->where('reason_for_moving_out','force majeure')
         ->get();
-    
+
         $unruly = DB::table('tenants')
         ->join('units', 'unit_id', 'unit_tenant_id')
         ->where('unit_property', Auth::user()->property)
@@ -684,19 +683,19 @@ Route::get('/board', function(Request $request){
        ->orderBy('ar_no', 'desc')
        ->groupBy('payment_id')
        ->get();
-  
+
         // if(Auth::user()->property_type === 'Apartment Rentals' || Auth::user()->property_type === 'Dormitory'){
-            return view('manager.dashboard', 
+            return view('manager.dashboard',
             compact(
             'units', 'units_occupied','units_vacant', 'units_reserved',
-            'active_tenants', 'pending_tenants', 'owners', 
+            'active_tenants', 'pending_tenants', 'owners',
             'movein_rate','moveout_rate', 'renewed_chart','expenses_rate', 'reason_for_moving_out_chart',
             'delinquent_accounts','tenants_to_watch_out',
             'collections_for_the_day','pending_concerns','active_concerns','concerns',
             'current_occupancy_rate'
                     )
             );
-        }        
+        }
 
 })->middleware(['auth', 'verified']);
 
@@ -730,10 +729,10 @@ Route::get('/home', function(){
             ->where('unit_property', Auth::user()->property)
             ->where('status','<>','deleted')
             ->groupBy('building')
-            ->get('building', 'status','count');   
-       
+            ->get('building', 'status','count');
+
             return view('admin.home',compact('units','buildings', 'units_count'));
-      
+
     }
 })->middleware(['auth', 'verified']);
 
@@ -827,20 +826,20 @@ Route::delete('/tenants/{tenant_id}', 'TenantController@destroy')->middleware(['
 Route::get('/tenants', function(){
 
     if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'treasury' ){
-        
+
             $tenants = DB::table('tenants')
             ->join('units', 'unit_id', 'unit_tenant_id')
             ->where('unit_property', Auth::user()->property)
-            
+
             ->orderBy('movein_date', 'desc')
-        
+
             ->get();
 
             $count_tenants = DB::table('tenants')
             ->join('units', 'unit_id', 'unit_tenant_id')
             ->where('unit_property', Auth::user()->property)
             ->count();
-       
+
         return view('admin.tenants', compact('tenants', 'count_tenants'));
     }else{
         return view('unregistered');
@@ -851,7 +850,7 @@ Route::get('/tenants', function(){
 Route::get('/concerns', function(){
 
     if(auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager'){
-        
+
              $concerns = DB::table('tenants')
             ->join('units', 'unit_id', 'unit_tenant_id')
             ->join('concerns', 'tenant_id', 'concern_tenant_id')
@@ -860,7 +859,7 @@ Route::get('/concerns', function(){
             ->orderBy('concern_urgency', 'desc')
             ->orderBy('concern_status', 'desc')
             ->paginate(10);
-       
+
         return view('admin.concerns', compact('concerns'));
     }else{
         return view('unregistered');
@@ -876,7 +875,7 @@ Route::get('/users', function(){
    ->selectRaw("count(case when units.status = 'reserved' then 1 end) as reserved_units")
     ->selectRaw("count(case when units.status = 'occupied' then 1 end) as occupied_units")
     ->selectRaw("count(case when units.status = 'vacant' then 1 end) as vacant_units")
-    
+
     ->whereNotNull('account_type')
     ->where('email', '!=','thepropertymanager2020@gmail.com')
     ->groupBy('property')
@@ -900,7 +899,7 @@ Route::get('/users', function(){
     ->where('email_verified_at', '<=', Carbon::now()->subMonths(11)->endOfMonth())
     ->where('email', '!=','thepropertymanager2020@gmail.com')
     ->where('user_type', 'manager')
-  
+
     ->whereNull('email_verified_at')
     ->count();
 
@@ -908,9 +907,9 @@ Route::get('/users', function(){
     ->where('email_verified_at', '>=', Carbon::now()->subMonths(10)->firstOfMonth())
     ->where('email_verified_at', '<=', Carbon::now()->subMonths(10)->endOfMonth())
     ->where('email', '!=','thepropertymanager2020@gmail.com')
-  
+
     ->where('user_type', 'manager')
-    
+
     ->whereNull('email_verified_at')
     ->count();
 
@@ -919,17 +918,17 @@ Route::get('/users', function(){
     ->where('email_verified_at', '<=', Carbon::now()->subMonths(9)->endOfMonth())
     ->where('email', '!=','thepropertymanager2020@gmail.com')
     ->where('user_type', 'manager')
-  
+
     ->whereNull('email_verified_at')
     ->count();
 
     $signup_rate_4 = DB::table('users')
     ->where('email_verified_at', '>=', Carbon::now()->subMonths(8)->firstOfMonth())
     ->where('email_verified_at', '<=', Carbon::now()->subMonths(8)->endOfMonth())
- 
+
     ->where('email', '!=','thepropertymanager2020@gmail.com')
     ->where('user_type', 'manager')
-  
+
     ->whereNull('email_verified_at')
     ->count();
 
@@ -937,39 +936,39 @@ Route::get('/users', function(){
     ->where('email_verified_at', '>=', Carbon::now()->subMonths(7)->firstOfMonth())
     ->where('email_verified_at', '<=', Carbon::now()->subMonths(7)->endOfMonth())
     ->where('email', '!=','thepropertymanager2020@gmail.com')
-   
+
     ->where('user_type', 'manager')
-     
+
     ->whereNull('email_verified_at')
     ->count();
 
     $signup_rate_6 = DB::table('users')
     ->where('email_verified_at', '>=', Carbon::now()->subMonths(6)->firstOfMonth())
     ->where('email_verified_at', '<=', Carbon::now()->subMonths(6)->endOfMonth())
- 
+
     ->where('email', '!=','thepropertymanager2020@gmail.com')
     ->where('user_type', 'manager')
-    
+
     ->whereNull('email_verified_at')
     ->count();
 
     $signup_rate_7 = DB::table('users')
     ->where('email_verified_at', '>=', Carbon::now()->subMonths(5)->firstOfMonth())
     ->where('email_verified_at', '<=', Carbon::now()->subMonths(5)->endOfMonth())
- 
+
     ->where('email', '!=','thepropertymanager2020@gmail.com')
     ->where('user_type', 'manager')
-     
+
     ->whereNull('email_verified_at')
     ->count();
 
     $signup_rate_8 = DB::table('users')
     ->where('email_verified_at', '>=', Carbon::now()->subMonths(4)->firstOfMonth())
     ->where('email_verified_at', '<=', Carbon::now()->subMonths(4)->endOfMonth())
- 
+
     ->where('email', '!=','thepropertymanager2020@gmail.com')
     ->where('user_type', 'manager')
-   
+
     ->whereNull('email_verified_at')
     ->count();
 
@@ -977,9 +976,9 @@ Route::get('/users', function(){
     ->where('email_verified_at', '>=', Carbon::now()->subMonths(3)->firstOfMonth())
     ->where('email_verified_at', '<=', Carbon::now()->subMonths(3)->endOfMonth())
     ->where('email', '!=','thepropertymanager2020@gmail.com')
-   
+
     ->where('user_type', 'manager')
-    
+
     ->whereNull('email_verified_at')
     ->count();
 
@@ -989,7 +988,7 @@ Route::get('/users', function(){
     ->where('email', '!=','thepropertymanager2020@gmail.com')
 
     ->where('user_type', 'manager')
-     
+
     ->whereNull('email_verified_at')
     ->count();
 
@@ -998,7 +997,7 @@ Route::get('/users', function(){
     ->where('email_verified_at', '<=', Carbon::now()->subMonths(1)->endOfMonth())
     ->where('email', '!=','thepropertymanager2020@gmail.com')
     ->where('user_type', 'manager')
-     
+
     ->whereNull('email_verified_at')
     ->count();
 
@@ -1007,17 +1006,17 @@ Route::get('/users', function(){
     ->where('email_verified_at', '<=', Carbon::now()->endOfMonth())
     ->where('email', '!=','thepropertymanager2020@gmail.com')
     ->where('user_type', 'manager')
-   
+
     ->whereNull('email_verified_at')
     ->count();
 
-    
+
     $verified_users_1 = DB::table('users')
     ->where('email_verified_at', '>=', Carbon::now()->subMonths(11)->firstOfMonth())
     ->where('email_verified_at', '<=', Carbon::now()->subMonths(11)->endOfMonth())
     ->where('email', '!=','thepropertymanager2020@gmail.com')
     ->where('user_type', 'manager')
-  
+
     ->whereNotNull('account_type')
     ->whereNotNull('email_verified_at')
     ->count();
@@ -1026,7 +1025,7 @@ Route::get('/users', function(){
     ->where('email_verified_at', '>=', Carbon::now()->subMonths(10)->firstOfMonth())
     ->where('email_verified_at', '<=', Carbon::now()->subMonths(10)->endOfMonth())
     ->where('email', '!=','thepropertymanager2020@gmail.com')
-  
+
     ->where('user_type', 'manager')
     ->whereNotNull('account_type')
     ->whereNotNull('email_verified_at')
@@ -1044,7 +1043,7 @@ Route::get('/users', function(){
     $verified_users_4 = DB::table('users')
     ->where('email_verified_at', '>=', Carbon::now()->subMonths(8)->firstOfMonth())
     ->where('email_verified_at', '<=', Carbon::now()->subMonths(8)->endOfMonth())
- 
+
     ->where('email', '!=','thepropertymanager2020@gmail.com')
     ->where('user_type', 'manager')
     ->whereNotNull('account_type')
@@ -1055,7 +1054,7 @@ Route::get('/users', function(){
     ->where('email_verified_at', '>=', Carbon::now()->subMonths(7)->firstOfMonth())
     ->where('email_verified_at', '<=', Carbon::now()->subMonths(7)->endOfMonth())
     ->where('email', '!=','thepropertymanager2020@gmail.com')
-   
+
     ->where('user_type', 'manager')
     ->whereNotNull('account_type')
     ->whereNotNull('email_verified_at')
@@ -1064,7 +1063,7 @@ Route::get('/users', function(){
     $verified_users_6 = DB::table('users')
     ->where('email_verified_at', '>=', Carbon::now()->subMonths(6)->firstOfMonth())
     ->where('email_verified_at', '<=', Carbon::now()->subMonths(6)->endOfMonth())
- 
+
     ->where('email', '!=','thepropertymanager2020@gmail.com')
     ->where('user_type', 'manager')
     ->whereNotNull('account_type')
@@ -1074,7 +1073,7 @@ Route::get('/users', function(){
     $verified_users_7 = DB::table('users')
     ->where('email_verified_at', '>=', Carbon::now()->subMonths(5)->firstOfMonth())
     ->where('email_verified_at', '<=', Carbon::now()->subMonths(5)->endOfMonth())
- 
+
     ->where('email', '!=','thepropertymanager2020@gmail.com')
     ->where('user_type', 'manager')
     ->whereNotNull('account_type')
@@ -1084,7 +1083,7 @@ Route::get('/users', function(){
     $verified_users_8 = DB::table('users')
     ->where('email_verified_at', '>=', Carbon::now()->subMonths(4)->firstOfMonth())
     ->where('email_verified_at', '<=', Carbon::now()->subMonths(4)->endOfMonth())
- 
+
     ->where('email', '!=','thepropertymanager2020@gmail.com')
     ->where('user_type', 'manager')
     ->whereNotNull('account_type')
@@ -1095,7 +1094,7 @@ Route::get('/users', function(){
     ->where('email_verified_at', '>=', Carbon::now()->subMonths(3)->firstOfMonth())
     ->where('email_verified_at', '<=', Carbon::now()->subMonths(3)->endOfMonth())
     ->where('email', '!=','thepropertymanager2020@gmail.com')
-   
+
     ->where('user_type', 'manager')
     ->whereNotNull('account_type')
     ->whereNotNull('email_verified_at')
@@ -1136,7 +1135,7 @@ Route::get('/users', function(){
     $signup_rate->labels([Carbon::now()->subMonth(11)->format('M Y'),Carbon::now()->subMonth(10)->format('M Y'),Carbon::now()->subMonth(9)->format('M Y'),Carbon::now()->subMonth(8)->format('M Y'),Carbon::now()->subMonth(7)->format('M Y'),Carbon::now()->subMonth(6)->format('M Y'),Carbon::now()->subMonth(5)->format('M Y'),Carbon::now()->subMonth(4)->format('M Y'),Carbon::now()->subMonth(3)->format('M Y'),Carbon::now()->subMonths(2)->format('M Y'),Carbon::now()->subMonth()->format('M Y'),Carbon::now()->format('M Y')]);
     $signup_rate->dataset
                             (
-                                'Sign Ups', 'line', 
+                                'Sign Ups', 'line',
                                                                 [
                                                                     $signup_rate_1,
                                                                     $signup_rate_2,
@@ -1144,42 +1143,42 @@ Route::get('/users', function(){
                                                                     $signup_rate_4,
                                                                     $signup_rate_5,
                                                                     $signup_rate_6,
-                                                                    $signup_rate_7,                                         
+                                                                    $signup_rate_7,
                                                                     $signup_rate_8,
                                                                     $signup_rate_9,
                                                                     $signup_rate_10,
                                                                     $signup_rate_11,
                                                                     $signup_rate_12,
-                                                            
-                                                                   
+
+
                                                                 ]
                             )
 ->color("#0000FF")
 ->fill(false)
 ->backgroundcolor("#0000FF");
-    
+
     $signup_rate->dataset
                             (
-                                'Active Users', 'line', 
+                                'Active Users', 'line',
                                                                 [
-                                                                    
+
                                                                     $verified_users_1,
                                                                     $verified_users_2,
                                                                     $verified_users_3,
                                                                     $verified_users_4,
                                                                     $verified_users_5,
                                                                     $verified_users_6,
-                                                                    $verified_users_7,                                         
+                                                                    $verified_users_7,
                                                                     $verified_users_8,
                                                                     $verified_users_9,
                                                                     $verified_users_10,
                                                                     $verified_users_11,
                                                                     $verified_users_12,
-                                                                    
+
                                                                 ],
-                                                               
+
                                 )
-    
+
     ->color("#008000")
     ->backgroundcolor("#008000")
     ->fill(false)
@@ -1191,7 +1190,7 @@ Route::get('/users', function(){
     ->whereNotNull('account_type')
     ->whereNotNull('email_verified_at')
     ->where('email', '!=','thepropertymanager2020@gmail.com')
-    
+
     ->get();
 
     $users = DB::table('users')
@@ -1203,17 +1202,17 @@ Route::get('/users', function(){
 
 
     if(auth()->user()->user_type === 'manager'){
-        
+
         if(Auth::user()->email === 'thepropertymanager2020@gmail.com' || Auth::user()->email === 'tecson.pamela@gmail.com'){
 
-          
+
 
             $users = DB::table('users')
             ->orderBy('user_current_status', 'desc')
             ->orderBy('last_login_at', 'desc')
             ->get();
 
-        
+
 
              $sessions = DB::table('users')
             ->join('sessions', 'id', 'session_user_id')
@@ -1221,7 +1220,7 @@ Route::get('/users', function(){
             ->whereDay('session_last_login_at', now()->day)
             ->get();
 
-          
+
         }else{
             $users = DB::table('users')
             ->where('property', Auth::user()->property)
@@ -1249,8 +1248,8 @@ Route::get('/users', function(){
 
 Route::get('/owners', function(){
     if( auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager'){
-        
-      
+
+
             $owners = DB::table('unit_owners')
             ->join('units', 'unit_id_foreign', 'unit_id')
             ->where('unit_property', Auth::user()->property)
@@ -1260,12 +1259,12 @@ Route::get('/owners', function(){
             ->join('units', 'unit_id_foreign', 'unit_id')
             ->where('unit_property', Auth::user()->property)
             ->count();
-        
+
             return view('admin.owners', compact('owners', 'count_owners'));
     }else{
             return view('unregistered');
     }
-    
+
 })->middleware(['auth', 'verified']);
 
 Route::get('/collections', function(){
@@ -1288,7 +1287,7 @@ Route::get('/collections', function(){
     }else{
         return view('unregistered');
     }
-   
+
 })->middleware(['auth', 'verified']);
 
 Route::get('/bills', function(){
@@ -1304,12 +1303,12 @@ Route::get('/bills', function(){
         ->groupBy(function($item) {
             return \Carbon\Carbon::parse($item->billing_start)->timestamp;
         });
-   
+
         return view('billing.bills', compact('bills'));
     }else{
         return view('unregistered');
     }
-   
+
 })->middleware(['auth', 'verified']);
 
 
@@ -1326,7 +1325,7 @@ Route::get('/housekeeping', function(){
     }else{
         return view('unregistered');
     }
-   
+
 })->middleware(['auth', 'verified']);
 
 Route::get('/maintenance', function(){
@@ -1341,7 +1340,7 @@ Route::get('/maintenance', function(){
     }else{
         return view('unregistered');
     }
-   
+
 })->middleware(['auth', 'verified']);
 
 Route::get('/job-orders', function(){
@@ -1351,7 +1350,7 @@ Route::get('/job-orders', function(){
     }else{
         return view('unregistered');
     }
-   
+
 })->middleware(['auth', 'verified']);
 
 //step1
@@ -1399,7 +1398,7 @@ Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout')->middl
 //concerns
 Route::post('/concerns', 'ConcernController@store')->middleware(['auth', 'verified']);
 
-//show concerns 
+//show concerns
 Route::get('/units/{unit_id}/tenants/{tenant_id}/concerns/{concern_id}', 'ConcernController@show')->middleware(['auth', 'verified']);
 
 //update concerns
@@ -1452,7 +1451,7 @@ Route::put('/users/{user_id}/property', function(Request $request){
     ->update([
         'property' => $request->property,
         'property_type' => $request->property_type,
-        'property_ownership' => $request->property_ownership 
+        'property_ownership' => $request->property_ownership
     ]);
 
     return back();
@@ -1481,12 +1480,12 @@ Route::post('/users/{user_id}/charge', function(Request $request){
         ->update([
             'trial_ends_at'=> Carbon::now()->addMonth(),
          ]);
-     
+
          Mail::to(Auth::user()->email)->send(new TenantRegisteredMail());
-     
+
          return back();
     }else{
-        
+
         // Stripe\Stripe::setApiKey('sk_test_51HJukYJRwyQ1aYnq47AXjpdfByCMtKxJJqcsORmKtMmSvliAuxnYuGTLRpTQVmuKAbPvMW7KdBn361qSNR13HTH700pQjYbkVO');
 
         $charge = 0;
@@ -1500,7 +1499,7 @@ Route::post('/users/{user_id}/charge', function(Request $request){
         }elseif(Auth::user()->account_type === 'Corporate'){
             $charge = 480000;
         }
-    
+
        try{
         // Stripe\Charge::create(array(
         //     "amount" => $charge,
@@ -1508,17 +1507,17 @@ Route::post('/users/{user_id}/charge', function(Request $request){
         //     'source' => $request->stripeToken,
         //     'description' => Auth::user()->name.' | '.Auth::user()->property.' | ' . Auth::user()->property_type.' | '.Auth::user()->property_ownership.' | '.Auth::user()->account_type.' | '.$charge,
         // ));
-    
+
         DB::table('users')
         ->where('id', Auth::user()->id)
         ->update([
            'trial_ends_at'=> Carbon::now()->addMonth(),
         ]);
-    
+
         Mail::to(Auth::user()->email)->send(new TenantRegisteredMail());
-    
+
         return back();
-    
+
        }catch(\Exception $e){
            return back()->with('danger', $e->getMessage());
        }
@@ -1526,7 +1525,7 @@ Route::post('/users/{user_id}/charge', function(Request $request){
 
 });
 
-//routes for bills 
+//routes for bills
 
 //post the period covered in rental bill
 Route::post('/bills/rent/{date}', function(Request $request){
@@ -1614,9 +1613,9 @@ Route::post('/bills/water/{date}', function(Request $request){
 })->middleware(['auth', 'verified']);
 
 
-// routes for tenants 
+// routes for tenants
 
-//send notice for contract extension 
+//send notice for contract extension
 Route::get('/units/{unit_id}/tenants/{tenant_id}/alert/contract', function(Request $request, $unit_id, $tenant_id){
 
     $tenant = Tenant::findOrFail($tenant_id);
@@ -1633,7 +1632,7 @@ Route::get('/units/{unit_id}/tenants/{tenant_id}/alert/contract', function(Reque
     );
 
     Mail::send('emails.send-contract-alert-mail', $data, function($message) use ($data){
-        
+
         $message->to($data['email']);
         $message->subject('Contract Alert');
     });
@@ -1643,7 +1642,7 @@ Route::get('/units/{unit_id}/tenants/{tenant_id}/alert/contract', function(Reque
     ->update([
         'tenants_note' => 'Email has been sent!'
     ]);
-    
+
     return back()->with('success', 'Email  has been sent to '. $tenant->first_name.' of '. $unit->building.' '.$unit->unit_no);
 
 })->middleware(['auth', 'verified']);
@@ -1664,7 +1663,7 @@ Route::put('/units/{unit_id}/tenants/{tenant_id}/edit/img', function(Request $re
     ->update(
             [
                 'tenant_img' => $filename
-            ]   
+            ]
         );
 
     return back()->with('success', 'Tenant image has been updated!');
@@ -1702,7 +1701,7 @@ Route::get('/payables', function(){
        ->where('status', 'approved')
        ->get();
 
-       
+
        $released = DB::table('payable_request')
        ->where('property', Auth::user()->property)
        ->where('status', 'released')
@@ -1717,7 +1716,7 @@ Route::get('/payables', function(){
            return \Carbon\Carbon::parse($item->updated_at)->format('M d Y');
        });
 
-   
+
 
        $declined = DB::table('payable_request')
        ->where('property', Auth::user()->property)
@@ -1749,7 +1748,7 @@ Route::post('/account-payable/add/{property}', function(Request $request){
 
 //delete payable entry
 Route::delete('/account-payable/{id}', function(Request $request, $id){
-   
+
     DB::table('payable_entry')->where('id', $id)->delete();
 
     return redirect('/payables#entries')->with('success', 'Entry has been deleted!');
@@ -1757,7 +1756,7 @@ Route::delete('/account-payable/{id}', function(Request $request, $id){
 
 //request for funds
 Route::post('/account-payable/request/{property}', function(Request $request){
-    
+
      $no_of_request = (int) $request->no_of_request;
 
      $current_payable_no = DB::table('payable_request')
@@ -1784,8 +1783,8 @@ Route::post('/account-payable/request/{property}', function(Request $request){
 
 
 //approve fund request
-Route::post('/request-payable/approve/{id}', function(Request $request, $id){   
-  
+Route::post('/request-payable/approve/{id}', function(Request $request, $id){
+
     DB::table('payable_request')
     ->where('id', $id)
     ->update(
@@ -1800,8 +1799,8 @@ Route::post('/request-payable/approve/{id}', function(Request $request, $id){
 });
 
 //disapprove fund request
-Route::post('/request-payable/disapprove/{id}', function(Request $request, $id){   
-  
+Route::post('/request-payable/disapprove/{id}', function(Request $request, $id){
+
     DB::table('payable_request')
     ->where('id', $id)
     ->update(
@@ -1816,8 +1815,8 @@ Route::post('/request-payable/disapprove/{id}', function(Request $request, $id){
 });
 
 //release fund request
-Route::post('/request-payable/release/{id}', function(Request $request, $id){   
-  
+Route::post('/request-payable/release/{id}', function(Request $request, $id){
+
     DB::table('payable_request')
     ->where('id', $id)
     ->update(
@@ -1839,7 +1838,7 @@ Route::post('/request-payable/release/{id}', function(Request $request, $id){
 //     ->get();
 
 //     return view('show', compact('owners'));
-    
+
 // });
 
 
