@@ -48,14 +48,12 @@
         </li>
          @endif
       
-         @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' )
-            <!-- Nav Item - Tables -->
+         <!-- Nav Item - Tables -->
         <li class="nav-item">
             <a class="nav-link" href="/concerns">
           <i class="far fa-comment-dots"></i>
               <span>Concerns</span></a>
         </li>
-        @endif
     
         @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' )
         <li class="nav-item">
@@ -135,6 +133,37 @@
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
   <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
    {{-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>  --}}
+</div>
+
+<div class="row">
+  <div class="col-xl-12 col-md-6 mb-4">
+    <div class="card shadow">
+      <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+        <h6 class="m-0 font-weight-bold text-primary">SYSTEM UPDATES</h6>
+        {{-- <span class="text-right"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></span> --}}
+      </div>
+      <div class="card-body">
+        <div class="row no-gutters align-items-center">
+          <ol class="">
+            <li >You can now add additional users that have access to your property with specific privileges (manager, admin, treasury, billing, and ap). Take note this is only available for manager role. - <span class="font-italic">September 01, 2020</span></li>
+            <i class="fas fa-question-circle fa-sm text-dark-50"></i> Users Page>Click Add Button> <a href="/users">Try it here...</a>
+            <li >You can now see other active users. - <span class="font-italic">September 30, 2020</span></li>
+            <i class="fas fa-question-circle fa-sm text-dark-50"></i> Users Page> <a href="/users">Try it here...</a>
+            <li >You can now send a message for any concern/request regarding the usage of the The Property Manager by clicking the messenger logo at the most left-button of your screen. - <span class="font-italic">October 01, 2020</span></li>
+            <li >You can now edit multiple rooms all at the same time. - <span class="font-italic">October 1, 2020</span></li>
+            <i class="fas fa-question-circle fa-sm text-dark-50"></i> Home Page>Click the Edit button at the most left-top of your screen, <a href="/home">Try it here...</a>
+            <li >You can now request, approve, decline, release payables to monitor expenses. - <span class="font-italic">October 10, 2020</span></li>
+            <i class="fas fa-question-circle fa-sm text-dark-50"></i> Payables Page>Click the add button, <a href="/payables">Try it here </a>.
+            <li >You can now add response to a particular concern. Also, you can now rate an employee based on how the concern is resolved (Only available for admin and manager roles). - <span class="font-italic">October 20, 2020</span></li>
+            <i class="fas fa-question-circle fa-sm text-dark-50"></i> Concerns Page>Select a concern (Description)>Scroll down <a href="/concerns">Try it here...</a>
+            <li >You can rate an employee when a concern is resolved.  add additional users that have access to your property with specific privileges (manager, admin, treasury, billing, and ap). Take note this is only available for manager role. - <span class="font-italic">September 01, 2020</span></li>
+            <i class="fas fa-question-circle fa-sm text-dark-50"></i> Users Page>Click Add Button> <a href="/users">Try it here...</a> 
+            
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 @if(Auth::user()->property_ownership === 'Multiple Owners')

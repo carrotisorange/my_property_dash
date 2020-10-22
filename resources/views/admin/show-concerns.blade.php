@@ -195,11 +195,14 @@ label.star:before {
       <div class="tab-pane fade show active" id="concern" role="tabpanel" aria-labelledby="nav-concern-tab">
         <br>
         <a href="/concerns" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> Back</a> 
+        @if(Auth::user()->user_type==='manager' || Auth::user()->user_type='admin')
         <a href="#" data-toggle="modal" data-target="#editConcernDetails" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-edit fa-sm text-white-50"></i> Edit</a> 
+      
         @if($concern->concern_status != 'closed')
         <a href="#" data-toggle="modal" data-target="#markAsCompleteModal" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-check-square fa-sm text-white-50"></i> Mark as complete</a> 
         @else
         <a href="#" data-toggle="modal" data-target="#/" class="d-none d-sm-inline-block btn btn-sm btn-dark shadow-sm"><i class="fas fa-check-square fa-sm text-white-50"></i> Concern has been closed</a> 
+        @endif
         @endif
         <div class="col-md-12 mx-auto">
           <br>

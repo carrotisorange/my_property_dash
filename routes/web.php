@@ -850,8 +850,6 @@ Route::get('/tenants', function(){
 
 Route::get('/concerns', function(){
 
-    if(auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager'){
-
              $concerns = DB::table('tenants')
             ->join('units', 'unit_id', 'unit_tenant_id')
             ->join('concerns', 'tenant_id', 'concern_tenant_id')
@@ -862,9 +860,7 @@ Route::get('/concerns', function(){
             ->paginate(10);
 
         return view('admin.concerns', compact('concerns'));
-    }else{
-        return view('unregistered');
-    }
+  
 
 })->middleware(['auth', 'verified']);
 
@@ -1898,7 +1894,7 @@ Route::post('/responses', function(Request $request){
 //close concern 
 Route::put('/concerns/{concern_id}/closed', function(Request $request){
 
-    if($request->rating === null || $request->feedback === null){
+    if($request->rating === null && $request->feedback === null){
         return back()->with('danger', 'Please provide a rating and feedback for the employee.');
     }else{
         DB::table('concerns')

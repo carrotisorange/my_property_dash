@@ -49,14 +49,12 @@
         </li>
          @endif
       
-         @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' )
-            <!-- Nav Item - Tables -->
+         <!-- Nav Item - Tables -->
         <li class="nav-item">
             <a class="nav-link" href="/concerns">
           <i class="far fa-comment-dots"></i>
               <span>Concerns</span></a>
         </li>
-        @endif
     
         @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' )
         <li class="nav-item">
