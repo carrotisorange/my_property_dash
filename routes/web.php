@@ -307,94 +307,95 @@ Route::get('/board', function(Request $request){
         ->sum('amt_paid');
 
          $collection_rate_12 = DB::table('units')
-        ->join('tenants', 'unit_id', 'unit_tenant_id')
-        ->join('payments', 'tenant_id', 'payment_tenant_id')
-        ->where('payment_created', '>=', Carbon::now()->firstOfMonth())
-        ->where('payment_created', '<=', Carbon::now()->endOfMonth())
-        ->where('unit_property', Auth::user()->property)
-        ->sum('amt_paid');
+         ->join('tenants', 'unit_id', 'unit_tenant_id')
+         ->join('payments', 'tenant_id', 'payment_tenant_id')
+         ->where('payment_created', '>=', Carbon::now()->firstOfMonth())
+         ->where('payment_created', '<=', Carbon::now()->firstOfMonth())
+         ->where('unit_property', Auth::user()->property)
+         ->sum('amt_paid');
 
         $expenses_1 = DB::table('payable_request')
-        ->where('property', Auth::user()
-        ->property)->where('status', 'released')
-        ->whereDate('updated_at', Carbon::today()
-        ->subMonths(11))
+        ->where('property', Auth::user()->property)
+        ->where('status', 'released')
+        ->where('updated_at', '>=', Carbon::now()->subMonths(11)->firstOfMonth())
+        ->where('updated_at', '<=', Carbon::now()->subMonths(11)->endOfMonth())
         ->sum('amt');
 
         $expenses_2 = DB::table('payable_request')
-        ->where('property', Auth::user()
-        ->property)->where('status', 'released')
-        ->whereDate('updated_at', Carbon::today()
-        ->subMonths(10))
+        ->where('property', Auth::user()->property)
+        ->where('status', 'released')
+        ->where('updated_at', '>=', Carbon::now()->subMonths(10)->firstOfMonth())
+        ->where('updated_at', '<=', Carbon::now()->subMonths(10)->endOfMonth())
         ->sum('amt');
 
         $expenses_3 = DB::table('payable_request')
-        ->where('property', Auth::user()
-        ->property)->where('status', 'released')
-        ->whereDate('updated_at', Carbon::today()
-        ->subMonths(9))
+        ->where('property', Auth::user()->property)
+        ->where('status', 'released')
+        ->where('updated_at', '>=', Carbon::now()->subMonths(9)->firstOfMonth())
+        ->where('updated_at', '<=', Carbon::now()->subMonths(9)->endOfMonth())
         ->sum('amt');
 
         $expenses_4 = DB::table('payable_request')
-        ->where('property', Auth::user()
-        ->property)->where('status', 'released')
-        ->whereDate('updated_at', Carbon::today()
-        ->subMonths(8))
+        ->where('property', Auth::user()->property)
+        ->where('status', 'released')
+        ->where('updated_at', '>=', Carbon::now()->subMonths(8)->firstOfMonth())
+        ->where('updated_at', '<=', Carbon::now()->subMonths(8)->endOfMonth())
         ->sum('amt');
 
         $expenses_5 = DB::table('payable_request')
-        ->where('property', Auth::user()
-        ->property)->where('status', 'released')
-        ->whereDate('updated_at', Carbon::today()
-        ->subMonths(7))
+        ->where('property', Auth::user()->property)
+        ->where('status', 'released')
+        ->where('updated_at', '>=', Carbon::now()->subMonths(7)->firstOfMonth())
+        ->where('updated_at', '<=', Carbon::now()->subMonths(7)->endOfMonth())
         ->sum('amt');
 
         $expenses_6 = DB::table('payable_request')
-        ->where('property', Auth::user()
-        ->property)->where('status', 'released')
-        ->whereDate('updated_at', Carbon::today()
-        ->subMonths(6))
+        ->where('property', Auth::user()->property)
+        ->where('status', 'released')
+        ->where('updated_at', '>=', Carbon::now()->subMonths(6)->firstOfMonth())
+        ->where('updated_at', '<=', Carbon::now()->subMonths(6)->endOfMonth())
         ->sum('amt');
 
         $expenses_7 = DB::table('payable_request')
-        ->where('property', Auth::user()
-        ->property)->where('status', 'released')
-        ->whereDate('updated_at', Carbon::today()
-        ->subMonths(5))
+        ->where('property', Auth::user()->property)
+        ->where('status', 'released')
+        ->where('updated_at', '>=', Carbon::now()->subMonths(5)->firstOfMonth())
+        ->where('updated_at', '<=', Carbon::now()->subMonths(5)->endOfMonth())
         ->sum('amt');
 
         $expenses_8 = DB::table('payable_request')
-        ->where('property', Auth::user()
-        ->property)->where('status', 'released')
-        ->whereDate('updated_at', Carbon::today()
-        ->subMonths(4))
+        ->where('property', Auth::user()->property)
+        ->where('status', 'released')
+        ->where('updated_at', '>=', Carbon::now()->subMonths(4)->firstOfMonth())
+        ->where('updated_at', '<=', Carbon::now()->subMonths(4)->endOfMonth())
         ->sum('amt');
 
         $expenses_9 = DB::table('payable_request')
-        ->where('property', Auth::user()
-        ->property)->where('status', 'released')
-        ->whereDate('updated_at', Carbon::today()
-        ->subMonths(3))
+        ->where('property', Auth::user()->property)
+        ->where('status', 'released')
+        ->where('updated_at', '>=', Carbon::now()->subMonths(3)->firstOfMonth())
+        ->where('updated_at', '<=', Carbon::now()->subMonths(3)->endOfMonth())
         ->sum('amt');
 
-        $expenses_10 = DB::table('payable_request')
-        ->where('property', Auth::user()
-        ->property)->where('status', 'released')
-        ->whereDate('updated_at', Carbon::today()
-        ->subMonths(2))
+         $expenses_10 = DB::table('payable_request')
+        ->where('property', Auth::user()->property)
+        ->where('status', 'released')
+        ->where('updated_at', '>=', Carbon::now()->subMonths(2)->firstOfMonth())
+        ->where('updated_at', '<=', Carbon::now()->subMonths(2)->endOfMonth())
         ->sum('amt');
 
-        $expenses_11 = DB::table('payable_request')
-        ->where('property', Auth::user()
-        ->property)->where('status', 'released')
-        ->whereDate('updated_at', Carbon::today()
-        ->subMonths(1))
+         $expenses_11 = DB::table('payable_request')
+        ->where('property', Auth::user()->property)
+        ->where('status', 'released')
+        ->where('updated_at', '>=', Carbon::now()->subMonth()->firstOfMonth())
+        ->where('updated_at', '<=', Carbon::now()->subMonth()->endOfMonth())
         ->sum('amt');
 
         $expenses_12 = DB::table('payable_request')
-        ->where('property', Auth::user()
-        ->property)->where('status', 'released')
-        ->whereDate('updated_at', Carbon::today())
+        ->where('property', Auth::user()->property)
+        ->where('status', 'released')
+        ->where('updated_at', '>=', Carbon::now()->firstOfMonth())
+        ->where('updated_at', '<=', Carbon::now()->endOfMonth())
         ->sum('amt');
 
         $expenses_rate = new DashboardChart;
