@@ -150,6 +150,8 @@
                 <th>Description</th>
                 <th>Urgency</th>
                 <th>Status</th> 
+                <th>Rating</th>
+                <th>Feedback</th>
            </tr>
           </thead>
           <tbody>
@@ -180,9 +182,11 @@
                     @elseif($item->concern_status === 'active')
                     <span class="badge badge-primary">{{ $item->concern_status }}</span>
                     @else
-                    <span class="badge badge-secondary">{{ $item->concern_status }}</span>
+                    <span class="badge badge-success">{{ $item->concern_status }}</span>
                     @endif
                 </td>
+                <td>{{ $item->rating? $item->rating.'/5' : 'NA' }}</td>
+                <td>{{ $item->feedback? $item->feedback : 'NULL' }}</td>
               
             </tr>
             @endforeach

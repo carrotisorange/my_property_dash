@@ -1876,7 +1876,44 @@ Route::post('/responses', function(Request $request){
           ]
     );
 
-    return redirect('/units/'.$request->unit_id.'/tenants/'.$request->tenant_id.'/concerns/'.$request->concern_id.'#responses')->with('success', 'Your response has been posted!');
+    $responses_count =  DB::table('concerns')
+    ->where('concern_id', $request->concern_id)
+    ->count();
+
+    if($responses_count > 0){
+        DB::table('concerns')
+        ->where('concern_id', $request->concern_id)
+        ->update(
+            [
+                'concern_status' => 'active',
+                'updated_at' => Carbon::now(),
+            ]
+        );
+
+    }
+
+    return redirect('/units/'.$request->unit_id.'/tenants/'.$request->tenant_id.'/concerns/'.$request->concern_id)->with('success', 'Your response has been posted!');
+})->middleware(['auth', 'verified']);
+
+//close concern 
+Route::put('/concerns/{concern_id}/closed', function(Request $request){
+
+    if($request->rating === null || $request->feedback === null){
+        return back()->with('danger', 'Please provide a rating and feedback for the employee.');
+    }else{
+        DB::table('concerns')
+        ->where('concern_id', $request->concern_id)
+        ->update(
+            [
+                'concern_status' => 'closed',
+                'rating' => $request->rating,
+                'feedback' => $request->feedback
+            ]
+        );
+
+    return back()->with('success', 'Concern has been closed!');
+    }
+   
 })->middleware(['auth', 'verified']);
 
 

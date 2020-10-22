@@ -1,6 +1,6 @@
 @extends('layouts.arsha.arsha-login')
 
-@section('title', 'The Property Manager | Reset')
+@section('title', 'Reset')
 
 @section('content')
 <div class="text-center">

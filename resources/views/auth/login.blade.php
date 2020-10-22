@@ -2,6 +2,7 @@
 
 @section('title', 'Login')
 
+
 @section('content')
 
             <form class="user" method="POST" id="loginForm" action="{{ route('login') }}">

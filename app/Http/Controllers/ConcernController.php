@@ -107,7 +107,6 @@ class ConcernController extends Controller
      */
     public function update(Request $request, $concern_id)
     {
-
         DB::table('concerns')
         ->where('concern_id', $concern_id)
         ->update([
@@ -115,28 +114,8 @@ class ConcernController extends Controller
             'concern_item' => $request->concern_item,
             'concern_type' => $request->concern_type,
             'concern_desc' => $request->concern_desc,
-            'concern_urgency' => $request->concern_urgency,
-            'concern_status' => $request->concern_status,
-     
+            'concern_urgency' => $request->concern_urgency
         ]);
-
-
-        // DB::table('concerns')
-        // ->where('concern_id', $concern_id)
-        // ->where('action_taken', 'not like', '%CLOSED%')
-        // ->whereNotNull('action_taken')
-        // ->update([
-        //     'concern_status' => 'active',
-        // ]);
-
-        // DB::table('concerns')
-        // ->where('concern_id', $concern_id)
-        // ->where('action_taken', 'like', '%CLOSED%')
-        // ->update([
-        //     'updated_at' => Carbon::now(),
-        //     'concern_status' => 'closed',
-        // ]);
-
 
         return back()->with('success', 'Concern has been updated!');
     }
