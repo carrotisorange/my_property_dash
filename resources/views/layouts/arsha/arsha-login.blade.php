@@ -21,9 +21,6 @@
   <link href="{{ asset('/arsha/assets/img/favicon.ico') }}" rel="icon">
   <link href="{{ asset('/arsha/assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
 
-  
-  <script src="https://js.stripe.com/v3/"></script>
-
   <style>
     .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
         background-color: #8629f8 !important;

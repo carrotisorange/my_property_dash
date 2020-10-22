@@ -409,10 +409,10 @@ label.star:before {
       </div>
       <hr>
      
-          <p>Feeback </p>
-          <textarea form="markAsCompleteModalForm" class="form-control" name="" id="" cols="30" rows="5" name="feedback" required>
-            
-          </textarea>
+      <p>Feedback</p>
+      <textarea form="markAsCompleteModalForm" class="form-control" name="" id="" cols="30" rows="5" name="feedback" required>
+        
+      </textarea>
   
  
       </div>
