@@ -226,13 +226,7 @@ class PaymentController extends Controller
     
         DB::table('payments')->where('payment_id', $payment_id)->delete();
 
-    
-        if(Auth::user()->user_type === 'manager'){
-            return redirect('/units/'.$tenant->unit_tenant_id.'/tenants/'.$tenant->tenant_id.'/#nav-payments')->with('success',' Payment has been deleted!');
-        }else{
-            return redirect('/units/'.$tenant->unit_tenant_id.'/tenants/'.$tenant->tenant_id.'/billings#nav-profile')->with('success', ' payments has been deleted!');
-        }
-        
+        return back()->with('success', ' Payment has been deleted!');
     }
 
 }
