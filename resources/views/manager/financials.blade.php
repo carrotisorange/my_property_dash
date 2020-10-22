@@ -150,10 +150,7 @@
 </div>
 <div class="table-responsive text-nowrap">
   <table class="table">
-      @foreach ($expenses as $day => $collection_list)
-        <tr>
-            <th colspan="12">{{ Carbon\Carbon::parse($day)->addDay()->format('M d Y') }} ({{ $collection_list->count() }})</th>
-        </tr>
+    
         <?php $ctr=1;?>
         <tr class="text-right">
                 <th class="text-center">#</th>
@@ -165,8 +162,8 @@
         
                 
             </tr>
-      </tr>
-        @foreach ($collection_list as $item)
+  
+        @foreach ($expenses as $item)
         <tr class="text-right">
                 <th class="text-center">{{ $ctr++ }}</th>
                 <td>{{ $item->no }}</td>
@@ -178,10 +175,10 @@
         @endforeach
             <tr>
               <th>Total</th>
-              <th colspan="5" class="text-right">{{ number_format($collection_list->sum('amt'),2) }}</th>
+              <th colspan="5" class="text-right">{{ number_format($expenses->sum('amt'),2) }}</th>
             </tr>
           
-      @endforeach
+
   </table>
    </div>
 @endsection

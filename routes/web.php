@@ -1883,13 +1883,12 @@ Route::post('/responses', function(Request $request){
 Route::get('/financials', function(){
 
     $expenses = DB::table('payable_request')
-    ->where('property', Auth::user()
-    ->property)->where('status', 'released')
+    ->where('property', Auth::user()->property)
+    ->where('status', 'released')
     ->groupBy('id')
-    ->get()
-    ->groupBy(function($item) {
-        return \Carbon\Carbon::parse($item->created_at)->timestamp;
-    });
+    ->get();
+
+    
 
     return view('manager.financials', compact('expenses'));
 })->middleware(['auth', 'verified']);
