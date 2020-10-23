@@ -1,6 +1,6 @@
-@extends('layouts.arsha.arsha-login')
+@extends('templates.website.arsha-login')
 
-@section('title', 'The Property Manager | Verify')
+@section('title', 'Verify')
 
 @section('content')
 

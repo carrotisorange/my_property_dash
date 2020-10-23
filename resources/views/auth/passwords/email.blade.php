@@ -1,4 +1,4 @@
-@extends('layouts.arsha.arsha-login')
+@extends('templates.website.arsha-login')
 
 @section('title', 'Email')
 

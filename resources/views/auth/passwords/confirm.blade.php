@@ -1,4 +1,4 @@
-@extends('layouts.sm-2.template')
+@extends('templates.webapp.template')
 
 @section('content')
 <div class="container">

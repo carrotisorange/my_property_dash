@@ -30,6 +30,6 @@ class SendContractAlertEmail extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.send-contract-alert-mail');
+        return $this->view('webapp.tenants.send-contract-alert-mail');
     }
 }

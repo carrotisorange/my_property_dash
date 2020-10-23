@@ -31,6 +31,6 @@ class UserRegisteredMail extends Mailable
      */
     public function build()
     {
-    return $this->subject( Auth::user()->property )->markdown('emails.user-generated-mail');
+    return $this->subject( Auth::user()->property )->markdown('webapp.tenants.user-generated-mail');
     }
 }

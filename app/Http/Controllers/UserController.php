@@ -30,7 +30,7 @@ class UserController extends Controller
         ->whereRaw("name like '%$search%' ")
         ->get();
 
-        return view('users.users', compact('users'));
+        return view('webapp.users.users', compact('users'));
     }
 
     /**
@@ -96,7 +96,7 @@ class UserController extends Controller
         ->get();
 
          if(($user->id === Auth::user()->id) || ($manager->user_type === 'manager' && $user->property === $manager->property) || Auth::user()->email === 'thepropertymanager2020@gmail.com'){
-            return view('users.show-user', compact('user', 'sessions', 'blogs'));
+            return view('webapp.users.show-user', compact('user', 'sessions', 'blogs'));
          }else{
              return view('unregistered');
          }
@@ -117,7 +117,7 @@ class UserController extends Controller
 
         if(($user->id === Auth::user()->id) || ($manager->user_type === 'manager' && $user->property === $manager->property)){
 
-            return view('users.edit-user', compact('user'));
+            return view('webapp.users.edit-user', compact('user'));
         }
         else{
             return view('unregistered');

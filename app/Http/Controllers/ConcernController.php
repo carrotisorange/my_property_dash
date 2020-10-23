@@ -77,10 +77,8 @@ class ConcernController extends Controller
             ->where('concern_id', $concern_id)
             ->orderBy('responses.created_at', 'desc')
             ->get();
-
-            
       
-       return view('admin.show-concerns', compact('tenant','unit','concern', 'responses'));
+       return view('webapp.concerns.show-concern', compact('tenant','unit','concern', 'responses'));
    }else{
        return view('unregistered');
    }

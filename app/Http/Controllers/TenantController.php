@@ -47,7 +47,7 @@ class TenantController extends Controller
          ->where('unit_property', Auth::user()->property)
          ->count();
 
-        return view('admin.tenants', compact('tenants', 'count_tenants'));
+        return view('webapp.tenants.tenants', compact('tenants', 'count_tenants'));
 
     }
 
@@ -68,92 +68,6 @@ class TenantController extends Controller
         return view('tenants.create', compact('current_bill_no'));
     }
 
-    public function postTenantStep1(Request $request, $unit_id){
-        
-        $request->validate([
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'contact_no' => 'required',
-            'email_address' => 'required',
-        ]);
-
-        $request->session()->put(Auth::user()->id.'type_of_tenant', 'student');
-        $request->session()->put(Auth::user()->id.'first_name', $request->first_name);
-        $request->session()->put(Auth::user()->id.'contact_no', $request->contact_no);
-        $request->session()->put(Auth::user()->id.'last_name', $request->last_name);
-        $request->session()->put(Auth::user()->id.'middle_name', $request->middle_name);
-        $request->session()->put(Auth::user()->id.'birthdate', $request->birthdate);
-        $request->session()->put(Auth::user()->id.'gender', $request->gender);
-        $request->session()->put(Auth::user()->id.'civil_status', $request->civil_status);
-        $request->session()->put(Auth::user()->id.'id_number', $request->id_number);
-        $request->session()->put(Auth::user()->id.'email_address', $request->email_address);
-        $request->session()->put(Auth::user()->id.'barangay', $request->barangay);
-        $request->session()->put(Auth::user()->id.'city', $request->city);
-        $request->session()->put(Auth::user()->id.'province', $request->province);
-        $request->session()->put(Auth::user()->id.'country', $request->country);
-        $request->session()->put(Auth::user()->id.'zip_code', $request->zip_code);
-        $request->session()->put(Auth::user()->id.'guardian', $request->guardian);
-        $request->session()->put(Auth::user()->id.'guardian_relationship', $request->guardian_relationship);
-        $request->session()->put(Auth::user()->id.'guardian_contact_no', $request->guardian_contact_no);
-
-        return redirect('/units/'.$unit_id.'/tenant-step2');
-    }
-
-    public function createTenantStep2()
-    {   
-        return view('admin.create-tenant-step-2');
-    }
-
-    public function postTenantStep2(Request $request, $unit_id){
-
-        $request->session()->put(Auth::user()->id.'high_school', $request->high_school);
-        $request->session()->put(Auth::user()->id.'high_school_address', $request->high_school_address);
-        $request->session()->put(Auth::user()->id.'college_school', $request->colleges_school);
-        $request->session()->put(Auth::user()->id.'college_school_address', $request->college_school_address);
-        $request->session()->put(Auth::user()->id.'course', $request->course);
-        $request->session()->put(Auth::user()->id.'year_level', $request->year_level);
-        $request->session()->put(Auth::user()->id.'employer', $request->employer);
-        $request->session()->put(Auth::user()->id.'employer_address', $request->employer_address);
-        $request->session()->put(Auth::user()->id.'job', $request->job);
-        $request->session()->put(Auth::user()->id.'years_of_employment', $request->years_of_employment);
-        $request->session()->put(Auth::user()->id.'employer_contact_no', $request->employer_contact_no);
-
-        return redirect('/units/'.$unit_id.'/tenant-step3');
-    }
-
-    public function createTenantStep3()
-    {   
-        return view('admin.create-tenant-step-3');
-    }
-
-    public function postTenantStep3(Request $request, $unit_id){
-
-        if($request->moveout_date <= $request->movein_date){
-            $request->session()->put(Auth::user()->id.'movein_date', $request->movein_date);
-            $request->session()->put(Auth::user()->id.'moveout_date', $request->moveout_date);
-            $request->session()->put(Auth::user()->id.'tenant_monthly_rent', $request->tenant_monthly_rent);
-            return back()->with('danger', 'Invalid input. Make sure the moveout date is later than the movein date. ');
-        }
-
-        $request->session()->put(Auth::user()->id.'movein_date', $request->movein_date);
-        $request->session()->put(Auth::user()->id.'moveout_date', $request->moveout_date);
-        $request->session()->put(Auth::user()->id.'tenant_monthly_rent', $request->tenant_monthly_rent);
-
-        return redirect('/units/'.$unit_id.'/tenant-step4');
-    }
-
-    public function createTenantStep4()
-    {   
-         //get the number of last added bills
-         $current_bill_no = DB::table('units')
-         ->join('tenants', 'unit_id', 'unit_tenant_id')
-         ->join('billings', 'tenant_id', 'billing_tenant_id')
-         ->where('unit_property', Auth::user()->property)
-         ->max('billing_no') + 1;
-
-        return view('admin.create-tenant-step-4', compact('current_bill_no'));
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -162,18 +76,6 @@ class TenantController extends Controller
      */
     public function store(Request $request)
     {
-
-
-        // if($request->moveout_date <= $request->movein_date){
-        //     $request->session()->put(Auth::user()->id.'movein_date', $request->movein_date);
-        //     $request->session()->put(Auth::user()->id.'moveout_date', $request->moveout_date);
-        //     $request->session()->put(Auth::user()->id.'tenant_monthly_rent', $request->tenant_monthly_rent);
-        //     return back()->with('danger', 'Invalid input. Make sure the moveout date is later than the movein date. ');
-        // }
-
-        // $request->session()->put(Auth::user()->id.'movein_date', $request->movein_date);
-        // $request->session()->put(Auth::user()->id.'moveout_date', $request->moveout_date);
-        // $request->session()->put(Auth::user()->id.'tenant_monthly_rent', $request->tenant_monthly_rent);
 
         //insert tenant to a specific unit
         $tenant_id = DB::table('tenants')->insertGetId(
@@ -187,21 +89,9 @@ class TenantController extends Controller
                 'gender' => $request->gender,
                 'civil_status'=> $request->civil_status,
                 'id_number' => $request->id_number,
-
-                // 'country' => session(Auth::user()->id.'country'),
-                // 'province' => session(Auth::user()->id.'province'),
-                // 'city' => session(Auth::user()->id.'city'),
-                // 'barangay' => session(Auth::user()->id.'barangay'),
-                // 'zip_code' => session(Auth::user()->id.'zip_code'),
-
                 //contact number
                 'contact_no' => $request->contact_no,
                 'email_address' => $request->email_address,
-
-                //guardian information
-                // 'guardian' => session(Auth::user()->id.'guardian'),
-                // 'guardian_relationship' => session(Auth::user()->id.'guardian_relationship'),
-                // 'guardian_contact_no' => session(Auth::user()->id.'guardian_contact_no'),
 
                 //rent information
                 'tenant_monthly_rent' => $request->tenant_monthly_rent,
@@ -210,97 +100,8 @@ class TenantController extends Controller
                 'tenant_status' => 'pending',
                 'movein_date'=> $request->movein_date,
                 'moveout_date'=> $request->moveout_date,
-        
-                //information for student
-                // 'high_school' => session(Auth::user()->id.'high_school'),
-                // 'high_school_address' => session(Auth::user()->id.'high_school_address'),
-                // 'college_school' => session(Auth::user()->id.'college_school'),
-                // 'college_school_address' => session(Auth::user()->id.'college_school_address'),
-                // 'course' => session(Auth::user()->id.'course'),
-                // 'year_level' => session(Auth::user()->id.'year_level'),
-             
-                //      //information for working
-                // 'employer' => session(Auth::user()->id.'employer'),
-                // 'employer_address' => session(Auth::user()->id.'employer_address'),
-                // 'job' => session(Auth::user()->id.'job'),
-                // 'employer_contact_no' => session(Auth::user()->id.'employer_contact_no'),
-                // 'years_of_employment' => session(Auth::user()->id.'years_of_employment'),
-            
-        ]);
-
-          //get the number of last added bills
-
-        $current_bill_no = DB::table('units')
-        ->join('tenants', 'unit_id', 'unit_tenant_id')
-        ->join('billings', 'tenant_id', 'billing_tenant_id')
-        ->where('unit_property', Auth::user()->property)
-        ->max('billing_no') + 1;
-                
-        
-    //    //create movein charges of the tenant.
-    //     for($i = 0; $i<3 ; $i++){
-    //         DB::table('billings')->insert(
-    //             [
-    //                 'billing_tenant_id' => $tenant_id,
-    //                 'billing_no' => $current_bill_no++,
-    //                 'billing_date' => session(Auth::user()->id.'movein_date'),
-    //                 'billing_desc' =>  $request->input('desc'.$i),
-    //                 'billing_amt' =>  $request->input('amt'.$i),
-    //                 'billing_start' =>  session(Auth::user()->id.'movein_date'),
-    //                 'billing_end'=> session(Auth::user()->id.'moveout_date'),
-    //             ]);
-    //     }        
-
-        //change the unit status to reserved
-         DB::table('units')->where('unit_id', session(Auth::user()->id.'unit_id'))
-             ->update(
-                        [
-                            'status'=> 'reserved',
-                            'updated_at' => $request->movein_date,   
-                        ]
-                    );
-
-        //delete all the session created during the tenant's registration.
-        // $request->session()->forget(Auth::user()->id.'first_name');
-        // $request->session()->forget(Auth::user()->id.'middle_name');
-        // $request->session()->forget(Auth::user()->id.'last_name');
-        // $request->session()->forget(Auth::user()->id.'birthdate');
-        // $request->session()->forget(Auth::user()->id.'gender');
-        // $request->session()->forget(Auth::user()->id.'civil_status');
-        // $request->session()->forget(Auth::user()->id.'id_number');
-      
-
-        // $request->session()->forget(Auth::user()->id.'zip_code');
-        // $request->session()->forget(Auth::user()->id.'country');
-        // $request->session()->forget(Auth::user()->id.'province');
-        // $request->session()->forget(Auth::user()->id.'city');
-        // $request->session()->forget(Auth::user()->id.'barangay');
-
-        // $request->session()->forget(Auth::user()->id.'contact_no');
-        // $request->session()->forget(Auth::user()->id.'email_address');
-
-        // // $request->session()->forget(Auth::user()->id.'guardian');
-        // // $request->session()->forget(Auth::user()->id.'guardian_relationship');
-        // // $request->session()->forget(Auth::user()->id.'guardian_contact_no');
-        
-        // $request->session()->forget(Auth::user()->id.'tenant_monthly_rent');
-        // // $request->session()->forget(Auth::user()->id.'type_of_tenant');
-
-        // $request->session()->forget(Auth::user()->id.'movein_date');
-        // $request->session()->forget(Auth::user()->id.'moveout_date');
-
-        // $request->session()->forget(Auth::user()->id.'high_school');
-        // $request->session()->forget(Auth::user()->id.'high_school_address');
-        // $request->session()->forget(Auth::user()->id.'college_school');
-        // $request->session()->forget(Auth::user()->id.'college_school_address');
-        // $request->session()->forget(Auth::user()->id.'course');
-        // $request->session()->forget(Auth::user()->id.'year_level');
-
-        // $request->session()->forget(Auth::user()->id.'employer');
-        // $request->session()->forget(Auth::user()->id.'employer_address');
-        // $request->session()->forget(Auth::user()->id.'job');
-        // $request->session()->forget(Auth::user()->id.'years_of_employment');
-        // $request->session()->forget(Auth::user()->id.'employer_contact_no');
+            ]
+            );
 
         $units = DB::table('units')
         ->where('unit_property', Auth::user()->property)
@@ -412,9 +213,8 @@ class TenantController extends Controller
               ->join('payments', 'tenant_id', 'payment_tenant_id')
               ->where('unit_property', Auth::user()->property)
               ->max('ar_no') + 1;
-
             
-                return view('admin.show-tenant', compact('tenant','personnels' ,'concerns', 'current_bill_no', 'balance', 'unit', 'collections', 'payment_ctr','collections_count'));  
+                return view('webapp.tenants.show-tenant', compact('tenant','personnels' ,'concerns', 'current_bill_no', 'balance', 'unit', 'collections', 'payment_ctr','collections_count'));  
         }else{
                 return view('unregistered');
         }
@@ -474,7 +274,7 @@ class TenantController extends Controller
             });
     
 
-            return view('billing.show-billings', compact('current_bill_no','tenant','payments', 'room', 'balance','payment_ctr', 'collections'));  
+            return view('webapp.bills.show-billings', compact('current_bill_no','tenant','payments', 'room', 'balance','payment_ctr', 'collections'));  
         }else{
             return view('unregistered');
         }
@@ -504,7 +304,7 @@ class TenantController extends Controller
             ->havingRaw('balance > 0')
             ->get();
 
-            return view('billing.edit-billings', compact('current_bill_no','tenant', 'room', 'balance'));  
+            return view('webapp.bills.edit-billings', compact('current_bill_no','tenant', 'room', 'balance'));  
         }else{
             return view('unregistered');
         }
@@ -563,7 +363,7 @@ class TenantController extends Controller
     {
         if(auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager'){
             $tenant = Tenant::findOrFail($tenant_id);
-            return view('admin.edit-tenant', compact('tenant'));
+            return view('webapp.tenants.edit-tenant', compact('tenant'));
         }else{
             return view('unregistered');
         }
@@ -637,7 +437,7 @@ class TenantController extends Controller
 
             if($tenant->email_address !== null){
                  //send welcome email to the tenant
-                 Mail::send('emails.send-request-moveout-mail', $data, function($message) use ($data){
+                 Mail::send('webapp.tenants.send-request-moveout-mail', $data, function($message) use ($data){
                     $message->to($data['email']);
                     $message->subject('Request to Moveout');
                 });
@@ -771,7 +571,7 @@ class TenantController extends Controller
 
         ];
 
-            $pdf = \PDF::loadView('admin.gatepass', $data)->setPaper('a4', 'portrait');
+            $pdf = \PDF::loadView('webapp.tenants.gatepass', $data)->setPaper('a4', 'portrait');
       
              return $pdf->download($tenant->first_name.' '.$tenant->last_name.'.pdf');
     
@@ -1090,7 +890,7 @@ class TenantController extends Controller
                         'payment_ar' => $payment->ar_no
                     ];
 
-            $pdf = \PDF::loadView('treasury.ar', $data)->setPaper('a5', 'portrait');
+            $pdf = \PDF::loadView('webapp.collections.export-collections', $data)->setPaper('a5', 'portrait');
       
             return $pdf->download(Carbon::now().'-'.$tenant->first_name.'-'.$tenant->last_name.'-ar'.'.pdf');
     }

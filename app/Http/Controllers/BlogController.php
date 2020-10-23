@@ -39,7 +39,7 @@ class BlogController extends Controller
         ->get();
 
     
-        return view('landing-page.blogs', compact('featured_blog', 'previous_blogs'));
+        return view('website.blogs', compact('featured_blog', 'previous_blogs'));
     }
 
     /**

@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class UnitOwnersTableSeeder extends Seeder
+class OwnerTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.

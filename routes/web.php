@@ -23,14 +23,15 @@ Auth::routes(['verify'=> true]);
 
 Route::get('/blogs', 'BlogController@index');
 
-Route::get('/calendar', 'EventController@index')->middleware(['auth', 'verified']);
+Route::get('/calendar', 'CalendarController@index')->middleware(['auth', 'verified']);
 
-Route::post('/event', 'EventController@store')->middleware(['auth', 'verified']);
+Route::post('/event', 'CalendarController@store')->middleware(['auth', 'verified']);
 
 Route::post('/blogs', 'BlogController@store')->middleware(['auth', 'verified']);
 
 Route::post('ckeditor/image_upload', 'BlogController@upload')->name('upload');
 
+//routes for the dashboard
 Route::get('/', function(){
     $clients = DB::table('users')
     ->where('user_type', 'admin')
@@ -52,17 +53,17 @@ Route::get('/', function(){
     ->where('tenant_status', 'active')
     ->count();
 
-    return view('landing-page.index', compact('clients','properties', 'buildings', 'rooms', 'tenants'));
+    return view('website.index', compact('clients','properties', 'buildings', 'rooms', 'tenants'));
 });
 
 Route::get('/board', function(Request $request){
     if(Auth::user()->property == null ){
-        return view('property-profile');
+        return view('auth.signup.property-profile');
     }elseif(Auth::user()->property !== null &&  Auth::user()->account_type == null){
-        return view('payment-info');
+        return view('auth.signup.payment-info');
     }
       elseif(Auth::user()->property !== null && Auth::user()->account_type !== null && Auth::user()->trial_ends_at == null){
-          return view('payment-info');
+        return view('auth.signup.payment-info');
       }
     else{
         $pending_concerns = DB::table('tenants')
@@ -686,7 +687,7 @@ Route::get('/board', function(Request $request){
        ->get();
 
         // if(Auth::user()->property_type === 'Apartment Rentals' || Auth::user()->property_type === 'Dormitory'){
-            return view('manager.dashboard',
+            return view('webapp.home.dashboard',
             compact(
             'units', 'units_occupied','units_vacant', 'units_reserved',
             'active_tenants', 'pending_tenants', 'owners',
@@ -701,10 +702,10 @@ Route::get('/board', function(Request $request){
 })->middleware(['auth', 'verified']);
 
 //routes for units
-Route::get('units/{unit_id}', 'UnitsController@show')->middleware(['auth', 'verified']);
-Route::put('units/{unit_id}', 'UnitsController@update')->middleware(['auth', 'verified']);
-Route::post('units/add', 'UnitsController@add_unit')->middleware(['auth', 'verified']);
-Route::post('units/add-multiple', 'UnitsController@add_multiple_rooms')->middleware(['auth', 'verified']);
+Route::get('units/{unit_id}', 'UnitController@show')->middleware(['auth', 'verified']);
+Route::put('units/{unit_id}', 'UnitController@update')->middleware(['auth', 'verified']);
+Route::post('units/add', 'Unitsontroller@add_unit')->middleware(['auth', 'verified']);
+Route::post('units/add-multiple', 'UnitController@add_multiple_rooms')->middleware(['auth', 'verified']);
 
 Route::get('/home', function(){
 
@@ -732,17 +733,17 @@ Route::get('/home', function(){
             ->groupBy('building')
             ->get('building', 'status','count');
 
-            return view('admin.home',compact('units','buildings', 'units_count'));
+            return view('webapp.home.home',compact('units','buildings', 'units_count'));
 
     }
 })->middleware(['auth', 'verified']);
 
 //routes for payments
-Route::get('units/{unit_id}/tenants/{tenant_id}/payments/{payment_id}', 'PaymentController@show')->name('show-payment')->middleware(['auth', 'verified']);
-Route::post('/payments', 'PaymentController@store')->middleware(['auth', 'verified']);
-Route::get('/payments/all', 'PaymentController@index')->name('show-all-payments')->middleware(['auth', 'verified']);
-Route::get('/payments/search', 'PaymentController@index')->middleware(['auth', 'verified']);
-Route::delete('tenants/{tenant_id}/payments/{payment_id}', 'PaymentController@destroy')->middleware(['auth', 'verified']);
+Route::get('units/{unit_id}/tenants/{tenant_id}/payments/{payment_id}', 'CollectionController@show')->name('show-payment')->middleware(['auth', 'verified']);
+Route::post('/payments', 'CollectionController@store')->middleware(['auth', 'verified']);
+Route::get('/payments/all', 'CollectionController@index')->name('show-all-payments')->middleware(['auth', 'verified']);
+Route::get('/payments/search', 'CollectionController@index')->middleware(['auth', 'verified']);
+Route::delete('tenants/{tenant_id}/payments/{payment_id}', 'CollectionController@destroy')->middleware(['auth', 'verified']);
 
 Route::get('/units/{unit_id}/tenants/{tenant_id}/payments/{payment_id}/dates/{payment_created}/export', 'TenantController@export')->middleware(['auth', 'verified']);
 
@@ -764,7 +765,7 @@ Route::get('/property/{property}/export', function(Request $request){
         'collections' => $collections,
     ];
 
-$pdf = \PDF::loadView('treasury.ar-all', $data)->setPaper('a5', 'portrait');
+$pdf = \PDF::loadView('webapp.collections.export-collections-for-today', $data)->setPaper('a5', 'portrait');
 
 return $pdf->download(Carbon::now().'-'.Auth::user()->property.'-ar'.'.pdf');
 
@@ -791,7 +792,7 @@ Route::get('/units/{unit_id}/tenants/{tenant_id}/bills/download', function($unit
         'unit' => $unit->building.' '.$unit->unit_no,
         'bills' => $bills,
 ];
-    $pdf = \PDF::loadView('billing.soa', $data)->setPaper('a5', 'portrait');
+    $pdf = \PDF::loadView('webapp.bills.soa', $data)->setPaper('a5', 'portrait');
     return $pdf->download(Carbon::now().'-'.$tenant->first_name.'-'.$tenant->last_name.'-soa'.'.pdf');
 })->middleware(['auth', 'verified']);
 
@@ -810,7 +811,7 @@ Route::get('/units/{unit_id}/tenants/{tenant_id}/bills/send', function($unit_id,
         'unit' => $unit->building.' '.$unit->unit_no,
         'bills' => $bills,
 ];
-    $pdf = \PDF::loadView('billing.soa', $data)->setPaper('a5', 'portrait');
+    $pdf = \PDF::loadView('webapp.bills.soa', $data)->setPaper('a5', 'portrait');
     $pdf->download(Carbon::now().'-'.$tenant->first_name.'-'.$tenant->last_name.'-soa'.'.pdf');
    $pdf->save(storage_path().'_filename.pdf');
 })->middleware(['auth', 'verified']);
@@ -841,7 +842,7 @@ Route::get('/tenants', function(){
             ->where('unit_property', Auth::user()->property)
             ->count();
 
-        return view('admin.tenants', compact('tenants', 'count_tenants'));
+        return view('webapp.tenants.tenants', compact('tenants', 'count_tenants'));
     }else{
         return view('unregistered');
     }
@@ -859,7 +860,7 @@ Route::get('/concerns', function(){
             ->orderBy('concern_status', 'desc')
             ->paginate(10);
 
-        return view('admin.concerns', compact('concerns'));
+        return view('webapp.concerns.concerns', compact('concerns'));
   
 
 })->middleware(['auth', 'verified']);
@@ -1235,7 +1236,7 @@ Route::get('/users', function(){
 
         }
 
-        return view('users.users', compact('users', 'sessions', 'paying_users', 'unverified_users', 'properties','signup_rate','active_users', 'users'));
+        return view('webapp.users.users', compact('users', 'sessions', 'paying_users', 'unverified_users', 'properties','signup_rate','active_users', 'users'));
 
     }else{
         return view('unregistered');
@@ -1257,7 +1258,7 @@ Route::get('/owners', function(){
             ->where('unit_property', Auth::user()->property)
             ->count();
 
-            return view('admin.owners', compact('owners', 'count_owners'));
+            return view('webapp.owners.owners', compact('owners', 'count_owners'));
     }else{
             return view('unregistered');
     }
@@ -1280,7 +1281,7 @@ Route::get('/collections', function(){
                 return \Carbon\Carbon::parse($item->payment_created)->timestamp;
             });
 
-        return view('billing.collections', compact('collections'));
+        return view('webapp.collections.collections', compact('collections'));
     }else{
         return view('unregistered');
     }
@@ -1301,7 +1302,7 @@ Route::get('/bills', function(){
             return \Carbon\Carbon::parse($item->billing_start)->timestamp;
         });
 
-        return view('billing.bills', compact('bills'));
+        return view('webapp.bills.bills', compact('bills'));
     }else{
         return view('unregistered');
     }
@@ -1318,7 +1319,7 @@ Route::get('/housekeeping', function(){
         ->where('personnel_type', 'housekeeping')
         ->get();
 
-        return view('admin.housekeeping', compact('housekeeping'));
+        return view('webapp.hose.housekeeping', compact('housekeeping'));
     }else{
         return view('unregistered');
     }
@@ -1333,17 +1334,17 @@ Route::get('/maintenance', function(){
         ->where('personnel_type', 'maintenance')
         ->get();
 
-        return view('admin.maintenance', compact('maintenance'));
+        return view('webapp.personnels.maintenance', compact('maintenance'));
     }else{
         return view('unregistered');
     }
 
 })->middleware(['auth', 'verified']);
 
-Route::get('/job-orders', function(){
+Route::get('/joborders', function(){
     if(auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager'){
 
-        return view('admin.job-orders');
+        return view('webapp.joborders.joborders');
     }else{
         return view('unregistered');
     }
@@ -1360,26 +1361,26 @@ Route::get('/units/{unit_id}/tenants/{tenant_id}/billings/edit', 'TenantControll
 Route::put('/units/{unit_id}/tenants/{tenant_id}/billings/edit', 'TenantController@post_edited_billings')->middleware(['auth', 'verified']);
 Route::post('/tenants/billings', 'TenantController@add_billings')->name("add-billings")->middleware(['auth', 'verified']);
 Route::post('/tenants/billings-post', 'TenantController@post_billings')->middleware(['auth', 'verified']);
-Route::delete('tenants/{tenant_id}/billings/{billing_id}', 'BillingController@destroy')->middleware(['auth', 'verified']);
+Route::delete('tenants/{tenant_id}/billings/{billing_id}', 'BillController@destroy')->middleware(['auth', 'verified']);
 
 //delete owners
-Route::delete('owners/{owner_id}', 'UnitOwnersController@destroy')->middleware(['auth', 'verified']);
+Route::delete('owners/{owner_id}', 'OwnerController@destroy')->middleware(['auth', 'verified']);
 
 //route for searching tenant
 Route::get('/tenants/search', 'TenantController@search')->middleware(['auth', 'verified']);
 
-Route::get('/owners/search', 'UnitOwnersController@search')->middleware(['auth', 'verified']);
+Route::get('/owners/search', 'OwnerController@search')->middleware(['auth', 'verified']);
 
-Route::get('units/{unit_id}/owners/{unit_owner_id}/edit', 'UnitOwnersController@edit')->middleware(['auth', 'verified']);
+Route::get('units/{unit_id}/owners/{unit_owner_id}/edit', 'OwnerController@edit')->middleware(['auth', 'verified']);
 
 //routes for investors
-Route::get('/units/{unit_id}/owners/{unit_owner_id}', 'UnitOwnersController@show')->name('show-investor')->middleware(['auth', 'verified']);
-Route::post('/units', 'UnitsController@store')->middleware(['auth', 'verified']);
-Route::delete('/units/{unit_id}', 'UnitsController@destroy')->middleware(['auth', 'verified']);
+Route::get('/units/{unit_id}/owners/{unit_owner_id}', 'OwnerController@show')->name('show-investor')->middleware(['auth', 'verified']);
+Route::post('/units', 'UnitController@store')->middleware(['auth', 'verified']);
+Route::delete('/units/{unit_id}', 'UnitController@destroy')->middleware(['auth', 'verified']);
 
 //route for searching investors
-Route::get('/owners/{unit_owner_id}', 'UnitOwnersController@search')->middleware(['auth', 'verified']);
-Route::put('/units/{unit_id}/owners/{unit_owner_id}', 'UnitOwnersController@update')->middleware(['auth', 'verified']);
+Route::get('/owners/{unit_owner_id}', 'OwnerController@search')->middleware(['auth', 'verified']);
+Route::put('/units/{unit_id}/owners/{unit_owner_id}', 'OwnerController@update')->middleware(['auth', 'verified']);
 
 
 //route for users
@@ -1401,7 +1402,7 @@ Route::get('/units/{unit_id}/tenants/{tenant_id}/concerns/{concern_id}', 'Concer
 //update concerns
 Route::put('/concerns/{concern_id}', 'ConcernController@update')->middleware(['auth', 'verified']);
 
-Route::post('/billings', 'BillingController@store')->middleware(['auth', 'verified']);
+Route::post('/billings', 'BillController@store')->middleware(['auth', 'verified']);
 
 
 //routes for personnels
@@ -1543,7 +1544,7 @@ Route::post('/bills/rent/{date}', function(Request $request){
    ->where('unit_property', Auth::user()->property)
    ->max('billing_no') + 1;
 
-    return view('billing.add-rental-bill', compact('active_tenants','current_bill_no', 'updated_billing_start', 'updated_billing_end'))->with('success', 'Period covered has been changed!');
+    return view('webapp.bills.add-rental-bill', compact('active_tenants','current_bill_no', 'updated_billing_start', 'updated_billing_end'))->with('success', 'Period covered has been changed!');
 
 })->middleware(['auth', 'verified']);
 
@@ -1574,7 +1575,7 @@ Route::post('/bills/electric/{date}', function(Request $request){
         'electric_rate_kwh' => $request->electric_rate_kwh
    ]);
 
-    return view('billing.add-electric-bill', compact('active_tenants','current_bill_no', 'updated_billing_start', 'updated_billing_end', 'electric_rate_kwh'))->with('success', 'Period covered has been changed!');
+    return view('webapp.bills.add-electric-bill', compact('active_tenants','current_bill_no', 'updated_billing_start', 'updated_billing_end', 'electric_rate_kwh'))->with('success', 'Period covered has been changed!');
 
 })->middleware(['auth', 'verified']);
 
@@ -1605,7 +1606,7 @@ Route::post('/bills/water/{date}', function(Request $request){
         'water_rate_cum' => $request->water_rate_cum
    ]);
 
-    return view('billing.add-water-bill', compact('active_tenants','current_bill_no', 'updated_billing_start', 'updated_billing_end', 'water_rate_cum'))->with('success', 'Period covered has been changed!');
+    return view('webapp.bills.add-water-bill', compact('active_tenants','current_bill_no', 'updated_billing_start', 'updated_billing_end', 'water_rate_cum'))->with('success', 'Period covered has been changed!');
 
 })->middleware(['auth', 'verified']);
 
@@ -1628,7 +1629,7 @@ Route::get('/units/{unit_id}/tenants/{tenant_id}/alert/contract', function(Reque
         'days_before_moveout' => $diffInDays
     );
 
-    Mail::send('emails.send-contract-alert-mail', $data, function($message) use ($data){
+    Mail::send('webapp.tenants.send-contract-alert-mail', $data, function($message) use ($data){
 
         $message->to($data['email']);
         $message->subject('Contract Alert');
@@ -1669,11 +1670,12 @@ Route::put('/units/{unit_id}/tenants/{tenant_id}/edit/img', function(Request $re
 
 //routes for rooms/units
 
+
 //show multiple units for editing
-Route::get('/units/edit/{property}/{date}', 'UnitsController@show_edit_multiple_rooms')->middleware(['auth', 'verified']);
+Route::get('/units/edit/{property}/{date}', 'UnitController@show_edit_multiple_rooms')->middleware(['auth', 'verified']);
 
 //post changes to multiple units
-Route::put('/units/edit/{property}/{date}', 'UnitsController@post_edit_multiple_rooms')->middleware(['auth', 'verified']);
+Route::put('/units/edit/{property}/{date}', 'UnitController@post_edit_multiple_rooms')->middleware(['auth', 'verified']);
 
 
 
@@ -1720,7 +1722,7 @@ Route::get('/payables', function(){
        ->where('status', 'declined')
        ->get();
 
-        return view('account-payables.account-payables', compact('entry','pending','approved','declined','released','expense_report'));
+        return view('webapp.payables.payables', compact('entry','pending','approved','declined','released','expense_report'));
     }else{
         return view('unregistered');
     }
@@ -1843,18 +1845,18 @@ Route::post('/request-payable/release/{id}', function(Request $request, $id){
 
 //show privacy policy
 Route::get('/privacy-policy', function(){
-    return view('privacy-policy');
+    return view('website.privacy-policy');
 });
 
 //show terms of service
 Route::get('/terms-of-service', function(){
-    return view('terms-of-service');
+    return view('website.terms-of-service');
 });
 
 
 //show acceptable use policy
 Route::get('/acceptable-use-policy', function(){
-    return view('acceptable-use-policy');
+    return view('website.acceptable-use-policy');
 });
 
 
@@ -1921,9 +1923,6 @@ Route::get('/financials', function(){
     ->groupBy('id')
     ->get();
 
-    
-
-    return view('manager.financials', compact('expenses'));
+    return view('webapp.financials.financials', compact('expenses'));
 })->middleware(['auth', 'verified']);
-
 
