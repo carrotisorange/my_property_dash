@@ -49,7 +49,7 @@ class CalendarController extends Controller
             ]
         );
 
-        return back()->with('success', 'Event has been added!');
+        return back()->with('success', 'event has been saved!');
     }
 
     /**

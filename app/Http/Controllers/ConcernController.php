@@ -51,7 +51,7 @@ class ConcernController extends Controller
                 'is_paid' => 'unpaid',
             ]);
 
-            return redirect('/units/'.$request->unit_tenant_id.'/tenants/'.$request->reported_by.'/concerns/'.$concern_id)->with('success', 'Concern has been!');
+            return redirect('/units/'.$request->unit_tenant_id.'/tenants/'.$request->reported_by.'/concerns/'.$concern_id)->with('success', 'concern has been saved!');
     }
 
     /**
@@ -115,7 +115,7 @@ class ConcernController extends Controller
             'concern_urgency' => $request->concern_urgency
         ]);
 
-        return back()->with('success', 'Concern has been updated!');
+        return back()->with('success', 'changes has been saved!');
     }
 
     /**

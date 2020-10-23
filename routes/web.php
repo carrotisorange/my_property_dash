@@ -1544,7 +1544,7 @@ Route::post('/bills/rent/{date}', function(Request $request){
    ->where('unit_property', Auth::user()->property)
    ->max('billing_no') + 1;
 
-    return view('webapp.bills.add-rental-bill', compact('active_tenants','current_bill_no', 'updated_billing_start', 'updated_billing_end'))->with('success', 'Period covered has been changed!');
+    return view('webapp.bills.add-rental-bill', compact('active_tenants','current_bill_no', 'updated_billing_start', 'updated_billing_end'))->with('success', 'changes has been saved!!');
 
 })->middleware(['auth', 'verified']);
 
@@ -1575,7 +1575,7 @@ Route::post('/bills/electric/{date}', function(Request $request){
         'electric_rate_kwh' => $request->electric_rate_kwh
    ]);
 
-    return view('webapp.bills.add-electric-bill', compact('active_tenants','current_bill_no', 'updated_billing_start', 'updated_billing_end', 'electric_rate_kwh'))->with('success', 'Period covered has been changed!');
+    return view('webapp.bills.add-electric-bill', compact('active_tenants','current_bill_no', 'updated_billing_start', 'updated_billing_end', 'electric_rate_kwh'))->with('success', 'changes has been saved!');
 
 })->middleware(['auth', 'verified']);
 
@@ -1606,7 +1606,7 @@ Route::post('/bills/water/{date}', function(Request $request){
         'water_rate_cum' => $request->water_rate_cum
    ]);
 
-    return view('webapp.bills.add-water-bill', compact('active_tenants','current_bill_no', 'updated_billing_start', 'updated_billing_end', 'water_rate_cum'))->with('success', 'Period covered has been changed!');
+    return view('webapp.bills.add-water-bill', compact('active_tenants','current_bill_no', 'updated_billing_start', 'updated_billing_end', 'water_rate_cum'))->with('success', 'changes has been saved!');
 
 })->middleware(['auth', 'verified']);
 
@@ -1638,10 +1638,10 @@ Route::get('/units/{unit_id}/tenants/{tenant_id}/alert/contract', function(Reque
     DB::table('tenants')
     ->where('tenant_id', $tenant->tenant_id)
     ->update([
-        'tenants_note' => 'Email has been sent!'
+        'tenants_note' => 'email has been sent!'
     ]);
 
-    return back()->with('success', 'Email  has been sent to '. $tenant->first_name.' of '. $unit->building.' '.$unit->unit_no);
+    return back()->with('success', 'email  has been sent to '. $tenant->first_name.' of '. $unit->building.' '.$unit->unit_no);
 
 })->middleware(['auth', 'verified']);
 
@@ -1664,7 +1664,7 @@ Route::put('/units/{unit_id}/tenants/{tenant_id}/edit/img', function(Request $re
             ]
         );
 
-    return back()->with('success', 'Tenant image has been updated!');
+    return back()->with('success', 'changes has been saved!');
 })->middleware(['auth', 'verified']);
 
 
@@ -1742,7 +1742,7 @@ Route::post('/account-payable/add/{property}', function(Request $request){
             ]);
     }
 
-    return redirect('/payables#entries')->with('success', 'Entry has been added!');
+    return redirect('/payables#entries')->with('success', 'new entry has been saved!');
 });
 
 //delete payable entry
@@ -1750,7 +1750,7 @@ Route::delete('/account-payable/{id}', function(Request $request, $id){
 
     DB::table('payable_entry')->where('id', $id)->delete();
 
-    return redirect('/payables#entries')->with('success', 'Entry has been deleted!');
+    return redirect('/payables#entries')->with('success', 'entry has been deleted!');
 });
 
 //request for funds
@@ -1777,7 +1777,7 @@ Route::post('/account-payable/request/{property}', function(Request $request){
     }
 
 
-    return redirect('/payables#payables')->with('success', 'Request has been created!');
+    return redirect('/payables#payables')->with('success', 'request Unitwner saved!');
 });
 
 
@@ -1794,7 +1794,7 @@ Route::post('/request-payable/approve/{id}', function(Request $request, $id){
                 ]
             );
 
-    return redirect('/payables#payables')->with('success', 'Payable request has been approved!');
+    return redirect('/payables#payables')->with('success', 'request has been approved!');
 });
 
 //disapprove fund request
@@ -1810,7 +1810,7 @@ Route::post('/request-payable/disapprove/{id}', function(Request $request, $id){
                 ]
             );
 
-    return redirect('/payables#payables')->with('success', 'Request has been declined!');
+    return redirect('/payables#payables')->with('success', 'request has been declined!');
 });
 
 //release fund request
@@ -1826,7 +1826,7 @@ Route::post('/request-payable/release/{id}', function(Request $request, $id){
                 ]
             );
 
-    return redirect('/payables#released')->with('success', 'Request has been released!');
+    return redirect('/payables#released')->with('success', 'request has been released!');
 });
 
 
@@ -1890,7 +1890,7 @@ Route::post('/responses', function(Request $request){
 
     }
 
-    return redirect('/units/'.$request->unit_id.'/tenants/'.$request->tenant_id.'/concerns/'.$request->concern_id)->with('success', 'Your response has been posted!');
+    return redirect('/units/'.$request->unit_id.'/tenants/'.$request->tenant_id.'/concerns/'.$request->concern_id)->with('success', 'reponse has been saved!');
 })->middleware(['auth', 'verified']);
 
 //close concern 
@@ -1909,7 +1909,7 @@ Route::put('/concerns/{concern_id}/closed', function(Request $request){
             ]
         );
 
-    return back()->with('success', 'Concern has been closed!');
+    return back()->with('success', 'concern has been closed!');
     }
    
 })->middleware(['auth', 'verified']);

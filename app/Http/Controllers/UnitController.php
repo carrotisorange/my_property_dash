@@ -81,7 +81,7 @@ class UnitController extends Controller
         //                 ]
         //             );
 
-    return redirect('/units/'.$request->unit_id.'/owners/'.$id.'/edit')->with('success', 'Owner has been added to the property! Please provide more information.');
+    return redirect('/units/'.$request->unit_id.'/owners/'.$id.'/edit')->with('success', 'owner has been saved! Please complete the information below.');
     }
 
     /**
@@ -165,7 +165,7 @@ class UnitController extends Controller
     //         'created_at'=> Carbon::now(),
     //     ]);
 
-    //     return redirect('/units/'.$id)->with('success', '1 room has been added to the record!');
+    //     return redirect('/units/'.$id)->with('success', 'room has been saved!');
     // }
 
     public function add_multiple_rooms(Request $request){
@@ -325,7 +325,7 @@ class UnitController extends Controller
                         );
    
                     
-            return back()->with('success', 'Room has been updated!');
+            return back()->with('success', 'changes has been saved!');
        
     }
 
@@ -407,6 +407,6 @@ class UnitController extends Controller
                         );
   
 
-        return back()->with('success', $selected_unit->unit_no.' has been deleted!');
+        return back()->with('success', 'room has been deleted!');
     }
 }

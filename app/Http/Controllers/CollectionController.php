@@ -226,7 +226,7 @@ class CollectionController extends Controller
     
         DB::table('payments')->where('payment_id', $payment_id)->delete();
 
-        return back()->with('success', ' Payment has been deleted!');
+        return back()->with('success', ' payment has been deleted!');
     }
 
 }

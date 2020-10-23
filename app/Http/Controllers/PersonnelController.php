@@ -44,7 +44,7 @@ class PersonnelController extends Controller
             'personnel_type' => $request->personnel_type,
         ]);
 
-        return back()->with('success', $request->personnel_type. ' has been added to the property!');
+        return back()->with('success', $request->personnel_type. ' has been saved!');
     }
 
     /**

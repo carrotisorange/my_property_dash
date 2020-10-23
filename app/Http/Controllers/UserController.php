@@ -70,7 +70,7 @@ class UserController extends Controller
             'trial_ends_at' => Auth::user()->trial_ends_at
         ]);
 
-        return redirect('/users')->with('success', 'A new user has been added!');
+        return redirect('/users')->with('success', 'New user has been saved!');
 
     }
 
@@ -145,7 +145,7 @@ class UserController extends Controller
         //             ]
         //         );
 
-        //         return back()->with('success', 'Footer message has been updated!');
+        //         return back()->with('success', 'changes has been saved!');
         // }
 
 
@@ -162,7 +162,7 @@ class UserController extends Controller
                     ]
                 );
 
-                return redirect('/users/'.$user_id)->with('success', 'User Profile has been updated!');
+                return redirect('/users/'.$user_id)->with('success', 'changes has been saved!');
         }else{
             DB::table('users')
             ->where('id', $user_id)
@@ -189,6 +189,6 @@ class UserController extends Controller
     public function destroy($id)
     {
       DB::table('users')->where('id', $id)->delete();
-      return redirect('/users')->with('success', 'User has been deleted!');
+      return redirect('/users')->with('success', 'user has been deleted!');
     }
 }

@@ -139,9 +139,9 @@ class TenantController extends Controller
         }
 
         if(Auth::user()->user_type === 'admin'){
-            return redirect('/units/'.session(Auth::user()->id.'unit_id').'/tenants/'.$tenant_id)->with('success', 'New tenant has been added!');
+            return redirect('/units/'.session(Auth::user()->id.'unit_id').'/tenants/'.$tenant_id)->with('success', 'new tenant has been saved!');
         }else{
-            return redirect('/units/'.session(Auth::user()->id.'unit_id').'/tenants/'.$tenant_id.'/billings')->with('success', 'New tenant has been added!');
+            return redirect('/units/'.session(Auth::user()->id.'unit_id').'/tenants/'.$tenant_id.'/billings')->with('success', 'new tenant has been saved!');
         }
 
        
@@ -346,7 +346,7 @@ class TenantController extends Controller
                    );
           
           
-            return redirect('/units/'.$unit_id.'/tenants/'.$tenant_id.'/billings')->with('success','Bills has been updated!');
+            return redirect('/units/'.$unit_id.'/tenants/'.$tenant_id.'/billings')->with('success','changes has been saved!');
         }else{
             return view('unregistered');
         }
@@ -445,7 +445,7 @@ class TenantController extends Controller
             
             
 
-            return redirect('/units/'.$unit_id.'/tenants/'.$tenant_id)->with('success','Request to moveout has been sent!');
+            return redirect('/units/'.$unit_id.'/tenants/'.$tenant_id)->with('success','request to moveout has been sent!');
         }
         
            
@@ -462,7 +462,7 @@ class TenantController extends Controller
                 ]
             );
 
-            return redirect('/units/'.$unit_id.'/tenants/'.$tenant_id)->with('success','Request to moveout has been approved!');
+            return redirect('/units/'.$unit_id.'/tenants/'.$tenant_id)->with('success','request to moveout has been approved!');
 
         }
            
@@ -519,7 +519,7 @@ class TenantController extends Controller
 
         // DB::table('sessions')->where('session_user_id', 36)->delete();
         
-       return redirect('/units/'.$unit_id.'/tenants/'.$tenant_id)->with('success','Tenant information has been updated!');
+       return redirect('/units/'.$unit_id.'/tenants/'.$tenant_id)->with('success','changes has been saved!');
     }
 
     public function moveout(Request $request, $unit_id, $tenant_id){      
@@ -575,7 +575,7 @@ class TenantController extends Controller
       
              return $pdf->download($tenant->first_name.' '.$tenant->last_name.'.pdf');
     
-        //return redirect('/units/'.$request->unit_tenant_id.'/tenants/'.$request->tenant_id)->with('success','Tenant has been moved out!');
+        //return redirect('/units/'.$request->unit_tenant_id.'/tenants/'.$request->tenant_id)->with('success','tenant has been moved out!');
     }
 
     public function renew(Request $request, $unit_id, $tenant_id){
@@ -605,7 +605,7 @@ class TenantController extends Controller
                 'renewal_history' => $renewal_history->renewal_history.', from '.Carbon::parse($request->old_movein_date)->format('M d Y').' to -'.Carbon::parse($request->movein_date)->format('M d Y')
             ]);
 
-            return back()->with('success', 'Contract has been extended to '. $request->no_of_months.' months.');
+            return back()->with('success', 'contract has been extended to '. $request->no_of_months.' months.');
 
         }else{
             //insert all the additional charges
@@ -638,7 +638,7 @@ class TenantController extends Controller
                 'status' => 'reserved'
             ]);
 
-            return back()->with('success', 'Tenant contract has been extended to '. $request->no_of_months.' months.');
+            return back()->with('success', 'tenant contract has been extended to '. $request->no_of_months.' months.');
             
         }
     }
@@ -713,7 +713,7 @@ class TenantController extends Controller
                             );
             }
 
-            return redirect('/bills')->with('success', ($i-1).' '.$request->desc1.' bills has been posted!');
+            return redirect('/bills')->with('success', ($i-1).' '.$request->desc1.' bills has been saved!');
             
         }
         else{
@@ -740,7 +740,7 @@ class TenantController extends Controller
         }
     }
         
-        return redirect('/bills')->with('success', ($i-1).' '.$request->desc1.' bills has been posted!');
+        return redirect('/bills')->with('success', ($i-1).' '.$request->desc1.' bills has been saved!');
     }
 
     /**
@@ -755,7 +755,7 @@ class TenantController extends Controller
         DB::table('billings')->where('billing_tenant_id', $tenant_id)->delete();
         DB::table('tenants')->where('tenant_id', $tenant_id)->delete();
 
-        return back()->with('success', 'Tenant has been successfully deleted!');
+        return back()->with('success', 'tenant has been deleted!');
     }
 
     public function post_reservation(Request $request){
@@ -840,7 +840,7 @@ class TenantController extends Controller
                         ]
                     );
 
-        return redirect($request->unit_property.'/units/'.$request->unit_id.'/tenants/'.$tenant_id.'/reserved')->with('success', 'Your reservation has been successfully recorded!');
+        return redirect($request->unit_property.'/units/'.$request->unit_id.'/tenants/'.$tenant_id.'/reserved')->with('success', 'reservation reservation has been saved!');
     }
 
     public function get_reservation($properties, $unit_id, $tenant_id){
