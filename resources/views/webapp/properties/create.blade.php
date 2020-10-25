@@ -10,9 +10,9 @@
                   <div class="text-center">
                     <h1 class="h4 text-gray-900 mb-4">Add Your Property Here! </h1>
                     <b class="text-success">All existing rooms, tenants, owners, etc. will be migrated to this new property.</b>
-                    <br>
+                    
                   </div>
-                
+                  <br>
                     <div class="form-group">
                       <input id="name" type="text" value="{{ Auth::user()->property }}" class="form-control form-control-user @error('name') is-invalid @enderror" placeholder="Property Name" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
                             @error('name')
