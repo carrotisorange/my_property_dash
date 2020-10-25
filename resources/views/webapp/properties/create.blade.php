@@ -22,16 +22,16 @@
 
                     <div class="form-group">
                       <select name="type" id="type" class="form-control form-control-user @error('type') is-invalid @enderror" required autocomplete="type" autofocus>
-                        <option value="{{ Auth::user()->property_type }}" selected>{{ Auth::user()->property_type }}</option>
+  
                         @if (old('type'))
-                        <option value="{{ old('type') }}" selected>{{ old('type') }}</option>
+                     
                 
                         <option value="Dormitory">Dormitory</option>
                         <option value="Apartment Rentals">Apartment Rentals</option>
                         <option value="Commercial Complex">Commercial Complex</option>
                         <option value="Condominium Associations">Condominium Associations</option>
                         @else
-                        <option value="" selected>Select type</option>
+                        <option value="{{ Auth::user()->property_type }}" selected>{{ Auth::user()->property_type }}</option>
                         <option value="Dormitory">Dormitory</option>
                         <option value="Apartment Rentals">Apartment Rentals</option>
                         <option value="Commercial Complex">Commercial Complex</option>
@@ -48,14 +48,14 @@
 
                     <div class="form-group">
                       <select name="ownership" id="ownership" class="form-control form-control-user @error('ownership') is-invalid @enderror" name="ownership" required autocomplete="ownership" autofocus>
-                        <option value="{{ Auth::user()->property_ownership }}" selected>{{ Auth::user()->property_ownership }}</option>
+               
                         @if (old('ownership'))
                         <option value="{{ old('ownership') }}" selected>{{ old('ownership') }}</option>
           
                         <option value="Single Owner">Single Owner</option>
                         <option value="Multiple Owners">Multiple Owners</option>
                         @else
-                        <option value="" selected>Select ownership</option> 
+                        <option value="{{ Auth::user()->property_ownership }}" selected>{{ Auth::user()->property_ownership }}</option>
                         <option value="Single Owner">Single Owner</option>
                         <option value="Multiple Owners">Multiple Owners</option>
                         @endif
@@ -345,7 +345,7 @@
                             <option value="Zambia">Zambia</option>
                             <option value="Zimbabwe">Zimbabwe</option>
                           @else
-                          <option value="" selected>Selec country</option>
+                          <option value="{{ old('country') }}" selected>{{ old('country') }}</option>
                           <option value="Afganistan">Afghanistan</option>
                           <option value="Albania">Albania</option>
                           <option value="Algeria">Algeria</option>
