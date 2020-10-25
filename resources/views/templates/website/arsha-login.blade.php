@@ -31,7 +31,10 @@
 
 </head>
 
-<body> 
+<body>
+  
+    @include('templates.webapp.header')
+ 
   @include('templates.website.messenger-chatbot')
   @include('templates.webapp.notifications')
   <div class="col-md-5 mx-auto">

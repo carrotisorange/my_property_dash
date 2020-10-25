@@ -106,7 +106,7 @@
             </li>
             @endif
             <li class="nav-item">
-              <a class="nav-link active" href="/property/{{$property->property_id }}/users">
+              <a class="nav-link active active" href="/property/{{$property->property_id }}/users">
                 <i class="fas fa-user-circle text-green"></i>
                 <span class="nav-link-text">Users</span>
               </a>
