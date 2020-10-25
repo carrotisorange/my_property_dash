@@ -25,4 +25,9 @@ class UnitOwner extends Model
                                 'unit_owner',
                                 'date_accepted'
                             ];
+
+    public function units()
+    {
+        return $this->belongsToMany('App\Unit');
+    }
 }

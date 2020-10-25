@@ -1,10 +1,12 @@
-          <!-- Sidebar Toggle (Topbar) -->
+<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+  <a class="navbar-brand text-primary" href="#" >The Property Manager</a>
+     <!-- Sidebar Toggle (Topbar) -->
           <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
             <i class="fa fa-bars"></i>
           </button>
 
           
-          <p>{{ Auth::user()->property.' '.Auth::user()->property_type }}</p>
+   
                {{-- <!-- Topbar Search -->
                <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" action="/board/search" method="GET">
                 <div class="input-group">
@@ -44,12 +46,17 @@
             
 
             <div class="topbar-divider d-none d-sm-block"></div>
-
+            @if (Auth::check()) 
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name }}</span>
-                <i class="fas fa-users-circle"></i> 
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small text-primary">
+                 
+                    {{ Auth::user()->name }}
+              
+                 
+                </span>
+                <i class="fas fa-user-circle"></i> 
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -65,4 +72,6 @@
                 </a>
               </div>
             </li>
+            @endif
           </ul>
+        </nav>

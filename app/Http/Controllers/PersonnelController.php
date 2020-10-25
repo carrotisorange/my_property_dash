@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use DB, Auth;
+use App\Property;
+use Carbon\Carbon;
 
 class PersonnelController extends Controller
 {
@@ -13,9 +15,14 @@ class PersonnelController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($property_id)
     {
-        //
+
+       $personnels = Property::findOrFail($property_id)->personnels;
+
+       $property = Property::findOrFail($property_id);
+
+       return view('webapp.personnels.personnels', compact('personnels', 'property'));
     }
 
     /**
@@ -34,17 +41,18 @@ class PersonnelController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $property_id)
     {
         DB::table('personnels')->insert([
             'personnel_name' => $request->personnel_name,
             'personnel_contact_no' => $request->personnel_contact_no,
             'personnel_availability' => 'open',
-            'personnel_property' => Auth::user()->property,
             'personnel_type' => $request->personnel_type,
+            'property_id_foreign' => $property_id,
+            'created_at' => Carbon::now(),
         ]);
 
-        return back()->with('success', $request->personnel_type. ' has been saved!');
+        return back()->with('success',  'new personnel has been saved!');
     }
 
     /**

@@ -170,8 +170,14 @@ class UnitController extends Controller
 
     public function add_multiple_rooms(Request $request){
 
-       $building =  str_replace(' ', '-',$request->building);
-        
+      
+        if(!$request->building){
+            $building = 'Building-1';
+        }else{
+            $building =  str_replace(' ', '-',$request->building);
+        }
+
+
         for($i = 1; $i<=$request->no_of_rooms; $i++ ) {
         $id = DB::table('units')->insertGetId([
              'unit_no' => $request->unit_no.'-'.$i,
@@ -180,19 +186,20 @@ class UnitController extends Controller
              'max_occupancy' => $request->max_occupancy,
              'monthly_rent' => $request->monthly_rent,
              'status' => 'vacant',
-             'unit_property' => Auth::user()->property,
+           'unit_property' => '',
              'type_of_units' => $request->type_of_units,
              'created_at'=> Carbon::now(),
+             'property_id_foreign' => $request->property_id,
          ]);
         }
 
         $units = DB::table('units')
-        ->where('unit_property', Auth::user()->property)
+        ->where('property_id_foreign', $request->property_id)
         ->where('status','<>','deleted')
         ->count();
 
         $occupied_units = DB::table('units')
-        ->where('unit_property', Auth::user()->property)
+        ->where('property_id_foreign', $request->property_id)
         ->where('status', 'occupied')
         ->count();
 
@@ -200,13 +207,13 @@ class UnitController extends Controller
             ->insert(
                         [
                             'occupancy_rate' => ($occupied_units/$units) * 100,
-                            'occupancy_property' => Auth::user()->property,
-                            'occupancy_date' => Carbon::now()
+                            'property_id_foreign' => $request->property_id,
+                           'occupancy_date' => Carbon::now(),'created_at' => Carbon::now(),
                         ]
                     );
         
  
-         return back()->with('success', $request->no_of_rooms.' room/s have been added!');
+         return back()->with('success', $request->no_of_rooms.' rooms have been created!');
      }
 
      public function show_edit_multiple_rooms($property){
@@ -265,7 +272,7 @@ class UnitController extends Controller
                         [
                             'occupancy_rate' => ($occupied_units/$units) * 100,
                             'occupancy_property' => Auth::user()->property,
-                            'occupancy_date' => Carbon::now()
+                           'occupancy_date' => Carbon::now(),'created_at' => Carbon::now(),
                         ]
                     );
         
@@ -306,12 +313,12 @@ class UnitController extends Controller
             ]);
 
             $units = DB::table('units')
-            ->where('unit_property', Auth::user()->property)
+            ->where('property_id_foreign', $request->property_id)
             ->where('status','<>','deleted')
             ->count();
 
             $occupied_units = DB::table('units')
-            ->where('unit_property', Auth::user()->property)
+            ->where('property_id_foreign', $request->property_id)
             ->where('status', 'occupied')
             ->count();
     
@@ -319,13 +326,13 @@ class UnitController extends Controller
                 ->insert(
                             [
                                 'occupancy_rate' => ($occupied_units/$units) * 100,
-                                'occupancy_property' => Auth::user()->property,
-                                'occupancy_date' => Carbon::now()
+                                'property_id_foreign' => $request->property_id,
+                               'occupancy_date' => Carbon::now(),'created_at' => Carbon::now(),
                             ]
                         );
    
                     
-            return back()->with('success', 'changes has been saved!');
+            return back()->with('success', 'changes have been saved!');
        
     }
 
@@ -402,7 +409,7 @@ class UnitController extends Controller
                             [
                                 'occupancy_rate' => ($occupied_units/$units) * 100,
                                 'occupancy_property' => Auth::user()->property,
-                                'occupancy_date' => Carbon::now()
+                               'occupancy_date' => Carbon::now(),'created_at' => Carbon::now(),
                             ]
                         );
   

@@ -54,12 +54,12 @@ class Tenant extends Model
 
     public function units()
     {
-        return $this->hasMany('App\Tenant', 'unit_tenant_id');
+        return $this->belongsToMany('App\Unit');
     }
 
     public function concerns()
     {
-        return $this->hasMany('App\Concern', 'concern_id');
+        return $this->hasMany('App\Concern', 'concern_tenant_id') ->orderBy('date_reported', 'desc')->orderBy('concern_urgency', 'desc')->orderBy('concern_status', 'desc');
     }
     
 }

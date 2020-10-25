@@ -27,7 +27,20 @@ class ConfirmPasswordController extends Controller
      * @var string
      */
     // protected $redirectTo = RouteServiceProvider::HOME;
-    protected $redirectTo = '/board';
+    protected function authenticated(Request $request, $user)
+    { 
+        $properties = DB::table('users_properties_relations')
+            ->join('users', 'user_id_foreign', 'id')
+            ->where('user_id_foreign', $user->id)
+            ->get();
+
+        if($properties->count() > 0){
+            return redirect('/property/all');
+        }else{
+            return redirect('property/create');
+        }
+    }
+
 
     /**
      * Create a new controller instance.

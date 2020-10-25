@@ -1,6 +1,6 @@
 <?php
 
-use App\Unit, App\UnitOwner, App\Tenant, App\User, App\Billing;
+use App\Unit, App\UnitOwner, App\Tenant, App\User, App\Billing, App\Property;
 use Carbon\Carbon;
 use App\Charts\DashboardChart;
 use Illuminate\Http\Request;
@@ -23,13 +23,92 @@ Auth::routes(['verify'=> true]);
 
 Route::get('/blogs', 'BlogController@index');
 
-Route::get('/calendar', 'CalendarController@index')->middleware(['auth', 'verified']);
-
 Route::post('/event', 'CalendarController@store')->middleware(['auth', 'verified']);
 
 Route::post('/blogs', 'BlogController@store')->middleware(['auth', 'verified']);
 
 Route::post('ckeditor/image_upload', 'BlogController@upload')->name('upload');
+
+
+//routes for system-users
+Route::get('/property/{property_id}/user/all', 'UserController@index_system_user')->middleware(['auth', 'verified']);
+Route::get('/property/{property_id}/user/create', 'UserController@create_system_user')->middleware(['auth', 'verified']);
+Route::get('/property/{property_id}/user/{user_id}', 'UserController@show_system_user')->middleware(['auth', 'verified']);
+Route::post('/system-user/', 'UserController@store_system_user')->middleware(['auth', 'verified']);
+
+//routes for properties 
+Route::get('/property/all', 'PropertyController@index')->middleware(['auth', 'verified']);
+Route::get('/property/create', 'PropertyController@create')->middleware(['auth', 'verified']);
+Route::get('/property/{property_id}', 'PropertyController@show')->middleware(['auth', 'verified']);
+Route::post('/property/', 'PropertyController@store')->middleware(['auth', 'verified']);
+Route::post('/property/select', 'PropertyController@select')->middleware(['auth', 'verified']);
+
+//routes for dashboard
+Route::get('/property/{property_id}/dashboard', 'DashboardController@index')->middleware(['auth', 'verified']);
+
+//routes for home
+Route::get('/property/{property_id}/home', 'HomeController@index')->middleware(['auth', 'verified']);
+Route::get('/property/{property_id}/home/{unit_id}', 'HomeController@show')->middleware(['auth', 'verified']);
+
+//routes for tenants
+Route::get('/property/{property_id}/tenants', 'TenantController@index')->middleware(['auth', 'verified']);
+Route::get('/property/{property_id}/home/{unit_id}/tenant/{tenant_id}', 'TenantController@show')->middleware(['auth', 'verified']);
+Route::get('/property/{property_id}/home/{unit_id}/tenant/{tenant_id}/edit', 'TenantController@edit')->middleware(['auth', 'verified']);
+Route::put('/property/{property_id}/home/{unit_id}/tenant/{tenant_id}', 'TenantController@update')->middleware(['auth', 'verified']);
+Route::get('/property/{property_id}/home/{unit_id}/tenant', 'TenantController@create')->middleware(['auth', 'verified']);
+Route::get('/property/{property_id}/tenants/search', 'TenantController@search')->middleware(['auth', 'verified']);
+Route::post('/property/{property_id}/home/{unit_id}/tenant/{tenant_id}/extend', 'TenantController@extend')->middleware(['auth', 'verified']);
+Route::put('/property/{property_id}/home/{unit_id}/tenant/{tenant_id}/request', 'TenantController@request')->middleware(['auth', 'verified']);
+Route::put('/property/{property_id}/home/{unit_id}/tenant/{tenant_id}/approve', 'TenantController@approve')->middleware(['auth', 'verified']);
+
+//routes for owners
+Route::get('/property/{property_id}/owners', 'OwnerController@index')->middleware(['auth', 'verified']);
+
+//routes for calendar
+Route::get('/property/{property_id}/calendar', 'CalendarController@index')->middleware(['auth', 'verified']);
+
+//routes for concerns
+Route::get('/property/{property_id}/concerns', 'ConcernController@index')->middleware(['auth', 'verified']);
+Route::post('/property/{property_id}/tenant/{tenant_id}/concern', 'ConcernController@store')->middleware(['auth', 'verified']);
+Route::get('/property/{property_id}/home/{unit_id}/tenant/{tenant_id}/concern/{concern_id}', 'ConcernController@show')->middleware(['auth', 'verified']);
+
+//routes for job orders
+Route::get('/property/{property_id}/joborders', 'JobOrderController@index')->middleware(['auth', 'verified']);
+
+//routes for personnels
+Route::get('/property/{property_id}/personnels', 'PersonnelController@index')->middleware(['auth', 'verified']);
+Route::post('/property/{property_id}/personnel', 'PersonnelController@store')->middleware(['auth', 'verified']);
+
+//routes for bills
+Route::get('/property/{property_id}/bills', 'BillController@index')->middleware(['auth', 'verified']);
+Route::get('/property/{property_id}/home/{unit_id}/tenant/{tenant_id}/bills/edit', 'BillController@edit')->middleware(['auth', 'verified']);
+Route::put('/property/{property_id}/home/{unit_id}/tenant/{tenant_id}/bills/edit', 'BillController@post_edited_bills')->middleware(['auth', 'verified']);
+Route::post('property/{property_id}/bills/rent/{date}', 'BillController@post_bills_rent')->middleware(['auth', 'verified']);
+Route::post('property/{property_id}/bills/electric/{date}', 'BillController@post_bills_electric')->middleware(['auth', 'verified']);
+Route::post('property/{property_id}/bills/water/{date}', 'BillController@post_bills_water')->middleware(['auth', 'verified']);
+
+//routes for collections
+Route::get('/property/{property_id}/collections', 'CollectionController@index')->middleware(['auth', 'verified']);
+Route::post('/property/{property_id}/tenant/{tenant_id}/collection', 'CollectionController@store')->middleware(['auth', 'verified']);
+
+//routes for financials
+Route::get('/property/{property_id}/financials', 'FinancialController@index')->middleware(['auth', 'verified']);
+
+//routes for payables
+Route::get('/property/{property_id}/payables', 'PayableController@index')->middleware(['auth', 'verified']);
+Route::post('/property/{property_id}/payable', 'PayableController@store')->middleware(['auth', 'verified']);
+Route::post('/property/{property_id}/payable/request', 'PayableController@request')->middleware(['auth', 'verified']);
+Route::post('/property/{property_id}/payable/{payable_id}/approve', 'PayableController@approve')->middleware(['auth', 'verified']);
+Route::post('/property/{property_id}/payable/{payable_id}/decline', 'PayableController@decline')->middleware(['auth', 'verified']);
+Route::post('/property/{property_id}/payable/{payable_id}/release', 'PayableController@release')->middleware(['auth', 'verified']);
+
+//routes for users
+Route::get('/property/{property_id}/users', 'UserController@index')->middleware(['auth', 'verified']);
+Route::get('/property/{property_id}/user/{user_id}', 'UserController@show')->middleware(['auth', 'verified']);
+
+//routes for responses
+Route::post('concern/{concern_id}/response', 'ResponseController@store')->middleware(['auth', 'verified']);
+
 
 //routes for the dashboard
 Route::get('/', function(){
@@ -57,15 +136,6 @@ Route::get('/', function(){
 });
 
 Route::get('/board', function(Request $request){
-    if(Auth::user()->property == null ){
-        return view('auth.signup.property-profile');
-    }elseif(Auth::user()->property !== null &&  Auth::user()->account_type == null){
-        return view('auth.signup.payment-info');
-    }
-      elseif(Auth::user()->property !== null && Auth::user()->account_type !== null && Auth::user()->trial_ends_at == null){
-        return view('auth.signup.payment-info');
-      }
-    else{
         $pending_concerns = DB::table('tenants')
         ->join('units', 'unit_id', 'unit_tenant_id')
         ->join('concerns', 'tenant_id', 'concern_tenant_id')
@@ -697,7 +767,6 @@ Route::get('/board', function(Request $request){
             'current_occupancy_rate'
                     )
             );
-        }
 
 })->middleware(['auth', 'verified']);
 
@@ -707,36 +776,6 @@ Route::put('units/{unit_id}', 'UnitController@update')->middleware(['auth', 'ver
 Route::post('units/add', 'Unitsontroller@add_unit')->middleware(['auth', 'verified']);
 Route::post('units/add-multiple', 'UnitController@add_multiple_rooms')->middleware(['auth', 'verified']);
 
-Route::get('/home', function(){
-
-    if(auth()->user()->user_type === 'manager' || auth()->user()->user_type === 'admin' ){
-
-        $units_count = DB::table('units')
-            ->where('unit_property', Auth::user()->property)
-            ->where('status','<>','deleted')
-            ->count();
-
-        $units = DB::table('units')
-            ->where('unit_property', Auth::user()->property)
-            ->where('status','<>','deleted')
-            ->orderBy('floor_no', 'asc')
-            ->orderBy('unit_no', 'asc')
-            ->get()
-            ->groupBy(function($item) {
-            return $item->floor_no;
-        });
-
-        $buildings = DB::table('units')
-            ->select('building', 'status', DB::raw('count(*) as count'))
-            ->where('unit_property', Auth::user()->property)
-            ->where('status','<>','deleted')
-            ->groupBy('building')
-            ->get('building', 'status','count');
-
-            return view('webapp.home.home',compact('units','buildings', 'units_count'));
-
-    }
-})->middleware(['auth', 'verified']);
 
 //routes for payments
 Route::get('units/{unit_id}/tenants/{tenant_id}/payments/{payment_id}', 'CollectionController@show')->name('show-payment')->middleware(['auth', 'verified']);
@@ -822,48 +861,8 @@ Route::post('/tenants', 'TenantController@store')->middleware(['auth', 'verified
 Route::get('/units/{unit_id}/tenants/{tenant_id}/edit', 'TenantController@edit')->middleware(['auth', 'verified']);
 Route::put('/units/{unit_id}/tenants/{tenant_id}/', 'TenantController@update')->middleware(['auth', 'verified']);
 Route::put('/units/{unit_id}/tenants/{tenant_id}/moveout', 'TenantController@moveout')->middleware(['auth', 'verified']);
-Route::post('/units/{unit_id}/tenants/{tenant_id}/renew', 'TenantController@renew')->middleware(['auth', 'verified']);
+
 Route::delete('/tenants/{tenant_id}', 'TenantController@destroy')->middleware(['auth', 'verified']);
-
-Route::get('/tenants', function(){
-
-    if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'treasury' ){
-
-            $tenants = DB::table('tenants')
-            ->join('units', 'unit_id', 'unit_tenant_id')
-            ->where('unit_property', Auth::user()->property)
-
-            ->orderBy('movein_date', 'desc')
-
-            ->get();
-
-            $count_tenants = DB::table('tenants')
-            ->join('units', 'unit_id', 'unit_tenant_id')
-            ->where('unit_property', Auth::user()->property)
-            ->count();
-
-        return view('webapp.tenants.tenants', compact('tenants', 'count_tenants'));
-    }else{
-        return view('unregistered');
-    }
-
-})->middleware(['auth', 'verified']);
-
-Route::get('/concerns', function(){
-
-             $concerns = DB::table('tenants')
-            ->join('units', 'unit_id', 'unit_tenant_id')
-            ->join('concerns', 'tenant_id', 'concern_tenant_id')
-            ->where('unit_property', Auth::user()->property)
-            ->orderBy('date_reported', 'desc')
-            ->orderBy('concern_urgency', 'desc')
-            ->orderBy('concern_status', 'desc')
-            ->paginate(10);
-
-        return view('webapp.concerns.concerns', compact('concerns'));
-  
-
-})->middleware(['auth', 'verified']);
 
 Route::get('/users', function(){
 
@@ -883,7 +882,6 @@ Route::get('/users', function(){
     $paying_users = DB::table('users')
     ->where('account_type','!=','Free')
     ->whereNotNull('account_type')
-    ->whereNotNull('trial_ends_at')
     ->get();
 
     $unverified_users = DB::table('users')
@@ -1341,15 +1339,6 @@ Route::get('/maintenance', function(){
 
 })->middleware(['auth', 'verified']);
 
-Route::get('/joborders', function(){
-    if(auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager'){
-
-        return view('webapp.joborders.joborders');
-    }else{
-        return view('unregistered');
-    }
-
-})->middleware(['auth', 'verified']);
 
 //step1
 Route::get('/units/{unit_id}/tenants-create', 'TenantController@create')->middleware(['auth', 'verified']);
@@ -1367,7 +1356,7 @@ Route::delete('tenants/{tenant_id}/billings/{billing_id}', 'BillController@destr
 Route::delete('owners/{owner_id}', 'OwnerController@destroy')->middleware(['auth', 'verified']);
 
 //route for searching tenant
-Route::get('/tenants/search', 'TenantController@search')->middleware(['auth', 'verified']);
+
 
 Route::get('/owners/search', 'OwnerController@search')->middleware(['auth', 'verified']);
 
@@ -1385,7 +1374,7 @@ Route::put('/units/{unit_id}/owners/{unit_owner_id}', 'OwnerController@update')-
 
 //route for users
 Route::get('/users/search', 'UserController@search')->middleware(['auth', 'verified']);
-Route::get('/users/{user_id}', 'UserController@show')->middleware('auth');
+Route::get('/user/{user_id}', 'UserController@show')->middleware('auth');
 Route::post('/users', 'UserController@store')->middleware(['auth', 'verified']);
 Route::get('/users/{user_id}/edit', 'UserController@edit')->middleware(['auth', 'verified']);
 Route::put('/users/{user_id}', 'UserController@update')->middleware(['auth', 'verified']);
@@ -1416,25 +1405,6 @@ Route::get('login/facebook/callback', 'Auth\LoginController@handleProviderCallba
 Route::get('sign-in/google', 'Auth\LoginController@google');
 Route::get('sign-in/google/redirect', 'Auth\LoginController@googleRedirect');
 
-Route::get('/board/search', function(Request $request){
-    return 'to be constructed';
-
-    // $search_item = $request->search;
-
-    // $search = DB::table('units')
-    // ->join('tenants', 'unit_tenant_id', 'tenant_id')
-    // ->join('unit_owners', 'unit_owner_id', 'unit_id')
-    // ->where('unit_property', Auth::user()->property)
-
-    // ->orWhere(function ($query) {
-    //     $query->where('unit_no', 1)
-    //           ->where('first_name', 'Krisha');
-    // })
-    // ->get();
-
-    // return view('search.search-board', compact('search'));
-
-})->middleware(['auth', 'verified']);
 
 Route::put('/users/{user_id}/property', function(Request $request){
 
@@ -1473,18 +1443,12 @@ Route::put('/users/{user_id}/plan', function(Request $request){
 Route::post('/users/{user_id}/charge', function(Request $request){
 
     if(Auth::user()->account_type === 'Free'){
-        DB::table('users')
-        ->where('id', Auth::user()->id)
-        ->update([
-            'trial_ends_at'=> Carbon::now()->addMonth(),
-         ]);
-
          Mail::to(Auth::user()->email)->send(new TenantRegisteredMail());
 
          return back();
     }else{
 
-        // Stripe\Stripe::setApiKey('sk_test_51HJukYJRwyQ1aYnq47AXjpdfByCMtKxJJqcsORmKtMmSvliAuxnYuGTLRpTQVmuKAbPvMW7KdBn361qSNR13HTH700pQjYbkVO');
+
 
         $charge = 0;
 
@@ -1499,18 +1463,7 @@ Route::post('/users/{user_id}/charge', function(Request $request){
         }
 
        try{
-        // Stripe\Charge::create(array(
-        //     "amount" => $charge,
-        //     "currency" => "php",
-        //     'source' => $request->stripeToken,
-        //     'description' => Auth::user()->name.' | '.Auth::user()->property.' | ' . Auth::user()->property_type.' | '.Auth::user()->property_ownership.' | '.Auth::user()->account_type.' | '.$charge,
-        // ));
-
-        DB::table('users')
-        ->where('id', Auth::user()->id)
-        ->update([
-           'trial_ends_at'=> Carbon::now()->addMonth(),
-        ]);
+       
 
         Mail::to(Auth::user()->email)->send(new TenantRegisteredMail());
 
@@ -1525,90 +1478,6 @@ Route::post('/users/{user_id}/charge', function(Request $request){
 
 //routes for bills
 
-//post the period covered in rental bill
-Route::post('/bills/rent/{date}', function(Request $request){
-
-    $updated_billing_start = $request->billing_start;
-    $updated_billing_end = $request->billing_end;
-
-  $active_tenants = DB::table('tenants')
-  ->join('units', 'unit_id', 'unit_tenant_id')
-  ->where('unit_property', Auth::user()->property)
-  ->where('tenant_status', 'active')
-  ->get();
-
-   //get the number of last added bills
-   $current_bill_no = DB::table('units')
-   ->join('tenants', 'unit_id', 'unit_tenant_id')
-   ->join('billings', 'tenant_id', 'billing_tenant_id')
-   ->where('unit_property', Auth::user()->property)
-   ->max('billing_no') + 1;
-
-    return view('webapp.bills.add-rental-bill', compact('active_tenants','current_bill_no', 'updated_billing_start', 'updated_billing_end'))->with('success', 'changes has been saved!!');
-
-})->middleware(['auth', 'verified']);
-
-//post the period covered in add electric bill
-Route::post('/bills/electric/{date}', function(Request $request){
-
-    $updated_billing_start = $request->billing_start;
-    $updated_billing_end = $request->billing_end;
-    $electric_rate_kwh = $request->electric_rate_kwh;
-
-
-  $active_tenants = DB::table('tenants')
-  ->join('units', 'unit_id', 'unit_tenant_id')
-  ->where('unit_property', Auth::user()->property)
-  ->where('tenant_status', 'active')
-  ->get();
-
-   //get the number of last added bills
-   $current_bill_no = DB::table('units')
-   ->join('tenants', 'unit_id', 'unit_tenant_id')
-   ->join('billings', 'tenant_id', 'billing_tenant_id')
-   ->where('unit_property', Auth::user()->property)
-   ->max('billing_no') + 1;
-
-   DB::table('users')
-   ->where('id', Auth::user()->id)
-   ->update([
-        'electric_rate_kwh' => $request->electric_rate_kwh
-   ]);
-
-    return view('webapp.bills.add-electric-bill', compact('active_tenants','current_bill_no', 'updated_billing_start', 'updated_billing_end', 'electric_rate_kwh'))->with('success', 'changes has been saved!');
-
-})->middleware(['auth', 'verified']);
-
-//post the period covered in add water bill
-Route::post('/bills/water/{date}', function(Request $request){
-
-    $updated_billing_start = $request->billing_start;
-    $updated_billing_end = $request->billing_end;
-    $water_rate_cum = $request->water_rate_cum;
-
-
-  $active_tenants = DB::table('tenants')
-  ->join('units', 'unit_id', 'unit_tenant_id')
-  ->where('unit_property', Auth::user()->property)
-  ->where('tenant_status', 'active')
-  ->get();
-
-   //get the number of last added bills
-   $current_bill_no = DB::table('units')
-   ->join('tenants', 'unit_id', 'unit_tenant_id')
-   ->join('billings', 'tenant_id', 'billing_tenant_id')
-   ->where('unit_property', Auth::user()->property)
-   ->max('billing_no') + 1;
-
-   DB::table('users')
-   ->where('id', Auth::user()->id)
-   ->update([
-        'water_rate_cum' => $request->water_rate_cum
-   ]);
-
-    return view('webapp.bills.add-water-bill', compact('active_tenants','current_bill_no', 'updated_billing_start', 'updated_billing_end', 'water_rate_cum'))->with('success', 'changes has been saved!');
-
-})->middleware(['auth', 'verified']);
 
 
 // routes for tenants
@@ -1664,7 +1533,7 @@ Route::put('/units/{unit_id}/tenants/{tenant_id}/edit/img', function(Request $re
             ]
         );
 
-    return back()->with('success', 'changes has been saved!');
+    return back()->with('success', 'changes have been saved!');
 })->middleware(['auth', 'verified']);
 
 
@@ -1676,169 +1545,6 @@ Route::get('/units/edit/{property}/{date}', 'UnitController@show_edit_multiple_r
 
 //post changes to multiple units
 Route::put('/units/edit/{property}/{date}', 'UnitController@post_edit_multiple_rooms')->middleware(['auth', 'verified']);
-
-
-
-//routes for account payable functions
-
-//show account payable page
-Route::get('/payables', function(){
-    if( auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager' || auth()->user()->user_type === 'ap'){
-
-       $entry = DB::table('payable_entry')
-       ->where('payable_entry_property', Auth::user()->property)
-       ->orderBy('created_at', 'desc')
-       ->get();
-
-       $pending = DB::table('payable_request')
-       ->where('property', Auth::user()->property)
-       ->where('status', 'pending')
-       ->get();
-
-       $approved = DB::table('payable_request')
-       ->where('property', Auth::user()->property)
-       ->where('status', 'approved')
-       ->get();
-
-
-       $released = DB::table('payable_request')
-       ->where('property', Auth::user()->property)
-       ->where('status', 'released')
-       ->get();
-
-        $expense_report = DB::table('payable_request')
-       ->where('property', Auth::user()->property)
-       ->where('status', 'released')
-       ->orderBy('updated_at', 'desc')
-       ->get()
-       ->groupBy(function($item) {
-           return \Carbon\Carbon::parse($item->updated_at)->format('M d Y');
-       });
-
-
-
-       $declined = DB::table('payable_request')
-       ->where('property', Auth::user()->property)
-       ->where('status', 'declined')
-       ->get();
-
-        return view('webapp.payables.payables', compact('entry','pending','approved','declined','released','expense_report'));
-    }else{
-        return view('unregistered');
-    }
-})->middleware(['auth', 'verified']);
-
-//add payable entry
-Route::post('/account-payable/add/{property}', function(Request $request){
-    $no_of_entry = (int) $request->no_of_entry;
-
-    for($i = 1; $i<$no_of_entry; $i++){
-        DB::table('payable_entry')->insert(
-            [
-                'payable_entry' =>  $request->input('payable_entry'.$i),
-                'payable_entry_desc' => $request->input('payable_entry_desc'.$i),
-                'payable_entry_property' => Auth::user()->property,
-                'created_at' => Carbon::now(),
-            ]);
-    }
-
-    return redirect('/payables#entries')->with('success', 'new entry has been saved!');
-});
-
-//delete payable entry
-Route::delete('/account-payable/{id}', function(Request $request, $id){
-
-    DB::table('payable_entry')->where('id', $id)->delete();
-
-    return redirect('/payables#entries')->with('success', 'entry has been deleted!');
-});
-
-//request for funds
-Route::post('/account-payable/request/{property}', function(Request $request){
-
-     $no_of_request = (int) $request->no_of_request;
-
-     $current_payable_no = DB::table('payable_request')
-     ->where('property', Auth::user()->property)
-     ->max('no') + 1;
-
-    for($i = 1; $i<$no_of_request; $i++){
-        DB::table('payable_request')->insert(
-            [
-                'no' => $current_payable_no++,
-                'entry' =>  $request->input('entry'.$i),
-                'amt' =>  $request->input('amt'.$i),
-                'note' =>  $request->input('note'.$i),
-                'status' => 'pending',
-                'property' => Auth::user()->property,
-                'requested_by' => Auth::user()->name,
-                'created_at' => Carbon::now(),
-            ]);
-    }
-
-
-    return redirect('/payables#payables')->with('success', 'request Unitwner saved!');
-});
-
-
-//approve fund request
-Route::post('/request-payable/approve/{id}', function(Request $request, $id){
-
-    DB::table('payable_request')
-    ->where('id', $id)
-    ->update(
-                [
-                    'status' => 'approved',
-                    'updated_at' => Carbon::now(),
-                    'approved_by' => Auth::user()->name,
-                ]
-            );
-
-    return redirect('/payables#payables')->with('success', 'request has been approved!');
-});
-
-//disapprove fund request
-Route::post('/request-payable/disapprove/{id}', function(Request $request, $id){
-
-    DB::table('payable_request')
-    ->where('id', $id)
-    ->update(
-                [
-                    'status' => 'declined',
-                    'updated_at' => Carbon::now(),
-                    'approved_by' => Auth::user()->name,
-                ]
-            );
-
-    return redirect('/payables#payables')->with('success', 'request has been declined!');
-});
-
-//release fund request
-Route::post('/request-payable/release/{id}', function(Request $request, $id){
-
-    DB::table('payable_request')
-    ->where('id', $id)
-    ->update(
-                [
-                    'status' => 'released',
-                    'updated_at' => Carbon::now(),
-                    'approved_by' => Auth::user()->name,
-                ]
-            );
-
-    return redirect('/payables#released')->with('success', 'request has been released!');
-});
-
-
-// Route::get('/show', function(){
-//     $owners = DB::table('units')
-//     ->join('unit_owners', 'unit_unit_owner_id', 'unit_owner_id')
-//     ->where('unit_property', Auth::user()->property)
-//     ->get();
-
-//     return view('show', compact('owners'));
-
-// });
 
 
 //routes for resources in landing page
@@ -1860,39 +1566,6 @@ Route::get('/acceptable-use-policy', function(){
 });
 
 
-//routes for response
-
-//add response
-Route::post('/responses', function(Request $request){
-    DB::table('responses')
-    ->insertGetId(
-          [
-              'concern_id_foreign' => $request->concern_id,
-              'response' => $request->response,
-              'posted_by' => Auth::user()->name,
-              'created_at' => Carbon::now(),
-          ]
-    );
-
-    $responses_count =  DB::table('concerns')
-    ->where('concern_id', $request->concern_id)
-    ->count();
-
-    if($responses_count > 0){
-        DB::table('concerns')
-        ->where('concern_id', $request->concern_id)
-        ->update(
-            [
-                'concern_status' => 'active',
-                'updated_at' => Carbon::now(),
-            ]
-        );
-
-    }
-
-    return redirect('/units/'.$request->unit_id.'/tenants/'.$request->tenant_id.'/concerns/'.$request->concern_id)->with('success', 'reponse has been saved!');
-})->middleware(['auth', 'verified']);
-
 //close concern 
 Route::put('/concerns/{concern_id}/closed', function(Request $request){
 
@@ -1913,16 +1586,3 @@ Route::put('/concerns/{concern_id}/closed', function(Request $request){
     }
    
 })->middleware(['auth', 'verified']);
-
-
-Route::get('/financials', function(){
-
-    $expenses = DB::table('payable_request')
-    ->where('property', Auth::user()->property)
-    ->where('status', 'released')
-    ->groupBy('id')
-    ->get();
-
-    return view('webapp.financials.financials', compact('expenses'));
-})->middleware(['auth', 'verified']);
-

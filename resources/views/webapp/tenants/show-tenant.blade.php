@@ -1,139 +1,165 @@
-@extends('templates.webapp.template')
+@extends('templates.webapp-new.template')
 
 @section('title', $tenant->first_name.' '.$tenant->last_name)
 
 @section('sidebar')
-   
-      
-           <!-- Heading -->
-      
-          <!-- Nav Item - Pages Collapse Menu -->
-          <li class="nav-item">
-                <a class="nav-link" href="/board">
-                  <i class="fas fa-fw fa-tachometer-alt"></i>
-                  <span>Dashboard</span></a>
-              </li>
-      
-            <hr class="sidebar-divider">
-      
-            <div class="sidebar-heading">
-              Interface
-            </div>  
+  <!-- Sidenav -->
+  <nav class="sidenav navbar navbar-vertical  fixed-left  navbar-expand-xs navbar-light bg-white" id="sidenav-main">
+    <div class="scrollbar-inner">
+      <!-- Brand -->
+      <div class="sidenav-header  align-items-center">
+        <a class="navbar-brand" href="javascript:void(0)">
+          {{-- <img src="{{ asset('/argon/assets/img/brand/logo.png') }}" class="navbar-brand-img" alt="...">--}}{{ $property->name }} 
+        </a>
+      </div>
+      <div class="navbar-inner">
+        <!-- Collapse -->
+        <div class="collapse navbar-collapse" id="sidenav-collapse-main">
+          <!-- Nav items -->
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="/property/{{$property->property_id }}/dashboard">
+                <i class="fas fa-tachometer-alt text-orange"></i>
+                <span class="nav-link-text">Dashboard</span>
+              </a>
+            </li>
             @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' )
-          <li class="nav-item">
-            <a class="nav-link" href="/home">
-              <i class="fas fa-home"></i>
-              <span>Home</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/calendar">
-              <i class="fas fa-calendar-alt"></i>
-              <span>Calendar</span></a>
-          </li>
-          @endif
-        
-          @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'treasury')
-            <li class="nav-item active">
-              <a class="nav-link" href="/tenants">
-                <i class="fas fa-users fa-chart-area"></i>
-                <span>Tenants</span></a>
+            <li class="nav-item">
+              <a class="nav-link" href="/property/{{$property->property_id }}/home">
+                <i class="fas fa-home text-indigo"></i>
+                <span class="nav-link-text">Home</span>
+              </a>
             </li>
             @endif
-      
-       @if((Auth::user()->user_type === 'admin' && Auth::user()->property_ownership === 'Multiple Owners') || (Auth::user()->user_type === 'manager' && Auth::user()->property_ownership === 'Multiple Owners'))
-        <!-- Nav Item - Tables -->
-        <li class="nav-item">
-            <a class="nav-link" href="/owners">
-            <i class="fas fa-user-tie"></i>
-            <span>Owners</span></a>
-        </li>
-         @endif
-      
-         <!-- Nav Item - Tables -->
-        <li class="nav-item">
-            <a class="nav-link" href="/concerns">
-          <i class="far fa-comment-dots"></i>
-              <span>Concerns</span></a>
-        </li>
-    
-        @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' )
-        <li class="nav-item">
-            <a class="nav-link" href="/joborders">
-              <i class="fas fa-tools fa-table"></i>
-              <span>Job Orders</span></a>
-        </li>
-        @endif
-      
-             <!-- Nav Item - Tables -->
-        @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' )
-          <li class="nav-item">
-            <a class="nav-link collapsed" href="/personnels" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-              <i class="fas fa-user-cog"></i>
-                <span>Personnels</span>
-              </a>
-              <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                  <a class="collapse-item" href="/housekeeping">Housekeeping</a>
-                  <a class="collapse-item" href="/maintenance">Maintenance</a>
-                </div>
-              </div>
-            </li>
-        @endif
-      
-           @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'manager')
-            <!-- Nav Item - Tables -->
             <li class="nav-item">
-              <a class="nav-link" href="/bills">
-                <i class="fas fa-file-invoice-dollar fa-table"></i>
-                <span>Bills</span></a>
+              <a class="nav-link" href="/property/{{$property->property_id }}/calendar">
+                <i class="fas fa-calendar-alt text-red"></i>
+                <span class="nav-link-text">Calendar</span>
+              </a>
             </li>
-           @endif
-      
-           @if(Auth::user()->user_type === 'treasury' || Auth::user()->user_type === 'manager')
-              <li class="nav-item">
-              <a class="nav-link" href="/collections">
-                <i class="fas fa-file-invoice-dollar"></i>
-                <span>Collections</span></a>
+            @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'treasury')
+            <li class="nav-item">
+              <a class="nav-link active" href="/property/{{$property->property_id }}/tenants">
+                <i class="fas fa-user text-green"></i>
+                <span class="nav-link-text">Tenants</span>
+              </a>
             </li>
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/property/{{$property->property_id }}/owners">
+                <i class="fas fa-user-tie text-teal"></i>
+                <span class="nav-link-text">Owners</span>
+              </a>
+            </li>
+            @endif
 
             <li class="nav-item">
-              <a class="nav-link" href="/financials">
-                <i class="fas fa-coins"></i>
-                <span>Financials</span></a>
+              <a class="nav-link" href="/property/{{$property->property_id }}/concerns">
+                <i class="fas fa-tools text-cyan"></i>
+                <span class="nav-link-text">Concerns</span>
+              </a>
+            </li>
+            @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' )
+            <li class="nav-item">
+              <a class="nav-link" href="/property/{{$property->property_id }}/joborders">
+                <i class="fas fa-list text-dark"></i>
+                <span class="nav-link-text">Job Orders</span>
+              </a>
+            </li>
+           
+            <li class="nav-item">
+              <a class="nav-link" href="/property/{{$property->property_id }}/personnels">
+                <i class="fas fa-user-secret text-gray"></i>
+                <span class="nav-link-text">Personnels</span>
+              </a>
             </li>
             @endif
-      
-               @if(Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'ap' || Auth::user()->user_type === 'admin')
+
+            @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'manager')
             <li class="nav-item">
-            <a class="nav-link" href="/payables">
-            <i class="fas fa-hand-holding-usd"></i>
-              <span>Payables</span></a>
-          </li>
-          @endif
-      
-          @if(Auth::user()->user_type === 'manager')
-           <!-- Nav Item - Tables -->
-           <li class="nav-item">
-            <a class="nav-link" href="/users">
-              <i class="fas fa-user-circle"></i>
-              <span>Users</span></a>
-          </li>
-          @endif
-          
+              <a class="nav-link" href="/property/{{$property->property_id }}/bills">
+                <i class="fas fa-file-invoice-dollar text-pink"></i>
+                <span class="nav-link-text">Bills</span>
+              </a>
+            </li>
+            @endif
+            @if(Auth::user()->user_type === 'treasury' || Auth::user()->user_type === 'manager')
+            <li class="nav-item">
+              <a class="nav-link" href="/property/{{$property->property_id }}/collections">
+                <i class="fas fa-coins text-yellow"></i>
+                <span class="nav-link-text">Collections</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/property/{{$property->property_id }}/financials">
+                <i class="fas fa-chart-line text-purple"></i>
+                <span class="nav-link-text">Financials</span>
+              </a>
+            </li>
+            @endif
+            @if(Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'ap' || Auth::user()->user_type === 'admin')
+            <li class="nav-item">
+              <a class="nav-link" href="/property/{{$property->property_id }}/payables">
+                <i class="fas fa-file-export text-indigo"></i>
+                <span class="nav-link-text">Payables</span>
+              </a>
+            </li>
+            @endif
+            <li class="nav-item">
+              <a class="nav-link" href="/property/{{$property->property_id }}/users">
+                <i class="fas fa-user-circle text-green"></i>
+                <span class="nav-link-text">Users</span>
+              </a>
+            </li>
+          </ul>
           <!-- Divider -->
-          <hr class="sidebar-divider d-none d-md-block">
-      
-          <!-- Sidebar Toggler (Sidebar) -->
-          <div class="text-center d-none d-md-inline">
-            <button class="rounded-circle border-0" id="sidebarToggle"></button>
-          </div>
-    
+          <hr class="my-3">
+          <!-- Heading -->
+          <h6 class="navbar-heading p-0 text-muted">
+            <span class="docs-normal">Documentation</span>
+          </h6>
+          <!-- Navigation -->
+          <ul class="navbar-nav mb-md-3">
+            <li class="nav-item">
+              <a class="nav-link" href="/getting-started" target="_blank">
+                <i class="ni ni-spaceship"></i>
+                <span class="nav-link-text">Getting started</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/system-updates" target="_blank">
+                <i class="fas fa-bug text-red"></i>
+                <span class="nav-link-text">System Updates</span>
+              </a>
+            </li>
+          <li class="nav-item">
+              <a class="nav-link" href="announcements" target="_blank">
+                <i class="fas fa-microphone text-purple"></i>
+                <span class="nav-link-text">Annoncements</span>
+              </a>
+            </li>
+             {{--  <li class="nav-item">
+              <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/plugins/charts.html" target="_blank">
+                <i class="ni ni-chart-pie-35"></i>
+                <span class="nav-link-text">Plugins</span>
+              </a>
+            </li> --}}
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
 @endsection
 
-@section('content')
+@section('upper-content')
 <?php   $diffInDays =  number_format(Carbon\Carbon::now()->DiffInDays(Carbon\Carbon::parse($tenant->moveout_date), false)) ?>
-<div class="d-sm-flex align-items-center justify-content-between mb-4">
-  <h1 class="h3 mb-0 text-gray-800">{{ $tenant->first_name.' '.$tenant->middle_name.' '.$tenant->last_name }}</h1>
+<div class="row align-items-center py-4">
+  <div class="col-lg-6 col-7">
+    <h6 class="h2 text-dark d-inline-block mb-0">{{ $tenant->first_name.' '.$tenant->last_name }}</h6>
+    
+  </div>
+
 </div>
 <div class="row">
   <div class="col-md-12">
@@ -166,9 +192,9 @@
         
 <div class="row">
   <div class="col-md-8">
-    <a href="/units/{{ $tenant->unit_tenant_id }}"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> Room</a>
+    <a href="/property/{{ $property->property_id }}/home/{{ $unit->unit_id }}"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-home fa-sm text-white-50"></i> Home</a>
     @if(Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'admin')
-    <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/edit"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-user-edit fa-sm text-white-50"></i> Edit</a>  
+    <a href="/property/{{ $property->property_id }}/home/{{ $tenant->unit_tenant_id }}/tenant/{{ $tenant->tenant_id }}/edit"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-user-edit fa-sm text-white-50"></i> Edit</a>  
     @endif
 
      <br><br>
@@ -181,10 +207,10 @@
                  {{-- <input type="hidden" value="{{ ($tenant->updated_at) }}" id="approve_moveout_at">  --}}
             
               <tr>
-                  <td>Tenant:</td>
+                  <td>Tenant</td>
                   <td>{{ $tenant->first_name.' '.$tenant->middle_name.' '.$tenant->last_name }} 
                       @if($tenant->tenant_status === 'active')
-                          <span class="badge badge-primary">{{ $tenant->tenant_status }}</span>
+                          <span class="badge badge-success">{{ $tenant->tenant_status }}</span>
                       @elseif($tenant->tenant_status === 'pending')
                           <span class="badge badge-warning">{{ $tenant->tenant_status }}</span>
                       @else
@@ -303,9 +329,9 @@
         <a  href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addConcern" data-whatever="@mdo"><i class="fas fa-plus fa-sm text-white-50"></i> Add</a>  
         <br><br>
         <div class="row" >
-          <div class="col-md-11 mx-auto" >
+          <div class="col-md-12 mx-auto" >
         <div class="table-responsive text-nowrap">
-         <table class="table table-bordered" >
+         <table class="table">
            <?php $ctr = 1; ?>
            <thead>
              <tr>
@@ -314,11 +340,13 @@
                  <th>Date Reported</th>
                 
                  <th>Room</th>
-                 <th>Type of Concern</th>
+                 <th>Type</th>
                  <th>Description</th>
                  <th>Urgency</th>
                  <th>Status</th>
-                
+                 <th>Assigned to</th>
+                 <th>Rating</th>
+                 <th>Feedback</th>
             </tr>
            </thead>
            <tbody>
@@ -334,7 +362,7 @@
                      {{ $item->concern_type }}
                      
                  </td>
-                 <td ><a title="{{ $item->concern_desc }}" href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/concerns/{{ $item->concern_id }}">{{ $item->concern_item }}</a></td>
+                 <td ><a href="/property/{{ $property->property_id }}/home/{{ $item->unit_id }}/tenant/{{ $item->tenant_id }}/concern/{{ $item->concern_id }}">{{ $item->concern_item }}</a></td>
                  <td>
                      @if($item->concern_urgency === 'urgent')
                      <span class="badge badge-danger">{{ $item->concern_urgency }}</span>
@@ -350,10 +378,12 @@
                      @elseif($item->concern_status === 'active')
                      <span class="badge badge-primary">{{ $item->concern_status }}</span>
                      @else
-                     <span class="badge badge-secondary">{{ $item->concern_status }}</span>
+                     <span class="badge badge-success">{{ $item->concern_status }}</span>
                      @endif
                  </td>
-               
+                 <td>{{ $item->name }}</td>
+                 <td>{{ $item->rating? $item->rating.'/5' : 'NA' }}</td>
+                 <td>{{ $item->feedback? $item->feedback : 'NULL' }}</td>
              </tr>
              @endforeach
            </tbody>
@@ -381,19 +411,19 @@
    
     @if ($tenant->tenant_status === 'active' || $tenant->tenant_status === 'pending')
        
-          @if($tenant->created_at === null && $tenant->updated_at === null)
-          <span href="#" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm" data-toggle="modal" data-target="#requestToMoveoutModal" data-whatever="@mdo"><i class="fas fa-sign-out-alt fa-sm text-white-50"></i> Request Termination</span>
-          @elseif($tenant->created_at !== null && $tenant->updated_at === null)
+          @if($tenant->created_at == null && $tenant->updated_at == null)
+          <span href="#" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm" data-toggle="modal" data-target="#requestToMoveoutModal" data-whatever="@mdo"><i class="fas fa-sign-out-alt fa-sm text-white-50"></i> Terminate</span>
+          @elseif($tenant->created_at == null && $tenant->updated_at != null)
             @if(Auth::user()->user_type === 'manager')
-            <span href="#" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm" data-toggle="modal" data-target="#approveToMoveoutModal" data-whatever="@mdo"><i class="fas fa-sign-out-alt fa-sm text-white-50"></i> Request Termination</span>
+            <span href="#" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm" data-toggle="modal" data-target="#approveToMoveoutModal" data-whatever="@mdo"><i class="fas fa-sign-out-alt fa-sm text-white-50"></i> Terminate</span>
             @else
               <button title="Waiting for the manager to approve..." class="d-none d-sm-inline-block btn btn-sm btn-warning shadow-sm" ><i class="fas fa-clock fa-sm text-white-50"></i> Pending Moveout</button>
             @endif
-          @else
+          @elseif($tenant->created_at != null && $tenant->updated_at != null)
           @if($balance->sum('balance') > 0)
-          <span href="#" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm" data-toggle="modal" data-target="#moveoutTenantWarning" data-whatever="@mdo"><i class="fas fa-sign-out-alt fa-sm text-white-50"></i> Terminate</span>
+          <span href="#" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm" data-toggle="modal" data-target="#moveoutTenantWarning" data-whatever="@mdo"><i class="fas fa-sign-out-alt fa-sm text-white-50"></i> Moveout</span>
           @else
-          <button  href="#" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm" data-toggle="modal" data-target="#moveoutTenant" data-whatever="@mdo"><i class="fas fa-sign-out-alt fa-sm text-white-50"></i> Terminate</button>
+          <button  href="#" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm" data-toggle="modal" data-target="#moveoutTenant" data-whatever="@mdo"><i class="fas fa-sign-out-alt fa-sm text-white-50"></i> Moveout</button>
           @endif
       @endif
 
@@ -401,17 +431,17 @@
     
         <div class="row">
           
-          <div class="col-md-11 mx-auto">
+          <div class="col-md-12 mx-auto">
      
     <br>
     @if($diffInDays <= 30)
     <p class="text-danger">Contract expires in {{ $diffInDays }} days!</p>
     @endif
             <div class="table-responsive text-nowrap">
-              <table class="table table-bordered">
+              <table class="table">
                 <tr>
                   <td>Room</td>
-                  <td><a href="/units/{{ $unit->unit_id }}">{{ $unit->building.' '.$unit->unit_no }}</a></td>
+                  <td><a href="/property/{{ $property->property_id }}/home/{{ $unit->unit_id }}">{{ $unit->building.' '.$unit->unit_no }}</a></td>
               </tr>
               <tr>
                   <td>Monthly Rent</td>
@@ -425,7 +455,7 @@
                   <td>Current Contract Period</td>
                   <td>{{ Carbon\Carbon::parse($tenant->movein_date)->format('M d Y').'-'.Carbon\Carbon::parse($tenant->moveout_date)->format('M d Y') }} 
                     @if( $tenant->has_extended === 'renewed')
-                    <span class="badge badge-primary">{{ $tenant->has_extended}} 
+                    <span class="badge badge-success">{{ $tenant->has_extended}} 
                      
                      ({{ count($renewal_history)-1 }}x) 
                    </span>  
@@ -474,7 +504,7 @@
       <div class="tab-pane fade" id="bills" role="tabpanel" aria-labelledby="nav-bills-tab">
         <a href="#" data-toggle="modal" data-target="#addBill" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Add</a> 
         @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'manager')
-          <a href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/billings/edit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-edit fa-sm text-white-50"></i> Edit</a>
+          <a href="/property/{{ $property->property_id }}/home/{{ $tenant->unit_tenant_id }}/tenant/{{ $tenant->tenant_id }}/bills/edit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-edit fa-sm text-white-50"></i> Edit</a>
           @endif
           @if($balance->count() > 0)
           <a  target="_blank" href="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}/bills/download" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Export</span></a>
@@ -487,7 +517,7 @@
 
     <br>
     <br>
-    <div class="col-md-11 mx-auto">
+    <div class="col-md-12 mx-auto">
     <div class="table-responsive">
       <div class="table-responsive text-nowrap">
         <table class="table">
@@ -538,14 +568,20 @@
       </table>
     </div>
     </div>
+    
       </div>
+      <small>Message Footer</small>
+      <p>
+        {!! Auth::user()->note !!}
+      </p> 
+        <br>
       </div>
       <div class="tab-pane fade" id="payments" role="tabpanel" aria-labelledby="nav-payments-tab">
         @if(Auth::user()->user_type === 'treasury' || Auth::user()->user_type === 'manager')
         <a href="#" data-toggle="modal" data-target="#acceptPayment" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Add</a>
         @endif 
         <br><br>
-        <div class="col-md-11 mx-auto">
+        <div class="col-md-12 mx-auto">
         <div class="table-responsive text-nowrap">
           <table class="table">
               @foreach ($collections as $day => $collection_list)
@@ -628,7 +664,7 @@
                       </button>
                       </div>
                       <div class="modal-body">
-                          <form id="concernForm" action="/concerns" method="POST">
+                          <form id="concernForm" action="/property/{{ $property->property_id }}/tenant/{{ $tenant->tenant_id }}/concern" method="POST">
                               {{ csrf_field() }}
                           </form>
 
@@ -644,7 +680,7 @@
                         <br>
                           <div class="row">
                               <div class="col">
-                                 <small>Type of Concern</small>
+                                 <small>Type</small>
                                   <select class="form-control" form="concernForm" name="concern_type" id="" required>
                                     <option value="" selected>Please select one</option>
                                     <option value="billing">billing</option>
@@ -666,9 +702,10 @@
                                <small>Urgency</small>
                                 <select class="form-control" form="concernForm" name="concern_urgency" id="" required>
                                   <option value="" selected>Please select one</option>
-                                  <option value="minor">minor</option>
-                                  <option value="major">major</option>
-                                  <option value="urgent">urgent</option>
+                                  <option value="minor and not urgent">minor and not urgent</option>
+                                  <option value="minor but urgent">minor but urgent</option>
+                                  <option value="major and not urgent">major and not urgent</option>
+                                  <option value="major but not urgent">major but not urgent</option>
                                 </select>
                             </div>
                         </div>
@@ -677,7 +714,7 @@
                       <div class="row">
                         <div class="col">
                             <small>Short Description</small>
-                            <small class="text-danger">(What is your concern all about?)</small>
+                          
                             <input type="text" form="concernForm" class="form-control" name="concern_item" required >
                         </div>
                       </div>  
@@ -685,27 +722,27 @@
                       
                        <div class="row">
                             <div class="col">
-                                <small>Details of the concern</small>
+                                <small>Details</small>
                                 
                                 <textarea form="concernForm" rows="7" class="form-control" name="concern_desc" required></textarea>
                             </div>
                         </div>
                         <br>
-                        <!-- <div class="row">
+                       <div class="row">
                           <div class="col">
                               <label for="movein_date">Assign concern to</label>
-                              <select class="form-control" form="concernForm" name="concern_personnel_id" required>
+                              <select class="form-control" form="concernForm" name="concern_user_id" required>
                                 <option value="" selected>Please select one</option>
-                                @foreach($personnels as $personnel)
-                                <option value="{{ $personnel->personnel_id }}">{{ $personnel->personnel_name }}</option>
+                                @foreach($users as $item)
+                                <option value="{{ $item->id }}">{{ $item->name }} &#9671 {{ $item->user_type }}</option>
                                 @endforeach
                                
                               </select>
                           </div>
-                      </div> -->
+                      </div>
                       </div>
                       <div class="modal-footer">
-
+                          <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button> 
                           <button type="submit" form="concernForm" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;"><i class="fas fa-check fa-sm text-white-50"></i> Submit</button>
                       </div>
                   </div>
@@ -718,7 +755,7 @@
             <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Process Moveout </h5>
+                <h5 class="modal-title" id="exampleModalLabel">Moveout</h5>
         
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -762,7 +799,7 @@
                 </button>
                 </div>
                 <div class="modal-body">
-                    <form id="extendTenantForm" action="/units/{{ $unit->unit_id }}/tenants/{{ $tenant->tenant_id }}/renew" method="POST">
+                    <form id="extendTenantForm" action="/property/{{ $property->property_id }}/home/{{ $unit->unit_id }}/tenant/{{ $tenant->tenant_id }}/extend" method="POST">
                         @csrf
                     </form>
         
@@ -832,7 +869,7 @@
   
                       <div class="table-responsive text-nowrap">
                        
-                        <table class="table table-bordered">
+                        <table class="table">
                           <tr>
                           {{-- <td></td> --}}
                             <th>Bill No</th>
@@ -892,7 +929,7 @@
                   <div class="modal-dialog modal-xl" role="document">
                   <div class="modal-content">
                       <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Request Termination </h5>
+                      <h5 class="modal-title" id="exampleModalLabel">Terminate </h5>
               
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
@@ -900,7 +937,7 @@
                       </div>
   
                       <div class="modal-body">
-                      <form id="requestMoveoutForm" action="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}" method="POST">
+                      <form id="requestMoveoutForm" action="/property/{{ $property->property_id }}/home/{{ $tenant->unit_tenant_id }}/tenant/{{ $tenant->tenant_id }}/request" method="POST">
                         @method('put')
                          @csrf
                         </form>
@@ -925,7 +962,9 @@
                               </select>
                           </div>
                       </div>
-                      <hr>
+                      <br>
+                      @if($balance->count() > 1 )
+           
                   
 
                       <div class="row">
@@ -969,13 +1008,13 @@
                         
                       </div>
                       <hr>
-                      
+                      @endif
                       <div class="row">
                         <div class="col">
-                       <small>Moveout Charges</small>
-                          <p class="text-right">
-                            <span id='delete_row' class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-minus fa-sm text-white-50"></i> Remove</span>
-                          <span id="add_row" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Add </span>     
+
+                          <p class="">
+                            <span id='delete_row' class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-minus fa-sm text-white-50"></i> Bill</span>
+                          <span id="add_row" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Bill </span>     
                           </p>
                             <div class="table-responsive text-nowrap">
                             <table class = "table table-bordered" id="tab_logic">
@@ -998,9 +1037,9 @@
                        
                      </div>
                      <div class="modal-footer">
-                       {{-- <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button> --}}
+                       <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Close</button>
                       
-                        <button type="submit" form="requestMoveoutForm" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm" onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;"><i class="fas fa-sign-out-alt fa-sm text-white-50"></i> Request Moveout</button>
+                        <button type="submit" form="requestMoveoutForm" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm" onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;"><i class="fas fa-sign-out-alt fa-sm text-white-50"></i>  Terminate</button>
                      
                    </div>
                      
@@ -1023,14 +1062,14 @@
                     </div>
 
                     <div class="modal-body">
-                      <form id="approveMoveoutForm" action="/units/{{ $tenant->unit_tenant_id }}/tenants/{{ $tenant->tenant_id }}" method="POST">
+                      <form id="approveMoveoutForm" action="/property/{{ $property->property_id }}/home/{{ $tenant->unit_tenant_id }}/tenant/{{ $tenant->tenant_id }}/approve" method="POST">
                         @method('put')
                          {{ csrf_field() }}
                         <input form ="approveMoveoutForm" type="hidden" name="action" value="approve to moveout">
                       </form>
                       <div class="row">
                         <div class="col">
-                          <small>Moveout Date</small>
+                          <small>Actual Moveout Date</small>
                           <input class="form-control" type="date" name="actual_move_out_date" value={{ $tenant->actual_move_out_date }}>
                     
                         </div>
@@ -1056,25 +1095,19 @@
                           <small>Pending balance</small>
                           <div class="table-responsive text-nowrap">
                            
-                            <table class="table table-bordered">
+                            <table class="table">
                               <tr>
-                              <td></td>
+                           
                                 <th>Bill No</th>
                                
                                 <th>Description</th>
                                 <th>Period Covered</th>
                                 <th class="text-right" colspan="3">Amount</th>
-                                
+                                <th>Action</th>
                               </tr>
                               @foreach ($balance as $item)
                               <tr>
-                                <td>
-                                  <form action="/billings/{{ $item->billing_id }}" method="POST">
-                                    @csrf
-                                    @method('delete')
-                                    <button title="remove this bill" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"  onclick="return confirm('Are you sure you want perform this action?');"><i class="fas fa-times fa-sm text-white-50"></i></button>
-                                  </form>
-                                </td>   
+                                
                                   <td>{{ $item->billing_no }}</td>
                           
                                   <td>{{ $item->billing_desc }}</td>
@@ -1083,16 +1116,21 @@
                                     {{ $item->billing_end? Carbon\Carbon::parse($item->billing_end)->format('M d Y') : null }}
                                   </td>
                                   <td class="text-right" colspan="3">{{ number_format($item->balance,2) }}</td>
+                                  <td>
+                                    <form action="/billings/{{ $item->billing_id }}" method="POST">
+                                      @csrf
+                                      @method('delete')
+                                      <button title="remove this bill" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"  onclick="return confirm('Are you sure you want perform this action?');"><i class="fas fa-trash fa-sm text-white-50"></i></button>
+                                    </form>
+                                  </td>   
                                          </tr>
                               @endforeach
+                              <tr>
+                                <th>Total</th>
+                                <th class="text-right" colspan="3">{{ number_format($balance->sum('balance'),2) }} </th>
+                               </tr>  
+                          </table>
                         
-                          </table>
-                          <table class="table">
-                            <tr>
-                             <th>TOTAL AMOUNT PAYABLE</th>
-                             <th class="text-right">{{ number_format($balance->sum('balance'),2) }} </th>
-                            </tr>    
-                          </table>
                         </div>
                         </div>
                         
@@ -1101,7 +1139,7 @@
                    </div>
                    <div class="modal-footer">
                      <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button>
-                      <button form="approveMoveoutForm" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-sign-out-alt fa-sm text-white-50"></i> Approve Moveout</button>
+                      <button form="approveMoveoutForm" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm" onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;"><i class="fas fa-sign-out-alt fa-sm text-white-50"></i> Approve Moveout</button>
                   
                  </div>
                    
@@ -1159,6 +1197,7 @@
          
           <input type="hidden" form="addBillForm" name="action" value="add_move_in_charges" required>
           <input type="hidden" form="addBillForm" name="tenant_id" value="{{ $tenant->tenant_id }}" required>
+          <input type="hidden" form="addBillForm" name="property_id" value="{{ $property->property_id }}" required>
           
           <div class="row">
             <div class="col">
@@ -1194,7 +1233,7 @@
          
         </div>
         <div class="modal-footer">
-         {{-- <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Close</button> --}}
+         <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel </button>
          <button form="addBillForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;" ><i class="fas fa-check fa-sm text-white-50"></i> Submit</button>
         </div> 
         </div>
@@ -1214,30 +1253,29 @@
       </button>
       </div>
       <div class="modal-body">
-          <form id="acceptPaymentForm" action="/payments" method="POST">
-          {{ csrf_field() }}
+          <form id="acceptPaymentForm" action="/property/{{ $property->property_id }}/tenant/{{ $tenant->tenant_id }}/collection" method="POST">
+          @csrf
           </form>
           
           <div class="row">
-              <div class="col-md-6">
+              <div class="col">
                   <small for="">Date</small>
               {{-- <input form="acceptPaymentForm" type="date" class="form-control" name="payment_created" value={{date('Y-m-d')}} required> --}}
-              <input  class='form-control col-md-6' type="date" form="acceptPaymentForm" class="" name="payment_created" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}" required >
+              <input  class='form-control' type="date" form="acceptPaymentForm" class="" name="payment_created" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}" required >
               </div>
-              <div class="col-md-6">
-                <small for="">Acknowledgment Receipt No</small>
-                <input class='form-control col-md-6' form="acceptPaymentForm" type="text" class="" id="" name="ar_no" value="{{ $payment_ctr }}" required readonly>
-            </div>
+              
+                {{-- <small for="">Acknowledgment Receipt No</small> --}}
+                <input class='form-control' form="acceptPaymentForm" type="hidden" class="" id="" name="ar_no" value="{{ $payment_ctr }}" required readonly>
+            
           </div>
         
-      <hr>
-  
+  <br>
           <div class="row">
             <div class="col-md-12">
            
               <p class="text-left">
-                <a href="#/" id='delete_payment' class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-times-circle fa-sm text-white-50"></i> Remove</a>
-              <a href="#/" id="add_payment" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" ><i class="fas fa-check-circle fa-sm text-white-50"></i> Add</a>     
+                <a href="#/" id='delete_payment' class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-minus fa-sm text-white-50"></i> Bill</a>
+              <a href="#/" id="add_payment" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" ><i class="fas fa-plus fa-sm text-white-50"></i> Bill</a>     
               </p>
                 <div class="table-responsive text-nowrap">
                 <table class = "table table-bordered" id="payment">
@@ -1259,11 +1297,10 @@
           <input type="hidden" form="acceptPaymentForm" id="payment_tenant_id" name="payment_tenant_id" value="{{ $tenant->tenant_id }}">
           <input type="hidden" form="acceptPaymentForm" id="unit_tenant_id" name="unit_tenant_id" value="{{ $tenant->unit_tenant_id }}">
           <input type="hidden" form="acceptPaymentForm" id="tenant_status" name="tenant_status" value="{{ $tenant->tenant_status }}">
-        <hr>
-         
+        
       </div>
       <div class="modal-footer">
-          {{-- <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button> --}}
+          <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button>
           <button form="acceptPaymentForm" id ="addPaymentButton" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;" ><i class="fas fa-check fa-sm text-white-50f"></i> Submit</button>
       </div>
   
@@ -1315,6 +1352,8 @@
           </div>
 </div>
 @endsection
+
+
 
 @section('scripts')
 <script type="text/javascript">
@@ -1404,3 +1443,6 @@
   });
 </script>
 @endsection
+
+
+

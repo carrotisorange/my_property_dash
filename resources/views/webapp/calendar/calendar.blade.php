@@ -1,247 +1,232 @@
-@extends('templates.webapp.template')
-@section('css')
-<link href="{{ asset('fullcalendar/lib/main.css') }}" rel='stylesheet' />
-<style>
-
-  
-    #external-events {
- 
-     
-      width: 100%;
-      padding: 0 10px;
-      border: 1px solid #ccc;
-      background: #eee;
-     
-    }
-  
-    #external-events h4 {
-      font-size: 16px;
-      margin-top: 0;
-      padding-top: 1em;
-    }
-  
-    #external-events .fc-event {
-      margin: 3px 0;
-      cursor: move;
-    }
-  
-    #external-events p {
-      margin: 1.5em 0;
-      font-size: 11px;
-      color: #666;
-    }
-  
-    #external-events p input {
-      margin: 0;
-      vertical-align: middle;
-    }
-  
-    #calendar-wrap {
-     
-    }
-  
-    #calendar {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-  
-  </style>
-@endsection
+@extends('templates.webapp-new.template')
 
 @section('title', 'Calendar')
 
-@section('sidebar')
-   
-      
-           <!-- Heading -->
-      
-          <!-- Nav Item - Pages Collapse Menu -->
-          <li class="nav-item">
-                <a class="nav-link" href="/board">
-                  <i class="fas fa-fw fa-tachometer-alt"></i>
-                  <span>Dashboard</span></a>
-              </li>
-      
-            <hr class="sidebar-divider">
-      
-            <div class="sidebar-heading">
-              Interface
-            </div>  
-          @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' )
-          <li class="nav-item">
-            <a class="nav-link" href="/home">
-              <i class="fas fa-home"></i>
-              <span>Home</span></a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="/calendar">
-              <i class="fas fa-calendar-alt"></i>
-              <span>Calendar</span></a>
-          </li>
-          @endif
-        
-          @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'treasury')
-            <li class="nav-item">
-              <a class="nav-link" href="/tenants">
-                <i class="fas fa-users fa-chart-area"></i>
-                <span>Tenants</span></a>
-            </li>
-            @endif
-      
-        @if((Auth::user()->user_type === 'admin' && Auth::user()->property_ownership === 'Multiple Owners') || (Auth::user()->user_type === 'manager' && Auth::user()->property_ownership === 'Multiple Owners'))
-        <!-- Nav Item - Tables -->
-        <li class="nav-item">
-            <a class="nav-link" href="/owners">
-            <i class="fas fa-user-tie"></i>
-            <span>Owners</span></a>
-        </li>
-         @endif
-      
-         <!-- Nav Item - Tables -->
-        <li class="nav-item">
-            <a class="nav-link" href="/concerns">
-          <i class="far fa-comment-dots"></i>
-              <span>Concerns</span></a>
-        </li>
-    
-        @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' )
-        <li class="nav-item">
-            <a class="nav-link" href="/joborders">
-              <i class="fas fa-tools fa-table"></i>
-              <span>Job Orders</span></a>
-        </li>
-        @endif
-      
-             <!-- Nav Item - Tables -->
-        @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' )
-          <li class="nav-item">
-            <a class="nav-link collapsed" href="/personnels" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-              <i class="fas fa-user-cog"></i>
-                <span>Personnels</span>
-              </a>
-              <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                  <a class="collapse-item" href="/housekeeping">Housekeeping</a>
-                  <a class="collapse-item" href="/maintenance">Maintenance</a>
-                </div>
-              </div>
-            </li>
-        @endif
-      
-           @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'manager')
-            <!-- Nav Item - Tables -->
-            <li class="nav-item">
-              <a class="nav-link" href="/bills">
-                <i class="fas fa-file-invoice-dollar fa-table"></i>
-                <span>Bills</span></a>
-            </li>
-           @endif
-      
-           @if(Auth::user()->user_type === 'treasury' || Auth::user()->user_type === 'manager')
-              <li class="nav-item">
-              <a class="nav-link" href="/collections">
-                <i class="fas fa-file-invoice-dollar"></i>
-                <span>Collections</span></a>
-            </li>
-
-            <li class="nav-item">
-              <a class="nav-link" href="/financials">
-                <i class="fas fa-coins"></i>
-                <span>Financials</span></a>
-            </li>
-            @endif
-      
-               @if(Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'ap' || Auth::user()->user_type === 'admin')
-            <li class="nav-item">
-            <a class="nav-link" href="/payables">
-            <i class="fas fa-hand-holding-usd"></i>
-              <span>Payables</span></a>
-          </li>
-          @endif
-      
-          @if(Auth::user()->user_type === 'manager')
-           <!-- Nav Item - Tables -->
-           <li class="nav-item">
-            <a class="nav-link" href="/users">
-              <i class="fas fa-user-circle"></i>
-              <span>Users</span></a>
-          </li>
-          @endif
-          
-          <!-- Divider -->
-          <hr class="sidebar-divider d-none d-md-block">
-      
-          <!-- Sidebar Toggler (Sidebar) -->
-          <div class="text-center d-none d-md-inline">
-            <button class="rounded-circle border-0" id="sidebarToggle"></button>
-          </div>
+@section('css')
     
 @endsection
 
-@section('content')
-<div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Calendar</h1>
-    <a  href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addEvent" data-whatever="@mdo"><i class="fas fa-calendar-check fa-sm text-white-50"></i> Add</a>  
+@section('sidebar')
+  <!-- Sidenav -->
+  <nav class="sidenav navbar navbar-vertical  fixed-left  navbar-expand-xs navbar-light bg-white" id="sidenav-main">
+    <div class="scrollbar-inner">
+      <!-- Brand -->
+      <div class="sidenav-header  align-items-center">
+        <a class="navbar-brand" href="javascript:void(0)">
+          {{-- <img src="{{ asset('/argon/assets/img/brand/logo.png') }}" class="navbar-brand-img" alt="...">--}}{{ $property->name }} 
+        </a>
+      </div>
+      <div class="navbar-inner">
+        <!-- Collapse -->
+        <div class="collapse navbar-collapse" id="sidenav-collapse-main">
+          <!-- Nav items -->
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="/property/{{$property->property_id }}/dashboard">
+                <i class="fas fa-tachometer-alt text-orange"></i>
+                <span class="nav-link-text">Dashboard</span>
+              </a>
+            </li>
+            @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' )
+            <li class="nav-item">
+              <a class="nav-link" href="/property/{{$property->property_id }}/home">
+                <i class="fas fa-home text-indigo"></i>
+                <span class="nav-link-text">Home</span>
+              </a>
+            </li>
+            @endif
+            <li class="nav-item">
+              <a class="nav-link active" href="/property/{{$property->property_id }}/calendar">
+                <i class="fas fa-calendar-alt text-red"></i>
+                <span class="nav-link-text">Calendar</span>
+              </a>
+            </li>
+            @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'treasury')
+            <li class="nav-item">
+              <a class="nav-link" href="/property/{{$property->property_id }}/tenants">
+                <i class="fas fa-user text-green"></i>
+                <span class="nav-link-text">Tenants</span>
+              </a>
+            </li>
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/property/{{$property->property_id }}/owners">
+                <i class="fas fa-user-tie text-teal"></i>
+                <span class="nav-link-text">Owners</span>
+              </a>
+            </li>
+            @endif
+
+            <li class="nav-item">
+              <a class="nav-link" href="/property/{{$property->property_id }}/concerns">
+                <i class="fas fa-tools text-cyan"></i>
+                <span class="nav-link-text">Concerns</span>
+              </a>
+            </li>
+            @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' )
+            <li class="nav-item">
+              <a class="nav-link" href="/property/{{$property->property_id }}/joborders">
+                <i class="fas fa-list text-dark"></i>
+                <span class="nav-link-text">Job Orders</span>
+              </a>
+            </li>
+           
+            <li class="nav-item">
+              <a class="nav-link" href="/property/{{$property->property_id }}/personnels">
+                <i class="fas fa-user-secret text-gray"></i>
+                <span class="nav-link-text">Personnels</span>
+              </a>
+            </li>
+            @endif
+
+            @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'manager')
+            <li class="nav-item">
+              <a class="nav-link" href="/property/{{$property->property_id }}/bills">
+                <i class="fas fa-file-invoice-dollar text-pink"></i>
+                <span class="nav-link-text">Bills</span>
+              </a>
+            </li>
+            @endif
+            @if(Auth::user()->user_type === 'treasury' || Auth::user()->user_type === 'manager')
+            <li class="nav-item">
+              <a class="nav-link" href="/property/{{$property->property_id }}/collections">
+                <i class="fas fa-coins text-yellow"></i>
+                <span class="nav-link-text">Collections</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/property/{{$property->property_id }}/financials">
+                <i class="fas fa-chart-line text-purple"></i>
+                <span class="nav-link-text">Financials</span>
+              </a>
+            </li>
+            @endif
+            @if(Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'ap' || Auth::user()->user_type === 'admin')
+            <li class="nav-item">
+              <a class="nav-link" href="/property/{{$property->property_id }}/payables">
+                <i class="fas fa-file-export text-indigo"></i>
+                <span class="nav-link-text">Payables</span>
+              </a>
+            </li>
+            @endif
+            <li class="nav-item">
+              <a class="nav-link" href="/property/{{$property->property_id }}/users">
+                <i class="fas fa-user-circle text-green"></i>
+                <span class="nav-link-text">Users</span>
+              </a>
+            </li>
+          </ul>
+          <!-- Divider -->
+          <hr class="my-3">
+          <!-- Heading -->
+          <h6 class="navbar-heading p-0 text-muted">
+            <span class="docs-normal">Documentation</span>
+          </h6>
+          <!-- Navigation -->
+          <ul class="navbar-nav mb-md-3">
+            <li class="nav-item">
+              <a class="nav-link" href="/getting-started" target="_blank">
+                <i class="ni ni-spaceship"></i>
+                <span class="nav-link-text">Getting started</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/system-updates" target="_blank">
+                <i class="fas fa-bug text-red"></i>
+                <span class="nav-link-text">System Updates</span>
+              </a>
+            </li>
+          <li class="nav-item">
+              <a class="nav-link" href="announcements" target="_blank">
+                <i class="fas fa-microphone text-purple"></i>
+                <span class="nav-link-text">Annoncements</span>
+              </a>
+            </li>
+             {{--  <li class="nav-item">
+              <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/plugins/charts.html" target="_blank">
+                <i class="ni ni-chart-pie-35"></i>
+                <span class="nav-link-text">Plugins</span>
+              </a>
+            </li> --}}
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+@endsection
+
+@section('upper-content')
+<div class="row align-items-center py-4">
+  <div class="col-lg-6 col-7">
+    <h6 class="h2 text-dark d-inline-block mb-0">Calendar</h6>
+    
+  </div>
+
 </div>
 <div class='row'>
 
-    <div class="col-md-3">
-        <div id='external-events'>
-            <h4>Draggable Events</h4>
-      
-            <div id='external-events-list'>
-              @foreach ($events as $item)
-              <div class='fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event'>
-                <div class='fc-event-main'>{{ $item->event_name }}</div>
-              </div>
-              @endforeach
-              
+  <div class="col-md-3">
+      <div id='external-events'>
+          <h4>Draggable Events</h4>
+    
+          <div id='external-events-list'>
+            @foreach ($events as $item)
+            <div class='fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event'>
+              <div class='fc-event-main'>{{ $item->event_name }}</div>
             </div>
-      
-            <p>
-              <input type='checkbox' id='drop-remove' checked/>
-              <label for='drop-remove'>remove after drop</label>
-            </p>
+            @endforeach
+            
           </div>
+    
+          <p>
+            <input type='checkbox' id='drop-remove' checked/>
+            <label for='drop-remove'>remove after drop</label>
+          </p>
+        </div>
+  </div>
+
+ <div class="col-md-9">
+  <div id='calendar-wrap'>
+      <div id='calendar'></div>
     </div>
+ </div>
 
-   <div class="col-md-9">
-    <div id='calendar-wrap'>
-        <div id='calendar'></div>
-      </div>
-   </div>
+</div>
+<br>
+         {{-- Modal for warning message --}}
+         <div class="modal fade" id="addEvent" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-md" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Add Event</h5>
+              
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+              </div>
+              <div class="modal-body">
+                <form id="eventForm" action="/event" method="POST">
+                  @csrf
+                  <input form="eventForm" type="text" class="form-control" name="event_name" required>
 
-  </div>
-  <br>
-           {{-- Modal for warning message --}}
-           <div class="modal fade" id="addEvent" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-md" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add Event</h5>
+                  <input form="eventForm" type="hidden" class="form-control" name="property_id" value="{{ $property->property_id }}" required>
                 
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                </div>
-                <div class="modal-body">
-                  <form id="eventForm" action="/event" method="POST">
-                    @csrf
-                    <input form="eventForm" type="text" class="form-control" name="event_name" required>
-                  
-                 
-                </form>
-                </div>
-                <div class="modal-footer">
-                    <p class="text-right">
-                        <button form="eventForm" class="btn btn-primary d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" type="submit" onclick="this.form.submit(); this.disabled = true;"><i class="fas fa-check fa-sm text-white-50"></i> Submit</button>
-                    </p>
-                </div>
-                
-            </div>
-            </div>
-  </div>
+               
+              </form>
+              </div>
+              <div class="modal-footer">
+                  <p class="text-right">
+                      <button form="eventForm" class="btn btn-primary d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" type="submit" onclick="this.form.submit(); this.disabled = true;"><i class="fas fa-check fa-sm text-white-50"></i> Submit</button>
+                  </p>
+              </div>
+              
+          </div>
+          </div>
+</div>
 @endsection
+
+
 
 @section('scripts')
 <script src="{{ asset('fullcalendar/lib/main.js') }}"></script>
@@ -308,3 +293,6 @@
 
 </script>
 @endsection
+
+
+

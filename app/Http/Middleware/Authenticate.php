@@ -3,7 +3,9 @@
 namespace App\Http\Middleware;
 
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
-
+use DB;
+use Auth;
+use App\User;
 class Authenticate extends Middleware
 {
     /**

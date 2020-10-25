@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use DB;
 use Carbon\Carbon;
 use Auth;
+use App\Property;
+use App\Tenant;
+use App\Unit;
+use App\Billing;
 
 class BillController extends Controller
 {
@@ -14,9 +18,26 @@ class BillController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($property_id)
     {
-        //
+        if(auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager' || auth()->user()->user_type === 'billing'){
+
+            $bills = DB::table('units')
+            ->join('tenants', 'unit_id', 'unit_tenant_id')
+            ->join('billings', 'tenant_id', 'billing_tenant_id')
+            ->where('property_id_foreign', $property_id)
+            ->orderBy('billing_no', 'desc')
+            ->get()
+            ->groupBy(function($item) {
+                return \Carbon\Carbon::parse($item->billing_start)->timestamp;
+            });
+
+            $property = Property::findOrFail($property_id);
+    
+            return view('webapp.bills.bills', compact('bills', 'property'));
+        }else{
+            return view('unregistered');
+        }
     }
 
     /**
@@ -29,6 +50,107 @@ class BillController extends Controller
         //
     }
 
+    public function post_bills_rent(Request $request, $property_id, $date)
+    {
+
+    $updated_billing_start = $request->billing_start;
+    $updated_billing_end = $request->billing_end;
+
+
+  $active_tenants = DB::table('tenants')
+  ->join('units', 'unit_id', 'unit_tenant_id')
+  ->where('property_id_foreign', $property_id)
+  ->where('tenant_status', 'active')
+  ->get();
+
+   //get the number of last added bills
+   $current_bill_no = DB::table('units')
+   ->join('tenants', 'unit_id', 'unit_tenant_id')
+   ->join('billings', 'tenant_id', 'billing_tenant_id')
+   ->where('property_id_foreign', $property_id)
+   ->max('billing_no') + 1;
+
+   DB::table('users')
+   ->where('id', Auth::user()->id)
+   ->update([
+        'electric_rate_kwh' => $request->electric_rate_kwh
+   ]);
+
+   $property = Property::findOrFail($property_id);
+
+    return view('webapp.bills.add-rental-bill', compact('active_tenants','current_bill_no', 'updated_billing_start', 'updated_billing_end', 'property'))->with('success', 'changes have been saved!');
+
+    }
+
+    public function post_bills_electric(Request $request, $property_id, $date)
+    {
+        $updated_billing_start = $request->billing_start;
+    $updated_billing_end = $request->billing_end;
+    $electric_rate_kwh = $request->electric_rate_kwh;
+
+
+  $active_tenants = DB::table('tenants')
+  ->join('units', 'unit_id', 'unit_tenant_id')
+  ->where('property_id_foreign', $property_id)
+  ->where('tenant_status', 'active')
+  ->get();
+
+   //get the number of last added bills
+   $current_bill_no = DB::table('units')
+   ->join('tenants', 'unit_id', 'unit_tenant_id')
+   ->join('billings', 'tenant_id', 'billing_tenant_id')
+   ->where('property_id_foreign', $property_id)
+   ->max('billing_no') + 1;
+
+   DB::table('users')
+   ->where('id', Auth::user()->id)
+   ->update([
+        'electric_rate_kwh' => $request->electric_rate_kwh
+   ]);
+
+   $property = Property::findOrFail($property_id);
+
+    return view('webapp.bills.add-electric-bill', compact('active_tenants','current_bill_no', 'updated_billing_start', 'updated_billing_end', 'electric_rate_kwh', 'property'))->with('success', 'changes have been saved!');
+
+
+       
+    }
+
+    public function post_bills_water(Request $request, $property_id, $date)
+    {
+
+        $updated_billing_start = $request->billing_start;
+        $updated_billing_end = $request->billing_end;
+        $water_rate_cum = $request->water_rate_cum;
+    
+    
+      $active_tenants = DB::table('tenants')
+      ->join('units', 'unit_id', 'unit_tenant_id')
+      ->where('property_id_foreign', $property_id)
+      ->where('tenant_status', 'active')
+      ->get();
+    
+       //get the number of last added bills
+       $current_bill_no = DB::table('units')
+       ->join('tenants', 'unit_id', 'unit_tenant_id')
+       ->join('billings', 'tenant_id', 'billing_tenant_id')
+       ->where('property_id_foreign', $property_id)
+       ->max('billing_no') + 1;
+    
+       DB::table('users')
+       ->where('id', Auth::user()->id)
+       ->update([
+            'water_rate_cum' => $request->water_rate_cum
+       ]);
+
+       $property = Property::findOrFail($property_id);
+    
+        return view('webapp.bills.add-water-bill', compact('property','active_tenants','current_bill_no', 'updated_billing_start', 'updated_billing_end', 'water_rate_cum'))->with('success', 'changes have been saved!');
+    
+
+      
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -37,18 +159,17 @@ class BillController extends Controller
      */
     public function store(Request $request)
     {
-        $no_of_bills = (int) $request->no_of_bills; 
 
          $active_tenants = DB::table('tenants')
         ->join('units', 'unit_id', 'unit_tenant_id')
-        ->where('unit_property', Auth::user()->property)
+        ->where('property_id_foreign', $request->property_id)
         ->where('tenant_status', 'active')
         ->count();
 
         $current_bill_no = DB::table('units')
         ->join('tenants', 'unit_id', 'unit_tenant_id')
         ->join('billings', 'tenant_id', 'billing_tenant_id')
-        ->where('unit_property', Auth::user()->property)
+        ->where('property_id_foreign', $request->property_id)
         ->max('billing_no') + 1;
         
         if($request->action === 'add_move_in_charges'){
@@ -114,12 +235,10 @@ class BillController extends Controller
                                     'tenants_note' => ''
                                 ]
                             );
-                    
-        
                
                }
             }
-            return redirect('/bills')->with('success', ($no_of_billed-1).' '.$request->billing_desc1.' bills have been posted!');
+            return redirect('/property/'.$request->property_id.'/bills')->with('success', ($no_of_billed-1).' '.$request->billing_desc1.' bills have been posted!');
         }
     }
 
@@ -140,9 +259,37 @@ class BillController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($property_id, $unit_id, $tenant_id)
     {
-        //
+
+        if(auth()->user()->user_type === 'billing' || auth()->user()->user_type === 'manager' ){
+            
+            //get the tenant information
+            $tenant = Tenant::findOrFail($tenant_id);
+
+            $room = Unit::findOrFail($unit_id);
+
+            $property = Property::findOrFail($property_id);
+    
+            //get the number of last added bills
+            $current_bill_no = DB::table('units')
+            ->join('tenants', 'unit_id', 'unit_tenant_id')
+            ->join('billings', 'tenant_id', 'billing_tenant_id')
+            ->where('property_id_foreign', $property_id)
+            ->max('billing_no') + 1;
+
+            $balance = Billing::leftJoin('payments', 'billings.billing_id', '=', 'payments.payment_billing_id') 
+            ->selectRaw('* ,billings.billing_amt - IFNULL(sum(payments.amt_paid),0) as balance')
+            ->where('billing_tenant_id', $tenant_id)
+            ->groupBy('billing_no')
+            ->orderBy('billing_no', 'desc')
+            ->havingRaw('balance > 0')
+            ->get();
+
+            return view('webapp.bills.edit-billings', compact('current_bill_no','tenant', 'room', 'balance', 'property'));  
+        }else{
+            return view('unregistered');
+        }
     }
 
     /**
@@ -155,6 +302,48 @@ class BillController extends Controller
     public function update(Request $request, $id)
     {
         //
+    }
+
+    public function post_edited_bills(Request $request, $property_id, $unit_id, $tenant_id){
+
+        if(auth()->user()->user_type === 'billing' || auth()->user()->user_type === 'manager' ){
+
+
+            $balance = Billing::leftJoin('payments', 'billings.billing_id', '=', 'payments.payment_billing_id') 
+            ->selectRaw('* ,billings.billing_amt - IFNULL(sum(payments.amt_paid),0) as balance')
+            ->where('billing_tenant_id', $tenant_id)
+            ->groupBy('billing_no')
+            ->orderBy('billing_no', 'desc')
+            ->havingRaw('balance > 0')
+            ->get();
+        
+        
+            for ($i=1; $i <= $balance->count(); $i++) { 
+                DB::table('billings')
+                ->where('billing_id', $request->input('billing_id_ctr'.$i))
+                ->update
+                        (
+                            [
+                                'billing_start' => $request->input('billing_start_ctr'.$i),
+                                'billing_end' => $request->input('billing_end_ctr'.$i),
+                                'billing_amt' => $request->input('billing_amt_ctr'.$i),
+                            ]
+                        );
+               }
+
+               DB::table('users')
+               ->where('property', Auth::user()->property)
+               ->update(
+                       [
+                           'note' => $request->note,
+                       ]
+                   );
+          
+          
+            return redirect('/property/'.$property_id.'/home/'.$unit_id.'/tenant/'.$tenant_id.'#bills')->with('success','changes have been saved!');
+        }else{
+            return view('unregistered');
+        }
     }
 
     /**

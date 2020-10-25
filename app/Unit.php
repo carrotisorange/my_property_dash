@@ -24,9 +24,18 @@ class Unit extends Model
                            
     ];
 
-    public function unit_owner()
+    public function tenants()
     {
-        return $this->belongsTo('App\UnitOwner', 'unit_owner_id');
+        return $this->hasMany('App\Tenant', 'unit_tenant_id');
     }
 
+    public function owners()
+    {
+        return $this->hasMany('App\UnitOwner', 'unit_owner_id');
+    }
+
+    public function property()
+    {
+        return $this->belongsTo('App\Property');
+    }
 }

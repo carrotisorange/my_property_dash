@@ -695,7 +695,7 @@
 </div>  
 @endsection
 
-@section('scripts')
+@section('js')
   {!! $movein_rate->script() !!}
   {!! $renewed_chart->script() !!}
   {!! $moveout_rate->script() !!}

@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use DB;
 use Socialite;
 use Illuminate\Http\Request;
+use App\User;
 
 
 class LoginController extends Controller
@@ -34,41 +35,36 @@ class LoginController extends Controller
      * @var string
      */
     //protected $redirectTo = RouteServiceProvider::HOME;
-    // protected function authenticated(Request $request, $user)
-    // { 
-    //     if($user->status === 'unregistered'){
-    //         return view('unregistered');
-    //     }else{
-    //         return redirect('/');
+
+     protected $redirectTo = '/property/all';
+
+
+    //     function authenticated(Request $request, $user)
+    //     {
+    //        if(Auth::user()->email !== 'thepropertymanager2020@gmail.com' ){
+    //         DB::table('users')
+    //         ->where('id', Auth::user()->id)
+    //         ->update(
+    //                     [
+    //                         'last_login_at' => Carbon::now(),
+    //                         'last_login_ip' => request()->ip(),
+    //                         'user_current_status' => 'online',
+    //                     ]
+    //             );
+
+    //         DB::table('sessions')
+    //         ->insert(
+    //                     [
+    //                         'session_user_id' => Auth::user()->id,
+    //                         'session_last_login_at' => Carbon::now(),
+    //                         'session_last_login_ip' => request()->ip(),
+    //                     ]
+    //                 );
+    //        }
     //     }
-    // }
-
-        function authenticated(Request $request, $user)
-        {
-           if(Auth::user()->email !== 'thepropertymanager2020@gmail.com' ){
-            DB::table('users')
-            ->where('id', Auth::user()->id)
-            ->update(
-                        [
-                            'last_login_at' => Carbon::now(),
-                            'last_login_ip' => request()->ip(),
-                            'user_current_status' => 'online',
-                        ]
-                );
-
-            DB::table('sessions')
-            ->insert(
-                        [
-                            'session_user_id' => Auth::user()->id,
-                            'session_last_login_at' => Carbon::now(),
-                            'session_last_login_ip' => request()->ip(),
-                        ]
-                    );
-           }
-        }
 
     
-    protected $redirectTo = '/board';
+    // protected $redirectTo = '/board';
 
     // protected function redirectTo()
     // {
@@ -82,7 +78,7 @@ class LoginController extends Controller
     /**
      * Create a new controller instance.
      *
-     * @return void
+     * 
      */
 
     public function logout(Request $request) {

@@ -9,6 +9,7 @@ use App\Unit, App\UnitOwner, App\Tenant, App\User, App\Payment, App\Billing;
 use Carbon\Carbon;
 use App\Mail\UserRegisteredMail;
 use Illuminate\Support\Facades\Mail;
+use App\Property;
 
 class CollectionController extends Controller
 {
@@ -17,20 +18,13 @@ class CollectionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index($property_id)
     {
-        $search = $request->search;
-
-        $request->session()->put(Auth::user()->id.'search_payment', $search);
-
-        
         $collections = DB::table('units')
         ->leftJoin('tenants', 'unit_id', 'unit_tenant_id')
-       
         ->leftJoin('payments', 'tenant_id', 'payment_tenant_id')
         ->leftJoin('billings', 'payment_billing_no', 'billing_no')
-        ->where('unit_property', Auth::user()->property)
-        ->where('payment_created', $search)
+        ->where('property_id_foreign', $property_id)
         ->orderBy('payment_created', 'desc')
         ->orderBy('ar_no', 'desc')
         ->groupBy('payment_id')
@@ -39,7 +33,27 @@ class CollectionController extends Controller
             return \Carbon\Carbon::parse($item->payment_created)->timestamp;
         });
 
-       return view('webapp.collections.collections', compact('collections'));
+        // $search = $request->search;
+
+        // $request->session()->put(Auth::user()->id.'search_payment', $search);
+
+        // $collections = DB::table('units')
+        // ->leftJoin('tenants', 'unit_id', 'unit_tenant_id')
+        // ->leftJoin('payments', 'tenant_id', 'payment_tenant_id')
+        // ->leftJoin('billings', 'payment_billing_no', 'billing_no')
+        // ->where('unit_property', Auth::user()->property)
+        // ->where('payment_created', $search)
+        // ->orderBy('payment_created', 'desc')
+        // ->orderBy('ar_no', 'desc')
+        // ->groupBy('payment_id')
+        // ->get()
+        // ->groupBy(function($item) {
+        //     return \Carbon\Carbon::parse($item->payment_created)->timestamp;
+        // });
+
+        $property = Property::findOrFail($property_id);
+
+       return view('webapp.collections.collections', compact('collections', 'property'));
     }
 
     /**
@@ -58,8 +72,8 @@ class CollectionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request){ 
-        
+    public function store(Request $request, $property_id, $tenant_id){ 
+
         // retrieve the number of payments to be added.
         $no_of_payments = (int) $request->no_of_payments; 
 
@@ -105,16 +119,17 @@ class CollectionController extends Controller
 
             //update the occupancy rate
                
-            $units = DB::table('units')->where('unit_property', Auth::user()->property)->where('status','<>','deleted')->count();
+            $units = DB::table('units')->where('property_id_foreign', $property_id)->where('status','<>','deleted')->count();
 
-            $occupied_units = DB::table('units')->where('unit_property', Auth::user()->property)->where('status', 'occupied')->count();
+            $occupied_units = DB::table('units')->where('property_id_foreign', $property_id)->where('status', 'occupied')->count();
     
             DB::table('occupancy_rate')
                 ->insert(
                             [
                                 'occupancy_rate' => ($occupied_units/$units) * 100,
-                                'occupancy_property' => Auth::user()->property,
-                                'occupancy_date' => Carbon::now()
+                                'property_id_foreign' => $property_id,
+                               'occupancy_date' => Carbon::now(),'created_at' => Carbon::now(),
+                                'created_at' => Carbon::now(),
                             ]
                         );
    
@@ -130,7 +145,7 @@ class CollectionController extends Controller
                         );
 
             //retrieve all the tenant information
-            $tenant = Tenant::findOrFail($request->payment_tenant_id);
+            $tenant = Tenant::findOrFail($tenant_id);
             //retrieve all the unit information
             $unit  = Unit::findOrFail($request->unit_tenant_id);
 
@@ -156,9 +171,9 @@ class CollectionController extends Controller
         }
 
         if(Auth::user()->user_type === 'manager'){
-            return redirect('/units/'.$request->unit_tenant_id.'/tenants/'.$request->payment_tenant_id.'/#payments')->with('success', ($i-1).' payment/s have been added!');
+            return back()->with('success', ($i-1).' payments have been added!');
         }else{
-            return redirect('/units/'.$request->unit_tenant_id.'/tenants/'.$request->payment_tenant_id.'/billings#profile')->with('success', ($i-1).' payment/s have been added!');
+            return back()->with('success', ($i-1).' payments have been added!');
         }
         
    

@@ -16,7 +16,7 @@ class CreateConcernsTable extends Migration
         Schema::create('concerns', function (Blueprint $table) {
             $table->bigIncrements('concern_id');
             $table->unsignedBigInteger('concern_tenant_id');
-            $table->unsignedBigInteger('concern_personnel_id');
+            $table->unsignedBigInteger('concern_user_id');
             $table->string('concern_type');
             $table->date('date_reported');
             $table->string('is_warranty');
@@ -36,8 +36,8 @@ class CreateConcernsTable extends Migration
             $table->foreign('concern_tenant_id')->references('tenant_id')
             ->on('tenants');
 
-            $table->foreign('concern_personnel_id')->references('personnel_id')
-            ->on('personnels');
+            $table->foreign('concern_user_id')->references('id')
+            ->on('users');
         });
     }
 

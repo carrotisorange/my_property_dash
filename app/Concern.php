@@ -27,7 +27,7 @@ class Concern extends Model
 
     public function tenant()
     {
-    return $this->belongsTo('App\Tenant', 'concern_tenant_id');
+    return $this->belongsTo('App\Tenant');
     }
 
     public function owner()
@@ -35,9 +35,20 @@ class Concern extends Model
     return $this->belongsTo('App\UnitOwner', 'owner_id_foreign');
     }
 
-
     public function personnel()
     {
     return $this->belongsTo('App\Personnel', 'concern_personnel_id');
     }
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
+    public function responses()
+    {
+        return $this->hasMany('App\Response', 'concern_id_foreign')->orderBy('responses.created_at', 'desc');
+    }
+
+
 }

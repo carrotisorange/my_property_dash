@@ -26,8 +26,10 @@ class VerificationController extends Controller
      * Where to redirect users after verification.
      *
      * @var string
-     */
-     protected $redirectTo = '/board';
+     */ 
+
+    protected $redirectTo = '/property/all';
+
     // protected function authenticated(Request $request, $user)
     // {
     //     if($user->status === 'unregistered'){

@@ -11,6 +11,8 @@
 
   <title>@yield('title')</title>
 
+  @yield('css')
+
   <!-- Custom fonts for this template-->
   <link href="{{ asset('dashboard/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css"><link href="{{ asset('index/assets/img/favicon.ico') }}" rel="icon">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -22,7 +24,7 @@
   <link href="{{ asset('/arsha/assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
 
   <style>
-    .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+    .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited .text-primary{
         background-color: #8629f8 !important;
     }
   </style>
@@ -30,11 +32,14 @@
 </head>
 
 <body>
+  
+    @include('templates.webapp.header')
+ 
   @include('templates.website.messenger-chatbot')
-
+  @include('templates.webapp.notifications')
   <div class="col-md-5 mx-auto">
     <div class="col-xl-12 col-lg-12 col-md-12">
-        <div class="card shadow-lg my-5 rounded">
+        <div class="card shadow-lg my-3 rounded">
             <div class="card-body p-1">
                 <div class="p-5">
                     @yield('content')
@@ -43,7 +48,8 @@
         </div>
     </div>
   </div>
-
+  <hr>
+  @include('templates.webapp.footer')
   <!-- Bootstrap core JavaScript-->
   <script src="{{ asset('dashboard/vendor/jquery/jquery.min.js') }}"></script>
   <script src="{{ asset('dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
@@ -63,7 +69,9 @@
    }
    </script>
  
-
+<script>
+  @yield('js')
+</script>
 </body>
 
 </html>

@@ -31,17 +31,8 @@ class RegisterController extends Controller
      * @var string
      */
 
-    protected $redirectTo = '/board';
-    
-    // protected $redirectTo = RouteServiceProvider::HOME;
-    // protected function authenticated(Request $request, $user)
-    // { 
-    //     if($user->status === 'unregistered'){
-    //         return view('unregistered');
-    //     }else{
-    //         return redirect('/');
-    //     }
-    // }
+    protected $redirectTo = '/property/all';
+
 
     /**
      * Create a new controller instance.

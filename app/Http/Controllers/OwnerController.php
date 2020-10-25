@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use DB;
 use App\UnitOwner, App\Unit, App\Billing;
 use Illuminate\Support\Facades\Auth;
+use App\Property;
 
 class OwnerController extends Controller
 {
@@ -14,9 +15,22 @@ class OwnerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index($property_id)
     {
+        $owners = DB::table('units')
+        ->join('unit_owners', 'unit_id', 'unit_id_foreign')
+        ->where('property_id_foreign', $property_id)
         
+        ->get();
+
+        $count_owners = DB::table('units')
+        ->join('unit_owners', 'unit_id', 'unit_id_foreign')
+        ->where('property_id_foreign', $property_id)
+        ->count();
+
+        $property = Property::findOrFail($property_id);
+        
+        return view('webapp.owners.owners', compact('owners','count_owners','property'));
     }
 
     
@@ -150,7 +164,7 @@ class OwnerController extends Controller
             'date_accepted' => $request->date_accepted,
         ]);
 
-        return redirect('/units/'.$unit_id.'#owners')->with('success', 'changes has been saved!');
+        return redirect('/units/'.$unit_id.'#owners')->with('success', 'changes have been saved!');
     }
 
     /**

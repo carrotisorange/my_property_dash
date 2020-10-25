@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use DB, Auth, Carbon\Carbon;
+use App\Property;
 
 class CalendarController extends Controller
 {
@@ -13,13 +14,15 @@ class CalendarController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($property_id)
     {
         $events = DB::table('calendars')
         ->where('property', Auth::user()->property)
         ->get();
 
-        return view('webapp.calendar.calendar', compact('events'));
+        $property = Property::findOrFail($property_id);
+
+        return view('webapp.calendar.calendar', compact('events', 'property'));
     }
 
     /**
@@ -45,7 +48,8 @@ class CalendarController extends Controller
             [
                 'event_name' => $request->event_name,
                 'property' => Auth::user()->property,
-                'created_at' => Carbon::now()
+                'created_at' => Carbon::now(),
+                'property_id_foreign' => $requet->property_id,
             ]
         );
 

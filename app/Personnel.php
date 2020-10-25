@@ -18,4 +18,9 @@ class Personnel extends Model
     {
         return $this->belongsTo('App\UnitOwner', 'unit_owner_id');
     }
+
+    public function property()
+    {
+        return $this->belongsTo('App\Property');
+    }
 }

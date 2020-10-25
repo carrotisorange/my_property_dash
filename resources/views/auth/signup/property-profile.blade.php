@@ -29,7 +29,7 @@
 
   <div class="form-group">
 
-   <select form="addPropertyForm" id="property_type" class="form-control @error('property_type') is-invalid @enderror" name="property_type" value="{{ old('property_type') }}" required>
+   <select form="" id="property_type" class="form-control @error('property_type') is-invalid @enderror" name="property_type" value="{{ old('property_type') }}" required>
      <option value="">Select property type</option>
      <option value="Dormitory">Dormitory</option>
      <option value="Apartment Rentals">Apartment Rentals</option>
@@ -46,13 +46,13 @@
 
           
      <div class="form-group ">
-    <select form="addPropertyForm" id="property_ownership" class="form-control form @error('property_ownership') is-invalid @enderror" name="property_ownership" value="{{ old('property_ownership') }}" required autocomplete="property_ownership">
-      <option value="">Select ownership</option>
+    <select form="" id="ownership" class="form-control form @error('ownership') is-invalid @enderror" name="ownership" value="{{ old('ownership') }}" required autocomplete="ownership">
+      <option value="">Ownership</option>
       <option value="Single Owner">Single Owner</option>
       <option value="Multiple Owners">Multiple Owners</option>
     </select>
 
-       @error('property_ownership')
+       @error('ownership')
           <span class="invalid-feedback" role="alert">
               <strong>{{ $message }}</strong>
           </span>

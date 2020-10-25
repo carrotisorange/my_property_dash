@@ -1,136 +1,165 @@
-@extends('templates.webapp.template')
+@extends('templates.webapp-new.template')
 
 @section('title', 'Payables')
 
 @section('sidebar')
-   
-      
-           <!-- Heading -->
-      
-          <!-- Nav Item - Pages Collapse Menu -->
-          <li class="nav-item">
-                <a class="nav-link" href="/board">
-                  <i class="fas fa-fw fa-tachometer-alt"></i>
-                  <span>Dashboard</span></a>
-              </li>
-      
-            <hr class="sidebar-divider">
-      
-            <div class="sidebar-heading">
-              Interface
-            </div>  
-            @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' )
-          <li class="nav-item">
-            <a class="nav-link" href="/home">
-              <i class="fas fa-home"></i>
-              <span>Home</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/calendar">
-              <i class="fas fa-calendar-alt"></i>
-              <span>Calendar</span></a>
-          </li>
-          @endif
-        
-          @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'treasury')
+  <!-- Sidenav -->
+  <nav class="sidenav navbar navbar-vertical  fixed-left  navbar-expand-xs navbar-light bg-white" id="sidenav-main">
+    <div class="scrollbar-inner">
+      <!-- Brand -->
+      <div class="sidenav-header  align-items-center">
+        <a class="navbar-brand" href="javascript:void(0)">
+          {{-- <img src="{{ asset('/argon/assets/img/brand/logo.png') }}" class="navbar-brand-img" alt="...">--}}{{ $property->name }} 
+        </a>
+      </div>
+      <div class="navbar-inner">
+        <!-- Collapse -->
+        <div class="collapse navbar-collapse" id="sidenav-collapse-main">
+          <!-- Nav items -->
+          <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link" href="/tenants">
-                <i class="fas fa-users fa-chart-area"></i>
-                <span>Tenants</span></a>
+              <a class="nav-link" href="/property/{{$property->property_id }}/dashboard">
+                <i class="fas fa-tachometer-alt text-orange"></i>
+                <span class="nav-link-text">Dashboard</span>
+              </a>
+            </li>
+            @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' )
+            <li class="nav-item">
+              <a class="nav-link" href="/property/{{$property->property_id }}/home">
+                <i class="fas fa-home text-indigo"></i>
+                <span class="nav-link-text">Home</span>
+              </a>
             </li>
             @endif
-      
-       @if((Auth::user()->user_type === 'admin' && Auth::user()->property_ownership === 'Multiple Owners') || (Auth::user()->user_type === 'manager' && Auth::user()->property_ownership === 'Multiple Owners'))
-        <!-- Nav Item - Tables -->
-        <li class="nav-item">
-            <a class="nav-link" href="/owners">
-            <i class="fas fa-user-tie"></i>
-            <span>Owners</span></a>
-        </li>
-         @endif
-      
-         <!-- Nav Item - Tables -->
-        <li class="nav-item">
-            <a class="nav-link" href="/concerns">
-          <i class="far fa-comment-dots"></i>
-              <span>Concerns</span></a>
-        </li>
-    
-        @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' )
-        <li class="nav-item">
-            <a class="nav-link" href="/joborders">
-              <i class="fas fa-tools fa-table"></i>
-              <span>Job Orders</span></a>
-        </li>
-        @endif
-      
-             <!-- Nav Item - Tables -->
-        @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' )
-          <li class="nav-item">
-            <a class="nav-link collapsed" href="/personnels" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-              <i class="fas fa-user-cog"></i>
-                <span>Personnels</span>
-              </a>
-              <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                  <a class="collapse-item" href="/housekeeping">Housekeeping</a>
-                  <a class="collapse-item" href="/maintenance">Maintenance</a>
-                </div>
-              </div>
-            </li>
-        @endif
-      
-           @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'manager')
-            <!-- Nav Item - Tables -->
             <li class="nav-item">
-              <a class="nav-link" href="/bills">
-                <i class="fas fa-file-invoice-dollar fa-table"></i>
-                <span>Bills</span></a>
+              <a class="nav-link" href="/property/{{$property->property_id }}/calendar">
+                <i class="fas fa-calendar-alt text-red"></i>
+                <span class="nav-link-text">Calendar</span>
+              </a>
             </li>
-           @endif
-      
-           @if(Auth::user()->user_type === 'treasury' || Auth::user()->user_type === 'manager')
-              <li class="nav-item">
-              <a class="nav-link" href="/collections">
-                <i class="fas fa-file-invoice-dollar"></i>
-                <span>Collections</span></a>
+            @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'treasury')
+            <li class="nav-item">
+              <a class="nav-link" href="/property/{{$property->property_id }}/tenants">
+                <i class="fas fa-user text-green"></i>
+                <span class="nav-link-text">Tenants</span>
+              </a>
             </li>
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/property/{{$property->property_id }}/owners">
+                <i class="fas fa-user-tie text-teal"></i>
+                <span class="nav-link-text">Owners</span>
+              </a>
+            </li>
+            @endif
 
             <li class="nav-item">
-              <a class="nav-link" href="/financials">
-                <i class="fas fa-coins"></i>
-                <span>Financials</span></a>
+              <a class="nav-link" href="/property/{{$property->property_id }}/concerns">
+                <i class="fas fa-tools text-cyan"></i>
+                <span class="nav-link-text">Concerns</span>
+              </a>
+            </li>
+            @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' )
+            <li class="nav-item">
+              <a class="nav-link" href="/property/{{$property->property_id }}/joborders">
+                <i class="fas fa-list text-dark"></i>
+                <span class="nav-link-text">Job Orders</span>
+              </a>
+            </li>
+           
+            <li class="nav-item">
+              <a class="nav-link" href="/property/{{$property->property_id }}/personnels">
+                <i class="fas fa-user-secret text-gray"></i>
+                <span class="nav-link-text">Personnels</span>
+              </a>
             </li>
             @endif
-      
-               @if(Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'ap' || Auth::user()->user_type === 'admin')
-            <li class="nav-item active">
-            <a class="nav-link" href="/payables">
-            <i class="fas fa-hand-holding-usd"></i>
-              <span>Payables</span></a>
-          </li>
-          @endif
-      
-          @if(Auth::user()->user_type === 'manager')
-           <!-- Nav Item - Tables -->
-           <li class="nav-item">
-            <a class="nav-link" href="/users">
-              <i class="fas fa-user-circle"></i>
-              <span>Users</span></a>
-          </li>
-          @endif
-          
+
+            @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'manager')
+            <li class="nav-item">
+              <a class="nav-link" href="/property/{{$property->property_id }}/bills">
+                <i class="fas fa-file-invoice-dollar text-pink"></i>
+                <span class="nav-link-text">Bills</span>
+              </a>
+            </li>
+            @endif
+            @if(Auth::user()->user_type === 'treasury' || Auth::user()->user_type === 'manager')
+            <li class="nav-item">
+              <a class="nav-link" href="/property/{{$property->property_id }}/collections">
+                <i class="fas fa-coins text-yellow"></i>
+                <span class="nav-link-text">Collections</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/property/{{$property->property_id }}/financials">
+                <i class="fas fa-chart-line text-purple"></i>
+                <span class="nav-link-text">Financials</span>
+              </a>
+            </li>
+            @endif
+            @if(Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'ap' || Auth::user()->user_type === 'admin')
+            <li class="nav-item">
+              <a class="nav-link active" href="/property/{{$property->property_id }}/payables">
+                <i class="fas fa-file-export text-indigo"></i>
+                <span class="nav-link-text">Payables</span>
+              </a>
+            </li>
+            @endif
+            <li class="nav-item">
+              <a class="nav-link" href="/property/{{$property->property_id }}/users">
+                <i class="fas fa-user-circle text-green"></i>
+                <span class="nav-link-text">Users</span>
+              </a>
+            </li>
+          </ul>
           <!-- Divider -->
-          <hr class="sidebar-divider d-none d-md-block">
-      
-          <!-- Sidebar Toggler (Sidebar) -->
-          <div class="text-center d-none d-md-inline">
-            <button class="rounded-circle border-0" id="sidebarToggle"></button>
-          </div>
-    
+          <hr class="my-3">
+          <!-- Heading -->
+          <h6 class="navbar-heading p-0 text-muted">
+            <span class="docs-normal">Documentation</span>
+          </h6>
+          <!-- Navigation -->
+          <ul class="navbar-nav mb-md-3">
+            <li class="nav-item">
+              <a class="nav-link" href="/getting-started" target="_blank">
+                <i class="ni ni-spaceship"></i>
+                <span class="nav-link-text">Getting started</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/system-updates" target="_blank">
+                <i class="fas fa-bug text-red"></i>
+                <span class="nav-link-text">System Updates</span>
+              </a>
+            </li>
+          <li class="nav-item">
+              <a class="nav-link" href="announcements" target="_blank">
+                <i class="fas fa-microphone text-purple"></i>
+                <span class="nav-link-text">Annoncements</span>
+              </a>
+            </li>
+             {{--  <li class="nav-item">
+              <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/plugins/charts.html" target="_blank">
+                <i class="ni ni-chart-pie-35"></i>
+                <span class="nav-link-text">Plugins</span>
+              </a>
+            </li> --}}
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
 @endsection
 
-@section('content')
+@section('upper-content')
+<div class="row align-items-center py-4">
+  <div class="col-lg-6 col-7">
+    <h6 class="h2 text-dark d-inline-block mb-0">Payables</h6>
+    
+  </div>
+
+</div>
 <div class="row">
   <div class="col-md-12">
     <nav>
@@ -150,29 +179,31 @@
         @if(auth()->user()->user_type === 'ap' || auth()->user()->user_type === 'manager' )
         <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="collapse" href="#addEntry" role="button" aria-expanded="false" aria-controls=""> <i class="fas fa-plus  fa-sm text-white-50"></i> Add</a> 
         @endif
-        <br><br>
-        <div class="col-md-11 mx-auto">
+        
+        <div class="col-md-12 mx-auto">
           <div class="collapse multi-collapse" id="addEntry">
             <div class="card card-body">
               <div class="modal-body">
                 <h3>Add Entry</h3>
-                <form id="addPayableEntryForm" action="/account-payable/add/{{ Auth::user()->property }}" method="POST">
+                <form id="addPayableEntryForm" action="/property/{{ $property->property_id }}/payable" method="POST">
                    @csrf
                 </form>
       
                  
                     <p class="text-right">
-                      <a  href="#" id='delete_entry' class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-minus fa-sm text-white-50"></i> Remove </a>
-                    <a href="#"  id="add_entry" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Add </a>     
+                      <a  href="#/" id='delete_entry' class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-minus fa-sm text-white-50"></i> Remove </a>
+                    <a href="#/"  id="add_entry" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Add </a>     
                     </p>
                       <div class="table-responsive text-nowrap">
-                      <table class = "table table-bordered" id="tab_logic">
+                      <table class = "table" id="tab_logic">
                           <tr>
                               <th>#</th>
                               <th>Entry</th>
                               <th>Description</th>
                           </tr>
                               <input form="addPayableEntryForm" type="hidden" id="no_of_entry" name="no_of_entry" >
+
+                              <input form="addPayableEntryForm" type="hidden" id="" name="property_id"  value="{{ $property->property_id }}">
                           <tr id='addr1'></tr>
                       </table>
                     </div>
@@ -291,18 +322,18 @@
       <div class="tab-pane fade" id="payables" role="tabpanel" aria-labelledby="nav-payables-tab">
         <br>
         <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="collapse" href="#requestFunds" role="button" aria-expanded="false" aria-controls=""> <i class="fas fa-plus  fa-sm text-white-50"></i> Add</a> 
-        <br><br>
-        <div class="col-md-11 mx-auto">
+        <br>
+        <div class="col-md-12 mx-auto">
           <div class="collapse multi-collapse" id="requestFunds">
             <div class="card card-body">
               <div class="modal-body">
                 <h3>Request Payables</h3>
-                <form id="requestFundsForm" action="/account-payable/request/{{ Auth::user()->property }}" method="POST">
+                <form id="requestFundsForm" action="/property/{{ $property->property_id }}/payable/request" method="POST">
                   @csrf
                </form>
                     <p class="text-right">
-                      <a href="#" id='delete_request' class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-minus fa-sm text-white-50"></i> Remove </a>
-                      <a href="#" id="add_request" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Add </a>     
+                      <a href="#/" id='delete_request' class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-minus fa-sm text-white-50"></i> Remove </a>
+                      <a href="#/" id="add_request" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Add </a>     
                     </p>
                       <div class="table-responsive text-nowrap">
                         <table class = "table table-bordered" id="request_table">
@@ -313,6 +344,8 @@
                               <th>Note</th>
                           </tr>
                               <input form="requestFundsForm" type="hidden" id="no_of_request" name="no_of_request" >
+
+                              <input form="requestFundsForm" type="hidden" id="" name="property_id"  value="{{ $property->property_id }}">
                           <tr id='request1'></tr>
                       </table>
                     </div>
@@ -368,17 +401,17 @@
                         <td>{{ $item->note? $item->note: '-' }}</td>    
                        
                         @if(Auth::user()->user_type === 'manager')
-                        <td class="text-center"> 
+                        <td class="text-right"> 
                           
-                          <form action="/request-payable/disapprove/{{ $item->id }}/" method="POST">
+                          <form action="/property/{{ $property->property_id }}/payable/{{ $item->id }}/decline" method="POST">
                           @csrf
                           <button title="decline" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"  onclick="this.form.submit(); this.disabled = true;"><i class="fas fa-times-circle fa-sm text-white-50"></i></button>
                         </form>
                      
  
                       </td> 
-                      <td class="text-center">
-                        <form action="/request-payable/approve/{{ $item->id }}/" method="POST">
+                      <td class="text-left">
+                        <form action="/property/{{ $property->property_id }}/payable/{{ $item->id }}/approve" method="POST">
                           @csrf
                 
                           <button title="approve" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm"  onclick="this.form.submit(); this.disabled = true;"><i class="fas fa-check-circle fa-sm text-white-50"></i></button>
@@ -429,7 +462,7 @@
                         <td>{{ Carbon\Carbon::parse($item->updated_at)->format('M d Y') }}</td>     
                         @if(Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'ap')
                         <td class="text-center"> 
-                          <form action="/request-payable/release/{{ $item->id }}/" method="POST">
+                          <form action="/property/{{ $property->property_id }}/payable/{{ $item->id }}/release" method="POST">
                           @csrf
                           <button title="release" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm"  onclick="this.form.submit(); this.disabled = true;"><i class="fas fa-check-circle fa-sm text-white-50"></i></button>
                         </form>
@@ -525,56 +558,59 @@
     </div>
   </div>
 </div>
+
 @endsection
+
+
 
 @section('scripts')
 <script>
-   $(document).ready(function(){
-          var i=1;
-          
-      $("#add_entry").click(function(){
-          $('#addr'+i).html("<th>"+ (i) +"</th><td><input class='form-control' form='addPayableEntryForm' name='payable_entry"+i+"' type='text' required></td><td><input class='form-control' form='addPayableEntryForm' name='payable_entry_desc"+i+"' type='text' required></td>");
-  
-  
-       $('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
-       i++;
-       
-       document.getElementById('no_of_entry').value = i;
-  
-      });
-  
-      $("#delete_entry").click(function(){
-          if(i>1){
-          $("#addr"+(i-1)).html('');
-          i--;
-          
-          document.getElementById('no_of_entry').value = i;
-          }
-      });
+  $(document).ready(function(){
+         var i=1;
+         
+     $("#add_entry").click(function(){
+         $('#addr'+i).html("<th>"+ (i) +"</th><td><input class='form-control' form='addPayableEntryForm' name='payable_entry"+i+"' type='text' required></td><td><input class='form-control' form='addPayableEntryForm' name='payable_entry_desc"+i+"' type='text' required></td>");
+ 
+ 
+      $('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
+      i++;
+      
+      document.getElementById('no_of_entry').value = i;
+ 
+     });
+ 
+     $("#delete_entry").click(function(){
+         if(i>1){
+         $("#addr"+(i-1)).html('');
+         i--;
+         
+         document.getElementById('no_of_entry').value = i;
+         }
+     });
 
-      var j=1;
+     var j=1;
+         
+         $("#add_request").click(function(){
+             $('#request'+j).html("<th>"+ (j) +"</th><td><select class='form-control' form='requestFundsForm' name='entry"+j+"' required><option>Please select entry</option>@foreach($entry as $item)<option value='{{ $item->payable_entry }}'>{{ $item->payable_entry }}</option> @endforeach</select></td><td><input class='form-control' form='requestFundsForm' name='amt"+j+"' type='number' step='0.001' required></td><td><input class='form-control' form='requestFundsForm' name='note"+i+"' type='text'></td>");
+     
+     
+          $('#request_table').append('<tr id="request'+(j+1)+'"></tr>');
+          j++;
           
-          $("#add_request").click(function(){
-              $('#request'+j).html("<th>"+ (j) +"</th><td><select class='form-control' form='requestFundsForm' name='entry"+j+"' required><option>Please select entry</option>@foreach($entry as $item)<option value='{{ $item->payable_entry }}'>{{ $item->payable_entry }}</option> @endforeach</select></td><td><input class='form-control' form='requestFundsForm' name='amt"+j+"' type='number' step='0.001' required></td><td><input class='form-control' form='requestFundsForm' name='note"+i+"' type='text'></td>");
-      
-      
-           $('#request_table').append('<tr id="request'+(j+1)+'"></tr>');
-           j++;
-           
-           document.getElementById('no_of_request').value = j;
-      
-          });
-      
-          $("#delete_request").click(function(){
-              if(j>1){
-              $("#request"+(j-1)).html('');
-              j--;
-              
-              document.getElementById('no_of_request').value = j;
-              }
-          });
-    
-  });
+          document.getElementById('no_of_request').value = j;
+     
+         });
+     
+         $("#delete_request").click(function(){
+             if(j>1){
+             $("#request"+(j-1)).html('');
+             j--;
+             
+             document.getElementById('no_of_request').value = j;
+             }
+         });
+   
+ });
 </script>
 @endsection
 
