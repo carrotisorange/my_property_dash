@@ -77,9 +77,11 @@
         </div>
 
         @if ($properties->count() > 0)
+        @if (Auth::user()->user_type === 'manager')
         <div class="col">
         <a title="Limited to 5 users only" href="/property/{{ $item->property_id }}/user/create" class="btn btn-warning btn-user btn-block"> <i class="fas fa-user-clock"></i> Users </a>
         </div>
+        @endif
         <div class="col">
            
           <button type="submit" class="btn btn-success btn-user btn-block" onclick="this.form.submit(); this.disabled = true;"><i class="far fa-hand-point-up"></i> Manage</button>
