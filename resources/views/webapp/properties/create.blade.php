@@ -22,8 +22,9 @@
 
                     <div class="form-group">
                       <select name="type" id="type" class="form-control form-control-user @error('type') is-invalid @enderror" required autocomplete="type" autofocus>
-                        <option value="{{ Auth::user()->property_type }}" selected>{{ Auth::user()->property_type }}</option>
+                   
                         @if (old('type'))
+                        <option value="{{ Auth::user()->property_type }}" selected>{{ Auth::user()->property_type }}</option>
                         <option value="{{ old('type') }}" selected>{{ old('type') }}</option>
                 
                         <option value="Dormitory">Dormitory</option>
@@ -31,6 +32,7 @@
                         <option value="Commercial Complex">Commercial Complex</option>
                         <option value="Condominium Associations">Condominium Associations</option>
                         @else
+                        <option value="{{ Auth::user()->property_type }}" selected>{{ Auth::user()->property_type }}</option>
                         <option value="" selected>Select type</option>
                         <option value="Dormitory">Dormitory</option>
                         <option value="Apartment Rentals">Apartment Rentals</option>
