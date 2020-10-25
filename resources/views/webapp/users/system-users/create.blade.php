@@ -43,7 +43,7 @@
                     
                         <option value="treasury">treasury</option>
                         @else
-                        <option value="">Select tncype</option>
+                        <option value="">Select type</option>
                         <option value="admin">admin</option>
                         <option value="ap">ap</option>
                         <option value="billing">billing</option>
