@@ -294,7 +294,7 @@
    @foreach ($users as $item)
    <tr>
     <th>{{ $ctr++ }}</th>
-     <td><a href="/users/{{ $item->id }}">{{ $item->name }}</a></td>
+     <td><a href="/property/{{ $property->property_id }}/users/{{ $item->id }}">{{ $item->name }}</a></td>
      <td>{{ $item->email }}</td>
      <td>{{ $item->user_type }}</td>
       <td>{{ Carbon\Carbon::parse($item->created_at)->format('M d Y').' '.Carbon\Carbon::parse($item->created_at)->toTimeString() }}</td>
@@ -468,7 +468,7 @@
                              </td>
                              <td>
                                @if($item->user_type==='manager')
-                               <a href="/users/{{ $item->id }}">{{ $item->name }}</a>
+                               <a href="/property/{{ $property->property_id }}/users/{{ $item->id }}">{{ $item->name }}</a>
                                @endif
                              </td>
                              <td>{{ $item->email }}</td>
@@ -509,7 +509,7 @@
                          <th>{{ $ctr++ }}</th>
                          <td>
                           
-                           <a href="/users/{{ $item->id }}">{{ $item->name }}</a>
+                           <a href="/property/{{ $property->property_id }}/users/{{ $item->id }}">{{ $item->name }}</a>
                            
                          </td>
                          <td>
@@ -560,7 +560,7 @@
                     @foreach ($users as $item)
                    <tr>
                     <th>{{ $ctr++ }}</th>
-                       <td><a href="/users/{{ $item->id }}">{{ $item->name }}</a></td>
+                       <td><a href="/property/{{ $property->property_id }}/users/{{ $item->id }}">{{ $item->name }}</a></td>
                        <td>{{ Carbon\Carbon::parse($item->created_at)->format('M d Y').' '.Carbon\Carbon::parse($item->created_at)->toTimeString() }}</td>
                        <td>{{ $item->email }}</td>
                        <td>{{ $item->user_type }}</td>
