@@ -22,9 +22,9 @@
 
                     <div class="form-group">
                       <select name="type" id="type" class="form-control form-control-user @error('type') is-invalid @enderror" required autocomplete="type" autofocus>
-  
+                      
                         @if (old('type'))
-                     
+                        <option value="{{ old('type') }}" selected>{{ old('type') }}</option>
                 
                         <option value="Dormitory">Dormitory</option>
                         <option value="Apartment Rentals">Apartment Rentals</option>
@@ -48,7 +48,7 @@
 
                     <div class="form-group">
                       <select name="ownership" id="ownership" class="form-control form-control-user @error('ownership') is-invalid @enderror" name="ownership" required autocomplete="ownership" autofocus>
-               
+            
                         @if (old('ownership'))
                         <option value="{{ old('ownership') }}" selected>{{ old('ownership') }}</option>
           
@@ -56,6 +56,7 @@
                         <option value="Multiple Owners">Multiple Owners</option>
                         @else
                         <option value="{{ Auth::user()->property_ownership }}" selected>{{ Auth::user()->property_ownership }}</option>
+                        {{-- <option value="" selected>Select owership</option>  --}}
                         <option value="Single Owner">Single Owner</option>
                         <option value="Multiple Owners">Multiple Owners</option>
                         @endif
@@ -345,7 +346,7 @@
                             <option value="Zambia">Zambia</option>
                             <option value="Zimbabwe">Zimbabwe</option>
                           @else
-                          <option value="{{ old('country') }}" selected>{{ old('country') }}</option>
+                          <option value="" selected>Select a country</option>
                           <option value="Afganistan">Afghanistan</option>
                           <option value="Albania">Albania</option>
                           <option value="Algeria">Algeria</option>
