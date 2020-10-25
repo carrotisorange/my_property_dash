@@ -9,7 +9,8 @@
                 @csrf
                   <div class="text-center">
                     <h1 class="h4 text-gray-900 mb-4">Add Your Property Here! </h1>
-                    <b class="text-success">All existing rooms will be migrated to this new property.</b>
+                    <b class="text-success">All existing rooms, tenants, owners, etc. will be migrated to this new property.</b>
+                    <br>
                   </div>
                 
                     <div class="form-group">
