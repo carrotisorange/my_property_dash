@@ -68,7 +68,7 @@ Route::get('/property/{property_id}/owners', 'OwnerController@index')->middlewar
 Route::get('/property/{property_id}/calendar', 'CalendarController@index')->middleware(['auth', 'verified']);
 
 Route::get('/asa', function(){
-    DB::table('concerns')->delete();
+   return Concern::all();
 });
 
 //routes for concerns
