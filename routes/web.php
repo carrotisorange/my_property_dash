@@ -67,6 +67,17 @@ Route::get('/property/{property_id}/owners', 'OwnerController@index')->middlewar
 //routes for calendar
 Route::get('/property/{property_id}/calendar', 'CalendarController@index')->middleware(['auth', 'verified']);
 
+Route::get('/asa', function(){
+    return   $concerns = DB::table('concerns')
+    ->join('users', 'concern_user_id', 'id')
+    ->join('tenants', 'concern_tenant_id', 'tenant_id')
+    ->join('units', 'unit_tenant_id', 'unit_id')
+    ->where('unit_property', Auth::user()->property)
+    ->update([
+        'concern_user_id' => Auth::user()->id
+    ]);
+});
+
 //routes for concerns
 Route::get('/property/{property_id}/concerns', 'ConcernController@index')->middleware(['auth', 'verified']);
 Route::post('/property/{property_id}/tenant/{tenant_id}/concern', 'ConcernController@store')->middleware(['auth', 'verified']);

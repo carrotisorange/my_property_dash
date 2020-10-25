@@ -151,7 +151,18 @@ class PropertyController extends Controller
         ]
     );
 
+    DB::table('concerns')
+        ->join('users', 'concern_user_id', 'id')
+        ->join('tenants', 'concern_tenant_id', 'tenant_id')
+        ->join('units', 'unit_tenant_id', 'unit_id')
+        ->where('unit_property', Auth::user()->property)
+        ->update([
+            'concern_user_id' => Auth::user()->id
+    ]);
+
         return redirect('property/all')->with('success', 'New property has been saved!');
+
+    
 
     }
 
