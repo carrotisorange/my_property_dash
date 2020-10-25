@@ -64,24 +64,34 @@
           </div>
 
       </div>
-
+ 
       @endforeach
       <hr>
       <div class="row">
         <div class="col">
           @if ($properties->count() <= 0)
-         <a href="/property/create" class="btn btn-primary btn-user btn-block"> Add </a>
-         @else
+          <a href="/property/create" class="btn btn-primary btn-user btn-block"> Add </a>
+          @else
           <a title="Upgrade to Pro" href="#/" class="btn btn-secondary btn-user btn-block"> <i class="fas fa-user-lock"></i> Add </a>
-         @endif
+          @endif
+         {{-- @if(Auth::user()->user_type === 'manager')
+          
+         @else
+         <a title="Please get in touch with your manager..." href="#/" class="btn btn-secondary btn-user btn-block">Add </a>
+         @endif --}}
         </div>
 
         @if ($properties->count() > 0)
-        @if (Auth::user()->user_type === 'manager')
+       
         <div class="col">
-        <a title="Limited to 5 users only" href="/property/{{ $item->property_id }}/user/create" class="btn btn-warning btn-user btn-block"> <i class="fas fa-user-clock"></i> Users </a>
+          @if (Auth::user()->user_type === 'manager')
+          <a title="Limited to 5 users only" href="/property/{{ $item->property_id }}/user/create" class="btn btn-warning btn-user btn-block"> <i class="fas fa-user-clock"></i> Users </a>
+          @else
+          <a title="Reserved for manager." href="#/" class="btn btn-warning btn-user btn-block"> <i class="fas fa-user-clock"></i> Users </a>
+          @endif
+
         </div>
-        @endif
+       
         <div class="col">
            
           <button type="submit" class="btn btn-success btn-user btn-block" onclick="this.form.submit(); this.disabled = true;"><i class="far fa-hand-point-up"></i> Manage</button>

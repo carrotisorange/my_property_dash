@@ -31,10 +31,11 @@ Route::post('/blogs', 'BlogController@store')->middleware(['auth', 'verified']);
 Route::post('ckeditor/image_upload', 'BlogController@upload')->name('upload');
 
 
+
 //routes for system-users
 Route::get('/property/{property_id}/user/all', 'UserController@index_system_user')->middleware(['auth', 'verified']);
 Route::get('/property/{property_id}/user/create', 'UserController@create_system_user')->middleware(['auth', 'verified']);
-Route::get('/property/{property_id}/user/{user_id}', 'UserController@show_system_user')->middleware(['auth', 'verified']);
+Route::get('/property/{property_id}/system-user/{user_id}', 'UserController@show_system_user')->middleware(['auth', 'verified']);
 Route::post('/system-user/', 'UserController@store_system_user')->middleware(['auth', 'verified']);
 
 //routes for properties 
@@ -69,7 +70,8 @@ Route::get('/property/{property_id}/owners', 'OwnerController@index')->middlewar
 Route::get('/property/{property_id}/calendar', 'CalendarController@index')->middleware(['auth', 'verified']);
 
 Route::get('/asa', function(){
-   return Concern::all();
+   
+
 });
 
 //routes for concerns

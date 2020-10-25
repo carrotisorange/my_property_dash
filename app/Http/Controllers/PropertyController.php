@@ -24,6 +24,29 @@ class PropertyController extends Controller
      */
     public function index()
     {
+            if(Auth::user()->user_type == 'manager'){
+                $properties = User::findOrFail(Auth::user()->id)->properties;
+
+                $users = DB::table('users_properties_relations')
+                ->join('users', 'user_id_foreign', 'id')
+                ->where('user_id_foreign', Auth::user()->id)
+                ->count();
+
+        return view('webapp.properties.index', compact('properties', 'users')); 
+            }else{
+                    if(Auth::user()->lower_access_user_id == null){
+                        return view('webapp.users.system-users.warning'); 
+                    }else{
+                        $properties = User::findOrFail(Auth::user()->lower_access_user_id)->properties;
+
+                        $users = DB::table('users_properties_relations')
+                        ->join('users', 'user_id_foreign', 'id')
+                        ->where('user_id_foreign', Auth::user()->lower_access_user_id)
+                        ->count();
+
+                        return view('webapp.properties.index', compact('properties', 'users')); 
+                    }
+            }
 
         // $properties = User::join('properties', 'user_id_foreign', 'id')
         // ->join('units', 'property_id', 'property_id_foreign')
@@ -35,16 +58,7 @@ class PropertyController extends Controller
         // ->where('id', Auth::user()->id)
         // ->get();
 
-       $properties = User::findOrFail(Auth::user()->id)->properties;
-
-        $users = DB::table('users_properties_relations')
-       ->join('users', 'user_id_foreign', 'id')
-       ->where('user_id_foreign', Auth::user()->id)
-       ->count();
-
-
-
-        return view('webapp.properties.index', compact('properties', 'users')); 
+       
     }
 
     /**
@@ -150,6 +164,14 @@ class PropertyController extends Controller
             'property_id_foreign' => $uuid
         ]
     );
+
+    DB::table('users')->where('property', Auth::user()->property)
+    ->update(
+        [
+         'lower_access_user_id' => Auth::user()->id
+        ]
+    );
+
 
     // DB::table('concerns')
     //     ->join('users', 'concern_user_id', 'id')

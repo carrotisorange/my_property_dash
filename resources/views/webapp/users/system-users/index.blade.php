@@ -27,20 +27,23 @@
                   <tr>
                       <th>#</th>
                       <th>Name</th>
+                      <th>Email</th>
                       <th>Role</th>
-                      <th>Date added</th>
+                  
                   </tr>
                   @foreach ($users as $item)
                       <tr>
                           <th>{{ $ctr++ }}</th>
-                          <td><a href="/property/{{ $item->property_id_foreign }}/user/{{ $item->id }}">{{ $item->name }}</a></td>
+                          <td><a href="/property/{{ $item->property_id_foreign }}/system-user/{{ $item->id }}">{{ $item->name }}</a></td>
+                          <td>{{ $item->email }}</td>
                           <td>{{ $item->user_type }}</td>
-                          <td>{{ Carbon\Carbon::parse($item->created_at)->format('M d Y') }}</td>
+           
                       </tr>
                   @endforeach
               </table>
           </div>
       </div>
+      <hr>
       <div class="row">
         
        

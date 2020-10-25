@@ -466,7 +466,8 @@ class UserController extends Controller
             'property_ownership' => '',
             'password' => Hash::make($request->password),
             'created_at' => Carbon::now(),
-            'account_type' => Auth::user()->account_type,
+            'account_type' => 'Free',
+            'lower_access_user_id' => Auth::user()->id
         ]);
 
         DB::table('users_properties_relations')
@@ -475,7 +476,7 @@ class UserController extends Controller
             'user_id_foreign' => $user_id,
         ]);
 
-        return redirect('/property/'.$request->property_id.'/user/'.$user_id)->with('success', 'New user has been saved!');
+        return redirect('/property/'.$request->property_id.'/system-user/'.$user_id)->with('success', 'New user has been saved!');
     }
 
     /**

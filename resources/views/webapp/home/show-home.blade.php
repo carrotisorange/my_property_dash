@@ -178,9 +178,9 @@
       <div class="tab-content" id="nav-tabContent">
      
         <div class="tab-pane fade show active" id="room" role="tabpanel" aria-labelledby="nav-room-tab">
-          @if(Auth::user()->user_type === 'manager' )
+    
           <button type="button" title="edit room" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#editUnit" data-whatever="@mdo"><i class="fas fa-edit fa-sm text-white-50"></i> Edit</button> 
-        @endif 
+    
           <div class="col-md-12 mx-auto">
            
           <br>

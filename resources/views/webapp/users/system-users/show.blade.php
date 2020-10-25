@@ -28,6 +28,8 @@
                 <tr>
                    
                     <th>Name</th>
+    
+                      <th>Email</th>
                     <th>Role</th>
                     <th>Date added</th>
                 </tr>
@@ -35,6 +37,7 @@
                     <tr>
                        
                         <td>{{ $user->name }}</td>
+                        <td>{{ $user->email }}</td>
                         <td>{{ $user->user_type }}</td>
                         <td>{{ Carbon\Carbon::parse($user->created_at)->format('M d Y') }}</td>
                     </tr>
