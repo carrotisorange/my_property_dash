@@ -74,7 +74,7 @@
                     <hr>
                     
                     <div class="form-group">
-                      <input id="mobile" type="number"value="000000000000000000" class="form-control form-control-user @error('mobile') is-invalid @enderror" placeholder="Mobile" name="mobile" value="{{ old('mobile') }}" required autocomplete="mobile" autofocus>
+                      <input id="mobile" type="number" class="form-control form-control-user @error('mobile') is-invalid @enderror" placeholder="Mobile" name="mobile" value="{{ old('mobile') }}" required autocomplete="mobile" autofocus>
                             @error('mobile')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -83,7 +83,7 @@
                     </div>
                    
                     <div class="form-group">
-                      <input id="address" type="text" value="" class="form-control form-control-user @error('address') is-invalid @enderror" placeholder="Address" name="address" value="{{ old('address') }}" required autocomplete="address" autofocus>
+                      <input id="address" type="text" class="form-control form-control-user @error('address') is-invalid @enderror" placeholder="Address" name="address" value="{{ old('address') }}" required autocomplete="address" autofocus>
                             @error('address')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
