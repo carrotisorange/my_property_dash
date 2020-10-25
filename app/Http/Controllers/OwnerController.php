@@ -113,7 +113,7 @@ class OwnerController extends Controller
    
             return view('webapp.owners.show-investor', compact('investor','unit', 'units', 'bills'));
         }else{
-            return view('unregistered');
+            return view('website.unregistered');
         }
 
        

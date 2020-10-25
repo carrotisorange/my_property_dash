@@ -243,7 +243,7 @@
    @foreach ($sessions as $item)
    <tr>
     <th>{{ $ctr++ }}</th>
-     <td><a href="/users/{{ $item->id }}">{{ $item->name }}</a></td>
+     <td><a href="/property/{{ $property->property_id }}/users/{{ $item->id }}">{{ $item->name }}</a></td>
      <td>{{ $item->email }}</td>
      <td>{{ $item->user_type }}</td>
      <td>{{ $item->property }}</td>

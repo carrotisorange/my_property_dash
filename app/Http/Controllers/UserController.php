@@ -394,7 +394,7 @@ class UserController extends Controller
         return view('webapp.users.users', compact('users', 'sessions', 'paying_users', 'unverified_users', 'properties','signup_rate','active_users', 'users', 'property'));
 
     }else{
-        return view('unregistered');
+        return view('website.unregistered');
     }
     }
 
@@ -537,7 +537,7 @@ class UserController extends Controller
          if(($user->id === Auth::user()->id) || ($manager->user_type === 'manager' && $user->property === $manager->property) || Auth::user()->email === 'thepropertymanager2020@gmail.com'){
             return view('webapp.users.show-user', compact('properties','property','user', 'sessions', 'blogs'));
          }else{
-             return view('unregistered');
+             return view('website.unregistered');
          }
        
     }
@@ -559,7 +559,7 @@ class UserController extends Controller
             return view('webapp.users.edit-user', compact('user'));
         }
         else{
-            return view('unregistered');
+            return view('website.unregistered');
         }
 
        

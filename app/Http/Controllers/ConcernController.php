@@ -99,7 +99,7 @@ class ConcernController extends Controller
       
        return view('webapp.concerns.show-concern', compact('tenant','unit','concern', 'responses', 'property', 'user'));
    }else{
-       return view('unregistered');
+       return view('website.unregistered');
    }
 
     }

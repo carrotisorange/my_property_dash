@@ -60,7 +60,7 @@ class PayableController extends Controller
      
              return view('webapp.payables.payables', compact('entry','pending','approved','declined','released','expense_report', 'property'));
          }else{
-             return view('unregistered');
+             return view('website.unregistered');
     }
 
 }

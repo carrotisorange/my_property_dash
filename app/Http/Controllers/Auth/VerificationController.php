@@ -33,7 +33,7 @@ class VerificationController extends Controller
     // protected function authenticated(Request $request, $user)
     // {
     //     if($user->status === 'unregistered'){
-    //         return view('unregistered');
+    //         return view('website.unregistered');
     //     }else{
     //         return view('/');
     //     }

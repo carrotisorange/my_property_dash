@@ -20,7 +20,7 @@ class JobOrderController extends Controller
 
             return view('webapp.joborders.joborders', compact('property'));
         }else{
-            return view('unregistered');    
+            return view('website.unregistered');    
         }
     }
 

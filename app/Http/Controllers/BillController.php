@@ -36,7 +36,7 @@ class BillController extends Controller
     
             return view('webapp.bills.bills', compact('bills', 'property'));
         }else{
-            return view('unregistered');
+            return view('website.unregistered');
         }
     }
 
@@ -288,7 +288,7 @@ class BillController extends Controller
 
             return view('webapp.bills.edit-billings', compact('current_bill_no','tenant', 'room', 'balance', 'property'));  
         }else{
-            return view('unregistered');
+            return view('website.unregistered');
         }
     }
 
@@ -342,7 +342,7 @@ class BillController extends Controller
           
             return redirect('/property/'.$property_id.'/home/'.$unit_id.'/tenant/'.$tenant_id.'#bills')->with('success','changes have been saved!');
         }else{
-            return view('unregistered');
+            return view('website.unregistered');
         }
     }
 

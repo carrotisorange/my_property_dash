@@ -18,7 +18,7 @@ class UnitController extends Controller
     public function index()
     {
         if(Auth::user()->status === 'unregistered')
-            return view('unregistered'); 
+            return view('website.unregistered'); 
     
         // $ei_floor = DB::table('units')->where('floor_no','8')->orderBy('unit_id')->get();
         // $sv_floor = DB::table('units')->where('floor_no','7')->orderBy('unit_id')->get();
@@ -145,7 +145,7 @@ class UnitController extends Controller
                 //     return view('webapp.home.show-unit',compact('unit', 'unit_owner', 'tenant_active', 'tenant_inactive', 'tenant_reservations', 'bills', 'concerns'));
                 // }
         }else{
-                return view('unregistered');
+                return view('website.unregistered');
         }
     
         
@@ -229,7 +229,7 @@ class UnitController extends Controller
     
             return view('webapp.home.edit-units', compact('units'));
         }else{
-            return view('unregistered');
+            return view('website.unregistered');
         }
    
  
@@ -339,7 +339,7 @@ class UnitController extends Controller
     public function show_vacant_units($property){
 
         if(Auth::check()){
-            return view('unregistered');
+            return view('website.unregistered');
         }
         else
         $buildings = DB::table('units')

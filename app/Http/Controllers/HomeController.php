@@ -102,7 +102,7 @@ class HomeController extends Controller
                 //     return view('webapp.home.show-unit',compact('unit', 'unit_owner', 'tenant_active', 'tenant_inactive', 'tenant_reservations', 'bills', 'concerns'));
                 // }
         }else{
-                return view('unregistered');
+                return view('website.unregistered');
         }
     
     }
