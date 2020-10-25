@@ -68,7 +68,7 @@ Route::get('/property/{property_id}/owners', 'OwnerController@index')->middlewar
 Route::get('/property/{property_id}/calendar', 'CalendarController@index')->middleware(['auth', 'verified']);
 
 Route::get('/asa', function(){
-    return   $concerns = DB::table('concerns')
+    $concerns = DB::table('concerns')
     ->join('users', 'concern_user_id', 'id')
     ->join('tenants', 'concern_tenant_id', 'tenant_id')
     ->join('units', 'unit_tenant_id', 'unit_id')
