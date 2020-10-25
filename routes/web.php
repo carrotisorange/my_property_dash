@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\TenantRegisteredMail;
 use App\Mail\SendContractAlertEmail;
+use App\Concern;
 
 /*
 |--------------------------------------------------------------------------
