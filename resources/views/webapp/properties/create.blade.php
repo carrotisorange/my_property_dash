@@ -55,7 +55,7 @@
                         <option value="Single Owner">Single Owner</option>
                         <option value="Multiple Owners">Multiple Owners</option>
                         @else
-                        <option value="" selected>Select owwnership</option> 
+                        <option value="" selected>Select ownership</option> 
                         <option value="Single Owner">Single Owner</option>
                         <option value="Multiple Owners">Multiple Owners</option>
                         @endif
