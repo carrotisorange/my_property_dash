@@ -616,7 +616,7 @@
                     <hr>
                    <div class="row">
                      <div class="col">
-                      <a href="/property/all" class="btn btn-secondary btn-user btn-block" ><i class="fas fa-home"></i>Back</a>
+                      <a href="/property/all" class="btn btn-secondary btn-user btn-block" ><i class="fas fa-home"></i> Home</a>
                      
                      </div>
                     
