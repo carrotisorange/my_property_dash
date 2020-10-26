@@ -70,9 +70,9 @@
       <div class="row">
         <div class="col">
           @if ($properties->count() <= 0)
-          <a href="/property/create" class="btn btn-primary btn-user btn-block"> Add </a>
+          <a href="/property/create" class="btn btn-primary btn-user btn-block"> Property </a>
           @else
-          <a title="Upgrade to Pro" href="#/" class="btn btn-secondary btn-user btn-block"> <i class="fas fa-user-lock"></i> Add </a>
+          <a title="Upgrade to Pro to add more properties." href="#/" class="btn btn-secondary btn-user btn-block"> <i class="fas fa-user-lock"></i> Property</a>
           @endif
          {{-- @if(Auth::user()->user_type === 'manager')
           
@@ -85,15 +85,17 @@
        
         <div class="col">
           @if (Auth::user()->user_type === 'manager')
-          <a title="Limited to 5 users only" href="/property/{{ $item->property_id }}/user/create" class="btn btn-warning btn-user btn-block"> <i class="fas fa-user-clock"></i> Users </a>
+            @if($users > 1)
+            <a title="Upgrade to Pro to add more users." href="#/" class="btn btn-warning btn-user btn-block"> <i class="fas fa-user-clock"></i>  User ({{ $users }}/2) </a>
+            @else
+            <a title="Limited to 2 users." href="/property/{{ $item->property_id }}/user/create" class="btn btn-warning btn-user btn-block"> <i class="fas fa-user-clock"></i> User ({{ $users }}/2)</a>
+            @endif
           @else
-          <a title="Reserved for manager." href="#/" class="btn btn-warning btn-user btn-block"> <i class="fas fa-user-clock"></i> Users </a>
+          <a title="Reserved for manager." href="#/" class="btn btn-warning btn-user btn-block"> <i class="fas fa-user-clock"></i>  User ({{ $users }}/2) </a>
           @endif
-
         </div>
        
         <div class="col">
-           
           <button type="submit" class="btn btn-success btn-user btn-block" onclick="this.form.submit(); this.disabled = true;"><i class="far fa-hand-point-up"></i> Manage</button>
         </div>
         @endif

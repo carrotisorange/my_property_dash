@@ -65,6 +65,10 @@ Route::put('/property/{property_id}/home/{unit_id}/tenant/{tenant_id}/approve', 
 
 //routes for owners
 Route::get('/property/{property_id}/owners', 'OwnerController@index')->middleware(['auth', 'verified']);
+Route::get('/property/{property_id}/owner/{owner_id}/edit', 'OwnerController@edit')->middleware(['auth', 'verified']);
+Route::get('/property/{property_id}/owner/{owner_id}', 'OwnerController@show')->middleware(['auth', 'verified']);
+Route::put('/property/{property_id}/owner/{owner_id}', 'OwnerController@update')->middleware(['auth', 'verified']);
+Route::post('/property/{property_id}/home/{unit_id}/owner', 'OwnerController@store')->middleware(['auth', 'verified']);
 
 //routes for calendar
 Route::get('/property/{property_id}/calendar', 'CalendarController@index')->middleware(['auth', 'verified']);

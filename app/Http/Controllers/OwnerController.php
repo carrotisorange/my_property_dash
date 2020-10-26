@@ -18,9 +18,8 @@ class OwnerController extends Controller
     public function index($property_id)
     {
         $owners = DB::table('units')
-        ->join('unit_owners', 'unit_id', 'unit_id_foreign')
+        ->join('unit_owners', 'unit_unit_owner_id', 'unit_owner_id')
         ->where('property_id_foreign', $property_id)
-        
         ->get();
 
         $count_owners = DB::table('units')
@@ -63,7 +62,7 @@ class OwnerController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -72,9 +71,27 @@ class OwnerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $property_id, $unit_id)
     {
-        //
+
+
+         $owner_id = DB::table('unit_owners')
+        ->insertGetId
+        (
+            [
+                'unit_owner' => $request->name,
+                'investor_email_address' => $request->email,
+                'investor_contact_no' => $request->mobile
+            ]
+            );
+        
+        DB::table('units')
+        ->where('unit_id', $unit_id)
+        ->update([
+            'unit_unit_owner_id' => $owner_id
+        ]);
+
+        return redirect('/property/'.$property_id.'/owner/'.$owner_id.'/edit')->with('success', 'new owner has been saved!');
     }
 
     /**
@@ -83,35 +100,32 @@ class OwnerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($unit_id,$unit_owner_id)
+    public function show($property_id,$owner_id)
     {
-
         if(auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager'){
-            $investor = UnitOwner::findOrFail($unit_owner_id);
+
+            $owner = UnitOwner::findOrFail($owner_id);
 
             $investor_billings = DB::table('units')
            ->join('unit_owners', 'unit_id', 'unit_unit_owner_id')
            ->join('billings', 'unit_owner_id', 'billing_tenant_id')
            ->get();
 
-           $unit = Unit::findOrFail($unit_id);
-
-           $units = DB::table('unit_owners')
-           ->join('units', 'unit_id_foreign', 'unit_id')
-           ->where('unit_id_foreign', $unit_id)
-           ->get();
+           $units = UnitOwner::findOrFail($owner_id)->units;
   
-           $bills = Billing::leftJoin('payments', 'billings.billing_no', '=', 'payments.payment_billing_no')
-           ->join('tenants', 'billing_tenant_id', 'tenant_id')
+        //    $bills = Billing::leftJoin('payments', 'billings.billing_no', '=', 'payments.payment_billing_no')
+        //    ->join('tenants', 'billing_tenant_id', 'tenant_id')
            
-           ->selectRaw('*, billings.billing_amt - IFNULL(sum(payments.amt_paid),0) as balance')
-           ->where('unit_tenant_id', $unit_id)
-           ->groupBy('billing_id')
-           ->orderBy('billing_no', 'desc')
-           ->havingRaw('balance > 0')
-           ->get();
+        // //    ->selectRaw('*, billings.billing_amt - IFNULL(sum(payments.amt_paid),0) as balance')
+        // //    ->where('unit_tenant_id', $unit_id)
+        // //    ->groupBy('billing_id')
+        // //    ->orderBy('billing_no', 'desc')
+        // //    ->havingRaw('balance > 0')
+        // //    ->get();
+    
+        $property = Property::findOrFail($property_id);
    
-            return view('webapp.owners.show-investor', compact('investor','unit', 'units', 'bills'));
+            return view('webapp.owners.show-investor', compact('owner','units','property'));
         }else{
             return view('website.unregistered');
         }
@@ -126,13 +140,13 @@ class OwnerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($unit_id,$unit_owner_id)
+    public function edit($property_id,$owner_id)
     {
-        $investor = UnitOwner::findOrFail($unit_owner_id);
+        $owner = UnitOwner::findOrFail($owner_id);
 
-        $unit = Unit::findOrFail($unit_id);
+        $property = Property::findOrFail($property_id);
         
-        return view('webapp.owners.edit-investor', compact('investor','unit'));
+        return view('webapp.owners.edit-investor', compact('owner', 'property'));
     }
 
     /**
@@ -142,11 +156,11 @@ class OwnerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $unit_id, $unit_owner_id)
+    public function update(Request $request, $property_id, $owner_id)
     {
 
         DB::table('unit_owners')
-        ->where('unit_owner_id',$unit_owner_id )
+        ->where('unit_owner_id',$owner_id )
         ->update([
             'unit_owner' => $request->unit_owner,
             'investor_contact_no' => $request->investor_contact_no,
@@ -158,13 +172,7 @@ class OwnerController extends Controller
             'investment_type' => $request->investment_type
         ]);
 
-        DB::table('units')
-        ->where('unit_id', $unit_id)
-        ->update([
-            'date_accepted' => $request->date_accepted,
-        ]);
-
-        return redirect('/units/'.$unit_id.'#owners')->with('success', 'changes have been saved!');
+        return redirect('/property/'.$property_id.'/owner/'.$owner_id)->with('success', 'changes have been saved!');
     }
 
     /**

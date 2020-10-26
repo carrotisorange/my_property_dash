@@ -203,9 +203,9 @@
            @foreach ($owners as $item)
            <tr>
              <th>{{ $ctr++ }}</th>
-            <td><a href="{{ route('show-investor',['unit_id'=> $item->unit_id, 'unit_owner_id'=>$item->unit_owner_id]) }}">{{ $item->unit_owner }} </a></td>
+            <td><a href="/property/{{ $property->property_id }}/owner/{{ $item->unit_owner_id }}">{{ $item->unit_owner }} </a></td>
                
-               <td><a href="/units/{{ $item->unit_id }}">{{ $item->building.' '.$item->unit_no }}</a></td>
+               <td><a href="/property/{{ $property->property_id }}/home/{{ $item->unit_id_foreign }}">{{ $item->building.' '.$item->unit_no }}</a></td>
                
               
                <td>{{ $item->investor_email_address}}</td>

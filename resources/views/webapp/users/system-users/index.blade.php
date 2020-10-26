@@ -18,7 +18,7 @@
 <form   class="user" action="/property/select" method="POST">
     @csrf
       <div class="text-center">
-        <h1 class="h4 text-gray-900 mb-4">System Users ({{ $users->count() }}/5)</h1>
+        <h1 class="h4 text-gray-900 mb-4">Users</h1>
       </div>
       <div class="row">
           <div class="table-responsive text-nowrap">

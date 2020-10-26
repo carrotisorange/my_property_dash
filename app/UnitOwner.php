@@ -28,6 +28,6 @@ class UnitOwner extends Model
 
     public function units()
     {
-        return $this->belongsToMany('App\Unit');
+        return $this->hasMany('App\Unit', 'unit_unit_owner_id');
     }
 }

@@ -487,9 +487,11 @@
         
         <div class="tab-pane fade" id="owners" role="tabpanel" aria-labelledby="nav-owners-tab">
           
-        <a href="#/" data-toggle="modal" data-target="#addInvestor" data-whatever="@mdo" type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-          <i class="fas fa-user-plus fa-sm text-white-50"></i> Add
-        </a>   
+     @if($owners->count() <= 0)
+     <a href="#/" data-toggle="modal" data-target="#addInvestor" data-whatever="@mdo" type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+      <i class="fas fa-user-plus fa-sm text-white-50"></i> Add
+    </a>   
+     @endif
         <div class="col-md-12 mx-auto">
   
       <br>
@@ -509,7 +511,7 @@
                   @foreach ($owners as $item)
                   <tr>
                     <th>{{ $ctr++ }}</th>
-                     <td><a href="{{ route('show-investor',['unit_id'=> $item->unit_id_foreign, 'unit_owner_id'=>$item->unit_owner_id]) }}">{{ $item->unit_owner }} </a></td>
+                     <td><a href="/property/{{ $property->property_id }}/owner/{{ $item->unit_owner_id }}">{{ $item->unit_owner }} </a></td>
               
                     <td>{{ $item-> investor_email_address}}</td>
                     <td>{{ $item->investor_contact_no }}</td>
@@ -622,8 +624,8 @@
             <span aria-hidden="true">&times;</span>
         </button>
         </div>
-        <form id="addInvestorForm" action="/units" method="POST">
-            {{ csrf_field() }}
+        <form id="addInvestorForm" action="/property/{{ $property->property_id }}/home/{{ $home->unit_id }}/owner" method="POST">
+            @csrf
         </form>
         <div class="modal-body">
             <input form="addInvestorForm" type="hidden" value="{{ $home->unit_id }}" name="unit_id">
@@ -631,19 +633,19 @@
   
             <div class="form-group">
             <small>Name</small>
-            <input form="addInvestorForm" type="text"  value="{{ $home->unit_owner }}" class="form-control" name="unit_owner" id="unit_owner" required>
+            <input form="addInvestorForm" type="text"  value="{{ $home->unit_owner }}" class="form-control" name="name" id="name" required>
             </div>
             <div class="form-group">
                 <small>Email</small>
-                <input form="addInvestorForm" type="email" class="form-control" name="investor_email_address" id="investor_email_address" required>
+                <input form="addInvestorForm" type="email" class="form-control" name="email" id="email" required>
             </div>
             <div class="form-group">
                 <small>Mobile</small>
-                <input form="addInvestorForm" type="text" class="form-control" name="investor_contact_no" id="contact_no">
+                <input form="addInvestorForm" type="text" class="form-control" name="mobile" id="contact_no">
             </div>            
         </div>
         <div class="modal-footer">
-        {{-- <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button> --}}
+        <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button>
         <button type="submit" form="addInvestorForm" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="this.form.submit(); this.disabled = true;"><i class="fas fa-check fa-sm text-white-50"></i> Submit</button>  
         </div>
     </div>

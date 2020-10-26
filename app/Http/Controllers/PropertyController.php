@@ -30,6 +30,7 @@ class PropertyController extends Controller
                 $users = DB::table('users_properties_relations')
                 ->join('users', 'user_id_foreign', 'id')
                 ->where('user_id_foreign', Auth::user()->id)
+                ->orWhere('lower_access_user_id', Auth::user()->id)
                 ->count();
 
         return view('webapp.properties.index', compact('properties', 'users')); 

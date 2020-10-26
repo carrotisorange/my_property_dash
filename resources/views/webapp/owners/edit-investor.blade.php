@@ -1,198 +1,222 @@
-@extends('templates.webapp.template')
+@extends('templates.webapp-new.template')
 
-@section('title', $investor->unit_owner.' | Edit')
+@section('title', $owner->unit_owner)
 
 @section('sidebar')
-   
-      
-           <!-- Heading -->
-      
-          <!-- Nav Item - Pages Collapse Menu -->
-          <li class="nav-item">
-                <a class="nav-link" href="/board">
-                  <i class="fas fa-fw fa-tachometer-alt"></i>
-                  <span>Dashboard</span></a>
-              </li>
-      
-            <hr class="sidebar-divider">
-      
-            <div class="sidebar-heading">
-              Interface
-            </div>  
-            @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' )
-          <li class="nav-item">
-            <a class="nav-link" href="/home">
-              <i class="fas fa-home"></i>
-              <span>Home</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/calendar">
-              <i class="fas fa-calendar-alt"></i>
-              <span>Calendar</span></a>
-          </li>
-          @endif
-        
-          @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'treasury')
+  <!-- Sidenav -->
+  <nav class="sidenav navbar navbar-vertical  fixed-left  navbar-expand-xs navbar-light bg-white" id="sidenav-main">
+    <div class="scrollbar-inner">
+      <!-- Brand -->
+      <div class="sidenav-header  align-items-center">
+        <a class="navbar-brand" href="javascript:void(0)">
+          {{-- <img src="{{ asset('/argon/assets/img/brand/logo.png') }}" class="navbar-brand-img" alt="...">--}}{{ $property->name }} 
+        </a>
+      </div>
+      <div class="navbar-inner">
+        <!-- Collapse -->
+        <div class="collapse navbar-collapse" id="sidenav-collapse-main">
+          <!-- Nav items -->
+          <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link" href="/tenants">
-                <i class="fas fa-users fa-chart-area"></i>
-                <span>Tenants</span></a>
+              <a class="nav-link" href="/property/{{$property->property_id }}/dashboard">
+                <i class="fas fa-tachometer-alt text-orange"></i>
+                <span class="nav-link-text">Dashboard</span>
+              </a>
+            </li>
+            @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' )
+            <li class="nav-item">
+              <a class="nav-link" href="/property/{{$property->property_id }}/home">
+                <i class="fas fa-home text-indigo"></i>
+                <span class="nav-link-text">Home</span>
+              </a>
             </li>
             @endif
-      
-       @if((Auth::user()->user_type === 'admin' && Auth::user()->property_ownership === 'Multiple Owners') || (Auth::user()->user_type === 'manager' && Auth::user()->property_ownership === 'Multiple Owners'))
-        <!-- Nav Item - Tables -->
-        <li class="nav-item active">
-            <a class="nav-link" href="/owners">
-            <i class="fas fa-user-tie"></i>
-            <span>Owners</span></a>
-        </li>
-         @endif
-      
-         <!-- Nav Item - Tables -->
-        <li class="nav-item">
-            <a class="nav-link" href="/concerns">
-          <i class="far fa-comment-dots"></i>
-              <span>Concerns</span></a>
-        </li>
-    
-        @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' )
-        <li class="nav-item">
-            <a class="nav-link" href="/joborders">
-              <i class="fas fa-tools fa-table"></i>
-              <span>Job Orders</span></a>
-        </li>
-        @endif
-      
-             <!-- Nav Item - Tables -->
-        @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' )
-          <li class="nav-item">
-            <a class="nav-link collapsed" href="/personnels" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-              <i class="fas fa-user-cog"></i>
-                <span>Personnels</span>
-              </a>
-              <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                  <a class="collapse-item" href="/housekeeping">Housekeeping</a>
-                  <a class="collapse-item" href="/maintenance">Maintenance</a>
-                </div>
-              </div>
-            </li>
-        @endif
-      
-           @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'manager')
-            <!-- Nav Item - Tables -->
             <li class="nav-item">
-              <a class="nav-link" href="/bills">
-                <i class="fas fa-file-invoice-dollar fa-table"></i>
-                <span>Bills</span></a>
+              <a class="nav-link" href="/property/{{$property->property_id }}/calendar">
+                <i class="fas fa-calendar-alt text-red"></i>
+                <span class="nav-link-text">Calendar</span>
+              </a>
             </li>
-           @endif
-      
-           @if(Auth::user()->user_type === 'treasury' || Auth::user()->user_type === 'manager')
-              <li class="nav-item">
-              <a class="nav-link" href="/collections">
-                <i class="fas fa-file-invoice-dollar"></i>
-                <span>Collections</span></a>
+            @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'treasury')
+            <li class="nav-item">
+              <a class="nav-link" href="/property/{{$property->property_id }}/tenants">
+                <i class="fas fa-user text-green"></i>
+                <span class="nav-link-text">Tenants</span>
+              </a>
             </li>
+          
+            <li class="nav-item">
+              <a class="nav-link active" href="/property/{{$property->property_id }}/owners">
+                <i class="fas fa-user-tie text-teal"></i>
+                <span class="nav-link-text">Owners</span>
+              </a>
+            </li>
+            @endif
 
             <li class="nav-item">
-              <a class="nav-link" href="/financials">
-                <i class="fas fa-coins"></i>
-                <span>Financials</span></a>
+              <a class="nav-link" href="/property/{{$property->property_id }}/concerns">
+                <i class="fas fa-tools text-cyan"></i>
+                <span class="nav-link-text">Concerns</span>
+              </a>
+            </li>
+            @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' )
+            <li class="nav-item">
+              <a class="nav-link" href="/property/{{$property->property_id }}/joborders">
+                <i class="fas fa-list text-dark"></i>
+                <span class="nav-link-text">Job Orders</span>
+              </a>
+            </li>
+           
+            <li class="nav-item">
+              <a class="nav-link" href="/property/{{$property->property_id }}}/personnels">
+                <i class="fas fa-user-secret text-gray"></i>
+                <span class="nav-link-text">Personnels</span>
+              </a>
             </li>
             @endif
-      
-               @if(Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'ap' || Auth::user()->user_type === 'admin')
+
+            @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'manager')
             <li class="nav-item">
-            <a class="nav-link" href="/payables">
-            <i class="fas fa-hand-holding-usd"></i>
-              <span>Payables</span></a>
-          </li>
-          @endif
-      
-          @if(Auth::user()->user_type === 'manager')
-           <!-- Nav Item - Tables -->
-           <li class="nav-item">
-            <a class="nav-link" href="/users">
-              <i class="fas fa-user-circle"></i>
-              <span>Users</span></a>
-          </li>
-          @endif
-          
+              <a class="nav-link" href="/property/{{$property->property_id }}/bills">
+                <i class="fas fa-file-invoice-dollar text-pink"></i>
+                <span class="nav-link-text">Bills</span>
+              </a>
+            </li>
+            @endif
+            @if(Auth::user()->user_type === 'treasury' || Auth::user()->user_type === 'manager')
+            <li class="nav-item">
+              <a class="nav-link" href="/property/{{$property->property_id }}/collections">
+                <i class="fas fa-coins text-yellow"></i>
+                <span class="nav-link-text">Collections</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/property/{{$property->property_id }}/financials">
+                <i class="fas fa-chart-line text-purple"></i>
+                <span class="nav-link-text">Financials</span>
+              </a>
+            </li>
+            @endif
+            @if(Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'ap' || Auth::user()->user_type === 'admin')
+            <li class="nav-item">
+              <a class="nav-link" href="/property/{{$property->property_id }}/payables">
+                <i class="fas fa-file-export text-indigo"></i>
+                <span class="nav-link-text">Payables</span>
+              </a>
+            </li>
+            @endif
+            <li class="nav-item">
+              <a class="nav-link" href="/property/{{$property->property_id }}/users">
+                <i class="fas fa-user-circle text-green"></i>
+                <span class="nav-link-text">Users</span>
+              </a>
+            </li>
+          </ul>
           <!-- Divider -->
-          <hr class="sidebar-divider d-none d-md-block">
-      
-          <!-- Sidebar Toggler (Sidebar) -->
-          <div class="text-center d-none d-md-inline">
-            <button class="rounded-circle border-0" id="sidebarToggle"></button>
-          </div>
-    
+          <hr class="my-3">
+          <!-- Heading -->
+          <h6 class="navbar-heading p-0 text-muted">
+            <span class="docs-normal">Documentation</span>
+          </h6>
+          <!-- Navigation -->
+          <ul class="navbar-nav mb-md-3">
+            <li class="nav-item">
+              <a class="nav-link" href="/getting-started" target="_blank">
+                <i class="ni ni-spaceship"></i>
+                <span class="nav-link-text">Getting started</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/system-updates" target="_blank">
+                <i class="fas fa-bug text-red"></i>
+                <span class="nav-link-text">System Updates</span>
+              </a>
+            </li>
+          <li class="nav-item">
+              <a class="nav-link" href="announcements" target="_blank">
+                <i class="fas fa-microphone text-purple"></i>>
+                <span class="nav-link-text">Annoncements</span>
+              </a>
+            </li>
+             {{--  <li class="nav-item">
+              <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/plugins/charts.html" target="_blank">
+                <i class="ni ni-chart-pie-35"></i>
+                <span class="nav-link-text">Plugins</span>
+              </a>
+            </li> --}}
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
 @endsection
 
-@section('content')
-<ol class="breadcrumb">
-  <li class="breadcrumb-item"><a href="/units/{{ $unit->unit_id}}">{{ $unit->building.' '.$unit->unit_no }}</a></li>
-  <li class="breadcrumb-item">Owner </li>
-</ol>
+@section('upper-content')
+<div class="row align-items-center py-4">
+  <div class="col-lg-6 col-7">
+    <h6 class="h2 text-dark d-inline-block mb-0">{{ $owner->unit_owner }}</h6>
+    
+  </div>
 
-<!-- 404 Error Text -->
-<form id="editInvestorForm" action="/units/{{ $unit->unit_id }}/owners/{{ $investor->unit_owner_id }}" method="POST">
+</div>
+<div class="row">
+  <form id="editInvestorForm" action="/property/{{ $property->property_id }}/owner/{{ $owner->unit_owner_id }}" method="POST">
     @method('put')
-    {{ csrf_field() }}
+    @csrf
 </form>
-            <div class="form-group row">
+
                 <div class="col">
                     <small>Name</small>
-                    <input form="editInvestorForm" class="form-control" type="text" name="unit_owner" value="{{ $investor->unit_owner }}" >
+                    <input form="editInvestorForm" class="form-control" type="text" name="unit_owner" value="{{ $owner->unit_owner }}" >
                 </div>
                
               <div class="col">
                 <small>Mobile</small>
-                <input form="editInvestorForm" class="form-control" type="text" name="investor_contact_no" value="{{ $investor->investor_contact_no }}" >
+                <input form="editInvestorForm" class="form-control" type="text" name="investor_contact_no" value="{{ $owner->investor_contact_no }}" >
             </div>
             <div class="col">
               <small>Email</small>
-              <input form="editInvestorForm" class="form-control" type="emailf" name="investor_email_address" value="{{ $investor->investor_email_address }}" >
+              <input form="editInvestorForm" class="form-control" type="emailf" name="investor_email_address" value="{{ $owner->investor_email_address }}" >
           </div>  
-               
+            
             </div>
-
-            <div class="form-group row">
+            <br>
+            <div class="row">
               
           <div class="col">
             <small>Address</small>
-            <input form="editInvestorForm" class="form-control" type="text" name="investor_address" value="{{ $investor->investor_address }}" >
+            <input form="editInvestorForm" class="form-control" type="text" name="investor_address" value="{{ $owner->investor_address }}" >
         </div>  
              
           </div>
-
-          <div class="form-group row">
+<br>
+          <div class="row">
               
             <div class="col">
               <small>Authorized Representative</small>
-              <input form="editInvestorForm" class="form-control" type="text" name="investor_representative" value="{{ $investor->investor_representative }}" >
+              <input form="editInvestorForm" class="form-control" type="text" name="investor_representative" value="{{ $owner->investor_representative }}" >
           </div>  
                
             </div>
             <hr>
 
-            <div class="form-group row">
+            <div class="row">
               
               <div class="col">
                 <small>Date Accepted</small>
-                <input form="editInvestorForm" class="form-control" type="date" name="date_accepted" value="{{ $unit->date_accepted }}" >
+                <input form="editInvestorForm" class="form-control" type="date" name="date_accepted" value="" >
             </div>  
             
              <div class="col">
                 <small>Purchase Amount</small>
-                <input form="editInvestorForm" class="form-control" type="number" min="1" step="0.01" name="investment_price" value="{{ $investor->investment_price }}" >
+                <input form="editInvestorForm" class="form-control" type="number" min="1" step="0.01" name="investment_price" value="{{ $owner->investment_price }}" >
             </div>  
 
             <div class="col">
               <small>Payment Option</small>
               <select name="investment_type" id=""  form="editInvestorForm" class="form-control" >
-                  <option value="{{ $investor->investment_type }}">{{ $investor->investment_type }}</option>
+                  <option value="{{ $owner->investment_type }}">{{ $owner->investment_type }}</option>
                   <option value="Full Cash">Full Cash</option>
                   <option value="Full Downpayment">Full Downpayment</option>
                   <option value="Installment">Installment</option>
@@ -200,19 +224,29 @@
           </div>  
                  
               </div>
-     
-           
+     <br>
+         <div class="row">
+         <div class="col">
+          <p class="text-right">   
+            <a href="/property/{{ $property->property_id}}/owner/{{ $owner->unit_owner_id }}" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</a>
+            <button type="submit" form="editInvestorForm" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" ><i class="fas fa-check fa-sm text-white-50"></i> Save Changes</button>
+        </p>   
+         </div>
+        </div>  
   
 
 
-<p class="text-right">   
-    <a href="/units/{{ $unit->unit_id}}/owners/{{ $investor->unit_owner_id }}" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</a>
-    <button type="submit" form="editInvestorForm" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" ><i class="fas fa-check fa-sm text-white-50"></i> Save Changes</button>
-</p>
+
+</div>
+
+@endsection
+
+@section('main-content')
+
 @endsection
 
 @section('scripts')
-
+  
 @endsection
 
 
