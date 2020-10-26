@@ -96,7 +96,7 @@
         </div>
        
         <div class="col">
-          <button type="submit" class="btn btn-success btn-user btn-block" onclick="this.form.submit(); this.disabled = true;"><i class="fas fa-laptop-house"></i> Manage</button>
+          <button type="submit" class="btn btn-success btn-user btn-block" onclick="this.form.submit(); this.disabled = true;"><<i class="fas fa-hand-point-up"></i> Manage</button>
         </div>
         @endif
         
