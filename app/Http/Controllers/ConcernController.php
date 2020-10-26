@@ -61,6 +61,7 @@ class ConcernController extends Controller
                 'concern_qty' => $request->concern_qty,
                 'concern_status' => 'pending',
                 'concern_user_id' => $request->concern_user_id,
+                'concern_personnel_id' => 1,
                 'is_paid' => 'unpaid',
             ]);
 
