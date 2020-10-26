@@ -58,6 +58,11 @@ class HomeController extends Controller
        
         if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager'){
 
+            $users = DB::table('users_properties_relations')
+            ->join('users', 'user_id_foreign', 'id')
+            ->where('property_id_foreign', $property_id)
+            ->get();
+
             $home = Unit::findOrFail($unit_id);
 
             $property = Property::findOrFail($property_id);
@@ -96,7 +101,7 @@ class HomeController extends Controller
             
 
                 // if(Auth::user()->property_type === 'Apartment Rentals' || Auth::user()->property_type === 'Dormitory'){
-                    return view('webapp.home.show-home',compact('property','home', 'owners', 'tenant_active', 'tenant_inactive', 'tenant_reserved', 'bills', 'concerns'));
+                    return view('webapp.home.show-home',compact('users','property','home', 'owners', 'tenant_active', 'tenant_inactive', 'tenant_reserved', 'bills', 'concerns'));
                 // }
                 // else{
                 //     return view('webapp.home.show-unit',compact('unit', 'unit_owner', 'tenant_active', 'tenant_inactive', 'tenant_reservations', 'bills', 'concerns'));
