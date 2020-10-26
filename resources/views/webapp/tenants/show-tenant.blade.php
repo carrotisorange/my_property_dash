@@ -704,8 +704,8 @@
                                   <option value="" selected>Please select one</option>
                                   <option value="minor and not urgent">minor and not urgent</option>
                                   <option value="minor but urgent">minor but urgent</option>
-                                  <option value="major and not urgent">major and not urgent</option>
                                   <option value="major but not urgent">major but not urgent</option>
+                                  <option value="major and urgent">major and urgent</option>
                                 </select>
                             </div>
                         </div>
