@@ -101,7 +101,7 @@
     
 
     <!-- Logout Modal-->
-    @include('templates.webapp.logout')
+    @include('templates.webapp-new.logout')
 
   <!-- Bootstrap core JavaScript-->
   <script src="{{ asset('/dashboard/vendor/jquery/jquery.min.js') }}"></script>

@@ -65,12 +65,22 @@
                   Profile
                 </a> --}}
                
-                <div class="dropdown-divider"></div>
+                {{-- <div class="dropdown-divider"></div> --}}
                 <a class="dropdown-item" href="#logoutModal" data-toggle="modal" data-target="#logoutModal">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                   Logout
                 </a>
               </div>
+            </li>
+            @else
+            <li class="nav-item dropdown no-arrow">
+              <a class="nav-link dropdown-toggle" href="/register" >
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small text-primary">
+                 
+                    Register
+                </span>
+     
+              </a>
             </li>
             @endif
           </ul>

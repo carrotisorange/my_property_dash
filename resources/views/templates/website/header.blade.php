@@ -54,7 +54,7 @@
               <span>Support</span>
             </a> --}}
             <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
               <i class="ni ni-user-run"></i>
               <span>Logout</span>
             </a>
@@ -65,3 +65,4 @@
           </div>
         </div>
       </nav>
+
