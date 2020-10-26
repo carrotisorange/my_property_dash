@@ -55,19 +55,19 @@
       
          <div class="col">
         
-            <a href="/property/all/" class="btn btn-primary btn-user btn-block"> Properties </a>
+            <a href="/property/all/" class="btn btn-primary btn-user btn-block"><i class="fas fa-home"></i> Home </a>
         
         </div>
 
         <div class="col">
         
-            <a href="/property/{{ $property->property_id }}/user/all" class="btn btn-warning btn-user btn-block"> Users </a>
+            <a href="/property/{{ $property->property_id }}/user/all" class="btn btn-warning btn-user btn-block"> <i class="fas fa-users"></i>Users </a>
         
         
         </div>
         <div class="col">
 
-            <a href="/property/{{ $property->property_id }}/user/create" class="btn btn-success btn-user btn-block"> Add More </a>
+            <a href="/property/{{ $property->property_id }}/user/create" class="btn btn-success btn-user btn-block"> <i class="fas fa-plus-circle"></i>Users </a>
         
           </div>
 
