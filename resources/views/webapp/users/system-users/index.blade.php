@@ -49,15 +49,14 @@
        
       
         <div class="col">
-       
-           <a href="/property/all/" class="btn btn-success btn-user btn-block"> Properties </a>
+           <a href="/property/all/" class="btn btn-success btn-user btn-block"> <i class="fas fa-home"></i> Home</a>
        
        </div>
 
       
        <div class="col">
 
-        <a href="/property/{{ $property->property_id }}/user/create" class="btn btn-primary btn-user btn-block"> Add More </a>
+        <a href="/property/{{ $property->property_id }}/user/create" class="btn btn-primary btn-user btn-block"><i class="fas fa-users"></i> Users </a>
     
     </div>
 
