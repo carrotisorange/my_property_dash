@@ -92,8 +92,7 @@ class PropertyController extends Controller
         ->join('units', 'unit_id', 'unit_tenant_id')
         ->where('property_id_foreign', $property_id)
         ->whereRaw("concat(first_name, ' ', last_name) like '%$search_key%' ")
-        ->orWhereRaw("email_address like '%$search_key%' ")
-        ->orWhereRaw("contact_no like '%$search_key%' ")
+       
         ->get();
 
         $units = DB::table('units')
