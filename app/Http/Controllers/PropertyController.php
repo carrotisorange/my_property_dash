@@ -95,6 +95,13 @@ class PropertyController extends Controller
        
         ->get();
 
+        $emails = DB::table('tenants')
+        ->join('units', 'unit_id', 'unit_tenant_id')
+        ->where('property_id_foreign', $property_id)
+        ->whereRaw("email_address like '%$search_key%' ")
+        ->orWhereRaw("contact_no like '%$search_key%' ")
+        ->get();
+
         $units = DB::table('units')
         ->where('property_id_foreign', $property_id)
         ->whereRaw("unit_no like '%$search_key%' ")
@@ -110,7 +117,7 @@ class PropertyController extends Controller
         $property = Property::findOrFail($property_id);
     
 
-        return view('webapp.properties.search', compact('property','search_key', 'tenants', 'units', 'owners'));
+        return view('webapp.properties.search', compact('property','search_key', 'tenants', 'units', 'owners', 'emails'));
     }
 
         /**

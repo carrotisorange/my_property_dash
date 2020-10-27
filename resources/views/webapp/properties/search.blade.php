@@ -183,6 +183,16 @@
                 <td>{{ $tenant->moveout_date }}</td>
                 <td>{{ $tenant->tenant_monthly_rent }}</td>
             </tr>
+            @foreach ($emails as $tenant)
+            <tr>
+                <td>{{ $tenant->first_name.' '.$tenant->middle_name.' '.$tenant->last_name }}</td>
+                <td>{{ $tenant->email_address }}</td>
+                <td>{{ $tenant->contact_no }}</td>
+                <td>{{ $tenant->tenant_status }}</td>
+                <td>{{ $tenant->movein_date }}</td>
+                <td>{{ $tenant->moveout_date }}</td>
+                <td>{{ $tenant->tenant_monthly_rent }}</td>
+            </tr>
             @endforeach
          </table>
 
