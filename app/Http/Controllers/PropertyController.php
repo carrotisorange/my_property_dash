@@ -32,7 +32,8 @@ class PropertyController extends Controller
                 // ->where('user_id_foreign', Auth::user()->id)
                 // ->orWhere('lower_access_user_id', Auth::user()->id)
                 // ->count();
-                   $users = User::findOrFail(Auth::user()->id)->users->count();
+
+                $users = User::findOrFail(Auth::user()->id)->users->count();
 
                 $existing_users = DB::table('users')->where('property', Auth::user()->property)
                 ->where('id','<>',Auth::user()->id )
