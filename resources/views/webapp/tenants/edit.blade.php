@@ -121,20 +121,20 @@
           <!-- Navigation -->
           <ul class="navbar-nav mb-md-3">
             <li class="nav-item">
-              <a class="nav-link" href="/getting-started" target="_blank">
+              <a class="nav-link" href="/property/{{ $property->property_id }}/getting-started" target="_blank">
                 <i class="ni ni-spaceship"></i>
                 <span class="nav-link-text">Getting started</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/system-updates" target="_blank">
+              <a class="nav-link" href="/property/{{ $property->property_id }}/system-updates" target="_blank">
                 <i class="fas fa-bug text-red"></i>
                 <span class="nav-link-text">System Updates</span>
               </a>
             </li>
           <li class="nav-item">
-              <a class="nav-link" href="announcements" target="_blank">
-                <i class="fas fa-microphone text-purple"></i>>
+              <a class="nav-link" href="/property/{{ $property->property_id }}/announcements" target="_blank">
+                <i class="fas fa-microphone text-purple"></i>
                 <span class="nav-link-text">Annoncements</span>
               </a>
             </li>
