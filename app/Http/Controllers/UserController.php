@@ -442,7 +442,7 @@ class UserController extends Controller
        return  $users = DB::table('users_properties_relations')
         ->join('users', 'user_id_foreign', 'id')
 
-        ->orWhere('lower_access_user_id', Auth::user()->id)
+        ->where('lower_access_user_id', Auth::user()->id)
         ->get();
 
         $property = Property::findOrFail($property_id);
