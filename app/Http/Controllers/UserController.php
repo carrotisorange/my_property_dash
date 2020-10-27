@@ -422,11 +422,7 @@ class UserController extends Controller
 
     public function create_system_user($property_id){
 
-        $users = DB::table('users_properties_relations')
-        ->join('users', 'user_id_foreign', 'id')
-        ->where('property_id_foreign', $property_id)
-        ->orWhere('lower_access_user_id', Auth::user()->id)
-        ->count();
+        $users = User::findOrFail(Auth::user()->id)->users->count();
 
         if($users > 1){
             return back()->with('danger', 'Exceeded your limit for adding users. Upgrade to Pro to add more users.');
