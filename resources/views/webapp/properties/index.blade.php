@@ -108,9 +108,7 @@
       @if (Auth::user()->user_type === 'manager')
       <div class="row">
         <div class="col">
-         
-        
-            <a class="btn btn-success btn-user btn-block" href="/asa" >Import {{ $existing_users }} existing users.</a>
+            <a class="btn btn-info btn-user btn-block" href="/asa" >Import {{ $existing_users }} existing users.</a>
       
         </div>
       </div>

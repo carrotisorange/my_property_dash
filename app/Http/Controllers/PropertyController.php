@@ -98,7 +98,7 @@ class PropertyController extends Controller
     {
         $request->validate([
             'property_id' => Uuid::generate()->string,
-            'name' => 'required|unique:properties|max:255',
+            'name' => 'required|max:255',
             'type' => 'required',
           
             'ownership' => 'required',
