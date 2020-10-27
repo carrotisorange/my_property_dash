@@ -421,15 +421,10 @@ class UserController extends Controller
     }
 
     public function create_system_user($property_id){
-
-        $users = User::findOrFail(Auth::user()->id)->users->count();
-
-        if($users > 1){
-            return back()->with('danger', 'Exceeded your limit for adding users. Upgrade to Pro to add more users.');
-        }else{
+        
+            // return back()->with('danger', 'Exceeded your limit for adding users. Upgrade to Pro to add more users.');
             $property = Property::findOrFail($property_id);
             return view('webapp.users.system-users.create', compact('property'));
-        }
 
     }
 
