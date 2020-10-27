@@ -23,7 +23,6 @@ class DashboardController extends Controller
     public function index($property_id)
     {
 
-
 $pending_concerns = DB::table('tenants')
 ->join('units', 'unit_id', 'unit_tenant_id')
 ->join('concerns', 'tenant_id', 'concern_tenant_id')
@@ -646,7 +645,7 @@ $collections_for_the_day = DB::table('units')
 
 $property = Property::findOrFail($property_id);
 
-// if(Auth::user()->property_type === 'Apartment Rentals' || Auth::user()->property_type === 'Dormitory'){
+
     return view('webapp.properties.show',
     compact(
     'units', 'units_occupied','units_vacant', 'units_reserved',
@@ -657,6 +656,9 @@ $property = Property::findOrFail($property_id);
     'current_occupancy_rate', 'property','collection_rate_12'
             )
     );
+
+// if(Auth::user()->property_type === 'Apartment Rentals' || Auth::user()->property_type === 'Dormitory'){
+   
     }
 
     /**

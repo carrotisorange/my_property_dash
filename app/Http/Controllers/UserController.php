@@ -476,7 +476,8 @@ class UserController extends Controller
             'password' => Hash::make($request->password),
             'created_at' => Carbon::now(),
             'account_type' => 'Free',
-            'lower_access_user_id' => Auth::user()->id
+            'lower_access_user_id' => Auth::user()->id,
+            'trial_ends_at' => Auth::user()->trial_ends_at,
         ]);
 
         DB::table('users_properties_relations')
