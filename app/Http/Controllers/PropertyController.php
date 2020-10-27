@@ -25,7 +25,7 @@ class PropertyController extends Controller
     public function index()
     {
             if(Auth::user()->user_type == 'manager'){
-                $properties = User::findOrFail(Auth::user()->id)->properties->units;
+                $properties = User::findOrFail(Auth::user()->id)->properties;
                 // $units = DB::table('users_properties_relations')
                 // ->join('properties', 'property_id_foreign', 'property_id')
                 // ->join('units', 'users_properties_relations.property_id_foreign', 'units.property_id_foreign')
@@ -124,7 +124,7 @@ class PropertyController extends Controller
         $property = Property::findOrFail($property_id);
     
 
-        return view('webapp.properties.search', compact('property','search_key', 'tenants', 'units', 'owners', 'emails', 'mobiles));
+        return view('webapp.properties.search', compact('property','search_key', 'tenants', 'units', 'owners', 'emails', 'mobiles'));
     }
 
         /**
