@@ -645,7 +645,6 @@ $collections_for_the_day = DB::table('units')
 
 $property = Property::findOrFail($property_id);
 
-
     return view('webapp.properties.show',
     compact(
     'units', 'units_occupied','units_vacant', 'units_reserved',
@@ -657,6 +656,8 @@ $property = Property::findOrFail($property_id);
             )
     );
 
+    
+}
 // if(Auth::user()->property_type === 'Apartment Rentals' || Auth::user()->property_type === 'Dormitory'){
    
     }
