@@ -440,7 +440,7 @@ class UserController extends Controller
     public function index_system_user($property_id){
        
          $users = DB::table('users_properties_relations')
-        ->join('users', 'user_id_foreign', 'id')
+        ->join('properties', 'property_id_foreign', 'property_id')
         ->where('property_id_foreign', $property_id)
         ->orWhere('lower_access_user_id', 36)
         ->get();
