@@ -1,6 +1,6 @@
 @extends('templates.webapp-new.dashboard')
 
-@section('title', 'Users')
+@section('title', $user->name)
 
 @section('sidebar')
    
