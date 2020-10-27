@@ -165,6 +165,7 @@
         <p><span class="font-weight-bold">{{ $tenants->count()+$emails->count() }}</span> matched for tenants...</p>
         <table class="table">
             <tr>
+                <th>#</th>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Mobile</th>
@@ -173,8 +174,10 @@
                 <th>Move out date</th>
                 <th>Monthly rent</th>
             </tr>
+            <?php $tenant_ctr=1;?>
             @foreach ($tenants as $tenant)
             <tr>
+                <th>{{ $tenant_ctr++ }}</th>
                 <td>{{ $tenant->first_name.' '.$tenant->middle_name.' '.$tenant->last_name }}</td>
                 <td>{{ $tenant->email_address }}</td>
                 <td>{{ $tenant->contact_no }}</td>
@@ -186,7 +189,8 @@
             @endforeach
             @foreach ($emails as $tenant)
             <tr>
-                <td>{{ $tenant->first_name.' '.$tenant->middle_name.' '.$tenant->last_name }}</td>
+                <th>{{ $tenant_ctr++ }}</th>
+                <td><a href="/property/{{ $property->property_id }}/home/{{ $tenant->unit_id }}/tenant/{{ $tenant->tenant_id }}">{{ $tenant->first_name.' '.$tenant->middle_name.' '.$tenant->last_name }}</a></td>
                 <td>{{ $tenant->email_address }}</td>
                 <td>{{ $tenant->contact_no }}</td>
                 <td>{{ $tenant->tenant_status }}</td>
@@ -202,6 +206,7 @@
          <p><span class="font-weight-bold">{{ $units->count() }}</span> matched for rooms...</p>
         <table class="table">
             <tr>
+                <th>#</th>
                 <th>Room</th>
                 <th>Building</th>
                 <th>Type</th>
@@ -211,9 +216,11 @@
                 <th>Occupancy</th>
                 <th>Monthly rent</th>
             </tr>
+            <?php $unit_ctr=1;?>
             @foreach ($units as $unit)
             <tr>
-                <td>{{ $unit->unit_no }}</td>
+                <th>{{ $unit_ctr++ }}</th>
+                <td><a href="/property/{{ $property->property_id }}/home/{{ $unit->unit_id }}">{{ $unit->unit_no }}</a></td>
                 <td>{{ $unit->building }}</td>
                 <td>{{ $unit->type_of_units }}</td>
                 <td>{{ $unit->floor_no }}</td>
@@ -230,6 +237,7 @@
          <p><span class="font-weight-bold">{{ $owners->count() }}</span> matched for owners...</p>
         <table class="table">
             <tr>
+                <th>#</th>
                 <th>Owner</th>
                 <th>Room</th>
                 <th>Email</th>
@@ -242,11 +250,11 @@
                 <th>Monthly Rent</th>
                 <th>Status</th>
             </tr>
+            <?php $owner_ctr=1;?>
             @foreach ($owners as $owner)
             <tr>
+                <th>{{ $owner_ctr++ }}</th>
                 <td><a href="/property/{{ $property->property_id }}/home/{{ $owner->unit_id_foreign }}">{{ $owner->building.' '.$owner->unit_no }}</a></td>
-               
-              
                <td>{{ $owner->investor_email_address}}</td>
                <td>{{ $owner->investor_contact_no }}</td>
                <TD>{{ $owner->investor_representative }}</TD>
