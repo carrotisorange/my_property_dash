@@ -387,7 +387,7 @@ class UserController extends Controller
             ->whereDay('session_last_login_at', now()->day)
             ->get();
 
-           
+            $property = Property::findOrFail($property_id);
 
         }
 
