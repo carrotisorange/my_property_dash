@@ -76,7 +76,7 @@
           @if ($properties->count() <= 0)
           <a href="/property/create" class="btn btn-primary btn-user btn-block"><i class="fas fa-plus-circle"></i> Property </a>
           @else
-          <a title="Upgrade to Pro to add more properties." href="#/" class="btn btn-secondary btn-user btn-block"> <i class="fas fas fa-plus-circle"></i> Property</a>
+          <a href="#" data-toggle="modal" data-target="#openProVersion" class="btn btn-secondary btn-user btn-block"> <i class="fas fas fa-plus-circle"></i> Property</a>
           @endif
          {{-- @if(Auth::user()->user_type === 'manager')
           
@@ -165,6 +165,34 @@
       </div>
       
       </div>
+
+      <div class="modal fade" id="openProVersion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+          <h5 class="modal-title text-info" id="exampleModalLabel"><i class="fas fa-exclamation-info"></i> Upgrade to Pro</h5>
+        
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+          </button>
+          </div>
+         <div class="modal-body">
+           <p class="text-center">
+             Would you like to proceed with the payment?
+             <br>
+           
+           </p>
+         </div>
+        <div class="modal-footer">
+          <a href="thepropertymanager.online#pricing" target="_blank" class="btn btn-info"><i class="fas fa-tags"></i> See pricing</a> 
+          <a href="#" data-toggle="modal" data-target="#openPaymentInfo" class="btn btn-success"><i class="fas fa-credit-card"></i> Proceed</a> 
+  
+      
+        </div> 
+        </div>
+        </div>
+        
+        </div>
 
       <div class="modal fade" id="openPaymentInfo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-md" role="document">
