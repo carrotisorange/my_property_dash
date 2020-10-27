@@ -20,7 +20,7 @@ class OwnerController extends Controller
         $owners = DB::table('units')
         ->join('unit_owners', 'unit_id', 'unit_id_foreign')
         ->where('property_id_foreign', $property_id)
-        ->count();
+        ->get();
 
         $count_owners = DB::table('units')
         ->join('unit_owners', 'unit_id', 'unit_id_foreign')
