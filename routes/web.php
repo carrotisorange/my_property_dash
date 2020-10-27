@@ -77,11 +77,10 @@ Route::get('/property/{property_id}/calendar', 'CalendarController@index')->midd
 
 Route::get('/asa', function(){
 
-     return DB::table('users')->where('property', Auth::user()->property)
+     return DB::table('users')
+     ->where('property', Auth::user()->property)
      ->where('id','<>',Auth::user()->id )
-    ->update([
-        'lower_access_user_id' => Auth::user()->id
-    ]);
+    ->get();
 
         return back()->with('success','all existing users have been imported!');
 });
