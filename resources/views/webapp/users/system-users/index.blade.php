@@ -30,7 +30,7 @@
                   @foreach ($users as $item)
                       <tr>
                           <th>{{ $ctr++ }}</th>
-                          <td><a href="/property/{{ $property->property_id_foreign }}/system-user/{{ $item->id }}">{{ $item->name }}</a></td>
+                          <td><a href="/property/{{ $property->property_id }}/system-user/{{ $item->id }}">{{ $item->name }}</a></td>
                           <td>{{ $item->email }}</td>
                           <td>{{ $item->user_type }}</td>
                       </tr>
