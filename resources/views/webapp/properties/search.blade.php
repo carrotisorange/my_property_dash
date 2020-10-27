@@ -237,7 +237,7 @@
 
          <br>
 
-         <p><span class="font-weight-bold">{{ $owners->count()+$mobiles->count }}</span> matched for owners...</p>
+         <p><span class="font-weight-bold">{{ $owners->count()+$mobiles->count() }}</span> matched for owners...</p>
         <table class="table">
             <tr>
                 <th>#</th>
