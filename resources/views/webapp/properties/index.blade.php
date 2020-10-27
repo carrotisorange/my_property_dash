@@ -105,7 +105,7 @@
 
       </div>
       <br>
-
+      @if (Auth::user()->user_type === 'manager')
       <div class="row">
         <div class="col">
          
@@ -114,6 +114,7 @@
       
         </div>
       </div>
+      @endif
       <hr>
       <small>Need help?</small>
       <br><br>
