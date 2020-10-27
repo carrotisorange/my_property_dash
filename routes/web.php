@@ -86,7 +86,7 @@ Route::get('/asa', function(){
 
     DB::table('users')
    ->update([
-       'trial_ends_at' => Carbon::now()
+       'trial_ends_at' => Carbon::now()->addMonths(2)
    ]);
 
         return back()->with('success','all existing users have been imported!');
