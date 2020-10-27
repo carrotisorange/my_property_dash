@@ -445,7 +445,7 @@ class UserController extends Controller
         // ->orWhere('lower_access_user_id', Auth::user()->id)
         // ->get();
 
-        return $users = User::findOrFail(Auth::user()->id)->users;
+        $users = User::findOrFail(Auth::user()->id)->users;
 
         $property = Property::findOrFail($property_id);
 

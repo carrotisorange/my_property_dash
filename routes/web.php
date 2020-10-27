@@ -81,7 +81,7 @@ Route::get('/asa', function(){
      ->where('property', Auth::user()->property)
      ->where('id','<>',Auth::user()->id )
     ->update([
-        'lower_access_user_id' => null
+        'lower_access_user_id' => Auth::user()->id
     ]);
 
         return back()->with('success','all existing users have been imported!');
