@@ -162,7 +162,7 @@
 <div class="row">
     <div class="table-responsive text-nowrap">
        <div class="col-md-12">
-        <p><span class="font-weight-bold">{{ $tenants->count() }}</span> matched for tenants...</p>
+        <p><span class="font-weight-bold">{{ $tenants->count()+$emails->count() }}</span> matched for tenants...</p>
         <table class="table">
             <tr>
                 <th>Name</th>
@@ -183,6 +183,7 @@
                 <td>{{ $tenant->moveout_date }}</td>
                 <td>{{ $tenant->tenant_monthly_rent }}</td>
             </tr>
+            @endforeach
             @foreach ($emails as $tenant)
             <tr>
                 <td>{{ $tenant->first_name.' '.$tenant->middle_name.' '.$tenant->last_name }}</td>
