@@ -28,6 +28,19 @@ Route::post('/event', 'CalendarController@store')->middleware(['auth', 'verified
 
 Route::post('ckeditor/image_upload', 'BlogController@upload')->name('upload');
 
+Route::get('/system-updates', function(){
+    return view('templates.webapp.properties.system-updates');
+});
+
+Route::get('/getting-started', function(){
+    return view('templates.webapp.properties.getting-started');
+});
+
+
+Route::get('/announcements', function(){
+    return view('templates.webapp.properties.announcements');
+});
+
 
 //routes for blogs
 Route::get('/property/{property_id}/blogs', 'BlogController@index');
