@@ -169,6 +169,7 @@
                 <th>Name</th>
                 <th>Email</th>
                 <th>Mobile</th>
+                <th>Room</th>
                 <th>Status</th>
                 <th>Move in date</th>
                 <th>Move out date</th>
@@ -178,12 +179,13 @@
             @foreach ($tenants as $tenant)
             <tr>
                 <th>{{ $tenant_ctr++ }}</th>
-                <td>{{ $tenant->first_name.' '.$tenant->middle_name.' '.$tenant->last_name }}</td>
+                <td><a href="/property/{{ $property->property_id }}/home/{{ $tenant->unit_id }}/tenant/{{ $tenant->tenant_id }}">{{ $tenant->first_name.' '.$tenant->middle_name.' '.$tenant->last_name }}</a></td>
                 <td>{{ $tenant->email_address }}</td>
                 <td>{{ $tenant->contact_no }}</td>
+                <td>{{ $tenant->unit_no }}</td>
                 <td>{{ $tenant->tenant_status }}</td>
-                <td>{{ $tenant->movein_date }}</td>
-                <td>{{ $tenant->moveout_date }}</td>
+                <td>{{ Carbon\Carbon::parse($tenant->movein_date)->format('M d Y') }}</td>    
+                <td>{{ Carbon\Carbon::parse($tenant->movein_date)->format('M d Y') }}</td>
                 <td>{{ $tenant->tenant_monthly_rent }}</td>
             </tr>
             @endforeach
@@ -194,9 +196,9 @@
                 <td>{{ $tenant->email_address }}</td>
                 <td>{{ $tenant->contact_no }}</td>
                 <td>{{ $tenant->tenant_status }}</td>
-                <td>{{ $tenant->movein_date }}</td>
-                <td>{{ $tenant->moveout_date }}</td>
-                <td>{{ $tenant->tenant_monthly_rent }}</td>
+                <td>{{ Carbon\Carbon::parse($tenant->movein_date)->format('M d Y') }}</td>    
+                <td>{{ Carbon\Carbon::parse($tenant->movein_date)->format('M d Y') }}</td>
+                <td>{{ number_format($tenant->tenant_monthly_rent, 2) }}</td>
             </tr>
             @endforeach
          </table>
@@ -227,7 +229,7 @@
                 <td>{{ $unit->beds }}</td>
                 <td>{{ $unit->status }}</td>
                 <td>{{ $unit->max_occupancy }}</td>
-                <td>{{ $unit->monthly_rent }}</td>
+                 <td>{{ number_format($unit->monthly_rent, 2) }}</td>
             </tr>
             @endforeach
          </table>
