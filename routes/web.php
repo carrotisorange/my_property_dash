@@ -46,6 +46,7 @@ Route::get('/property/create', 'PropertyController@create')->middleware(['auth',
 Route::get('/property/{property_id}', 'PropertyController@show')->middleware(['auth', 'verified']);
 Route::post('/property/', 'PropertyController@store')->middleware(['auth', 'verified']);
 Route::post('/property/select', 'PropertyController@select')->middleware(['auth', 'verified']);
+Route::get('/property/{property_id}/search', 'PropertyController@search')->middleware(['auth', 'verified']);
 
 //routes for dashboard
 Route::get('/property/{property_id}/dashboard', 'DashboardController@index')->middleware(['auth', 'verified']);

@@ -25,8 +25,13 @@ class PropertyController extends Controller
     public function index()
     {
             if(Auth::user()->user_type == 'manager'){
-                $properties = User::findOrFail(Auth::user()->id)->properties;
-
+                $properties = User::findOrFail(Auth::user()->id)->properties->units;
+                // $units = DB::table('users_properties_relations')
+                // ->join('properties', 'property_id_foreign', 'property_id')
+                // ->join('units', 'users_properties_relations.property_id_foreign', 'units.property_id_foreign')
+                // ->where('user_id_foreign', Auth::user()->id)
+                // ->count();
+            
                 // $users = DB::table('users_properties_relations')
                 // ->join('users', 'user_id_foreign', 'id')
                 // ->where('user_id_foreign', Auth::user()->id)
@@ -40,6 +45,7 @@ class PropertyController extends Controller
                 ->count();
 
         return view('webapp.properties.index', compact('properties', 'users','existing_users')); 
+
             }else{
                     if(Auth::user()->lower_access_user_id == null){
                         return view('webapp.users.system-users.warning'); 
@@ -76,6 +82,36 @@ class PropertyController extends Controller
     public function create()
     {
         return view('webapp.properties.create');
+    }
+
+    public function search(Request $request, $property_id){
+
+         $search_key = $request->search_key;
+
+        $tenants = DB::table('tenants')
+        ->join('units', 'unit_id', 'unit_tenant_id')
+        ->where('property_id_foreign', $property_id)
+        ->whereRaw("concat(first_name, ' ', last_name) like '%$search_key%' ")
+        ->orWhereRaw("email_address like '%$search_key%' ")
+        ->orWhereRaw("contact_no like '%$search_key%' ")
+        ->get();
+
+        $units = DB::table('units')
+        ->where('property_id_foreign', $property_id)
+        ->whereRaw("unit_no like '%$search_key%' ")
+        ->orWhereRaw("building like '%$search_key%' ")
+        ->get();
+
+        $owners = DB::table('unit_owners')
+        ->join('units', 'unit_id_foreign', 'unit_id')
+        ->where('property_id_foreign', $property_id)
+        ->whereRaw("unit_owner like '%$search_key%' ")
+        ->get();
+
+        $property = Property::findOrFail($property_id);
+    
+
+        return view('webapp.properties.search', compact('property','search_key', 'tenants', 'units', 'owners'));
     }
 
         /**

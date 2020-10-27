@@ -273,7 +273,7 @@
                         <strong>{{ $message }}</strong>
                     </span>
                 @enderror
-          <hr>
+          <br>
           <small>Email</small>
           <input form="editUserForm" id="email" type="email" class="form-control form-control-user @error('email') is-invalid @enderror" name="email" value="{{ $user->email }}" required autocomplete="email">
                 @error('email')
@@ -281,7 +281,7 @@
                         <strong>{{ $message }}</strong>
                     </span>
                 @enderror
-          <hr>
+          <br>
           <small>New Password</small>
           <input form="editUserForm" id="password" type="password" class="form-control form-control-user @error('password') is-invalid @enderror" name="password" autocomplete="password">
                 <small class="text-danger">Changing your password will log you out of the application.</small>
@@ -294,7 +294,7 @@
             <button form="editUserForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want perform this action?');"><i class="fas fa-check fa-sm text-white-50"></i> Save Changes</button>
           </p>
 
-          <hr>
+          <br>
           @if(Auth::user()->user_type === 'manager')
           <small>Warning: Account deletion can't be undone. </small>
           <br>

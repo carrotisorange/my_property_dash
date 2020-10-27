@@ -1,6 +1,6 @@
 @extends('templates.webapp-new.template')
 
-@section('title', 'Tenants')
+@section('title', $search_key)
 
 @section('sidebar')
   <!-- Sidenav -->
@@ -25,7 +25,7 @@
             </li>
             @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' )
             <li class="nav-item">
-              <a class="nav-link " href="/property/{{$property->property_id }}/home">
+              <a class="nav-link" href="/property/{{$property->property_id }}/home">
                 <i class="fas fa-home text-indigo"></i>
                 <span class="nav-link-text">Home</span>
               </a>
@@ -39,7 +39,7 @@
             </li>
             @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'treasury')
             <li class="nav-item">
-              <a class="nav-link active" href="/property/{{$property->property_id }}/tenants">
+              <a class="nav-link" href="/property/{{$property->property_id }}/tenants">
                 <i class="fas fa-user text-green"></i>
                 <span class="nav-link-text">Tenants</span>
               </a>
@@ -68,7 +68,7 @@
             </li>
            
             <li class="nav-item">
-              <a class="nav-link" href="/property/{{$property->property_id }}/personnels">
+              <a class="nav-link" href="/property/{{$property->property_id }}}/personnels">
                 <i class="fas fa-user-secret text-gray"></i>
                 <span class="nav-link-text">Personnels</span>
               </a>
@@ -134,7 +134,7 @@
             </li>
           <li class="nav-item">
               <a class="nav-link" href="announcements" target="_blank">
-                <i class="fas fa-microphone text-purple"></i>
+                <i class="fas fa-microphone text-purple"></i>>
                 <span class="nav-link-text">Annoncements</span>
               </a>
             </li>
@@ -155,107 +155,109 @@
 @section('upper-content')
 <div class="row align-items-center py-4">
   <div class="col-lg-6 col-7">
-    <h6 class="h2 text-dark d-inline-block mb-0">Tenants</h6>
-    
-  </div>
-  <div class="col-lg-6 col-5 text-right">
-    <form  action="/property/{{ $property->property_id }}/tenants/search" method="GET" >
-      @csrf
-      <div class="input-group">
-          <input type="text" class="form-control" name="search" placeholder="Enter tenant, room, ..." value="{{ session(Auth::user()->id.'search_tenant') }}">
-          <div class="input-group-append">
-            <button class="btn btn-primary" type="submit">
-              <i class="fas fa-search fa-sm"></i>
-            </button>
-          </div>
-      </div>
-  </form>
+    <h6 class="h2 text-dark d-inline-block mb-0"><span class=""> <small> you searched for </small></span> <span class="text-danger">"{{ $search_key }}"<span></h6>
   </div>
 
 </div>
-Showing <b>{{ $tenants->count() }} </b> of {{ $count_tenants }} tenants
-@if(session(Auth::user()->id.'search_tenant'))
-<p class="text-center"> <span class=""> <small> you searched for </small></span> <span class="text-danger">"{{ session(Auth::user()->id.'search_tenant') }}"<span></p>
-@endif
+<div class="row">
+    <div class="table-responsive text-nowrap">
+       <div class="col-md-12">
+        <p><span class="font-weight-bold">{{ $tenants->count() }}</span> matched for tenants...</p>
+        <table class="table">
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Mobile</th>
+                <th>Status</th>
+                <th>Move in date</th>
+                <th>Move out date</th>
+                <th>Monthly rent</th>
+            </tr>
+            @foreach ($tenants as $tenant)
+            <tr>
+                <td>{{ $tenant->first_name.' '.$tenant->middle_name.' '.$tenant->last_name }}</td>
+                <td>{{ $tenant->email_address }}</td>
+                <td>{{ $tenant->contact_no }}</td>
+                <td>{{ $tenant->tenant_status }}</td>
+                <td>{{ $tenant->movein_date }}</td>
+                <td>{{ $tenant->moveout_date }}</td>
+                <td>{{ $tenant->tenant_monthly_rent }}</td>
+            </tr>
+            @endforeach
+         </table>
 
+         <br>
 
-<div class="table-responsive text-nowrap">
-    <table class="table table-bordered">
-      <thead>
-        <?php $ctr=1;?>
-        <tr>
-          <th>#</th>
-            <th>Tenant</th>
-            <th>Room</th>
-            <th>Status</th>
-            <th>Mobile</th>
-            <th>Email</th>
-            <th>Contract Period</th>    
-            <th>Monthly Rent</th>
-            <th>Guardian</th>
-            <th>Relationship</th>
-            <th>Mobile</th>
-       </tr>
-      </thead>
-      <tbody>
-        @foreach ($tenants as $item)
-        <tr>
-          <th>{{ $ctr++ }}</th>
-            <td>
-                @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager')
-                <a href="/property/{{ $property->property_id }}/home/{{ $item->unit_id }}/tenant/{{ $item->tenant_id }}">{{ $item->first_name.' '.$item->middle_name.' '.$item->last_name }}
-                  @if($item->tenants_note === 'new' )
-                  <span class="badge badge-success">{{ $item->tenants_note }}</span>
-                  @endif
-                  
-                  <span class="badge badge-success">{{ $item->has_extended }}</span>
-                </a>
-                @else
-                <a href="/property/{{ $property->property_id }}/home/{{ $item->unit_id }}/tenant/{{ $item->tenant_id }}/billings">{{ $item->first_name.' '.$item->last_name }}
-                  @if($item->tenants_note === 'new' )
-                  <span class="badge badge-success">{{ $item->tenants_note }}</span>
-                  @endif
-                  
-                  <span class="badge badge-success">{{ $item->has_extended }}</span>
-                </a>
-                @endif
-            </td>
-            
-            <td> @if(Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'admin' )
-              <a href="/property/{{ $property->property_id }}/home/{{ $item->unit_id }}">{{ $item->building.' '.$item->unit_no }}</a>
-              @else
-             {{ $item->building.' '.$item->unit_no }}
-              @endif
-            </td>
-            <td>
-                @if($item->tenant_status === 'active')
-                <span class="badge badge-primary">{{ $item->tenant_status }}</span>
-                @elseif($item->tenant_status === 'inactive')
-                <span class="badge badge-secondary">{{ $item->tenant_status }}</span>
-                @else
-                <span class="badge badge-warning">{{ $item->tenant_status }}</span>
-                @endif
-            </td>
-            <td>{{ $item->contact_no }}</td>
-            <td>{{ $item->email_address }}</td>
-          
-            <td>{{ Carbon\Carbon::parse($item->movein_date)->format('M d Y').' - '.Carbon\Carbon::parse($item->moveout_date)->format('M d Y') }}</td>
-            <td>{{ number_format($item->monthly_rent, 2) }}</td>
-            <td>{{ $item->guardian }}</td>
-            <td>{{ $item->guardian_relationship }}</td>
-            <td>{{ $item->guardian_contact_no }}</td>
-           
-            {{-- <td title="months before move-out">{{ number_format(Carbon\Carbon::now()->diffInDays(Carbon\Carbon::parse($item->moveout_date), false)/30,1) }} mon</td> --}}
-        </tr>
-        @endforeach
-      </tbody>
-    </table>
+         <p><span class="font-weight-bold">{{ $units->count() }}</span> matched for rooms...</p>
+        <table class="table">
+            <tr>
+                <th>Room</th>
+                <th>Building</th>
+                <th>Type</th>
+                <th>Floor no</th>
+                <th>Number of bed</th>
+                <th>Status</th>
+                <th>Occupancy</th>
+                <th>Monthly rent</th>
+            </tr>
+            @foreach ($units as $unit)
+            <tr>
+                <td>{{ $unit->unit_no }}</td>
+                <td>{{ $unit->building }}</td>
+                <td>{{ $unit->type_of_units }}</td>
+                <td>{{ $unit->floor_no }}</td>
+                <td>{{ $unit->beds }}</td>
+                <td>{{ $unit->status }}</td>
+                <td>{{ $unit->max_occupancy }}</td>
+                <td>{{ $unit->monthly_rent }}</td>
+            </tr>
+            @endforeach
+         </table>
 
-  </div>
+         <br>
+
+         <p><span class="font-weight-bold">{{ $owners->count() }}</span> matched for owners...</p>
+        <table class="table">
+            <tr>
+                <th>Owner</th>
+                <th>Room</th>
+                <th>Email</th>
+                <th>Mobile</th>
+                <th>Representative</th>
+       
+                <th>Date Accepted</th>
+                <th>Room Type</th>
+                <th>Occupancy</th>
+                <th>Monthly Rent</th>
+                <th>Status</th>
+            </tr>
+            @foreach ($owners as $owner)
+            <tr>
+                <td><a href="/property/{{ $property->property_id }}/home/{{ $owner->unit_id_foreign }}">{{ $owner->building.' '.$owner->unit_no }}</a></td>
+               
+              
+               <td>{{ $owner->investor_email_address}}</td>
+               <td>{{ $owner->investor_contact_no }}</td>
+               <TD>{{ $owner->investor_representative }}</TD>
+               <td> {{ $owner->date_accepted ? Carbon\Carbon::parse($owner->date_accepted)->format('M d Y') : null}}</td>
+
+               <td>{{ $owner->type_of_units }}</td>
+               <td>{{ $owner->max_occupancy }} pax</td>
+               <td>{{ number_format($owner->monthly_rent, 2) }}</td>
+               <td>{{ $owner->status }}</td>
+            </tr>
+            @endforeach
+         </table>
+       </div>
+        
+    </div>
+</div>
 
 @endsection
 
+@section('main-content')
 
+@endsection
 
 @section('scripts')
   

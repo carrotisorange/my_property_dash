@@ -1,4 +1,4 @@
-@extends('templates.website.arsha-login')
+@extends('templates.webapp-new.dashboard')
 
 @section('title', 'Users')
 

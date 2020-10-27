@@ -386,6 +386,28 @@
         <div class="row">
 
           <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="box">
+              <h3>Enterprise</h3>
+              <h4><sup>₱</sup>N<span>per month</span></h4>
+              <ul>
+                <li><i class="bx bx-check"></i> 100 rooms</li>
+                <li><i class="bx bx-check"></i> Room management</li>
+              <li><i class="bx bx-check"></i> Tenant management</li>
+              <li><i class="bx bx-check"></i> Marketing services</li>
+              <li><i class="bx bx-check"></i> Billing rent and utilities</li>
+              <li><i class="bx bx-check"></i> Concern and violation tracker</li>
+              <li><i class="bx bx-check"></i> Job order</li>
+              <li><i class="bx bx-check"></i> <span>Portal for owner</span></li>
+              <li><i class="bx bx-check"></i> <span>Portal for tenant</span></li>
+              <li><i class="bx bx-check"></i> <span>Online payment</span></li>
+              <li><i class="bx bx-check"></i> <span>Concierge services</span></li>
+              <li><i class="bx bx-check"></i> <span>Portforlio Management</span></li>
+              </ul>
+              <a href="#contact" class="buy-btn">Give us a message</a>
+            </div>
+            
+          </div>
+          {{-- <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
             <div class="box featured">
               <h3>Free</h3>
               <h4><sup>₱</sup>0<span>per month</span></h4>
@@ -405,7 +427,7 @@
               </ul>
               <a href="/register" class="buy-btn">Get Started for Free</a>
             </div>
-          </div>
+          </div> --}}
 
           <div class="col-lg-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="200">
             <div class="box">
@@ -453,36 +475,6 @@
           </div>
 
         </div>
-
-        <br>
-
-        
-        <div class="row center-screen">
-
-            <div class=" col-lg-6" data-aos="fade-up" data-aos-delay="400">
-              <div class="box">
-                <h3>Enterprise</h3>
-                <h4><sup>₱</sup>N<span>per month</span></h4>
-                <ul>
-                  <li><i class="bx bx-check"></i> 100 rooms</li>
-                  <li><i class="bx bx-check"></i> Room management</li>
-                <li><i class="bx bx-check"></i> Tenant management</li>
-                <li><i class="bx bx-check"></i> Marketing services</li>
-                <li><i class="bx bx-check"></i> Billing rent and utilities</li>
-                <li><i class="bx bx-check"></i> Concern and violation tracker</li>
-                <li><i class="bx bx-check"></i> Job order</li>
-                <li><i class="bx bx-check"></i> <span>Portal for owner</span></li>
-                <li><i class="bx bx-check"></i> <span>Portal for tenant</span></li>
-                <li><i class="bx bx-check"></i> <span>Online payment</span></li>
-                <li><i class="bx bx-check"></i> <span>Concierge services</span></li>
-                <li><i class="bx bx-check"></i> <span>Portforlio Management</span></li>
-                </ul>
-                <a href="#contact" class="buy-btn">Give us a message</a>
-              </div>
-              
-            </div>
-  
-          </div>
 
       </div>
     </section><!-- End Pricing Section -->
