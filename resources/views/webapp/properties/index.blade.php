@@ -156,7 +156,7 @@
          </p>
        </div>
       <div class="modal-footer">
-        <a href="/thepropertymanager.online#pricing" target="_blank" class="btn btn-info"><i class="fas fa-tags"></i> See pricing</a> 
+        <a href="thepropertymanager.online#pricing" target="_blank" class="btn btn-info"><i class="fas fa-tags"></i> See pricing</a> 
         <a href="#" data-toggle="modal" data-target="#openPaymentInfo" class="btn btn-success"><i class="fas fa-credit-card"></i> Proceed</a> 
 
     
