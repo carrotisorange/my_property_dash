@@ -56,7 +56,7 @@
       
        <div class="col">
 
-        <a href="/property/{{ $property->property_id }}/user/create" class="btn btn-primary btn-user btn-block"><i class="fas fa-users"></i> Users </a>
+        <a href="/property/{{ $property->property_id }}/user/create" class="btn btn-primary btn-user btn-block"><i class="fas fa-plus-circle"></i> User </a>
     
     </div>
 

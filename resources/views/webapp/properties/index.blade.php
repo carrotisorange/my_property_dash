@@ -87,7 +87,7 @@
         <div class="col">
           @if (Auth::user()->user_type === 'manager')
             @if($users > 1)
-            <a title="Upgrade to Pro to add more users." href="#/" class="btn btn-warning btn-user btn-block"> <i class="fas fas fa-plus-circle"></i>  User ({{ $users }}/2) </a>
+            <a title="Upgrade to Pro to add more users." href="/property/{{ $item->property_id }}/user/all" class="btn btn-warning btn-user btn-block"> <i class="fas fas fa-users"></i>  User ({{ $users }}/2) </a>
             @else
             <a title="Limited to 2 users." href="/property/{{ $item->property_id }}/user/create" class="btn btn-warning btn-user btn-block"> <i class="fas fas fa-plus-circle"></i> User ({{ $users }}/2)</a>
             @endif

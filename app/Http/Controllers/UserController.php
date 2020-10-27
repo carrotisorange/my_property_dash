@@ -421,10 +421,20 @@ class UserController extends Controller
     }
 
     public function create_system_user($property_id){
-        
-        $property = Property::findOrFail($property_id);
 
-        return view('webapp.users.system-users.create', compact('property'));
+        $users = DB::table('users_properties_relations')
+        ->join('users', 'user_id_foreign', 'id')
+        ->where('property_id_foreign', $property_id)
+        ->orWhere('lower_access_user_id', Auth::user()->id)
+        ->count();
+
+        if($users > 1){
+            return back()->with('danger', 'Exceeded your limit for adding users. Upgrade to Pro to add more users.');
+        }else{
+            $property = Property::findOrFail($property_id);
+            return view('webapp.users.system-users.create', compact('property'));
+        }
+
     }
 
     public function index_system_user($property_id){
@@ -432,7 +442,7 @@ class UserController extends Controller
          $users = DB::table('users_properties_relations')
         ->join('users', 'user_id_foreign', 'id')
         ->where('property_id_foreign', $property_id)
-        ->orWhere('lower_access_user_id', Auth::user()->id)
+        ->orWhere('lower_access_user_id', $property_id)
         ->get();
 
         $property = Property::findOrFail($property_id);
