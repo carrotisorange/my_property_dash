@@ -245,6 +245,7 @@
             @foreach ($all_owners as $owner)
             <tr>
                 <th>{{ $owner_ctr++ }}</th>
+                <td><a href="/property/{{ $property->property_id }}/owner/{{ $item->unit_owner_id }}">{{ $item->unit_owner }} </a></td>
                 <td><a href="/property/{{ $property->property_id }}/home/{{ $owner->unit_id_foreign }}">{{ $owner->building.' '.$owner->unit_no }}</a></td>
                <td>{{ $owner->investor_email_address}}</td>
                <td>{{ $owner->investor_contact_no }}</td>
