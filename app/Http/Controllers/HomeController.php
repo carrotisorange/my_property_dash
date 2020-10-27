@@ -68,9 +68,9 @@ class HomeController extends Controller
             $property = Property::findOrFail($property_id);
 
             $owners = DB::table('units')
-            ->join('unit_owners', 'unit_unit_owner_id', 'unit_owner_id')
+            ->join('unit_owners', 'unit_id', 'unit_id_foreign')
             ->where('unit_id', $unit_id)
-            ->get();
+            ->count();
     
 
             $tenant_active = Unit::findOrFail($unit_id)
