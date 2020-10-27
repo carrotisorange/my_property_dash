@@ -67,6 +67,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany('App\Blog', 'user_id_foreign');
     }
 
+    public function users()
+    {
+        return $this->hasMany('App\User', 'lower_access_user_id');
+    }
+
 
 
 }

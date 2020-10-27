@@ -439,11 +439,13 @@ class UserController extends Controller
 
     public function index_system_user($property_id){
        
-         $users = DB::table('users_properties_relations')
-        ->join('properties', 'property_id_foreign', 'property_id')
-        ->where('property_id_foreign', $property_id)
-        ->orWhere('lower_access_user_id', 36)
-        ->get();
+        //  $users = DB::table('users_properties_relations')
+        // ->join('users', 'user_id_foreign', 'id')
+        // ->where('property_id_foreign', $property_id)
+        // ->orWhere('lower_access_user_id', Auth::user()->id)
+        // ->get();
+
+        $users = User::findOrFail(Auth::user()->id)->count();
 
         $property = Property::findOrFail($property_id);
 

@@ -27,11 +27,12 @@ class PropertyController extends Controller
             if(Auth::user()->user_type == 'manager'){
                 $properties = User::findOrFail(Auth::user()->id)->properties;
 
-                $users = DB::table('users_properties_relations')
-                ->join('users', 'user_id_foreign', 'id')
-                ->where('user_id_foreign', Auth::user()->id)
-                ->orWhere('lower_access_user_id', Auth::user()->id)
-                ->count();
+                // $users = DB::table('users_properties_relations')
+                // ->join('users', 'user_id_foreign', 'id')
+                // ->where('user_id_foreign', Auth::user()->id)
+                // ->orWhere('lower_access_user_id', Auth::user()->id)
+                // ->count();
+                $users = User::findOrFail(Auth::user()->id)->count();
 
                 $existing_users = DB::table('users')->where('property', Auth::user()->property)
                 ->where('id','<>',Auth::user()->id )
