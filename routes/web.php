@@ -76,8 +76,14 @@ Route::post('/property/{property_id}/home/{unit_id}/owner', 'OwnerController@sto
 Route::get('/property/{property_id}/calendar', 'CalendarController@index')->middleware(['auth', 'verified']);
 
 Route::get('/asa', function(){
-   
+    
+     DB::table('users')->where('property', Auth::user()->property)
+     ->where('id','<>',Auth::user()->id )
+    ->update([
+        'lower_access_user_id' => Auth::user()->id
+    ]);
 
+        return back()->with('success','all existing users have been imported!');
 });
 
 //routes for concerns

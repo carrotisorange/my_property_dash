@@ -33,7 +33,11 @@ class PropertyController extends Controller
                 ->orWhere('lower_access_user_id', Auth::user()->id)
                 ->count();
 
-        return view('webapp.properties.index', compact('properties', 'users')); 
+                $existing_users = DB::table('users')->where('property', Auth::user()->property)
+                ->where('id','<>',Auth::user()->id )
+                ->count();
+
+        return view('webapp.properties.index', compact('properties', 'users','existing_users')); 
             }else{
                     if(Auth::user()->lower_access_user_id == null){
                         return view('webapp.users.system-users.warning'); 
