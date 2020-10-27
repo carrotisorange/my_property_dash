@@ -191,7 +191,7 @@
           <td><a href="/property/{{ $property->property_id }}/home/{{ $item-> unit_id  }}">{{ $item->building.' '.$item->unit_no }}</a></td>
           <td>{{ $item->concern_type }}
           </td>
-          <td ><a title="{{ $item->concern_desc }}" href="/property/{{ $property->property_id }}/home/{{ $item->unit_id }}/tenant/{{ $item->tenant_id }}/concern/{{ $item->concern_id }}">{{ $item->concern_item }}</a></td>
+          <td ><a href="/property/{{ $property->property_id }}/home/{{ $item->unit_id }}/tenant/{{ $item->tenant_id }}/concern/{{ $item->concern_id }}">{{ $item->concern_item }}</a></td>
           <td>
               @if($item->concern_urgency === 'urgent')
               <span class="badge badge-danger">{{ $item->concern_urgency }}</span>
