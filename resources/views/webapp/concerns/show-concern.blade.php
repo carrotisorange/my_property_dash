@@ -201,9 +201,10 @@ font-family: FontAwesome;
   <div class="col-lg-6 col-5 text-right">
     <a href="/concerns" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> Back</a> 
     @if(Auth::user()->user_type==='manager' || Auth::user()->user_type='admin')
-    <a href="#" data-toggle="modal" data-target="#editConcernDetails" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-edit fa-sm text-white-50"></i> Edit</a> 
+   
   
     @if($concern->concern_status != 'closed')
+    <a href="#" data-toggle="modal" data-target="#editConcernDetails" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-edit fa-sm text-white-50"></i> Edit</a> 
     <a href="#" data-toggle="modal" data-target="#markAsCompleteModal" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-check-square fa-sm text-white-50"></i> Mark as complete</a> 
     @else
     <a href="#" data-toggle="modal" data-target="#/" class="d-none d-sm-inline-block btn btn-sm btn-dark shadow-sm"><i class="fas fa-check-square fa-sm text-white-50"></i> Concern has been closed</a> 
@@ -226,7 +227,7 @@ font-family: FontAwesome;
               </tr>
                  <tr>
                       <td>Reported by</th>
-                      <td><a href="/units/{{ $unit->unit_id }}/tenants/{{ $tenant->tenant_id }}/">{{ $tenant->first_name.' '.$tenant->last_name }}</a></td>
+                      <td><a href="/property/{{ $property->property_id }}/home/{{ $item->unit_id }}/tenant/{{ $item->tenant_id }}">{{ $tenant->first_name.' '.$tenant->last_name }}</a></td>
                  </tr>     
              <tr>
                   <td>Description</td>
