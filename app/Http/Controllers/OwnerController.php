@@ -82,15 +82,15 @@ class OwnerController extends Controller
                 'unit_owner' => $request->name,
                 'investor_email_address' => $request->email,
                 'investor_contact_no' => $request->mobile,
-    
+                'unit_id_foreign' => $request->unit_id,
             ]
             );
         
-        DB::table('units')
-        ->where('unit_id', $unit_id)
-        ->update([
-            'unit_unit_owner_id' => $owner_id
-        ]);
+        // DB::table('units')
+        // ->where('unit_id', $unit_id)
+        // ->update([
+        //     'unit_unit_owner_id' => $owner_id
+        // ]);
 
         return redirect('/property/'.$property_id.'/owner/'.$owner_id.'/edit')->with('success', 'new owner has been saved!');
     }
@@ -112,7 +112,10 @@ class OwnerController extends Controller
            ->join('billings', 'unit_owner_id', 'billing_tenant_id')
            ->get();
 
-           $units = UnitOwner::findOrFail($owner_id)->units;
+           $units = DB::table('units')
+           ->join('unit_owners', 'unit_id', 'unit_id_foreign')
+           ->where('unit_owner_id', $owner_id)
+           ->get();
   
         //    $bills = Billing::leftJoin('payments', 'billings.billing_no', '=', 'payments.payment_billing_no')
         //    ->join('tenants', 'billing_tenant_id', 'tenant_id')
