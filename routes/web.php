@@ -78,6 +78,13 @@ Route::get('/property/{property_id}/calendar', 'CalendarController@index')->midd
 
 Route::get('/asa', function(){
 
+   return DB::table('units')
+
+    ->join('unit_owners', 'unit_id', 'unit_id_foreign')
+ 
+    ->where('unit_property', Auth::user()->property)
+    ->count();
+
     // DB::table('users')
     //  ->where('property', Auth::user()->property)
     //  ->where('id','<>',Auth::user()->id )
