@@ -120,10 +120,10 @@ class PropertyController extends Controller
         ->join('units', 'unit_id_foreign', 'unit_id')
         ->where('property_id_foreign', $property_id)
         ->whereRaw("investor_email_address like '%$search_key%' ")
-        ->whereRaw("investor_contact_no like '%$search_key%' ")
+        ->orWhereRaw("investor_contact_no like '%$search_key%' ")
         ->get();
 
-        $all_owners = $owners->merge($mobiles);
+        $all_owners = $owners->merge($mobiles)->unique();
 
         $property = Property::findOrFail($property_id);
     

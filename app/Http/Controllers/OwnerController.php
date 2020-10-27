@@ -82,15 +82,15 @@ class OwnerController extends Controller
                 'unit_owner' => $request->name,
                 'investor_email_address' => $request->email,
                 'investor_contact_no' => $request->mobile,
-                'unit_id_foreign' => $request->unit_id,
+    
             ]
             );
         
-        // DB::table('units')
-        // ->where('unit_id', $unit_id)
-        // ->update([
-        //     'unit_unit_owner_id' => $owner_id
-        // ]);
+        DB::table('units')
+        ->where('unit_id', $unit_id)
+        ->update([
+            'unit_unit_owner_id' => $owner_id
+        ]);
 
         return redirect('/property/'.$property_id.'/owner/'.$owner_id.'/edit')->with('success', 'new owner has been saved!');
     }
