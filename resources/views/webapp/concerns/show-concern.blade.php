@@ -227,7 +227,7 @@ font-family: FontAwesome;
               </tr>
                  <tr>
                       <td>Reported by</th>
-                      <td><a href="/property/{{ $property->property_id }}/home/{{ $item->unit_id }}/tenant/{{ $item->tenant_id }}">{{ $tenant->first_name.' '.$tenant->last_name }}</a></td>
+                      <td><a href="/property/{{ $property->property_id }}/home/{{ $unit->unit_id }}/tenant/{{ $tenant->tenant_id }}">{{ $tenant->first_name.' '.$tenant->last_name }}</a></td>
                  </tr>     
              <tr>
                   <td>Description</td>
