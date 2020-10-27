@@ -374,14 +374,14 @@
                           <th>{{ $ctr++ }}</th>
                             <td>
                               @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'treasury' )
-                              <a href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/billings">{{ $item->first_name.' '.$item->last_name }}
+                              <a href="/property/{{ $property->property_id }}/home/{{ $item->unit_id }}/tenant/{{ $item->tenant_id }}">{{ $item->first_name.' '.$item->last_name }}
                               @else
-                              <a href="{{ route('show-tenant',['unit_id' => $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a>
+                              <a href="/property/{{ $property->property_id }}/home/{{ $item->unit_id }}/tenant/{{ $item->tenant_id }}">{{ $item->first_name.' '.$item->last_name }}
                               @endif  
                             </td>
                             <td>
                               @if(Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'admin' )
-                              <a href="/units/{{ $item->unit_id }}">{{ $item->building.' '.$item->unit_no }}</a>
+                              <a href="/property/{{ $property->property_id }}/home/{{ $item->unit_id }}">{{ $item->building.' '.$item->unit_no }}</a>
                               @else
                              {{ $item->building.' '.$item->unit_no }}
                               @endif
@@ -395,7 +395,7 @@
                             </td>
                             <td>
                               @if($item->email_address === null)
-                              <a href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/edit#email_address" class="badge badge-warning">Please add an email</a>
+                              <a href="/property/{{ $property->property_id }}/home/{{ $item->unit_id }}/tenant/{{ $item->tenant_id }}/edit#email_address" class="badge badge-warning">Please add an email</a>
                               @else
                               <form action="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/alert/contract">
                                 @csrf
@@ -573,15 +573,17 @@
                   <td>{{ Carbon\Carbon::parse($item->date_reported)->format('M d Y') }}</td>
                     <td>
                       @if(Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'admin' )
-                      <a href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}">{{ $item->first_name.' '.$item->last_name }}</a>
+                      <a href="/property/{{ $property->property_id }}/home/{{ $item->unit_id }}/tenant/{{ $item->tenant_id }}">{{ $item->first_name.' '.$item->last_name }}</a>
                       @else
-                      <a href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/billings">{{ $item->first_name.' '.$item->last_name }}</a>
+                      <a href="/property/{{ $property->property_id }}/home/{{ $item->unit_id }}/tenant/{{ $item->tenant_id }}">{{ $item->first_name.' '.$item->last_name }}</a>
                       @endif
                     </td>
                     <td> 
                       @if(Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'admin' )
-                      <a href="/units/{{ $item->unit_id }}">{{ $item->building.' '.$item->unit_no }}</a>
+                      <a href="/property/{{ $property->property_id }}/home/{{ $item->unit_id }}">{{ $item->building.' '.$item->unit_no }}</a>
                       @else
+
+                
                      {{ $item->building.' '.$item->unit_no }}
                       @endif
                     <td>
@@ -591,7 +593,7 @@
                     </td>
                     <td >
                       @if(Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'admin' )
-                      <a title="{{ $item->concern_desc }}" href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/concerns/{{ $item->concern_id }}">{{ $item->concern_item }}</a></td>
+                      <a href="/property/{{ $property->property_id }}/home/{{ $item->unit_id }}/tenant/{{ $item->tenant_id }}concern/{{ $item->concern_id }}">{{ $item->concern_item }}</a></td>
                       @else
                       {{ $item->concern_item }}
                       @endif
