@@ -195,6 +195,7 @@
                 <td><a href="/property/{{ $property->property_id }}/home/{{ $tenant->unit_id }}/tenant/{{ $tenant->tenant_id }}">{{ $tenant->first_name.' '.$tenant->middle_name.' '.$tenant->last_name }}</a></td>
                 <td>{{ $tenant->email_address }}</td>
                 <td>{{ $tenant->contact_no }}</td>
+                <td>{{ $tenant->unit_no }}</td>
                 <td>{{ $tenant->tenant_status }}</td>
                 <td>{{ Carbon\Carbon::parse($tenant->movein_date)->format('M d Y') }}</td>    
                 <td>{{ Carbon\Carbon::parse($tenant->movein_date)->format('M d Y') }}</td>
