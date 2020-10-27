@@ -162,7 +162,7 @@
 <div class="row">
     <div class="table-responsive text-nowrap">
        <div class="col-md-12">
-        <p><span class="font-weight-bold">{{ $tenants->count()+$emails->count() }}</span> matched for tenants...</p>
+        <p><span class="font-weight-bold">{{ $all_tenants->count() }}</span> matched for tenants...</p>
         <table class="table">
             <tr>
                 <th>#</th>
@@ -225,7 +225,7 @@
 
          <br>
 
-         <p><span class="font-weight-bold">{{ $owners->count()+ $mobiles->count() }}</span> matched for owners...</p>
+         <p><span class="font-weight-bold">{{ $all_owners->count() }}</span> matched for owners...</p>
         <table class="table">
             <tr>
                 <th>#</th>
