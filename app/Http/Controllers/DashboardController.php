@@ -656,8 +656,6 @@ $property = Property::findOrFail($property_id);
             )
     );
 
-    
-}
 // if(Auth::user()->property_type === 'Apartment Rentals' || Auth::user()->property_type === 'Dormitory'){
    
     }
