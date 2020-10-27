@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
  
 use DB;
-
 use Carbon\Carbon;
-
 use Auth;
+use App\Property;
+use App\User;
 
 class BlogController extends Controller
 {
@@ -17,29 +17,13 @@ class BlogController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($property_id)
     {
-        $featured_blog = DB::table('users')
-        ->join('blogs', 'users.id','user_id_foreign')
-        ->select('*', 'blogs.created_at as created_at')
-        ->where('published', '1')
-        ->latest('blogs.id')
-        ->limit(1)
-        ->get();
+         $blogs = User::findOrFail(Auth::user()->id)->blogs;
 
-        $blogs = DB::table('blogs')->where('published', '1')->count();
-
-         $previous_blogs = DB::table('users')
-        ->join('blogs', 'users.id','user_id_foreign')
-        ->select('*', 'blogs.created_at as created_at')
-        ->where('published', '1')
-        ->orderBy('blogs.id', 'asc')
-        
-        ->limit($blogs-1)
-        ->get();
-
+        $property = Property::findOrFail($property_id);
     
-        return view('website.blogs', compact('featured_blog', 'previous_blogs'));
+        return view('webapp.blogs.index', compact('property', 'blogs'));
     }
 
     /**
@@ -89,7 +73,7 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
-        DB::table('blogs')
+       $blog_id = DB::table('blogs')
         ->insert([
             'title' => $request->title,
             'category' => $request->category,
@@ -99,7 +83,9 @@ class BlogController extends Controller
             'created_at' => Carbon::now()
         ]);
 
-        return redirect('/users/'.Auth::user()->id.'/#blogs')->with('success', 'New blog has been posted!');
+         return back()->with('success', 'New blog has been posted!');
+
+        // return redirect('/property/'.$request->property_id.'/blog/'.$blog_id)->with('success', 'New blog has been posted!');
     }
 
     /**
@@ -108,9 +94,9 @@ class BlogController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($property_id, $blog_id)
     {
-        //
+        return $property_id;
     }
 
     /**

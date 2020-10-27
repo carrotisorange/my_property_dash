@@ -7,6 +7,7 @@ use DB;
 use App\Unit, App\Billing;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use App\Property;
 
 class UnitController extends Controller
 {
@@ -216,29 +217,26 @@ class UnitController extends Controller
          return back()->with('success', $request->no_of_rooms.' rooms have been created!');
      }
 
-     public function show_edit_multiple_rooms($property){
+     public function show_edit_multiple_rooms($property_id){
 
-        if($property === Auth::user()->property){
             $units = DB::table('units')
-            ->where('unit_property', Auth::user()->property)
+            ->where('property_id_foreign', $property_id)
             // ->where('status','<>','deleted')
             ->orderBy('building', 'asc')
             ->orderBy('floor_no', 'asc')
             ->orderBy('unit_no', 'asc')
             ->get();
+
+            $property = Property::findOrFail($property_id);
     
-            return view('webapp.home.edit-units', compact('units'));
-        }else{
-            return view('website.unregistered');
-        }
-   
- 
+            return view('webapp.home.edit-units', compact('units', 'property'));
+
      }
 
-     public function post_edit_multiple_rooms(Request $request){
-      
+     public function post_edit_multiple_rooms(Request $request, $property_id){
+    
       $units_count = DB::table('units')
-         ->where('unit_property', Auth::user()->property)
+      ->where('property_id_foreign', $property_id)
         //  ->where('status','<>','deleted')
          ->count();
          
@@ -258,12 +256,12 @@ class UnitController extends Controller
         }
 
         $units = DB::table('units')
-        ->where('unit_property', Auth::user()->property)
+        ->where('property_id_foreign', $property_id)
         ->where('status','<>','deleted')
         ->count();
 
         $occupied_units = DB::table('units')
-        ->where('unit_property', Auth::user()->property)
+        ->where('property_id_foreign', $property_id)
         ->where('status', 'occupied')
         ->count();
 
@@ -271,13 +269,13 @@ class UnitController extends Controller
             ->insert(
                         [
                             'occupancy_rate' => ($occupied_units/$units) * 100,
-                            'occupancy_property' => Auth::user()->property,
+                            'property_id_foreign' => $property_id,
                            'occupancy_date' => Carbon::now(),'created_at' => Carbon::now(),
                         ]
                     );
         
 
-        return redirect('/home')->with('success', $units_count.' rooms have been updated!');
+        return redirect('/property/'. $property_id.'/home')->with('success','rooms have been updated!');
      }
 
 

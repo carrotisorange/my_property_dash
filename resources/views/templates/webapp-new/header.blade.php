@@ -45,7 +45,7 @@
               <i class="fas fa-building"></i>
               <span>My Properties</span>
             </a>
-            <a href="#!" class="dropdown-item">
+            <a href="/property/{{ $property->property_id }}/blogs" class="dropdown-item">
               <i class="fas fa-blog"></i>
               <span>Blogs</span>
             </a>

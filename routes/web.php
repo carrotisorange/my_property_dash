@@ -26,11 +26,13 @@ Route::get('/blogs', 'BlogController@index');
 
 Route::post('/event', 'CalendarController@store')->middleware(['auth', 'verified']);
 
-Route::post('/blogs', 'BlogController@store')->middleware(['auth', 'verified']);
-
 Route::post('ckeditor/image_upload', 'BlogController@upload')->name('upload');
 
 
+//routes for blogs
+Route::get('/property/{property_id}/blogs', 'BlogController@index');
+Route::post('/property/{property_id}/blog', 'BlogController@store')->middleware(['auth', 'verified']);
+Route::get('/property/{property_id}/blog/{blog_id}', 'BlogController@show')->middleware(['auth', 'verified']);
 
 //routes for system-users
 Route::get('/property/{property_id}/user/all', 'UserController@index_system_user')->middleware(['auth', 'verified']);
@@ -1174,7 +1176,8 @@ Route::put('/units/{unit_id}/tenants/{tenant_id}/edit/img', function(Request $re
 
 
 //show multiple units for editing
-Route::get('/units/edit/{property}/{date}', 'UnitController@show_edit_multiple_rooms')->middleware(['auth', 'verified']);
+Route::get('/property/{property_id}/home/{date}/edit', 'UnitController@show_edit_multiple_rooms')->middleware(['auth', 'verified']);
+Route::put('/property/{property_id}/home/{date}', 'UnitController@post_edit_multiple_rooms')->middleware(['auth', 'verified']);
 
 //post changes to multiple units
 Route::put('/units/edit/{property}/{date}', 'UnitController@post_edit_multiple_rooms')->middleware(['auth', 'verified']);
