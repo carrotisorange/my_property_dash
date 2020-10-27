@@ -102,6 +102,8 @@ class PropertyController extends Controller
         ->orWhereRaw("contact_no like '%$search_key%' ")
         ->get();
 
+        $all_tenants = $tenants->merge($emails);
+
         $units = DB::table('units')
         ->where('property_id_foreign', $property_id)
         ->whereRaw("unit_no like '%$search_key%' ")
@@ -121,10 +123,12 @@ class PropertyController extends Controller
         ->whereRaw("investor_contact_no like '%$search_key%' ")
         ->get();
 
+        $all_owners = $owners->merge($mobiles);
+
         $property = Property::findOrFail($property_id);
     
 
-        return view('webapp.properties.search', compact('property','search_key', 'tenants', 'units', 'owners', 'emails', 'mobiles'));
+        return view('webapp.properties.search', compact('property','search_key', 'all_tenants', 'units', 'all_owners'));
     }
 
         /**

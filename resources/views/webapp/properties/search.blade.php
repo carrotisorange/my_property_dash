@@ -176,20 +176,7 @@
                 <th>Monthly rent</th>
             </tr>
             <?php $tenant_ctr=1;?>
-            @foreach ($tenants as $tenant)
-            <tr>
-                <th>{{ $tenant_ctr++ }}</th>
-                <td><a href="/property/{{ $property->property_id }}/home/{{ $tenant->unit_id }}/tenant/{{ $tenant->tenant_id }}">{{ $tenant->first_name.' '.$tenant->middle_name.' '.$tenant->last_name }}</a></td>
-                <td>{{ $tenant->email_address }}</td>
-                <td>{{ $tenant->contact_no }}</td>
-                <td>{{ $tenant->unit_no }}</td>
-                <td>{{ $tenant->tenant_status }}</td>
-                <td>{{ Carbon\Carbon::parse($tenant->movein_date)->format('M d Y') }}</td>    
-                <td>{{ Carbon\Carbon::parse($tenant->movein_date)->format('M d Y') }}</td>
-                <td>{{ $tenant->tenant_monthly_rent }}</td>
-            </tr>
-            @endforeach
-            @foreach ($emails as $tenant)
+            @foreach ($all_tenants as $tenant)
             <tr>
                 <th>{{ $tenant_ctr++ }}</th>
                 <td><a href="/property/{{ $property->property_id }}/home/{{ $tenant->unit_id }}/tenant/{{ $tenant->tenant_id }}">{{ $tenant->first_name.' '.$tenant->middle_name.' '.$tenant->last_name }}</a></td>
@@ -202,6 +189,7 @@
                 <td>{{ number_format($tenant->tenant_monthly_rent, 2) }}</td>
             </tr>
             @endforeach
+            
          </table>
 
          <br>
@@ -254,7 +242,7 @@
                 <th>Status</th>
             </tr>
             <?php $owner_ctr=1;?>
-            @foreach ($owners as $owner)
+            @foreach ($all_owners as $owner)
             <tr>
                 <th>{{ $owner_ctr++ }}</th>
                 <td><a href="/property/{{ $property->property_id }}/home/{{ $owner->unit_id_foreign }}">{{ $owner->building.' '.$owner->unit_no }}</a></td>
@@ -269,21 +257,7 @@
                <td>{{ $owner->status }}</td>
             </tr>
             @endforeach
-            @foreach ($mobiles as $owner)
-            <tr>
-                <th>{{ $owner_ctr++ }}</th>
-                <td><a href="/property/{{ $property->property_id }}/home/{{ $owner->unit_id_foreign }}">{{ $owner->building.' '.$owner->unit_no }}</a></td>
-               <td>{{ $owner->investor_email_address}}</td>
-               <td>{{ $owner->investor_contact_no }}</td>
-               <TD>{{ $owner->investor_representative }}</TD>
-               <td> {{ $owner->date_accepted ? Carbon\Carbon::parse($owner->date_accepted)->format('M d Y') : null}}</td>
-
-               <td>{{ $owner->type_of_units }}</td>
-               <td>{{ $owner->max_occupancy }} pax</td>
-               <td>{{ number_format($owner->monthly_rent, 2) }}</td>
-               <td>{{ $owner->status }}</td>
-            </tr>
-            @endforeach
+    
          </table>
        </div>
         
