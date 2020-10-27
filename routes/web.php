@@ -84,10 +84,10 @@ Route::get('/asa', function(){
     //     'lower_access_user_id' => Auth::user()->id
     // ]);
 
-    DB::table('users')
-   ->update([
-       'trial_ends_at' => Carbon::now()->addMonths(2)
-   ]);
+//     DB::table('users')
+//    ->update([
+//        'trial_ends_at' => Carbon::now()->addMonths(2)
+//    ]);
 
         return back()->with('success','all existing users have been imported!');
 });
