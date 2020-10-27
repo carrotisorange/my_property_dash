@@ -237,7 +237,7 @@
 
          <br>
 
-         <p><span class="font-weight-bold">{{ $owners->count() }}</span> matched for owners...</p>
+         <p><span class="font-weight-bold">{{ $owners->count()+$mobiles->count }}</span> matched for owners...</p>
         <table class="table">
             <tr>
                 <th>#</th>
@@ -255,6 +255,21 @@
             </tr>
             <?php $owner_ctr=1;?>
             @foreach ($owners as $owner)
+            <tr>
+                <th>{{ $owner_ctr++ }}</th>
+                <td><a href="/property/{{ $property->property_id }}/home/{{ $owner->unit_id_foreign }}">{{ $owner->building.' '.$owner->unit_no }}</a></td>
+               <td>{{ $owner->investor_email_address}}</td>
+               <td>{{ $owner->investor_contact_no }}</td>
+               <TD>{{ $owner->investor_representative }}</TD>
+               <td> {{ $owner->date_accepted ? Carbon\Carbon::parse($owner->date_accepted)->format('M d Y') : null}}</td>
+
+               <td>{{ $owner->type_of_units }}</td>
+               <td>{{ $owner->max_occupancy }} pax</td>
+               <td>{{ number_format($owner->monthly_rent, 2) }}</td>
+               <td>{{ $owner->status }}</td>
+            </tr>
+            @endforeach
+            @foreach ($mobiles as $owner)
             <tr>
                 <th>{{ $owner_ctr++ }}</th>
                 <td><a href="/property/{{ $property->property_id }}/home/{{ $owner->unit_id_foreign }}">{{ $owner->building.' '.$owner->unit_no }}</a></td>

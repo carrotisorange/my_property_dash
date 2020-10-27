@@ -114,10 +114,17 @@ class PropertyController extends Controller
         ->whereRaw("unit_owner like '%$search_key%' ")
         ->get();
 
+        $mobiles = DB::table('unit_owners')
+        ->join('units', 'unit_id_foreign', 'unit_id')
+        ->where('property_id_foreign', $property_id)
+        ->whereRaw("investor_email_address like '%$search_key%' ")
+        ->whereRaw("investor_contact_no like '%$search_key%' ")
+        ->get();
+
         $property = Property::findOrFail($property_id);
     
 
-        return view('webapp.properties.search', compact('property','search_key', 'tenants', 'units', 'owners', 'emails'));
+        return view('webapp.properties.search', compact('property','search_key', 'tenants', 'units', 'owners', 'emails', 'mobiles));
     }
 
         /**
