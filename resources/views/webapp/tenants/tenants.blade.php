@@ -233,7 +233,7 @@ Showing <b>{{ $tenants->count() }} </b> of {{ $count_tenants }} tenants
                 @elseif($item->tenant_status === 'inactive')
                 <span class="badge badge-secondary">{{ $item->tenant_status }}</span>
                 @else
-                <span class="badge badge-warning">{{ $item->tenant_status }}</span>
+                <span class="badge badge-danger">{{ $item->tenant_status }}</span>
                 @endif
             </td>
             <td>{{ $item->contact_no }}</td>
