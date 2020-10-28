@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\TenantRegisteredMail;
 use App\Mail\SendContractAlertEmail;
 use App\Concern;
+use App\Session;
 
 /*
 |--------------------------------------------------------------------------
@@ -97,6 +98,8 @@ Route::get('/property/{property_id}/calendar', 'CalendarController@index')->midd
 
 Route::get('/asa', function(){
 
+ 
+
 //    return DB::table('units')
 
 //     ->join('unit_owners', 'unit_id', 'unit_id_foreign')
@@ -118,7 +121,7 @@ Route::get('/asa', function(){
 //        'trial_ends_at' => Carbon::now()->addMonths(2)
 //    ]);
 
-        return back()->with('success','all existing users have been imported!');
+        // return back()->with('success','all existing users have been imported!');
 });
 
 //routes for concerns

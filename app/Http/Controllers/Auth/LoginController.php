@@ -11,6 +11,7 @@ use DB;
 use Socialite;
 use Illuminate\Http\Request;
 use App\User;
+use App\Session;
 
 
 class LoginController extends Controller
@@ -36,44 +37,37 @@ class LoginController extends Controller
      */
     //protected $redirectTo = RouteServiceProvider::HOME;
 
+
+
+        function authenticated(Request $request, $user)
+        {
+            $latest_session = Session::latest()->first();
+
+            if($latest_session->session_last_login_at > Carbon::today()){
+                DB::table('sessions')
+                ->where('session_user_id', Auth::user()->id)
+                ->update(
+                            [
+                                'session_last_login_at' => Carbon::now(),
+                                'session_last_login_ip' => request()->ip(),
+                            ]
+                        );
+                } else{
+                
+                        DB::table('sessions')
+                        ->insert(
+                                    [
+                                        'session_user_id' => Auth::user()->id,
+                                        'session_last_login_at' => Carbon::now(),
+                                        'session_last_login_ip' => request()->ip(),
+                                    ]
+                                );
+                   
+                }
+           }
+        
+        
      protected $redirectTo = '/property/all';
-
-
-    //     function authenticated(Request $request, $user)
-    //     {
-    //        if(Auth::user()->email !== 'thepropertymanager2020@gmail.com' ){
-    //         DB::table('users')
-    //         ->where('id', Auth::user()->id)
-    //         ->update(
-    //                     [
-    //                         'last_login_at' => Carbon::now(),
-    //                         'last_login_ip' => request()->ip(),
-    //                         'user_current_status' => 'online',
-    //                     ]
-    //             );
-
-    //         DB::table('sessions')
-    //         ->insert(
-    //                     [
-    //                         'session_user_id' => Auth::user()->id,
-    //                         'session_last_login_at' => Carbon::now(),
-    //                         'session_last_login_ip' => request()->ip(),
-    //                     ]
-    //                 );
-    //        }
-    //     }
-
-    
-    // protected $redirectTo = '/board';
-
-    // protected function redirectTo()
-    // {
-    //     if(Auth::user()->user_type =='root'){
-    //         return '/users';
-    //     }else{
-    //         return '/board';
-    //     }   
-    // }
 
     /**
      * Create a new controller instance.
@@ -81,29 +75,19 @@ class LoginController extends Controller
      * 
      */
 
-    public function logout(Request $request) {
-      
-        if(Auth::user()->email !== 'thepropertymanager2020@gmail.com' ){
-            DB::table('users')
-                ->where('id', Auth::user()->id)
-                ->update(
-                            [
-                                'last_logout_at' => Carbon::now(),
-                                'user_current_status' => 'offline',
-                            ]
+    public function logout(Request $request) {   
+
+        DB::table('sessions')
+        ->where('session_user_id', Auth::user()->id)
+        ->whereDate('session_last_login_at',  Carbon::today())
+            ->update(
+                        [   
+                            'session_last_logout_at' => Carbon::now(),
+                        ]
                     );
-            
-            DB::table('sessions')
-                ->insert(
-                            [   
-        
-                                'session_user_id' => Auth::user()->id,
-                                'session_last_logout_at' => Carbon::now(),
-                                'session_last_login_ip' => request()->ip(),
-                            ]
-                        );
-        }
+
         Auth::logout();
+
         return redirect('/login');
       }
 

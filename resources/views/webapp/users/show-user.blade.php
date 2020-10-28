@@ -194,7 +194,7 @@
               </tr>
               <tr>
                 <td>Role</td>
-                <td>{{ $user->name }}</td>
+                <td>{{ $user->user_type }}</td>
               </tr>
               <tr>
                 <td>Plan</td>
@@ -242,17 +242,19 @@
             <tr>
               <th>#</th>  
               <th>IP Address</th>
-              <th>Login At</th>
-              <th>Logout At</th>
+              <th>Login at</th>
+              <th>Logout at</th>
+              <th>Usage time</th>
             </tr>
             @foreach ($sessions as $item)
               <tr>
                <th>{{ $ctr++ }}</th>
                 <td>{{ $item->session_last_login_ip }}</td>
                <td>{{ $item->session_last_login_at? Carbon\Carbon::parse($item->session_last_login_at)->format('M d Y').' '.Carbon\Carbon::parse($item->session_last_login_at)->toTimeString() : null }}</td>
-                
                <td>{{ $item->session_last_logout_at? Carbon\Carbon::parse($item->session_last_logout_at)->format('M d Y').' '.Carbon\Carbon::parse($item->session_last_logout_at)->toTimeString() : null }}</td>
-       
+               <td>{{  Carbon\Carbon::parse($item->session_last_login_at)->DiffInHours(Carbon\Carbon::parse($item->session_last_logout_at))*60 }} min</td>
+               
+               
               </tr>
             @endforeach
           </table>
