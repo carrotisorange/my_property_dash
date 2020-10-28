@@ -228,6 +228,7 @@
 <div class="table-responsive text-nowrap">
   <table class="table">
     <?php $ctr = 1; ?>
+    <thead>
     <tr>
       <th>#</th>  
       <th>Name</th>
@@ -237,6 +238,8 @@
       <th>Logout at</th>
       <th>Usage time</th>
     </tr>
+    </thead>
+    <tbody>
     @foreach ($sessions as $item)
       <tr>
        <th>{{ $ctr++ }}</th>
@@ -248,13 +251,14 @@
        <td>{{  number_format(Carbon\Carbon::parse($item->session_last_login_at)->DiffInHours(Carbon\Carbon::parse($item->session_last_logout_at)),1) }} hours</td>
       </tr>
     @endforeach
+    </tbody>
   </table>
 
 </div>
 <br>
 <h4>Users ({{ $users->count() }})</h4>
 <div class="table-responsive text-nowrap">
-<table class="table table-bordered" >
+<table class="table" >
   <?php $ctr=1; ?>
   <thead>
     <tr>
