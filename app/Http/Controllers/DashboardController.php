@@ -260,7 +260,7 @@ $collection_rate_9 = DB::table('units')
 ->join('tenants', 'unit_id', 'unit_tenant_id')
 ->join('payments', 'tenant_id', 'payment_tenant_id')
 ->where('payment_created', '>=', Carbon::now()->subMonth()->firstOfMonth())
-->where('payment_created', '<=', Carbon::now()->subMonth()->firstOfMonth())
+->where('payment_created', '<=', Carbon::now()->subMonth()->endOfMonth())
  ->where('property_id_foreign', $property_id)
 ->sum('amt_paid');
 
@@ -268,7 +268,7 @@ $collection_rate_9 = DB::table('units')
  ->join('tenants', 'unit_id', 'unit_tenant_id')
  ->join('payments', 'tenant_id', 'payment_tenant_id')
  ->where('payment_created', '>=', Carbon::now()->firstOfMonth())
- ->where('payment_created', '<=', Carbon::now()->firstOfMonth())
+ ->where('payment_created', '<=', Carbon::now()->endOfMonth())
   ->where('property_id_foreign', $property_id)
  ->sum('amt_paid');
 
