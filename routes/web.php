@@ -98,7 +98,7 @@ Route::get('/property/{property_id}/calendar', 'CalendarController@index')->midd
 
 Route::get('/asa', function(){
 
- 
+    return DB::table('sessions')->delete();
 
 //    return DB::table('units')
 
