@@ -219,7 +219,7 @@
           @if(Auth::user()->user_type === 'billing')
           <a href="/property/{{ $property->property_id }}/home/{{ $item->unit_id }}/tenant/{{ $item->tenant_id }}/bills">{{ $item->first_name.' '.$item->last_name }}</a>
           @else
-            <a href="/property/{{ $property->property_id }}/home/{{ $item->unit_id }}/tenant/{{ $item->tenant_id }}">{{ $item->first_name.' '.$item->last_name }}</a>
+            <a href="/property/{{ $property->property_id }}/home/{{ $item->unit_id }}/tenant/{{ $item->tenant_id }}#bills">{{ $item->first_name.' '.$item->last_name }}</a>
           @endif
         </td>
         <td>{{ $item->building.' '.$item->unit_no }}</td>
