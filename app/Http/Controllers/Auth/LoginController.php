@@ -37,15 +37,26 @@ class LoginController extends Controller
      */
     //protected $redirectTo = RouteServiceProvider::HOME;
 
-
-
         function authenticated(Request $request, $user)
         {
-            $latest_session = Session::latest()->first();
+            $sessions = User::findOrFail(Auth::user()->id)->sessions;
 
-            if($latest_session->session_last_login_at > Carbon::today()){
+           if($sessions->count() <= 0){
+                DB::table('sessions')
+                ->insert(
+                            [
+                                'session_user_id' => Auth::user()->id,
+                                'session_last_login_at' => Carbon::now(),
+                                'session_last_login_ip' => request()->ip(),
+                            ]
+                        );
+           }else{
+            $latest_session = DB::table('sessions')->where('session_user_id',Auth::user()->id )->latest('session_last_login_at')->first();
+            
+            if($latest_session->session_last_login_at >= Carbon::today()){
                 DB::table('sessions')
                 ->where('session_user_id', Auth::user()->id)
+                ->whereDate('session_last_login_at',  Carbon::today())
                 ->update(
                             [
                                 'session_last_login_at' => Carbon::now(),
@@ -53,7 +64,6 @@ class LoginController extends Controller
                             ]
                         );
                 } else{
-                
                         DB::table('sessions')
                         ->insert(
                                     [
@@ -64,6 +74,9 @@ class LoginController extends Controller
                                 );
                    
                 }
+           }
+
+   
            }
         
         

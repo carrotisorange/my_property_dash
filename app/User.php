@@ -77,6 +77,13 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany('App\Property', 'user_id_property')->where('unit_id', 'property_id_foreign')->count();
     }
 
+    public function sessions()
+    {
+        return $this->hasMany('App\Session', 'session_user_id');
+    }
+
+
+
 
 
 

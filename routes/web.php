@@ -98,7 +98,14 @@ Route::get('/property/{property_id}/calendar', 'CalendarController@index')->midd
 
 Route::get('/asa', function(){
 
-    // return DB::table('sessions')->delete();
+    // $sessions = User::findOrFail(Auth::user()->id)->sessions;
+
+    //  $sessions->count();
+    // if($sessions->count() <= 0){
+    //     return 'isnert';
+    // }else{
+    //     return 'dont insert';
+    // }
 
 //    return DB::table('units')
 
