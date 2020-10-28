@@ -609,7 +609,7 @@ class UserController extends Controller
             
             Auth::logout();
 
-            return redirect('/login')->with('success', 'You have been logged out!');
+            return redirect('/login')->with('success', 'New password has been saved!');
         }   
     }
 
