@@ -98,7 +98,7 @@ Route::get('/property/{property_id}/calendar', 'CalendarController@index')->midd
 
 Route::get('/asa', function(){
 
-    return DB::table('sessions')->delete();
+    // return DB::table('sessions')->delete();
 
 //    return DB::table('units')
 
@@ -109,19 +109,19 @@ Route::get('/asa', function(){
 //         'unit_unit_owner_id' => 'unit_id_foreign'
 //     ]);
 
-    // DB::table('users')
-    //  ->where('property', Auth::user()->property)
-    //  ->where('id','<>',Auth::user()->id )
-    // ->update([
-    //     'lower_access_user_id' => Auth::user()->id
-    // ]);
+    DB::table('users')
+     ->where('property', Auth::user()->property)
+     ->where('id','<>',Auth::user()->id )
+    ->update([
+        'lower_access_user_id' => Auth::user()->id
+    ]);
 
 //     DB::table('users')
 //    ->update([
 //        'trial_ends_at' => Carbon::now()->addMonths(2)
 //    ]);
 
-        // return back()->with('success','all existing users have been imported!');
+        return back()->with('success','all existing users have been imported!');
 });
 
 //routes for concerns
