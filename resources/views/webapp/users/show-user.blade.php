@@ -264,7 +264,7 @@
     <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="nav-settings-tab">  
       <br><br>
       <div class="col-md-11 mx-auto">
-        <form id="editUserForm" action="/property/{{ $property_id }}/user/{{ $user->id }}" method="POST">
+        <form id="editUserForm" action="/property/{{ $property->property_id }}/user/{{ $user->id }}" method="POST">
           @method('put')
           @csrf
         </form>
