@@ -237,6 +237,7 @@
       <th>Login at</th>
       <th>Logout at</th>
       <th>Usage time</th>
+      
     </tr>
     </thead>
     <tbody>

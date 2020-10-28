@@ -384,6 +384,7 @@ class UserController extends Controller
            
              $sessions = DB::table('users')
             ->join('sessions', 'id', 'session_user_id')
+          
             ->where('id', Auth::user()->id)
             ->orWhere('lower_access_user_id', Auth::user()->id )
             ->whereDay('session_last_login_at', now()->day)
