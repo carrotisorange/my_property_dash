@@ -102,7 +102,7 @@ class PropertyController extends Controller
         ->orWhereRaw("contact_no like '%$search_key%' ")
         ->get();
 
-        $all_tenants = $tenants->merge($emails);
+        $all_tenants = $tenants->merge($emails)->unique();
 
         $units = DB::table('units')
         ->where('property_id_foreign', $property_id)
