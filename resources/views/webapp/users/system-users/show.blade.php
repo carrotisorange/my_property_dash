@@ -32,6 +32,7 @@
                       <th>Email</th>
                     <th>Role</th>
                     <th>Date added</th>
+                    <th>Verified</th>
                 </tr>
                 
                     <tr>
@@ -40,6 +41,8 @@
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->user_type }}</td>
                         <td>{{ Carbon\Carbon::parse($user->created_at)->format('M d Y') }}</td>
+                       
+                        <td>{{ $user->email_verified_at? Carbon\Carbon::parse($user->email_verified_at)->format('M d Y'): ' ' }}</td>
                     </tr>
                
             </table>

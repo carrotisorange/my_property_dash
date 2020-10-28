@@ -224,52 +224,31 @@
     </div>
   </div>
 </div> --}}
-<h4>Logins ({{ $sessions->count() }})</h4>
+<h4>Sessions for today ({{ $sessions->count() }}) </h4>
 <div class="table-responsive text-nowrap">
-<table class="table table-bordered" >
-  <?php $ctr=1; ?>
-  <thead>
+  <table class="table">
+    <?php $ctr = 1; ?>
     <tr>
-     <th>#</th>
-     <th>User</th>
-     <th>Email</th>
-     <th>Role</th>
-     <th>Property</th>
-     <th>Login at</th>
-     <th>Status</th>
-  </tr>
-  </thead>
-  <tbody>
-   @foreach ($sessions as $item)
-   <tr>
-    <th>{{ $ctr++ }}</th>
-     <td><a href="/property/{{ $property->property_id }}/user/{{ $item->id }}">{{ $item->name }}</a></td>
-     <td>{{ $item->email }}</td>
-     <td>{{ $item->user_type }}</td>
-     <td>{{ $item->property }}</td>
-     <td>{{ Carbon\Carbon::parse($item->session_last_login_at)->toTimeString() }}</td>
-     <?php  
-                                   $diffInMinutes = Carbon\Carbon::parse($item->session_last_logout_at)->diffInMinutes();
-                                   $diffInHours = Carbon\Carbon::parse($item->session_last_logout_at)->diffInHours();
-                                   $diffInDays = Carbon\Carbon::parse($item->session_last_logout_at)->diffInDays()
-                                ?>
-                                <td>
-                                   @if($item->user_current_status === 'online')
-                                  <span class="badge badge-success"> {{ $item->user_current_status }}</span>
-                                  @else
-                                   @if($diffInMinutes < 60)
-                                   <span class="badge badge-secondary"> {{ $diffInMinutes }} minutes ago</span> 
-                                     @elseif($diffInHours > 24)
-                                     <span class="badge badge-secondary"> {{ $diffInDays }} days ago</span>
-                                     @else
-                                     <span class="badge badge-secondary">  {{ $diffInHours }} hours ago</span>
-                                     @endif
-                                  @endif
-                                 </td> 
-   </tr>
-   @endforeach
-  </tbody>
-</table>
+      <th>#</th>  
+      <th>Name</th>
+      <th>Role</th>
+      <th>IP Address</th>
+      <th>Login at</th>
+      <th>Logout at</th>
+      <th>Usage time</th>
+    </tr>
+    @foreach ($sessions as $item)
+      <tr>
+       <th>{{ $ctr++ }}</th>
+       <td>{{ $item->name }}</td>
+       <td>{{ $item->user_type }}</td>
+        <td>{{ $item->session_last_login_ip }}</td>
+       <td>{{ $item->session_last_login_at? Carbon\Carbon::parse($item->session_last_login_at)->format('M d Y').' '.Carbon\Carbon::parse($item->session_last_login_at)->toTimeString() : null }}</td>
+       <td>{{ $item->session_last_logout_at? Carbon\Carbon::parse($item->session_last_logout_at)->format('M d Y').' '.Carbon\Carbon::parse($item->session_last_logout_at)->toTimeString() : null }}</td>
+       <td>{{  number_format(Carbon\Carbon::parse($item->session_last_login_at)->DiffInHours(Carbon\Carbon::parse($item->session_last_logout_at)),1) }} hours</td>
+      </tr>
+    @endforeach
+  </table>
 
 </div>
 <br>

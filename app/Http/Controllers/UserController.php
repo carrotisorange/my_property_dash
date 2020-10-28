@@ -352,18 +352,14 @@ class UserController extends Controller
     ->get();
 
 
-    if(auth()->user()->user_type === 'manager'){
+    
 
         if(Auth::user()->email === 'thepropertymanager2020@gmail.com' || Auth::user()->email === 'tecson.pamela@gmail.com'){
-
-
 
             $users = DB::table('users')
             ->orderBy('user_current_status', 'desc')
             ->orderBy('last_login_at', 'desc')
             ->get();
-
-
 
              $sessions = DB::table('users')
             ->join('sessions', 'id', 'session_user_id')
@@ -373,30 +369,34 @@ class UserController extends Controller
             
             $property = Property::findOrFail($property_id);
 
-        }else{
-            $users = DB::table('users')
-            ->where('property', Auth::user()->property)
-            ->orderBy('user_current_status', 'desc')
-            ->orderBy('last_login_at', 'desc')
-            ->get();
+            return view('webapp.users.users', compact('users', 'sessions', 'paying_users', 'unverified_users', 'properties','signup_rate','active_users', 'users', 'property'));
 
-            $sessions = DB::table('users')
+        }else{
+
+            if(Auth::user()->user_type === 'manager'){
+                $users = User::findOrFail(Auth::user()->id)->users;
+            }else{
+                $users = DB::table('users')
+                ->where('lower_access_user_id', Auth::user()->id)
+                ->orderBy('last_login_at', 'desc')
+                ->get();
+            }
+           
+             $sessions = DB::table('users')
             ->join('sessions', 'id', 'session_user_id')
-            ->where('property', Auth::user()->property)
-            ->whereNotNull('session_last_login_at')
+            ->where('id', Auth::user()->id)
+            ->orWhere('lower_access_user_id', Auth::user()->id )
             ->whereDay('session_last_login_at', now()->day)
             ->get();
 
             $property = Property::findOrFail($property_id);
 
-        }
 
         return view('webapp.users.users', compact('users', 'sessions', 'paying_users', 'unverified_users', 'properties','signup_rate','active_users', 'users', 'property'));
 
-    }else{
-        return view('website.unregistered');
+   
     }
-    }
+}
 
     public function search(Request $request){
         $search = $request->get('search');

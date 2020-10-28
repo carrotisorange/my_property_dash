@@ -26,6 +26,7 @@
                       <th>Name</th>
                       <th>Email</th>
                       <th>Role</th>
+                      <th>Status</th>
                   </tr>
                   @foreach ($users as $item)
                       <tr>
@@ -33,6 +34,16 @@
                           <td><a href="/property/{{ $property->property_id }}/system-user/{{ $item->id }}">{{ $item->name }}</a></td>
                           <td>{{ $item->email }}</td>
                           <td>{{ $item->user_type }}</td>
+                          <td class="text-center">
+                            @if($item->email_verified_at == null)
+                            <strong title="unverified" class="text-danger"><i class="fas fa-exclamation-triangle"></i> </strong>
+
+                            @else
+
+                            <strong  title="verified" class="text-primary"><i class="fas fa-check-circle"></i> </strong>
+                            @endif
+                          </td>
+                          
                       </tr>
                   @endforeach
               </table>
