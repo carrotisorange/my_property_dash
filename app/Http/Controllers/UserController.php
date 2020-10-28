@@ -579,7 +579,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $user_id)
+    public function update(Request $request, $property_id, $user_id)
     {
 
         if($request->password === null){
@@ -595,7 +595,7 @@ class UserController extends Controller
                     ]
                 );
 
-                return redirect('/users/'.$user_id)->with('success', 'changes have been saved!');
+                return back()->with('success', 'changes have been saved!');
         }else{
             DB::table('users')
             ->where('id', $user_id)

@@ -169,6 +169,7 @@ Route::post('/property/{property_id}/payable/{payable_id}/release', 'PayableCont
 //routes for users
 Route::get('/property/{property_id}/users', 'UserController@index')->middleware(['auth', 'verified']);
 Route::get('/property/{property_id}/user/{user_id}', 'UserController@show')->middleware(['auth', 'verified']);
+Route::put('/property/{property_id}/user/{user_id}', 'UserController@update')->middleware(['auth', 'verified']);
 
 //routes for responses
 Route::post('concern/{concern_id}/response', 'ResponseController@store')->middleware(['auth', 'verified']);

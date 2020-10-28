@@ -264,9 +264,9 @@
     <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="nav-settings-tab">  
       <br><br>
       <div class="col-md-11 mx-auto">
-        <form id="editUserForm" action="/users/{{ $user->id }}" method="POST">
+        <form id="editUserForm" action="/property/{{ $property_id }}/user/{{ $user->id }}" method="POST">
           @method('put')
-          {{ csrf_field() }}
+          @csrf
         </form>
           <small>Name</small>
           <input form="editUserForm" id="name" type="text" class="form-control form-control-user @error('name') is-invalid @enderror" name="name" value="{{ $user->name }}" required autocomplete="name" >
