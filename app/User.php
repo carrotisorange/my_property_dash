@@ -82,6 +82,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany('App\Session', 'session_user_id');
     }
 
+    public function access()
+    {
+        return $this->hasMany('App\Tenant', 'user_id_foreign');
+    }
+
 
 
 

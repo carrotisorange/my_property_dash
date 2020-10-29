@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Billing;
 use App\Property;
 use App\User;
+use Illuminate\Support\Facades\Hash;
 use App\Concern;
 
 class TenantController extends Controller
@@ -73,6 +74,37 @@ class TenantController extends Controller
 
         return view('webapp.tenants.tenants', compact('tenants', 'count_tenants', 'property'));
 
+    }
+
+    public function create_user_access(Request $request, $tenant_id){
+   
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required'],
+        ]);
+
+      $user_id =  DB::table('users')->insertGetId([
+            'name' => $request->name,
+            'email' => $request->email,
+            'user_type' => 'tenant',
+            'property' => '',
+            'property_type' => '',
+            'property_ownership' => '',
+            'password' => Hash::make($request->password),
+            'created_at' => Carbon::now(),
+            'account_type' => '',
+        
+            'trial_ends_at' => '',
+        ]);
+
+    DB::table('tenants')
+    ->where('tenant_id', $tenant_id)
+    ->update([
+        'user_id_foreign' => $user_id,
+    ]);
+
+    return back()->with('success', 'Tenant access to the system has been created!');
     }
 
     /**
@@ -247,8 +279,13 @@ class TenantController extends Controller
               ->join('payments', 'tenant_id', 'payment_tenant_id')
               ->where('unit_property', Auth::user()->property)
               ->max('ar_no') + 1;
+
+               $access = DB::table('users')
+              ->join('tenants', 'id', 'user_id_foreign')
+              ->where('tenant_id', $tenant_id)
+              ->get();
             
-                return view('webapp.tenants.show-tenant', compact('tenant','users' ,'concerns', 'current_bill_no', 'balance', 'unit', 'collections', 'payment_ctr','collections_count', 'property'));  
+                return view('webapp.tenants.show-tenant', compact('access','tenant','users' ,'concerns', 'current_bill_no', 'balance', 'unit', 'collections', 'payment_ctr','collections_count', 'property'));  
         }else{
                 return view('website.unregistered');
         }

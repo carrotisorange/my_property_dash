@@ -76,11 +76,19 @@ class LoginController extends Controller
                 }
            }
 
-   
+           $role = Auth::user()->user_type;
+           if($role === 'tenant'){
+            return redirect('/user/'.Auth::user()->id);
+          }elseif($role === 'owner'){
+            return redirect('/user'.Auth::user()->id);
+          }else{
+              return redirect('/property/all');
+          }
+           
            }
+
         
-        
-     protected $redirectTo = '/property/all';
+    //  protected $redirectTo = '/property/all';
 
     /**
      * Create a new controller instance.

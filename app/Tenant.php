@@ -61,5 +61,7 @@ class Tenant extends Model
     {
         return $this->hasMany('App\Concern', 'concern_tenant_id') ->orderBy('date_reported', 'desc')->orderBy('concern_urgency', 'desc')->orderBy('concern_status', 'desc');
     }
+
+
     
 }

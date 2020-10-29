@@ -84,6 +84,8 @@ Route::post('/property/{property_id}/home/{unit_id}/tenant/{tenant_id}/extend', 
 Route::put('/property/{property_id}/home/{unit_id}/tenant/{tenant_id}/request', 'TenantController@request')->middleware(['auth', 'verified']);
 Route::put('/property/{property_id}/home/{unit_id}/tenant/{tenant_id}/approve', 'TenantController@approve')->middleware(['auth', 'verified']);
 
+Route::post('/tenant/{tenant_id}/user/create', 'TenantController@create_user_access')->middleware(['auth', 'verified']);
+
 //routes for owners
 Route::get('/property/{property_id}/owners', 'OwnerController@index')->middleware(['auth', 'verified']);
 Route::get('/property/{property_id}/owner/{owner_id}/edit', 'OwnerController@edit')->middleware(['auth', 'verified']);

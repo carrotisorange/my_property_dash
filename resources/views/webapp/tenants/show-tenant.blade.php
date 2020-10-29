@@ -170,7 +170,7 @@
         @else
         <a class="nav-item nav-link active" id="nav-profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="nav-profile" aria-selected="true"><i class="fas fa-user fa-sm text-primary-50"></i> Profile</a>
         @endif
-       
+        <a class="nav-item nav-link" id="nav-user-tab" data-toggle="tab" href="#user" role="tab" aria-controls="nav-user" aria-selected="true"><i class="fas fa-user-circle fa-sm text-primary-50"></i> User</a>
         @if($diffInDays <= 30)
         <a class="nav-item nav-link" id="nav-contracts-tab" data-toggle="tab" href="#contracts" role="tab" aria-controls="nav-contracts" aria-selected="false"><i class="fas fa-file-signature fa-sm text-primary-50"></i> Contracts <span class="badge badge-warning"><i class="fas fa-exclamation-triangle"></i></span></a>
          @else
@@ -501,6 +501,39 @@
           </div>
         </div>
       </div>
+
+      <div class="tab-pane fade" id="user" role="tabpanel" aria-labelledby="nav-user-tab">
+        @if($access->count() <=0  )
+        <button  href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#userAccess" data-whatever="@mdo"><i class="fas fa-user-plus fa-sm text-white-50"></i> Create user access</button>
+        <br><br>
+        @endif
+     
+        
+        <div class="col-md-12 mx-auto">
+          <div class="table-responsive">
+            <div class="table-responsive text-nowrap">
+              @foreach ($access as $item)
+                  
+              
+              <table class="table">
+                
+                  <tr>  
+                    <th>Name</th>
+                    <td>{{ $item->name }}</td>
+                  </tr>
+                
+                  <tr>
+                    <th>Email</th>
+                    <td>{{ $item->email }}</td>
+                  </tr>
+                
+              </table>
+              @endforeach
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="tab-pane fade" id="bills" role="tabpanel" aria-labelledby="nav-bills-tab">
         <a href="#" data-toggle="modal" data-target="#addBill" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Add</a> 
         @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'manager')
@@ -1351,6 +1384,66 @@
           </div>
           </div>
 </div>
+
+<div class="modal fade" id="userAccess" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+    <h5 class="modal-title text-info" id="exampleModalLabel"><i class="fas fa-exclamation-info"></i> Tenant Credentials</h5>
+  
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+   <div class="modal-body">
+     <form id="userForm" action="/tenant/{{ $tenant->tenant_id }}/user/create" method="POST">
+    @csrf
+    </form>
+     <table class="table table-borderless">
+      <tr>
+        <th>Name</th>
+        <td><input type="text" name="name" form="userForm" class="form-control form-control-user @error('name') is-invalid @enderror" value="{{ $tenant->first_name.' '.$tenant->last_name }}" required></td>
+        <td>
+          @error('name')
+          <span class="invalid-feedback" role="alert">
+              <strong>{{ $message }}</strong>
+          </span>
+      @enderror
+        </td>
+      </tr>
+       <tr>
+         <th>Email</th>
+         <td><input type="text" name="email" form="userForm"  class="form-control form-control-user @error('email') is-invalid @enderror" value="{{ $tenant->email_address }}" required></td>
+         <td>
+          @error('email')
+          <span class="invalid-feedback" role="alert">
+              <strong>{{ $message }}</strong>
+          </span>
+      @enderror
+         </td>
+       </tr>
+       <tr>
+         <th>Password</th>
+         <td><input type="text" name="password" form="userForm"  class="form-control form-control-user @error('name') is-invalid @enderror" value="{{ $tenant->contact_no }}" required></td>
+         <td>
+          @error('password')
+          <span class="invalid-feedback" role="alert">
+              <strong>{{ $message }}</strong>
+          </span>
+      @enderror
+         </td>
+       </tr>
+    
+     </table>
+   </div>
+  <div class="modal-footer">
+    <a href="/#pricing" target="_blank" class="btn btn-secondary"><i class="fas fa-times"></i> Cancel</a> 
+    <button type="submit" form="userForm" class="btn btn-primary"><i class="fas fa-check"></i> Create</button> 
+  </div> 
+  </div>
+  </div>
+  
+  </div>
 @endsection
 
 
