@@ -421,7 +421,7 @@ font-family: FontAwesome;
   <br>
 
      
-      <p class="text-left">Feedback to employee</p>
+      <p class="text-left">Feedback</p>
       <textarea form="markAsCompleteModalForm" class="form-control" name="" id="" cols="30" rows="5" name="feedback" required>
         
       </textarea>
