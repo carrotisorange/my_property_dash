@@ -173,7 +173,7 @@ class BillController extends Controller
         ->max('billing_no') + 1;
         
         if($request->action === 'add_move_in_charges'){
-            for($i = 1; $i<$no_of_bills; $i++){
+            for($i = 1; $i<$request->no_of_bills; $i++){
                 DB::table('billings')->insert(
                     [
                         'billing_tenant_id' => $request->tenant_id,

@@ -593,6 +593,7 @@ class UserController extends Controller
                     [
                         'name' => $request->name,
                         'email' => $request->email,
+                        'updated_at' => Carbon::now()
                       
                     ]
                 );
@@ -606,6 +607,7 @@ class UserController extends Controller
                     'name' => $request->name,
                     'email' => $request->email,
                     'password' => Hash::make($request->password),
+                    'updated_at' => Carbon::now(),
                 ]
                 );
             

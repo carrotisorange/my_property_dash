@@ -94,7 +94,7 @@ class TenantController extends Controller
             'password' => Hash::make($request->password),
             'created_at' => Carbon::now(),
             'account_type' => '',
-        
+            'created_at' => Carbon::now(),
             'trial_ends_at' => '',
         ]);
 
