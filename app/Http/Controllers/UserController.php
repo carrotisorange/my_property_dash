@@ -358,11 +358,12 @@ class UserController extends Controller
 
             $users = DB::table('users')
             ->orderBy('user_current_status', 'desc')
-            ->orderBy('last_login_at', 'desc')
             ->get();
 
-             $sessions = DB::table('users')
+            $sessions = DB::table('users')
             ->join('sessions', 'id', 'session_user_id')
+            ->join('properties', 'id', 'user_id_property')
+            ->select('*', 'properties.name as property')
             ->whereNotNull('session_last_login_at')
             ->whereDay('session_last_login_at', now()->day)
             ->get();

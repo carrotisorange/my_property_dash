@@ -233,6 +233,7 @@
       <th>#</th>  
       <th>Name</th>
       <th>Role</th>
+      <th>Property</th>
       <th>IP Address</th>
       <th>Login at</th>
       <th>Logout at</th>
@@ -246,6 +247,7 @@
        <th>{{ $ctr++ }}</th>
        <td>{{ $item->name }}</td>
        <td>{{ $item->user_type }}</td>
+       <td>{{ $item->property }}</td>
         <td>{{ $item->session_last_login_ip }}</td>
        <td>{{ $item->session_last_login_at? Carbon\Carbon::parse($item->session_last_login_at)->format('M d Y').' '.Carbon\Carbon::parse($item->session_last_login_at)->toTimeString() : null }}</td>
        <td>{{ $item->session_last_logout_at? Carbon\Carbon::parse($item->session_last_logout_at)->format('M d Y').' '.Carbon\Carbon::parse($item->session_last_logout_at)->toTimeString() : null }}</td>
@@ -264,7 +266,7 @@
   <thead>
     <tr>
      <th>#</th>
-     <th>User</th>
+     <th>Name</th>
      <th>Email</th>
      <th>Role</th>
      <th>Created at</th>
@@ -278,7 +280,7 @@
    @foreach ($users as $item)
    <tr>
     <th>{{ $ctr++ }}</th>
-     <td><a href="/property/{{ $property->property_id }}/user/{{ $item->id }}">{{ $item->name }}</a></td>
+     <td><a href="/property/{{ $property->property_id }}/user/{{ $item->id }}">{{ $item->property }}</a></td>
      <td>{{ $item->email }}</td>
      <td>{{ $item->user_type }}</td>
       <td>{{ Carbon\Carbon::parse($item->created_at)->format('M d Y').' '.Carbon\Carbon::parse($item->created_at)->toTimeString() }}</td>
