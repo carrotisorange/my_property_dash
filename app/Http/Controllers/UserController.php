@@ -363,7 +363,7 @@ class UserController extends Controller
             $sessions = DB::table('users')
             ->join('sessions', 'id', 'session_user_id')
             ->join('properties', 'id', 'user_id_property')
-            ->select('*', 'properties.name as property')
+            ->select('*', 'properties.name as property_name')
             ->whereNotNull('session_last_login_at')
             ->whereDay('session_last_login_at', now()->day)
             ->get();
