@@ -504,7 +504,7 @@
 
       <div class="tab-pane fade" id="user" role="tabpanel" aria-labelledby="nav-user-tab">
         @if($access->count() <=0  )
-        <button  href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#userAccess" data-whatever="@mdo"><i class="fas fa-user-plus fa-sm text-white-50"></i> Create user access</button>
+        <button  href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#userAccess" data-whatever="@mdo"><i class="fas fa-user-lock fa-sm text-white-50"></i> Create user access</button>
         <br><br>
         @endif
      
@@ -1395,7 +1395,7 @@
   <div class="modal-dialog modal-md" role="document">
   <div class="modal-content">
     <div class="modal-header">
-    <h5 class="modal-title text-info" id="exampleModalLabel"><i class="fas fa-exclamation-info"></i> Tenant Credentials</h5>
+    <h5 class="modal-title text-info" id="exampleModalLabel"><i class="fas fa-exclamation-primary"></i> Tenant Credentials</h5>
   
     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
@@ -1443,7 +1443,7 @@
      </table>
    </div>
   <div class="modal-footer">
-    <a href="/#pricing" target="_blank" class="btn btn-secondary"><i class="fas fa-times"></i> Cancel</a> 
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close"><i class="fas fa-times fa-sm text-white-50"></i> Close </button>
     <button type="submit" form="userForm" class="btn btn-primary"><i class="fas fa-check"></i> Create</button> 
   </div> 
   </div>
