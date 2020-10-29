@@ -712,14 +712,14 @@
 
                           <div class="row">
                             <div class="col">
-                                <small>Date Reported</small>
+                                <label>Date Reported</label>
                                 <input type="date" form="concernForm" class="form-control" name="date_reported" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}" required >
                             </div>
                         </div>
                         <br>
                           <div class="row">
                               <div class="col">
-                                 <small>Type</small>
+                                 <label>Type</label>
                                   <select class="form-control" form="concernForm" name="concern_type" id="" required>
                                     <option value="" selected>Please select one</option>
                                     <option value="billing">billing</option>
@@ -738,7 +738,7 @@
                           <br>
                           <div class="row">
                             <div class="col">
-                               <small>Urgency</small>
+                               <label>Urgency</label>
                                 <select class="form-control" form="concernForm" name="concern_urgency" id="" required>
                                   <option value="" selected>Please select one</option>
                                   <option value="minor and not urgent">minor and not urgent</option>
@@ -752,7 +752,7 @@
                        
                       <div class="row">
                         <div class="col">
-                            <small>Short Description</small>
+                            <label>Short Description</label>
                           
                             <input type="text" form="concernForm" class="form-control" name="concern_item" required >
                         </div>
@@ -761,7 +761,7 @@
                       
                        <div class="row">
                             <div class="col">
-                                <small>Details</small>
+                                <label>Details</label>
                                 
                                 <textarea form="concernForm" rows="7" class="form-control" name="concern_desc" required></textarea>
                             </div>
@@ -773,7 +773,7 @@
                               <select class="form-control" form="concernForm" name="concern_user_id" required>
                                 <option value="" selected>Please select one</option>
                                 @foreach($users as $item)
-                                <option value="{{ $item->id }}">{{ $item->name }} &#9671 {{ $item->user_type }}</option>
+                                <option value="{{ $item->id }}"> {{ $item->user_type }}</option>
                                 @endforeach
                                
                               </select>
