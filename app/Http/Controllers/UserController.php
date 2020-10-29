@@ -609,9 +609,14 @@ class UserController extends Controller
                 ]
                 );
             
-            Auth::logout();
-
-            return redirect('/login')->with('success', 'New password has been saved!');
+                if(Auth::user()->user_type != 'manager'){
+                    Auth::logout();
+                    return redirect('/login')->with('success', 'New password has been saved!');
+                }else{
+                    return back()->with('success', 'New password has been saved!');
+                }
+            
+          
         }   
     }
 
