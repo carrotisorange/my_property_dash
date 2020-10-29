@@ -269,7 +269,7 @@
      <th>Name</th>
      <th>Email</th>
      <th>Role</th>
-     <th>Property</th>
+
      <th>Created at</th>
      <th>Verified at</th>
    
@@ -284,7 +284,7 @@
      <td><a href="/property/{{ $property->property_id }}/user/{{ $item->id }}">{{ $item->name }}</a></td>
      <td>{{ $item->email }}</td>
      <td>{{ $item->user_type }}</td>
-     <td>{{ $item->property_name }}</td>
+
       <td>{{ Carbon\Carbon::parse($item->created_at)->format('M d Y').' '.Carbon\Carbon::parse($item->created_at)->toTimeString() }}</td>
       <td>{{ Carbon\Carbon::parse($item->email_verified_at)->format('M d Y').' '.Carbon\Carbon::parse($item->email_verified_at)->toTimeString() }}</td>
    
