@@ -171,6 +171,8 @@ Route::get('/property/{property_id}/users', 'UserController@index')->middleware(
 Route::get('/property/{property_id}/user/{user_id}', 'UserController@show')->middleware(['auth', 'verified']);
 Route::put('/property/{property_id}/user/{user_id}', 'UserController@update')->middleware(['auth', 'verified']);
 
+Route::get('/user/{user_id}', 'UserController@show_user_tenant')->middleware(['auth', 'verified']);
+
 //routes for responses
 Route::post('concern/{concern_id}/response', 'ResponseController@store')->middleware(['auth', 'verified']);
 

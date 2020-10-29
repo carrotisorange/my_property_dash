@@ -28,7 +28,21 @@ class VerificationController extends Controller
      * @var string
      */ 
 
-    protected $redirectTo = '/property/all';
+    // protected $redirectTo = '/property/all';
+
+
+    function authenticated(Request $request, $user)
+    {
+    $role = Auth::user()->user_type;
+
+    if($role === 'tenant'){
+     return redirect('/user/'.Auth::user()->id);
+   }elseif($role === 'owner'){
+     return redirect('/user'.Auth::user()->id);
+   }else{
+       return redirect('/property/all');
+   }
+}
 
     // protected function authenticated(Request $request, $user)
     // {

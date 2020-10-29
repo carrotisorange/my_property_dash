@@ -631,4 +631,15 @@ class UserController extends Controller
       DB::table('users')->where('id', $id)->delete();
       return redirect('/users')->with('success', 'user has been deleted!');
     }
+
+    public function show_user_tenant(){
+
+        $tenant = DB::table('tenants')
+        ->where('user_id_foreign', Auth::user()->id)
+        ->get();
+
+        return view('webapp.tenant_access.index', compact('tenant'));
+    }
 }
+
+

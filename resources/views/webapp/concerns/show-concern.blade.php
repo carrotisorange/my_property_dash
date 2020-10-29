@@ -199,7 +199,7 @@ font-family: FontAwesome;
   </div>
 
   <div class="col-lg-6 col-5 text-right">
-    <a href="/concerns" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> Back</a> 
+    <a href="/property/{{ $property->property_id }}/concerns" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> Back</a> 
     @if(Auth::user()->user_type==='manager' || Auth::user()->user_type='admin')
    
   
@@ -207,7 +207,7 @@ font-family: FontAwesome;
     <a href="#" data-toggle="modal" data-target="#editConcernDetails" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-edit fa-sm text-white-50"></i> Edit</a> 
     <a href="#" data-toggle="modal" data-target="#markAsCompleteModal" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-check-square fa-sm text-white-50"></i> Mark as complete</a> 
     @else
-    <a href="#" data-toggle="modal" data-target="#/" class="d-none d-sm-inline-block btn btn-sm btn-dark shadow-sm"><i class="fas fa-check-square fa-sm text-white-50"></i> Concern has been closed</a> 
+    <a href="#" data-toggle="modal" data-target="#/" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm"><i class="fas fa-check-square fa-sm text-white-50"></i> Concern has been closed</a> 
     @endif
     @endif
   </div>
@@ -422,7 +422,7 @@ font-family: FontAwesome;
 
      
       <p class="text-left">Feedback</p>
-      <textarea form="markAsCompleteModalForm" class="form-control" name="" id="" cols="30" rows="5" name="feedback" required>
+      <textarea form="markAsCompleteModalForm" class="form-control" id="" cols="30" rows="5" name="feedback" required>
         
       </textarea>
   

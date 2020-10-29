@@ -174,7 +174,7 @@
           <th>Description</th>
           <th>Urgency</th>
           <th>Status</th> 
-          <th>Assigned employee</th>
+          <th>Assigned to</th>
           <th>Rating</th>
           <th>Feedback</th>
      </tr>
