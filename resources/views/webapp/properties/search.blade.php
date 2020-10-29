@@ -163,7 +163,7 @@
     <div class="table-responsive text-nowrap">
        <div class="col-md-12">
         <p><span class="font-weight-bold">{{ $all_tenants->count() }}</span> matched for tenants...</p>
-        @if($all_tenants->count() > 1  )
+        @if($all_tenants->count() >= 1  )
         <table class="table">
             <tr>
                 <th>#</th>
