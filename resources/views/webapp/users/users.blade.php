@@ -247,7 +247,7 @@
        <th>{{ $ctr++ }}</th>
        <td>{{ $item->name }}</td>
        <td>{{ $item->user_type }}</td>
-       <td>{{ $item->property }}</td>
+       <td>{{ $item->property_name }}</td>
         <td>{{ $item->session_last_login_ip }}</td>
        <td>{{ $item->session_last_login_at? Carbon\Carbon::parse($item->session_last_login_at)->format('M d Y').' '.Carbon\Carbon::parse($item->session_last_login_at)->toTimeString() : null }}</td>
        <td>{{ $item->session_last_logout_at? Carbon\Carbon::parse($item->session_last_logout_at)->format('M d Y').' '.Carbon\Carbon::parse($item->session_last_logout_at)->toTimeString() : null }}</td>
