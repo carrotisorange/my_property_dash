@@ -245,7 +245,7 @@
     @foreach ($sessions as $item)
       <tr>
        <th>{{ $ctr++ }}</th>
-       <td>{{ $item->name }}</td>
+       <td>{{ $item->user_name }}</td>
        <td>{{ $item->user_type }}</td>
        <td>{{ $item->property_name }}</td>
         <td>{{ $item->session_last_login_ip }}</td>
