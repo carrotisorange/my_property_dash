@@ -389,7 +389,6 @@ class UserController extends Controller
             ->select('*', 'properties.name as property_name', 'users.name as user_name')
             ->where('id', Auth::user()->id)
             ->orWhere('lower_access_user_id', Auth::user()->id )
-    
             ->whereDay('session_last_login_at', now()->day)
             ->get();
 

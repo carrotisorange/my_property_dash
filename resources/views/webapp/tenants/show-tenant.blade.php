@@ -512,23 +512,29 @@
         <div class="col-md-12 mx-auto">
           <div class="table-responsive">
             <div class="table-responsive text-nowrap">
-              @foreach ($access as $item)
-                  
+             @if($access->count() <= 0)
+              <p class="text-center text-danger">No credentials found!</p>
+
+             @else
+             @foreach ($access as $item)
               
-              <table class="table">
-                
-                  <tr>  
-                    <th>Name</th>
-                    <td>{{ $item->name }}</td>
-                  </tr>
-                
-                  <tr>
-                    <th>Email</th>
-                    <td>{{ $item->email }}</td>
-                  </tr>
-                
-              </table>
-              @endforeach
+             <table class="table">
+               
+                 <tr>  
+                   <th>Name</th>
+                   <td>{{ $item->name }}</td>
+                 </tr>
+               
+                 <tr>
+                   <th>Email</th>
+                   <td>{{ $item->email }}</td>
+                 </tr>
+               
+             </table>
+             @endforeach
+
+
+             @endif
             </div>
           </div>
         </div>
