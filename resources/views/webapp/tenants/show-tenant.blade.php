@@ -1395,7 +1395,7 @@
   <div class="modal-dialog modal-md" role="document">
   <div class="modal-content">
     <div class="modal-header">
-    <h5 class="modal-title text-info" id="exampleModalLabel"><i class="fas fa-exclamation-primary"></i> Tenant Credentials</h5>
+    <h5 class="modal-title text-primary" id="exampleModalLabel"><i class="fas fa-exclamation"></i> Tenant Credentials</h5>
   
     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
@@ -1411,36 +1411,39 @@
      <table class="table table-borderless">
       <tr>
         <th>Name</th>
-        <td><input type="text" name="name" form="userForm" class="form-control form-control-user @error('name') is-invalid @enderror" value="{{ $tenant->first_name.' '.$tenant->last_name }}" required></td>
-        <td>
-          @error('name')
+        <td><input type="text" name="name" form="userForm" class="form-control form-control-user @error('name') is-invalid @enderror" value="{{ $tenant->first_name.' '.$tenant->last_name }}" required>
+        <br>
+        @error('name')
           <span class="invalid-feedback" role="alert">
               <strong>{{ $message }}</strong>
           </span>
       @enderror
-        </td>
+      </td>
+      
       </tr>
        <tr>
          <th>Email</th>
-         <td><input type="text" name="email" form="userForm"  class="form-control form-control-user @error('email') is-invalid @enderror" value="{{ $tenant->email_address }}" required></td>
-         <td>
-          @error('email')
+         <td><input type="email" name="email" form="userForm"  class="form-control form-control-user @error('email') is-invalid @enderror" value="{{ $tenant->email_address }}" required>
+        <br>
+        @error('email')
           <span class="invalid-feedback" role="alert">
               <strong>{{ $message }}</strong>
           </span>
       @enderror
-         </td>
+    </td>
+       
        </tr>
        <tr>
          <th>Password</th>
-         <td><input type="text" name="password" form="userForm"  class="form-control form-control-user @error('password') is-invalid @enderror" value="{{ $tenant->password }}" required></td>
-         <td>
-          @error('password')
-          <span class="invalid-feedback" role="alert">
-              <strong>{{ $message }}</strong>
-          </span>
-      @enderror
-         </td>
+         <td><input type="text" name="password" form="userForm"  class="form-control form-control-user @error('password') is-invalid @enderror" value="{{ $tenant->password }}" required>
+        <br>
+        @error('password')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+    @enderror
+      </td>
+         
        </tr>
     
      </table>
