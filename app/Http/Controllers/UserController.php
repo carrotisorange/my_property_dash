@@ -364,7 +364,7 @@ class UserController extends Controller
             ->join('sessions', 'id', 'session_user_id')
             ->join('properties', 'id', 'user_id_property')
             ->select('*', 'properties.name as property_name', 'users.name as user_name')
-            ->whereNotNull('session_last_login_at')
+
             ->whereDay('session_last_login_at', now()->day)
             ->get();
             
@@ -379,15 +379,17 @@ class UserController extends Controller
             }else{
                 $users = DB::table('users')
                 ->where('lower_access_user_id', Auth::user()->id)
-                ->orderBy('last_login_at', 'desc')
+   
                 ->get();
             }
            
-             $sessions = DB::table('users')
+            $sessions = DB::table('users')
             ->join('sessions', 'id', 'session_user_id')
-          
+            ->join('properties', 'id', 'user_id_property')
+            ->select('*', 'properties.name as property_name', 'users.name as user_name')
             ->where('id', Auth::user()->id)
             ->orWhere('lower_access_user_id', Auth::user()->id )
+    
             ->whereDay('session_last_login_at', now()->day)
             ->get();
 
