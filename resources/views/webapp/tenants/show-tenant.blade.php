@@ -1407,7 +1407,7 @@
     </form>
      <table class="table table-borderless">
        <tr>
-         <th><i class="fas fa-info-circle"></i> Tenant needs to verify email address before can access the system. 
+         <th class="text-danger"><i class="fas fa-exclamation-triangle"></i>  Tenant needs to verify email address before can access the system. 
           <br> Please make sure that the email is valid before creating credentials. </th>
        </tr>
       <tr>
