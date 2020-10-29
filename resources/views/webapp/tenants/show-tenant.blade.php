@@ -1406,6 +1406,10 @@
     @csrf
     </form>
      <table class="table table-borderless">
+       <tr>
+         <th><i class="fas fa-info-circle"></i> Tenant needs to verify email address before can access the system. 
+          <br> Please make sure that the email is valid before creating credentials. </th>
+       </tr>
       <tr>
         <th>Name</th>
         <td><input type="text" name="name" form="userForm" class="form-control form-control-user @error('name') is-invalid @enderror" value="{{ $tenant->first_name.' '.$tenant->last_name }}" required></td>
