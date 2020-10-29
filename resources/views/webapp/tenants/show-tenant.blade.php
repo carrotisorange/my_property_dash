@@ -172,7 +172,7 @@
         @endif
 
         @if($access->count() <=0  )
-        <a class="nav-item nav-link" id="nav-user-tab" data-toggle="tab" href="#user" role="tab" aria-controls="nav-user" aria-selected="true"><i class="fas fa-user-lock fa-sm text-primary-50"></i><span class="badge badge-warning"><i class="fas fa-exclamation-triangle"></i></span> Access </a>
+        <a class="nav-item nav-link" id="nav-user-tab" data-toggle="tab" href="#user" role="tab" aria-controls="nav-user" aria-selected="true"><i class="fas fa-user-lock fa-sm text-primary-50"></i> Access <span class="badge badge-warning"><i class="fas fa-exclamation-triangle"></i></span>  </a>
         @else
         <a class="nav-item nav-link" id="nav-user-tab" data-toggle="tab" href="#user" role="tab" aria-controls="nav-user" aria-selected="true"><i class="fas fa-user-lock fa-sm text-primary-50"></i> Access </a>
         @endif
