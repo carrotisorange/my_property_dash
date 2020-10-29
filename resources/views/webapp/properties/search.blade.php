@@ -196,7 +196,7 @@
          <br>
 
          <p><span class="font-weight-bold">{{ $units->count() }}</span> matched for rooms...</p>
-         @if($all_tenants->count() > 1  )
+         @if($units->count() > 1  )
         <table class="table">
             <tr>
                 <th>#</th>
@@ -228,7 +228,7 @@
          <br>
 
          <p><span class="font-weight-bold">{{ $all_owners->count() }}</span> matched for owners...</p>
-         @if($all_tenants->count() > 1  )
+         @if($all_owners->count() > 1  )
         <table class="table">
             <tr>
                 <th>#</th>
