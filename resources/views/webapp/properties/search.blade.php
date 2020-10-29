@@ -163,6 +163,7 @@
     <div class="table-responsive text-nowrap">
        <div class="col-md-12">
         <p><span class="font-weight-bold">{{ $all_tenants->count() }}</span> matched for tenants...</p>
+        @if($all_tenants->count() > 0  )
         <table class="table">
             <tr>
                 <th>#</th>
@@ -191,10 +192,11 @@
             @endforeach
             
          </table>
-
+        @endif
          <br>
 
          <p><span class="font-weight-bold">{{ $units->count() }}</span> matched for rooms...</p>
+         @if($all_tenants->count() > 0  )
         <table class="table">
             <tr>
                 <th>#</th>
@@ -222,10 +224,11 @@
             </tr>
             @endforeach
          </table>
-
+          @endif
          <br>
 
          <p><span class="font-weight-bold">{{ $all_owners->count() }}</span> matched for owners...</p>
+         @if($all_tenants->count() > 0  )
         <table class="table">
             <tr>
                 <th>#</th>
@@ -260,6 +263,7 @@
             @endforeach
     
          </table>
+         @endif
        </div>
         
     </div>
