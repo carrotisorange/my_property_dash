@@ -1402,14 +1402,13 @@
     </button>
     </div>
    <div class="modal-body">
+     <p class="text-danger"><i class="fas fa-exclamation-triangle"></i>  Tenant needs to verify email before can access the system. 
+      <br> Please make sure that the email is valid before creating credentials. </p>
+      
      <form id="userForm" action="/tenant/{{ $tenant->tenant_id }}/user/create" method="POST">
     @csrf
     </form>
      <table class="table table-borderless">
-       <tr>
-         <th class="text-danger"><i class="fas fa-exclamation-triangle"></i>  Tenant needs to verify email before can access the system. 
-          <br> Please make sure that the email is valid before creating credentials. </th>
-       </tr>
       <tr>
         <th>Name</th>
         <td><input type="text" name="name" form="userForm" class="form-control form-control-user @error('name') is-invalid @enderror" value="{{ $tenant->first_name.' '.$tenant->last_name }}" required></td>
@@ -1434,7 +1433,7 @@
        </tr>
        <tr>
          <th>Password</th>
-         <td><input type="text" name="password" form="userForm"  class="form-control form-control-user @error('name') is-invalid @enderror" value="{{ $tenant->contact_no }}" required></td>
+         <td><input type="text" name="password" form="userForm"  class="form-control form-control-user @error('password') is-invalid @enderror" value="{{ $tenant->password }}" required></td>
          <td>
           @error('password')
           <span class="invalid-feedback" role="alert">
