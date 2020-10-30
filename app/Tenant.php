@@ -54,7 +54,7 @@ class Tenant extends Model
 
     public function units()
     {
-        return $this->belongsToMany('App\Unit','unit_id_foreign');
+        return $this->belongsTo('App\Unit','unit_tenant_id');
     }
 
     public function concerns()

@@ -76,6 +76,7 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'created_at' => Carbon::now(),
             'trial_ends_at' => Carbon::now()->addMonth(),
+            'email_verified_at' => Carbon::now(),
         ]);
     }
 }

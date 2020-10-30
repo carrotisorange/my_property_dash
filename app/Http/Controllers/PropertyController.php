@@ -46,19 +46,25 @@ class PropertyController extends Controller
 
         return view('webapp.properties.index', compact('properties', 'users','existing_users')); 
 
+            }elseif(Auth::user()->user_type == 'tenant'){
+
+                return redirect('/user/'.Auth::user()->id.'/portal');
+           
+            }elseif(Auth::user()->user_type == 'owner'){
+                return redirect('/user/'.Auth::user()->id.'/portal');
             }else{
-                    if(Auth::user()->lower_access_user_id == null){
-                        return view('webapp.users.system-users.warning'); 
-                    }else{
-                        $properties = User::findOrFail(Auth::user()->lower_access_user_id)->properties;
+                if(Auth::user()->lower_access_user_id == null){
+                    return view('webapp.users.system-users.warning'); 
+                }else{
+                    $properties = User::findOrFail(Auth::user()->lower_access_user_id)->properties;
 
-                        $users = DB::table('users_properties_relations')
-                        ->join('users', 'user_id_foreign', 'id')
-                        ->where('user_id_foreign', Auth::user()->lower_access_user_id)
-                        ->count();
+                    $users = DB::table('users_properties_relations')
+                    ->join('users', 'user_id_foreign', 'id')
+                    ->where('user_id_foreign', Auth::user()->lower_access_user_id)
+                    ->count();
 
-                        return view('webapp.properties.index', compact('properties', 'users')); 
-                    }
+                    return view('webapp.properties.index', compact('properties', 'users')); 
+                }
             }
 
         // $properties = User::join('properties', 'user_id_foreign', 'id')

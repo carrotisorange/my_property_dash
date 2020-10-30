@@ -37,6 +37,10 @@ class LoginController extends Controller
      */
     //protected $redirectTo = RouteServiceProvider::HOME;
 
+    
+    protected $redirectTo = '/property/all';
+  
+
         function authenticated(Request $request, $user)
         {
             $sessions = User::findOrFail(Auth::user()->id)->sessions;
@@ -76,20 +80,17 @@ class LoginController extends Controller
                 }
            }
 
-           $role = Auth::user()->user_type;
-           if($role === 'tenant'){
+        //    $role = Auth::user()->user_type;
+        //    if($role === 'tenant'){
 
-            return redirect('/user/'.Auth::user()->id);
-          }elseif($role === 'owner'){
-            return redirect('/user'.Auth::user()->id);
-          }else{
-              return redirect('/property/all');
-          }
+        //     return redirect('/user/'.Auth::user()->id.'/portal');
+        //   }elseif($role === 'owner'){
+        //     return redirect('/user/'.Auth::user()->id.'/portal');
+        //   }else{
+             
+        //   }
            
            }
-
-        
-    //  protected $redirectTo = '/property/all';
 
     /**
      * Create a new controller instance.

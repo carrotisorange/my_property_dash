@@ -28,17 +28,7 @@ class ResetPasswordController extends Controller
      */
     // protected $redirectTo = RouteServiceProvider::HOME;
 
-    protected function authenticated(Request $request, $user)
-    { 
-          $properties = DB::table('users_properties_relations')
-            ->join('users', 'user_id_foreign', 'id')
-            ->where('user_id_foreign', $user->id)
-            ->get();
 
-        if($properties->count() > 0){
-            return redirect('/property/all');
-        }else{
-            return redirect('property/create');
-        }
-    }
+    protected $redirectTo = '/property/all';
+  
 }

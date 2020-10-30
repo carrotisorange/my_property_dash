@@ -1,6 +1,6 @@
 @extends('webapp.tenant_access.template')
 
-@section('title', 'Dashboard')
+@section('title', 'Payments')
 
 
 @section('sidebar')
@@ -19,7 +19,7 @@
         <!-- Nav items -->
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link active" href="/user/{{ Auth::user()->id }}/tenant/{{ $tenant->tenant_id }}/dashboard">
+            <a class="nav-link " href="/user/{{ Auth::user()->id }}/tenant/{{ $tenant->tenant_id }}/dashboard">
               <i class="fas fa-tachometer-alt text-orange"></i>
               <span class="nav-link-text">Dashboard</span>
             </a>
@@ -37,7 +37,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/user/{{ Auth::user()->id }}/tenant/{{ $tenant->tenant_id }}/payments">
+            <a class="nav-link active" href="/user/{{ Auth::user()->id }}/tenant/{{ $tenant->tenant_id }}/payments">
               <i class="fas fa-coins text-yellow"></i>
               <span class="nav-link-text">Payments</span>
             </a>
@@ -114,13 +114,75 @@
 
 @section('upper-content')
 <div class="col-lg-6 col-7">
-    <h6 class="h2 text-dark d-inline-block mb-0">Dashboard</h6>
+    <h6 class="h2 text-dark d-inline-block mb-0">Payments</h6>
     
   </div>
 @endsection
 
 @section('main-content')
-
+<div class="table-responsive text-nowrap">
+    <table class="table">
+        @foreach ($payments as $day => $collection_list)
+         <thead>
+            <tr>
+                <th colspan="10">{{ Carbon\Carbon::parse($day)->addDay()->format('M d Y') }} ({{ $collection_list->count() }})</th>
+                
+            </tr>
+            <tr>
+              <?php $ctr = 1; ?>
+                <th class="text-center">#</th>
+                <th>AR No</th>
+                <th>Bill No</th>
+                <th>Room</th>  
+                <th>Description</th>
+                <th colspan="2">Period Covered</th>
+                <th>Form of Payment</th>
+                <th class="text-right">Amount</th>
+               
+                <th colspan="2" class="text-center">Action</th>
+                </tr>
+          </tr>
+         </thead>
+          @foreach ($collection_list as $item)
+         
+          <tr>
+                <th class="text-center">{{ $ctr++ }}</th>
+                  <td>{{ $item->ar_no }}</td>
+                  <td>{{ $item->payment_billing_no }}</td>
+                    <td>{{ $item->building.' '.$item->unit_no }}</td> 
+                   <td>{{ $item->billing_desc }}</td> 
+                   <td colspan="2">
+                    {{ $item->billing_start? Carbon\Carbon::parse($item->billing_start)->format('M d Y') : null}} -
+                    {{ $item->billing_end? Carbon\Carbon::parse($item->billing_end)->format('M d Y') : null }}
+                  </td>
+                  <td>{{ $item->form_of_payment }}</td>
+                  <td class="text-right">{{ number_format($item->amt_paid,2) }}</td>
+                  
+                  <td class="text-center">
+                    <a title="export" target="_blank" href="/units/{{ $item->unit_tenant_id }}/tenants/{{ $item->tenant_id }}/payments/{{ $item->payment_id }}/dates/{{$item->payment_created}}/export" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i></a>
+                    {{-- <a target="_blank" href="#" title="print invoice" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-print fa-sm text-white-50"></i></a> 
+                    --}}
+                  </td>
+                  <td class="text-center">
+                    @if(Auth::user()->user_type === 'treasury' || Auth::user()->user_type === 'manager')
+                    <form action="/tenants/{{ $item->tenant_id }}/payments/{{ $item->payment_id }}" method="POST">
+                      @csrf
+                      @method('delete')
+                      <button title="delete" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"  onclick="return confirm('Are you sure you want perform this action?');"><i class="fas fa-times fa-sm text-white-50"></i></button>
+                    </form>
+                    @endif
+                  </td>   
+                 
+              </tr>
+          @endforeach
+              <tr>
+                <th>Total</th>
+                <th colspan="8" class="text-right">{{ number_format($collection_list->sum('amt_paid'),2) }}</th>
+              </tr>
+              
+        @endforeach
+    </table>
+  </div>
 @endsection
 
 @section('scripts')

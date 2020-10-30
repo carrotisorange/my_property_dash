@@ -1,6 +1,6 @@
 @extends('webapp.tenant_access.template')
 
-@section('title', 'Dashboard')
+@section('title', 'Profile')
 
 
 @section('sidebar')
@@ -19,7 +19,7 @@
         <!-- Nav items -->
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link active" href="/user/{{ Auth::user()->id }}/tenant/{{ $tenant->tenant_id }}/dashboard">
+            <a class="nav-link " href="/user/{{ Auth::user()->id }}/tenant/{{ $tenant->tenant_id }}/dashboard">
               <i class="fas fa-tachometer-alt text-orange"></i>
               <span class="nav-link-text">Dashboard</span>
             </a>
@@ -114,13 +114,47 @@
 
 @section('upper-content')
 <div class="col-lg-6 col-7">
-    <h6 class="h2 text-dark d-inline-block mb-0">Dashboard</h6>
+    <h6 class="h2 text-dark d-inline-block mb-0">Profile</h6>
     
   </div>
 @endsection
 
 @section('main-content')
+<div class="col-md-11 mx-auto">
+<form id="editUserForm" action="/user/{{ Auth::user()->id }}/tenant/{{ $tenant->tenant_id }}/profile" method="POST">
+      @method('put')
+      @csrf
+    </form>
+      <small>Name</small>
+      <input form="editUserForm" id="name" type="text" class="form-control form-control-user @error('name') is-invalid @enderror" name="name" value="{{ $user->name }}" required autocomplete="name" >
+            @error('name')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+      <br>
+      <small>Email</small>
+      <input form="editUserForm" id="email" type="email" class="form-control form-control-user @error('email') is-invalid @enderror" name="email" value="{{ $user->email }}" required autocomplete="email">
+            @error('email')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+      <br>
+      <small>New Password</small>
+      <input form="editUserForm" id="password" type="password" class="form-control form-control-user @error('password') is-invalid @enderror" name="password" autocomplete="password">
+            <small class="text-danger">Changing your password will log you out of the application.</small>
+            @error('password')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+      <p class="text-right">
+        <button form="editUserForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want perform this action?');"><i class="fas fa-check fa-sm text-white-50"></i> Save Changes</button>
+      </p>
 
+     
+  </div>
 @endsection
 
 @section('scripts')

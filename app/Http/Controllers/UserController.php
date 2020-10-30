@@ -10,6 +10,8 @@ use App\Mail\TenantRegisteredMail;
 use Illuminate\Support\Facades\Mail;
 use App\Property;
 use App\Charts\DashboardChart;
+use App\Tenant;
+use App\Billing;
 
 class UserController extends Controller
 {
@@ -634,13 +636,223 @@ class UserController extends Controller
       return redirect('/users')->with('success', 'user has been deleted!');
     }
 
-    public function show_user_tenant(){
+    public function show_user_tenant($user_id, $tenant_id){
 
-        $tenant = DB::table('tenants')
-        ->where('user_id_foreign', Auth::user()->id)
-        ->get();
+        if(($user_id == Auth::user()->id)){
 
-        return view('webapp.tenant_access.index', compact('tenant'));
+            $tenant = Tenant::findOrFail($tenant_id);
+
+            return view('webapp.tenant_access.index', compact('tenant'));
+         }else{
+             return view('website.unregistered');
+         }
+      
+
+       
+    }
+
+    public function show_bill_tenant($user_id, $tenant_id){
+
+        if(($user_id == Auth::user()->id)){
+
+        $bills = Billing::leftJoin('payments', 'billings.billing_no', '=', 'payments.payment_billing_no')
+           ->selectRaw('*, billings.billing_amt - IFNULL(sum(payments.amt_paid),0) as balance')
+           ->where('billing_tenant_id', $tenant_id)
+           ->groupBy('billing_id')
+           ->orderBy('billing_no', 'desc')
+           ->havingRaw('balance > 0')
+           ->get();
+
+           $tenant = Tenant::findOrFail($tenant_id);
+
+
+            return view('webapp.tenant_access.bills', compact('bills','tenant'));
+         }else{
+             return view('website.unregistered');
+         }
+      
+
+       
+    }
+
+    public function show_payment_tenant($user_id, $tenant_id){
+
+        if(($user_id == Auth::user()->id)){
+
+        
+            $payments = DB::table('units')
+            ->leftJoin('tenants', 'unit_id', 'unit_tenant_id')
+           
+            ->leftJoin('billings', 'tenant_id', 'billing_tenant_id')
+            ->leftJoin('payments', 'payment_billing_id', 'billing_id')
+            ->where('tenant_id', $tenant_id)
+            ->orderBy('payment_created', 'desc')
+            ->orderBy('ar_no', 'desc')
+            ->groupBy('payment_id')
+            ->get()
+            ->groupBy(function($item) {
+                return \Carbon\Carbon::parse($item->payment_created)->timestamp;
+            });
+        
+
+           $tenant = Tenant::findOrFail($tenant_id);
+
+
+            return view('webapp.tenant_access.payments', compact('payments','tenant'));
+         }else{
+             return view('website.unregistered');
+         }
+      
+
+       
+    }
+
+    public function show_concern_tenant($user_id, $tenant_id){
+
+        if(($user_id == Auth::user()->id)){
+
+            $concerns = DB::table('tenants')
+            ->join('units', 'unit_id', 'unit_tenant_id')
+            ->join('concerns', 'tenant_id', 'concern_tenant_id')
+            ->join('users', 'concern_user_id', 'id')
+            ->where('tenant_id', $tenant_id)
+            ->orderBy('date_reported', 'desc')
+            ->orderBy('concern_urgency', 'desc')
+            ->orderBy('concern_status', 'desc')
+            ->get();
+
+
+           $tenant = Tenant::findOrFail($tenant_id);
+
+
+            return view('webapp.tenant_access.concerns', compact('concerns','tenant'));
+         }else{
+             return view('website.unregistered');
+         }
+      
+
+       
+    }
+
+    public function store_concern_tenant(Request $request, $user_id, $tenant_id){
+
+        return back()->with('danger', 'I am sorry! This feature is under construction.');
+
+        if(($user_id == Auth::user()->id)){
+
+             DB::table('concerns')->insertGetId(
+                [
+                    'concern_tenant_id' => $tenant_id,
+                    'date_reported' => $request->date_reported,
+                    'concern_type'=> $request->concern_type,
+                    'concern_urgency' => $request->concern_urgency,
+                    'is_warranty' => 'na',
+                    'concern_item' => $request->concern_item,
+                    'concern_desc' => $request->concern_desc,
+                    'concern_qty' => $request->concern_qty,
+                    'concern_status' => 'pending',
+                    'concern_user_id' => $request->concern_user_id,
+                    'concern_personnel_id' => 1,
+                    'is_paid' => 'unpaid',
+                ]);
+    
+           $tenant = Tenant::findOrFail($tenant_id);
+           return back()->with('success', 'concern has been saved!', compact('concerns','tenant'));
+
+         }else{
+             return view('website.unregistered');
+         }
+      
+
+       
+    }
+
+    public function show_profile_tenant($user_id, $tenant_id){
+
+        if(($user_id == Auth::user()->id)){
+
+            $user = User::findOrFail($user_id);
+
+           $tenant = Tenant::findOrFail($tenant_id);
+
+
+            return view('webapp.tenant_access.profile', compact('tenant','user'));
+         }else{
+             return view('website.unregistered');
+         }
+      
+
+       
+    }
+
+    public function show_update_tenant(Request $request, $user_id, $tenant_id){
+
+        if(($user_id == Auth::user()->id)){
+
+          
+        if($request->password === null){
+
+
+            DB::table('users')
+            ->where('id', $user_id)
+            ->update(
+                    [
+                        'name' => $request->name,
+                        'email' => $request->email,
+                        'updated_at' => Carbon::now()
+                      
+                    ]
+                );
+
+                return back()->with('success', 'changes have been saved!');
+        }else{
+            DB::table('users')
+            ->where('id', $user_id)
+            ->update(
+                [
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'password' => Hash::make($request->password),
+                    'updated_at' => Carbon::now(),
+                ]
+                );
+            
+                if(Auth::user()->user_type != 'manager'){
+                    Auth::logout();
+                    return redirect('/login')->with('success', 'New password has been saved!');
+                }else{
+                    return back()->with('success', 'New password has been saved!');
+                }
+            
+          
+        } 
+
+            return view('webapp.tenant_access.profile', compact('tenant','user'));
+         }else{
+             return view('website.unregistered');
+         }
+      
+
+       
+    }
+
+    public function show_room_tenant($user_id, $tenant_id){
+
+          $rooms = DB::table('tenants')
+         ->join('units', 'unit_id', 'unit_tenant_id')
+         ->where('tenant_id', $tenant_id)
+         ->get();
+
+         $tenant = Tenant::findOrFail($tenant_id);
+
+        return view('webapp.tenant_access.rooms', compact('rooms', 'tenant'));
+    }
+
+    public function show_portal_tenant(){
+
+          $tenant = User::findOrFail(Auth::user()->id)->access;
+
+        return view('webapp.tenant_access.main', compact('tenant'));
     }
 }
 

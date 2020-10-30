@@ -1,6 +1,6 @@
 @extends('webapp.tenant_access.template')
 
-@section('title', 'Dashboard')
+@section('title', 'Bills')
 
 
 @section('sidebar')
@@ -19,7 +19,7 @@
         <!-- Nav items -->
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link active" href="/user/{{ Auth::user()->id }}/tenant/{{ $tenant->tenant_id }}/dashboard">
+            <a class="nav-link " href="/user/{{ Auth::user()->id }}/tenant/{{ $tenant->tenant_id }}/dashboard">
               <i class="fas fa-tachometer-alt text-orange"></i>
               <span class="nav-link-text">Dashboard</span>
             </a>
@@ -31,7 +31,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/user/{{ Auth::user()->id }}/tenant/{{ $tenant->tenant_id }}/bills">
+            <a class="nav-link active" href="/user/{{ Auth::user()->id }}/tenant/{{ $tenant->tenant_id }}/bills">
               <i class="fas fa-file-invoice-dollar text-pink"></i>
               <span class="nav-link-text">Bills</span>
             </a>
@@ -114,13 +114,64 @@
 
 @section('upper-content')
 <div class="col-lg-6 col-7">
-    <h6 class="h2 text-dark d-inline-block mb-0">Dashboard</h6>
+    <h6 class="h2 text-dark d-inline-block mb-0">Bills</h6>
     
   </div>
 @endsection
 
 @section('main-content')
+<div class="table-responsive">
+    <div class="table-responsive text-nowrap">
+      <table class="table">
+        <?php $ctr=1; ?>
+       <thead>
+        <tr>
+            <th class="text-center">#</th>
+             <th>Date Billed</th>
+               <th>Bill No</th>
+               
+               <th>Description</th>
+               <th>Period Covered</th>
+               <th class="text-right" colspan="3">Amount</th>
+               
+             </tr>
+       </thead>
+        @foreach ($bills as $item)
+        <tr>
+       <th class="text-center">{{ $ctr++ }}</th>
+          <td>
+            {{Carbon\Carbon::parse($item->billing_date)->format('M d Y')}}
+          </td>   
 
+            <td>{{ $item->billing_no }}</td>
+    
+            <td>{{ $item->billing_desc }}</td>
+            <td>
+              {{ $item->billing_start? Carbon\Carbon::parse($item->billing_start)->format('M d Y') : null}} -
+              {{ $item->billing_end? Carbon\Carbon::parse($item->billing_end)->format('M d Y') : null }}
+            </td>
+            <td class="text-right" colspan="3">{{ number_format($item->bills,2) }}</td>
+        </tr>
+        @endforeach
+  
+    </table>
+    <table class="table">
+      <tr>
+       <th>Total</th>
+       <th class="text-right">{{ number_format($bills->sum('balance'),2) }} </th>
+      </tr>
+      @if($tenant->tenant_status === 'pending')
+
+      @else
+       <tr>
+        <th class="text-danger">Total After Due Date(+10%)</th>
+        <th class="text-right text-danger">{{ number_format($bills->sum('balance') + ($bills->sum('balance') * .1) ,2) }}</th>
+       </tr> 
+      @endif
+      
+    </table>
+  </div>
+  </div>
 @endsection
 
 @section('scripts')

@@ -1,6 +1,6 @@
 @extends('webapp.tenant_access.template')
 
-@section('title', 'Dashboard')
+@section('title', 'Rooms')
 
 
 @section('sidebar')
@@ -19,13 +19,13 @@
         <!-- Nav items -->
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link active" href="/user/{{ Auth::user()->id }}/tenant/{{ $tenant->tenant_id }}/dashboard">
+            <a class="nav-link " href="/user/{{ Auth::user()->id }}/tenant/{{ $tenant->tenant_id }}/dashboard">
               <i class="fas fa-tachometer-alt text-orange"></i>
               <span class="nav-link-text">Dashboard</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/user/{{ Auth::user()->id }}/tenant/{{ $tenant->tenant_id }}/rooms">
+            <a class="nav-link active" href="/user/{{ Auth::user()->id }}/tenant/{{ $tenant->tenant_id }}/rooms">
               <i class="fas fa-home text-indigo"></i>
               <span class="nav-link-text">Rooms</span>
             </a>
@@ -114,13 +114,40 @@
 
 @section('upper-content')
 <div class="col-lg-6 col-7">
-    <h6 class="h2 text-dark d-inline-block mb-0">Dashboard</h6>
+    <h6 class="h2 text-dark d-inline-block mb-0">Rooms</h6>
     
   </div>
 @endsection
 
 @section('main-content')
+<div class="container-fluid mt--6">
+    <div class="table-responsive text-nowrap">
+      <table class="table">
+       <thead>
+        <tr>
+            <th>Room</th>
+            <th>Movein date</th>
+            <th>Moveout date</th>
+            <th>Monthly rent</th>
+  
+              
+        </tr>
+       </thead>
+       <tbody>
+           @foreach ($rooms as $item)
+               <tr>
+                   <td>{{ $item->building.' '.$item->unit_no }}</td>
+                   <td>{{ $item->movein_date }}</td>
+                   <td>{{ $item->moveout_date }}</td>
+                   <td>{{ $item->monthly_rent }}</td>
+               </tr>
+           @endforeach
+       </tbody>
+        
+      </table>
+    </div>
 
+  </div>
 @endsection
 
 @section('scripts')

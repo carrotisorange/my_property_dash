@@ -172,7 +172,17 @@ Route::get('/property/{property_id}/users', 'UserController@index')->middleware(
 Route::get('/property/{property_id}/user/{user_id}', 'UserController@show')->middleware(['auth', 'verified']);
 Route::put('/property/{property_id}/user/{user_id}', 'UserController@update')->middleware(['auth', 'verified']);
 
-Route::get('/user/{user_id}', 'UserController@show_user_tenant')->middleware(['auth', 'verified']);
+Route::post('/user/{user_id}/tenant/{tenant_id}/dashboard', 'UserController@show_user_tenant')->middleware(['auth', 'verified']);
+Route::get('/user/{user_id}/tenant/{tenant_id}/dashboard', 'UserController@show_user_tenant')->middleware(['auth', 'verified']);
+Route::get('/user/{user_id}/tenant/{tenant_id}/rooms', 'UserController@show_room_tenant')->middleware(['auth', 'verified']);
+Route::get('/user/{user_id}/tenant/{tenant_id}/bills', 'UserController@show_bill_tenant')->middleware(['auth', 'verified']);
+Route::get('/user/{user_id}/tenant/{tenant_id}/payments', 'UserController@show_payment_tenant')->middleware(['auth', 'verified']);
+Route::get('/user/{user_id}/tenant/{tenant_id}/concerns', 'UserController@show_concern_tenant')->middleware(['auth', 'verified']);
+Route::post('/user/{user_id}/tenant/{tenant_id}/concerns', 'UserController@store_concern_tenant')->middleware(['auth', 'verified']);
+Route::get('/user/{user_id}/tenant/{tenant_id}/profile', 'UserController@show_profile_tenant')->middleware(['auth', 'verified']);
+Route::put('/user/{user_id}/tenant/{tenant_id}/profile', 'UserController@show_update_tenant')->middleware(['auth', 'verified']);
+Route::get('/user/{user_id}/portal', 'UserController@show_portal_tenant')->middleware(['auth', 'verified']);
+
 
 //routes for responses
 Route::post('concern/{concern_id}/response', 'ResponseController@store')->middleware(['auth', 'verified']);
