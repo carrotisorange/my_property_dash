@@ -597,7 +597,7 @@ class UserController extends Controller
                         'name' => $request->name,
                         'email' => $request->email,
                         'updated_at' => Carbon::now(),
-                        'email_verified_ar' => Carbon::now()
+                        'email_verified_at' => Carbon::now()
                       
                     ]
                 );
