@@ -513,6 +513,7 @@ class UserController extends Controller
             'password' => Hash::make($request->password),
             'created_at' => Carbon::now(),
             'account_type' => Auth::user()->account_type,
+            'email_verified_at' => Carbon::now()
         ]);
 
         return redirect('/users')->with('success', 'New user has been saved!');
