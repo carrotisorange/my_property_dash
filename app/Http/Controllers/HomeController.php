@@ -56,7 +56,7 @@ class HomeController extends Controller
 }
     public function show($property_id, $unit_id){
        
-        if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager'){
+        if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'treasury'){
 
             $users = DB::table('users_properties_relations')
             ->join('users', 'user_id_foreign', 'id')
