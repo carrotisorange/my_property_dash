@@ -202,7 +202,7 @@ Showing <b>{{ $tenants->count() }} </b> of {{ $count_tenants }} tenants
         <tr>
           <th>{{ $ctr++ }}</th>
             <td>
-                @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager')
+                {{-- @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager') --}}
                 <a href="/property/{{ $property->property_id }}/home/{{ $item->unit_id }}/tenant/{{ $item->tenant_id }}">{{ $item->first_name.' '.$item->middle_name.' '.$item->last_name }}
                   @if($item->tenants_note === 'new' )
                   <span class="badge badge-success">{{ $item->tenants_note }}</span>
@@ -210,7 +210,7 @@ Showing <b>{{ $tenants->count() }} </b> of {{ $count_tenants }} tenants
                   
                   <span class="badge badge-success">{{ $item->has_extended }}</span>
                 </a>
-                @else
+                {{-- @else
                 <a href="/property/{{ $property->property_id }}/home/{{ $item->unit_id }}/tenant/{{ $item->tenant_id }}/billings">{{ $item->first_name.' '.$item->last_name }}
                   @if($item->tenants_note === 'new' )
                   <span class="badge badge-success">{{ $item->tenants_note }}</span>
@@ -218,7 +218,7 @@ Showing <b>{{ $tenants->count() }} </b> of {{ $count_tenants }} tenants
                   
                   <span class="badge badge-success">{{ $item->has_extended }}</span>
                 </a>
-                @endif
+                @endif --}}
             </td>
             
             <td> @if(Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'admin' )

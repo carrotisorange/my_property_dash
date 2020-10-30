@@ -151,6 +151,7 @@ Route::post('property/{property_id}/bills/rent/{date}', 'BillController@post_bil
 Route::post('property/{property_id}/bills/electric/{date}', 'BillController@post_bills_electric')->middleware(['auth', 'verified']);
 Route::post('property/{property_id}/bills/water/{date}', 'BillController@post_bills_water')->middleware(['auth', 'verified']);
 
+
 //routes for collections
 Route::get('/property/{property_id}/collections', 'CollectionController@index')->middleware(['auth', 'verified']);
 Route::post('/property/{property_id}/tenant/{tenant_id}/collection', 'CollectionController@store')->middleware(['auth', 'verified']);
