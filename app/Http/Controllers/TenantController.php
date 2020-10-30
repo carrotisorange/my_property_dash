@@ -95,6 +95,7 @@ class TenantController extends Controller
             'created_at' => Carbon::now(),
             'account_type' => '',
             'created_at' => Carbon::now(),
+            'email_verified_at' => Carbon::now(),
             'trial_ends_at' => '',
         ]);
 
