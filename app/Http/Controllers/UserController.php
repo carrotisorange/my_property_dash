@@ -346,12 +346,12 @@ class UserController extends Controller
 
     ->get();
 
-    $users = DB::table('users')
-    ->orderBy('user_current_status', 'desc')
-    ->orderBy('last_login_at', 'desc')
-    ->whereNotNull('account_type')
-    ->where('property', Auth::user()->property)
-    ->get();
+    // $users = DB::table('users')
+    // ->orderBy('user_current_status', 'desc')
+    // ->orderBy('last_login_at', 'desc')
+    // ->whereNotNull('account_type')
+    // ->where('property', Auth::user()->property)
+    // ->get();
 
 
     
@@ -515,6 +515,8 @@ class UserController extends Controller
             'account_type' => Auth::user()->account_type,
             'email_verified_at' => Carbon::now()
         ]);
+
+ 
 
         return redirect('/users')->with('success', 'New user has been saved!');
 
