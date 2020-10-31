@@ -222,10 +222,14 @@ class TenantController extends Controller
 
             $unit = Unit::findOrFail($unit_id);
 
-            $users = DB::table('users_properties_relations')
-            ->join('users', 'user_id_foreign', 'id')
-            ->where('property_id_foreign', $property_id)
-            ->get();
+            if(Auth::user()->user_type === 'manager'){
+                $users = User::findOrFail(Auth::user()->id)->users;
+         
+            }else{
+                $users = DB::table('users')
+                ->where('lower_access_user_id', Auth::user()->id)
+                ->get();
+            }
     
             $property = Property::findOrFail($property_id);
 

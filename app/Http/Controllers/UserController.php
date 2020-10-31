@@ -378,10 +378,10 @@ class UserController extends Controller
 
             if(Auth::user()->user_type === 'manager'){
                 $users = User::findOrFail(Auth::user()->id)->users;
+         
             }else{
                 $users = DB::table('users')
                 ->where('lower_access_user_id', Auth::user()->id)
-   
                 ->get();
             }
            
