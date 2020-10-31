@@ -797,7 +797,7 @@
                               <select class="form-control" form="concernForm" name="concern_user_id" required>
                                 <option value="" selected>Please select one</option>
                                 @foreach($users as $item)
-                                <option value="{{ $item->id }}"> {{ $item->user_type }}</option>
+                                <option value="{{ $item->id }}"> {{ $item->user_type }} &#9671 {{ $item->name }}</option>
                                 @endforeach
                                
                               </select>
