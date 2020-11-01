@@ -29,6 +29,20 @@ class TenantController extends Controller
     {
         if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'treasury' ){
 
+           if(Auth::user()->email === 'thepropertymanager2020@gmail.com'){
+             
+            $tenants = DB::table('tenants')
+            ->join('units', 'unit_id', 'unit_tenant_id')
+           
+            ->orderBy('movein_date', 'desc')
+            ->get();
+
+            $count_tenants = DB::table('tenants')
+            ->join('units', 'unit_id', 'unit_tenant_id')
+     
+            ->count();
+           }else{
+            
             $tenants = DB::table('tenants')
             ->join('units', 'unit_id', 'unit_tenant_id')
             ->where('property_id_foreign', $property_id)
@@ -39,6 +53,7 @@ class TenantController extends Controller
             ->join('units', 'unit_id', 'unit_tenant_id')
             ->where('property_id_foreign', $property_id)
             ->count();
+           }
 
             $property = Property::findOrFail($property_id);
 
@@ -54,8 +69,24 @@ class TenantController extends Controller
 
         //create session for the search
         $request->session()->put(Auth::user()->id.'search_tenant', $search);
+        
+          if(Auth::user()->email === 'thepropertymanager2020@gmail.com'){
+                 $tenants = DB::table('tenants')
+                ->join('units', 'unit_id', 'unit_tenant_id')
+              
+                ->whereRaw("concat(first_name, ' ', last_name) like '%$search%' ")
+                // ->orWhereRaw("email_address like '%$search%' ")
+                // ->orWhereRaw("contact_no like '%$search%' ")
+                // ->orderBy('movein_date', 'desc')
+                ->get();
+    
+        
+                 $count_tenants = DB::table('tenants')
+                 ->join('units', 'unit_id', 'unit_tenant_id')
 
-        $tenants = DB::table('tenants')
+                 ->count();
+          }else{
+                 $tenants = DB::table('tenants')
                 ->join('units', 'unit_id', 'unit_tenant_id')
                 ->where('property_id_foreign', $property_id)
                 ->whereRaw("concat(first_name, ' ', last_name) like '%$search%' ")
@@ -64,12 +95,14 @@ class TenantController extends Controller
                 // ->orderBy('movein_date', 'desc')
                 ->get();
     
-        
-         $count_tenants = DB::table('tenants')
-         ->join('units', 'unit_id', 'unit_tenant_id')
-         ->where('property_id_foreign', $property_id)
-         ->count();
 
+             $count_tenants = DB::table('tenants')
+             ->join('units', 'unit_id', 'unit_tenant_id')
+             ->where('property_id_foreign', $property_id)
+             ->count();
+          }
+
+ 
          $property = Property::findOrFail($property_id);
 
         return view('webapp.tenants.tenants', compact('tenants', 'count_tenants', 'property'));
