@@ -162,11 +162,32 @@
       </button>
       </div>
      <div class="modal-body">
-  
+      <div class="row">
+        <div class="col">
+          <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+            <input type="hidden" name="cmd" value="_s-xclick">
+            <input type="hidden" name="hosted_button_id" value="KCB9PW8ETL4NY">
+            
+            <input type="hidden" name="on0" value="">
+              <select name="os0" class="form-control" required>
+                <option value="">Please select a plan</option>
+              <option value="Medium">Medium : P950.00 PHP - monthly</option>
+              <option value="Large">Large : P1,800.00 PHP - monthly</option>
+            </select> 
+            
+            <input type="hidden" name="currency_code" value="PHP">
+          
+            <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+          
+            
+        </div>
+      </div>
      </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close"><i class="fas fa-times fa-sm text-white-50"></i> Close </button>
-      <a href="/#pricing" target="_blank" class="btn btn-info"><i class="fas fa-tags"></i> See pricing</a> 
+      {{-- <button type="button" class="btn btn-dark" data-dismiss="modal" aria-label="Close"><i class="fas fa-times fa-sm text-white-50"></i> Close</button> --}}
+      <button type="submit" class="btn btn-success" type="image" src="" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!"><i class="fas fa-check"></i> Subscribe</button>
+    </form>
+      {{-- <a href="/#pricing" target="_blank" class="btn btn-info"><i class="fas fa-tags"></i> See pricing</a>  --}}
 
 
     </div>
