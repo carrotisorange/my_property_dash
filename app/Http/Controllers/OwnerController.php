@@ -17,15 +17,27 @@ class OwnerController extends Controller
      */
     public function index($property_id)
     {
-        $owners = DB::table('units')
-        ->join('unit_owners', 'unit_id', 'unit_id_foreign')
-        ->where('property_id_foreign', $property_id)
-        ->get();
+        if(Auth::user()->email === 'thepropertymanager2020@gmail.com'){
+            $owners = DB::table('units')
+            ->join('unit_owners', 'unit_id', 'unit_id_foreign')
+            ->get();
 
-        $count_owners = DB::table('units')
-        ->join('unit_owners', 'unit_id', 'unit_id_foreign')
-        ->where('property_id_foreign', $property_id)
-        ->count();
+            $count_owners = DB::table('units')
+            ->join('unit_owners', 'unit_id', 'unit_id_foreign')
+            ->count();
+        }else{
+             $owners = DB::table('units')
+            ->join('unit_owners', 'unit_id', 'unit_id_foreign')
+            ->where('property_id_foreign', $property_id)
+            ->get();
+
+            $count_owners = DB::table('units')
+            ->join('unit_owners', 'unit_id', 'unit_id_foreign')
+            ->where('property_id_foreign', $property_id)
+            ->count();
+        }
+            
+          
 
         $property = Property::findOrFail($property_id);
         
@@ -40,7 +52,17 @@ class OwnerController extends Controller
         //create session for the search
         $request->session()->put(Auth::user()->id.'search_owner', $search);
 
-        $owners = DB::table('unit_owners')
+         if(Auth::user()->email === 'thepropertymanager2020@gmail.com'){
+           $owners = DB::table('unit_owners')
+            ->join('units', 'unit_id_foreign', 'unit_id')
+            ->whereRaw("unit_owner like '%$search%' ")
+            ->get();
+
+            $count_owners = DB::table('unit_owners')
+            ->join('units', 'unit_id_foreign', 'unit_id')
+            ->count();
+         }else{
+           $owners = DB::table('unit_owners')
             ->join('units', 'unit_id_foreign', 'unit_id')
             ->where('unit_property', Auth::user()->property)
             ->whereRaw("unit_owner like '%$search%' ")
@@ -50,6 +72,8 @@ class OwnerController extends Controller
             ->join('units', 'unit_id_foreign', 'unit_id')
             ->where('unit_property', Auth::user()->property)
             ->count();
+         }
+          
 
         return view('webapp.owners.owners', compact('owners', 'count_owners'));
 
