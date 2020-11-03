@@ -1,18 +1,20 @@
 @extends('templates.webapp-new.dashboard')
 
 @section('title', 'Add Property')
-
+@section('welcome')
+<h1 class="text-white">Add your property here!</h1>
+@endsection
 
 @section('content')
 
             <form class="user" method="POST" action="/property">
                 @csrf
-                  <div class="text-center">
-                    <h1 class="h4 text-gray-900 mb-4">Add Your Property Here! </h1>
+                  {{-- <div class="text-center">
+                    <h1 class="h4 text-gray-900 mb-4">Add Your Property Here! </h1> --}}
                     {{-- <b class="text-success">All existing rooms, tenants, owners, etc. will be migrated to this new property.</b> --}}
-                    
+{{--                     
                   </div>
-                  <br>
+                  <br> --}}
                     <div class="form-group">
                       <input id="name" type="text" value="{{ Auth::user()->property }}" class="form-control form-control-user @error('name') is-invalid @enderror" placeholder="Property Name" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
                             @error('name')

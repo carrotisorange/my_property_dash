@@ -1,16 +1,23 @@
 @extends('templates.webapp-new.dashboard')
 
+
+@section('welcome')
+
+@if ($properties->count() > 0)
+<h1 class="text-white">Welcome, {{ Auth::user()->name }}!</h1>
+<p class="text-lead text-white">Simplifying property management.</p>
+@else
+<h1 class="h4 text-gray-900 mb-4">Please add your property...</h1>
+<a href="/property/create" class="btn btn-primary btn-user btn-block"><i class="fas fa-plus-circle"></i> Property </a>
+
+@endif
+@endsection
+
 @section('content')
+
+@if ($properties->count() < 0)
 <form   class="user" action="/property/select" method="POST">
   @csrf
-<div class="text-center">
-  @if($properties->count() <=0 )
-  <h1 class="h4 text-gray-900 mb-4">Please add your property...</h1>
-  @else
-  {{-- <h1 class="h4 text-gray-900 mb-4">Select a property to manage...</h1> --}}
-  @endif
-
-</div>
 @foreach ($properties as $item)
 <input type="hidden" name="property_id" value="{{ $item->property_id }}">
 <div class="row">
@@ -60,13 +67,12 @@
     @else
     <a href="#" data-toggle="modal" data-target="#openProVersion" class="btn btn-secondary btn-user btn-block"> <i class="fas fas fa-plus-circle"></i> Property</a>
     @endif
-
    {{-- @if(Auth::user()->user_type === 'manager')
-   <a href="/property/create" class="btn btn-secondary btn-user btn-block">Add </a>
+ <a title="Please get in touch with your manager..." href="#/" class="btn btn-secondary btn-user btn-block">Add </a>
    @else
    <a title="Please get in touch with your manager..." href="#/" class="btn btn-secondary btn-user btn-block">Add </a>
-   @endif
-  </div> --}}
+   @endif --}}
+  </div>
 
   @if ($properties->count() > 0)
 
@@ -201,6 +207,7 @@
 
     </div>
 @endforeach
+@endif
 @endsection
 
 @section('scripts')
