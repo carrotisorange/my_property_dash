@@ -61,18 +61,18 @@
 @endif
 <hr>
 <div class="row">
-  <div class="col">
+  {{-- <div class="col">
     @if ($properties->count() < 0)
-    <a href="/property/create" class="btn btn-primary btn-user btn-block"><i class="fas fa-plus-circle"></i> Property </a>
+   
     @else
     <a href="#" data-toggle="modal" data-target="#openProVersion" class="btn btn-secondary btn-user btn-block"> <i class="fas fas fa-plus-circle"></i> Property</a>
-    @endif
+    @endif --}}
    {{-- @if(Auth::user()->user_type === 'manager')
  <a title="Please get in touch with your manager..." href="#/" class="btn btn-secondary btn-user btn-block">Add </a>
    @else
    <a title="Please get in touch with your manager..." href="#/" class="btn btn-secondary btn-user btn-block">Add </a>
    @endif --}}
-  </div>
+  {{-- </div> --}}
 
   @if ($properties->count() <= 0)
 
@@ -97,10 +97,11 @@
     @endif
 
   </div>
-  @endif
-
-
-
+@else
+<div class="col">
+  <a href="/property/create" class="btn btn-primary btn-user btn-block"><i class="fas fa-plus-circle"></i> Property </a>
+</div>
+@endif
 </div>
 {{-- <br>
 @if (Auth::user()->user_type === 'manager')
