@@ -118,9 +118,9 @@ Route::get('/asa', function(){
 
     DB::table('users')
      ->where('property', Auth::user()->property)
-  
+     ->where('id','<>',Auth::user()->id )
     ->update([
-        'lower_access_user_id' => 1
+        'lower_access_user_id' => Auth::user()->id
     ]);
 
 //     DB::table('users')
