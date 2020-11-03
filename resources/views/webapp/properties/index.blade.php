@@ -74,7 +74,7 @@
    @endif --}}
   </div>
 
-  @if ($properties->count() > 0)
+  @if ($properties->count() <= 0)
 
   <div class="col">
     @if (Auth::user()->user_type === 'manager')
