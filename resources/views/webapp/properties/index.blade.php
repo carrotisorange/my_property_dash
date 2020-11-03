@@ -15,7 +15,6 @@
 
 @section('content')
 
-@if ($properties->count() < 0)
 <form   class="user" action="/property/select" method="POST">
   @csrf
 @foreach ($properties as $item)
@@ -62,7 +61,7 @@
 <hr>
 <div class="row">
   <div class="col">
-    @if ($properties->count() < 0)
+    @if ($properties->count() <= 0)
     <a href="/property/create" class="btn btn-primary btn-user btn-block"><i class="fas fa-plus-circle"></i> Property </a>
     @else
     <a href="#" data-toggle="modal" data-target="#openProVersion" class="btn btn-secondary btn-user btn-block"> <i class="fas fas fa-plus-circle"></i> Property</a>
