@@ -199,31 +199,30 @@
       </button>
       </div>
      <div class="modal-body">
-       <div class="row">
-        <div class="col ">
-          <div id="paypal-button-container"></div>
-          <script src="https://www.paypal.com/sdk/js?client-id=AS3b0Cqy_--ZSpoccAk2pjqoBhgX4nOlZw39M8gn1pZXfyJInpqCISDObLItpdQxwpFQCpRungfEVXKm&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
-          <script>
-            paypal.Buttons({
-                style: {
-                    shape: 'pill',
-                    color: 'blue',
-                    layout: 'vertical',
-                    label: 'subscribe'
-                },
-                createSubscription: function(data, actions) {
-                  return actions.subscription.create({
-                    'plan_id': 'P-22V02059X4829882AL6QOQ4I'
-                  });
-                },
-                onApprove: function(data, actions) {
-                  alert(data.subscriptionID);
-                }
-            }).render('#paypal-button-container');
-          </script>
+      <div class="row">
+        <div class="col">
+         <div id="paypal-button-container"></div>
+         <script src="https://www.paypal.com/sdk/js?client-id=AS3b0Cqy_--ZSpoccAk2pjqoBhgX4nOlZw39M8gn1pZXfyJInpqCISDObLItpdQxwpFQCpRungfEVXKm&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
+         <script>
+           paypal.Buttons({
+               style: {
+                   shape: 'pill',
+                   color: 'blue',
+                   layout: 'vertical',
+                   label: 'subscribe'
+               },
+               createSubscription: function(data, actions) {
+                 return actions.subscription.create({
+                   'plan_id': 'P-22V02059X4829882AL6QOQ4I'
+                 });
+               },
+               onApprove: function(data, actions) {
+                 alert(data.subscriptionID);
+               }
+           }).render('#paypal-button-container');
+         </script>
         </div>
-          
-       </div>
+      </div>
      </div>
     <div class="modal-footer">
       {{-- <a href="/#pricing" target="_blank" class="btn btn-info"><i class="fas fa-tags"></i> See pricing</a>  --}}
