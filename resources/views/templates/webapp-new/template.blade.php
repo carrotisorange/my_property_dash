@@ -53,6 +53,7 @@
     <!-- Page content -->
     <div class="container-fluid mt--6">
         @yield('body-content')
+
     @include('templates.webapp-new.footer')
     </div>
   </div>
@@ -88,6 +89,7 @@
     });
   });
   </script>
+
   @yield('scripts')
 </body>
 

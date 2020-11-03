@@ -32,9 +32,7 @@
 </head>
 
 <body>
-  
-    @include('templates.webapp.header')
- 
+  @include('templates.webapp.header')
   @include('templates.website.messenger-chatbot')
   @include('templates.webapp.notifications')
   <div class="col-md-6 mx-auto">
@@ -61,17 +59,12 @@
   <!-- Custom scripts for all pages-->
   <script src="{{ asset('dashboard/js/sb-admin-2.min.js') }}"></script>
  
- <script type="text/javascript">
-     function checkForm(form) // Submit button clicked
-   {
-     form.myButton.disabled = true;
-     form.myButton.value = "Please wait...";
-     return true;
-   }
-   </script>
- 
 <script>
   @yield('js')
+</script>
+
+<script
+src="https://www.paypal.com/sdk/js?client-id=SB_CLIENT_ID&vault=true">
 </script>
 </body>
 

@@ -179,15 +179,16 @@
          <div class="modal-body">
            <p class="text-center">
             <span class="font-italic font-weight-bold">Upgrade to Pro to add more properties.</span>
-            <br>
+
+            {{-- <br>
              Would you like to proceed with the payment?
-             <br>
+             <br> --}}
            
            </p>
          </div>
         <div class="modal-footer">
           <a href="/#pricing" target="_blank" class="btn btn-info"><i class="fas fa-tags"></i> See pricing</a> 
-          <a href="#" data-toggle="modal" data-target="#openPaymentInfo" class="btn btn-success"><i class="fas fa-credit-card"></i> Proceed</a> 
+          {{-- <a href="#" data-toggle="modal" data-target="#openPaymentInfo" class="btn btn-success"><i class="fas fa-credit-card"></i> Proceed</a>  --}}
   
       
         </div> 
@@ -207,13 +208,13 @@
           </button>
           </div>
          <div class="modal-body">
-           <p>
+           {{-- <p>
             Please select your <span> <a target="_blank" href="/#pricing">plan</a></span> and send your proof of payment to the email address <span class="font-italic font-weight-bold">thepropertymanager2020@gmail.com</span>
             <ul>
               <li>  GCash = 09752826318 </li>
               <li>  BDO = 0009 4037 3114</li>
             </ul>
-           </p>
+           </p> --}}
          
          </div>
         <div class="modal-footer">
