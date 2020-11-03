@@ -48,7 +48,7 @@
   </div>
 </div>
 @if(Auth::user()->trial_ends_at > Carbon\Carbon::today())
-<p class="text-danger"><i class="fas fa-info-circle"></i> Trial ends at {{ Carbon\Carbon::parse(Auth::user()->trial_ends_at)->format('M d Y') }}</p>
+<p class="text-danger"><i class="fas fa-info-circle"></i> Trial ends on {{ Carbon\Carbon::parse(Auth::user()->trial_ends_at)->format('M d Y') }}</p>
 @else
 {{-- <p class="text-danger"><i class="fas fa-exclamation-triangle"></i> Trial ended at {{ Carbon\Carbon::parse(Auth::user()->trial_ends_at)->format('M d Y') }}</p> --}}
 @endif
