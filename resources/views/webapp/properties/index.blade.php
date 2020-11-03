@@ -15,7 +15,7 @@
 
 @section('content')
 
-@if ($properties->count() < 0)
+
 <form   class="user" action="/property/select" method="POST">
   @csrf
 @foreach ($properties as $item)
@@ -97,7 +97,6 @@
     @endif
 
   </div>
-  @endif
 
 
 
