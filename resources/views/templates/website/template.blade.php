@@ -52,7 +52,7 @@
 
 <body>
 <!-- Load Facebook SDK for JavaScript -->
-@include('templaes.webapp-new.chat-messenger')
+@include('templates.webapp-new.chat-messenger')
   @section('nav-bar')
   @show
   <!-- ======= Header ======= -->

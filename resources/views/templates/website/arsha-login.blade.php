@@ -115,7 +115,7 @@
       </head>
 
 <body class="bg-default">
-  @include('templaes.webapp-new.chat-messenger')
+  @include('templates.webapp-new.chat-messenger')
   <!-- Navbar -->
   <nav id="navbar-main" class="navbar navbar-horizontal navbar-transparent navbar-main navbar-expand-lg navbar-light">
     <div class="container">
