@@ -60,11 +60,12 @@
     @else
     <a href="#" data-toggle="modal" data-target="#openProVersion" class="btn btn-secondary btn-user btn-block"> <i class="fas fas fa-plus-circle"></i> Property</a>
     @endif
-   {{-- @if(Auth::user()->user_type === 'manager')
 
+   @if(Auth::user()->user_type === 'manager')
+   <a href="/property/create" class="btn btn-secondary btn-user btn-block">Add </a>
    @else
    <a title="Please get in touch with your manager..." href="#/" class="btn btn-secondary btn-user btn-block">Add </a>
-   @endif --}}
+   @endif
   </div>
 
   @if ($properties->count() > 0)
