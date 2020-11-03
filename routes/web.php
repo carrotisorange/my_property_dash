@@ -116,12 +116,17 @@ Route::get('/asa', function(){
 //         'unit_unit_owner_id' => 'unit_id_foreign'
 //     ]);
 
+    // DB::table('users')
+    //  ->where('property', Auth::user()->property)
+    //  ->where('id','<>',Auth::user()->id )
+    // ->update([
+    //     'lower_access_user_id' => Auth::user()->id
+    // ]);
+
     DB::table('users')
-     ->where('property', Auth::user()->property)
-     ->where('id','<>',Auth::user()->id )
-    ->update([
-        'lower_access_user_id' => Auth::user()->id
-    ]);
+   ->update([
+       'trial_ends_at' => Carbon::now()->addMonth()
+   ]);
 
 //     DB::table('users')
 //    ->update([
