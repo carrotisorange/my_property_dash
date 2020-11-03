@@ -113,7 +113,7 @@
         
 
       </div>
-      <br>
+      {{-- <br>
       @if (Auth::user()->user_type === 'manager')
         @if($users <= 0)
         <div class="row">
@@ -123,7 +123,7 @@
           </div>
         </div>
         @endif
-      @endif
+      @endif --}}
       <hr>
       <small>Need help?</small>
       <br><br>
