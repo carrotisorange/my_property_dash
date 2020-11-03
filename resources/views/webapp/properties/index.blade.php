@@ -205,7 +205,6 @@
 
     </div>
 @endforeach
-@endif
 @endsection
 
 @section('scripts')
