@@ -82,12 +82,12 @@
   </div>
 
   <div class="col">
-    {{-- @if(Auth::user()->trial_ends_at > Carbon\Carbon::today())
+    @if(Auth::user()->trial_ends_at > Carbon\Carbon::today())
     <button type="submit" class="btn btn-success btn-user btn-block" onclick="this.form.submit(); this.disabled = true;"><i class="fas fa-hand-point-up"></i> Manage</button>
-    @else --}}
+    @else
     <a href="#" data-toggle="modal" data-target="#showWarning" class="btn btn-success btn-user btn-block"><i class="fas fa-hand-point-up"></i> Manage</a>
-{{-- 
-    @endif --}}
+
+    @endif
 
   </div>
   @endif
