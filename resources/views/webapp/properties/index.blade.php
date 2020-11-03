@@ -125,22 +125,61 @@
   <div class="modal-dialog modal-md" role="document">
   <div class="modal-content">
     <div class="modal-header">
-    <h5 class="modal-title text-danger" id="exampleModalLabel"><i class="fas fa-exclamation-triangle"></i> Trial period has expired</h5>
+    <h5 class="modal-title text-danger" id="exampleModalLabel"><i class="fas fa-exclamation-triangle"></i> Trial period has expired!</h5>
   
     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>
     </div>
    <div class="modal-body">
-     <p class="text-center">
-       Would you like to proceed with the payment?
-       <br>
-     
-     </p>
+     <div class="row">
+       <div class="col">
+        <div id="paypal-button-container"></div>
+        <script src="https://www.paypal.com/sdk/js?client-id=AS3b0Cqy_--ZSpoccAk2pjqoBhgX4nOlZw39M8gn1pZXfyJInpqCISDObLItpdQxwpFQCpRungfEVXKm&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
+        <script>
+          paypal.Buttons({
+              style: {
+                  shape: 'pill',
+                  color: 'blue',
+                  layout: 'vertical',
+                  label: 'subscribe'
+              },
+              createSubscription: function(data, actions) {
+                return actions.subscription.create({
+                  'plan_id': 'P-22V02059X4829882AL6QOQ4I'
+                });
+              },
+              onApprove: function(data, actions) {
+                alert(data.subscriptionID);
+              }
+          }).render('#paypal-button-container');
+        </script>
+       </div>
+     </div>
+    {{-- <div class="row">
+      <div class="col ">
+        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+          <input type="hidden" name="cmd" value="_s-xclick">
+          <input type="hidden" name="hosted_button_id" value="MHLEPETFFAZBQ">
+         
+          <input type="hidden" name="on0" value="Plans">Please select your plan
+          <select class="form-control"  name="os0">
+            <option value="Medium">Medium : P1.00 PHP - monthly</option>
+            <option value="Large">Large : P1,800.00 PHP - monthly</option>
+            <option value="Enterprise">Enterprise : P3,000.00 PHP - monthly</option>
+          </select> 
+          <br>
+          <input class="text-center" type="hidden" name="currency_code" value="PHP">
+          <input class="text-center" type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_subscribeCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+          <img class="text-center" alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+          </form>
+      </div>
+        
+     </div> --}}
    </div>
   <div class="modal-footer">
-    <a href="/#pricing" target="_blank" class="btn btn-info"><i class="fas fa-tags"></i> See pricing</a> 
-    <a href="#" data-toggle="modal" data-target="#openPaymentInfo" class="btn btn-success"><i class="fas fa-credit-card"></i> Proceed</a> 
+    {{-- <a href="/#pricing" target="_blank" class="btn btn-info"><i class="fas fa-tags"></i> See pricing</a> 
+    <a href="#" data-toggle="modal" data-target="#openPaymentInfo" class="btn btn-success"><i class="fas fa-credit-card"></i> Proceed</a>  --}}
 
 
   </div> 
