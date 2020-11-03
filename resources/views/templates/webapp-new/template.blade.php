@@ -37,6 +37,7 @@
 </head>
 
 <body>
+  @include('templaes.webapp-new.chat-messenger')
 @yield('sidebar')
 @show
   <!-- Main content -->
