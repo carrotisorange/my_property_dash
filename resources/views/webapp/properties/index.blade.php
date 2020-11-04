@@ -79,7 +79,7 @@
         <a title="Limited to 2 users." href="/user/create" class="btn btn-warning btn-user btn-block"> <i class="fas fas fa-user-plus"></i> Users ({{ $users }}/2)</a>
         @endif
       @else
-      <a title="Reserved for manager." href="#/" class="btn btn-warning btn-user btn-block"> <i class="fas fas fa-plus-circle"></i>  User ({{ $users }}/2) </a>
+      <a title="Reserved for manager." href="#/" class="btn btn-warning btn-user btn-block"> <i class="fas fas fa-user-plus"></i>  Users</a>
       @endif
     </div>
     <div class="col">

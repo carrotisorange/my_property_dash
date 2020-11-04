@@ -11,41 +11,126 @@
 
 @endsection
 
-@section('content')
+@section('welcome')
+
+<h1 class="text-white">Assign a property to the user</h1>
+
+
+@endsection
 
 @section('content')
 
-<form   class="user" action="/property/select" method="POST">
+<form id="editUserForm" action="/user/{{ $user->id }}" method="POST">
     @csrf
+    @method('PUT')
+</form>
       {{-- <div class="text-center">
         <h1 class="h4 text-gray-900 mb-4">{{ $user->name }}</h1>
       </div> --}}
 
       <div class="row">
+        
+                        
         <div class="table-responsive text-nowrap">
+            @if($users->count() <= 0 )
             <table class="table">
-                
-                <tr>
-                   
+                <tr>  
                     <th>Name</th>
-                      <th>Email</th>
+                    <td>{{ $user->name }}</td>
+                 
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>{{ $user->email }}</td>
+                </tr>
+                </tr>
+                <tr>
                     <th>Role</th>
-                    <th>Property</th>
-                    <th>Date added</th>
-                    <th>Verified</th>
+                    <td>{{ $user->user_type }}</td>
+                </tr>
+                </tr>
+                <tr>
+                    <th>Created on</th>
+                    <td>{{ Carbon\Carbon::parse($user->created_at)->format('M d Y') }}</td>
                 </tr>
                 
                     <tr>
                        
-                        <td>{{ $user->name }}</td>
-                        <td>{{ $user->email }}</td>
-                        <td>{{ $user->user_type }}</td>
-                        <td>{{ Carbon\Carbon::parse($user->created_at)->format('M d Y') }}</td>
+                      
+                 
+                        <th>Verified on</th>
+             
                        
                         <td>{{ $user->email_verified_at? Carbon\Carbon::parse($user->email_verified_at)->format('M d Y'): ' ' }}</td>
                     </tr>
+                    <tr>
+                        <th>Property</th>
+                        <td>
+                            @if($users->count() <= 0 )
+                            <select form="editUserForm" class="form-control" name="property_id" id="property_id" required>
+                                <option value="">Please select property</option>
+                               @foreach ($properties as $item)
+                               <option value="{{ $item->property_id }}">{{ $item->name.' '.$item->type }}</option>
+                               @endforeach
+                            </select>
+                            @else
+                            {{ $item->name.' '.$item->type }}
+                            @endif
+                        </td>
+                    </tr>
                
             </table>
+            @else
+            @endif
+            @foreach ($users as $user)
+            <table class="table">
+                <tr>  
+                    <th>Name</th>
+                    <td>{{ $user->name }}</td>
+                 
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>{{ $user->email }}</td>
+                </tr>
+                </tr>
+                <tr>
+                    <th>Role</th>
+                    <td>{{ $user->user_type }}</td>
+                </tr>
+                </tr>
+                <tr>
+                    <th>Created on</th>
+                    <td>{{ Carbon\Carbon::parse($user->created_at)->format('M d Y') }}</td>
+                </tr>
+                
+                    <tr>
+                       
+                      
+                 
+                        <th>Verified on</th>
+             
+                       
+                        <td>{{ $user->email_verified_at? Carbon\Carbon::parse($user->email_verified_at)->format('M d Y'): ' ' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Property</th>
+                        <td>
+                            @if($user->property === null)
+                            <select form="editUserForm" class="form-control" name="property_id" id="property_id" required>
+                                <option value="">Please select property</option>
+                               @foreach ($properties as $item)
+                               <option value="{{ $item->property_id }}">{{ $item->name.' '.$item->type }}</option>
+                               @endforeach
+                            </select>
+                            @else
+                                {{ $user->property.' '.$user->type }}
+                            @endif
+                        </td>
+                    </tr>
+               
+            </table>
+            @endforeach
         </div>
     </div>
     
@@ -61,19 +146,20 @@
             <a href="/property/all/" class="btn btn-primary btn-user btn-block"><i class="fas fa-home"></i> Home </a>
         
         </div>
-
+        @if($users->count() <= 0 )
         <div class="col">
         
-            <a href="/user/all" class="btn btn-warning btn-user btn-block"> <i class="fas fa-users"></i> Users </a>
+            <a href="/user/{{ $user->id }}" class="btn btn-primary btn-user btn-block"> <i class="fas fa-user-circle"></i> User </a>
         
         
         </div>
+  
         <div class="col">
 
-            <a href="/user/create" class="btn btn-success btn-user btn-block"> <i class="fas fa-plus-circle"></i> Users </a>
+            <button form="editUserForm" type="submit" class="btn btn-success btn-user btn-block"> <i class="fas fa-check"></i> Update </button>
         
           </div>
-
+          @endif
       </div>
   
 

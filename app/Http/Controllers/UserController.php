@@ -415,9 +415,8 @@ class UserController extends Controller
         return view('webapp.users.users', compact('users'));
     }
 
-    public function upgrade(Request $request){
-
-      return view('webapp.users.upgrade');
+    public function upgrade(){
+      return 'asd';
     }
 
     /**
@@ -442,27 +441,81 @@ class UserController extends Controller
        
         //  $users = DB::table('users_properties_relations')
         // ->join('users', 'user_id_foreign', 'id')
+        
         // ->where('property_id_foreign', $property_id)
         // ->orWhere('lower_access_user_id', Auth::user()->id)
         // ->get();
 
-        $users = User::findOrFail(Auth::user()->id)->users;
+        // $users = User::findOrFail(Auth::user()->id)->users;
 
+        $users = DB::table('users_properties_relations')
+        ->join('properties', 'property_id_foreign', 'property_id')
+        ->join('users', 'user_id_foreign', 'id')
+        ->select('*', 'properties.name as property')
+        ->where('lower_access_user_id', Auth::user()->id)
+        ->orWhere('id', Auth::user()->id)  
+        ->get();
+
+        //     $lower_access = DB::table('users_properties_relations')
+        //     ->join('properties', 'property_id_foreign', 'property_id')
+        //     ->join('users', 'user_id_foreign', 'lower_access_user_id')
+        //     ->select('*', 'properties.name as property')
+        //     ->where('lower_access_user_id', Auth::user()->id)
+        //     ->get();
+
+        //    $manager_access = DB::table('users_properties_relations')
+        //     ->join('properties', 'property_id_foreign', 'property_id')
+        //     ->join('users', 'user_id_foreign', 'id')
+        //     ->select('*', 'properties.name as property')
+        //     ->where('id', Auth::user()->id)
+        //     ->get();
+
+        //    $users = $lower_access->merge($manager_access);
+    
         return view('webapp.users.system-users.index', compact('users'));
     }
 
     public function show_system_user($user_id){
         
-        $user = User::findOrFail($user_id);
+       $users = DB::table('users_properties_relations')
+        ->join('properties', 'property_id_foreign', 'property_id')
+        ->join('users', 'user_id_foreign', 'id')
+        ->select('*', 'properties.name as property')
+        ->where('id', $user_id)
+        ->limit(1)
+        ->get();
         
-        return view('webapp.users.system-users.show', compact('user'));
+        return view('webapp.users.system-users.show', compact('users'));
     }
 
     public function edit_system_user($user_id){
         
         $user = User::findOrFail($user_id);
+
+       $users = DB::table('users_properties_relations')
+        ->join('properties', 'property_id_foreign', 'property_id')
+        ->join('users', 'user_id_foreign', 'id')
+        ->select('*', 'properties.name as property')
+        ->where('id', $user_id)
+        ->limit(1)
+        ->get();
+
+         $properties = User::findOrFail(Auth::user()->id)->properties;
         
-        return view('webapp.users.system-users.edit', compact('user'));
+        return view('webapp.users.system-users.edit', compact('user','users', 'properties'));
+    }
+
+    public function update_system_user(Request $request, $user_id){
+
+      DB::table('users_properties_relations')
+      ->insert([
+        'user_id_foreign' => $user_id,
+        'property_id_foreign' => $request->property_id
+      ]);
+
+       $user = User::findOrFail($user_id);
+        
+        return redirect('/user/'.$user_id)->with('success','New user has been added!');
     }
 
     public function store_system_user(Request $request){

@@ -38,7 +38,28 @@ class PropertyController extends Controller
                 // ->orWhere('lower_access_user_id', Auth::user()->id)
                 // ->count();
 
-                $users = User::findOrFail(Auth::user()->id)->users->count();
+            //     $lower_access = DB::table('users_properties_relations')
+            //     ->join('properties', 'property_id_foreign', 'property_id')
+            //     ->join('users', 'user_id_foreign', 'lower_access_user_id')
+            //     ->where('lower_access_user_id', Auth::user()->id)
+            //     ->get();
+    
+            //    $manager_access = DB::table('users_properties_relations')
+            //     ->join('properties', 'property_id_foreign', 'property_id')
+            //     ->join('users', 'user_id_foreign', 'id')
+            //     ->where('id', Auth::user()->id)
+            //     ->get();
+    
+            //    $users = $lower_access->merge($manager_access)->count();
+
+               $users = DB::table('users_properties_relations')
+               ->join('properties', 'property_id_foreign', 'property_id')
+               ->join('users', 'user_id_foreign', 'id')
+               ->select('*', 'properties.name as property')
+               ->where('lower_access_user_id', Auth::user()->id)
+               ->orWhere('id', Auth::user()->id)  
+               ->count();
+       
 
                 $existing_users = DB::table('users')->where('property', Auth::user()->property)
                 ->where('id','<>',Auth::user()->id )
@@ -196,47 +217,47 @@ class PropertyController extends Controller
                 );
 
         
-     DB::table('units')->where('unit_property', Auth::user()->property)
-    ->update(
-        [
-            'property_id_foreign' => $uuid
-        ]
-    );
+    //  DB::table('units')->where('unit_property', Auth::user()->property)
+    // ->update(
+    //     [
+    //         'property_id_foreign' => $uuid
+    //     ]
+    // );
 
-     DB::table('occupancy_rate')->where('occupancy_property', Auth::user()->property)
-    ->update(
-        [
-            'property_id_foreign' => $uuid
-        ]
-    );
+    //  DB::table('occupancy_rate')->where('occupancy_property', Auth::user()->property)
+    // ->update(
+    //     [
+    //         'property_id_foreign' => $uuid
+    //     ]
+    // );
 
-    DB::table('payable_entry')->where('payable_entry_property', Auth::user()->property)
-    ->update(
-        [
-            'property_id_foreign' => $uuid
-        ]
-    );
+    // DB::table('payable_entry')->where('payable_entry_property', Auth::user()->property)
+    // ->update(
+    //     [
+    //         'property_id_foreign' => $uuid
+    //     ]
+    // );
 
-    DB::table('payable_request')->where('property', Auth::user()->property)
-    ->update(
-        [
-            'property_id_foreign' => $uuid
-        ]
-    );
+    // DB::table('payable_request')->where('property', Auth::user()->property)
+    // ->update(
+    //     [
+    //         'property_id_foreign' => $uuid
+    //     ]
+    // );
 
-    DB::table('personnels')->where('personnel_property', Auth::user()->property)
-    ->update(
-        [
-            'property_id_foreign' => $uuid
-        ]
-    );
+    // DB::table('personnels')->where('personnel_property', Auth::user()->property)
+    // ->update(
+    //     [
+    //         'property_id_foreign' => $uuid
+    //     ]
+    // );
 
-    DB::table('users')->where('property', Auth::user()->property)
-    ->update(
-        [
-         'lower_access_user_id' => Auth::user()->id
-        ]
-    );
+    // DB::table('users')->where('property', Auth::user()->property)
+    // ->update(
+    //     [
+    //      'lower_access_user_id' => Auth::user()->id
+    //     ]
+    // );
 
 
     // DB::table('concerns')
@@ -248,7 +269,7 @@ class PropertyController extends Controller
     //         'concern_user_id' => Auth::user()->id
     // ]);
 
-        return redirect('property/all')->with('success', 'New property has been saved!');
+        return redirect('property/all')->with('success', 'New property has been added!');
 
     
 

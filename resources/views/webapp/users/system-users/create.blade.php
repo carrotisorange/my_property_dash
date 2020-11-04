@@ -2,14 +2,18 @@
 
 @section('title', 'Add User')
 
+@section('welcome')
+
+<h1 class="text-white">Add New User Here! </h1>
+
+
+@endsection
 
 @section('content')
 
             <form class="user" method="POST" action="/user/store">
                 @csrf
-                  <div class="text-center">
-                    <h1 class="h4 text-gray-900 mb-4">Add New User Here! </h1>
-                  </div>
+              
                 
                     <div class="form-group">
                       <input id="name" type="text" value="" class="form-control form-control-user @error('name') is-invalid @enderror" placeholder="Name" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
@@ -43,7 +47,7 @@
                     
                         <option value="treasury">treasury</option>
                         @else
-                        <option value="">Select type</option>
+                        <option value="">Select role</option>
                         <option value="admin">admin</option>
                         <option value="ap">ap</option>
                         <option value="billing">billing</option>
@@ -71,12 +75,12 @@
 
                    <div class="row">
                      <div class="col">
-                      <a href="/property/all" class="btn btn-secondary btn-user btn-block" ><i class="fas fa-home"></i> Home</a>
+                      <a href="/property/all" class="btn btn-primary btn-user btn-block" ><i class="fas fa-home"></i> Home</a>
                      
                      </div>
                      <div class="col">
        
-                      <a href="/user/all/" class="btn btn-warning btn-user btn-block"> <i class="fas fa-users"></i> Users </a>
+                      <a href="/user/all/" class="btn btn-primary btn-user btn-block"> <i class="fas fa-users"></i> Users </a>
                   
                   </div>
                      <div class="col">

@@ -1,6 +1,6 @@
 @extends('templates.webapp-new.dashboard')
 
-@section('title', $user->name)
+@section('title', 'User')
 
 @section('sidebar')
    
@@ -11,41 +11,58 @@
 
 @endsection
 
-@section('content')
+@section('welcome')
+
+<h1 class="text-white">Show user</h1>
+
+
+@endsection
 
 @section('content')
-
-<form   class="user" action="/property/select" method="POST">
-    @csrf
       {{-- <div class="text-center">
         <h1 class="h4 text-gray-900 mb-4">{{ $user->name }}</h1>
       </div> --}}
 
       <div class="row">
         <div class="table-responsive text-nowrap">
-            <table class="table">
-                
+          @foreach ($users as $user)
+          <table class="table">
+            <tr>  
+                <th>Name</th>
+                <td>{{ $user->name }}</td>
+             
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ $user->email }}</td>
+            </tr>
+            </tr>
+            <tr>
+                <th>Property</th>
+                <td>{{ $user->property.' '.$user->type }}</td>
+            </tr>
+            <tr>
+              <th>Role</th>
+              <td>{{ $user->user_type }}</td>
+          </tr>
+            </tr>
+            <tr>
+                <th>Created on</th>
+                <td>{{ Carbon\Carbon::parse($user->created_at)->format('M d Y') }}</td>
+            </tr>
+            
                 <tr>
                    
-                    <th>Name</th>
-    
-                      <th>Email</th>
-                    <th>Role</th>
-                    <th>Date added</th>
-                    <th>Verified</th>
+                  
+             
+                    <th>Verified on</th>
+         
+                   
+                    <td>{{ $user->email_verified_at? Carbon\Carbon::parse($user->email_verified_at)->format('M d Y'): ' ' }}</td>
                 </tr>
-                
-                    <tr>
-                       
-                        <td>{{ $user->name }}</td>
-                        <td>{{ $user->email }}</td>
-                        <td>{{ $user->user_type }}</td>
-                        <td>{{ Carbon\Carbon::parse($user->created_at)->format('M d Y') }}</td>
-                       
-                        <td>{{ $user->email_verified_at? Carbon\Carbon::parse($user->email_verified_at)->format('M d Y'): ' ' }}</td>
-                    </tr>
-               
-            </table>
+           
+        </table>
+          @endforeach
         </div>
     </div>
     
@@ -64,13 +81,19 @@
 
         <div class="col">
         
-            <a href="/user/all" class="btn btn-warning btn-user btn-block"> <i class="fas fa-users"></i> Users </a>
+            <a href="/user/all" class="btn btn-primary btn-user btn-block"> <i class="fas fa-users"></i> Users </a>
         
         
         </div>
         <div class="col">
+          @foreach ($users as $user)
+          <a href="/user/{{ $user->id }}/edit" class="btn btn-primary btn-user btn-block"> <i class="fas fa-user-edit"></i> Edit </a>
+      @endforeach
+      
+      </div>
+        <div class="col">
 
-            <a href="/user/create" class="btn btn-success btn-user btn-block"> <i class="fas fa-plus-circle"></i> Users </a>
+            <a href="/user/create" class="btn btn-primary btn-user btn-block"> <i class="fas fa-user-plus"></i> Users </a>
         
           </div>
 

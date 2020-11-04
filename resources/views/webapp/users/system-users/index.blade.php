@@ -34,14 +34,16 @@
                       <th>Name</th>
                       <th>Email</th>
                       <th>Role</th>
+                      <th>Property</th>
                       <th>Status</th>
                   </tr>
                   @foreach ($users as $item)
                       <tr>
                           <th>{{ $ctr++ }}</th>
-                          <td><a href="/user/{{ $item->id }}">{{ $item->name }}</a></td>
+                          <td><a href="/user/{{ $item->id }}/edit">{{ $item->name }}</a></td>
                           <td>{{ $item->email }}</td>
                           <td>{{ $item->user_type }}</td>
+                          <td>{{ $item->property.' '.$item->type }}</td>
                           <td class="text-center">
                             @if($item->email_verified_at == null)
                             <strong title="unverified" class="text-danger"><i class="fas fa-exclamation-triangle"></i> </strong>
@@ -60,13 +62,13 @@
       <hr>
       <div class="row">
         <div class="col">
-           <a href="/property/all/" class="btn btn-secondary btn-user btn-block"> <i class="fas fa-home"></i> Home</a>
+           <a href="/property/all/" class="btn btn-primary btn-user btn-block"> <i class="fas fa-home"></i> Home</a>
        </div>
        <div class="col">
         @if($users->count() > 1)
-        <a href="/user/upgrade" class="btn btn-warning btn-user btn-block"><i class="fas fa-plus-circle"></i> User </a
+        <a href="/user/upgrade" class="btn btn-primary btn-user btn-block"><i class="fas fa-plus-circle"></i> User </a
         @else
-        <a href="/user/create" class="btn btn-warning btn-user btn-block"><i class="fas fa-plus-circle"></i> User </a>
+        <a href="/user/create" class="btn btn-primary btn-user btn-block"><i class="fas fa-plus-circle"></i> User </a>
         @endif
      
     </div>

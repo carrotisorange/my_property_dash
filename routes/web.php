@@ -57,6 +57,7 @@ Route::get('/user/all', 'UserController@index_system_user')->middleware(['auth',
 Route::get('/user/create', 'UserController@create_system_user')->middleware(['auth', 'verified']);
 Route::get('/user/{user_id}', 'UserController@show_system_user')->middleware(['auth', 'verified']);
 Route::get('/user/{user_id}/edit', 'UserController@edit_system_user')->middleware(['auth', 'verified']);
+Route::put('/user/{user_id}', 'UserController@update_system_user')->middleware(['auth', 'verified']);
 Route::post('/user/store', 'UserController@store_system_user')->middleware(['auth', 'verified']);
 
 //routes for properties 
@@ -177,7 +178,7 @@ Route::post('/property/{property_id}/payable/{payable_id}/release', 'PayableCont
 Route::get('/property/{property_id}/users', 'UserController@index')->middleware(['auth', 'verified']);
 Route::get('/property/{property_id}/user/{user_id}', 'UserController@show')->middleware(['auth', 'verified']);
 Route::put('/property/{property_id}/user/{user_id}', 'UserController@update')->middleware(['auth', 'verified']);
-Route::get('/user/upgrade', 'UserController@upgrade ')->middleware(['auth', 'verified']);
+Route::get('/user/upgrade', 'UserController@upgrade')->middleware(['auth', 'verified']);
 
 Route::post('/user/{user_id}/tenant/{tenant_id}/dashboard', 'UserController@show_user_tenant')->middleware(['auth', 'verified']);
 Route::get('/user/{user_id}/tenant/{tenant_id}/dashboard', 'UserController@show_user_tenant')->middleware(['auth', 'verified']);

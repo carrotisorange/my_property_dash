@@ -34,6 +34,7 @@
       </head>
 
 <body class="bg-default">
+
   <!-- Navbar -->
   <nav id="navbar-main" class="navbar navbar-horizontal navbar-transparent navbar-main navbar-expand-lg navbar-light">
     <div class="container">
@@ -138,6 +139,7 @@
       <div class="row justify-content-center">
         <div class="col-lg-9 col-md-7">
           <div class="card bg-secondary border-0 mb-0">
+            @include('templates.webapp.notifications')
             {{-- <div class="card-header bg-transparent pb-5">
               <div class="text-muted text-center mt-2 mb-3"><small>Sign in with</small></div>
               <div class="btn-wrapper text-center">
@@ -152,6 +154,7 @@
               </div>
             </div> --}}
             <div class="card-body px-lg-5 py-lg-5">
+           
               {{-- <div class="text-center text-muted mb-4">
                 <small>Or sign in with credentials</small>
               </div> --}}
