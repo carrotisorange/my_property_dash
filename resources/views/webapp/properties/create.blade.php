@@ -35,7 +35,7 @@
                         <option value="Commercial Complex">Commercial Complex</option>
                         <option value="Condominium Associations">Condominium Associations</option>
                         @else
-                        <option value="{{ Auth::user()->property_type }}" selected>{{ Auth::user()->property_type }}</option>
+                        <option value="">Please select type</option>
                         <option value="Dormitory">Dormitory</option>
                         <option value="Apartment Rentals">Apartment Rentals</option>
                         <option value="Commercial Complex">Commercial Complex</option>
@@ -59,8 +59,7 @@
                         <option value="Single Owner">Single Owner</option>
                         <option value="Multiple Owners">Multiple Owners</option>
                         @else
-                        <option value="{{ Auth::user()->property_ownership }}" selected>{{ Auth::user()->property_ownership }}</option>
-                        {{-- <option value="" selected>Select owership</option>  --}}
+                      <option value="">Please select ownership</option>
                         <option value="Single Owner">Single Owner</option>
                         <option value="Multiple Owners">Multiple Owners</option>
                         @endif

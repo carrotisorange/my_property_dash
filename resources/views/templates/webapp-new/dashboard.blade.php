@@ -18,7 +18,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="Start your development with a Dashboard for Bootstrap 4.">
         <meta name="author" content="Creative Tim">
-        <title>Property</title>
+        <title>The Property Manager</title>
         <!-- Favicon -->
         <link rel="icon" href="{{ asset('/argon/assets/img/brand/favicon.ico') }}" type="image/png">
         <!-- Fonts -->
@@ -78,13 +78,13 @@
         </ul>
         <hr class="d-lg-none" />
         <ul class="navbar-nav align-items-lg-center ml-lg-auto">
-            {{-- {{-- <li class="nav-item">
-              <a class="nav-link nav-link-icon" href="https://www.facebook.com/creativetim" target="_blank" data-toggle="tooltip" data-original-title="Like us on Facebook">
+             <li class="nav-item">
+              <a class="nav-link nav-link-icon" href="https://www.facebook.com/onlinepropertymanager" target="_blank" data-toggle="tooltip" data-original-title="Like us on Facebook">
                 <i class="fab fa-facebook-square"></i>
                 <span class="nav-link-inner--text d-lg-none">Facebook</span>
               </a>
             </li>
-            <li class="nav-item">
+           {{-- <li class="nav-item">
               <a class="nav-link nav-link-icon" href="https://www.instagram.com/creativetimofficial" target="_blank" data-toggle="tooltip" data-original-title="Follow us on Instagram">
                 <i class="fab fa-instagram"></i>
                 <span class="nav-link-inner--text d-lg-none">Instagram</span>
@@ -102,14 +102,14 @@
                 <span class="nav-link-inner--text d-lg-none">Github</span>
               </a>
             </li> --}}
-          {{-- <li class="nav-item d-none d-lg-block ml-lg-4">
-            <a href="https://www.creative-tim.com/product/argon-dashboard-pro?ref=ad_upgrade_pro" target="_blank" class="btn btn-neutral btn-icon">
+          <li class="nav-item d-none d-lg-block ml-lg-4">
+            <a href="/user/upgrade" target="_blank" class="btn btn-neutral btn-icon">
               <span class="btn-inner--icon">
                 <i class="fas fa-shopping-cart mr-2"></i>
               </span>
               <span class="nav-link-inner--text">Upgrade to PRO</span>
             </a>
-          </li> --}}
+          </li>
         </ul>
       </div>
     </div>
@@ -212,6 +212,8 @@
   <script src="{{ asset('/argon/assets/vendor/chart.js/dist/Chart.extension.js') }}"></script>
   <!-- Argon JS -->
   <script src="{{ asset('/argon/assets/js/argon.js?v=1.2.0') }}"></script>
+
+  @yield('scripts')
 </body>
 
 </html>

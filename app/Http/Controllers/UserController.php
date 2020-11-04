@@ -415,6 +415,11 @@ class UserController extends Controller
         return view('webapp.users.users', compact('users'));
     }
 
+    public function upgrade(Request $request){
+
+      return view('webapp.users.upgrade');
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -425,15 +430,15 @@ class UserController extends Controller
         //
     }
 
-    public function create_system_user($property_id){
+    public function create_system_user(){
         
             // return back()->with('danger', 'Exceeded your limit for adding users. Upgrade to Pro to add more users.');
-            $property = Property::findOrFail($property_id);
-            return view('webapp.users.system-users.create', compact('property'));
+            // $property = Property::findOrFail($property_id);
+            return view('webapp.users.system-users.create');
 
     }
 
-    public function index_system_user($property_id){
+    public function index_system_user(){
        
         //  $users = DB::table('users_properties_relations')
         // ->join('users', 'user_id_foreign', 'id')
@@ -443,18 +448,21 @@ class UserController extends Controller
 
         $users = User::findOrFail(Auth::user()->id)->users;
 
-        $property = Property::findOrFail($property_id);
-
-        return view('webapp.users.system-users.index', compact('users', 'property'));
+        return view('webapp.users.system-users.index', compact('users'));
     }
 
-    public function show_system_user($property_id, $user_id){
+    public function show_system_user($user_id){
         
         $user = User::findOrFail($user_id);
-
-        $property = Property::findOrFail($property_id);
         
-        return view('webapp.users.system-users.show', compact('user', 'property'));
+        return view('webapp.users.system-users.show', compact('user'));
+    }
+
+    public function edit_system_user($user_id){
+        
+        $user = User::findOrFail($user_id);
+        
+        return view('webapp.users.system-users.edit', compact('user'));
     }
 
     public function store_system_user(Request $request){
@@ -475,18 +483,19 @@ class UserController extends Controller
             'property_ownership' => '',
             'password' => Hash::make($request->password),
             'created_at' => Carbon::now(),
+            'email_verified_at' =>Carbon::now(),
             'account_type' => Auth::user()->account_type,
             'lower_access_user_id' => Auth::user()->id,
             'trial_ends_at' => Auth::user()->trial_ends_at,
         ]);
 
-        DB::table('users_properties_relations')
-        ->insert([
-            'property_id_foreign' => $request->property_id,
-            'user_id_foreign' => $user_id,
-        ]);
+        // DB::table('users_properties_relations')
+        // ->insert([
+        //     'property_id_foreign' => $request->property_id,
+        //     'user_id_foreign' => $user_id,
+        // ]);
 
-        return redirect('/property/'.$request->property_id.'/system-user/'.$user_id)->with('success', 'New user has been saved!');
+        return redirect('/user/'.$user_id.'/edit')->with('success', 'New user has been saved!');
     }
 
     /**

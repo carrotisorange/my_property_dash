@@ -53,10 +53,11 @@ Route::post('/property/{property_id}/blog', 'BlogController@store')->middleware(
 Route::get('/property/{property_id}/blog/{blog_id}', 'BlogController@show')->middleware(['auth', 'verified']);
 
 //routes for system-users
-Route::get('/property/{property_id}/user/all', 'UserController@index_system_user')->middleware(['auth', 'verified']);
-Route::get('/property/{property_id}/user/create', 'UserController@create_system_user')->middleware(['auth', 'verified']);
-Route::get('/property/{property_id}/system-user/{user_id}', 'UserController@show_system_user')->middleware(['auth', 'verified']);
-Route::post('/system-user/', 'UserController@store_system_user')->middleware(['auth', 'verified']);
+Route::get('/user/all', 'UserController@index_system_user')->middleware(['auth', 'verified']);
+Route::get('/user/create', 'UserController@create_system_user')->middleware(['auth', 'verified']);
+Route::get('/user/{user_id}', 'UserController@show_system_user')->middleware(['auth', 'verified']);
+Route::get('/user/{user_id}/edit', 'UserController@edit_system_user')->middleware(['auth', 'verified']);
+Route::post('/user/store', 'UserController@store_system_user')->middleware(['auth', 'verified']);
 
 //routes for properties 
 Route::get('/property/all', 'PropertyController@index')->middleware(['auth', 'verified']);
@@ -176,6 +177,7 @@ Route::post('/property/{property_id}/payable/{payable_id}/release', 'PayableCont
 Route::get('/property/{property_id}/users', 'UserController@index')->middleware(['auth', 'verified']);
 Route::get('/property/{property_id}/user/{user_id}', 'UserController@show')->middleware(['auth', 'verified']);
 Route::put('/property/{property_id}/user/{user_id}', 'UserController@update')->middleware(['auth', 'verified']);
+Route::get('/user/upgrade', 'UserController@upgrade ')->middleware(['auth', 'verified']);
 
 Route::post('/user/{user_id}/tenant/{tenant_id}/dashboard', 'UserController@show_user_tenant')->middleware(['auth', 'verified']);
 Route::get('/user/{user_id}/tenant/{tenant_id}/dashboard', 'UserController@show_user_tenant')->middleware(['auth', 'verified']);

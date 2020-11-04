@@ -10,13 +10,21 @@
 
 @endsection
 
+
+@section('welcome')
+
+
+<h1 class="text-white">Users</h1>
+
+
+@endsection
+
+
 @section('content')
 
 <form   class="user" action="/property/select" method="POST">
     @csrf
-      <div class="text-center">
-        <h1 class="h4 text-gray-900 mb-4">Users</h1>
-      </div>
+      
       <div class="row">
           <div class="table-responsive text-nowrap">
               <table class="table">
@@ -31,7 +39,7 @@
                   @foreach ($users as $item)
                       <tr>
                           <th>{{ $ctr++ }}</th>
-                          <td><a href="/property/{{ $property->property_id }}/system-user/{{ $item->id }}">{{ $item->name }}</a></td>
+                          <td><a href="/user/{{ $item->id }}">{{ $item->name }}</a></td>
                           <td>{{ $item->email }}</td>
                           <td>{{ $item->user_type }}</td>
                           <td class="text-center">
@@ -56,9 +64,9 @@
        </div>
        <div class="col">
         @if($users->count() > 1)
-        <a href="#" data-toggle="modal" data-target="#openProVersion" class="btn btn-warning btn-user btn-block"><i class="fas fa-plus-circle"></i> User </a
+        <a href="/user/upgrade" class="btn btn-warning btn-user btn-block"><i class="fas fa-plus-circle"></i> User </a
         @else
-        <a href="/property/{{ $property->property_id }}/user/create" class="btn btn-warning btn-user btn-block"><i class="fas fa-plus-circle"></i> User </a>
+        <a href="/user/create" class="btn btn-warning btn-user btn-block"><i class="fas fa-plus-circle"></i> User </a>
         @endif
      
     </div>

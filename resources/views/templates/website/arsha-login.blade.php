@@ -184,6 +184,11 @@
                 <span class="nav-link-inner--text d-lg-none">Github</span>
               </a>
             </li> --}}
+          @if(Auth::check())
+          <li class="nav-item d-none d-lg-block ml-lg-4">
+           <p class="text-white"> Welcome, {{ Auth::user()->name }}!</p>
+          </li>
+          @else
           <li class="nav-item d-none d-lg-block ml-lg-4">
             <a href="/register" target="_blank" class="btn btn-neutral btn-icon">
               <span class="btn-inner--icon">
@@ -192,6 +197,7 @@
               <span class="nav-link-inner--text">Register for FREE</span>
             </a>
           </li>
+          @endif
         </ul>
       </div>
     </div>

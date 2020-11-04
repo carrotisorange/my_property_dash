@@ -5,7 +5,7 @@
 
 @section('content')
 
-            <form class="user" method="POST" action="/system-user/">
+            <form class="user" method="POST" action="/user/store">
                 @csrf
                   <div class="text-center">
                     <h1 class="h4 text-gray-900 mb-4">Add New User Here! </h1>
@@ -20,7 +20,7 @@
                             @enderror
                     </div>
                   
-                   <input type="hidden" name="property_id" value="{{ $property->property_id }}">
+                   {{-- <input type="hidden" name="property_id" value="{{ $property->property_id }}"> --}}
                    
                     <div class="form-group">
                         <input id="email" type="text" value="" class="form-control form-control-user @error('email') is-invalid @enderror" placeholder="Email" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
@@ -76,7 +76,7 @@
                      </div>
                      <div class="col">
        
-                      <a href="/property/{{ $property->property_id }}/user/all/" class="btn btn-warning btn-user btn-block"> <i class="fas fa-users"></i> Users </a>
+                      <a href="/user/all/" class="btn btn-warning btn-user btn-block"> <i class="fas fa-users"></i> Users </a>
                   
                   </div>
                      <div class="col">

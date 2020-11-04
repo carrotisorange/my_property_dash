@@ -28,9 +28,9 @@
                 <tr>
                    
                     <th>Name</th>
-    
                       <th>Email</th>
                     <th>Role</th>
+                    <th>Property</th>
                     <th>Date added</th>
                     <th>Verified</th>
                 </tr>
