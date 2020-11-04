@@ -53,7 +53,7 @@
 @if(Auth::user()->trial_ends_at <= Carbon\Carbon::today())
 <p class="text-danger"><i class="fas fa-exclamation-triangle"></i> Trial ends on {{ Carbon\Carbon::parse(Auth::user()->trial_ends_at)->format('M d Y') }} </p>
 @else
-<p class="text-danger"><i class="fas fa-exclamation-triangle"></i> Trial has expired on {{ Carbon\Carbon::parse(Auth::user()->trial_ends_at)->format('M d Y') }}</p>
+<p class="text-danger"><i class="fas fa-exclamation-triangle"></i> Trial expires on {{ Carbon\Carbon::parse(Auth::user()->trial_ends_at)->format('M d Y') }}</p>
 @endif
 <hr>
 
