@@ -9,7 +9,6 @@ class Tenant extends Model
     protected $primaryKey = 'tenant_id';
     
     protected $fillable =   [
-                                'unit_tenant_id',
                                 'tenant_unique_id',
                                 'first_name',
                                 'middle_name',
@@ -26,14 +25,6 @@ class Tenant extends Model
                                 'contact_no',
                                  
                                 'year_level', 
-                                'tenant_monthly_rent',
-                                'tenant_status',
-                                'movein_date',
-                                'moveout_date',
-                                'renewal_history',
-                                'guardian',
-                                'guardian_relationship',
-                                'guardian_contact_no',
                                 'type_of_tenant',
                                 'high_school',
                                 'high_school_address',
@@ -45,16 +36,17 @@ class Tenant extends Model
                                 'years_of_employment',
                                 'employer_contact_no',
                                 'zip_code',
-                                
-                                'actual_move_out_date',
-                                'reason_for_moving_out',
-                                'has_extended',
-                                'tenants_note',
                             ];
 
-    public function units()
+
+    public function contracts()
     {
-        return $this->belongsTo('App\Unit','unit_tenant_id');
+        return $this->hasMany('App\Contract','tenant_id_foreign');
+    }
+
+    public function guardians()
+    {
+        return $this->hasMany('App\Guardian','tenant_id_foreign');
     }
 
     public function concerns()

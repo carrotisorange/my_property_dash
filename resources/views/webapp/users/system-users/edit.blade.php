@@ -68,7 +68,6 @@
                         <td>
                             @if($users->count() <= 0 )
                             <select form="editUserForm" class="form-control" name="property_id" id="property_id" required>
-                                <option value="">Please select property</option>
                                @foreach ($properties as $item)
                                <option value="{{ $item->property_id }}">{{ $item->name.' '.$item->type }}</option>
                                @endforeach
@@ -139,27 +138,26 @@
       <hr>
       <div class="row">
         
-       
-      
-         <div class="col">
+        @if($users->count() <= 0 )
+
+        <div class="col">
+
+            <button form="editUserForm" type="submit" class="btn btn-success btn-user btn-block"> <i class="fas fa-check"></i> Complete </button>
+        
+          </div>
+        @else
+        <div class="col">
         
             <a href="/property/all/" class="btn btn-primary btn-user btn-block"><i class="fas fa-home"></i> Home </a>
         
         </div>
-        @if($users->count() <= 0 )
         <div class="col">
-        
             <a href="/user/{{ $user->id }}" class="btn btn-primary btn-user btn-block"> <i class="fas fa-user-circle"></i> User </a>
-        
-        
-        </div>
-  
-        <div class="col">
 
-            <button form="editUserForm" type="submit" class="btn btn-success btn-user btn-block"> <i class="fas fa-check"></i> Update </button>
+        </div>
+        @endif
+      
         
-          </div>
-          @endif
       </div>
   
 

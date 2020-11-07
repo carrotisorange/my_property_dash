@@ -30,6 +30,7 @@ class SendContractAlertEmail extends Mailable
      */
     public function build()
     {
-        return $this->view('webapp.tenants.send-contract-alert-mail');
+        return $this->from('landleybernardo@thepropertymanager.online')
+        ->view('webapp.tenants.send-contract-alert-mail');
     }
 }

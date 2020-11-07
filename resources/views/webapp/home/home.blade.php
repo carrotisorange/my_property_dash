@@ -154,18 +154,20 @@
 
 @section('upper-content')
 <div class="row align-items-center py-4">
-  <div class="col-lg-6 col-7">
+  <div class="col-lg-3">
     <h6 class="h2 text-dark d-inline-block mb-0">Home</h6>
     
   </div>
 
-  <div class="col-lg-6 col-5 text-right">
-    <a href="#" class="btn btn-sm btn-danger"><i class="fas fa-home"></i> Vacant</a>
-    <a href="#" class="btn btn-sm btn-success"><i class="fas fa-home"></i> Occupied</a>
-    <a href="#" class="btn btn-sm btn-warning"> <i class="fas fa-home"></i>Reserved</a>
+  <div class="col-lg-5 text-center">
+    <a href="#" class="btn btn-danger"><i class="fas fa-home"></i> Vacant</a>
+    <a href="#" class="btn btn-success"><i class="fas fa-home"></i> Occupied</a>
+    <a href="#" class="btn btn-warning"> <i class="fas fa-home"></i>Reserved</a>
+  </div>
 
-    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addMultipleUnits" data-whatever="@mdo"><i class="fas fa-plus fa-sm text-white-50"></i> Add</a>
-    <a href="/property/{{ $property->property_id }}/home/{{ Carbon\Carbon::now()->getTimestamp() }}/edit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" ><i class="fas fa-edit fa-sm text-white-50"></i> Edit</a>
+  <div class="col-md-4 text-right">
+    <a href="#" class="btn btn-primary shadow-sm" data-toggle="modal" data-target="#addMultipleUnits" data-whatever="@mdo"><i class="fas fa-plus fa-sm text-white-50"></i> Add</a>
+    <a href="/property/{{ $property->property_id }}/home/{{ Carbon\Carbon::now()->getTimestamp() }}/edit" class="btn btn-primary" ><i class="fas fa-edit fa-sm text-white-50"></i> Edit</a>
   </div>
 
  
@@ -362,8 +364,8 @@
 
       </div>
       <div class="modal-footer">
-          <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button>
-          <button form="addUMultipleUnitForm" type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;"><i class="fas fa-check"></i> Submit</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button>
+          <button form="addUMultipleUnitForm" type="submit" class="btn btn-primary" onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;"><i class="fas fa-check"></i> Submit</button>
           </div>
   </div>
   </div>

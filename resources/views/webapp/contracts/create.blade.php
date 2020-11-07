@@ -160,24 +160,26 @@
     
   </div>
   <div class="col-lg-3">
+    <form id="contractForm" action="/property/{{ $property->property_id }}/tenant/{{ $tenant->tenant_id}}/contract/add" method="POST">
+      @csrf
+    </form>
     <small class="">Room <span class="text-danger">*</span></small>
-    <select class="form-control" form="addTenantForm1" name="unit_id" id="unit_id" required readonly>
-      <option value="{{ $unit->unit_id }}" selected>{{ $unit->building.' '.$unit->unit_no }}</option>
-      {{-- @foreach ($units as $item)
-        <option value="{{ $item->id }}">{{ $item->building.' '.$item->unit_no }}</option>
-      @endforeach --}}
-     </select>
+   <select class="form-control" form="addTenantForm1" name="unit_id" id="unit_id" required readonly>
+    <option value="{{ $unit->unit_id }}" selected>{{ $unit->building.' '.$unit->unit_no }}</option>
+    {{-- @foreach ($units as $item)
+      <option value="{{ $item->id }}">{{ $item->building.' '.$item->unit_no }}</option>
+    @endforeach --}}
+   </select>
 
  
   </div>
   <div class="col-lg-3">
     <small class="">Refferer <span class="text-danger">*</span></small>
-    <select class="form-control" form="addTenantForm1" name="referrer_id" id="referrer_id" required>
-     <option value="">Please select one</option>
-     @foreach ($users as $item)
-       <option value="{{ $item->id }}">{{ $item->name }}</option>
-     @endforeach
-       <option value="36">None</option>
+    <select class="form-control" form="addTenantForm1" name="referrer_id" id="referrer_id" required readonly>
+     {{-- @foreach ($users as $item) --}}
+       <option value="{{ $tenant->user_id_foreign }}" selected>{{ $tenant->first_name.' '.$tenant->last_name }}</option>
+     {{-- @endforeach
+       <option value="1">None</option> --}}
     </select>
  
   
@@ -185,24 +187,38 @@
 
    <div class="col-lg-3">
     <small class="">Point of contact <span class="text-danger">*</span></small>
-    <select class="form-control" form="addTenantForm1" name="form_of_interaction" id="form_of_interaction" required>
-     <option value="">Please select one</option>
+    <input class="form-control" form="addTenantForm1" name="form_of_interaction" id="form_of_interaction" value="Renewal"required readonly>
+     {{-- <option value="">Please select one</option>
        <option value="Facebook">Facebook</option>
        <option value="Flyers">Flyers</option>
        <option value="In house">In house</option>
        <option value="Instagram">Instagram</option>
        <option value="Website">Website</option>
        <option value="Walk in">Walk in</option>
-       <option value="Word of mouth">Word of mouth</option>
-    </select>
+       <option value="Word of mouth">Word of mouth</option> --}}
+
    </div>
 
   
 
 </div>
+<div class="row">
+  <div class="col">
+   
+    <div class="alert alert-success alert-dismissable custom-success-box">
+      
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+           
+            <strong><i class="fas fa-check"></i> You're about to add another contract for {{ $tenant->first_name.' '.$tenant->last_name}}. Please complete the contract details below...</strong>
+          
+        
+    </div>
+
+  </div>
+</div>
 <hr>
-<form id="addTenantForm1" action="/property/{{ $property->property_id }}/home/{{ $unit->unit_id }}/tenant/" method="POST">
-  {{ csrf_field() }}
+<form id="addTenantForm1" action="/property/{{ $property->property_id }}/home/{{ $unit->unit_id }}/tenant/{{ $tenant->tenant_id }}/contract/add" method="POST">
+  @csrf
   </form>
   
   <p>Tenant Information</p>
@@ -210,7 +226,7 @@
 
       <div class="col">
           <small class="">First Name <span class="text-danger">*</span></small>
-          <input form="addTenantForm1" type="text" class="form-control" name="first_name" name="first_name" id="first_name" required>
+          <input form="addTenantForm1" type="text" class="form-control" name="first_name" name="first_name" id="first_name" value="{{ $tenant->first_name }}" required readonly>
             {{-- @error('first_name')
               <span class="invalid-feedback" role="alert">
                   <strong>{{ $message }}</strong>
@@ -219,11 +235,11 @@
         </div>
       <div class="col">
           <small class="">Middle Name</small>
-          <input form="addTenantForm1" type="text" class="form-control" name="middle_name" id="middle_name" value="">
+          <input form="addTenantForm1" type="text" class="form-control" name="middle_name" id="middle_name" value="{{ $tenant->middle_name }}" required readonly>
       </div>
       <div class="col">
           <small class="">Last Name  <span class="text-danger">*</span></small>
-          <input form="addTenantForm1" type="text" class="form-control" name="last_name" id="last_name" value="" required>
+          <input form="addTenantForm1" type="text" class="form-control" name="last_name" id="last_name" value="{{ $tenant->last_name }}" required readonly>
   
           {{-- @error('last_name')
           <span class="invalid-feedback" role="alert">
@@ -232,72 +248,10 @@
           @enderror --}}
       </div>
       </div>
-      <br>
-  <div class="row">
-      <div class="col">
-          <small class="">Birthdate </small>
-          <input form="addTenantForm1" type="date" class="form-control" name="birthdate" id="birthdate" value="" >
   
-          {{-- @error('birthdate')
-          <span class="invalid-feedback" role="alert">
-              <strong>{{ $message }}</strong>
-          </span>
-          @enderror --}}
-      </div>
-      <div class="col">
-          <small class="">Gender </small>
-          <select form="addTenantForm1"  id="gender" name="gender" class="form-control">        
-              <option value="" selected>Please select one</option>
-              <option value="male">male</option>
-              <option value="female">female</option>
-          </select>
-  
-          {{-- @error('gender')
-          <span class="invalid-feedback" role="alert">
-              <strong>{{ $message }}</strong>
-          </span>
-          @enderror --}}
-      </div>
-      <div class="col">
-          <small class="">Civil Status</small>
-          <select form="addTenantForm1"  id="civil_status" name="civil_status" class="form-control">
-              <option value="">Please select one</option>
-              <option value="single">single</option>
-              <option value="married">married</option>
-          </select>
-      </div>
-      <div class="col">
-          <small class="">ID/ID Number</small>
-          <input form="addTenantForm1" type="text" class="form-control" name="id_number" id="id_number" >
-      </div>
-  </div>
-
   <input type="hidden" form="addTenantForm1" value="{{ $property->property_id }}" name="property_id">
-  <br>
-  <div class="row">
-      <div class="col">
-          <small class="">Mobile <span class="text-danger">*</span></small>
-        <input form="addTenantForm1" type="text" class="form-control " name="contact_no" id="contact_no" >
-  
-        {{-- @error('contact_no')
-        <span class="invalid-feedback" role="alert">
-            <strong>{{ $message }}</strong>
-        </span>
-        @enderror --}}
-      </div>
-      <div class="col">
-          <small class="">Email <span class="text-danger">*</span></small>
-        <input form="addTenantForm1" type="email" class="form-control" name="email_address" id="email_address" value="">
-  
-        {{-- @error('email_address')
-        <span class="invalid-feedback" role="alert">
-            <strong>{{ $message }}</strong>
-        </span>
-        @enderror --}}
-      </div>
-  </div>
   <hr>
- 
+
   <p>Contract Details</p>
   <div class="row">
       <div class="col">
@@ -447,13 +401,6 @@
      
     }
   }
-</script>
-
-<script>
- function changeUnit(val){
-  alert(val);
- }
-
 </script>
 @endsection
 

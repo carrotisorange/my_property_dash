@@ -179,7 +179,7 @@
      
         <div class="tab-pane fade show active" id="room" role="tabpanel" aria-labelledby="nav-room-tab">
     
-          <button type="button" title="edit room" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#editUnit" data-whatever="@mdo"><i class="fas fa-edit fa-sm text-white-50"></i> Edit</button> 
+          <button type="button" title="edit room" class="btn btn-primary" data-toggle="modal" data-target="#editUnit" data-whatever="@mdo"><i class="fas fa-edit"></i> Edit</button> 
     
           <div class="col-md-12 mx-auto">
            
@@ -297,12 +297,12 @@
   
         <div class="tab-pane fade" id="tenants" role="tabpanel" aria-labelledby="nav-tenants-tab">
           @if ($tenant_active->count() < $home->max_occupancy)
-          <a href="/property/{{ $property->property_id }}/home/{{ $home->unit_id }}/tenant" title="{{ $home->max_occupancy - $tenant_active->count() }} remaining tenant/s to be fully occupied." type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-              <i class="fas fa-user-plus fa-sm text-white-50"></i> Add <span class="badge badge-light">{{  $tenant_active->count() }}/{{ $home->max_occupancy }} </a>
+          <a href="/property/{{ $property->property_id }}/home/{{ $home->unit_id }}/tenant" title="{{ $home->max_occupancy - $tenant_active->count() }} remaining tenant/s to be fully occupied." type="button" class="btn  btn-primary">
+              <i class="fas fa-user-plus"></i> Add <span class="badge badge-light">{{  $tenant_active->count() }}/{{ $home->max_occupancy }} </a>
     
           @else
-          <a href="#/" title="{{ $home->max_occupancy - $tenant_active->count() }} remaining tenant/s to be fully occupied." data-toggle="modal" data-target="#warningTenant" data-whatever="@mdo" type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-              <i class="fas fa-user-plus fa-sm text-white-50"></i> Add <span class="badge badge-light">{{  $tenant_active->count() }}/{{ $home->max_occupancy }} 
+          <a href="#/" title="{{ $home->max_occupancy - $tenant_active->count() }} remaining tenant/s to be fully occupied." data-toggle="modal" data-target="#warningTenant" data-whatever="@mdo" type="button" class="btn  btn-primary">
+              <i class="fas fa-user-plus"></i> Add <span class="badge badge-light">{{  $tenant_active->count() }}/{{ $home->max_occupancy }} 
             </a>
           @endif
           <br><br>
@@ -613,116 +613,8 @@
     </div>
     </div>
   </div>
-  
-  {{-- Modal to add investor --}}
-  <div class="modal fade" id="addInvestor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-    <div class="modal-content">
-        <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add Owner</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-        </div>
-        <form id="addInvestorForm" action="/property/{{ $property->property_id }}/home/{{ $home->unit_id }}/owner" method="POST">
-            @csrf
-        </form>
-        <div class="modal-body">
-            <input form="addInvestorForm" type="hidden" value="{{ $home->unit_id }}" name="unit_id">
-          
-  
-            <div class="form-group">
-            <small>Name</small>
-            <input form="addInvestorForm" type="text"  value="{{ $home->unit_owner }}" class="form-control" name="name" id="name" required>
-            </div>
-            <div class="form-group">
-                <small>Email</small>
-                <input form="addInvestorForm" type="email" class="form-control" name="email" id="email" required>
-            </div>
-            <div class="form-group">
-                <small>Mobile</small>
-                <input form="addInvestorForm" type="text" class="form-control" name="mobile" id="contact_no">
-            </div>            
-        </div>
-        <div class="modal-footer">
-        <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button>
-        <button type="submit" form="addInvestorForm" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="this.form.submit(); this.disabled = true;"><i class="fas fa-check fa-sm text-white-50"></i> Submit</button>  
-        </div>
-    </div>
-    </div>
-  </div>
-  
-  {{-- Modal to enroll leasing to unit owner --}}
-  <div class="modal fade" id="enrollLeasing" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-  <div class="modal-content">
-      <div class="modal-header">
-      <h5 class="modal-title" id="exampleModalLabel">Enter Leasing Information</h5>
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-      </button>
-      </div>
-      <form id="enrollLeasingForm" action="/units/{{$home->unit_id }}" method="POST">
-        @method('put')
-        {{ csrf_field() }}
-  
-        <input form="enrollLeasingForm" type="hidden" value="enroll_leasing" name="action">
-    </form>
-      <div class="modal-body">
-        <div class="form-group">
-          <small>Date of Enrollment Starts</small>
-          <input form="enrollLeasingForm" type="date"  class="form-control" name="date_enrolled" required>
-          </div>
-          <div class="form-group">
-          <small>Contract Starts</small>
-          <input form="enrollLeasingForm" type="date"  class="form-control" name="contract_start" required>
-          </div>
-          <div class="form-group">
-              <small>Contract Ends</small>
-              <input form="enrollLeasingForm" type="date" class="form-control" name="contract_end" required>
-          </div>
-          <div class="form-group">
-            <small>Occupancy</small>
-            <input form="enrollLeasingForm" type="number" class="form-control" name="max_occupancy" required >
-        </div>   
-          <div class="form-group">
-              <small>Monthly Rent</small>
-              <input form="enrollLeasingForm" type="number" step="0.01" class="form-control" name="monthly_rent" required >
-          </div>            
-      </div>
-      <div class="modal-footer">
-      <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-dismiss="modal"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</button>
-      <button type="submit" form="enrollLeasingForm" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;"><i class="fas fa-check fa-sm text-white-50"></i> Enroll Now</button>  
-      </div>
-  </div>
-  </div>
-  </div>
-  
-  
-           {{-- Modal for warning message --}}
-           <div class="modal fade" id="warningTenant" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-md" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Warning</h5>
-                
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                </div>
-                <div class="modal-body">
-                   <p class="text-center">
-                        You can't add tenant. The room is fully occupied.
-                        <br>
-                        <small class="text-danger">
-                          You may increase the number of max occupancy to allow more tenants.
-                        </small>
-                   </p>
-                </div>
-                
-            </div>
-            </div>
-  </div>
+
+           
   
   <div class="modal fade" id="addConcern" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-md" role="document">

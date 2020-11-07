@@ -9,6 +9,7 @@ use App\Mail\TenantRegisteredMail;
 use App\Mail\SendContractAlertEmail;
 use App\Concern;
 use App\Session;
+use Illuminate\Support\Facades\Hash;
 
 /*
 |--------------------------------------------------------------------------
@@ -77,7 +78,7 @@ Route::get('/property/{property_id}/home/{unit_id}', 'HomeController@show')->mid
 
 //routes for tenants
 Route::get('/property/{property_id}/tenants', 'TenantController@index')->middleware(['auth', 'verified']);
-Route::get('/property/{property_id}/home/{unit_id}/tenant/{tenant_id}', 'TenantController@show')->middleware(['auth', 'verified']);
+Route::get('/property/{property_id}/tenant/{tenant_unique_id}/{tenant_id}', 'TenantController@show')->middleware(['auth', 'verified']);
 Route::get('/property/{property_id}/home/{unit_id}/tenant/{tenant_id}/edit', 'TenantController@edit')->middleware(['auth', 'verified']);
 Route::put('/property/{property_id}/home/{unit_id}/tenant/{tenant_id}', 'TenantController@update')->middleware(['auth', 'verified']);
 Route::get('/property/{property_id}/home/{unit_id}/tenant', 'TenantController@create')->middleware(['auth', 'verified']);
@@ -85,6 +86,15 @@ Route::get('/property/{property_id}/tenants/search', 'TenantController@search')-
 Route::post('/property/{property_id}/home/{unit_id}/tenant/{tenant_id}/extend', 'TenantController@extend')->middleware(['auth', 'verified']);
 Route::put('/property/{property_id}/home/{unit_id}/tenant/{tenant_id}/request', 'TenantController@request')->middleware(['auth', 'verified']);
 Route::put('/property/{property_id}/home/{unit_id}/tenant/{tenant_id}/approve', 'TenantController@approve')->middleware(['auth', 'verified']);
+
+Route::post('/property/{property_id}/tenant/{tenant_id}/contract/create', 'ContractController@create')->middleware(['auth', 'verified']);
+Route::post('/property/{property_id}/home/{unit_id}/tenant/{tenant_id}/contract/add', 'ContractController@store')->middleware(['auth', 'verified']);
+
+//upload img
+//post tenant image
+Route::put('/property/{property_id}/tenant/{tenant_id}/upload/img','TenantController@upload_img')->middleware(['auth', 'verified']);
+
+Route::post('/property/{property_id}/tenant/{tenant_id}/guardian', 'GuardianController@store')->middleware(['auth', 'verified']);
 
 Route::post('/tenant/{tenant_id}/user/create', 'TenantController@create_user_access')->middleware(['auth', 'verified']);
 
@@ -98,7 +108,7 @@ Route::post('/property/{property_id}/home/{unit_id}/owner', 'OwnerController@sto
 //routes for calendar
 Route::get('/property/{property_id}/calendar', 'CalendarController@index')->middleware(['auth', 'verified']);
 
-Route::get('/asa', function(){
+Route::get('/asa/{property_id}', function($property_id){
 
     // $sessions = User::findOrFail(Auth::user()->id)->sessions;
 
@@ -125,17 +135,55 @@ Route::get('/asa', function(){
     //     'lower_access_user_id' => Auth::user()->id
     // ]);
 
-    DB::table('users')
-   ->update([
-       'trial_ends_at' => Carbon::now()->addMonth()
-   ]);
+//     DB::table('users')
+//    ->update([
+//        'trial_ends_at' => Carbon::now()->addMonth()
+//    ]);
 
 //     DB::table('users')
 //    ->update([
 //        'trial_ends_at' => Carbon::now()->addMonths(2)
 //    ]);
 
-        return back()->with('success','all existing users have been imported!');
+    $uuid = Uuid::generate()->string;
+
+  $tenants = Tenant::all()->where('tenant_status', 'active')->count();
+
+
+    for ($i=1; $i <=$tenants ; $i++) { 
+
+            if (Tenant::where('tenant_id', $i)->exists()) {
+                $tenant = Tenant::findOrFail($i);
+
+                $user_id = DB::table('users')
+                  ->insertGetId([
+                      'name' => $tenant->first_name.' '.$tenant->last_name,
+                      'email' => $i.'thepropertymanager.online',
+                      'password' => Hash::make('12345678'),
+                      'user_type' => 'tenant',
+                      'email_verified_at' => Carbon::now()
+                  ]);
+
+                  DB::table('tenants')
+                  ->where('tenant_id', $i)
+                  ->where('tenant_status', 'active')
+                  ->update(
+                      [
+                          'tenant_unique_id' => Uuid::generate()->string,
+                          'user_id_foreign' => $user_id
+                      ]
+                      );
+
+                      DB::table('users_properties_relations')
+                      ->insert
+                              (
+                                  [
+                                      'user_id_foreign' => $user_id,
+                                      'property_id_foreign' => $property_id,
+                                  ]
+                              );              
+             }
+            }
 });
 
 //routes for concerns
@@ -178,7 +226,7 @@ Route::post('/property/{property_id}/payable/{payable_id}/release', 'PayableCont
 Route::get('/property/{property_id}/users', 'UserController@index')->middleware(['auth', 'verified']);
 Route::get('/property/{property_id}/user/{user_id}', 'UserController@show')->middleware(['auth', 'verified']);
 Route::put('/property/{property_id}/user/{user_id}', 'UserController@update')->middleware(['auth', 'verified']);
-Route::get('/user/upgrade', 'UserController@upgrade')->middleware(['auth', 'verified']);
+Route::get('/user/{user_id}', 'UserController@upgrade')->middleware(['auth', 'verified']);
 
 Route::post('/user/{user_id}/tenant/{tenant_id}/dashboard', 'UserController@show_user_tenant')->middleware(['auth', 'verified']);
 Route::get('/user/{user_id}/tenant/{tenant_id}/dashboard', 'UserController@show_user_tenant')->middleware(['auth', 'verified']);
@@ -308,8 +356,8 @@ Route::get('/units/{unit_id}/tenants/{tenant_id}/bills/send', function($unit_id,
 })->middleware(['auth', 'verified']);
 
 //routes for tenants
-Route::get('/units/{unit_id}/tenants/{tenant_id}', 'TenantController@show')->name('show-tenant')->middleware(['auth', 'verified']);
-Route::post('/tenants', 'TenantController@store')->middleware(['auth', 'verified']);
+Route::get('/units/{unit_id}/tenants/{tenant_id}', 'TenantController@show')->name('show')->middleware(['auth', 'verified']);
+Route::post('/property/{property_id}/home/{unit_id}/tenant', 'TenantController@store')->middleware(['auth', 'verified']);
 Route::get('/units/{unit_id}/tenants/{tenant_id}/edit', 'TenantController@edit')->middleware(['auth', 'verified']);
 Route::put('/units/{unit_id}/tenants/{tenant_id}/', 'TenantController@update')->middleware(['auth', 'verified']);
 Route::put('/units/{unit_id}/tenants/{tenant_id}/moveout', 'TenantController@moveout')->middleware(['auth', 'verified']);
@@ -570,27 +618,6 @@ Route::get('/units/{unit_id}/tenants/{tenant_id}/alert/contract', function(Reque
 
 })->middleware(['auth', 'verified']);
 
-//post tenant image
-Route::put('/units/{unit_id}/tenants/{tenant_id}/edit/img', function(Request $request, $unit_id,$tenant_id){
-
-    $request->validate([
-        'tenant_img' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
-    ]);
-
-  $filename = Auth::user()->property.''.Carbon::now()->getPreciseTimestamp(4).'.png';
-
-  $request->tenant_img->storeAs('public/tenants', $filename);
-
-    DB::table('tenants')
-    ->where('tenant_id', $tenant_id)
-    ->update(
-            [
-                'tenant_img' => $filename
-            ]
-        );
-
-    return back()->with('success', 'changes have been saved!');
-})->middleware(['auth', 'verified']);
 
 
 //routes for rooms/units

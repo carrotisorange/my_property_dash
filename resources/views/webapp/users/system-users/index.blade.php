@@ -66,7 +66,7 @@
        </div>
        <div class="col">
         @if($users->count() > 1)
-        <a href="/user/upgrade" class="btn btn-primary btn-user btn-block"><i class="fas fa-plus-circle"></i> User </a
+        <a href="#/" class="btn btn-primary btn-user btn-block"><i class="fas fa-plus-circle"></i> User </a
         @else
         <a href="/user/create" class="btn btn-primary btn-user btn-block"><i class="fas fa-plus-circle"></i> User </a>
         @endif

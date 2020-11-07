@@ -224,7 +224,7 @@
     </div>
   </div>
 </div> --}}
-<h4>Sessions for today ({{ $sessions->count() }}) </h4>
+<h4>Active today ({{ $sessions->count() }}) </h4>
 <div class="table-responsive text-nowrap">
   <table class="table">
     <?php $ctr = 1; ?>
@@ -247,6 +247,7 @@
        <th>{{ $ctr++ }}</th>
        <td>{{ $item->user_name }}</td>
        <td>{{ $item->user_type }}</td>
+       
        <td>{{ $item->property_name }}</td>
         <td>{{ $item->session_last_login_ip }}</td>
        <td>{{ $item->session_last_login_at? Carbon\Carbon::parse($item->session_last_login_at)->format('M d Y').' '.Carbon\Carbon::parse($item->session_last_login_at)->toTimeString() : null }}</td>
@@ -259,7 +260,7 @@
 
 </div>
 <br>
-<h4>Users ({{ $users->count() }})</h4>
+<h4>All Users ({{ $users->count() }})</h4>
 <div class="table-responsive text-nowrap">
 <table class="table" >
   <?php $ctr=1; ?>

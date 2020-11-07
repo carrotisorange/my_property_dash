@@ -1,5 +1,11 @@
 @extends('templates.webapp-new.dashboard')
 
+
+
+@section('welcome')
+<h1 class="text-white">Payment Details</h1>
+
+@endsection
 @section('content')
 <div id="paypal-button-container"></div>
 @endsection

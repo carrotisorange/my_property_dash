@@ -28,6 +28,7 @@ class RequestToMoveoutSentMail extends Mailable
      */
     public function build()
     {
-        return $this->view('webapp.tenants.send-request-moveout-mail');
+        return $this->from('landleybernardo@thepropertymanager.online')
+        ->view('webapp.tenants.send-request-moveout-mail');
     }
 }

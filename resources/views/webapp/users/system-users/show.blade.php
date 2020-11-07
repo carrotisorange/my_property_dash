@@ -85,12 +85,12 @@
         
         
         </div>
-        <div class="col">
+        {{-- <div class="col">
           @foreach ($users as $user)
-          <a href="/user/{{ $user->id }}/edit" class="btn btn-primary btn-user btn-block"> <i class="fas fa-user-edit"></i> Edit </a>
+          <a href="/user/{{ $user->id }}/edit" class="btn btn-primary btn-user btn-block"> <i class="fas fa-user"></i> View </a>
       @endforeach
       
-      </div>
+      </div> --}}
         <div class="col">
 
             <a href="/user/create" class="btn btn-primary btn-user btn-block"> <i class="fas fa-user-plus"></i> Users </a>

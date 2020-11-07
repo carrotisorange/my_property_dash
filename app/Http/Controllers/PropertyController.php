@@ -59,6 +59,14 @@ class PropertyController extends Controller
                ->where('lower_access_user_id', Auth::user()->id)
                ->orWhere('id', Auth::user()->id)  
                ->count();
+
+               $manager_access = DB::table('users_properties_relations')
+               ->join('properties', 'property_id_foreign', 'property_id')
+               ->join('users', 'user_id_foreign', 'id')
+               ->select('*', 'properties.name as property')
+               ->where('lower_access_user_id', Auth::user()->id)
+               ->orWhere('id', Auth::user()->id)  
+               ->count();
        
 
                 $existing_users = DB::table('users')->where('property', Auth::user()->property)

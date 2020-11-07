@@ -404,7 +404,7 @@
                     @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'treasury' )
                     <a href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/billings">{{ $item->first_name.' '.$item->last_name }}
                     @else
-                    <a href="{{ route('show-tenant',['unit_id' => $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a>
+                    <a href="{{ route('show',['unit_id' => $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a>
                     @endif  
                   </td>
                   <td>
@@ -475,7 +475,7 @@
                   @if(Auth::user()->user_type === 'billing' || Auth::user()->user_type === 'treasury' )
                   <a href="/units/{{ $item->unit_id }}/tenants/{{ $item->tenant_id }}/billings">{{ $item->first_name.' '.$item->last_name }}
                   @else
-                  <a href="{{ route('show-tenant',['unit_id' => $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a>
+                  <a href="{{ route('show',['unit_id' => $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a>
                   @endif
                 </td>
                 <td>
@@ -588,7 +588,7 @@
       <td>{{ $item->concern_id }}</td>
         <td>{{ Carbon\Carbon::parse($item->date_reported)->format('M d Y') }}</td>
           <td>
-              <a href="{{ route('show-tenant',['unit_id'=> $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a>
+              <a href="{{ route('show',['unit_id'=> $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a>
           </td>
           <td> @if(Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'admin' )
             <a href="/units/{{ $item->unit_id }}">{{ $item->building.' '.$item->unit_no }}</a>

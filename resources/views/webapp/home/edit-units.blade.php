@@ -1,6 +1,6 @@
 @extends('templates.webapp-new.template')
 
-@section('title', $property->property_id)
+@section('title', 'Edit All')
 
 @section('sidebar')
   <!-- Sidenav -->
@@ -155,8 +155,7 @@
 @section('upper-content')
 <div class="row align-items-center py-4">
   <div class="col-lg-6 col-7">
-    <h6 class="h2 text-dark d-inline-block mb-0">{{ $property->property_id }}</h6>
-    
+    <h6 class="h2 text-dark d-inline-block mb-0"><a href="/property/{{ $property->property_id }}/home" class="btn btn-primary" ><i class="fas fa-home"></i> Back</a></h6>
   </div>
 
 </div>
@@ -182,14 +181,14 @@
         </div>
       </div> --}}
  
-      <div class="table-responsive text-nowrap">
+      <div class="table-responsive">
           <form id="editUnitsForm" action="/property/{{ $property->property_id }}/home/{{ Carbon\Carbon::now()->getTimestamp()}}/" method="POST">
   
               @csrf
               @method('PUT')
 
           </form>
-          <table class="table table-striped table-bordered">
+          <table class="table">
               <thead>
                   <tr>
                       <th>#</th>
@@ -199,8 +198,8 @@
                       <th>Building</th>
                       <th>Floor No</th>
                       <th>Occupancy</th>
-                      <th>Monthly Rent</th>
-                      <th></th>
+                      <th>Rent</th>
+                      <th>Action</th>
                   </tr>
               </thead>
               <tbody> 
@@ -219,7 +218,7 @@
                       <tr>
                           <th> {{ $ctr++ }}</th>
                           <td>
-                            <input form="editUnitsForm" type="text" name="unit_no{{ $unit_no++  }}" id="" value="{{ $item->unit_no }}">
+                            <input col-md-12" form="editUnitsForm" type="text" name="unit_no{{ $unit_no++  }}" id="" value="{{ $item->unit_no }}">
                             <input form="editUnitsForm" type="hidden" name="unit_id{{ $unit_id++  }}" id="" value="{{ $item->unit_id }}">
                           </td>
                           <td>
@@ -269,7 +268,7 @@
                               @csrf
                               @method('delete')
                               
-                              <button type="submit" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"  onclick="return confirm('Are you sure you want perform this action?');"><i class="fas fa-times fa-sm text-white-50"></i></button>
+                              <button type="submit" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"  onclick="return confirm('Are you sure you want perform this action?');"><i class="fas fa-trash fa-sm text-white-50"></i></button>
                             </form> 
                           </td>
                       </tr>
@@ -279,10 +278,13 @@
         </table>
          </div>
          <br>
-         <p class="text-right">
-          <a href="/home" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm"><i class="fas fa-times fa-sm text-white-50"></i> Cancel</a>
-          <button type="submit" form="editUnitsForm" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"  onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;"><i class="fas fa-check fa-sm text-white-50"></i> Save Changes</button>
-      </p>
+         @if($units->count() <=0 )
+
+         @else
+        <p class="text-right">
+                <button type="submit" form="editUnitsForm" class="btn btn-primary"  onclick="return confirm('Are you sure you want perform this action?'); this.disabled = true;"><i class="fas fa-check fa-sm text-white-50"></i> Save Changes</button>
+            </p>
+         @endif
   
 </div>
 </div>

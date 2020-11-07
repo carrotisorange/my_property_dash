@@ -416,7 +416,7 @@ class UserController extends Controller
     }
 
     public function upgrade(){
-      return 'asd';
+      return view('webapp.users.upgrade');
     }
 
     /**

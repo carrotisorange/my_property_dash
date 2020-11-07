@@ -162,7 +162,7 @@
     <form  action="/property/{{ $property->property_id }}/tenants/search" method="GET" >
       @csrf
       <div class="input-group">
-          <input type="text" class="form-control" name="search" placeholder="Enter tenant, room, ..." value="{{ session(Auth::user()->id.'search_tenant') }}">
+          <input type="text" class="form-control" name="search" placeholder="Enter tenant..." value="{{ session(Auth::user()->id.'search_tenant') }}">
           <div class="input-group-append">
             <button class="btn btn-primary" type="submit">
               <i class="fas fa-search fa-sm"></i>
@@ -180,72 +180,33 @@ Showing <b>{{ $tenants->count() }} </b> of {{ $count_tenants }} tenants
 
 
 <div class="table-responsive text-nowrap">
-    <table class="table table-bordered">
+    <table class="table">
       <thead>
         <?php $ctr=1;?>
         <tr>
           <th>#</th>
-            <th>Tenant</th>
-            <th>Room</th>
-            <th>Status</th>
-            <th>Mobile</th>
-            <th>Email</th>
-            <th>Contract Period</th>    
-            <th>Monthly Rent</th>
-            <th>Guardian</th>
-            <th>Relationship</th>
-            <th>Mobile</th>
+          <th>Profile</th>
+          <th>Tenant ID</th>
+          
+          <th>Tenant</th>
+          <th>Mobile</th>
+          <th>Email</th>
+          <th>Movein at</th>
        </tr>
       </thead>
       <tbody>
         @foreach ($tenants as $item)
         <tr>
           <th>{{ $ctr++ }}</th>
-            <td>
-                {{-- @if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'manager') --}}
-                <a href="/property/{{ $property->property_id }}/home/{{ $item->unit_id }}/tenant/{{ $item->tenant_id }}">{{ $item->first_name.' '.$item->middle_name.' '.$item->last_name }}
-                  @if($item->tenants_note === 'new' )
-                  <span class="badge badge-success">{{ $item->tenants_note }}</span>
-                  @endif
-                  
-                  <span class="badge badge-success">{{ $item->has_extended }}</span>
-                </a>
-                {{-- @else
-                <a href="/property/{{ $property->property_id }}/home/{{ $item->unit_id }}/tenant/{{ $item->tenant_id }}/billings">{{ $item->first_name.' '.$item->last_name }}
-                  @if($item->tenants_note === 'new' )
-                  <span class="badge badge-success">{{ $item->tenants_note }}</span>
-                  @endif
-                  
-                  <span class="badge badge-success">{{ $item->has_extended }}</span>
-                </a>
-                @endif --}}
-            </td>
-            
-            <td> @if(Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'admin' )
-              <a href="/property/{{ $property->property_id }}/home/{{ $item->unit_id }}">{{ $item->building.' '.$item->unit_no }}</a>
-              @else
-             {{ $item->building.' '.$item->unit_no }}
-              @endif
-            </td>
-            <td>
-                @if($item->tenant_status === 'active')
-                <span class="badge badge-success">{{ $item->tenant_status }}</span>
-                @elseif($item->tenant_status === 'inactive')
-                <span class="badge badge-secondary">{{ $item->tenant_status }}</span>
-                @else
-                <span class="badge badge-danger">{{ $item->tenant_status }}</span>
-                @endif
-            </td>
+          <td>  <span class="avatar avatar-sm rounded-circle">
+            <img alt="Image placeholder"  src="{{ $item->tenant_img? asset('/storage/tenants/'.$item->tenant_img): asset('/arsha/assets/img/no-image.png') }}">
+          </span></td>
+          <td>{{ $item->tenant_unique_id }}</td>
+          <td><a href="/property/{{ $property->property_id }}/tenant/{{ $item->tenant_unique_id }}/{{ $item->tenant_id }}">{{ $item->first_name.' '.$item->last_name }}</a></td>
+          
             <td>{{ $item->contact_no }}</td>
             <td>{{ $item->email_address }}</td>
-          
-            <td>{{ Carbon\Carbon::parse($item->movein_date)->format('M d Y').' - '.Carbon\Carbon::parse($item->moveout_date)->format('M d Y') }}</td>
-            <td>{{ number_format($item->monthly_rent, 2) }}</td>
-            <td>{{ $item->guardian }}</td>
-            <td>{{ $item->guardian_relationship }}</td>
-            <td>{{ $item->guardian_contact_no }}</td>
-           
-            {{-- <td title="months before move-out">{{ number_format(Carbon\Carbon::now()->diffInDays(Carbon\Carbon::parse($item->moveout_date), false)/30,1) }} mon</td> --}}
+          <td>{{ $item->created_at }}</td>
         </tr>
         @endforeach
       </tbody>

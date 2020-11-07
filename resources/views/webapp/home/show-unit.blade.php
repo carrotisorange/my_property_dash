@@ -279,7 +279,7 @@
           @foreach ($tenant_active as $item)
               <tr>
                   <th class="text-center">{{ $ctr++ }}</th>
-                  <td><a href="{{ route('show-tenant',['unit_id'=> $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }} </a></td>
+                  <td><a href="{{ route('show',['unit_id'=> $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }} </a></td>
                   <td title="{{ Carbon\Carbon::now()->diffInDays(Carbon\Carbon::parse($item->moveout_date), false) }} days left">{{ Carbon\Carbon::parse($item->movein_date)->format('M d Y').'-'.Carbon\Carbon::parse($item->moveout_date)->format('M d Y') }}</>
                     <td>{{ number_format($item->tenant_monthly_rent, 2) }}</td>
                   </tr>
@@ -309,7 +309,7 @@
           @foreach ($tenant_reservations as $item)
               <tr>
                   <th class="text-center">{{ $ctr++ }}</th>
-                  <td><a href="{{ route('show-tenant',['unit_id'=> $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }} </a></td>
+                  <td><a href="{{ route('show',['unit_id'=> $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }} </a></td>
                   @if($item->type_of_tenant === 'online')
                   <td><a class="badge badge-success">{{ $item->type_of_tenant }}</td>
                   @else
@@ -344,7 +344,7 @@
           @foreach ($tenant_inactive as $item)
               <tr>
                   <th class="text-center">{{ $ctr++ }}</th>
-                  <td><a href="{{ route('show-tenant',['unit_id'=> $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }} </a></td>
+                  <td><a href="{{ route('show',['unit_id'=> $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }} </a></td>
                   
                   <td>{{ Carbon\Carbon::parse($item->moveout_date)->format('M d Y') }}</td>
                   <td>{{ $item->reason_for_moving_out }}</td>
@@ -382,7 +382,7 @@
            <td>{{ $item->concern_id }}</td>
              <td>{{ Carbon\Carbon::parse($item->date_reported)->format('M d Y') }}</td>
              <td>
-                    <a href="{{ route('show-tenant',['unit_id'=> $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a>
+                    <a href="{{ route('show',['unit_id'=> $item->unit_id, 'tenant_id'=>$item->tenant_id]) }}">{{ $item->first_name.' '.$item->last_name }}</a>
                 </td>
               
                <td>
