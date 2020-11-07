@@ -78,7 +78,7 @@ Route::get('/property/{property_id}/home/{unit_id}', 'HomeController@show')->mid
 
 //routes for tenants
 Route::get('/property/{property_id}/tenants', 'TenantController@index')->middleware(['auth', 'verified']);
-Route::get('/property/{property_id}/tenant/{tenant_unique_id}/{tenant_id}', 'TenantController@show')->middleware(['auth', 'verified']);
+Route::get('/property/{property_id}/tenant/{tenant_id}', 'TenantController@show')->middleware(['auth', 'verified']);
 Route::get('/property/{property_id}/home/{unit_id}/tenant/{tenant_id}/edit', 'TenantController@edit')->middleware(['auth', 'verified']);
 Route::put('/property/{property_id}/home/{unit_id}/tenant/{tenant_id}', 'TenantController@update')->middleware(['auth', 'verified']);
 Route::get('/property/{property_id}/home/{unit_id}/tenant', 'TenantController@create')->middleware(['auth', 'verified']);
