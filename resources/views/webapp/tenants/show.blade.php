@@ -822,7 +822,7 @@
      <p class="text-danger"><i class="fas fa-exclamation-triangle"></i>  Tenant needs to verify email before can access the system. 
       <br> Please make sure that the email is valid before creating credentials. </p>
       
-     <form id="userForm" action="/tenant/{{ $tenant->tenant_id }}/user/create" method="POST">
+     <form id="userForm" action="/property/{{$property->property_id}}/tenant/{{ $tenant->tenant_id }}/user/create" method="POST">
     @csrf
     </form>
      <table class="table table-borderless">

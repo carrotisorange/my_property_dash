@@ -110,7 +110,7 @@ class TenantController extends Controller
 
     }
 
-    public function create_user_access(Request $request, $tenant_id){
+    public function create_user_access(Request $request, $property_id, $tenant_id){
    
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -138,6 +138,18 @@ class TenantController extends Controller
     ->update([
         'user_id_foreign' => $user_id,
     ]);
+
+
+    DB::table('users_properties_relations')
+                          ->insert
+                                  (
+                                      [
+                                          'user_id_foreign' => $user_id,
+                                          '
+                                          property_id_foreign' => $property_id,
+                                      ]
+                                  );      
+
 
     return back()->with('success', 'Tenant access to the system has been created!');
     }
