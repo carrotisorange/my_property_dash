@@ -108,7 +108,15 @@ Route::post('/property/{property_id}/home/{unit_id}/owner', 'OwnerController@sto
 //routes for calendar
 Route::get('/property/{property_id}/calendar', 'CalendarController@index')->middleware(['auth', 'verified']);
 
-Route::get('/asa/{property_id}', function($property_id){
+Route::get('/asa/{property_id}/user/{user_id}', function($property_id, $user_id){
+
+    DB::table('users_properties_relations')
+    ->where('user_id_foreign', $user_id)
+    ->update(
+        [
+            'property_id_foreign'=> $property_id
+        ]   
+        );
 
     // $sessions = User::findOrFail(Auth::user()->id)->sessions;
 
@@ -145,45 +153,48 @@ Route::get('/asa/{property_id}', function($property_id){
 //        'trial_ends_at' => Carbon::now()->addMonths(2)
 //    ]);
 
-    $uuid = Uuid::generate()->string;
+//     $uuid = Uuid::generate()->string;
 
-  $tenants = Tenant::all()->where('tenant_status', 'active')->count();
+//   $tenants = Tenant::all()->where('tenant_status', 'active')->count();
 
 
-    for ($i=1; $i <=$tenants ; $i++) { 
+//     for ($i=1; $i <=$tenants ; $i++) { 
 
-            if (Tenant::where('tenant_id', $i)->exists()) {
-                $tenant = Tenant::findOrFail($i);
+//             if (Tenant::where('tenant_id', $i)->exists()) {
+//                 $tenant = Tenant::findOrFail($i);
 
-                $user_id = DB::table('users')
-                  ->insertGetId([
-                      'name' => $tenant->first_name.' '.$tenant->last_name,
-                      'email' => $i.'thepropertymanager.online',
-                      'password' => Hash::make('12345678'),
-                      'user_type' => 'tenant',
-                      'email_verified_at' => Carbon::now()
-                  ]);
+//                 $user_id = DB::table('users')
+//                   ->insertGetId([
+//                       'name' => $tenant->first_name.' '.$tenant->last_name,
+//                       'email' => $i.'thepropertymanager.online',
+//                       'password' => Hash::make('12345678'),
+//                       'user_type' => 'tenant',
+//                       'email_verified_at' => Carbon::now()
+//                   ]);
 
-                  DB::table('tenants')
-                  ->where('tenant_id', $i)
-                  ->where('tenant_status', 'active')
-                  ->update(
-                      [
-                          'tenant_unique_id' => Uuid::generate()->string,
-                          'user_id_foreign' => $user_id
-                      ]
-                      );
+//                   DB::table('tenants')
+//                   ->where('tenant_id', $i)
+//                   ->where('tenant_status', 'active')
+//                   ->update(
+//                       [
+//                           'tenant_unique_id' => Uuid::generate()->string,
+//                           'user_id_foreign' => $user_id
+//                       ]
+//                       );
 
-                      DB::table('users_properties_relations')
-                      ->insert
-                              (
-                                  [
-                                      'user_id_foreign' => $user_id,
-                                      'property_id_foreign' => $property_id,
-                                  ]
-                              );              
-             }
-            }
+//                       DB::table('users_properties_relations')
+//                       ->insert
+//                               (
+//                                   [
+//                                       'user_id_foreign' => $user_id,
+//                                       'property_id_foreign' => $property_id,
+//                                   ]
+//                               );              
+//              }
+//             }
+
+
+
 });
 
 //routes for concerns

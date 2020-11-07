@@ -234,6 +234,10 @@
 <div class="row">
   <div class="col-md-8">
     <a href="/property/{{ $property->property_id }}/tenants"  class="btn btn-primary"><i class="fas fa-user"></i> Tenants</a>
+
+    <a href="/asa/4b3cc400-181c-11eb-b718-f9aa30fde187/user/{{ $tenant->user_id_foreign }}"  class="btn btn-primary"><i class="fas fa-user"></i> Change property </a>
+
+
     @if(Auth::user()->user_type === 'manager' || Auth::user()->user_type === 'admin')
     <a href="/property/{{ $property->property_id }}/home/{{ $tenant->unit_tenant_id }}/tenant/{{ $tenant->tenant_id }}/edit"  class="btn btn-primary"><i class="fas fa-user-edit"></i> Edit</a>  
     @endif
