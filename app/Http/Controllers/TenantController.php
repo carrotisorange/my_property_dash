@@ -145,8 +145,8 @@ class TenantController extends Controller
                                   (
                                       [
                                           'user_id_foreign' => $user_id,
-                                          '
-                                          property_id_foreign' => $property_id,
+                                        
+                                          'property_id_foreign' => $property_id,
                                       ]
                                   );      
 
