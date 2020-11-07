@@ -338,7 +338,7 @@
             @foreach ($tenant_active as $item)
                 <tr>
                     <th class="text-center">{{ $ctr++ }}</th>
-                    <td><a href="/property/{{ $property->property_id }}/home/{{ $home->unit_id }}/tenant/{{ $tenant->tenant_unique_id }}/{{ $item->tenant_id }}">{{ $item->first_name.' '.$item->last_name }} </a></td>
+                    <td><a href="/property/{{ $property->property_id }}/tenant/{{ $tenant->tenant_unique_id }}/{{ $item->tenant_id }}">{{ $item->first_name.' '.$item->last_name }} </a></td>
                     <td title="{{ Carbon\Carbon::now()->diffInDays(Carbon\Carbon::parse($item->moveout_date), false) }} days left">{{ Carbon\Carbon::parse($item->movein_date)->format('M d Y').'-'.Carbon\Carbon::parse($item->moveout_date)->format('M d Y') }}</>
                       <td>{{ number_format($item->tenant_monthly_rent, 2) }}</td>
                     </tr>
