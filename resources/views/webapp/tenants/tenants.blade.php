@@ -202,7 +202,7 @@ Showing <b>{{ $tenants->count() }} </b> of {{ $count_tenants }} tenants
             <img alt="Image placeholder"  src="{{ $item->tenant_img? asset('/storage/tenants/'.$item->tenant_img): asset('/arsha/assets/img/no-image.png') }}">
           </span></td>
           <td>{{ $item->tenant_unique_id }}</td>
-          <td><a href="/property/{{ $property->property_id }}/tenant/{{ $item->tenant_unique_id }}/{{ $item->tenant_id }}">{{ $item->first_name.' '.$item->last_name }}</a></td>
+          <td><a href="/property/{{ $property->property_id }}/tenant/{{ $item->tenant_id }}">{{ $item->first_name.' '.$item->last_name }}</a></td>
           
             <td>{{ $item->contact_no }}</td>
             <td>{{ $item->email_address }}</td>
