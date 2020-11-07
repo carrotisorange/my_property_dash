@@ -13,10 +13,10 @@
               <li class="nav-item">
                 <a href="#/" class="nav-link">The Property Manager</a>
               </li>
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a href="#/" class="nav-link" target="_blank">
                   <span id="siteseal"><script async type="text/javascript" src="https://seal.godaddy.com/getSeal?sealID=QKeakYqdpwVjdAwYrEusmUSNWeCFDlVLG6uSpwq8lTJayLhymAEXJMhf0Q4T"></script></span></a>
-              </li>
+              </li> --}}
               
               {{-- <li class="nav-item">
                 <a href="http://blog.creative-tim.com" class="nav-link" target="_blank">Blog</a>
