@@ -323,7 +323,7 @@ class TenantController extends Controller
      * @param  \App\Tenant  $tenant
      * @return \Illuminate\Http\Response
      */
-    public function show($property_id,$tenant_unique_id, $tenant_id)
+    public function show($property_id, $tenant_id)
     {
 
         if(Auth::user()->status === 'registered'|| auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'manager' || auth()->user()->user_type === 'billing'){
